@@ -1,0 +1,6 @@
+{
+  "title": "Patterns",
+  "root": true,
+  "defaultOpen": true,
+  "pages": ["skills", "hooks", "agents", "autonomous-loops", "mcp-servers"]
+}

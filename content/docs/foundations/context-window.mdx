@@ -1,0 +1,96 @@
+---
+title: Context Window Management
+description: "How to manage Claude Code's context window. Token tracking, the /compact command, and strategies to stay under the limit."
+---
+
+## What Is the Context Window?
+
+The context window is the amount of text Claude Code can "see" at once. Think of it as working memory. Everything in your current conversation (your messages, Claude's responses, file contents it has read, command outputs) occupies space in this window. When it fills up, earlier parts of the conversation start getting pushed out. Claude Code begins forgetting things you said or files it read earlier.
+
+## How Big Is It?
+
+Claude Code uses models with 200K token context windows. That is roughly 150,000 words. Sounds huge, but it fills faster than you think.
+
+Here is a rough sense of scale:
+
+| Content | Approximate tokens |
+|---|---|
+| A typical source file (200-400 lines) | 500-2,000 |
+| A large source file (1,000 lines) | 3,000-5,000 |
+| Reading 50 files in a session | ~50,000 (25% of your window) |
+| A long back-and-forth conversation (30+ exchanges) | 20,000-40,000 |
+| Command output from a failing test suite | 5,000-15,000 |
+
+A single focused task usually fits comfortably. A marathon session with multiple tasks, lots of file reading, and long debugging conversations will hit the wall.
+
+## Signs You Are Running Out
+
+You will notice these before you see an explicit warning:
+
+- **Responses get less accurate.** Claude Code "forgets" constraints you mentioned earlier or re-reads files it already looked at.
+- **It loses track of what was decided.** You agreed on an approach 20 messages ago, but now it suggests something different.
+- **Responses get shorter or cut off.** The model is running out of room to generate.
+- **You see context length warnings.** Claude Code will tell you when context is getting large.
+
+## How Tokens Work
+
+Roughly 4 characters equals 1 token. A word averages about 1.3 tokens. Code tends to be slightly more token-dense than prose because of syntax, indentation, and special characters.
+
+Quick math: a 300-line TypeScript file is about 1,200 tokens. If Claude Code reads 40 files during a session, that is 48,000 tokens just from file content, before counting any conversation.
+
+## The /compact Command
+
+When context gets large, run `/compact`. This summarizes the entire conversation so far and starts fresh with just the summary. Think of it as taking notes from a meeting, then starting a new meeting with only the notes.
+
+**When to use it:**
+- After completing a task, before starting a new one
+- When you notice Claude Code forgetting earlier context
+- When you get a context length warning
+- Proactively, after any long debugging session
+
+**What it preserves:** Key decisions, file modifications, current state of work.
+
+**What it loses:** Exact file contents, detailed error messages, nuanced back-and-forth reasoning. If you need to reference specific details after compaction, Claude Code will re-read the relevant files.
+
+## Strategies to Stay Under the Limit
+
+### 1. One session, one task
+
+Do not let a single session accumulate context from five different tasks. Finish a task, start a new session for the next one. This is the single most effective strategy.
+
+### 2. Use handoffs instead of marathon sessions
+
+Instead of one 3-hour session, work in focused 30-60 minute blocks. End each block with a handoff (what was done, what is next). Start a fresh session that reads only the handoff. Fresh context every time.
+
+See the [session lifecycle guide](/docs/foundations/session-lifecycle) for details on handoff protocols.
+
+### 3. Point to files instead of pasting them
+
+Let Claude Code read files on demand. Do not paste file contents into the chat. When you paste, that content stays in the conversation forever. When Claude Code reads a file with its tools, the content is there but the tool-based approach is more efficient.
+
+### 4. Use sub-agents for research
+
+Sub-agents (via the Task tool) get their own context window. If you need Claude Code to explore a large part of the codebase or research something, offload it to a sub-agent. The main conversation only gets the summary back.
+
+### 5. Be specific in your prompts
+
+Vague prompts cause Claude Code to read more files searching for what you mean. "Fix the auth bug" makes it read every auth-related file. "Fix the token refresh logic in `src/auth/refresh.ts` where expired tokens are not being caught" sends it straight to the right file.
+
+### 6. Use /compact between tasks
+
+Even within one session, compact between distinct tasks. Finished adding tests? Compact. Now moving to a different feature? That compaction gives you a clean slate with the prior work summarized.
+
+## The Handoff Strategy
+
+This is the power move for heavy users. Instead of fighting the context window, work with it:
+
+1. Work in a focused block (30-60 minutes, one task)
+2. End the session with a handoff: what was done, what is next, key decisions
+3. Start a new session. Load only the handoff and relevant `CLAUDE.md`
+4. Fresh 200K tokens, zero wasted context
+
+You lose nothing because the handoff captures everything that matters. You gain a full context window for the next task. Over a full day of work, this approach is dramatically more effective than one long session that degrades as context fills up.
+
+## What About the 1M Context Models?
+
+Some Claude models support up to 1 million tokens. Claude Code can use these with the Max plan. The same principles apply at larger scales: context still fills up, just slower. The strategies above still help, they just become critical later in longer sessions rather than sooner.

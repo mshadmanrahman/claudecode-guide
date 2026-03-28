@@ -1,0 +1,6 @@
+{
+  "title": "Workflows",
+  "root": true,
+  "defaultOpen": true,
+  "pages": ["daily-practice", "team-adoption", "pm-workflow", "debugging"]
+}

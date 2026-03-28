@@ -1,0 +1,6 @@
+{
+  "title": "Templates",
+  "root": true,
+  "defaultOpen": true,
+  "pages": ["index", "nextjs-app", "monorepo", "python-project", "pm-workspace"]
+}

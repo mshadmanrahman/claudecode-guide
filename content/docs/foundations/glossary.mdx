@@ -1,0 +1,90 @@
+---
+title: "Glossary"
+description: "Every Claude Code term explained in plain English. Bookmark this page. You'll come back to it."
+---
+
+New to Claude Code? This page defines every term you'll encounter, in plain English. No jargon assumed.
+
+## Core Concepts
+
+### Claude Code
+A command-line tool (CLI) that lets you work with Claude AI directly in your terminal. Unlike ChatGPT which lives in a browser, Claude Code runs where developers work: alongside your code, files, and tools.
+
+### CLAUDE.md
+A markdown file at the root of your project that tells Claude Code how to behave. Think of it as a "rules of the house" document. It defines your coding standards, communication preferences, and workflow patterns. Claude Code reads it at the start of every session.
+
+### Session
+One conversation with Claude Code, from start to finish. When you open Claude Code and start working, that's a session. When you close it, the session ends. Without memory, each session starts from scratch.
+
+### Context Window
+The amount of information Claude Code can "see" at once. Think of it as working memory. Larger context = more files and history it can consider, but also more expensive.
+
+### Prompt
+What you type to tell Claude Code what to do. Can be a question, a task description, or a command. Better prompts = better results.
+
+## Memory & Persistence
+
+### Memory System
+A file-based system that lets Claude Code remember things across sessions. Without it, every conversation starts cold. With it, Claude Code knows your projects, preferences, and past corrections.
+
+### Handoff
+A document written at the end of a session that captures what was done, what decisions were made, and what's next. The next session reads this to resume context. Like leaving a note for your future self.
+
+### Product Brain
+A directory of living project documents that track each project's purpose, progress, and problems. Updated after meetings and decisions. The source of truth for your work.
+
+## Automation & Extensibility
+
+### Skill
+A reusable workflow encoded as a markdown file. Instead of explaining a multi-step task every time, you write a skill once and trigger it with keywords. Example: a "meeting prep" skill that pulls context before any meeting.
+
+### Hook
+A script that runs automatically at specific moments: before a tool runs (PreToolUse), after a tool runs (PostToolUse), or when a session starts (SessionStart). Like automation rules that fire without you remembering.
+
+### Sub-Agent
+A separate Claude Code instance that handles a focused task. Your main conversation delegates work (research, code review, testing) to agents that work independently and report back. Keeps your main session clean.
+
+### MCP (Model Context Protocol)
+A standard for connecting Claude Code to external tools like GitHub, Slack, Jira, and databases. Think of MCP servers as plugins that give Claude Code access to your other tools.
+
+### MCP Server
+A small program that translates between Claude Code and an external service. Each server gives Claude Code specific abilities (e.g., "read GitHub PRs" or "search Slack messages").
+
+## Plans & Pricing
+
+### Claude Pro
+The $20/month plan. Gives you access to Claude Code with moderate daily usage. Good for getting started and light-to-medium use.
+
+### Claude Max
+The power user plan. $100/month (5x usage) or $200/month (20x usage). For people who use Claude Code as their primary work tool.
+
+### Tokens
+The unit that measures how much Claude Code reads and writes. Roughly 4 characters = 1 token. Your plan has a daily token budget. Bigger context windows and longer conversations use more tokens.
+
+### Rate Limit
+When you've used your daily token allocation and Claude Code slows down or pauses. A sign you might need to upgrade your plan, or optimize how you use context.
+
+## Workflow Concepts
+
+### Plan Mode
+A mode where Claude Code thinks before acting. Instead of immediately writing code, it outlines the approach first for your review. Saves tokens and prevents wrong-direction work.
+
+### Autonomous Loop
+Claude Code running a task without your direct input, finishing, and automatically starting the next iteration. Advanced pattern for repetitive tasks like fixing tests or scanning for issues.
+
+### Orchestration
+The rules that govern how Claude Code approaches work: when to plan first, when to delegate to agents, when to verify results. Defined in your CLAUDE.md.
+
+## File Types
+
+### `.claude/`
+A hidden directory in your project that contains Claude Code configuration: settings, hooks, skills, and agent definitions.
+
+### `MEMORY.md`
+The index file for your memory system. Lists all memory files with one-line summaries. Claude Code reads this to know what memories exist.
+
+### `.mcp.json`
+Configuration file that defines which MCP servers Claude Code should connect to and their credentials.
+
+### `settings.json`
+Claude Code's configuration file. Lives in `.claude/settings.json`. Defines hooks, permissions, and tool settings.

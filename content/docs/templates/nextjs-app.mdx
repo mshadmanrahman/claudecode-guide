@@ -1,0 +1,112 @@
+---
+title: "Template: Next.js App"
+description: "Ready-to-use CLAUDE.md for Next.js App Router projects. Covers routing, server components, testing, and Vercel deployment."
+---
+
+Use this template for standalone Next.js applications using the App Router with a `src/` directory structure. It covers the conventions that matter most: server component defaults, async API patterns from Next.js 15+, and a testing setup that keeps tests close to the code they validate.
+
+If you use the Pages Router or a different directory layout, adjust the project structure section accordingly.
+
+```markdown title="CLAUDE.md"
+# CLAUDE.md
+
+## Project Overview
+
+Next.js App Router application. TypeScript strict mode. Deployed on Vercel.
+
+Directory layout:
+- `src/app/` - Route segments, layouts, pages, loading/error states
+- `src/components/` - Shared React components
+- `src/lib/` - Utilities, helpers, constants
+- `src/hooks/` - Custom React hooks
+- `src/types/` - Shared TypeScript type definitions
+- `public/` - Static assets
+
+## Build Commands
+
+```bash
+npm run dev        # Local dev server (Turbopack)
+npm run build      # Production build
+npm run lint       # ESLint check
+npm run test       # Run Jest tests
+npm run test:watch # Watch mode for TDD
+```
+
+## Key Conventions
+
+### Server Components by Default
+Every component is a React Server Component unless it needs interactivity.
+Add `'use client'` only when the component uses:
+- Event handlers (onClick, onChange, onSubmit)
+- Browser APIs (window, localStorage, IntersectionObserver)
+- React hooks (useState, useEffect, useReducer, useContext)
+
+### Server Actions for Mutations
+Use Server Actions (`'use server'`) for form submissions and data mutations.
+Never call external APIs directly from client components when a Server Action works.
+
+### Async APIs (Next.js 15+)
+`params`, `searchParams`, `cookies()`, `headers()`, and `draftMode()` are all async.
+Always `await` them:
+```ts
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+}
+```
+
+### Routing Rules
+- Use `loading.tsx` for Suspense fallbacks at the route level
+- Use `error.tsx` for error boundaries at the route level
+- Use `not-found.tsx` for 404 states
+- Group related routes with `(group)` folders when they share a layout
+- Dynamic segments use `[param]`, catch-all uses `[...param]`
+
+## Testing
+
+Jest + React Testing Library. Test files live next to the source file they test.
+
+```
+src/components/Button.tsx
+src/components/Button.test.tsx
+```
+
+Rules:
+- Test user-visible behavior, not implementation details
+- Use `screen.getByRole` over `getByTestId` whenever possible
+- Mock external APIs at the fetch level, not inside components
+- Minimum 80% coverage on new code
+
+## Code Style
+
+- TypeScript strict mode. No `any` types. Use `unknown` and narrow.
+- Prefer `const` and immutable patterns. Never mutate function arguments.
+- Functions under 50 lines. Files under 400 lines. Extract when either grows.
+- Named exports only. No default exports except for pages/layouts (Next.js requires them).
+- Use `clsx` or `cn()` for conditional class names. No ternaries in className strings.
+- Tailwind CSS for styling. No CSS modules unless overriding third-party components.
+
+## Deployment
+
+Deployed on Vercel. Environment variables managed through `vercel env`.
+
+- Never hardcode secrets. Use `process.env.VARIABLE_NAME`.
+- Preview deployments run on every PR. Check the preview before merging.
+- Production deploys from `main` branch only.
+- Use `vercel.json` for redirects, headers, and rewrites. Not `next.config.ts`.
+
+## Communication Style
+
+Be direct. Show code, not explanations of code. When suggesting changes,
+edit the file directly rather than describing what to change.
+```
+
+### How to Use
+
+1. Copy the code block above into a `CLAUDE.md` file at your project root
+2. Update the build commands if you use `pnpm`, `yarn`, or `bun` instead of `npm`
+3. Adjust the directory layout section if your project does not use a `src/` directory
+4. Add project-specific rules as you discover patterns that Claude should follow

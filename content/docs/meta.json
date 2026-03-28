@@ -1,0 +1,15 @@
+{
+  "title": "Claude Code Guide",
+  "pages": [
+    "---Foundations---",
+    "foundations/...",
+    "---Patterns---",
+    "patterns/...",
+    "---Workflows---",
+    "workflows/...",
+    "---Templates---",
+    "templates/...",
+    "---Comparisons---",
+    "comparisons/..."
+  ]
+}

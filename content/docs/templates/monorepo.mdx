@@ -1,0 +1,112 @@
+---
+title: "Template: Monorepo"
+description: "CLAUDE.md for Turborepo monorepos. Workspace-aware rules, package boundaries, and shared configurations."
+---
+
+Use this template for monorepos managed with Turborepo and npm/pnpm workspaces. It enforces package boundaries so Claude does not accidentally import across apps or bypass shared packages. The template assumes a standard `apps/` + `packages/` layout.
+
+If you use Nx instead of Turborepo, swap the build commands but keep the boundary rules.
+
+```markdown title="CLAUDE.md"
+# CLAUDE.md
+
+## Project Overview
+
+Turborepo monorepo with npm workspaces. Multiple apps sharing common packages.
+
+```
+apps/
+  web/          - Next.js frontend (App Router)
+  docs/         - Documentation site
+packages/
+  ui/           - Shared React component library (@repo/ui)
+  config/       - Shared ESLint, TypeScript, Tailwind configs (@repo/config)
+  utils/        - Shared utility functions (@repo/utils)
+  types/        - Shared TypeScript types (@repo/types)
+  db/           - Database client and schema (@repo/db)
+```
+
+## Build Commands
+
+```bash
+turbo run build           # Build all packages and apps
+turbo run dev             # Dev servers for all apps
+turbo run lint            # Lint everything
+turbo run test            # Test everything
+turbo run build --filter=web  # Build only the web app
+turbo run dev --filter=web    # Dev server for web only
+```
+
+To work on a specific package:
+```bash
+cd packages/ui && npm run test
+cd apps/web && npm run dev
+```
+
+## Package Boundaries (Critical)
+
+These rules prevent spaghetti dependencies:
+
+1. **Apps never import from other apps.** `apps/web` must not import from `apps/docs`.
+   Share code through a package in `packages/` instead.
+2. **Packages import only from other packages.** `@repo/ui` can depend on `@repo/utils`
+   but never on `apps/web`.
+3. **All shared packages use the `@repo/` prefix.** Import as `@repo/ui`, `@repo/utils`, etc.
+4. **No relative imports across workspace boundaries.** Never use `../../packages/ui`.
+   Always use the package name: `import { Button } from '@repo/ui'`.
+5. **New shared code goes into the right package.** Types in `@repo/types`, utilities in
+   `@repo/utils`, components in `@repo/ui`. When nothing fits, create a new package.
+
+## Naming Conventions
+
+- Package directories: lowercase kebab-case (`ui`, `utils`, `config`)
+- Package names in package.json: `@repo/package-name`
+- Exports: each package defines explicit exports in `package.json` exports field
+- Internal modules: use `src/` directory inside each package
+
+## Adding a New Package
+
+1. Create directory under `packages/`
+2. Add `package.json` with `"name": "@repo/package-name"`
+3. Add `tsconfig.json` extending `@repo/config/tsconfig.base.json`
+4. Register in root `turbo.json` if it has custom pipeline tasks
+5. Run `npm install` from the root to link the workspace
+
+## Testing
+
+Each package owns its tests. Run from the package root or via Turbo.
+
+- `packages/ui` - Vitest + React Testing Library
+- `packages/utils` - Vitest
+- `packages/db` - Vitest with test database
+- `apps/web` - Jest + React Testing Library + Playwright for E2E
+
+Rule: test the package where the code lives. Do not test `@repo/ui` components
+from inside `apps/web`. Test them in `packages/ui/src/__tests__/`.
+
+## CI Notes
+
+- Use `turbo run build --affected` on PRs to build only changed packages
+- Cache is stored remotely via Vercel Remote Cache
+- Each package must build independently. No implicit dependency on build order.
+- Changesets for versioning: run `npx changeset` before merging cross-package changes
+
+## Code Style
+
+- TypeScript strict mode across all packages
+- Shared ESLint config in `@repo/config`. Do not override rules per-package.
+- Shared Tailwind config in `@repo/config`. Apps extend it, packages consume tokens.
+- Immutable patterns. Never mutate arguments or shared state.
+
+## Communication Style
+
+When working in this repo, always specify which package or app you are modifying.
+Say "in packages/ui" or "in apps/web", not just file paths.
+```
+
+### How to Use
+
+1. Copy the code block above into a `CLAUDE.md` file at the monorepo root
+2. Update the workspace structure to match your actual `apps/` and `packages/` layout
+3. Replace `@repo/` with your actual scope if you use a different npm org prefix
+4. Consider adding a `CLAUDE.md` inside each app for app-specific rules (Claude reads the nearest one)

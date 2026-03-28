@@ -1,0 +1,107 @@
+---
+title: "The Memory System"
+description: "How to make Claude Code remember you across sessions. Four memory types, what to save, and the compound effect over time."
+---
+
+## Why Memory Matters
+
+Every time you start a new Claude Code session, it begins with a blank slate. Without memory, you spend the first few minutes of every conversation re-explaining who you are, what you're working on, and how you like things done.
+
+The memory system fixes this. It gives Claude Code a structured way to remember you, your projects, and your preferences across sessions. Think of it as building a relationship with your tool instead of meeting a stranger every time.
+
+## The Four Memory Types
+
+Memory in Claude Code is organized into four categories. Each serves a different purpose.
+
+### 1. User Memory
+
+Who you are and what you care about.
+
+- Your role (frontend developer, PM, full-stack engineer)
+- Your goals ("I'm building a SaaS product", "I'm learning React")
+- Your preferences (coding style, communication style, tools you use)
+- Your team context (who you work with, what they own)
+
+**Example:** `user_role.md` might contain: "Senior PM at an EdTech company. Manages 3 squads. Prefers bullet points over paragraphs. Hates em dashes."
+
+### 2. Feedback Memory
+
+Corrections you have given Claude Code over time.
+
+- "Don't suppress lint rules as a fix, rethink the solution"
+- "Always use relative paths, never absolute paths with usernames"
+- "Her name is Viveca, not Viveka"
+
+This is the most powerful memory type. Every correction you make gets saved, and Claude Code stops making that mistake. After a month, the corrections add up and your sessions get noticeably smoother.
+
+### 3. Project Memory
+
+What you are actively working on.
+
+- Project names, tech stacks, and current status
+- Key decisions and their rationale
+- Architecture notes and patterns specific to each project
+- Links to relevant repos, boards, or documents
+
+**Example:** `project_heimdall.md` tracks an ad server replacement project: its version, test count, team members, and related design documents.
+
+### 4. Reference Memory
+
+Where to find things in external systems.
+
+- API endpoints and credentials locations (never the actual secrets)
+- Folder structures and file conventions
+- Tool configurations (CI/CD, deployment, monitoring)
+- Team ownership maps
+
+This type prevents Claude Code from guessing where things live. Instead of searching your codebase every time, it knows exactly where to look.
+
+## How Memory is Structured
+
+The memory system uses a simple file-based approach:
+
+| File | Purpose |
+|------|---------|
+| `MEMORY.md` | The index. Lists all memory files with one-line summaries. |
+| `user_*.md` | User memories (role, goals, preferences) |
+| `feedback_*.md` | Corrections and learned preferences |
+| `project_*.md` | Active project context |
+| `reference_*.md` | System locations and external references |
+
+Each memory file is a small Markdown file with frontmatter (title, created date, updated date) and a few paragraphs of structured content. Keep them focused: one topic per file.
+
+`MEMORY.md` acts as a table of contents. When a session starts, Claude Code reads this index and loads only the memories relevant to the current task. It does not read every file every time.
+
+## What NOT to Save
+
+Not everything belongs in memory. Skip these:
+
+- **Code patterns and syntax**: Claude Code already knows how to write code. Saving "how to write a React hook" is wasted space.
+- **Git history**: It can read your git log directly. No need to duplicate it.
+- **Debugging solutions**: These are one-off fixes that rarely repeat. Save the lesson, not the fix.
+- **Temporary context**: If it won't matter next week, don't save it.
+
+The rule of thumb: save things that change how Claude Code behaves, not things it can look up on its own.
+
+## The Compound Effect
+
+Memory builds over time, and the returns accelerate.
+
+**Week 1:** Sessions start faster. Claude Code knows your name, your projects, and your preferred coding style. You stop repeating "I'm working on Project X using Next.js."
+
+**Month 1:** Claude Code stops making mistakes you have corrected before. It remembers that your teammate's name is spelled a specific way, that you never want `any` types in TypeScript, that you prefer colons over em dashes.
+
+**Month 3:** Claude Code starts anticipating what you need. It knows which files to check first, which patterns your codebase uses, and which team members own which systems. It feels less like a tool and more like a colleague who has been on your team for a while.
+
+## Getting Started Checklist
+
+Ready to set up memory? Start here:
+
+- [ ] Create a `MEMORY.md` file in your `.claude/` directory
+- [ ] Write your first user memory: your role, your main project, and one preference
+- [ ] After your next session, save one correction as a feedback memory
+- [ ] Add your active project with its tech stack and current status
+- [ ] Add one reference memory for something you always have to look up (folder structure, API endpoint locations, team ownership)
+- [ ] Review and update `MEMORY.md` to index your new files
+
+You do not need to build the whole system at once. Start with one memory in each category and grow it naturally as you work. The best memory systems are grown, not designed upfront.

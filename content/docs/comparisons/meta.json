@@ -1,0 +1,6 @@
+{
+  "title": "Comparisons",
+  "root": true,
+  "defaultOpen": true,
+  "pages": ["vs-cursor", "vs-copilot", "vs-codex", "vs-windsurf", "pro-vs-max"]
+}

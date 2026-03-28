@@ -1,0 +1,65 @@
+---
+title: Claude Code vs GitHub Copilot
+description: "Inline autocomplete vs agentic coding. They solve fundamentally different problems."
+---
+
+This is not really an apples-to-apples comparison. GitHub Copilot is an autocomplete engine. Claude Code is an autonomous coding agent. They do fundamentally different things, and honestly, many developers use both.
+
+## The Core Difference
+
+**GitHub Copilot** predicts what you are about to type and offers it as a gray suggestion. You hit Tab to accept. It is fast, unobtrusive, and works inside your editor as you write. Think of it as a very smart autocomplete that understands code.
+
+**Claude Code** waits for you to describe a task, then plans and executes it. It can read your entire codebase, create files, run terminal commands, and verify its own work. Think of it as a junior developer sitting next to you who can actually touch the keyboard.
+
+## Side by Side
+
+| | Claude Code | GitHub Copilot |
+|---|---|---|
+| **What it does** | Plans and executes coding tasks | Suggests the next line of code |
+| **Interaction model** | You describe a task, it does the work | You write code, it completes it |
+| **Context window** | Entire project (via `CLAUDE.md`, file reading) | Open files + nearby context |
+| **Multi-file edits** | Yes, core strength | Limited (Copilot Chat can suggest, you apply) |
+| **Runs commands** | Yes (tests, builds, git, etc.) | No |
+| **Memory across sessions** | Yes, via `CLAUDE.md` and memory files | No persistent memory |
+| **Editor support** | Any terminal (editor-agnostic) | VS Code, JetBrains, Neovim, etc. |
+
+## Pricing
+
+| Plan | Cost | Notes |
+|---|---|---|
+| **Copilot Free** | $0 | 2,000 completions/month, limited chat |
+| **Copilot Pro** | $10/month | Unlimited completions, chat, CLI |
+| **Copilot Business** | $19/month/seat | Org policies, audit logs |
+| **Claude Pro** (for Claude Code) | $20/month | Moderate daily agentic usage |
+| **Claude Max** | $100-200/month | Heavy agentic usage |
+
+Copilot is cheaper for what it does. But it also does less. The question is what you need.
+
+## What Each Is Best At
+
+**Copilot shines for:**
+- Writing boilerplate fast (function signatures, test scaffolds, repetitive patterns)
+- Staying in flow while coding line by line
+- Quick inline suggestions that save keystrokes
+- Working across many languages with minimal setup
+
+**Claude Code shines for:**
+- "Add authentication to this app" (multi-file, multi-step tasks)
+- Debugging complex issues across your stack
+- Refactoring entire modules with a single prompt
+- Automating repetitive workflows via hooks and scripts
+- Understanding and navigating unfamiliar codebases
+
+## The Real Question
+
+Copilot makes you faster at writing code. Claude Code makes you faster at shipping features. Those are different things.
+
+If you spend most of your day writing code and want to type less, Copilot is excellent. If you spend your day planning features, reviewing code, and coordinating across files, Claude Code handles the bigger picture.
+
+## Can You Use Both?
+
+Absolutely. This is probably the most common setup for developers who have tried both. Copilot handles the line-by-line autocomplete while you are writing. Claude Code handles the "build this feature" or "fix this bug across the codebase" tasks. There is no conflict between them.
+
+## Recommendation
+
+If you have never used an AI coding tool, start with Copilot. It is low friction, cheap, and immediately useful. When you find yourself wishing the AI could do more than just complete lines, that is when Claude Code earns its place. Many developers end up using both without thinking twice about it.

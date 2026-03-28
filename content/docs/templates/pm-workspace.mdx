@@ -1,0 +1,113 @@
+---
+title: "Template: PM Workspace"
+description: "The complete Claude Code setup for Product Managers. Memory, skills, meeting workflows, and the Product Brain pattern."
+---
+
+This template is for Product Managers who want Claude Code as their daily operating system, not just a code assistant. It sets up a workspace where Claude remembers your projects, processes meetings, tracks decisions, and gives you a pulse on everything you own. No coding required.
+
+This is the most opinionated template in the gallery. It assumes you will build up skills and memory files over time.
+
+```markdown title="CLAUDE.md"
+# CLAUDE.md
+
+## Identity
+
+Multi-project PM workspace. This is not a codebase. It is a structured knowledge
+system for managing products, meetings, decisions, and communications.
+
+Directory layout:
+- `_product-brain/` - Living project docs (one file per project you own)
+- `_context/skills/` - Reusable skills Claude can invoke
+- `_context/handoffs/` - Session continuity docs for picking up where you left off
+- `_context/agents/` - Specialist agents for specific workflows
+- `_memory/` - Persistent memory files (user, project, people, feedback)
+- `_scratch/` - Temporary working space for drafts and analysis
+
+## Session Lifecycle
+
+**Starting a session:**
+1. Read `_memory/MEMORY.md` for current state of all projects and people
+2. Check `_context/handoffs/` for the latest handoff doc
+3. Resume from where the last session ended. No cold starts.
+
+**During a session:**
+- Save corrections and preferences to `_memory/feedback/` immediately
+- Track project updates in `_product-brain/` docs
+- Use handoffs when context is getting long
+
+**Ending a session (mandatory):**
+1. Write a handoff to `_context/handoffs/YYYY-MM-DD-topic.md` if work is in progress
+2. Save any new learnings or corrections to memory files
+3. Minimum handoff: what was done, what is next, key decisions made
+
+## Communication Preferences
+
+- Direct and structured. No filler, no preambles, no "Great question!"
+- Lead with the recommendation, not a list of options
+- Use headings, bullets, numbered steps, tables, and checklists
+- Actionable output: concrete next steps, not theory
+- Production-ready: specs, emails, and artifacts should be usable as-is
+
+## Skills Reference
+
+Skills are reusable workflows invoked by name:
+
+| Skill | Trigger | What it does |
+|-------|---------|-------------|
+| `/meeting-prep` | Before any meeting | Pulls context on attendees, open items, and talking points |
+| `/post-meeting` | After a meeting | Extracts action items, updates project docs, writes follow-ups |
+| `/pulse` | Weekly or on demand | Cross-project dashboard of what needs attention |
+| `/weekly-status` | End of week | Auto-generates accomplishment report from completed work |
+| `/deep-context` | Research mode | Searches all sources for everything known about a topic |
+
+You do not need to build these on day one. Start with `/meeting-prep` and
+`/post-meeting`, then add more as your workflow demands them.
+
+## Memory System
+
+Memory files persist across sessions. Organized by type:
+
+- **User memory** (`_memory/user/`): Your goals, preferences, working style
+- **Feedback memory** (`_memory/feedback/`): Corrections you have made, style preferences
+- **Project memory** (`_memory/project/`): State of each project, key decisions, blockers
+- **People memory** (`_memory/people/`): Key contacts, their roles, interaction history
+- **Reference memory** (`_memory/reference/`): Company context, org structure, tooling
+
+When I learn something new about you or your projects, I save it to the right
+memory file so I never forget it.
+
+## Product Brain
+
+The `_product-brain/` directory holds one living document per project you own.
+Each file follows the PPP format:
+
+- **Progress**: What shipped or moved forward recently
+- **Plans**: What is coming next and when
+- **Problems**: What is blocked, at risk, or needs a decision
+
+These docs are the source of truth for `/pulse` and `/weekly-status`.
+Update them after meetings, launches, and planning sessions.
+
+## Orchestration
+
+- Enter plan mode for any non-trivial task (3+ steps or decisions involved)
+- Use sub-agents for research and parallel analysis to keep main context clean
+- After any correction: save the lesson so the same mistake never repeats
+- Never mark something complete without verifying it: re-read the output,
+  check for accuracy, confirm it matches what was asked
+```
+
+### How to Use
+
+1. Copy the code block above into a `CLAUDE.md` at the root of a new directory (e.g., `~/pm-workspace/`)
+2. Create the directory structure:
+
+```bash
+mkdir -p _product-brain _context/skills _context/handoffs _context/agents
+mkdir -p _memory/user _memory/feedback _memory/project _memory/people _memory/reference
+mkdir -p _scratch
+```
+
+3. Start with one project doc in `_product-brain/` describing a product you currently own
+4. Add a `_memory/MEMORY.md` index file listing your active projects and key people
+5. Skills and agents are optional at first. The memory system and product brain are the foundation. Build skills when you notice yourself repeating the same workflow three or more times.

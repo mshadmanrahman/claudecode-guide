@@ -1,0 +1,152 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/preset.css';
+
+/*
+ * Claude Code Guide — Custom color system
+ * We do NOT import fumadocs-ui/css/neutral.css (their default colors).
+ * Instead we define our own colors from scratch using the same variable names.
+ */
+
+@theme {
+  /* Light mode: Dub-style clean white */
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: #171717;
+  --color-fd-card: #fafafa;
+  --color-fd-card-foreground: #171717;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #171717;
+  --color-fd-primary: #171717;
+  --color-fd-primary-foreground: #fafafa;
+  --color-fd-secondary: #f5f5f5;
+  --color-fd-secondary-foreground: #171717;
+  --color-fd-muted: #f5f5f5;
+  --color-fd-muted-foreground: #737373;
+  --color-fd-accent: rgba(0, 0, 0, 0.05);
+  --color-fd-accent-foreground: #171717;
+  --color-fd-border: rgba(0, 0, 0, 0.1);
+  --color-fd-ring: #a3a3a3;
+  --color-fd-overlay: rgba(0, 0, 0, 0.2);
+
+  --font-sans: "Space Grotesk", "Space Grotesk Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Newsreader", "Georgia", serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+@theme static {
+  --color-fd-info: oklch(62.3% 0.214 259.815);
+  --color-fd-warning: oklch(76.9% 0.188 70.08);
+  --color-fd-error: oklch(63.7% 0.237 25.331);
+  --color-fd-success: oklch(72.3% 0.219 149.579);
+  --color-fd-idea: oklch(70.5% 0.209 60.849);
+  --color-fd-diff-remove: rgba(200, 10, 100, 0.12);
+  --color-fd-diff-remove-symbol: rgb(230, 10, 100);
+  --color-fd-diff-add: rgba(14, 180, 100, 0.1);
+  --color-fd-diff-add-symbol: rgb(10, 200, 100);
+}
+
+/* Dark mode */
+.dark {
+  --color-fd-background: #0a0a0a;
+  --color-fd-foreground: #fafafa;
+  --color-fd-card: #141414;
+  --color-fd-card-foreground: #fafafa;
+  --color-fd-popover: #1a1a1a;
+  --color-fd-popover-foreground: #fafafa;
+  --color-fd-primary: #fafafa;
+  --color-fd-primary-foreground: #0a0a0a;
+  --color-fd-secondary: #1a1a1a;
+  --color-fd-secondary-foreground: #fafafa;
+  --color-fd-muted: #1a1a1a;
+  --color-fd-muted-foreground: #a3a3a3;
+  --color-fd-accent: rgba(255, 255, 255, 0.08);
+  --color-fd-accent-foreground: #fafafa;
+  --color-fd-border: rgba(255, 255, 255, 0.1);
+  --color-fd-ring: #525252;
+  --color-fd-overlay: rgba(0, 0, 0, 0.5);
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ── Typography ── */
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .tracking-tight-display {
+    letter-spacing: -0.025em;
+  }
+
+  .text-fade {
+    background: linear-gradient(to bottom, var(--color-fd-foreground) 0%, var(--color-fd-muted-foreground) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ── Animations ── */
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+.animate-slide-up-fade {
+  animation: slide-up-fade 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease backwards;
+}
+
+.animate-float {
+  animation: float-gentle 4s ease-in-out infinite;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Grid background */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--color-fd-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-fd-border) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.bg-grid-fade {
+  mask-image: linear-gradient(to bottom, white 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, white 0%, transparent 70%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up-fade,
+  .animate-fade-in,
+  .animate-float {
+    animation: none;
+    opacity: 1;
+  }
+}

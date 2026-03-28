@@ -1,0 +1,104 @@
+---
+title: Sub-Agents
+description: "Delegate focused tasks to specialized agents. Keep your main conversation clean while agents handle research, review, and testing in parallel."
+---
+
+## What Are Sub-Agents?
+
+Sub-agents are separate Claude Code instances that handle focused tasks. When you ask Claude Code to review code, it can spawn a dedicated code-reviewer agent. When you need tests written, a tdd-guide agent takes over. Each agent gets its own context window, does its work, and reports back.
+
+The main conversation stays clean. You're not burning context on a 200-line security audit that you just need the summary of.
+
+## Why Use Sub-Agents?
+
+**Context stays focused.** Your main session handles planning and decisions. Agents handle the deep dives. A security review might require reading 15 files, but you only need the 5-line summary.
+
+**Parallel execution.** Independent tasks can run simultaneously. Need a code review, a security scan, and a test generation? Three agents, working at the same time, instead of one sequential chain.
+
+**Specialization.** Each agent carries instructions tuned for its job. A code-reviewer agent knows your team's standards. A tdd-guide agent enforces test-first workflow. Specialization means better output.
+
+## Built-in Agent Types
+
+Claude Code recognizes several agent patterns out of the box:
+
+| Agent | What It Does | When to Use |
+|---|---|---|
+| **code-reviewer** | Reviews code for quality, patterns, bugs | After writing or modifying code |
+| **tdd-guide** | Enforces test-driven development | New features, bug fixes |
+| **planner** | Creates implementation plans | Complex features, refactoring |
+| **security-reviewer** | Scans for vulnerabilities | Before commits, auth changes |
+| **build-error-resolver** | Diagnoses and fixes build failures | When the build breaks |
+
+Claude Code spawns these automatically when the task calls for it. You can also request them explicitly: "Run the code-reviewer on the files I just changed."
+
+## Creating Custom Agents
+
+Custom agents are markdown files that define an agent's role, behavior, and constraints. Save them in `.claude/agents/` at the project level.
+
+```markdown
+# PR Description Writer
+
+## Role
+You generate pull request descriptions from git diffs.
+
+## Behavior
+1. Read the full diff with `git diff main...HEAD`
+2. Analyze each commit for its purpose
+3. Group changes by category (feature, fix, refactor, test)
+4. Write a structured PR description:
+   - Summary (2-3 sentences)
+   - Changes (bulleted by category)
+   - Testing notes
+   - Breaking changes (if any)
+
+## Constraints
+- Never include file paths with absolute user directories
+- Keep the summary under 100 words
+- Use conventional commit categories
+```
+
+Once saved, you can invoke it: "Use the PR description writer for this branch." Claude Code reads the agent file, follows the instructions, and delivers the output.
+
+## When to Use Agents vs Doing Work Directly
+
+Not everything needs an agent. Here's a simple decision framework:
+
+**Use agents for:**
+- Research tasks that require reading many files
+- Code review and security audits
+- Test generation and verification
+- Any task where you need the result but not the process
+- Work that can run in parallel with other tasks
+
+**Work directly for:**
+- Quick file edits (a few lines)
+- Simple questions about the codebase
+- Decisions that need your input at every step
+- One-off commands and scripts
+
+The rule of thumb: if the task takes more than a minute and you don't need to steer it, delegate to an agent.
+
+## Parallel Agent Execution
+
+The real power of agents is parallelism. For complex tasks, launch multiple agents at once:
+
+```markdown
+Launch 3 agents in parallel:
+1. Agent 1: Security review of the auth module
+2. Agent 2: Performance audit of the database queries
+3. Agent 3: Test coverage analysis for the API routes
+```
+
+Each agent works independently, uses its own context, and returns a focused report. You get three expert reviews in the time it takes for one.
+
+## Tips for Working with Agents
+
+**One task per agent.** An agent that does code review AND writes tests is two agents crammed into one. Keep them focused.
+
+**Give clear instructions.** Agents work best with specific, bounded tasks. "Review this file for security issues" beats "look at the code and tell me if anything's wrong."
+
+**Trust but verify.** Agents are good, not perfect. Skim their output before acting on it. A security agent might flag a false positive. A test agent might miss an edge case.
+
+**Start with built-in agents.** Use the code-reviewer and tdd-guide for a week before writing custom agents. You'll learn what works and what you actually need.
+
+**Keep agent files short.** A good agent definition is 20-40 lines. If your agent file is 200 lines, you're probably encoding multiple agents into one. Split them up.

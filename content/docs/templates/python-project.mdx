@@ -1,0 +1,109 @@
+---
+title: "Template: Python Project"
+description: "CLAUDE.md for Python projects. Covers virtual environments, testing with pytest, type checking, and common pitfalls."
+---
+
+Use this template for Python applications and libraries that use modern tooling: `uv` or `poetry` for dependency management, `pytest` for testing, and `mypy` for type checking. It steers Claude away from legacy patterns like bare `requirements.txt` and global pip installs.
+
+If you use Django or FastAPI, add framework-specific conventions after the base template.
+
+```markdown title="CLAUDE.md"
+# CLAUDE.md
+
+## Project Overview
+
+Python 3.12+ project. Uses `uv` for dependency management and virtual environments.
+All dependencies declared in `pyproject.toml`.
+
+Directory layout:
+- `src/` - Application source code (importable package)
+- `tests/` - Test files mirroring src/ structure
+- `scripts/` - CLI scripts and one-off utilities
+- `pyproject.toml` - Project metadata, dependencies, tool config
+
+## Build and Run Commands
+
+```bash
+uv sync                # Install dependencies into .venv
+uv run python -m src.main  # Run the application
+uv run pytest          # Run all tests
+uv run pytest -x       # Stop on first failure
+uv run mypy src/       # Type check source code
+uv run ruff check .    # Lint
+uv run ruff format .   # Format
+```
+
+If using Poetry instead of uv:
+```bash
+poetry install
+poetry run pytest
+poetry run mypy src/
+```
+
+## Code Style
+
+- Follow PEP 8. Use Ruff for linting and formatting (configured in pyproject.toml).
+- Type hints on all public functions and methods. No untyped public APIs.
+- Use `from __future__ import annotations` at the top of every module for modern syntax.
+- Prefer dataclasses or Pydantic models over plain dicts for structured data.
+- No bare `except:`. Always catch specific exceptions. At minimum: `except Exception as e:`.
+- Prefer returning new values over mutating arguments. Functions should be pure when possible.
+- Docstrings on all public classes and functions. Use Google-style format.
+
+```python
+def calculate_total(items: list[LineItem], tax_rate: float) -> Money:
+    """Calculate the total cost including tax.
+
+    Args:
+        items: Line items to sum.
+        tax_rate: Tax rate as a decimal (0.08 for 8%).
+
+    Returns:
+        Total cost with tax applied.
+    """
+```
+
+## Testing
+
+pytest with fixtures. Test files mirror the source structure:
+
+```
+src/services/billing.py
+tests/services/test_billing.py
+```
+
+Rules:
+- Use fixtures over mocks. Create real objects when possible.
+- Use `pytest.mark.parametrize` for testing multiple inputs.
+- Factory functions for building test data, not raw dicts.
+- Target 80% coverage minimum: `uv run pytest --cov=src --cov-report=term-missing`
+- Separate slow tests with `@pytest.mark.slow` and skip in fast runs.
+
+## Virtual Environment
+
+- Always use `.venv` in the project root. Never install packages globally.
+- The `.venv/` directory is in `.gitignore`. Do not commit it.
+- If `.venv` does not exist, run `uv sync` before doing anything else.
+- Never use `pip install` directly. Use `uv add <package>` to add dependencies.
+
+## Common Pitfalls (Do Not)
+
+- Do not create or modify `requirements.txt`. All dependencies live in `pyproject.toml`.
+- Do not use `os.path` for path manipulation. Use `pathlib.Path`.
+- Do not use `print()` for logging. Use the `logging` module or `structlog`.
+- Do not use mutable default arguments (`def f(items=[])`). Use `None` and create inside.
+- Do not catch and silently swallow exceptions. Log them or re-raise.
+- Do not use `requests` for new code. Use `httpx` (async support, better defaults).
+
+## Communication Style
+
+Be concise. Show the code change, not a tutorial about how Python works.
+When adding dependencies, run `uv add` instead of telling me to do it.
+```
+
+### How to Use
+
+1. Copy the code block above into a `CLAUDE.md` file at your project root
+2. Switch the `uv` commands to `poetry` commands if that is your package manager
+3. Update the directory layout if your project does not use a `src/` structure
+4. Add framework-specific sections for Django, FastAPI, Flask, or other frameworks you use

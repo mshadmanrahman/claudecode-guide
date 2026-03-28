@@ -1,0 +1,82 @@
+---
+title: "Cost Optimization"
+description: "Claude Pro vs Max vs API. Real cost analysis, when to upgrade, and strategies to get the most value from your plan."
+---
+
+## Understanding the Plans
+
+Claude Code is available through several pricing tiers. Picking the right one depends on how much you use it and what you use it for.
+
+| Plan | Price | Best For | Daily Usage Sweet Spot |
+|------|-------|----------|----------------------|
+| **Pro** | $20/mo | Getting started, light daily use | 2-3 hours of active sessions |
+| **Max 5x** | $100/mo | Power users, daily coding | 5-6 hours of active sessions |
+| **Max 20x** | $200/mo | Heavy all-day usage, teams | 8+ hours, multiple projects |
+| **API** | Pay-per-token | Building apps, automation | Varies by volume |
+
+### Pro ($20/month)
+
+This is where most people start, and it is genuinely useful. You get enough quota for a solid coding session each day. Where it gets tight: heavy refactoring days, large codebase exploration, or running multiple sub-agents in parallel. If you are learning Claude Code or using it for a side project, Pro is plenty.
+
+**The reality:** On a normal day, you will be fine. On a day where you are debugging a complex issue or building a new feature end-to-end, you might hit the usage limit by early afternoon.
+
+### Max ($100/month or $200/month)
+
+Max is for people who have made Claude Code part of their daily workflow. The 5x tier gives you roughly five times the Pro quota, which means full workdays without worrying about limits. The 20x tier is for people who run Claude Code across multiple projects or use it for heavy automation.
+
+**When to pick 5x vs 20x:** If you use Claude Code as your primary development partner for a single project, 5x is enough. If you manage multiple codebases, run autonomous loops, or use it for both coding and PM workflows, consider 20x.
+
+### API (Pay-per-token)
+
+The API is not a "plan" in the same way. You pay for exactly what you use, measured in tokens (roughly 4 characters per token). This is the right choice if you are building applications that use Claude under the hood, running automated pipelines, or want granular cost control.
+
+**Typical costs:** A conversation that fills a 200K context window costs roughly $3-6 depending on the model. Short focused tasks might cost $0.10-0.50 each.
+
+## Strategies to Get More From Your Plan
+
+### Keep Your Context Clean
+
+Every token Claude Code reads counts against your quota. A bloated context window means fewer conversations per day. Practical steps:
+
+- **Start fresh sessions for new tasks.** Do not let one session accumulate context from five unrelated tasks.
+- **Use handoffs instead of long sessions.** Write a handoff document at the end of a session, then start a new one. The new session loads only what it needs.
+- **Point to files, do not paste them.** Let Claude Code read files on demand rather than pasting entire files into your message.
+
+### Use Sub-agents Wisely
+
+Sub-agents (spawned tasks) share your quota, but they are more efficient than doing everything in a single thread. A sub-agent that researches a question uses fewer tokens than you going back and forth in the main conversation.
+
+- Offload research and exploration to sub-agents
+- Keep the main session focused on decisions and implementation
+- One task per sub-agent keeps context tight
+
+### Use Plan Mode
+
+Plan mode tells Claude Code to think before acting. Instead of writing code immediately (which might be wrong and need revision), it outlines the approach first. You review, adjust, then execute.
+
+This sounds slower, but it saves tokens. A plan-then-execute approach typically uses 30-40% fewer tokens than a trial-and-error approach, because you avoid the "that's not what I wanted, try again" cycle.
+
+### Choose the Right Model for the Task
+
+Not every task needs the most powerful model. If you are on the API or have model selection available:
+
+- **Haiku (fast, cheap):** Formatting, simple lookups, boilerplate generation
+- **Sonnet (balanced):** Most coding tasks, code review, feature development
+- **Opus (deep reasoning):** Architecture decisions, complex debugging, multi-file refactoring
+
+Using Haiku for simple tasks and saving Sonnet/Opus for complex work stretches your budget significantly.
+
+## When to Upgrade
+
+Here are the signals that you have outgrown your current plan:
+
+- **You hit "usage limit" more than twice a week.** Time for the next tier.
+- **You are splitting tasks across multiple days** because you ran out of quota. That lost momentum costs more than the plan upgrade.
+- **You are avoiding sub-agents** to conserve quota. Sub-agents make you faster; skipping them to save tokens is a false economy.
+- **You catch yourself thinking "I should just do this manually."** The whole point of the tool is to save you time. If cost anxiety is pushing you back to manual work, the plan is too small.
+
+## The Real Cost Calculation
+
+Do not compare the plan price to zero. Compare it to your time. If Claude Code saves you one hour per day and your time is worth $50/hour, that is $1,000/month in saved time. Even the $200/month Max plan pays for itself many times over.
+
+The cheapest plan is the one that lets you use the tool without thinking about limits.
