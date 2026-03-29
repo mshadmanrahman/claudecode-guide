@@ -9,6 +9,7 @@ import { OsSelector } from '@/components/guide/os-selector';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { Collapsible } from '@/components/guide/collapsible';
 import { Checkpoint } from '@/components/guide/checkpoint';
+import { DemoCard } from '@/components/demo-card';
 
 export default function GuidePage() {
   const progress = useGuideProgress();
@@ -143,9 +144,17 @@ export default function GuidePage() {
 
               {!progress.selectedOs && (
                 <p className="mt-4 text-center text-sm text-fd-muted-foreground">
-                  👆 Pick your OS to see install instructions
+                  Pick your OS above to see install instructions
                 </p>
               )}
+
+              <DemoCard title="What you'll see" loop={false} steps={[
+                { type: 'cmd', text: 'npm install -g @anthropic-ai/claude-code' },
+                { type: 'out', text: 'added 1 package in 12s' },
+                { type: 'cmd', text: 'claude --version', delay: 800 },
+                { type: 'success', text: '✓ claude-code v1.0.24' },
+                { type: 'warn', text: '→ You\'re installed. Move to step 2.' },
+              ]} />
             </GuideStep>
 
             {/* Step 2: Choose a plan */}
@@ -221,9 +230,16 @@ export default function GuidePage() {
                 Claude Code will start. Try your first prompt:
               </p>
               <CopyBlock code='"Create a simple HTML page that says Hello World with a nice design"' language="prompt" />
-              <p className="mt-4 text-sm text-fd-muted-foreground">
-                Watch it work. It will create the file, write the code, and you can open it in your browser. That&apos;s it. You just built something with AI.
-              </p>
+              <DemoCard title="What happens when you run it" loop={false} steps={[
+                { type: 'cmd', text: 'claude' },
+                { type: 'success', text: '✓ Welcome to Claude Code!' },
+                { type: 'cmd', text: '"Create a simple HTML page that says Hello World with a nice design"', delay: 1000 },
+                { type: 'out', text: 'Creating index.html...' },
+                { type: 'out', text: 'Writing HTML with gradient background and centered text...' },
+                { type: 'success', text: '✓ Created index.html (42 lines)' },
+                { type: 'out', text: 'Open index.html in your browser to see it.' },
+                { type: 'warn', text: '→ You just built something with AI. That\'s it.' },
+              ]} />
 
               <Collapsible title="Stuck? Claude Code won't start?">
                 <p>Make sure you&apos;re logged in. Run <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">claude auth login</code> and follow the prompts to connect your Anthropic account.</p>
@@ -280,6 +296,20 @@ npm run test   # Run tests
 ## Communication
 - Be direct. Show code, not explanations.
 - When suggesting changes, edit the file directly.`} language="markdown" />
+              <DemoCard title="The difference CLAUDE.md makes" loop={false} steps={[
+                { type: 'out', text: '── Without CLAUDE.md ──' },
+                { type: 'cmd', text: '"Add a login form"' },
+                { type: 'error', text: '  Created LoginForm.jsx (wrong — you use .tsx)' },
+                { type: 'error', text: '  Used inline styles (wrong — you use Tailwind)' },
+                { type: 'out', text: '' },
+                { type: 'out', text: '── With CLAUDE.md ──' },
+                { type: 'cmd', text: '"Add a login form"', delay: 1000 },
+                { type: 'success', text: '  Created LoginForm.tsx (correct)' },
+                { type: 'success', text: '  Used Tailwind classes (correct)' },
+                { type: 'success', text: '  Added "use client" directive (correct)' },
+                { type: 'warn', text: '→ Same prompt. Night and day difference.' },
+              ]} />
+
               <p className="mt-4 text-sm text-fd-muted-foreground">
                 This is a starter. You&apos;ll customize it over time.{' '}
                 <Link href="/docs/foundations/claude-md" className="underline hover:text-fd-foreground">Read the full CLAUDE.md guide</Link>.
@@ -302,8 +332,18 @@ npm run test   # Run tests
                 Now tell Claude Code about yourself. Start a session and say:
               </p>
               <CopyBlock code={'"Remember that I\'m a [your role] working on [your project]. I prefer [your communication style]."'} language="prompt" />
-              <p className="mt-4 text-sm text-fd-muted-foreground">
-                Claude Code will save this to memory. Next session, it already knows who you are.{' '}
+              <DemoCard title="Memory in action" loop={false} steps={[
+                { type: 'cmd', text: '"Remember that I\'m a PM who prefers direct, short answers"' },
+                { type: 'success', text: '✓ Saved to memory/user_role.md' },
+                { type: 'out', text: '' },
+                { type: 'out', text: '── Next session ──' },
+                { type: 'cmd', text: 'claude', delay: 1000 },
+                { type: 'success', text: '✓ Loading memory... 1 user preference found' },
+                { type: 'out', text: 'Welcome back. You\'re a PM. Keeping answers direct.' },
+                { type: 'warn', text: '→ It remembers you. Zero re-explanation.' },
+              ]} />
+
+              <p className="mt-2 text-sm text-fd-muted-foreground">
                 <Link href="/docs/foundations/memory-system" className="underline hover:text-fd-foreground">Learn more about memory</Link>.
               </p>
             </GuideStep>
@@ -320,8 +360,21 @@ npm run test   # Run tests
                 At the end of each session, write a short handoff so the next session picks up where you left off. Just tell Claude Code:
               </p>
               <CopyBlock code={'"Write a handoff for this session. What did we do, what\'s next, and any key decisions."'} language="prompt" />
-              <p className="mt-4 text-sm text-fd-muted-foreground">
-                This 30-second habit saves 10 minutes of re-explaining next time.{' '}
+              <DemoCard title="Handoff → warm start" loop={false} steps={[
+                { type: 'cmd', text: '"Write a handoff for this session"' },
+                { type: 'out', text: 'Writing handoff...' },
+                { type: 'success', text: '✓ Saved to handoffs/2026-03-29.md' },
+                { type: 'out', text: '  - Built login form with validation' },
+                { type: 'out', text: '  - Next: connect to auth API' },
+                { type: 'out', text: '' },
+                { type: 'out', text: '── Tomorrow ──' },
+                { type: 'cmd', text: 'claude', delay: 1000 },
+                { type: 'success', text: '✓ Reading handoff... resuming context' },
+                { type: 'out', text: 'Picking up: connect login form to auth API' },
+                { type: 'warn', text: '→ 30 seconds to write. 10 minutes saved tomorrow.' },
+              ]} />
+
+              <p className="mt-2 text-sm text-fd-muted-foreground">
                 <Link href="/docs/foundations/session-lifecycle" className="underline hover:text-fd-foreground">Learn about session lifecycle</Link>.
               </p>
             </GuideStep>
@@ -402,8 +455,22 @@ Review the code I just changed for quality, bugs, and style.
 
 ## Output Format
 List each finding with the file, line, severity, and a one-line fix.`} language="markdown" />
-              <p className="mt-4 text-sm text-fd-muted-foreground">
-                Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.claude/skills/code-review.md</code>.{' '}
+              <p className="mb-4 text-sm text-fd-muted-foreground">
+                Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.claude/skills/code-review.md</code>. Then try it:
+              </p>
+
+              <DemoCard title="Your skill in action" loop={false} steps={[
+                { type: 'cmd', text: 'claude "review my recent changes"' },
+                { type: 'out', text: 'Matched skill: code-review' },
+                { type: 'out', text: 'Running git diff...' },
+                { type: 'out', text: 'Reviewing 3 changed files...' },
+                { type: 'error', text: '  CRITICAL: SQL injection in query.ts:23' },
+                { type: 'warn', text: '  WARNING: Missing null check in user.ts:41' },
+                { type: 'success', text: '  SUGGESTION: Extract helper in utils.ts:15' },
+                { type: 'warn', text: '→ One command. Full review. That\'s a skill.' },
+              ]} />
+
+              <p className="mt-2 text-sm text-fd-muted-foreground">
                 <Link href="/docs/patterns/skills" className="underline hover:text-fd-foreground">Learn more about skills</Link>.
               </p>
             </GuideStep>
@@ -433,7 +500,15 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
               <p className="my-4 text-sm text-fd-muted-foreground">
                 Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project root. Set your <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable. Then try:
               </p>
-              <CopyBlock code={'"List my open pull requests"'} language="prompt" />
+              <DemoCard title="MCP in action — talking to GitHub" loop={false} steps={[
+                { type: 'cmd', text: '"List my open pull requests"' },
+                { type: 'out', text: '[MCP: github] Querying pull requests...' },
+                { type: 'success', text: '✓ Connected to your-username/my-project' },
+                { type: 'out', text: '2 PRs open:' },
+                { type: 'out', text: '  #12 — Add user dashboard (you, 2 days ago)' },
+                { type: 'out', text: '  #14 — Fix login redirect (you, today)' },
+                { type: 'warn', text: '→ Claude Code just talked to GitHub. No browser needed.' },
+              ]} />
 
               <Collapsible title="Don't use GitHub? Skip this step.">
                 <p>MCP is optional. You can always add it later. The guide continues without it. Just check the box above to move on.</p>
