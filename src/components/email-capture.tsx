@@ -1,8 +1,19 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Mail } from 'lucide-react';
 
 export function EmailCapture() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDark(document.documentElement.classList.contains('dark'));
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="rounded-xl border border-fd-border bg-fd-card p-6">
       <div className="flex items-center gap-2 mb-3">
@@ -13,10 +24,10 @@ export function EmailCapture() {
         New guides, templates, and tips delivered to your inbox. No spam. Unsubscribe anytime.
       </p>
       <iframe
-        src="https://shadmanrahman.substack.com/embed"
+        src={`https://shadmanrahman.substack.com/embed${isDark ? '?theme=dark' : ''}`}
         width="100%"
         height="80"
-        className="rounded-lg border-0 bg-transparent"
+        className="rounded-lg border-0"
         style={{ background: 'transparent' }}
         title="Subscribe to Claude Code Guide newsletter"
       />
