@@ -8,6 +8,7 @@ import {
 import { notFound } from 'next/navigation';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { DemoCard } from '@/components/demo-card';
+import { EmailCapture } from '@/components/email-capture';
 import type { Metadata } from 'next';
 
 const mdxComponents = {
@@ -34,6 +35,9 @@ export default async function Page(props: PageProps) {
       <DocsDescription>{data.description}</DocsDescription>
       <DocsBody>
         <MDX components={mdxComponents} />
+        <div className="mt-16 border-t border-fd-border pt-8">
+          <EmailCapture />
+        </div>
       </DocsBody>
     </DocsPage>
   );

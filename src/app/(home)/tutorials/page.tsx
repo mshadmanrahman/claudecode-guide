@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
+import { EmailCapture } from '@/components/email-capture';
 
 // metadata moved to layout or handled by page title
 
@@ -179,21 +180,28 @@ export default function TutorialsPage() {
         </div>
 
         {/* Email capture CTA */}
-        <div className="mt-16 rounded-xl border border-fd-border bg-fd-card p-10 text-center">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
-            Tutorials are launching soon
-          </h2>
-          <p className="mt-3 text-fd-muted-foreground max-w-lg mx-auto">
-            Each tutorial comes with a video walkthrough (no talking heads, just terminal magic) and copy-paste steps.
-            While we build them, start with the basics.
-          </p>
-          <Link
-            href="/guide"
-            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
-          >
-            Start the Interactive Guide
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+        <div className="mt-16 space-y-6">
+          <div className="rounded-xl border border-fd-border bg-fd-card p-10 text-center">
+            <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+              Tutorials are launching soon
+            </h2>
+            <p className="mt-3 text-fd-muted-foreground max-w-lg mx-auto">
+              Each tutorial comes with a video walkthrough (no talking heads, just terminal magic) and copy-paste steps.
+              Get notified when they drop.
+            </p>
+            <div className="mt-6 mx-auto max-w-md">
+              <EmailCapture />
+            </div>
+          </div>
+          <div className="text-center">
+            <Link
+              href="/guide"
+              className="inline-flex items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+            >
+              Or start the Interactive Guide now
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
 
