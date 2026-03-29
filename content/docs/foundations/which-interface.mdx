@@ -1,0 +1,160 @@
+---
+title: "Terminal vs IDE vs Web vs Desktop"
+description: "Claude Code runs everywhere now — terminal, VS Code, JetBrains, web app, desktop app. Here's which one to use and when. The answer isn't what you think."
+---
+
+## Wait, There Are Multiple Ways to Use Claude Code?
+
+Yes. And this confuses basically everyone.
+
+When most people hear "Claude Code," they think of the terminal. You open a terminal, type `claude`, and start working. That's the original experience and it's still the most powerful one.
+
+But Claude Code now runs in a lot more places. And picking the right one for your workflow actually matters.
+
+<DemoCard title="Same Claude Code, different surfaces" steps={[
+  { type: 'out', text: '── Terminal (CLI) ──' },
+  { type: 'cmd', text: 'claude "add auth to this app"' },
+  { type: 'success', text: '✓ Full agent. Reads files, runs tests, writes code.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── VS Code / JetBrains Extension ──' },
+  { type: 'cmd', text: 'Cmd+Shift+P → Claude Code: Open', delay: 800 },
+  { type: 'success', text: '✓ Same agent, inside your editor.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── Web App (claude.ai/code) ──' },
+  { type: 'cmd', text: 'Open browser → claude.ai/code', delay: 800 },
+  { type: 'success', text: '✓ Same agent, no install needed.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── Desktop App ──' },
+  { type: 'cmd', text: 'Open Claude Code app (Mac/Windows)', delay: 800 },
+  { type: 'success', text: '✓ Native app, same agent under the hood.' },
+  { type: 'warn', text: '→ Four surfaces. One agent. Pick what fits your workflow.' },
+]} />
+
+## The Quick Decision
+
+Here's the honest answer most guides won't give you:
+
+| You are... | Use this | Why |
+|---|---|---|
+| A developer comfortable in the terminal | **Terminal (CLI)** | Maximum power, full extensibility |
+| A developer who lives in VS Code | **VS Code Extension** | Same power, never leave your editor |
+| A developer who lives in JetBrains | **JetBrains Extension** | Same power, native IDE integration |
+| A PM or non-developer | **Desktop App** or **Web App** | No terminal knowledge needed |
+| Trying Claude Code for the first time | **Web App** | Zero install, instant start |
+| On a shared/company machine with restrictions | **Web App** | Nothing to install |
+
+## Terminal (CLI): The Power User's Choice
+
+This is where Claude Code started and where it's most powerful. If you're comfortable in the terminal, this is probably where you should be.
+
+**What you get:**
+- Full access to hooks, skills, MCP servers, and sub-agents
+- Direct filesystem access (Claude Code reads and writes your actual files)
+- Runs alongside any editor you want (VS Code, Vim, Zed, Emacs, whatever)
+- Configuration via `CLAUDE.md` files checked into your repo
+- Autonomous loops and background tasks
+
+**What you give up:**
+- You need to be comfortable in the terminal
+- No visual diff preview (you see diffs after, not before)
+- Initial learning curve is steeper
+
+<DemoCard title="Terminal — the full experience" steps={[
+  { type: 'cmd', text: 'claude' },
+  { type: 'success', text: '✓ Reading CLAUDE.md... loaded 19 skills, 9 agents' },
+  { type: 'success', text: '✓ Memory: 3 projects, 12 preferences' },
+  { type: 'success', text: '✓ MCP: github, slack, linear connected' },
+  { type: 'cmd', text: '"refactor auth module and run all tests"', delay: 1000 },
+  { type: 'out', text: 'Spawning 2 sub-agents...' },
+  { type: 'success', text: '✓ Refactored 4 files' },
+  { type: 'success', text: '✓ All 87 tests passing' },
+  { type: 'warn', text: '→ Full agent power. Everything runs locally.' },
+]} />
+
+**Best for:** Developers who want maximum control, teams with shared `CLAUDE.md` configs, anyone running advanced workflows.
+
+## IDE Extensions: Best of Both Worlds
+
+The VS Code and JetBrains extensions embed Claude Code directly into your editor. Same agent, same capabilities, but you never leave your IDE.
+
+**What you get:**
+- Claude Code in a panel inside your editor
+- Same filesystem access, same hooks, same skills
+- Easier to see which files are changing as you work
+- No context switching between terminal and editor
+
+**What you give up:**
+- Slightly less screen real estate (the panel takes space)
+- Extension might lag behind the CLI on bleeding-edge features
+
+<DemoCard title="VS Code extension — code and agent side by side" steps={[
+  { type: 'cmd', text: 'Cmd+Shift+P → Claude Code: Open Panel' },
+  { type: 'success', text: '✓ Claude Code panel opens in sidebar' },
+  { type: 'cmd', text: '"explain this function and suggest improvements"', delay: 800 },
+  { type: 'out', text: 'Reading currently open file...' },
+  { type: 'out', text: 'This function handles payment processing.' },
+  { type: 'out', text: 'Issues found:' },
+  { type: 'error', text: '  1. No error handling on Stripe call (line 23)' },
+  { type: 'error', text: '  2. Amount calculated as float, should be integer cents' },
+  { type: 'cmd', text: '"fix both issues"', delay: 1000 },
+  { type: 'success', text: '✓ Added try-catch with Stripe error types' },
+  { type: 'success', text: '✓ Converted to integer cents (Math.round)' },
+  { type: 'warn', text: '→ Same agent. No terminal needed. Never left the editor.' },
+]} />
+
+**Best for:** Developers who prefer staying in their IDE, teams where some people aren't terminal-comfortable, visual learners.
+
+## Web App (claude.ai/code): Zero Friction
+
+The web app at claude.ai/code gives you Claude Code in a browser tab. No installation, no terminal, no setup. Open the URL and start working.
+
+**What you get:**
+- Instant start, nothing to install
+- Works from any computer, including Chromebooks and locked-down work machines
+- Same agentic capabilities for code generation
+- Good for quick tasks and experimentation
+
+**What you give up:**
+- No local filesystem access (works with remote repos or uploaded code)
+- Hooks, MCP, and advanced configuration not available
+- Less integrated with your local development environment
+
+**Best for:** First-time users, PMs exploring Claude Code, quick tasks when you're away from your dev machine, evaluating if Claude Code is worth installing.
+
+## Desktop App: The Native Experience
+
+The Claude Code desktop app (Mac and Windows) gives you a dedicated native application. It's like the terminal CLI but wrapped in a polished app interface.
+
+**What you get:**
+- Native app experience (Cmd+Tab to switch, notifications, etc.)
+- Full agent capabilities
+- Cleaner interface than raw terminal
+- Good for people who want Claude Code as a "first-class" app, not a terminal command
+
+**What you give up:**
+- Basically the same as the CLI but in an app window
+- Marginal differences from terminal — mostly a matter of preference
+
+**Best for:** People who prefer apps over terminals, Mac/Windows users who want a dedicated workspace for Claude Code.
+
+## The Real Answer: Start Anywhere, Graduate to Terminal
+
+Here's my honest take.
+
+If you've never used Claude Code, **start with the web app**. Zero friction. You'll know within 10 minutes if this tool is for you.
+
+If you like it and want more power, **install the CLI or the IDE extension** depending on where you spend your day. VS Code users should grab the extension. Terminal people should use the CLI.
+
+If you become a power user — building skills, running hooks, using MCP servers, setting up autonomous loops — you'll end up in the **terminal** regardless. That's where the full configuration system lives and where the most advanced features work.
+
+The surfaces aren't competing with each other. They're on-ramps to the same system. Pick the one that matches where you are today, and know that you can move up anytime.
+
+## Quick Setup per Surface
+
+| Surface | How to start |
+|---|---|
+| **Terminal** | `npm install -g @anthropic-ai/claude-code && claude` |
+| **VS Code** | Install "Claude Code" from VS Code marketplace |
+| **JetBrains** | Install "Claude Code" from JetBrains plugin marketplace |
+| **Web App** | Go to [claude.ai/code](https://claude.ai/code) |
+| **Desktop** | Download from [claude.ai](https://claude.ai) → Claude Code section |
