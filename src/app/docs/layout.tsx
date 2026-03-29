@@ -15,12 +15,11 @@ export default function Layout({ children }: { children: ReactNode }) {
         url: '/',
       }}
       links={[
-        { text: 'Home', url: '/' },
-        {
-          text: 'GitHub',
-          url: 'https://github.com/mshadmanrahman/claudecode-guide',
-          external: true,
-        },
+        { text: 'Guide', url: '/guide' },
+        { text: 'Roadmap', url: '/roadmap' },
+        { text: 'Templates', url: '/docs/templates' },
+        { text: 'Tutorials', url: '/tutorials' },
+        { text: 'Blog', url: '/blog' },
       ]}
       sidebar={{
         defaultOpenLevel: 1,
