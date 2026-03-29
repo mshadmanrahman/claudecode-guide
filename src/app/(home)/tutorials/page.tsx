@@ -120,7 +120,7 @@ export default function TutorialsPage() {
             outcome="A working CLAUDE.md that knows your project, your stack, and your preferences."
             href="/tutorials/your-first-claude-md"
             icon={<Hammer className="h-5 w-5" />}
-            available={false}
+            available={true}
           />
 
           <TutorialCard
@@ -131,7 +131,7 @@ export default function TutorialsPage() {
             outcome="A deployed website on Vercel that you built with Claude Code."
             href="/tutorials/ship-a-landing-page"
             icon={<Rocket className="h-5 w-5" />}
-            available={false}
+            available={true}
           />
 
           <TutorialCard
@@ -142,7 +142,7 @@ export default function TutorialsPage() {
             outcome="A reusable /skill command that automates a real task in your workflow."
             href="/tutorials/your-first-skill"
             icon={<Sparkles className="h-5 w-5" />}
-            available={false}
+            available={true}
           />
         </div>
 
@@ -164,7 +164,7 @@ export default function TutorialsPage() {
             outcome="A skill that converts meeting notes into formatted Jira tickets automatically."
             href="/tutorials/meeting-to-jira"
             icon={<Briefcase className="h-5 w-5" />}
-            available={false}
+            available={true}
           />
 
           <TutorialCard
@@ -175,7 +175,7 @@ export default function TutorialsPage() {
             outcome="A /weekly-status skill that generates your report from real data sources."
             href="/tutorials/weekly-status"
             icon={<Briefcase className="h-5 w-5" />}
-            available={false}
+            available={true}
           />
         </div>
 
@@ -183,11 +183,10 @@ export default function TutorialsPage() {
         <div className="mt-16 space-y-6">
           <div className="rounded-xl border border-fd-border bg-fd-card p-10 text-center">
             <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
-              Tutorials are launching soon
+              Want more tutorials?
             </h2>
             <p className="mt-3 text-fd-muted-foreground max-w-lg mx-auto">
-              Each tutorial comes with a video walkthrough (no talking heads, just terminal magic) and copy-paste steps.
-              Get notified when they drop.
+              New tutorials drop regularly. Subscribe to get notified when they land.
             </p>
             <div className="mt-6 mx-auto max-w-md">
               <EmailCapture />
@@ -198,7 +197,7 @@ export default function TutorialsPage() {
               href="/guide"
               className="inline-flex items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
             >
-              Or start the Interactive Guide now
+              Or try the 9-step Interactive Guide
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
