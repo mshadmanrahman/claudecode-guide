@@ -1,23 +1,17 @@
 ---
 title: The Definitive CLAUDE.md Guide
-description: How to architect CLAUDE.md as the operating system for your Claude Code workflow. Not a config file. A system design document.
+description: Skip this file and Claude Code is basically guessing. Here's how to actually set it up so every session starts warm and every response is on point.
 ---
 
-## What CLAUDE.md Actually Is
+## Why Most People Get Bad Results
 
-Every tutorial tells you "create a CLAUDE.md file with project instructions." That's like saying "create a Dockerfile" without explaining container architecture.
+Here's the deal. Most people install Claude Code, type a question, get a mid answer, and walk away thinking "AI isn't that useful yet."
 
-CLAUDE.md is not a prompt. It's the **control plane** for your AI workflow. It defines:
+But the problem isn't Claude Code. It's that they skipped the one file that makes it actually work.
 
-- How sessions start and end
-- What tools and skills are available
-- How agents coordinate
-- What rules govern code quality
-- How context persists across conversations
+Without CLAUDE.md, every session starts blind. Claude Code doesn't know your stack. Doesn't know your coding style. Doesn't know that your team uses Tailwind, not styled-components. Doesn't know you hate verbose output. It's guessing. And guessing produces mid results.
 
-Get this right and every session starts warm, follows consistent patterns, and leaves a trail. Get it wrong and you're re-explaining yourself every time.
-
-<DemoCard title="Without CLAUDE.md → With CLAUDE.md" steps={[
+<DemoCard title="Same prompt. Completely different results." steps={[
   { type: 'cmd', text: 'claude "Add a login form"' },
   { type: 'out', text: 'Created LoginForm.jsx' },
   { type: 'error', text: '↑ Wrong — your project uses TypeScript (.tsx)' },
@@ -35,139 +29,154 @@ Get this right and every session starts warm, follows consistent patterns, and l
   { type: 'warn', text: '→ Same prompt. Completely different result.' },
 ]} />
 
-## The Five-Layer Architecture
+Same person. Same prompt. Night and day difference. The only variable? A CLAUDE.md file.
 
-A production CLAUDE.md has five distinct layers. Most people only use the first one.
+## OK So What Is It Actually?
 
-### Layer 1: Identity and Context
+CLAUDE.md is a markdown file at the root of your project that tells Claude Code how to behave. Think of it like onboarding a new team member. You wouldn't just hand someone a laptop and say "go write code." You'd tell them:
+
+- What the project is and how it's structured
+- What tech stack you use
+- How you like things done
+- What mistakes to avoid
+
+That's literally what CLAUDE.md does. Except this team member reads your instructions perfectly, every single time, and never forgets them during the session.
+
+## The Five Things Your CLAUDE.md Needs
+
+Most people write one section and call it done. That gets you maybe 30% of the value. Here's the full picture:
+
+### 1. Tell it what it's working with
 
 ```markdown
 # CLAUDE.md
 
-Multi-project workspace at ~/Documents/MyWorkspace/.
-Read `_context/identity.md` for folder map, conventions, and key behaviors.
+This is a Next.js 16 app using App Router, Tailwind CSS, and TypeScript.
+Database: Neon Postgres via Drizzle ORM.
+Auth: Clerk.
+Deploy target: Vercel.
 ```
 
-This tells Claude Code what it's working with. Not just "this is a Next.js project" but the full topology: where skills live, where agents are defined, where rules are stored.
+Simple. But you'd be shocked how many people skip this. Without it, Claude Code has to infer your stack from your `package.json` every single time. Sometimes it guesses wrong.
 
-**Key insight:** Point to files rather than inlining everything. CLAUDE.md is an index, not a dump. Claude Code reads referenced files on demand.
+**Pro tip:** If you have a complex workspace, point to files instead of inlining everything. CLAUDE.md is an index, not a dump.
 
-### Layer 2: Session Lifecycle
+```markdown
+Read `docs/architecture.md` for the full system design.
+Read `docs/conventions.md` for coding standards.
+```
+
+### 2. Define how sessions start and end
+
+This is the most underused part and honestly the biggest game-changer.
 
 ```markdown
 ## Session Lifecycle
 
-**Starting**: Read MEMORY.md. Check handoffs/ for latest handoff. Resume context.
-**During**: Use memory system for learnings. Corrections go to tasks/lessons.md.
-**Ending**: MANDATORY before finishing any session:
-1. Write a handoff if work is in-progress
-2. Save corrections to memory files
-3. Minimum handoff: what was done, what's next, key decisions
+**Starting**: Read MEMORY.md. Check handoffs/ for the latest handoff. Resume context.
+**Ending**: Write a handoff if work is in-progress. Save any corrections to memory.
 ```
 
-This is the most underused layer. Without it, every session is stateless. With it, sessions compound over time. After a month, Claude Code knows your projects, preferences, and common mistakes without you explaining anything.
+Without this, every session is stateless. You close the tab, everything's gone. With it, sessions compound. After a month, Claude Code knows your projects, your preferences, and your common patterns without you saying a word.
 
-### Layer 3: Communication Preferences
+I know what you're thinking: "That sounds like extra work." It is, for about a week. Then it starts saving you 15-20 minutes per session. The math is not close.
+
+### 3. Tell it how you communicate
 
 ```markdown
-## Communication Preferences
+## How I Work
 
-- Direct, no fluff. Skip preambles. Just help.
-- NO em dashes. Use colons, semicolons, or split sentences.
+- Direct, no fluff. Skip preambles.
+- NO em dashes. Use colons or split sentences.
 - Lead with recommendations, not option lists.
-- Structured output: headings, bullets, numbered steps, tables, checklists.
-- Production-ready: code/specs/artifacts should be shippable as-is.
+- Code should be production-ready, not "here's a starting point."
 ```
 
-This shapes every response you get. Without explicit preferences, Claude Code defaults to verbose, hedging, "here are some options to consider" mode. With them, you get direct, actionable output tailored to how you work.
+This is huge and nobody talks about it. Without explicit preferences, Claude Code defaults to that verbose, hedging, "here are several approaches you might consider" mode. You know the one. It's polite but useless when you need a straight answer.
 
-### Layer 4: Orchestration Rules
+Put your communication preferences in CLAUDE.md and suddenly every response matches how you actually want to work.
+
+### 4. Set the rules for how it works
 
 ```markdown
-## Orchestration Workflow
+## Workflow Rules
 
-1. **Plan Mode Default**: Enter plan mode for ANY non-trivial task
-2. **Sub-agent Strategy**: One task per sub-agent. Keep main context clean.
-3. **Self-Improvement Loop**: After ANY correction, capture the lesson.
-4. **Verification Before Done**: Run tests, check logs, diff behavior.
-5. **Demand Elegance**: For non-trivial changes, ask "is there a more elegant way?"
+1. Plan first for anything non-trivial. Think before coding.
+2. One sub-agent per focused task. Keep the main chat clean.
+3. After ANY correction from me, save it to memory. Don't make the same mistake twice.
+4. Verify before calling it done. Run tests. Check the diff.
 ```
 
-This defines how Claude Code approaches work. Without orchestration rules, it defaults to "do everything in one shot." With them, it plans before building, delegates to sub-agents, and verifies before declaring done.
+This is the difference between "doing things" and "doing things well." Without orchestration rules, Claude Code will just start writing code the moment you ask. Sometimes that's fine. For anything complex, you want it to plan first, break down the work, and verify the result.
 
-### Layer 5: Tool and Skill Registration
+### 5. Register your tools
 
 ```markdown
-Skills: `_context/skills/` + `~/.claude/skills/`
-Agents: `_context/agents/` (9 agents). Read each .md for description.
-Rules: `_context/rules/` (10 rules) + `~/.claude/rules/`
-Commands: `.claude/commands/` (8 slash commands).
+## Available Tools
+
+Skills: `_context/skills/` (keyword-triggered workflows)
+Agents: `_context/agents/` (specialist sub-agents)
+Rules: `_context/rules/` (coding standards)
+Commands: `.claude/commands/` (slash commands)
 ```
 
-This registers your custom tools. Skills are triggered by keywords in your prompts. Agents are spawned for parallel work. Rules enforce coding standards. Commands are slash-invoked workflows.
+This tells Claude Code what it has to work with. Skills, agents, hooks, custom commands. If it doesn't know they exist, it won't use them.
 
-## Common Mistakes
+## The Three Mistakes Everyone Makes
 
-### Mistake 1: Putting everything inline
+### Mistake 1: Dumping everything inline
 
-CLAUDE.md has a soft limit. If you dump 2000 lines of instructions, the system context becomes noisy and Claude Code starts ignoring directives.
+Your CLAUDE.md is 2000 lines long. It has your entire coding style guide, all your project history, and your life story. Claude Code reads it all at the start of every session, eats a chunk of your context window, and starts ignoring half of it.
 
-**Fix:** Use CLAUDE.md as an index. Reference external files for detailed rules, skill definitions, and agent configs.
+**Fix:** Keep CLAUDE.md under 100 lines. Use it as a table of contents that points to other files. Let Claude Code read those on demand.
 
 ### Mistake 2: No session lifecycle
 
-Without start/end protocols, context dies when the conversation ends. You lose decisions, rationale, and work-in-progress state.
+You don't define start/end protocols. Every session starts cold. You spend 10 minutes re-explaining what happened yesterday.
 
-**Fix:** Define explicit start (read memory + handoff) and end (write handoff + save learnings) protocols.
+**Fix:** Add the session lifecycle section above. Two minutes of investment at the end of each session saves ten minutes at the start of the next one. Every single time.
 
-### Mistake 3: Generic instructions
+### Mistake 3: Being vague
 
-"Write clean code" is useless. "Functions under 50 lines, files under 800 lines, no mutation, handle errors explicitly" is actionable.
+"Write clean code" is not a rule. It's a wish. Claude Code reads that and goes "sure, clean code, got it" and then writes whatever it was going to write anyway.
 
-**Fix:** Be specific. Name the patterns you want. Reference the linters and formatters you use. Show examples of good and bad.
+**Fix:** Be specific. "Functions under 50 lines. Files under 800 lines. No mutation. Handle errors explicitly. Use early returns." Now Claude Code has actual constraints to follow.
 
-### Mistake 4: No self-improvement loop
+## A Real CLAUDE.md in Production
 
-If Claude Code makes a mistake and you correct it, that correction is lost when the session ends. Next session, same mistake.
-
-**Fix:** Add a self-improvement rule: "After ANY correction, save to memory. Write a rule to prevent the same mistake."
-
-## Real-World Example
-
-Here's a production CLAUDE.md structure managing 6 projects, 19 skills, 9 agents, and persistent memory:
+This isn't theoretical. Here's a real workspace structure that runs daily across 6 projects:
 
 ```
 CLAUDE.md (index, ~80 lines)
 ├── _context/
-│   ├── skills/         (19 composable workflow skills)
-│   ├── agents/         (9 specialized agents)
-│   ├── rules/          (10 coding & workflow rules)
-│   ├── protocols/      (injection templates for sub-agents)
-│   ├── handoffs/       (session continuity docs)
-│   └── dmux/           (parallel agent configurations)
+│   ├── skills/         (19 workflow skills)
+│   ├── agents/         (9 specialist agents)
+│   ├── rules/          (10 coding rules)
+│   ├── handoffs/       (session continuity)
+│   └── memory/         (persistent knowledge)
 ├── .claude/
 │   ├── commands/       (8 slash commands)
-│   └── hooks/          (session-start, session-end, skill tracking)
+│   └── hooks/          (automation triggers)
 └── memory/
-    ├── MEMORY.md       (index of all memory files)
-    ├── user_*.md       (role, goals, preferences)
-    ├── feedback_*.md   (corrections & confirmations)
-    ├── project_*.md    (active work context)
-    └── reference_*.md  (external system pointers)
+    ├── MEMORY.md       (index)
+    ├── user_*.md       (who you are)
+    ├── feedback_*.md   (corrections)
+    ├── project_*.md    (active work)
+    └── reference_*.md  (external pointers)
 ```
 
-This isn't theory. This is a workspace that runs daily, managing work projects, open source repos, side projects, and personal productivity. Every session starts in under 10 seconds of context loading. Every correction is captured. Every handoff ensures continuity.
+Every session starts in under 10 seconds. Zero re-explanation. Corrections from last month still apply. Handoffs from yesterday load automatically.
 
-## Getting Started
+It took about a week to set up. It saves 30+ minutes daily. The ROI is absurd.
 
-**Step 1:** Create `CLAUDE.md` at your project root with the five layers above.
+## Getting Started (5 Minutes)
 
-**Step 2:** Create a `memory/MEMORY.md` file as an empty index. Start saving user and feedback memories as you work.
+You don't need all of this on day one. Start small:
 
-**Step 3:** Define your session lifecycle. Start with just: "Read MEMORY.md at start. Write what you did at end."
+**Right now:** Run `claude /init` in your project. It generates a basic CLAUDE.md from your codebase. That alone is a massive improvement over nothing.
 
-**Step 4:** Add communication preferences. Be specific about tone, format, and what you don't want.
+**This week:** Add communication preferences and basic session lifecycle (read memory at start, write handoff at end).
 
-**Step 5:** Over time, add orchestration rules as you discover patterns. Don't try to define everything upfront.
+**This month:** Add orchestration rules as you discover patterns. Add skills for repeated workflows.
 
-The system grows with you. That's the point.
+The system grows with you. That's the point. You don't need to architect the whole thing upfront. You need to start, and then let it compound.

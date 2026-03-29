@@ -1,61 +1,79 @@
 ---
 title: Claude Code vs Cursor
-description: "Honest comparison: terminal-native agent vs IDE-integrated AI. Different tools for different people. Here's how to choose."
+description: "They're not the same thing. Not even close. Here's the real difference and how to pick the right one."
 ---
 
-These two tools approach AI-assisted coding from completely different angles. Cursor puts AI inside your editor. Claude Code puts an AI agent inside your terminal. Neither is "better." They solve different problems.
+## They're Solving Different Problems
 
-## Architecture at a Glance
+I see this comparison everywhere and it drives me a little crazy. Asking "Claude Code or Cursor?" is like asking "should I hire an assistant or buy a better keyboard?" They're fundamentally different tools.
+
+**Cursor** puts AI inside your editor. You write code, it suggests the next line, you hit Tab. You highlight something and ask it to refactor. Everything happens inside VS Code (well, their fork of it), line by line, with visual diffs. It's autocomplete on steroids.
+
+**Claude Code** puts an AI agent in your terminal. You describe what you want in plain English. It plans, writes code, creates files, runs tests, reads logs, and verifies the result. It works across your whole codebase, not just the file you have open.
+
+See the difference? Cursor helps you write code faster. Claude Code helps you build things without writing most of the code yourself.
+
+## The Quick Breakdown
 
 | | Claude Code | Cursor |
 |---|---|---|
-| **Where it lives** | Your terminal | A forked VS Code editor |
-| **Core model** | Claude (Sonnet, Opus) | Multiple (GPT-4, Claude, custom) |
-| **Primary interaction** | Chat in terminal, agent executes | Inline completion, chat sidebar, Cmd+K edits |
-| **Editor requirement** | Works with any editor (VS Code, Vim, Zed, etc.) | You must use Cursor as your editor |
-| **Configuration** | `CLAUDE.md` files in your repo | Settings UI inside the editor |
-| **Extensibility** | Hooks, skills, MCP servers, sub-agents | Rules, custom docs, limited API |
+| **Lives in** | Your terminal | A forked VS Code editor |
+| **What it does** | Plans, builds, tests, verifies | Completes, suggests, refactors |
+| **Interaction** | Chat with an agent | Inline completion + sidebar |
+| **Editor lock-in** | Works with any editor | You must use Cursor |
+| **Configuration** | `CLAUDE.md` (powerful, file-based) | Settings UI (simpler, limited) |
+| **Extensibility** | Hooks, skills, MCP servers, agents | Rules, custom docs |
+| **Learning curve** | Steeper, but higher ceiling | Easier, but lower ceiling |
 
-## How the Workflow Differs
+## Where Cursor Wins (And I Mean Genuinely Wins)
 
-**Cursor** feels like a supercharged autocomplete. You write code, it suggests the next line, you hit Tab. You highlight code and ask it to refactor. You chat in a sidebar and it applies changes inline with a visual diff. Everything happens inside the editor, and you stay in control line by line.
+Let me be fair. Cursor is genuinely great at a few things:
 
-**Claude Code** feels like pair programming with someone who can also run your tests, read your logs, and modify files across your project. You describe what you want in plain English, and it plans, writes code, creates files, runs commands, and verifies the result. It works across your whole codebase, not just the file you have open.
+**Inline autocomplete.** You're typing a function, Cursor sees where you're going and finishes it for you. Tab, done. This is fast, frictionless, and honestly addictive. Claude Code doesn't do this.
 
-## Pricing
+**Visual diffs.** Before accepting any change, you see exactly what's different. Green lines added, red lines removed. You approve change by change. It's surgical. Claude Code just... makes the changes and you review the diff later.
+
+**Low barrier to entry.** If you use VS Code, Cursor feels like home on day one. Install it, start coding, it's already helping. Claude Code has a learning curve. You need to be comfortable in the terminal, write a CLAUDE.md, understand how the agent loop works.
+
+**Single-file work.** If you're editing one file and want AI help with that specific file, Cursor is genuinely better at that focused experience.
+
+## Where Claude Code Wins (And It's Not Close)
+
+**Multi-file operations.** "Refactor the auth module across 12 files." Cursor can do this one file at a time. Claude Code does it in one shot, understands the cross-file dependencies, and runs the tests after.
+
+**Planning and execution.** Claude Code can enter plan mode, outline an approach, get your approval, then execute. It's not just writing code. It's thinking about what to build, how to build it, and then building it. Cursor doesn't have this.
+
+**Workflow automation.** Hooks, skills, slash commands, sub-agents. You can build a whole operating system around Claude Code. "Before every commit, run security review." "After every meeting, extract action items." Cursor has nothing like this.
+
+**No editor lock-in.** You use Vim? Zed? Emacs? WebStorm? Claude Code works with all of them. Because it lives in the terminal, not inside a specific editor. Cursor requires you to use Cursor.
+
+**Deep project configuration.** CLAUDE.md is a control plane for your workflow. You define how Claude Code behaves, what rules it follows, how sessions start and end. It's not settings. It's system design. Cursor's configuration is a settings page.
+
+## The Price Comparison
 
 | Plan | Cost | What you get |
 |---|---|---|
 | **Cursor Pro** | $20/month | 500 fast requests, unlimited slow |
 | **Cursor Business** | $40/month/seat | Admin controls, team features |
-| **Claude Pro** (for Claude Code) | $20/month | Good for moderate daily use |
-| **Claude Max** | $100-200/month | Heavy usage, 5x or 20x limits |
+| **Claude Pro** | $20/month | Good for moderate daily use |
+| **Claude Max** | $100-200/month | Heavy usage, multiple projects |
 
-## Learning Curve
-
-Cursor is easier to pick up. If you already use VS Code, it feels familiar immediately. Tab completion works out of the box, and the visual diff UI is intuitive.
-
-Claude Code has a steeper initial curve. You need to be comfortable in the terminal. You need to learn about `CLAUDE.md`, how to give good instructions, and how the agent loop works. But once you get past that learning phase, the ceiling is much higher for complex tasks.
-
-## Where Each Wins
-
-**Cursor is better when you:**
-- Want inline code completion as you type
-- Prefer visual diffs before accepting changes
-- Are newer to coding and want gentle AI assistance
-- Work primarily in a single file at a time
-
-**Claude Code is better when you:**
-- Want an agent that can plan and execute multi-step tasks
-- Need to work across many files simultaneously
-- Want to automate workflows with hooks and scripts
-- Use a non-VS Code editor (Vim, Zed, Emacs, etc.)
-- Want deep project configuration via `CLAUDE.md`
+At the same price point ($20/mo), both are solid. When you scale up, Claude Max at $100-200 is more expensive, but you're getting a fundamentally different level of capability.
 
 ## Can You Use Both?
 
-Yes, and some people do. Cursor for inline completion while writing code, Claude Code for bigger tasks like "refactor this module" or "add tests for everything in this directory." They don't conflict.
+Yes. And honestly, some of the best setups I've seen do exactly this.
 
-## Recommendation
+Cursor for inline completion while you're writing code. Claude Code for the bigger stuff: "add tests for this module," "refactor the API layer," "investigate why this endpoint is slow."
 
-If you want AI to write code alongside you in your editor, go with Cursor. If you want an AI agent that can plan, execute, and verify across your whole project, go with Claude Code. If you are brand new to AI coding tools, Cursor will feel less intimidating on day one. If you are comfortable in the terminal and want more power, Claude Code will reward the investment.
+They don't conflict. Different tools, different jobs.
+
+## My Honest Take
+
+If you're a developer who writes code all day and wants AI to help you write it faster, Cursor is great. Genuinely. It makes you faster at the thing you're already doing.
+
+If you want an AI agent that can plan, execute, and verify across your whole project (and you're willing to invest a week learning the workflow), Claude Code is in a different league. The ceiling is just so much higher.
+
+If you're brand new to AI coding tools, start with Cursor. It's less intimidating. Get comfortable with the idea of AI helping you code. Then when you're ready for more power, come try Claude Code.
+
+If you're a PM, manager, or non-developer who wants to use AI for work, this isn't even a question. Claude Code. Cursor is specifically a coding tool. Claude Code is a general-purpose agent.

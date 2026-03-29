@@ -1,15 +1,15 @@
 ---
 title: Session Lifecycle
-description: How to make every Claude Code session start warm, work efficiently, and end with a trail. The start-work-end protocol that makes context compound over time.
+description: "Stop re-explaining yourself every session. Here's the start-work-end protocol that makes Claude Code actually remember what happened yesterday."
 ---
 
-## The Cold Start Problem
+## You're Wasting 10 Minutes Every Session
 
-Every PM, developer, and power user hits the same wall: you open Claude Code, and it knows nothing. Your last session's context is gone. Decisions evaporated. You spend the first 10 minutes re-explaining who you are, what project you're working on, and what happened yesterday.
+Real talk. If you open Claude Code and the first thing you do is explain what project you're working on, what happened yesterday, and what you need to do today, you're doing it wrong.
 
-This isn't an AI limitation. It's a workflow design failure.
+That's not an AI limitation. That's a workflow problem. And it's fixable in about five minutes of setup.
 
-<DemoCard title="Session management in action" steps={[
+<DemoCard title="Cold start vs warm start" steps={[
   { type: 'cmd', text: 'claude' },
   { type: 'success', text: '✓ Reading MEMORY.md... 3 projects, 12 preferences loaded' },
   { type: 'success', text: '✓ Loading handoff from yesterday... context resumed' },
@@ -22,103 +22,111 @@ This isn't an AI limitation. It's a workflow design failure.
 
 ## The Three Phases
 
-### Phase 1: Start (Context Resumption)
+Every productive session follows the same pattern: start warm, work smart, end with a trail. Here's how.
 
-Every session begins with three reads:
+### Phase 1: Start (Don't Start Cold)
 
-1. **Memory** (`MEMORY.md`): An index of persistent knowledge. Your role, preferences, active projects, people you work with, feedback you've given.
-2. **Latest handoff** (`_context/handoffs/`): What happened last session. What was done, what's next, key decisions, blockers.
-3. **Product brain** (`_product-brain/`): Living project documents with current state, not stale PRDs.
+When a session begins, Claude Code reads three things:
+
+1. **Memory** (`MEMORY.md`): Who you are, what you're working on, your preferences, your past corrections
+2. **Latest handoff**: What happened last session, what decisions were made, what's next
+3. **Project docs**: Current state of your active projects
+
+You configure this in CLAUDE.md:
 
 ```markdown
-## Session Lifecycle (in CLAUDE.md)
+## Session Lifecycle
 
-**Starting**: Read MEMORY.md. Check _context/handoffs/ for latest handoff.
-Resume context.
+**Starting**: Read MEMORY.md. Check handoffs/ for latest handoff. Resume context.
 ```
 
-That's it. Three reads. Zero re-explanation. The system picks up where you left off.
+That's it. Three reads. Zero re-explanation. It picks up exactly where you left off.
 
-### Phase 2: Work (Orchestrated Execution)
+The difference is night and day. Instead of "let me explain the project again," you get "continue with the dashboard feature" and it just... knows.
 
-During a session, four rules govern how work happens:
+### Phase 2: Work (Stop Guessing, Start Planning)
 
-**1. Plan mode for non-trivial work.**
-If a task has 3+ steps or involves architectural decisions, enter plan mode first. Align on approach before touching code. If something goes sideways mid-execution, stop and re-plan.
+During a session, four rules make the difference between "using Claude Code" and "being productive with Claude Code":
 
-**2. Sub-agents for parallel work.**
-Each focused task gets its own agent. Research in one agent, code review in another, test execution in a third. Your main conversation stays clean and focused on decisions.
+**Plan before you build.** If the task has more than two steps, don't just start coding. Enter plan mode. Align on the approach. Then execute. This sounds slower. It saves tokens and prevents "that's not what I wanted" loops.
 
-**3. Self-improvement loop.**
-After any correction from you, the system captures the lesson. Not just "noted" but a persistent memory entry with the rule and reasoning. This prevents the same mistake across future sessions.
+**Delegate to sub-agents.** Research in one agent, code review in another, test execution in a third. Your main conversation stays focused on decisions. Sub-agents do the grunt work.
 
-**4. Verification before done.**
-Nothing is marked complete until it's proven working. Run tests, check logs, diff behavior. The bar: "Would a staff engineer approve this?"
+**Capture every correction.** This is the one most people skip and it's the one with the highest ROI. When Claude Code makes a mistake and you fix it, that correction needs to get saved as a memory entry. Otherwise next session, same mistake. It's like training a team member who gets amnesia every night.
 
-### Phase 3: End (Handoff Protocol)
+**Verify before done.** Nothing is "done" until tests pass, logs are clean, and the behavior matches what you asked for. "It looks right" is not verification.
 
-**Mandatory before finishing any session:**
+### Phase 3: End (Two Minutes That Save Ten)
 
-1. If work is in-progress or non-trivial decisions were made: write a handoff
-2. If corrections or surprises occurred: save to memory files
-3. The stop hook auto-captures a git diff footprint, but you must capture reasoning and decisions (hooks can't do that)
+Before you close the session:
 
-#### The Handoff Template
+1. **Write a handoff** if work is in-progress. Doesn't need to be fancy. Three bullet points:
+   - What was done
+   - What's next
+   - Any decisions or blockers
+
+2. **Save corrections** if Claude Code made mistakes you had to fix. These become permanent rules.
+
+Here's a handoff template:
 
 ```markdown
-# {Topic} - {Date}
+# Dashboard Feature - 2026-03-29
 
 ## What was done
-- Bullet points of completed work
+- Layout component finished, responsive grid working
+- Chart component 80% done, missing tooltip
 
 ## Key decisions
-- Decision and rationale (the "why" matters most)
+- Went with Recharts over Chart.js (better React integration)
+- Using server components for the data layer
 
 ## What's next
-- Immediate next steps
-- Blockers or dependencies
-
-## Open questions
-- Things that need answers before proceeding
+- Finish chart tooltips
+- Add loading skeleton
+- Wire up real API data
 ```
 
-This handoff is what the next session reads during Phase 1. The loop closes.
+That took 60 seconds to write. Tomorrow's session reads it and you save yourself 10 minutes of "where was I?" fumbling.
 
-## Memory Types
+## The Memory Types (What to Save, What to Skip)
 
-Not everything goes into memory. The system distinguishes four types:
+Not everything belongs in memory. Here's the cheat sheet:
 
-| Type | What to save | Example |
-|------|-------------|---------|
-| **user** | Role, goals, preferences | "Senior PM, prefers direct communication, manages 5 projects" |
-| **feedback** | Corrections and confirmations | "Don't mock databases in tests. Reason: prior incident." |
-| **project** | Active work, timelines, decisions | "Auth rewrite driven by compliance, not tech debt" |
-| **reference** | Where to find things externally | "Pipeline bugs tracked in Linear project INGEST" |
+| Save this | Skip this |
+|-----------|-----------|
+| Your role and preferences | Code patterns (read the code instead) |
+| Corrections and confirmations | Git history (use `git log`) |
+| Active project context | Debugging solutions (the fix is in the code) |
+| Where to find external things | Temporary task details |
 
-**What NOT to save:** Code patterns (read the code), git history (use git log), debugging solutions (the fix is in the code), ephemeral task details.
+Four types of memory, each with a purpose:
 
-Memory files are markdown with frontmatter. Each memory is its own file. MEMORY.md is just an index: one line per entry, linking to the file.
+- **user**: Who you are, how you work ("Senior PM, prefers direct communication")
+- **feedback**: What you corrected ("Don't mock databases in tests. We got burned last quarter.")
+- **project**: What's happening ("Auth rewrite is compliance-driven, not tech debt")
+- **reference**: Where to look ("Pipeline bugs tracked in Linear project INGEST")
 
-## The Compound Effect
+Each memory is its own markdown file. MEMORY.md is just an index that links to them.
 
-This isn't magic. It's compounding returns on a small daily investment.
+## What This Actually Looks Like Over Time
 
 | Timeframe | What changes |
 |-----------|-------------|
-| **Week 1** | Sessions start faster. Less re-explanation. |
-| **Month 1** | Memory captures your working style. Common corrections stop. |
-| **Month 3** | The system knows your projects, people, preferences. It anticipates what you need. |
-| **Month 6** | Institutional knowledge is encoded. New team members can read your handoffs and memory to onboard. |
+| **Week 1** | Sessions start faster. Less re-explanation. Feels like extra work writing handoffs. |
+| **Month 1** | Memory captures your style. Common mistakes stop happening. |
+| **Month 3** | It knows your projects, people, and preferences. Anticipates what you need. |
+| **Month 6** | Institutional knowledge is encoded. New team members could read your memory to onboard. |
 
-This is not a chatbot getting smarter. It's an operating system learning your practice.
+This isn't a chatbot getting smarter. It's your practice getting more efficient. Small daily investments that compound over time. The people who set this up and stick with it for a month never go back.
 
-## Implementation Checklist
+## Set It Up Right Now
 
-- [ ] Add session lifecycle section to your CLAUDE.md
-- [ ] Create `memory/MEMORY.md` as an empty index
-- [ ] Create `_context/handoffs/` directory
-- [ ] Write your first user memory (role, current focus)
-- [ ] Write your first feedback memory after a correction
-- [ ] Write your first handoff at end of session
-- [ ] Set up a session-start hook to remind about memory loading (optional)
-- [ ] Set up a session-end hook to remind about handoffs (optional)
+Seriously. Five minutes.
+
+- [ ] Add the session lifecycle section to your CLAUDE.md
+- [ ] Create `memory/MEMORY.md` as an empty file
+- [ ] Create a `handoffs/` directory
+- [ ] Write your first memory: who you are, what you're focused on
+- [ ] At the end of today's session, write a three-line handoff
+
+That's it. You're in the system now. Everything after this compounds.
