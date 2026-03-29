@@ -20,7 +20,7 @@ interface TutorialCardProps {
 
 function TutorialCard({ title, description, duration, difficulty, outcome, href, icon, available }: TutorialCardProps) {
   const content = (
-    <div className={`group relative flex flex-col gap-4 rounded-xl border border-fd-border bg-fd-card p-6 transition-all ${available ? 'hover:border-fd-muted-foreground/30 hover:bg-fd-accent cursor-pointer' : 'opacity-60'}`}>
+    <div className={`group relative flex flex-col gap-4 rounded-xl border border-fd-border bg-fd-card p-6 transition-all ${available ? 'hover:border-fd-muted-foreground/30 hover:bg-fd-accent cursor-pointer' : ''}`}>
       {/* Badge row */}
       <div className="flex items-center gap-2">
         <span className="flex items-center gap-1.5 rounded-full bg-fd-accent px-2.5 py-1 text-[11px] font-medium text-fd-muted-foreground">
