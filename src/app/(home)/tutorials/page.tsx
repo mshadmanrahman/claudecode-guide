@@ -69,21 +69,7 @@ function TutorialCard({ title, description, duration, difficulty, outcome, href,
 
 export default function TutorialsPage() {
   return (
-    <main className="flex min-h-screen flex-col bg-fd-background">
-      {/* Header */}
-      <nav className="border-b border-fd-border px-6 py-4">
-        <div className="mx-auto flex max-w-4xl items-center justify-between">
-          <Link href="/" className="font-mono text-sm font-bold tracking-tight text-fd-muted-foreground hover:text-fd-foreground transition-colors">
-            claudecodeguide<span className="text-fd-foreground">.dev</span>
-          </Link>
-          <div className="flex items-center gap-6 text-sm">
-            <Link href="/" className="text-fd-muted-foreground hover:text-fd-foreground transition-colors">Home</Link>
-            <Link href="/roadmap" className="text-fd-muted-foreground hover:text-fd-foreground transition-colors">Roadmap</Link>
-            <Link href="/docs/foundations/glossary" className="text-fd-muted-foreground hover:text-fd-foreground transition-colors">Glossary</Link>
-          </div>
-        </div>
-      </nav>
-
+    <div className="flex flex-col bg-fd-background">
       {/* Hero */}
       <section className="mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
         <div className="mb-4 flex justify-center">
@@ -198,21 +184,6 @@ export default function TutorialsPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="mt-auto border-t border-fd-border px-6 py-8">
-        <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="font-mono text-sm text-fd-muted-foreground">
-            claudecodeguide<span className="font-bold text-fd-foreground">.dev</span>
-          </p>
-          <p className="text-sm text-fd-muted-foreground">
-            Built by{' '}
-            <a href="https://github.com/mshadmanrahman" target="_blank" rel="noopener noreferrer" className="font-medium text-fd-foreground hover:underline">
-              Shadman Rahman
-            </a>
-            {' '}with lots of ♥️, ☕️ and Claude Code, naturally! 😉
-          </p>
-        </div>
-      </footer>
-    </main>
+    </div>
   );
 }

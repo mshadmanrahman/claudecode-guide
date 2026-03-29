@@ -3,6 +3,12 @@ import { Terminal, BookOpen, Zap, Coffee, Layout, ArrowRight, Sparkles, Shield, 
 import { TerminalCard, TerminalLine } from '@/components/terminal-card';
 import { FloatingCard } from '@/components/floating-card';
 import { EmailCapture } from '@/components/email-capture';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Claude Code Guide — Your Calm Step-by-Step Guide to AI Coding',
+  description: 'The practitioner\'s reference for Claude Code. From "what even is this?" to "I can\'t work without it." Setup guides, workflows, templates, and tutorials for PMs, founders, and non-engineers.',
+};
 
 export default function HomePage() {
   return (

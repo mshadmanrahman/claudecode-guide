@@ -31,27 +31,22 @@ export default function GuidePage() {
 
       {/* Header */}
       <header className="mx-auto max-w-3xl px-6 pt-12 pb-8">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="font-mono text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors">
-            claudecodeguide<span className="font-bold text-fd-foreground">.dev</span>
+        <div className="flex items-center justify-end gap-4">
+          <Link href="/docs/foundations/claude-md" className="flex items-center gap-1.5 text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors">
+            <BookOpen className="h-3.5 w-3.5" />
+            Full docs
           </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/docs/foundations/claude-md" className="flex items-center gap-1.5 text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors">
-              <BookOpen className="h-3.5 w-3.5" />
-              Full docs
-            </Link>
-            <button
-              type="button"
-              onClick={progress.resetProgress}
-              className="flex items-center gap-1.5 text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors"
-            >
-              <RotateCcw className="h-3.5 w-3.5" />
-              Reset
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={progress.resetProgress}
+            className="flex items-center gap-1.5 text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+            Reset
+          </button>
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl">
             Let&apos;s get you started.
           </h1>
@@ -493,21 +488,8 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-fd-border px-6 py-8">
-        <div className="mx-auto flex max-w-3xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="font-mono text-sm text-fd-muted-foreground">
-            claudecodeguide<span className="font-bold text-fd-foreground">.dev</span>
-          </p>
-          <p className="text-sm text-fd-muted-foreground">
-            Built by{' '}
-            <a href="https://github.com/mshadmanrahman" target="_blank" rel="noopener noreferrer" className="font-medium text-fd-foreground hover:underline">
-              Shadman Rahman
-            </a>
-            {' '}with lots of ♥️, ☕️ and Claude Code, naturally! 😉
-          </p>
-        </div>
-      </footer>
+      {/* Spacer for HomeLayout footer */}
+      <div className="pb-12" />
     </div>
   );
 }
