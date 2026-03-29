@@ -1,0 +1,45 @@
+# Claude Code Guide
+
+> The practitioner's reference for Claude Code — Anthropic's AI coding agent that lives in your terminal. Covers setup, CLAUDE.md configuration, memory systems, skills, hooks, agents, workflows, and templates. Written for PMs, founders, and non-engineers who want to use AI to build and ship faster.
+
+## Docs
+
+- [The CLAUDE.md Guide](https://claudecodeguide.dev/docs/foundations/claude-md): The most important file in your project. How to write a CLAUDE.md that makes Claude Code match your conventions.
+- [Installation](https://claudecodeguide.dev/docs/foundations/installation): Step-by-step setup for macOS, Windows, and Linux. Prerequisites and authentication.
+- [Glossary](https://claudecodeguide.dev/docs/foundations/glossary): Every Claude Code term explained in plain English.
+- [Memory System](https://claudecodeguide.dev/docs/foundations/memory-system): How to make Claude Code remember you across sessions. Persistent context.
+- [Session Lifecycle](https://claudecodeguide.dev/docs/foundations/session-lifecycle): Start warm, work efficiently, end with a trail. Session management.
+- [Context Window](https://claudecodeguide.dev/docs/foundations/context-window): Understanding token limits, /clear, /compact, and context pollution.
+- [Cost Optimization](https://claudecodeguide.dev/docs/foundations/cost-optimization): Pro vs Max vs API pricing. Pick the right plan and control spend.
+- [Troubleshooting](https://claudecodeguide.dev/docs/foundations/troubleshooting): Common issues and fixes for Claude Code.
+- [Building Skills](https://claudecodeguide.dev/docs/patterns/skills): Turn multi-step tasks into single slash commands. Custom automation.
+- [Hooks](https://claudecodeguide.dev/docs/patterns/hooks): Automate quality checks, formatting, and context injection on tool events.
+- [Sub-Agents](https://claudecodeguide.dev/docs/patterns/agents): Delegate focused tasks to specialized agents. Parallel execution.
+- [Autonomous Loops](https://claudecodeguide.dev/docs/patterns/autonomous-loops): Run Claude Code unattended with safety controls and task templates.
+- [MCP Servers](https://claudecodeguide.dev/docs/patterns/mcp-servers): Connect Claude Code to GitHub, Slack, Jira, databases, and external tools.
+- [Daily Practice](https://claudecodeguide.dev/docs/workflows/daily-practice): Morning to end-of-day habits that compound. The daily workflow.
+- [Debugging](https://claudecodeguide.dev/docs/workflows/debugging): Systematic debugging with Claude Code. Evidence gathering over guessing.
+- [PM Workflow](https://claudecodeguide.dev/docs/workflows/pm-workflow): Claude Code for Product Managers. Meeting prep, status reports, decision tracking.
+- [Team Adoption](https://claudecodeguide.dev/docs/workflows/team-adoption): Rolling out Claude Code to a team. Shared configs, onboarding, buy-in.
+
+## Templates
+
+- [Template Gallery](https://claudecodeguide.dev/docs/templates): Battle-tested CLAUDE.md configurations for different project types.
+- [Next.js App Template](https://claudecodeguide.dev/docs/templates/nextjs-app): CLAUDE.md for Next.js App Router projects with TypeScript and Tailwind.
+- [Monorepo Template](https://claudecodeguide.dev/docs/templates/monorepo): CLAUDE.md for Turborepo monorepos with workspace boundaries.
+- [Python Project Template](https://claudecodeguide.dev/docs/templates/python-project): CLAUDE.md for Python projects with uv/poetry, pytest, and mypy.
+- [PM Workspace Template](https://claudecodeguide.dev/docs/templates/pm-workspace): Complete Claude Code setup for Product Managers. No coding required.
+
+## Comparisons
+
+- [Claude Code vs Cursor](https://claudecodeguide.dev/docs/comparisons/vs-cursor): Terminal-native vs IDE-integrated. Honest comparison.
+- [Claude Code vs Copilot](https://claudecodeguide.dev/docs/comparisons/vs-copilot): Autocomplete vs agentic coding. Different tools, different jobs.
+- [Claude Code vs Codex](https://claudecodeguide.dev/docs/comparisons/vs-codex): Anthropic vs OpenAI agentic coding tools compared.
+- [Claude Code vs Windsurf](https://claudecodeguide.dev/docs/comparisons/vs-windsurf): Two different approaches to AI-assisted development.
+- [Pro vs Max vs API](https://claudecodeguide.dev/docs/comparisons/pro-vs-max): Which Claude plan for which workflow. Real numbers and recommendations.
+
+## Optional
+
+- [Interactive Setup Guide](https://claudecodeguide.dev/guide): 9-step guided setup with progress tracking. Best for absolute beginners.
+- [Learning Roadmap](https://claudecodeguide.dev/roadmap): Visual 5-stage learning journey from zero to power user.
+- [Tutorials](https://claudecodeguide.dev/tutorials): Hands-on micro-projects. Build real things in 5-15 minutes each.

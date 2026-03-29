@@ -1,0 +1,2798 @@
+# Claude Code Guide
+
+> The practitioner's reference for Claude Code — Anthropic's AI coding agent that lives in your terminal. Covers setup, CLAUDE.md configuration, memory systems, skills, hooks, agents, workflows, and templates. Written for PMs, founders, and non-engineers who want to use AI to build and ship faster. Source: https://claudecodeguide.dev
+
+---
+
+## The Definitive CLAUDE.md Guide
+
+### What CLAUDE.md Actually Is
+
+Every tutorial tells you "create a CLAUDE.md file with project instructions." That's like saying "create a Dockerfile" without explaining container architecture.
+
+CLAUDE.md is not a prompt. It's the **control plane** for your AI workflow. It defines:
+
+- How sessions start and end
+- What tools and skills are available
+- How agents coordinate
+- What rules govern code quality
+- How context persists across conversations
+
+Get this right and every session starts warm, follows consistent patterns, and leaves a trail. Get it wrong and you're re-explaining yourself every time.
+
+### The Five-Layer Architecture
+
+A production CLAUDE.md has five distinct layers. Most people only use the first one.
+
+#### Layer 1: Identity and Context
+
+```markdown
+# CLAUDE.md
+
+Multi-project workspace at ~/Documents/MyWorkspace/.
+Read `_context/identity.md` for folder map, conventions, and key behaviors.
+```
+
+This tells Claude Code what it's working with. Not just "this is a Next.js project" but the full topology: where skills live, where agents are defined, where rules are stored.
+
+**Key insight:** Point to files rather than inlining everything. CLAUDE.md is an index, not a dump. Claude Code reads referenced files on demand.
+
+#### Layer 2: Session Lifecycle
+
+```markdown
+## Session Lifecycle
+
+**Starting**: Read MEMORY.md. Check handoffs/ for latest handoff. Resume context.
+**During**: Use memory system for learnings. Corrections go to tasks/lessons.md.
+**Ending**: MANDATORY before finishing any session:
+1. Write a handoff if work is in-progress
+2. Save corrections to memory files
+3. Minimum handoff: what was done, what's next, key decisions
+```
+
+This is the most underused layer. Without it, every session is stateless. With it, sessions compound over time. After a month, Claude Code knows your projects, preferences, and common mistakes without you explaining anything.
+
+#### Layer 3: Communication Preferences
+
+```markdown
+## Communication Preferences
+
+- Direct, no fluff. Skip preambles. Just help.
+- NO em dashes. Use colons, semicolons, or split sentences.
+- Lead with recommendations, not option lists.
+- Structured output: headings, bullets, numbered steps, tables, checklists.
+- Production-ready: code/specs/artifacts should be shippable as-is.
+```
+
+This shapes every response you get. Without explicit preferences, Claude Code defaults to verbose, hedging, "here are some options to consider" mode. With them, you get direct, actionable output tailored to how you work.
+
+#### Layer 4: Orchestration Rules
+
+```markdown
+## Orchestration Workflow
+
+1. **Plan Mode Default**: Enter plan mode for ANY non-trivial task
+2. **Sub-agent Strategy**: One task per sub-agent. Keep main context clean.
+3. **Self-Improvement Loop**: After ANY correction, capture the lesson.
+4. **Verification Before Done**: Run tests, check logs, diff behavior.
+5. **Demand Elegance**: For non-trivial changes, ask "is there a more elegant way?"
+```
+
+This defines how Claude Code approaches work. Without orchestration rules, it defaults to "do everything in one shot." With them, it plans before building, delegates to sub-agents, and verifies before declaring done.
+
+#### Layer 5: Tool and Skill Registration
+
+```markdown
+Skills: `_context/skills/` + `~/.claude/skills/`
+Agents: `_context/agents/` (9 agents). Read each .md for description.
+Rules: `_context/rules/` (10 rules) + `~/.claude/rules/`
+Commands: `.claude/commands/` (8 slash commands).
+```
+
+This registers your custom tools. Skills are triggered by keywords in your prompts. Agents are spawned for parallel work. Rules enforce coding standards. Commands are slash-invoked workflows.
+
+### Common Mistakes
+
+#### Mistake 1: Putting everything inline
+
+CLAUDE.md has a soft limit. If you dump 2000 lines of instructions, the system context becomes noisy and Claude Code starts ignoring directives.
+
+**Fix:** Use CLAUDE.md as an index. Reference external files for detailed rules, skill definitions, and agent configs.
+
+#### Mistake 2: No session lifecycle
+
+Without start/end protocols, context dies when the conversation ends. You lose decisions, rationale, and work-in-progress state.
+
+**Fix:** Define explicit start (read memory + handoff) and end (write handoff + save learnings) protocols.
+
+#### Mistake 3: Generic instructions
+
+"Write clean code" is useless. "Functions under 50 lines, files under 800 lines, no mutation, handle errors explicitly" is actionable.
+
+**Fix:** Be specific. Name the patterns you want. Reference the linters and formatters you use. Show examples of good and bad.
+
+#### Mistake 4: No self-improvement loop
+
+If Claude Code makes a mistake and you correct it, that correction is lost when the session ends. Next session, same mistake.
+
+**Fix:** Add a self-improvement rule: "After ANY correction, save to memory. Write a rule to prevent the same mistake."
+
+### Real-World Example
+
+Here's a production CLAUDE.md structure managing 6 projects, 19 skills, 9 agents, and persistent memory:
+
+```
+CLAUDE.md (index, ~80 lines)
+├── _context/
+│   ├── skills/         (19 composable workflow skills)
+│   ├── agents/         (9 specialized agents)
+│   ├── rules/          (10 coding & workflow rules)
+│   ├── protocols/      (injection templates for sub-agents)
+│   ├── handoffs/       (session continuity docs)
+│   └── dmux/           (parallel agent configurations)
+├── .claude/
+│   ├── commands/       (8 slash commands)
+│   └── hooks/          (session-start, session-end, skill tracking)
+└── memory/
+    ├── MEMORY.md       (index of all memory files)
+    ├── user_*.md       (role, goals, preferences)
+    ├── feedback_*.md   (corrections & confirmations)
+    ├── project_*.md    (active work context)
+    └── reference_*.md  (external system pointers)
+```
+
+This isn't theory. This is a workspace that runs daily, managing work projects, open source repos, side projects, and personal productivity. Every session starts in under 10 seconds of context loading. Every correction is captured. Every handoff ensures continuity.
+
+### Getting Started
+
+**Step 1:** Create `CLAUDE.md` at your project root with the five layers above.
+
+**Step 2:** Create a `memory/MEMORY.md` file as an empty index. Start saving user and feedback memories as you work.
+
+**Step 3:** Define your session lifecycle. Start with just: "Read MEMORY.md at start. Write what you did at end."
+
+**Step 4:** Add communication preferences. Be specific about tone, format, and what you don't want.
+
+**Step 5:** Over time, add orchestration rules as you discover patterns. Don't try to define everything upfront.
+
+The system grows with you. That's the point.
+
+---
+
+## How to Install Claude Code
+
+Claude Code is a command-line tool that brings Claude directly into your terminal. You type what you want in plain English, and it reads, writes, and runs code for you. This guide will get you from zero to your first working prompt in about 10 minutes.
+
+**What you need:** A computer (Mac, Windows, or Linux), an internet connection, and a paid Anthropic account.
+
+### Install Node.js First
+
+Claude Code runs on Node.js, which is a program that lets tools like Claude Code work on your computer. Think of it as the engine under the hood. You need version 18 or newer.
+
+**Check if you already have it:** Open your terminal (instructions below) and type:
+
+```bash
+node --version
+```
+
+If you see something like `v18.17.0` or higher, you're good. Skip ahead to the installation step for your operating system.
+
+**If you don't have Node.js**, head to [nodejs.org](https://nodejs.org) and download the LTS (Long Term Support) version. Run the installer and follow the prompts. It takes about two minutes.
+
+### macOS
+
+#### Step 1: Open Terminal
+
+Press **Cmd + Space** to open Spotlight, type **Terminal**, and hit Enter. A window with a text prompt will appear. This is where you'll type commands.
+
+#### Step 2: Install Claude Code
+
+Paste this command and press Enter:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+It will download and install Claude Code globally on your machine. You should see some progress text scroll by, and then it will finish.
+
+#### Troubleshooting on Mac
+
+**"npm: command not found"** means Node.js isn't installed yet. Either download it from [nodejs.org](https://nodejs.org) or, if you use Homebrew, run:
+
+```bash
+brew install node
+```
+
+**"EACCES: permission denied"** means npm doesn't have the right permissions. The quickest fix:
+
+```bash
+sudo npm install -g @anthropic-ai/claude-code
+```
+
+You'll be asked for your Mac password. Type it (nothing will appear on screen, that's normal) and press Enter.
+
+For a more permanent fix that avoids needing `sudo` in the future, see the troubleshooting page.
+
+### Windows
+
+You have two options on Windows. The direct install is faster. WSL gives you a better long-term experience.
+
+#### Option A: Direct Install (Fastest)
+
+**Step 1:** Open **PowerShell**. Press the Windows key, type **PowerShell**, and click "Run as Administrator."
+
+**Step 2:** Paste this command and press Enter:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+That's it. If you get a permission error, make sure you opened PowerShell as Administrator (right-click, "Run as Administrator").
+
+#### Option B: WSL (Recommended for Daily Use)
+
+WSL (Windows Subsystem for Linux) gives you a Linux environment inside Windows. Claude Code works best here because many development tools are designed for Linux and Mac.
+
+**Step 1:** Open PowerShell as Administrator and run:
+
+```bash
+wsl --install
+```
+
+Restart your computer when prompted.
+
+**Step 2:** After restarting, open the Ubuntu app from your Start menu. It will finish setting up and ask you to create a username and password.
+
+**Step 3:** Inside Ubuntu, install Node.js and Claude Code:
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+npm install -g @anthropic-ai/claude-code
+```
+
+### Linux
+
+#### Step 1: Open your terminal
+
+Most Linux distributions have a terminal shortcut with **Ctrl + Alt + T**.
+
+#### Step 2: Install Claude Code
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+#### Troubleshooting on Linux
+
+**"EACCES: permission denied"** is common on Linux. Instead of using `sudo`, fix npm's default directory:
+
+```bash
+mkdir -p ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Then run the install command again:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+### Verify Your Installation
+
+On any operating system, confirm everything worked by running:
+
+```bash
+claude --version
+```
+
+You should see a version number printed. If you see an error instead, check the troubleshooting page.
+
+### Log In and Start Claude Code
+
+#### Step 1: Launch Claude Code
+
+Open your terminal, navigate to any folder (or stay where you are), and type:
+
+```bash
+claude
+```
+
+The first time you run this, Claude Code will walk you through logging in with your Anthropic account.
+
+#### Step 2: You Need a Paid Plan
+
+Claude Code requires an active subscription:
+
+- **Claude Pro** ($20/month) gives you a generous daily allowance
+- **Claude Max** ($100/month) gives you significantly more capacity for heavy usage
+
+The free tier does not include Claude Code access. If you don't have a plan yet, sign up at [claude.ai](https://claude.ai).
+
+### Your First Prompt
+
+Let's make sure everything works. Navigate to a folder where you'd like to experiment:
+
+```bash
+mkdir claude-test && cd claude-test
+claude
+```
+
+Once Claude Code starts, type this prompt:
+
+```
+Create a simple HTML page that says Hello World with some nice styling
+```
+
+Watch it work. Claude Code will create a file, write HTML into it, and tell you what it did. Open the file in your browser to see the result.
+
+You just used Claude Code for the first time.
+
+### What's Next
+
+You're installed and running. Here's where to go from here:
+
+- **Full Guided Setup** walks you through configuring Claude Code for real projects
+- **CLAUDE.md Guide** shows you how to set up your workspace so Claude Code remembers your preferences
+- **Glossary** if you run into any terms you don't recognize
+
+#### Not Ready for the Terminal?
+
+If the terminal feels intimidating right now, that's completely fine. [Lovable](https://lovable.link/4IOZkKK) lets you build apps with AI using a visual interface instead. No terminal, no code. You can always come back to Claude Code when you're ready. (20% off your first month with that link.)
+
+#### Still Stuck?
+
+If something went wrong and the steps above didn't help:
+
+- Check the Troubleshooting page for common fixes
+- Visit [Anthropic's official documentation](https://docs.anthropic.com/en/docs/claude-code) for the latest setup instructions
+- Search the [Claude Code GitHub issues](https://github.com/anthropics/claude-code/issues) to see if others hit the same problem
+
+---
+
+## Glossary
+
+New to Claude Code? This page defines every term you'll encounter, in plain English. No jargon assumed.
+
+### Core Concepts
+
+#### Claude Code
+A command-line tool (CLI) that lets you work with Claude AI directly in your terminal. Unlike ChatGPT which lives in a browser, Claude Code runs where developers work: alongside your code, files, and tools.
+
+#### CLAUDE.md
+A markdown file at the root of your project that tells Claude Code how to behave. Think of it as a "rules of the house" document. It defines your coding standards, communication preferences, and workflow patterns. Claude Code reads it at the start of every session.
+
+#### Session
+One conversation with Claude Code, from start to finish. When you open Claude Code and start working, that's a session. When you close it, the session ends. Without memory, each session starts from scratch.
+
+#### Context Window
+The amount of information Claude Code can "see" at once. Think of it as working memory. Larger context = more files and history it can consider, but also more expensive.
+
+#### Prompt
+What you type to tell Claude Code what to do. Can be a question, a task description, or a command. Better prompts = better results.
+
+### Memory & Persistence
+
+#### Memory System
+A file-based system that lets Claude Code remember things across sessions. Without it, every conversation starts cold. With it, Claude Code knows your projects, preferences, and past corrections.
+
+#### Handoff
+A document written at the end of a session that captures what was done, what decisions were made, and what's next. The next session reads this to resume context. Like leaving a note for your future self.
+
+#### Product Brain
+A directory of living project documents that track each project's purpose, progress, and problems. Updated after meetings and decisions. The source of truth for your work.
+
+### Automation & Extensibility
+
+#### Skill
+A reusable workflow encoded as a markdown file. Instead of explaining a multi-step task every time, you write a skill once and trigger it with keywords. Example: a "meeting prep" skill that pulls context before any meeting.
+
+#### Hook
+A script that runs automatically at specific moments: before a tool runs (PreToolUse), after a tool runs (PostToolUse), or when a session starts (SessionStart). Like automation rules that fire without you remembering.
+
+#### Sub-Agent
+A separate Claude Code instance that handles a focused task. Your main conversation delegates work (research, code review, testing) to agents that work independently and report back. Keeps your main session clean.
+
+#### MCP (Model Context Protocol)
+A standard for connecting Claude Code to external tools like GitHub, Slack, Jira, and databases. Think of MCP servers as plugins that give Claude Code access to your other tools.
+
+#### MCP Server
+A small program that translates between Claude Code and an external service. Each server gives Claude Code specific abilities (e.g., "read GitHub PRs" or "search Slack messages").
+
+### Plans & Pricing
+
+#### Claude Pro
+The $20/month plan. Gives you access to Claude Code with moderate daily usage. Good for getting started and light-to-medium use.
+
+#### Claude Max
+The power user plan. $100/month (5x usage) or $200/month (20x usage). For people who use Claude Code as their primary work tool.
+
+#### Tokens
+The unit that measures how much Claude Code reads and writes. Roughly 4 characters = 1 token. Your plan has a daily token budget. Bigger context windows and longer conversations use more tokens.
+
+#### Rate Limit
+When you've used your daily token allocation and Claude Code slows down or pauses. A sign you might need to upgrade your plan, or optimize how you use context.
+
+### Workflow Concepts
+
+#### Plan Mode
+A mode where Claude Code thinks before acting. Instead of immediately writing code, it outlines the approach first for your review. Saves tokens and prevents wrong-direction work.
+
+#### Autonomous Loop
+Claude Code running a task without your direct input, finishing, and automatically starting the next iteration. Advanced pattern for repetitive tasks like fixing tests or scanning for issues.
+
+#### Orchestration
+The rules that govern how Claude Code approaches work: when to plan first, when to delegate to agents, when to verify results. Defined in your CLAUDE.md.
+
+### File Types
+
+#### `.claude/`
+A hidden directory in your project that contains Claude Code configuration: settings, hooks, skills, and agent definitions.
+
+#### `MEMORY.md`
+The index file for your memory system. Lists all memory files with one-line summaries. Claude Code reads this to know what memories exist.
+
+#### `.mcp.json`
+Configuration file that defines which MCP servers Claude Code should connect to and their credentials.
+
+#### `settings.json`
+Claude Code's configuration file. Lives in `.claude/settings.json`. Defines hooks, permissions, and tool settings.
+
+---
+
+## The Memory System
+
+### Why Memory Matters
+
+Every time you start a new Claude Code session, it begins with a blank slate. Without memory, you spend the first few minutes of every conversation re-explaining who you are, what you're working on, and how you like things done.
+
+The memory system fixes this. It gives Claude Code a structured way to remember you, your projects, and your preferences across sessions. Think of it as building a relationship with your tool instead of meeting a stranger every time.
+
+### The Four Memory Types
+
+Memory in Claude Code is organized into four categories. Each serves a different purpose.
+
+#### 1. User Memory
+
+Who you are and what you care about.
+
+- Your role (frontend developer, PM, full-stack engineer)
+- Your goals ("I'm building a SaaS product", "I'm learning React")
+- Your preferences (coding style, communication style, tools you use)
+- Your team context (who you work with, what they own)
+
+**Example:** `user_role.md` might contain: "Senior PM at an EdTech company. Manages 3 squads. Prefers bullet points over paragraphs. Hates em dashes."
+
+#### 2. Feedback Memory
+
+Corrections you have given Claude Code over time.
+
+- "Don't suppress lint rules as a fix, rethink the solution"
+- "Always use relative paths, never absolute paths with usernames"
+- "Her name is Viveca, not Viveka"
+
+This is the most powerful memory type. Every correction you make gets saved, and Claude Code stops making that mistake. After a month, the corrections add up and your sessions get noticeably smoother.
+
+#### 3. Project Memory
+
+What you are actively working on.
+
+- Project names, tech stacks, and current status
+- Key decisions and their rationale
+- Architecture notes and patterns specific to each project
+- Links to relevant repos, boards, or documents
+
+**Example:** `project_heimdall.md` tracks an ad server replacement project: its version, test count, team members, and related design documents.
+
+#### 4. Reference Memory
+
+Where to find things in external systems.
+
+- API endpoints and credentials locations (never the actual secrets)
+- Folder structures and file conventions
+- Tool configurations (CI/CD, deployment, monitoring)
+- Team ownership maps
+
+This type prevents Claude Code from guessing where things live. Instead of searching your codebase every time, it knows exactly where to look.
+
+### How Memory is Structured
+
+The memory system uses a simple file-based approach:
+
+| File | Purpose |
+|------|---------|
+| `MEMORY.md` | The index. Lists all memory files with one-line summaries. |
+| `user_*.md` | User memories (role, goals, preferences) |
+| `feedback_*.md` | Corrections and learned preferences |
+| `project_*.md` | Active project context |
+| `reference_*.md` | System locations and external references |
+
+Each memory file is a small Markdown file with frontmatter (title, created date, updated date) and a few paragraphs of structured content. Keep them focused: one topic per file.
+
+`MEMORY.md` acts as a table of contents. When a session starts, Claude Code reads this index and loads only the memories relevant to the current task. It does not read every file every time.
+
+### What NOT to Save
+
+Not everything belongs in memory. Skip these:
+
+- **Code patterns and syntax**: Claude Code already knows how to write code. Saving "how to write a React hook" is wasted space.
+- **Git history**: It can read your git log directly. No need to duplicate it.
+- **Debugging solutions**: These are one-off fixes that rarely repeat. Save the lesson, not the fix.
+- **Temporary context**: If it won't matter next week, don't save it.
+
+The rule of thumb: save things that change how Claude Code behaves, not things it can look up on its own.
+
+### The Compound Effect
+
+Memory builds over time, and the returns accelerate.
+
+**Week 1:** Sessions start faster. Claude Code knows your name, your projects, and your preferred coding style. You stop repeating "I'm working on Project X using Next.js."
+
+**Month 1:** Claude Code stops making mistakes you have corrected before. It remembers that your teammate's name is spelled a specific way, that you never want `any` types in TypeScript, that you prefer colons over em dashes.
+
+**Month 3:** Claude Code starts anticipating what you need. It knows which files to check first, which patterns your codebase uses, and which team members own which systems. It feels less like a tool and more like a colleague who has been on your team for a while.
+
+### Getting Started Checklist
+
+Ready to set up memory? Start here:
+
+- [ ] Create a `MEMORY.md` file in your `.claude/` directory
+- [ ] Write your first user memory: your role, your main project, and one preference
+- [ ] After your next session, save one correction as a feedback memory
+- [ ] Add your active project with its tech stack and current status
+- [ ] Add one reference memory for something you always have to look up (folder structure, API endpoint locations, team ownership)
+- [ ] Review and update `MEMORY.md` to index your new files
+
+You do not need to build the whole system at once. Start with one memory in each category and grow it naturally as you work. The best memory systems are grown, not designed upfront.
+
+---
+
+## Session Lifecycle
+
+### The Cold Start Problem
+
+Every PM, developer, and power user hits the same wall: you open Claude Code, and it knows nothing. Your last session's context is gone. Decisions evaporated. You spend the first 10 minutes re-explaining who you are, what project you're working on, and what happened yesterday.
+
+This isn't an AI limitation. It's a workflow design failure.
+
+### The Three Phases
+
+#### Phase 1: Start (Context Resumption)
+
+Every session begins with three reads:
+
+1. **Memory** (`MEMORY.md`): An index of persistent knowledge. Your role, preferences, active projects, people you work with, feedback you've given.
+2. **Latest handoff** (`_context/handoffs/`): What happened last session. What was done, what's next, key decisions, blockers.
+3. **Product brain** (`_product-brain/`): Living project documents with current state, not stale PRDs.
+
+```markdown
+## Session Lifecycle (in CLAUDE.md)
+
+**Starting**: Read MEMORY.md. Check _context/handoffs/ for latest handoff.
+Resume context.
+```
+
+That's it. Three reads. Zero re-explanation. The system picks up where you left off.
+
+#### Phase 2: Work (Orchestrated Execution)
+
+During a session, four rules govern how work happens:
+
+**1. Plan mode for non-trivial work.**
+If a task has 3+ steps or involves architectural decisions, enter plan mode first. Align on approach before touching code. If something goes sideways mid-execution, stop and re-plan.
+
+**2. Sub-agents for parallel work.**
+Each focused task gets its own agent. Research in one agent, code review in another, test execution in a third. Your main conversation stays clean and focused on decisions.
+
+**3. Self-improvement loop.**
+After any correction from you, the system captures the lesson. Not just "noted" but a persistent memory entry with the rule and reasoning. This prevents the same mistake across future sessions.
+
+**4. Verification before done.**
+Nothing is marked complete until it's proven working. Run tests, check logs, diff behavior. The bar: "Would a staff engineer approve this?"
+
+#### Phase 3: End (Handoff Protocol)
+
+**Mandatory before finishing any session:**
+
+1. If work is in-progress or non-trivial decisions were made: write a handoff
+2. If corrections or surprises occurred: save to memory files
+3. The stop hook auto-captures a git diff footprint, but you must capture reasoning and decisions (hooks can't do that)
+
+##### The Handoff Template
+
+```markdown
+# {Topic} - {Date}
+
+## What was done
+- Bullet points of completed work
+
+## Key decisions
+- Decision and rationale (the "why" matters most)
+
+## What's next
+- Immediate next steps
+- Blockers or dependencies
+
+## Open questions
+- Things that need answers before proceeding
+```
+
+This handoff is what the next session reads during Phase 1. The loop closes.
+
+### Memory Types
+
+Not everything goes into memory. The system distinguishes four types:
+
+| Type | What to save | Example |
+|------|-------------|---------|
+| **user** | Role, goals, preferences | "Senior PM, prefers direct communication, manages 5 projects" |
+| **feedback** | Corrections and confirmations | "Don't mock databases in tests. Reason: prior incident." |
+| **project** | Active work, timelines, decisions | "Auth rewrite driven by compliance, not tech debt" |
+| **reference** | Where to find things externally | "Pipeline bugs tracked in Linear project INGEST" |
+
+**What NOT to save:** Code patterns (read the code), git history (use git log), debugging solutions (the fix is in the code), ephemeral task details.
+
+Memory files are markdown with frontmatter. Each memory is its own file. MEMORY.md is just an index: one line per entry, linking to the file.
+
+### The Compound Effect
+
+This isn't magic. It's compounding returns on a small daily investment.
+
+| Timeframe | What changes |
+|-----------|-------------|
+| **Week 1** | Sessions start faster. Less re-explanation. |
+| **Month 1** | Memory captures your working style. Common corrections stop. |
+| **Month 3** | The system knows your projects, people, preferences. It anticipates what you need. |
+| **Month 6** | Institutional knowledge is encoded. New team members can read your handoffs and memory to onboard. |
+
+This is not a chatbot getting smarter. It's an operating system learning your practice.
+
+### Implementation Checklist
+
+- [ ] Add session lifecycle section to your CLAUDE.md
+- [ ] Create `memory/MEMORY.md` as an empty index
+- [ ] Create `_context/handoffs/` directory
+- [ ] Write your first user memory (role, current focus)
+- [ ] Write your first feedback memory after a correction
+- [ ] Write your first handoff at end of session
+- [ ] Set up a session-start hook to remind about memory loading (optional)
+- [ ] Set up a session-end hook to remind about handoffs (optional)
+
+---
+
+## Context Window Management
+
+### What Is the Context Window?
+
+The context window is the amount of text Claude Code can "see" at once. Think of it as working memory. Everything in your current conversation (your messages, Claude's responses, file contents it has read, command outputs) occupies space in this window. When it fills up, earlier parts of the conversation start getting pushed out. Claude Code begins forgetting things you said or files it read earlier.
+
+### How Big Is It?
+
+Claude Code uses models with 200K token context windows. That is roughly 150,000 words. Sounds huge, but it fills faster than you think.
+
+Here is a rough sense of scale:
+
+| Content | Approximate tokens |
+|---|---|
+| A typical source file (200-400 lines) | 500-2,000 |
+| A large source file (1,000 lines) | 3,000-5,000 |
+| Reading 50 files in a session | ~50,000 (25% of your window) |
+| A long back-and-forth conversation (30+ exchanges) | 20,000-40,000 |
+| Command output from a failing test suite | 5,000-15,000 |
+
+A single focused task usually fits comfortably. A marathon session with multiple tasks, lots of file reading, and long debugging conversations will hit the wall.
+
+### Signs You Are Running Out
+
+You will notice these before you see an explicit warning:
+
+- **Responses get less accurate.** Claude Code "forgets" constraints you mentioned earlier or re-reads files it already looked at.
+- **It loses track of what was decided.** You agreed on an approach 20 messages ago, but now it suggests something different.
+- **Responses get shorter or cut off.** The model is running out of room to generate.
+- **You see context length warnings.** Claude Code will tell you when context is getting large.
+
+### How Tokens Work
+
+Roughly 4 characters equals 1 token. A word averages about 1.3 tokens. Code tends to be slightly more token-dense than prose because of syntax, indentation, and special characters.
+
+Quick math: a 300-line TypeScript file is about 1,200 tokens. If Claude Code reads 40 files during a session, that is 48,000 tokens just from file content, before counting any conversation.
+
+### The /compact Command
+
+When context gets large, run `/compact`. This summarizes the entire conversation so far and starts fresh with just the summary. Think of it as taking notes from a meeting, then starting a new meeting with only the notes.
+
+**When to use it:**
+- After completing a task, before starting a new one
+- When you notice Claude Code forgetting earlier context
+- When you get a context length warning
+- Proactively, after any long debugging session
+
+**What it preserves:** Key decisions, file modifications, current state of work.
+
+**What it loses:** Exact file contents, detailed error messages, nuanced back-and-forth reasoning. If you need to reference specific details after compaction, Claude Code will re-read the relevant files.
+
+### Strategies to Stay Under the Limit
+
+#### 1. One session, one task
+
+Do not let a single session accumulate context from five different tasks. Finish a task, start a new session for the next one. This is the single most effective strategy.
+
+#### 2. Use handoffs instead of marathon sessions
+
+Instead of one 3-hour session, work in focused 30-60 minute blocks. End each block with a handoff (what was done, what is next). Start a fresh session that reads only the handoff. Fresh context every time.
+
+See the session lifecycle guide for details on handoff protocols.
+
+#### 3. Point to files instead of pasting them
+
+Let Claude Code read files on demand. Do not paste file contents into the chat. When you paste, that content stays in the conversation forever. When Claude Code reads a file with its tools, the content is there but the tool-based approach is more efficient.
+
+#### 4. Use sub-agents for research
+
+Sub-agents (via the Task tool) get their own context window. If you need Claude Code to explore a large part of the codebase or research something, offload it to a sub-agent. The main conversation only gets the summary back.
+
+#### 5. Be specific in your prompts
+
+Vague prompts cause Claude Code to read more files searching for what you mean. "Fix the auth bug" makes it read every auth-related file. "Fix the token refresh logic in `src/auth/refresh.ts` where expired tokens are not being caught" sends it straight to the right file.
+
+#### 6. Use /compact between tasks
+
+Even within one session, compact between distinct tasks. Finished adding tests? Compact. Now moving to a different feature? That compaction gives you a clean slate with the prior work summarized.
+
+### The Handoff Strategy
+
+This is the power move for heavy users. Instead of fighting the context window, work with it:
+
+1. Work in a focused block (30-60 minutes, one task)
+2. End the session with a handoff: what was done, what is next, key decisions
+3. Start a new session. Load only the handoff and relevant `CLAUDE.md`
+4. Fresh 200K tokens, zero wasted context
+
+You lose nothing because the handoff captures everything that matters. You gain a full context window for the next task. Over a full day of work, this approach is dramatically more effective than one long session that degrades as context fills up.
+
+### What About the 1M Context Models?
+
+Some Claude models support up to 1 million tokens. Claude Code can use these with the Max plan. The same principles apply at larger scales: context still fills up, just slower. The strategies above still help, they just become critical later in longer sessions rather than sooner.
+
+---
+
+## Cost Optimization
+
+### Understanding the Plans
+
+Claude Code is available through several pricing tiers. Picking the right one depends on how much you use it and what you use it for.
+
+| Plan | Price | Best For | Daily Usage Sweet Spot |
+|------|-------|----------|----------------------|
+| **Pro** | $20/mo | Getting started, light daily use | 2-3 hours of active sessions |
+| **Max 5x** | $100/mo | Power users, daily coding | 5-6 hours of active sessions |
+| **Max 20x** | $200/mo | Heavy all-day usage, teams | 8+ hours, multiple projects |
+| **API** | Pay-per-token | Building apps, automation | Varies by volume |
+
+#### Pro ($20/month)
+
+This is where most people start, and it is genuinely useful. You get enough quota for a solid coding session each day. Where it gets tight: heavy refactoring days, large codebase exploration, or running multiple sub-agents in parallel. If you are learning Claude Code or using it for a side project, Pro is plenty.
+
+**The reality:** On a normal day, you will be fine. On a day where you are debugging a complex issue or building a new feature end-to-end, you might hit the usage limit by early afternoon.
+
+#### Max ($100/month or $200/month)
+
+Max is for people who have made Claude Code part of their daily workflow. The 5x tier gives you roughly five times the Pro quota, which means full workdays without worrying about limits. The 20x tier is for people who run Claude Code across multiple projects or use it for heavy automation.
+
+**When to pick 5x vs 20x:** If you use Claude Code as your primary development partner for a single project, 5x is enough. If you manage multiple codebases, run autonomous loops, or use it for both coding and PM workflows, consider 20x.
+
+#### API (Pay-per-token)
+
+The API is not a "plan" in the same way. You pay for exactly what you use, measured in tokens (roughly 4 characters per token). This is the right choice if you are building applications that use Claude under the hood, running automated pipelines, or want granular cost control.
+
+**Typical costs:** A conversation that fills a 200K context window costs roughly $3-6 depending on the model. Short focused tasks might cost $0.10-0.50 each.
+
+### Strategies to Get More From Your Plan
+
+#### Keep Your Context Clean
+
+Every token Claude Code reads counts against your quota. A bloated context window means fewer conversations per day. Practical steps:
+
+- **Start fresh sessions for new tasks.** Do not let one session accumulate context from five unrelated tasks.
+- **Use handoffs instead of long sessions.** Write a handoff document at the end of a session, then start a new one. The new session loads only what it needs.
+- **Point to files, do not paste them.** Let Claude Code read files on demand rather than pasting entire files into your message.
+
+#### Use Sub-agents Wisely
+
+Sub-agents (spawned tasks) share your quota, but they are more efficient than doing everything in a single thread. A sub-agent that researches a question uses fewer tokens than you going back and forth in the main conversation.
+
+- Offload research and exploration to sub-agents
+- Keep the main session focused on decisions and implementation
+- One task per sub-agent keeps context tight
+
+#### Use Plan Mode
+
+Plan mode tells Claude Code to think before acting. Instead of writing code immediately (which might be wrong and need revision), it outlines the approach first. You review, adjust, then execute.
+
+This sounds slower, but it saves tokens. A plan-then-execute approach typically uses 30-40% fewer tokens than a trial-and-error approach, because you avoid the "that's not what I wanted, try again" cycle.
+
+#### Choose the Right Model for the Task
+
+Not every task needs the most powerful model. If you are on the API or have model selection available:
+
+- **Haiku (fast, cheap):** Formatting, simple lookups, boilerplate generation
+- **Sonnet (balanced):** Most coding tasks, code review, feature development
+- **Opus (deep reasoning):** Architecture decisions, complex debugging, multi-file refactoring
+
+Using Haiku for simple tasks and saving Sonnet/Opus for complex work stretches your budget significantly.
+
+### When to Upgrade
+
+Here are the signals that you have outgrown your current plan:
+
+- **You hit "usage limit" more than twice a week.** Time for the next tier.
+- **You are splitting tasks across multiple days** because you ran out of quota. That lost momentum costs more than the plan upgrade.
+- **You are avoiding sub-agents** to conserve quota. Sub-agents make you faster; skipping them to save tokens is a false economy.
+- **You catch yourself thinking "I should just do this manually."** The whole point of the tool is to save you time. If cost anxiety is pushing you back to manual work, the plan is too small.
+
+### The Real Cost Calculation
+
+Do not compare the plan price to zero. Compare it to your time. If Claude Code saves you one hour per day and your time is worth $50/hour, that is $1,000/month in saved time. Even the $200/month Max plan pays for itself many times over.
+
+The cheapest plan is the one that lets you use the tool without thinking about limits.
+
+---
+
+## Troubleshooting
+
+Something not working? You're probably not the first person to hit this. Here are the most common problems people run into with Claude Code, and the quickest way to fix each one.
+
+### Installation Problems
+
+#### "npm: command not found"
+
+This means Node.js isn't installed on your machine. npm comes bundled with Node.js, so you need to install it first.
+
+**Fix:** Download and install Node.js from [nodejs.org](https://nodejs.org). Pick the LTS version. After installing, close your terminal, open a new one, and try the install command again.
+
+On Mac with Homebrew, you can also run:
+
+```bash
+brew install node
+```
+
+#### "EACCES: permission denied"
+
+npm is trying to install files in a folder your user account doesn't have permission to write to. This is very common on Mac and Linux.
+
+**Quick fix (Mac):** Add `sudo` before the command:
+
+```bash
+sudo npm install -g @anthropic-ai/claude-code
+```
+
+**Proper fix (Mac and Linux):** Change npm's default directory so you never need `sudo`:
+
+```bash
+mkdir -p ~/.npm-global
+npm config set prefix '~/.npm-global'
+```
+
+Then add the new directory to your PATH. If you use **bash**:
+
+```bash
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+If you use **zsh** (default on newer Macs):
+
+```bash
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Now run the install command again without `sudo`.
+
+**Windows fix:** Make sure you opened PowerShell as Administrator. Right-click PowerShell in the Start menu and choose "Run as Administrator."
+
+#### "claude: command not found" After Installing
+
+The install succeeded, but your terminal doesn't know where to find the `claude` command. This is a PATH issue.
+
+**Fix 1:** Close your terminal and open a new one. Sometimes the PATH just needs a refresh.
+
+**Fix 2:** Find where npm installed the package and add it to your PATH:
+
+```bash
+npm config get prefix
+```
+
+This prints a path (like `/usr/local` or `~/.npm-global`). The `claude` command lives in the `bin` folder inside that path. Add it to your shell config:
+
+```bash
+echo 'export PATH=$(npm config get prefix)/bin:$PATH' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Replace `.zshrc` with `.bashrc` if you use bash.
+
+**Fix 3 (Windows):** Restart your computer. Windows sometimes needs a full restart to pick up new PATH entries.
+
+### Authentication Problems
+
+#### "401 Unauthorized"
+
+Your login session has expired or was never completed.
+
+**Fix:** Re-authenticate by running:
+
+```bash
+claude auth login
+```
+
+Follow the prompts to log in again. This opens a browser window where you'll sign in with your Anthropic account.
+
+#### "You need a paid plan"
+
+Claude Code is not included in the free Anthropic tier. You need an active subscription.
+
+**Fix:** Sign up for a paid plan at [claude.ai](https://claude.ai):
+
+- **Claude Pro** ($20/month) works well for most users
+- **Claude Max** ($100/month) gives you much higher daily limits
+
+After subscribing, run `claude auth login` to re-authenticate with your paid account.
+
+#### Session Expired
+
+If Claude Code suddenly stops working mid-session with an authentication error, your token likely expired.
+
+**Fix:** Run `claude auth login` to get a fresh session. Your work in progress is safe because Claude Code operates on your local files.
+
+### Performance Problems
+
+#### "Rate limit reached"
+
+You've hit your plan's usage quota for the current period. This is more common on the Pro plan during heavy use.
+
+**Fix:** Wait for the limit to reset (usually resets daily). In the meantime, here are ways to use your quota more efficiently:
+
+- **Use `/compact`** to compress your conversation history and free up context
+- **Start fresh sessions** for new tasks instead of continuing a long one
+- **Be specific in your prompts** so Claude Code doesn't need multiple rounds to understand what you want
+- **Upgrade to Max** ($100/month) if you consistently hit limits
+
+#### "Claude Code is slow"
+
+Long conversations build up a large context window, which makes each response take longer to generate.
+
+**Fix:**
+
+- **Start a new session** when switching to a different task. Each fresh session is fast.
+- **Run `/compact`** to reduce the context size without losing important information
+- **Close unrelated files** before asking Claude Code to work on something new
+- **Write a handoff document** before ending a session, then start fresh next time
+
+#### Response Gets Cut Off
+
+The context window is full. Claude Code ran out of room to generate its response.
+
+**Fix:** Start a new session. Before you do, ask Claude Code to summarize what it was working on so you can pick up where you left off. Even better, set up a session lifecycle so context carries over automatically.
+
+### File and Project Problems
+
+#### "Claude can't see my files"
+
+Claude Code works in whatever directory you launched it from. If your files are elsewhere, it won't find them.
+
+**Fix:** Make sure you're in the right folder before starting Claude Code:
+
+```bash
+pwd
+```
+
+This prints your current directory. Navigate to your project folder first:
+
+```bash
+cd /path/to/your/project
+claude
+```
+
+#### Claude Modified the Wrong File
+
+If your project has similarly named files, Claude Code might pick the wrong one.
+
+**Fix:** Be specific in your prompts. Instead of "update the config file," say "update `src/config/database.ts`." Including the full file path removes any ambiguity.
+
+You can also undo changes with git:
+
+```bash
+git diff           # See what changed
+git checkout -- filename.ts  # Undo changes to a specific file
+```
+
+#### Changes Disappeared
+
+Claude Code edits files directly, but it does not automatically commit to git. If you ran `git checkout` or switched branches, your changes might be gone.
+
+**Fix:** Check your git status to see what happened:
+
+```bash
+git status
+git diff
+```
+
+If changes are still there but unstaged, you're fine. If they're gone, check `git reflog` to see if they can be recovered.
+
+**Prevention:** Commit your work frequently. Ask Claude Code to "commit these changes" or do it yourself:
+
+```bash
+git add -A && git commit -m "work in progress"
+```
+
+### Getting More Help
+
+If none of the above solved your problem:
+
+- **[Anthropic's official docs](https://docs.anthropic.com/en/docs/claude-code)** have the latest setup and usage guides
+- **[GitHub Issues](https://github.com/anthropics/claude-code/issues)** is where bugs and feature requests are tracked. Search for your error message.
+- **[Anthropic Discord](https://discord.gg/anthropic)** has a community of Claude Code users who might have hit the same issue
+
+---
+
+## Building Skills
+
+### What Is a Skill?
+
+A skill is a markdown file that encodes a complete workflow. You write it once, and Claude Code executes it whenever the right keywords appear in your prompt.
+
+Think of skills as recipes. Instead of telling Claude Code "pull my calendar, check Jira for open tickets, scan Slack for recent threads, then compile a briefing" every time you have a meeting, you write a `meeting-prep` skill once. Next time you say "prep for my 1:1 with Sarah," Claude Code finds the skill, follows the steps, and delivers a structured briefing.
+
+Skills are the building blocks of a Claude Code operating system. They turn scattered knowledge into repeatable, composable workflows.
+
+### Anatomy of a Skill
+
+Every skill is a markdown file with a clear structure: a description at the top, trigger keywords, and step-by-step instructions.
+
+```markdown
+# Meeting Prep
+
+Pre-meeting context gathering across all connected systems.
+Pulls recent interactions, open items, and talking points
+for any person or topic.
+
+Triggers: "meeting prep", "prep for my meeting",
+"meeting with X", "prep for 1:1", "before my meeting"
+
+## Steps
+
+1. Identify the person or topic from the user's prompt
+2. Search Slack for recent threads involving them
+3. Check Jira/Linear for shared open tickets
+4. Pull any relevant notes from the knowledge base
+5. Compile a structured briefing:
+   - Recent interactions (last 7 days)
+   - Open items and blockers
+   - Suggested talking points
+   - Decisions that need alignment
+
+## Output Format
+
+Deliver as a markdown document with clear sections.
+Lead with the most actionable items. Skip anything
+older than 2 weeks unless it's unresolved.
+```
+
+The trigger keywords are how Claude Code knows when to activate this skill. When your prompt contains "meeting prep" or "prep for 1:1," the skill loads automatically and Claude Code follows the instructions.
+
+### How to Create Your First Skill
+
+**Step 1: Identify a task you repeat.** Look for anything you explain to Claude Code more than twice. Formatting a PR description. Running a specific test suite. Generating a weekly status report. If you keep saying "remember, do it like last time," that's a skill waiting to be written.
+
+**Step 2: Write the steps as markdown.** Be specific. Include the output format you want, the sources to check, the order of operations. Write it as if you're training a sharp junior developer who has never seen your workflow.
+
+**Step 3: Save it as a markdown file.** Drop it in the right directory (see below) and add trigger keywords that match how you naturally ask for the task.
+
+**Step 4: Test and iterate.** Run the skill a few times. When Claude Code misses a step or gets the format wrong, update the skill file. Skills improve through use.
+
+### Where Skills Live
+
+Skills can live at two levels:
+
+| Location | Scope | Example |
+|---|---|---|
+| `.claude/skills/` | Project-level. Only active in this repo. | A deploy checklist specific to one service. |
+| `~/.claude/skills/` | User-level. Active in every project. | A weekly status report that works across all repos. |
+
+Project-level skills are specific to a codebase. User-level skills follow you everywhere.
+
+### Built-in vs Custom Skills
+
+Claude Code ships with some built-in capabilities, but the real power comes from custom skills tailored to your workflow. Built-in skills handle generic tasks like code review or test generation. Custom skills encode your team's specific processes, your company's PR format, your preferred debugging sequence.
+
+### Tips for Writing Good Skills
+
+**Start simple.** Your first skill should be 10-15 lines. Don't try to encode a 30-step workflow on day one.
+
+**One skill per workflow.** A "deploy" skill and a "rollback" skill are better than a "deploy-and-maybe-rollback" skill. Keep them focused and composable.
+
+**Iterate based on corrections.** When you correct Claude Code mid-skill, update the skill file immediately. The skill should absorb every lesson.
+
+**Be explicit about output format.** "Generate a report" is vague. "Generate a markdown table with columns: ticket, status, owner, next action" gets you consistent results every time.
+
+**Use trigger keywords that match natural language.** You want the skill to activate when you ask for it casually, not when you remember the exact command name.
+
+---
+
+## Hooks
+
+### What Are Hooks?
+
+Hooks are scripts that run automatically at specific moments during a Claude Code session. They fire before a tool runs, after a tool runs, or when a session starts. You configure them once and they work silently in the background.
+
+Think of hooks like git hooks, but for Claude Code. A pre-commit hook checks your code before committing. A Claude Code hook checks your code before Claude Code writes it, or loads context before you even ask for it.
+
+The key benefit: hooks remove things you have to remember. Instead of saying "remember to format after every edit" or "always check for secrets before committing," you encode that behavior once and it happens automatically.
+
+### The Three Hook Types
+
+#### PreToolUse
+
+Runs **before** Claude Code executes a tool. Use this to validate, modify, or block actions.
+
+Examples:
+- Block writes to protected files
+- Check that a file edit won't introduce secrets or API keys
+- Add a confirmation step before destructive operations
+
+#### PostToolUse
+
+Runs **after** Claude Code executes a tool. Use this to clean up, verify, or transform results.
+
+Examples:
+- Auto-format code after every file edit
+- Run a linter check after writing a new file
+- Log what tools were used for audit purposes
+
+#### SessionStart
+
+Runs **when a session begins**. Use this to load context, check environment state, or set up the workspace.
+
+Examples:
+- Remind Claude Code to read memory files
+- Check that required environment variables are set
+- Load the latest handoff document for context continuity
+
+### How to Configure Hooks
+
+Hooks live in your `.claude/settings.json` file. Each hook specifies when it fires and what command to run.
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hook": "echo 'Checking file write...'"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hook": "npx prettier --write $CLAUDE_FILE_PATH"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hook": "echo 'Remember: Read MEMORY.md and check handoffs/ for context.'"
+      }
+    ]
+  }
+}
+```
+
+The `matcher` field controls which tools trigger the hook. Use pipe-separated tool names like `"Write|Edit"` to match multiple tools. If you omit `matcher`, the hook runs for every tool invocation.
+
+### Your First Hook: Session Start Context Loader
+
+The highest-value hook you can add today takes about 30 seconds to set up. It ensures Claude Code never starts a session cold.
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hook": "cat ~/.claude/session-reminder.txt 2>/dev/null || echo 'No session reminder found.'"
+      }
+    ]
+  }
+}
+```
+
+Create `~/.claude/session-reminder.txt` with your standard startup instructions:
+
+```text
+Session startup checklist:
+1. Read MEMORY.md for persistent context
+2. Check _context/handoffs/ for the latest handoff
+3. Resume from where the last session left off
+4. If no handoff exists, ask what we're working on today
+```
+
+Now every session begins with a nudge to load context. No more "wait, you forgot about what we did yesterday."
+
+### A Practical PostToolUse Hook
+
+This hook runs Prettier after every file edit, so you never have to think about formatting:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hook": "npx prettier --write $CLAUDE_FILE_PATH 2>/dev/null || true"
+      }
+    ]
+  }
+}
+```
+
+The `|| true` at the end ensures the hook doesn't block Claude Code if Prettier fails (maybe the file type isn't supported). Always add a fallback for non-critical hooks.
+
+### Tips for Writing Hooks
+
+**Keep hooks fast.** Hooks block the action they're attached to. A PreToolUse hook that takes 10 seconds means Claude Code pauses for 10 seconds before every tool call. Aim for under 1 second.
+
+**Test with echo first.** Before wiring up a real script, use `echo` to verify the hook fires when expected. Once you see the output, swap in the real command.
+
+**Don't overdo it.** Three or four well-chosen hooks beat twenty that create noise. Start with a SessionStart reminder and one PostToolUse formatter. Add more only when you feel the friction.
+
+**Use the right scope.** Hooks in `.claude/settings.json` at the project level only fire for that project. Hooks in `~/.claude/settings.json` fire globally. Put project-specific formatting hooks at the project level. Put universal safety checks at the global level.
+
+**Handle failures gracefully.** A crashing hook can block your entire workflow. Always add `2>/dev/null || true` for non-critical hooks, and test your hook commands independently before adding them to the config.
+
+---
+
+## Sub-Agents
+
+### What Are Sub-Agents?
+
+Sub-agents are separate Claude Code instances that handle focused tasks. When you ask Claude Code to review code, it can spawn a dedicated code-reviewer agent. When you need tests written, a tdd-guide agent takes over. Each agent gets its own context window, does its work, and reports back.
+
+The main conversation stays clean. You're not burning context on a 200-line security audit that you just need the summary of.
+
+### Why Use Sub-Agents?
+
+**Context stays focused.** Your main session handles planning and decisions. Agents handle the deep dives. A security review might require reading 15 files, but you only need the 5-line summary.
+
+**Parallel execution.** Independent tasks can run simultaneously. Need a code review, a security scan, and a test generation? Three agents, working at the same time, instead of one sequential chain.
+
+**Specialization.** Each agent carries instructions tuned for its job. A code-reviewer agent knows your team's standards. A tdd-guide agent enforces test-first workflow. Specialization means better output.
+
+### Built-in Agent Types
+
+Claude Code recognizes several agent patterns out of the box:
+
+| Agent | What It Does | When to Use |
+|---|---|---|
+| **code-reviewer** | Reviews code for quality, patterns, bugs | After writing or modifying code |
+| **tdd-guide** | Enforces test-driven development | New features, bug fixes |
+| **planner** | Creates implementation plans | Complex features, refactoring |
+| **security-reviewer** | Scans for vulnerabilities | Before commits, auth changes |
+| **build-error-resolver** | Diagnoses and fixes build failures | When the build breaks |
+
+Claude Code spawns these automatically when the task calls for it. You can also request them explicitly: "Run the code-reviewer on the files I just changed."
+
+### Creating Custom Agents
+
+Custom agents are markdown files that define an agent's role, behavior, and constraints. Save them in `.claude/agents/` at the project level.
+
+```markdown
+# PR Description Writer
+
+## Role
+You generate pull request descriptions from git diffs.
+
+## Behavior
+1. Read the full diff with `git diff main...HEAD`
+2. Analyze each commit for its purpose
+3. Group changes by category (feature, fix, refactor, test)
+4. Write a structured PR description:
+   - Summary (2-3 sentences)
+   - Changes (bulleted by category)
+   - Testing notes
+   - Breaking changes (if any)
+
+## Constraints
+- Never include file paths with absolute user directories
+- Keep the summary under 100 words
+- Use conventional commit categories
+```
+
+Once saved, you can invoke it: "Use the PR description writer for this branch." Claude Code reads the agent file, follows the instructions, and delivers the output.
+
+### When to Use Agents vs Doing Work Directly
+
+Not everything needs an agent. Here's a simple decision framework:
+
+**Use agents for:**
+- Research tasks that require reading many files
+- Code review and security audits
+- Test generation and verification
+- Any task where you need the result but not the process
+- Work that can run in parallel with other tasks
+
+**Work directly for:**
+- Quick file edits (a few lines)
+- Simple questions about the codebase
+- Decisions that need your input at every step
+- One-off commands and scripts
+
+The rule of thumb: if the task takes more than a minute and you don't need to steer it, delegate to an agent.
+
+### Parallel Agent Execution
+
+The real power of agents is parallelism. For complex tasks, launch multiple agents at once:
+
+```markdown
+Launch 3 agents in parallel:
+1. Agent 1: Security review of the auth module
+2. Agent 2: Performance audit of the database queries
+3. Agent 3: Test coverage analysis for the API routes
+```
+
+Each agent works independently, uses its own context, and returns a focused report. You get three expert reviews in the time it takes for one.
+
+### Tips for Working with Agents
+
+**One task per agent.** An agent that does code review AND writes tests is two agents crammed into one. Keep them focused.
+
+**Give clear instructions.** Agents work best with specific, bounded tasks. "Review this file for security issues" beats "look at the code and tell me if anything's wrong."
+
+**Trust but verify.** Agents are good, not perfect. Skim their output before acting on it. A security agent might flag a false positive. A test agent might miss an edge case.
+
+**Start with built-in agents.** Use the code-reviewer and tdd-guide for a week before writing custom agents. You'll learn what works and what you actually need.
+
+**Keep agent files short.** A good agent definition is 20-40 lines. If your agent file is 200 lines, you're probably encoding multiple agents into one. Split them up.
+
+---
+
+## Autonomous Loops
+
+### What Are Autonomous Loops?
+
+An autonomous loop is Claude Code running a task without your input, finishing, and then picking up the next iteration automatically. You define the task, set the boundaries, and walk away. Claude Code keeps working until the job is done or you tell it to stop.
+
+This is the most advanced pattern in the Claude Code toolkit. It's also the one that demands the most respect. Autonomous loops are powerful when bounded properly and dangerous when they're not.
+
+### The Core Pattern
+
+The autonomous loop relies on three pieces:
+
+1. **A task template** that defines what to do
+2. **A stop hook** that re-feeds the task when Claude Code finishes a session
+3. **A safety mechanism** to kill the loop when needed
+
+Here's how the pieces fit together:
+
+```
+You start a session with a task template
+  -> Claude Code works on the task
+  -> Session ends (naturally or by token limit)
+  -> Stop hook detects the task file still exists
+  -> Stop hook starts a new session with the same task
+  -> Loop continues until task is complete or you intervene
+```
+
+### Setting Up a Task Template
+
+Task templates live in a dedicated directory. Each template is a markdown file with clear scope and exit conditions.
+
+```markdown
+# Task: Fix Failing Tests
+
+## Objective
+Run the test suite and fix all failing tests until the suite is green.
+
+## Boundaries
+- Only modify test files and the source files they test
+- Do not change any API contracts or public interfaces
+- Do not modify configuration files
+- Maximum 10 fix attempts per failing test before flagging for human review
+
+## Process
+1. Run `npm test` and capture output
+2. Identify the first failing test
+3. Read the test to understand intent
+4. Read the implementation to find the bug
+5. Fix the implementation (not the test, unless the test is wrong)
+6. Re-run the test suite
+7. Repeat until green or boundary hit
+
+## Exit Conditions
+- All tests pass: write a summary and delete this task file
+- Hit 10 attempts on a single test: write a report and stop
+- Encountered a boundary violation: stop and document why
+```
+
+Save this to `~/.claude/autonomous/tasks/fix-tests.md`, then copy it to `~/.claude/autonomous/current-task.md` to activate.
+
+### The Stop Hook
+
+The stop hook is what creates the loop. When Claude Code finishes a session, the hook checks if `current-task.md` still exists. If it does, the hook re-launches Claude Code with the task.
+
+```bash
+#!/bin/bash
+# ~/.claude/autonomous/stop-hook.sh
+
+TASK_FILE="$HOME/.claude/autonomous/current-task.md"
+STOP_FILE="$HOME/.claude/autonomous/STOP"
+
+# Check for emergency stop
+if [ -f "$STOP_FILE" ]; then
+  echo "Emergency stop detected. Halting autonomous loop."
+  rm -f "$TASK_FILE"
+  exit 0
+fi
+
+# If task still exists, re-feed it
+if [ -f "$TASK_FILE" ]; then
+  echo "Task still active. Restarting session..."
+  claude --task-file "$TASK_FILE"
+fi
+```
+
+### The Emergency Stop
+
+This is non-negotiable. Every autonomous loop must have a kill switch.
+
+```bash
+# Stop the loop immediately
+touch ~/.claude/autonomous/STOP
+```
+
+That single command halts the loop at the next session boundary. The stop hook checks for this file before restarting. No `STOP` file, the loop continues. `STOP` file exists, the loop dies.
+
+Always test your emergency stop before running a long autonomous task. Start a loop, trigger the stop, and verify it actually halts.
+
+### Real-World Example: Autonomous PR Reviewer
+
+```markdown
+# Task: Review Open Pull Requests
+
+## Objective
+Check for new open PRs every iteration. Review each unreviewed PR
+and leave structured feedback.
+
+## Boundaries
+- Read-only on the repository (no pushes, no merges)
+- Only review PRs opened in the last 24 hours
+- Skip PRs already reviewed by this process
+- Maximum 5 PRs per iteration
+
+## Process
+1. Run `gh pr list --state open --json number,title,createdAt`
+2. Filter to PRs from the last 24 hours
+3. For each unreviewed PR:
+   a. Read the diff
+   b. Check for common issues (security, performance, style)
+   c. Write a review comment via `gh pr review`
+4. Log reviewed PR numbers to avoid re-reviewing
+5. Delete task file when no unreviewed PRs remain
+```
+
+### When NOT to Use Autonomous Loops
+
+**External APIs with side effects.** An autonomous loop that sends emails, creates Jira tickets, or posts to Slack can cause real damage if it misfires. Keep autonomous work read-heavy and write-light.
+
+**Production data.** Never point an autonomous loop at a production database. One bad query in a loop that runs 50 iterations is 50 bad queries.
+
+**Unbounded scope.** "Refactor the entire codebase" is not an autonomous task. "Fix the 12 ESLint errors in src/utils/" is.
+
+**Anything you haven't done manually first.** If you haven't done the task by hand at least once, you don't know enough to write boundaries for it.
+
+### Tips
+
+**Start with read-only tasks.** Your first autonomous loop should read code, analyze patterns, or generate reports. Nothing that writes to external systems.
+
+**Define exit conditions clearly.** "Fix all tests" is bounded. "Improve code quality" is not. Every task needs a concrete finish line.
+
+**Check results before trusting.** Review the output of your first 3-5 autonomous runs manually. Trust builds gradually.
+
+**Keep task files short.** A good task template is 20-30 lines. If you need more, the task is too big. Break it into smaller autonomous steps.
+
+---
+
+## MCP Servers
+
+### What Is MCP?
+
+MCP stands for Model Context Protocol. It's a standard way for AI tools to connect to external services. Think of MCP servers as plugins for Claude Code. Each server gives Claude Code the ability to read from or write to an external tool.
+
+Without MCP, Claude Code can only work with files on your machine. With MCP, it can read your Slack messages, check your GitHub PRs, query your database, and pull designs from Figma. All within the same conversation.
+
+### What MCP Servers Do
+
+An MCP server is a small program that sits between Claude Code and an external service. It translates Claude Code's requests into API calls and returns the results.
+
+```
+Claude Code  ->  MCP Server  ->  External Service
+   "read PR #42"  ->  GitHub MCP  ->  GitHub API
+                   <-  PR diff, comments, status
+```
+
+Each server exposes a set of **tools** that Claude Code can call. The GitHub MCP server might expose tools like `get_file_contents`, `list_pull_requests`, and `create_pull_request`. Claude Code discovers these tools automatically and uses them when your prompt calls for it.
+
+### Popular MCP Servers
+
+| Server | What It Does | Example Use |
+|---|---|---|
+| **GitHub** | Read PRs, create issues, search code | "What's the status of my open PRs?" |
+| **Slack** | Read channels, send messages, search threads | "Summarize the #engineering channel from today" |
+| **Linear / Jira** | Manage tickets, update status, search issues | "What tickets are assigned to me this sprint?" |
+| **Database** (Postgres, etc.) | Run read queries, inspect schema | "Show me the top 10 users by activity" |
+| **Figma** | Read designs, extract components | "What are the specs for the new card component?" |
+| **Confluence** | Search docs, read pages | "Find the architecture doc for the auth service" |
+
+You don't need all of these. Most people start with one or two and add more over time.
+
+### How to Set Up an MCP Server
+
+MCP servers are configured in a `.mcp.json` file at your project root. Each entry defines a server name, how to start it, and what credentials it needs.
+
+Here's a minimal example connecting the GitHub MCP server:
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-token-here>"
+      }
+    }
+  }
+}
+```
+
+When Claude Code starts, it reads `.mcp.json`, launches the configured servers, and discovers their tools. Now you can say "show me my open PRs" and Claude Code will call the GitHub MCP server to fetch them.
+
+For servers that use OAuth (like Slack or Figma), the setup involves an authorization flow instead of a static token. The MCP server documentation for each service walks you through this.
+
+### A Complete Example: GitHub + Linear
+
+Here's a real `.mcp.json` that connects two services:
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-github-token>"
+      }
+    },
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-linear"],
+      "env": {
+        "LINEAR_API_KEY": "<your-linear-key>"
+      }
+    }
+  }
+}
+```
+
+With both connected, you can ask Claude Code things like: "Find the Linear ticket for the auth bug, then check if there's a related PR on GitHub." Claude Code coordinates across both servers in a single response.
+
+### Security Considerations
+
+MCP servers have real access to your tools. Treat them with the same care as any API integration.
+
+**Only connect servers you trust.** Each MCP server runs as a process on your machine with the credentials you provide. Use official or well-maintained community servers.
+
+**Use scoped tokens.** Don't hand an MCP server your all-access admin token. Create a personal access token with the minimum permissions needed. For GitHub, read-only access to repos and PRs is enough for most workflows.
+
+**Keep tokens out of version control.** Never commit `.mcp.json` with real tokens. Either use environment variables that reference your system keychain, or add `.mcp.json` to `.gitignore` and share a `.mcp.json.example` template with your team.
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "$GITHUB_TOKEN"
+      }
+    }
+  }
+}
+```
+
+Using `$GITHUB_TOKEN` tells the server to read from your shell environment, keeping the actual secret out of the file.
+
+### Tips for Getting Started
+
+**Start with one server.** GitHub is the easiest to set up and the most immediately useful. Get it working before adding more.
+
+**Verify before expanding.** After connecting a server, test it with a simple query: "List my open PRs" or "Show me recent Slack messages." If that works, you know the connection is solid.
+
+**Check server documentation.** Each MCP server has its own setup guide with specific token scopes, OAuth flows, and supported tools. Five minutes reading the docs saves an hour of debugging.
+
+**Watch for rate limits.** MCP servers make real API calls. If you ask Claude Code to "search all 500 repos for security issues," you might hit GitHub's rate limit. Be specific in your requests to keep API usage reasonable.
+
+---
+
+## The Daily Practice
+
+### This Is Not a Skill Pack
+
+It's a way of working. The difference between "I use Claude Code" and "Claude Code is my operating system" comes down to daily habits that compound.
+
+### The Problem
+
+Every user opens Claude Code the same way: blank context, cold start, type a question, get an answer, close the tab. Next session, start from zero. Context evaporates. Decisions are untraceable.
+
+You end up spending 30% of every session re-explaining who you are, what you're working on, and what happened last time.
+
+### The System: Three Principles
+
+#### 1. Context Compounds
+
+Sessions don't start cold. The memory system persists what matters across conversations: who you work with, what projects are active, what decisions were made. The handoff protocol captures reasoning at the end of every session. The next session picks up exactly where you left off.
+
+This isn't "chat history." It's institutional knowledge that gets more valuable over time.
+
+#### 2. Workflows, Not Prompts
+
+You don't type "help me prepare for my 1:1 with Sarah." You run `/meeting-prep Sarah` and the system pulls recent interactions, open items, and suggested talking points from your connected systems.
+
+Each skill encodes a complete workflow, not a clever prompt. Prompts are one-shot. Workflows are repeatable, consistent, and improvable.
+
+#### 3. Decisions Are Traceable
+
+Living documents update after every meeting, surface in your dashboard, and carry forward through handoffs. Six months from now, you can trace why a decision was made, who was in the room, and what the alternatives were.
+
+### The Daily Rhythm
+
+#### Morning (5 minutes)
+
+**Run `/pulse`** (or your equivalent morning check-in skill).
+
+This reads all your active project documents and generates a unified view:
+- What needs attention today
+- What's blocked
+- What deadlines are approaching
+- What changed since yesterday
+
+Without this, you're operating on yesterday's mental model. With it, you know exactly where to focus.
+
+#### Before Each Meeting (2 minutes)
+
+**Run `/meeting-prep {person or topic}`**.
+
+This pulls:
+- Recent interactions with this person
+- Open items between you
+- Relevant project context
+- Suggested talking points
+
+No more scrambling through Slack and Jira five minutes before a call.
+
+#### After Each Meeting (3 minutes)
+
+**Run `/post-meeting`**.
+
+This:
+- Extracts action items, decisions, and insights from the meeting
+- Updates the relevant project's living document
+- Flags anything that needs follow-up
+
+The meeting's value gets captured while it's fresh.
+
+#### During Work Sessions
+
+Use the orchestration model:
+
+1. **Plan first** for anything non-trivial. Enter plan mode, align on approach, then execute.
+2. **Delegate to sub-agents** for focused tasks. Research, code review, analysis: each gets its own agent.
+3. **Capture corrections** as feedback memories. Every mistake Claude Code makes (and you fix) becomes a permanent rule.
+4. **Verify before done.** Tests pass. Logs are clean. Behavior matches expectations.
+
+#### End of Day (2 minutes)
+
+**Write a handoff.** Even if it's just three bullet points:
+- What was done today
+- What's the priority tomorrow
+- Any blockers or decisions that need input
+
+This 2-minute investment saves 10 minutes of context loading tomorrow.
+
+#### Weekly (Friday, 5 minutes)
+
+**Run `/weekly-status`**.
+
+This auto-generates an accomplishment report by pulling from Jira, GitHub, Slack, and your meeting notes. No more "what did I do this week?" scrambling.
+
+### What Changes
+
+| Before | After |
+|--------|-------|
+| Every session starts cold | Context resumes automatically |
+| "Let me explain the project again..." | Memory + handoffs = zero re-explanation |
+| Status updates are manual busywork | Generated in seconds |
+| Meeting prep is 20 min of tab-switching | Synthesized across all sources |
+| Project decisions are lost in Slack | Living docs, traceable |
+| AI is a chatbot you prompt | AI is an operating system you drive |
+
+### The First 30 Days
+
+**Week 1:** Set up CLAUDE.md, memory, and handoffs. Start writing handoffs at end of each session. It feels like extra work. Do it anyway.
+
+**Week 2:** Add your first 2-3 skills (meeting prep, pulse, or equivalents for your workflow). Start running them daily. Notice the time savings.
+
+**Week 3:** Memory starts paying off. Claude Code stops making mistakes you've already corrected. Sessions start faster. The compound effect begins.
+
+**Week 4:** You can't imagine working without it. The "extra work" from week 1 is now saving you 30+ minutes daily.
+
+### Who This Is For
+
+- PMs, developers, and managers who run 3+ projects simultaneously
+- People who use Claude Code daily, not occasionally
+- Anyone who values systems over one-off hacks
+- People willing to invest 10 minutes of setup for hours of ongoing savings
+
+### Who This Is Not For
+
+- People looking for a prompt library (these are systems, not prompts)
+- Teams that need a shared collaborative tool (this is a personal operating system, though it can be shared)
+- People who don't use Claude Code yet (get started first, then come back)
+
+---
+
+## Debugging with Claude Code
+
+### The Investigation Mindset
+
+The biggest debugging mistake is guessing. You see an error, you think you know what caused it, and you start changing code. Twenty minutes later you have changed six files, the original error is gone, and two new ones have appeared.
+
+Claude Code is at its best when you treat debugging as investigation, not guessing. Give it evidence, let it trace the path, and fix what is actually broken.
+
+### The Six-Step Debugging Workflow
+
+Every debugging session should follow this structure, whether you are doing it yourself or with Claude Code.
+
+#### 1. Reproduce
+
+Before anything else, confirm you can trigger the bug consistently. If you cannot reproduce it, you cannot verify your fix. Tell Claude Code exactly how to trigger the issue: the URL, the input, the sequence of clicks.
+
+#### 2. Isolate
+
+Narrow down where the problem lives. Is it the frontend or the backend? Is it in your code or a dependency? Is it happening in development or only in production?
+
+Claude Code is excellent at this. Ask it to trace the data flow from the entry point (API call, user action, cron job) through the codebase. It can read multiple files simultaneously and map the path.
+
+#### 3. Read the Logs
+
+This sounds obvious, but most people skip it. Logs tell you what actually happened, not what you think happened. Share the full error output with Claude Code, including the stack trace. Do not summarize or paraphrase the error: paste the exact output.
+
+If there are no logs, that is your first problem to solve. Add logging at the boundaries (API entry/exit, database calls, external service calls) before continuing.
+
+#### 4. Form a Hypothesis
+
+Based on the evidence, what do you think is causing the issue? Claude Code can help here by analyzing the code path, checking recent changes (`git log`, `git diff`), and looking for common patterns that cause the type of error you are seeing.
+
+#### 5. Test the Fix
+
+Make the smallest possible change to test your hypothesis. Do not refactor three files while fixing a bug. Change one thing, run the reproduction steps, and see if the behavior changes.
+
+#### 6. Verify
+
+Confirm the fix works and has not broken anything else. Run your test suite. Check related functionality. If the bug was in an API endpoint, test other endpoints that share the same code path.
+
+### Common Debugging Patterns
+
+Here are the questions people most often bring to Claude Code, and how to approach them.
+
+#### "Why is this API returning 500?"
+
+Start with the server logs. A 500 error means an unhandled exception somewhere. Share the exact error message and stack trace with Claude Code. Ask it to read the file and line number from the stack trace and trace backward to find the root cause.
+
+Common culprits: missing environment variables, null values where an object is expected, database connection failures, and unhandled promise rejections.
+
+#### "Why is my component not rendering?"
+
+Check the browser console first. React and other frameworks surface rendering errors there. Share the console output with Claude Code. Common causes: a parent component is not passing the right props, conditional rendering logic is excluding it, or a data fetch is returning undefined.
+
+Ask Claude Code to read the component file and its parent to trace the props and state.
+
+#### "Why is the test failing?"
+
+Paste the full test output, not just the error line. Claude Code needs to see the expected vs actual values, the test name, and the file path. Often the test itself is correct and the implementation has a subtle bug. Sometimes the test is outdated and tests the wrong behavior.
+
+Ask Claude Code to read both the test file and the implementation file. It can usually spot the mismatch quickly.
+
+### Tips for Effective Debugging Sessions
+
+**Share the actual error message.** "It is not working" gives Claude Code nothing to work with. The exact error text, status code, or stack trace gives it everything.
+
+**Share the full stack trace.** The root cause is often three or four frames deep. The top-level error message is frequently a symptom, not the cause.
+
+**Let Claude Code read the files.** Do not paste code snippets and ask "what is wrong?" Let it read the full file with surrounding context. Bugs often come from interactions between functions, not from a single line.
+
+**Use sub-agents for parallel investigation.** If you are not sure whether the problem is in the frontend or backend, spawn two sub-agents: one to check the API logs and one to check the browser console output. This is faster than checking one at a time.
+
+**Check recent changes.** Many bugs are introduced by recent commits. Ask Claude Code to run `git log` and `git diff` to see what changed recently in the affected files. The culprit is often in the last few commits.
+
+**Do not change code until you understand the problem.** This is the hardest discipline. The urge to "try something" is strong. Resist it. Understand first, then fix. A fix you do not understand is not a fix; it is a time bomb.
+
+---
+
+## Claude Code for Product Managers
+
+### You Do Not Need to Write Code
+
+This is the most important thing to understand: Claude Code is not just for developers. If you are a Product Manager, you can use it without writing a single line of code. Claude Code reads files, searches across systems, synthesizes information, and automates repetitive knowledge work. That is exactly what PMs spend most of their day doing.
+
+### Core PM Skills
+
+Claude Code can be extended with "skills," which are specialized workflows triggered by simple commands. Here are the ones built specifically for PM work.
+
+#### Meeting Prep
+
+Before any meeting, you need context: what happened last time, what is open, what decisions are pending. The meeting prep skill pulls all of this automatically.
+
+What it does:
+- Searches your notes and documents for recent interactions with the person or topic
+- Finds open action items from previous meetings
+- Surfaces relevant project updates
+- Generates suggested talking points
+
+Instead of spending 15 minutes before each meeting scrambling through Slack and Jira, you run one command and get a briefing document.
+
+#### Post-Meeting Processing
+
+After a meeting, you have decisions, action items, and context that needs to go somewhere. The post-meeting skill captures all of it.
+
+What it does:
+- Extracts decisions and action items from meeting notes
+- Updates your living project documents with new information
+- Creates follow-up tasks
+- Links decisions to the projects they affect
+
+This is where the real power is. Every meeting you process adds to your project's knowledge base. Over weeks, your project documents become comprehensive and current without you manually updating them.
+
+#### Pulse Dashboard
+
+When you manage multiple projects, the hardest question is "what needs my attention right now?" The pulse skill answers this.
+
+What it does:
+- Reads all your active project documents
+- Identifies what is blocked, what is at risk, and what is on track
+- Highlights projects that have not been updated recently
+- Generates a unified dashboard view
+
+Run this on Monday morning and you know exactly where to focus your week.
+
+#### Weekly Status Reports
+
+Nobody likes writing status reports. The weekly status skill generates them from your actual work artifacts.
+
+What it does:
+- Pulls completed work from your project management tools
+- Summarizes meeting outcomes and decisions made
+- Lists key metrics and their trends
+- Formats everything into a shareable report
+
+The output is a draft, not a final product. You review it, add your narrative, and send. But 80% of the work is done.
+
+### The Product Brain
+
+Beyond individual skills, there is a bigger concept: the Product Brain. This is a directory of living project documents that update after every meeting and every decision.
+
+Each project gets a document that tracks:
+- **Purpose:** Why this project exists
+- **Progress:** What has been done and what is next
+- **Problems:** What is blocked and what risks are emerging
+
+These documents are not static. Every time you run the post-meeting skill, the relevant project document gets updated. Every time you run pulse, it reads all of them to generate your dashboard. The information flows between skills, building a connected picture of your work.
+
+### How This Differs From "Just Asking ChatGPT"
+
+You might be thinking: "I can ask ChatGPT to summarize my meeting notes too." Here is why Claude Code is different:
+
+- **Persistent context.** ChatGPT forgets everything between conversations. Claude Code has memory files that accumulate your project knowledge over time.
+- **Connected to your real tools.** Claude Code can read your actual files, search your codebase, and interact with your systems. It works with your data, not hypothetical data.
+- **Workflow automation.** Skills are repeatable processes, not one-off questions. You run the same skill every week and it gets better as your memory grows.
+- **It lives in your terminal.** No switching to a browser tab. It runs where your team works.
+
+### Getting Started as a PM
+
+Here is your first week:
+
+1. **Install Claude Code.** Follow the getting started guide. It takes 5 minutes.
+2. **Set up your memory.** Create a user memory with your role, your projects, and your team. One file, a few paragraphs.
+3. **Add one project.** Pick your most active project and create a project memory with its name, status, and key stakeholders.
+4. **Run your first pulse.** See what Claude Code surfaces from your project context.
+5. **Process one meeting.** After your next meeting, feed the notes to Claude Code and see what it extracts.
+
+You will know it is working when your Monday morning prep takes 10 minutes instead of 45, and your status reports practically write themselves.
+
+### Want to Build Prototypes Too?
+
+If you're a PM who also wants to ship quick prototypes without writing code, check out [Lovable](https://lovable.link/4IOZkKK). It's a visual AI builder that lets you go from idea to working app in minutes. Use Claude Code for your PM workflows and Lovable for rapid prototyping. (20% off your first month with that link.)
+
+---
+
+## Team Adoption
+
+### Why Teams Resist
+
+Before you roll out Claude Code to your team, understand why people push back. It is rarely about the tool itself.
+
+- **"It will replace me."** The most common fear, usually unspoken. Address it directly: Claude Code makes developers faster, it does not make them unnecessary. The people who adopt AI tools become more valuable, not less.
+- **"I do not have time to learn another tool."** Valid concern. The onboarding needs to be low-friction. Nobody wants a three-day workshop.
+- **"AI code is sloppy."** Often true when Claude Code has no configuration. Without a shared CLAUDE.md, it guesses at your conventions. With one, it follows your team's exact standards.
+- **"I tried ChatGPT once and it was useless."** Claude Code is fundamentally different from a chatbot. It reads your codebase, runs commands, and has persistent context. The comparison does not hold.
+
+### The Champion Strategy
+
+Do not roll out to the whole team at once. Start small and let results do the convincing.
+
+**Step 1: Pick 2-3 champions.** Choose people who are curious about AI tooling and have influence on the team. They do not need to be the most senior engineers, just respected voices.
+
+**Step 2: Give champions one week to build their workflow.** Let them set up CLAUDE.md, create memory files, and integrate Claude Code into their actual work. No artificial exercises.
+
+**Step 3: Champions share wins in a team setting.** A 10-minute demo in a team meeting showing a real task completed faster is worth more than any slide deck. Concrete examples: "I debugged this production issue in 15 minutes instead of 2 hours" or "It wrote all the test scaffolding for my feature."
+
+**Step 4: Open it up with a shared config.** Once champions have proven the value, give the rest of the team a ready-made setup to start with.
+
+### Building a Shared CLAUDE.md
+
+A team-level CLAUDE.md is the single most important thing for consistent adoption. Without it, every developer gets a different experience. With it, Claude Code follows your team's standards from the first session.
+
+Your shared CLAUDE.md should include:
+
+- **Coding standards:** Naming conventions, file organization, import ordering
+- **PR conventions:** Commit message format, review checklist, branch naming
+- **Testing rules:** Minimum coverage, testing framework, what to test vs what to skip
+- **Architecture patterns:** Where things live in your codebase, how modules connect
+- **Forbidden patterns:** Things Claude Code should never do (e.g., suppress lint rules, use `any` types, add `console.log` in production code)
+
+Store this in your repository's `.claude/CLAUDE.md` so it is version-controlled and everyone gets the same config automatically.
+
+### Onboarding Checklist for New Team Members
+
+When someone new joins and needs to get started with Claude Code:
+
+- [ ] Install Claude Code CLI
+- [ ] Clone the repo (shared CLAUDE.md comes with it)
+- [ ] Create personal memory: role, current focus area, one preference
+- [ ] Run their first task: ask Claude Code to explain a file they are unfamiliar with
+- [ ] Run their second task: have Claude Code write a test for existing code
+- [ ] Pair with a champion for 30 minutes to see their workflow
+
+Keep it under an hour. The goal is a working setup, not mastery. Mastery comes from daily use.
+
+### Measuring Success
+
+Track these metrics to know if adoption is working:
+
+| Metric | How to Measure | Good Signal |
+|--------|---------------|-------------|
+| **Time saved per sprint** | Self-reported by developers | 3-5 hours/week within first month |
+| **PR quality** | Review feedback, CI pass rates | Fewer revisions per PR |
+| **Developer satisfaction** | Quick pulse survey (1-5 scale) | Score increases over 4 weeks |
+| **Adoption rate** | % of team using it weekly | 60%+ after 6 weeks |
+
+Do not measure lines of code generated. That metric is meaningless and encourages the wrong behavior.
+
+### Common Mistakes
+
+**Forcing adoption.** Making Claude Code mandatory before people see the value creates resentment. Let the results pull people in.
+
+**No shared config.** Without a team CLAUDE.md, everyone gets inconsistent results. Some people love it, others think it is broken. The difference is usually configuration, not the tool.
+
+**No champions.** Rolling out to everyone simultaneously means nobody is an expert. Questions go unanswered, frustrations pile up, and the tool gets abandoned.
+
+**Overcomplicating the setup.** Start with a simple CLAUDE.md covering your top 5 conventions. You can always add more later. A 500-line config file on day one scares people off.
+
+**Ignoring the skeptics.** The loudest critic often becomes the strongest advocate once they see a real demo. Invite them to watch a champion work, do not argue in the abstract.
+
+---
+
+## CLAUDE.md Templates
+
+> **Before using these templates**, complete the Interactive Guide first (at minimum steps 1-5). You need Claude Code installed and a working CLAUDE.md before templates make sense. If you haven't done that yet, start with the guide.
+
+### Template Gallery
+
+These aren't generic starters. They're extracted from production workspaces and refined over months of daily use.
+
+#### Available Templates
+
+| Template | Best for | Key features |
+|----------|----------|-------------|
+| Next.js App | Single Next.js application | App Router patterns, server actions, testing |
+| Monorepo | Turborepo / multi-package | Workspace-aware, package boundaries, shared rules |
+| Python Project | Python backend / data science | Poetry/uv, pytest, type checking |
+| PM Workspace | Product managers | Skills, memory, meeting workflows, product brain |
+
+#### How to Use
+
+1. Pick the template closest to your project
+2. Copy the CLAUDE.md and supporting files
+3. Customize the communication preferences and rules
+4. Add your own skills and agents over time
+
+Templates are starting points, not destinations. The best CLAUDE.md is the one shaped by your corrections and preferences over weeks of use.
+
+---
+
+## Template: Next.js App
+
+> **Prerequisites:** Complete the Interactive Guide (steps 1-5) and read The CLAUDE.md Guide first. You need Claude Code installed and understand how CLAUDE.md works before customizing a template.
+
+Use this template for standalone Next.js applications using the App Router with a `src/` directory structure. It covers the conventions that matter most: server component defaults, async API patterns from Next.js 15+, and a testing setup that keeps tests close to the code they validate.
+
+If you use the Pages Router or a different directory layout, adjust the project structure section accordingly.
+
+```markdown title="CLAUDE.md"
+# CLAUDE.md
+
+## Project Overview
+
+Next.js App Router application. TypeScript strict mode. Deployed on Vercel.
+
+Directory layout:
+- `src/app/` - Route segments, layouts, pages, loading/error states
+- `src/components/` - Shared React components
+- `src/lib/` - Utilities, helpers, constants
+- `src/hooks/` - Custom React hooks
+- `src/types/` - Shared TypeScript type definitions
+- `public/` - Static assets
+
+## Build Commands
+
+```bash
+npm run dev        # Local dev server (Turbopack)
+npm run build      # Production build
+npm run lint       # ESLint check
+npm run test       # Run Jest tests
+npm run test:watch # Watch mode for TDD
+```
+
+## Key Conventions
+
+### Server Components by Default
+Every component is a React Server Component unless it needs interactivity.
+Add `'use client'` only when the component uses:
+- Event handlers (onClick, onChange, onSubmit)
+- Browser APIs (window, localStorage, IntersectionObserver)
+- React hooks (useState, useEffect, useReducer, useContext)
+
+### Server Actions for Mutations
+Use Server Actions (`'use server'`) for form submissions and data mutations.
+Never call external APIs directly from client components when a Server Action works.
+
+### Async APIs (Next.js 15+)
+`params`, `searchParams`, `cookies()`, `headers()`, and `draftMode()` are all async.
+Always `await` them:
+```ts
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+}
+```
+
+### Routing Rules
+- Use `loading.tsx` for Suspense fallbacks at the route level
+- Use `error.tsx` for error boundaries at the route level
+- Use `not-found.tsx` for 404 states
+- Group related routes with `(group)` folders when they share a layout
+- Dynamic segments use `[param]`, catch-all uses `[...param]`
+
+## Testing
+
+Jest + React Testing Library. Test files live next to the source file they test.
+
+```
+src/components/Button.tsx
+src/components/Button.test.tsx
+```
+
+Rules:
+- Test user-visible behavior, not implementation details
+- Use `screen.getByRole` over `getByTestId` whenever possible
+- Mock external APIs at the fetch level, not inside components
+- Minimum 80% coverage on new code
+
+## Code Style
+
+- TypeScript strict mode. No `any` types. Use `unknown` and narrow.
+- Prefer `const` and immutable patterns. Never mutate function arguments.
+- Functions under 50 lines. Files under 400 lines. Extract when either grows.
+- Named exports only. No default exports except for pages/layouts (Next.js requires them).
+- Use `clsx` or `cn()` for conditional class names. No ternaries in className strings.
+- Tailwind CSS for styling. No CSS modules unless overriding third-party components.
+
+## Deployment
+
+Deployed on Vercel. Environment variables managed through `vercel env`.
+
+- Never hardcode secrets. Use `process.env.VARIABLE_NAME`.
+- Preview deployments run on every PR. Check the preview before merging.
+- Production deploys from `main` branch only.
+- Use `vercel.json` for redirects, headers, and rewrites. Not `next.config.ts`.
+
+## Communication Style
+
+Be direct. Show code, not explanations of code. When suggesting changes,
+edit the file directly rather than describing what to change.
+```
+
+### How to Use
+
+1. Copy the code block above into a `CLAUDE.md` file at your project root
+2. Update the build commands if you use `pnpm`, `yarn`, or `bun` instead of `npm`
+3. Adjust the directory layout section if your project does not use a `src/` directory
+4. Add project-specific rules as you discover patterns that Claude should follow
+
+---
+
+## Template: Monorepo
+
+> **Prerequisites:** Complete the Interactive Guide (steps 1-5) and read The CLAUDE.md Guide first. You need Claude Code installed and understand how CLAUDE.md works before customizing a template.
+
+Use this template for monorepos managed with Turborepo and npm/pnpm workspaces. It enforces package boundaries so Claude does not accidentally import across apps or bypass shared packages. The template assumes a standard `apps/` + `packages/` layout.
+
+If you use Nx instead of Turborepo, swap the build commands but keep the boundary rules.
+
+```markdown title="CLAUDE.md"
+# CLAUDE.md
+
+## Project Overview
+
+Turborepo monorepo with npm workspaces. Multiple apps sharing common packages.
+
+```
+apps/
+  web/          - Next.js frontend (App Router)
+  docs/         - Documentation site
+packages/
+  ui/           - Shared React component library (@repo/ui)
+  config/       - Shared ESLint, TypeScript, Tailwind configs (@repo/config)
+  utils/        - Shared utility functions (@repo/utils)
+  types/        - Shared TypeScript types (@repo/types)
+  db/           - Database client and schema (@repo/db)
+```
+
+## Build Commands
+
+```bash
+turbo run build           # Build all packages and apps
+turbo run dev             # Dev servers for all apps
+turbo run lint            # Lint everything
+turbo run test            # Test everything
+turbo run build --filter=web  # Build only the web app
+turbo run dev --filter=web    # Dev server for web only
+```
+
+To work on a specific package:
+```bash
+cd packages/ui && npm run test
+cd apps/web && npm run dev
+```
+
+## Package Boundaries (Critical)
+
+These rules prevent spaghetti dependencies:
+
+1. **Apps never import from other apps.** `apps/web` must not import from `apps/docs`.
+   Share code through a package in `packages/` instead.
+2. **Packages import only from other packages.** `@repo/ui` can depend on `@repo/utils`
+   but never on `apps/web`.
+3. **All shared packages use the `@repo/` prefix.** Import as `@repo/ui`, `@repo/utils`, etc.
+4. **No relative imports across workspace boundaries.** Never use `../../packages/ui`.
+   Always use the package name: `import { Button } from '@repo/ui'`.
+5. **New shared code goes into the right package.** Types in `@repo/types`, utilities in
+   `@repo/utils`, components in `@repo/ui`. When nothing fits, create a new package.
+
+## Naming Conventions
+
+- Package directories: lowercase kebab-case (`ui`, `utils`, `config`)
+- Package names in package.json: `@repo/package-name`
+- Exports: each package defines explicit exports in `package.json` exports field
+- Internal modules: use `src/` directory inside each package
+
+## Adding a New Package
+
+1. Create directory under `packages/`
+2. Add `package.json` with `"name": "@repo/package-name"`
+3. Add `tsconfig.json` extending `@repo/config/tsconfig.base.json`
+4. Register in root `turbo.json` if it has custom pipeline tasks
+5. Run `npm install` from the root to link the workspace
+
+## Testing
+
+Each package owns its tests. Run from the package root or via Turbo.
+
+- `packages/ui` - Vitest + React Testing Library
+- `packages/utils` - Vitest
+- `packages/db` - Vitest with test database
+- `apps/web` - Jest + React Testing Library + Playwright for E2E
+
+Rule: test the package where the code lives. Do not test `@repo/ui` components
+from inside `apps/web`. Test them in `packages/ui/src/__tests__/`.
+
+## CI Notes
+
+- Use `turbo run build --affected` on PRs to build only changed packages
+- Cache is stored remotely via Vercel Remote Cache
+- Each package must build independently. No implicit dependency on build order.
+- Changesets for versioning: run `npx changeset` before merging cross-package changes
+
+## Code Style
+
+- TypeScript strict mode across all packages
+- Shared ESLint config in `@repo/config`. Do not override rules per-package.
+- Shared Tailwind config in `@repo/config`. Apps extend it, packages consume tokens.
+- Immutable patterns. Never mutate arguments or shared state.
+
+## Communication Style
+
+When working in this repo, always specify which package or app you are modifying.
+Say "in packages/ui" or "in apps/web", not just file paths.
+```
+
+### How to Use
+
+1. Copy the code block above into a `CLAUDE.md` file at the monorepo root
+2. Update the workspace structure to match your actual `apps/` and `packages/` layout
+3. Replace `@repo/` with your actual scope if you use a different npm org prefix
+4. Consider adding a `CLAUDE.md` inside each app for app-specific rules (Claude reads the nearest one)
+
+---
+
+## Template: Python Project
+
+> **Prerequisites:** Complete the Interactive Guide (steps 1-5) and read The CLAUDE.md Guide first. You need Claude Code installed and understand how CLAUDE.md works before customizing a template.
+
+Use this template for Python applications and libraries that use modern tooling: `uv` or `poetry` for dependency management, `pytest` for testing, and `mypy` for type checking. It steers Claude away from legacy patterns like bare `requirements.txt` and global pip installs.
+
+If you use Django or FastAPI, add framework-specific conventions after the base template.
+
+```markdown title="CLAUDE.md"
+# CLAUDE.md
+
+## Project Overview
+
+Python 3.12+ project. Uses `uv` for dependency management and virtual environments.
+All dependencies declared in `pyproject.toml`.
+
+Directory layout:
+- `src/` - Application source code (importable package)
+- `tests/` - Test files mirroring src/ structure
+- `scripts/` - CLI scripts and one-off utilities
+- `pyproject.toml` - Project metadata, dependencies, tool config
+
+## Build and Run Commands
+
+```bash
+uv sync                # Install dependencies into .venv
+uv run python -m src.main  # Run the application
+uv run pytest          # Run all tests
+uv run pytest -x       # Stop on first failure
+uv run mypy src/       # Type check source code
+uv run ruff check .    # Lint
+uv run ruff format .   # Format
+```
+
+If using Poetry instead of uv:
+```bash
+poetry install
+poetry run pytest
+poetry run mypy src/
+```
+
+## Code Style
+
+- Follow PEP 8. Use Ruff for linting and formatting (configured in pyproject.toml).
+- Type hints on all public functions and methods. No untyped public APIs.
+- Use `from __future__ import annotations` at the top of every module for modern syntax.
+- Prefer dataclasses or Pydantic models over plain dicts for structured data.
+- No bare `except:`. Always catch specific exceptions. At minimum: `except Exception as e:`.
+- Prefer returning new values over mutating arguments. Functions should be pure when possible.
+- Docstrings on all public classes and functions. Use Google-style format.
+
+```python
+def calculate_total(items: list[LineItem], tax_rate: float) -> Money:
+    """Calculate the total cost including tax.
+
+    Args:
+        items: Line items to sum.
+        tax_rate: Tax rate as a decimal (0.08 for 8%).
+
+    Returns:
+        Total cost with tax applied.
+    """
+```
+
+## Testing
+
+pytest with fixtures. Test files mirror the source structure:
+
+```
+src/services/billing.py
+tests/services/test_billing.py
+```
+
+Rules:
+- Use fixtures over mocks. Create real objects when possible.
+- Use `pytest.mark.parametrize` for testing multiple inputs.
+- Factory functions for building test data, not raw dicts.
+- Target 80% coverage minimum: `uv run pytest --cov=src --cov-report=term-missing`
+- Separate slow tests with `@pytest.mark.slow` and skip in fast runs.
+
+## Virtual Environment
+
+- Always use `.venv` in the project root. Never install packages globally.
+- The `.venv/` directory is in `.gitignore`. Do not commit it.
+- If `.venv` does not exist, run `uv sync` before doing anything else.
+- Never use `pip install` directly. Use `uv add <package>` to add dependencies.
+
+## Common Pitfalls (Do Not)
+
+- Do not create or modify `requirements.txt`. All dependencies live in `pyproject.toml`.
+- Do not use `os.path` for path manipulation. Use `pathlib.Path`.
+- Do not use `print()` for logging. Use the `logging` module or `structlog`.
+- Do not use mutable default arguments (`def f(items=[])`). Use `None` and create inside.
+- Do not catch and silently swallow exceptions. Log them or re-raise.
+- Do not use `requests` for new code. Use `httpx` (async support, better defaults).
+
+## Communication Style
+
+Be concise. Show the code change, not a tutorial about how Python works.
+When adding dependencies, run `uv add` instead of telling me to do it.
+```
+
+### How to Use
+
+1. Copy the code block above into a `CLAUDE.md` file at your project root
+2. Switch the `uv` commands to `poetry` commands if that is your package manager
+3. Update the directory layout if your project does not use a `src/` structure
+4. Add framework-specific sections for Django, FastAPI, Flask, or other frameworks you use
+
+---
+
+## Template: PM Workspace
+
+> **Prerequisites:** Complete the Interactive Guide (steps 1-5) and read The CLAUDE.md Guide first. You need Claude Code installed and understand how CLAUDE.md works before customizing a template.
+
+This template is for Product Managers who want Claude Code as their daily operating system, not just a code assistant. It sets up a workspace where Claude remembers your projects, processes meetings, tracks decisions, and gives you a pulse on everything you own. No coding required.
+
+This is the most opinionated template in the gallery. It assumes you will build up skills and memory files over time.
+
+```markdown title="CLAUDE.md"
+# CLAUDE.md
+
+## Identity
+
+Multi-project PM workspace. This is not a codebase. It is a structured knowledge
+system for managing products, meetings, decisions, and communications.
+
+Directory layout:
+- `_product-brain/` - Living project docs (one file per project you own)
+- `_context/skills/` - Reusable skills Claude can invoke
+- `_context/handoffs/` - Session continuity docs for picking up where you left off
+- `_context/agents/` - Specialist agents for specific workflows
+- `_memory/` - Persistent memory files (user, project, people, feedback)
+- `_scratch/` - Temporary working space for drafts and analysis
+
+## Session Lifecycle
+
+**Starting a session:**
+1. Read `_memory/MEMORY.md` for current state of all projects and people
+2. Check `_context/handoffs/` for the latest handoff doc
+3. Resume from where the last session ended. No cold starts.
+
+**During a session:**
+- Save corrections and preferences to `_memory/feedback/` immediately
+- Track project updates in `_product-brain/` docs
+- Use handoffs when context is getting long
+
+**Ending a session (mandatory):**
+1. Write a handoff to `_context/handoffs/YYYY-MM-DD-topic.md` if work is in progress
+2. Save any new learnings or corrections to memory files
+3. Minimum handoff: what was done, what is next, key decisions made
+
+## Communication Preferences
+
+- Direct and structured. No filler, no preambles, no "Great question!"
+- Lead with the recommendation, not a list of options
+- Use headings, bullets, numbered steps, tables, and checklists
+- Actionable output: concrete next steps, not theory
+- Production-ready: specs, emails, and artifacts should be usable as-is
+
+## Skills Reference
+
+Skills are reusable workflows invoked by name:
+
+| Skill | Trigger | What it does |
+|-------|---------|-------------|
+| `/meeting-prep` | Before any meeting | Pulls context on attendees, open items, and talking points |
+| `/post-meeting` | After a meeting | Extracts action items, updates project docs, writes follow-ups |
+| `/pulse` | Weekly or on demand | Cross-project dashboard of what needs attention |
+| `/weekly-status` | End of week | Auto-generates accomplishment report from completed work |
+| `/deep-context` | Research mode | Searches all sources for everything known about a topic |
+
+You do not need to build these on day one. Start with `/meeting-prep` and
+`/post-meeting`, then add more as your workflow demands them.
+
+## Memory System
+
+Memory files persist across sessions. Organized by type:
+
+- **User memory** (`_memory/user/`): Your goals, preferences, working style
+- **Feedback memory** (`_memory/feedback/`): Corrections you have made, style preferences
+- **Project memory** (`_memory/project/`): State of each project, key decisions, blockers
+- **People memory** (`_memory/people/`): Key contacts, their roles, interaction history
+- **Reference memory** (`_memory/reference/`): Company context, org structure, tooling
+
+When I learn something new about you or your projects, I save it to the right
+memory file so I never forget it.
+
+## Product Brain
+
+The `_product-brain/` directory holds one living document per project you own.
+Each file follows the PPP format:
+
+- **Progress**: What shipped or moved forward recently
+- **Plans**: What is coming next and when
+- **Problems**: What is blocked, at risk, or needs a decision
+
+These docs are the source of truth for `/pulse` and `/weekly-status`.
+Update them after meetings, launches, and planning sessions.
+
+## Orchestration
+
+- Enter plan mode for any non-trivial task (3+ steps or decisions involved)
+- Use sub-agents for research and parallel analysis to keep main context clean
+- After any correction: save the lesson so the same mistake never repeats
+- Never mark something complete without verifying it: re-read the output,
+  check for accuracy, confirm it matches what was asked
+```
+
+### How to Use
+
+1. Copy the code block above into a `CLAUDE.md` at the root of a new directory (e.g., `~/pm-workspace/`)
+2. Create the directory structure:
+
+```bash
+mkdir -p _product-brain _context/skills _context/handoffs _context/agents
+mkdir -p _memory/user _memory/feedback _memory/project _memory/people _memory/reference
+mkdir -p _scratch
+```
+
+3. Start with one project doc in `_product-brain/` describing a product you currently own
+4. Add a `_memory/MEMORY.md` index file listing your active projects and key people
+5. Skills and agents are optional at first. The memory system and product brain are the foundation. Build skills when you notice yourself repeating the same workflow three or more times.
+
+---
+
+## Claude Code vs Cursor
+
+These two tools approach AI-assisted coding from completely different angles. Cursor puts AI inside your editor. Claude Code puts an AI agent inside your terminal. Neither is "better." They solve different problems.
+
+### Architecture at a Glance
+
+| | Claude Code | Cursor |
+|---|---|---|
+| **Where it lives** | Your terminal | A forked VS Code editor |
+| **Core model** | Claude (Sonnet, Opus) | Multiple (GPT-4, Claude, custom) |
+| **Primary interaction** | Chat in terminal, agent executes | Inline completion, chat sidebar, Cmd+K edits |
+| **Editor requirement** | Works with any editor (VS Code, Vim, Zed, etc.) | You must use Cursor as your editor |
+| **Configuration** | `CLAUDE.md` files in your repo | Settings UI inside the editor |
+| **Extensibility** | Hooks, skills, MCP servers, sub-agents | Rules, custom docs, limited API |
+
+### How the Workflow Differs
+
+**Cursor** feels like a supercharged autocomplete. You write code, it suggests the next line, you hit Tab. You highlight code and ask it to refactor. You chat in a sidebar and it applies changes inline with a visual diff. Everything happens inside the editor, and you stay in control line by line.
+
+**Claude Code** feels like pair programming with someone who can also run your tests, read your logs, and modify files across your project. You describe what you want in plain English, and it plans, writes code, creates files, runs commands, and verifies the result. It works across your whole codebase, not just the file you have open.
+
+### Pricing
+
+| Plan | Cost | What you get |
+|---|---|---|
+| **Cursor Pro** | $20/month | 500 fast requests, unlimited slow |
+| **Cursor Business** | $40/month/seat | Admin controls, team features |
+| **Claude Pro** (for Claude Code) | $20/month | Good for moderate daily use |
+| **Claude Max** | $100-200/month | Heavy usage, 5x or 20x limits |
+
+### Learning Curve
+
+Cursor is easier to pick up. If you already use VS Code, it feels familiar immediately. Tab completion works out of the box, and the visual diff UI is intuitive.
+
+Claude Code has a steeper initial curve. You need to be comfortable in the terminal. You need to learn about `CLAUDE.md`, how to give good instructions, and how the agent loop works. But once you get past that learning phase, the ceiling is much higher for complex tasks.
+
+### Where Each Wins
+
+**Cursor is better when you:**
+- Want inline code completion as you type
+- Prefer visual diffs before accepting changes
+- Are newer to coding and want gentle AI assistance
+- Work primarily in a single file at a time
+
+**Claude Code is better when you:**
+- Want an agent that can plan and execute multi-step tasks
+- Need to work across many files simultaneously
+- Want to automate workflows with hooks and scripts
+- Use a non-VS Code editor (Vim, Zed, Emacs, etc.)
+- Want deep project configuration via `CLAUDE.md`
+
+### Can You Use Both?
+
+Yes, and some people do. Cursor for inline completion while writing code, Claude Code for bigger tasks like "refactor this module" or "add tests for everything in this directory." They don't conflict.
+
+### Recommendation
+
+If you want AI to write code alongside you in your editor, go with Cursor. If you want an AI agent that can plan, execute, and verify across your whole project, go with Claude Code. If you are brand new to AI coding tools, Cursor will feel less intimidating on day one. If you are comfortable in the terminal and want more power, Claude Code will reward the investment.
+
+---
+
+## Claude Code vs GitHub Copilot
+
+This is not really an apples-to-apples comparison. GitHub Copilot is an autocomplete engine. Claude Code is an autonomous coding agent. They do fundamentally different things, and honestly, many developers use both.
+
+### The Core Difference
+
+**GitHub Copilot** predicts what you are about to type and offers it as a gray suggestion. You hit Tab to accept. It is fast, unobtrusive, and works inside your editor as you write. Think of it as a very smart autocomplete that understands code.
+
+**Claude Code** waits for you to describe a task, then plans and executes it. It can read your entire codebase, create files, run terminal commands, and verify its own work. Think of it as a junior developer sitting next to you who can actually touch the keyboard.
+
+### Side by Side
+
+| | Claude Code | GitHub Copilot |
+|---|---|---|
+| **What it does** | Plans and executes coding tasks | Suggests the next line of code |
+| **Interaction model** | You describe a task, it does the work | You write code, it completes it |
+| **Context window** | Entire project (via `CLAUDE.md`, file reading) | Open files + nearby context |
+| **Multi-file edits** | Yes, core strength | Limited (Copilot Chat can suggest, you apply) |
+| **Runs commands** | Yes (tests, builds, git, etc.) | No |
+| **Memory across sessions** | Yes, via `CLAUDE.md` and memory files | No persistent memory |
+| **Editor support** | Any terminal (editor-agnostic) | VS Code, JetBrains, Neovim, etc. |
+
+### Pricing
+
+| Plan | Cost | Notes |
+|---|---|---|
+| **Copilot Free** | $0 | 2,000 completions/month, limited chat |
+| **Copilot Pro** | $10/month | Unlimited completions, chat, CLI |
+| **Copilot Business** | $19/month/seat | Org policies, audit logs |
+| **Claude Pro** (for Claude Code) | $20/month | Moderate daily agentic usage |
+| **Claude Max** | $100-200/month | Heavy agentic usage |
+
+Copilot is cheaper for what it does. But it also does less. The question is what you need.
+
+### What Each Is Best At
+
+**Copilot shines for:**
+- Writing boilerplate fast (function signatures, test scaffolds, repetitive patterns)
+- Staying in flow while coding line by line
+- Quick inline suggestions that save keystrokes
+- Working across many languages with minimal setup
+
+**Claude Code shines for:**
+- "Add authentication to this app" (multi-file, multi-step tasks)
+- Debugging complex issues across your stack
+- Refactoring entire modules with a single prompt
+- Automating repetitive workflows via hooks and scripts
+- Understanding and navigating unfamiliar codebases
+
+### The Real Question
+
+Copilot makes you faster at writing code. Claude Code makes you faster at shipping features. Those are different things.
+
+If you spend most of your day writing code and want to type less, Copilot is excellent. If you spend your day planning features, reviewing code, and coordinating across files, Claude Code handles the bigger picture.
+
+### Can You Use Both?
+
+Absolutely. This is probably the most common setup for developers who have tried both. Copilot handles the line-by-line autocomplete while you are writing. Claude Code handles the "build this feature" or "fix this bug across the codebase" tasks. There is no conflict between them.
+
+### Recommendation
+
+If you have never used an AI coding tool, start with Copilot. It is low friction, cheap, and immediately useful. When you find yourself wishing the AI could do more than just complete lines, that is when Claude Code earns its place. Many developers end up using both without thinking twice about it.
+
+---
+
+## Claude Code vs OpenAI Codex
+
+Two terminal-based AI coding agents from the two biggest AI labs. Both can read your codebase, write code, and run commands. The differences are in philosophy and execution.
+
+OpenAI Codex (the CLI agent, not the old completion model) launched in 2025 as a direct competitor to Claude Code. Same category, very different approach to how an AI agent should work with your code.
+
+### Side-by-Side
+
+| | Claude Code | OpenAI Codex |
+|---|---|---|
+| **Where it runs** | Your terminal (local) | Cloud sandbox (remote) |
+| **Model** | Claude (Sonnet, Opus) | GPT-4.1 / o3 |
+| **File access** | Full local filesystem | Sandboxed environment |
+| **Configuration** | `CLAUDE.md` (checked into repo) | System prompts |
+| **Extensibility** | Hooks, skills, MCP, sub-agents | More limited |
+| **Pricing** | $20-200/mo (Pro/Max) | Part of ChatGPT Pro ($200/mo) or API |
+| **Memory** | Persistent across sessions | Per-session only |
+| **Autonomy** | Local autonomous loops | Cloud-based execution |
+| **Open source** | Yes (CLI is open source) | Yes (CLI is open source) |
+
+### Where Claude Code Wins
+
+**Deep configuration.** `CLAUDE.md` files live in your repo, checked into version control. Your entire team shares the same AI context. Codex uses system prompts that don't travel with the codebase the same way.
+
+**Persistent memory.** Claude Code remembers corrections, preferences, and project context across sessions. Codex starts fresh each time. Over weeks and months, this compounds. You stop repeating yourself.
+
+**Local execution.** Your code never leaves your machine. Claude Code reads files, runs tests, and executes commands locally. Codex uploads your code to a cloud sandbox. For proprietary codebases or compliance-sensitive work, this matters.
+
+**Extensibility.** Hooks let you run custom scripts before and after tool calls. MCP servers connect Claude Code to external tools. Skills add domain-specific knowledge. Sub-agents handle parallel workstreams. Codex has a more contained extension model.
+
+**Lower entry price.** Claude Pro at $20/month gives you meaningful Claude Code usage. Codex requires ChatGPT Pro at $200/month for the full experience, or you pay per-token through the API.
+
+### Where Codex Wins
+
+**Sandboxed execution.** Every Codex task runs in an isolated cloud environment. If you are running untrusted code or want guaranteed isolation, the sandbox model is inherently safer than local execution.
+
+**Parallel cloud tasks.** You can kick off multiple Codex tasks simultaneously, each in its own sandbox. Claude Code runs locally and sequentially by default (sub-agents help, but it is a different model).
+
+**OpenAI ecosystem.** If your team already uses ChatGPT, GPT-4, and OpenAI's API, Codex fits naturally. Same billing, same account, same mental model.
+
+**Potentially better for exploration.** The sandbox model means you can let Codex try things without worrying about local side effects. It cannot accidentally delete your files or break your local environment.
+
+### The Philosophical Difference
+
+This is the real split: Claude Code trusts you with local access. Codex sandboxes everything.
+
+Claude Code treats your machine as the workspace. It reads your files directly, runs your test suite, modifies your code in place. You see every change as it happens. The tradeoff: you need to trust the agent, and the agent needs your local environment to work.
+
+Codex treats the cloud as the workspace. It clones your code into a sandbox, does its work there, and hands back a diff. The tradeoff: you lose the tight feedback loop of local execution, and the sandbox may not perfectly replicate your local environment.
+
+Claude Code is configurable and extensible. You shape it with `CLAUDE.md`, hooks, skills, and memory. Codex is more opinionated and contained. Less setup, but less control.
+
+### Can You Use Both?
+
+Technically yes, but it is unusual. They solve the same problem from different angles, and most developers pick one ecosystem. The configuration investment (writing good `CLAUDE.md` files, building up memory, setting up hooks) makes switching costly.
+
+If you are evaluating both, spend a week with each on a real project. The theoretical differences matter less than which one clicks with your workflow.
+
+### Recommendation
+
+If you want deep local control, persistent memory, and extensibility: Claude Code. If you want cloud-sandboxed execution and are already in the OpenAI ecosystem: Codex.
+
+For most developers starting fresh, Claude Code at $20/month is the better entry point than Codex at $200/month. You get a capable agent, full local access, and the ability to grow into advanced features like hooks, MCP, and sub-agents as you need them.
+
+If budget is not the deciding factor, it comes down to local vs. cloud and how much you want to customize. Claude Code rewards investment in configuration. Codex works well out of the box with less setup.
+
+---
+
+## Claude Code vs Windsurf
+
+Windsurf and Claude Code are both agentic. They can both plan, write code, and execute multi-step tasks. The difference is in the philosophy: Windsurf wraps everything in a visual IDE experience. Claude Code gives you a terminal and a configuration system that goes deep.
+
+### Architecture Comparison
+
+| | Claude Code | Windsurf |
+|---|---|---|
+| **Interface** | Terminal (CLI) | Custom IDE (forked VS Code) |
+| **Editor lock-in** | None. Use any editor you want | Must use the Windsurf editor |
+| **Agent name** | Claude Code (runs in terminal) | Cascade (built into IDE) |
+| **Configuration** | `CLAUDE.md` files checked into your repo | Editor settings, some project config |
+| **Extensibility** | Hooks, skills, MCP servers, sub-agents | Built-in features, limited plugin model |
+| **Model options** | Claude (Sonnet, Opus) | Multiple (GPT-4, Claude, their own models) |
+| **Multi-file edits** | Yes | Yes |
+| **Command execution** | Yes, in your terminal | Yes, in embedded terminal |
+
+### The Editor Lock-in Question
+
+This is the biggest practical difference. Windsurf is a full IDE. If you adopt it, you leave VS Code (or whatever you use now) behind. Some people are fine with that. Others find it a dealbreaker.
+
+Claude Code does not care what editor you use. It runs in a terminal window alongside whatever you already have open. Vim user? Fine. Zed? Fine. VS Code? Also fine. Your editor stays yours.
+
+### Agent Capabilities
+
+Both tools can handle multi-step coding tasks. Windsurf's Cascade agent has a nice visual flow where you can see it thinking, planning, and making changes. Claude Code shows this in the terminal with a text-based interface.
+
+Where Claude Code pulls ahead is extensibility. The `CLAUDE.md` system lets you teach the agent about your project, your conventions, your workflow. Hooks let you run custom scripts before or after any tool use. MCP servers let you connect external tools and data sources. Skills let you package reusable workflows. This configuration system is deeply composable in a way Windsurf's built-in features are not.
+
+### Pricing
+
+| Plan | Cost | Notes |
+|---|---|---|
+| **Windsurf Free** | $0 | Limited credits |
+| **Windsurf Pro** | $15/month | Reasonable for moderate use |
+| **Claude Pro** (for Claude Code) | $20/month | Moderate daily use |
+| **Claude Max** | $100-200/month | Heavy use, 5x or 20x limits |
+
+Windsurf is slightly cheaper at the entry level. Claude Code offers more at the higher tiers for power users.
+
+### Where Each Wins
+
+**Windsurf is better when you:**
+- Want a polished visual IDE experience out of the box
+- Prefer seeing AI changes in a graphical diff view
+- Are newer to coding and find terminals intimidating
+- Want to try agentic coding without leaving a familiar IDE layout
+
+**Claude Code is better when you:**
+- Already have an editor you love and do not want to switch
+- Want to customize the agent deeply with `CLAUDE.md`
+- Need hooks, skills, and MCP integrations for advanced workflows
+- Work in the terminal naturally
+- Want your AI configuration checked into version control
+
+### Recommendation
+
+If you want the easiest on-ramp to agentic coding and do not mind switching editors, Windsurf has a friendlier first experience. If you want depth, extensibility, and editor freedom, Claude Code is the stronger long-term choice. The terminal-native approach is less flashy, but the configuration system is where the real power lives.
+
+---
+
+## Claude Pro vs Max vs API
+
+Claude Code runs on your Anthropic plan. Picking the right one saves you money or frustration. Here is the honest breakdown.
+
+### Plans at a Glance
+
+| | Claude Pro | Claude Max 5x | Claude Max 20x | API (Pay-per-token) |
+|---|---|---|---|---|
+| **Cost** | $20/month | $100/month | $200/month | ~$3-15 per 1M tokens (varies by model) |
+| **Usage level** | Moderate | Heavy | Very heavy | Pay for what you use |
+| **Rate limits** | Standard | 5x Pro limits | 20x Pro limits | Based on tier/spend |
+| **Best for** | Getting started, light-to-moderate daily use | Full-time coding with Claude Code | All-day heavy agentic workflows | Building apps, CI/CD pipelines, programmatic use |
+| **Access to** | Sonnet + Opus | Sonnet + Opus | Sonnet + Opus | All models via API |
+
+### When Pro Is Enough
+
+Pro works great if you are using Claude Code for a few tasks per day. Maybe you ask it to write a feature in the morning, debug something after lunch, and refactor a module before end of day. If you are not hitting rate limits regularly, Pro is the right call.
+
+**Signs Pro is working for you:**
+- You rarely see "rate limit" messages
+- You use Claude Code for 1-3 focused sessions per day
+- You are still learning and experimenting
+
+### When to Upgrade to Max
+
+You will know it is time. The signal is consistent rate limiting during your working hours. If you find yourself waiting for limits to reset, or timing your prompts to avoid hitting the ceiling, Max pays for itself in saved frustration.
+
+**Signs you need Max:**
+- You hit rate limits multiple times per week
+- You run long agentic sessions (30+ minutes of continuous back-and-forth)
+- You use sub-agents or parallel workflows that consume tokens fast
+- Your work is blocked waiting for limits to reset
+
+**5x vs 20x?** Start with 5x. Most heavy users find it sufficient. 20x is for people running Claude Code all day with complex multi-agent workflows, autonomous loops, or very large codebases that consume a lot of context.
+
+### When the API Makes Sense
+
+The API is not really a "plan" for personal coding. It is for building things. If you are integrating Claude into your own application, running it in CI/CD pipelines, or building tools that call Claude programmatically, that is API territory.
+
+**Use the API when:**
+- You are building a product that uses Claude under the hood
+- You need Claude in automated pipelines (testing, code review, deployment)
+- You want fine-grained control over model selection per request
+- You need to manage costs at the token level
+
+**Do not use the API when:**
+- You just want to use Claude Code for personal coding (Pro or Max is simpler and often cheaper)
+
+### Cost Reality Check
+
+A typical coding session with Claude Code might use 50,000-200,000 tokens depending on how large your codebase is and how many files it reads. On the API, that is roughly $0.15-$3.00 per session at Sonnet pricing. If you are doing 3-5 sessions a day, Pro at $20/month is almost certainly cheaper than API pricing.
+
+The API gets more economical when you are doing targeted, low-token tasks at high volume, or when you need programmatic access that the CLI does not provide.
+
+### Recommendation
+
+Start with Pro. It is $20/month and covers most people's needs while they learn. Upgrade to Max when you find yourself waiting for rate limits, not before. The API is for building products, not for personal coding sessions. Do not overthink it: you can switch plans anytime.
