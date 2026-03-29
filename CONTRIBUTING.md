@@ -1,58 +1,83 @@
 # Contributing to Claude Code Guide
 
-Thanks for wanting to help make Claude Code more accessible.
+Thanks for wanting to help. Here's how to make it easy for both of us.
 
-## Quick contributions (no coding needed)
+## The Fastest Contributions (No Coding)
 
-- **Fix a typo** - Edit any `.mdx` file in `content/docs/` and open a PR
-- **Suggest a topic** - Open an issue with the `content-request` label
-- **Share your experience** - Tell us what confused you when starting with Claude Code
+- **Fix a typo** — edit any `.mdx` file in `content/docs/` and open a PR
+- **Suggest a topic** — [open an issue](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=content-request.md)
+- **Share your template** — [submit your CLAUDE.md](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=template-submission.md)
+- **Report a bug** — [open a bug report](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=bug-report.md)
 
-## Content contributions
-
-All guide content lives in `content/docs/` as MDX files. MDX is just Markdown with a few extras.
-
-### Structure
+## Content Structure
 
 ```
 content/docs/
-  foundations/     # Getting started, core concepts
-  workflows/       # Daily practice, debugging, team adoption
-  patterns/        # Advanced features (hooks, agents, MCP)
+  foundations/     # Core concepts (CLAUDE.md, sessions, memory, permissions)
+  workflows/       # Daily practice, debugging, team adoption, CI/CD
+  patterns/        # Advanced features (hooks, agents, MCP, autonomous loops)
   templates/       # Copy-paste CLAUDE.md files
   comparisons/     # Claude Code vs other tools
 ```
 
-### Writing style
+## The Voice (This Is Important)
 
-- Write like you're explaining to a smart friend who's never used a terminal
-- No jargon without explanation
-- Short sentences. Short paragraphs.
-- Show what things look like (screenshots welcome)
-- When in doubt, simpler is better
+Every page should sound like a practitioner talking to a friend. Not documentation. Not a textbook.
 
-### Adding a new page
+**Do this:**
+- Hook with a real question or hot take
+- Take clear stances ("this is great" / "this is a waste of time")
+- Short paragraphs, conversational rhythm
+- Say "here's the deal" or "let me be real"
 
-1. Create a new `.mdx` file in the appropriate folder
-2. Add frontmatter at the top:
+**Don't do this:**
+- "In this section, we will explore..."
+- "It is important to note that..."
+- Walls of text without examples
+- Feature lists without opinions
+
+## Every Page Needs a DemoCard
+
+No exceptions. Every page must have at least one interactive terminal animation showing the feature in action:
+
+```jsx
+<DemoCard title="What you'll see" steps={[
+  { type: 'cmd', text: 'claude "your prompt here"' },
+  { type: 'out', text: 'Claude Code output...' },
+  { type: 'success', text: '✓ Something good happened' },
+  { type: 'error', text: '✗ Something went wrong' },
+  { type: 'warn', text: '→ The takeaway message' },
+]} />
+```
+
+Step types: `cmd` (user input), `out` (output), `success` (green), `error` (red), `warn` (amber).
+
+## Adding a New Page
+
+1. Create a `.mdx` file in the right folder
+2. Add frontmatter:
 
 ```mdx
 ---
 title: Your Page Title
-description: A one-line description
+description: "A punchy one-liner. Not a paragraph."
 ---
 ```
 
-3. Write your content in Markdown
-4. Open a PR
+3. Write content following the voice guide above
+4. Add at least one DemoCard
+5. Add the page slug to the folder's `meta.json`
+6. Open a PR
 
-## Running locally
+## Running Locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Code of conduct
+Open [localhost:3000](http://localhost:3000).
 
-Be kind. Be helpful. Remember that everyone starts somewhere.
+## Code of Conduct
+
+Be kind. Be helpful. Everyone starts somewhere. If someone's contribution doesn't match the voice, help them fix it instead of rejecting it.
