@@ -30,6 +30,7 @@ const TYPE_STYLES: Record<DemoStep['type'], string> = {
 export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3000 }: DemoCardProps) {
   const [visibleCount, setVisibleCount] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef);
 
   useEffect(() => {
@@ -46,6 +47,14 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
     return () => clearTimeout(timer);
   }, [visibleCount, steps, loop, loopDelay, isInView]);
 
+  // Auto-scroll to bottom as new steps appear
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [visibleCount]);
+
   return (
     <div
       ref={containerRef}
@@ -61,8 +70,11 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
         <span className="ml-2 font-mono text-[11px] text-fd-muted-foreground">{title}</span>
       </div>
 
-      {/* Content */}
-      <div className="p-4 font-mono text-[13px] leading-relaxed sm:p-5 sm:text-sm">
+      {/* Content — fixed height terminal that scrolls internally */}
+      <div
+        ref={scrollRef}
+        className="h-[280px] overflow-y-auto p-4 font-mono text-[13px] leading-relaxed sm:p-5 sm:text-sm"
+      >
         {steps.slice(0, visibleCount).map((step, i) => (
           <div
             key={i}
