@@ -9,6 +9,21 @@ Sub-agents are separate Claude Code instances that handle focused tasks. When yo
 
 The main conversation stays clean. You're not burning context on a 200-line security audit that you just need the summary of.
 
+<DemoCard title="Sub-agents working in parallel" steps={[
+  { type: 'cmd', text: 'claude "ship the new auth feature"' },
+  { type: 'out', text: 'This is a multi-step task. Entering plan mode...' },
+  { type: 'out', text: 'Spawning 3 agents in parallel:' },
+  { type: 'success', text: '  → code-reviewer: reviewing auth changes' },
+  { type: 'success', text: '  → security-reviewer: checking for vulnerabilities' },
+  { type: 'success', text: '  → tdd-guide: writing missing tests' },
+  { type: 'out', text: 'Working...' },
+  { type: 'success', text: '✓ code-reviewer: 2 style fixes applied' },
+  { type: 'success', text: '✓ security-reviewer: LGTM, no issues' },
+  { type: 'success', text: '✓ tdd-guide: 8 tests added, all passing' },
+  { type: 'out', text: 'All agents complete. Ready to commit.' },
+  { type: 'warn', text: '→ 3 expert reviews in the time of 1. Main session stayed clean.' },
+]} />
+
 ## Why Use Sub-Agents?
 
 **Context stays focused.** Your main session handles planning and decisions. Agents handle the deep dives. A security review might require reading 15 files, but you only need the 5-line summary.

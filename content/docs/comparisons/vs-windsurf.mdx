@@ -5,6 +5,21 @@ description: "Two agentic coding tools with very different philosophies. GUI-fir
 
 Windsurf and Claude Code are both agentic. They can both plan, write code, and execute multi-step tasks. The difference is in the philosophy: Windsurf wraps everything in a visual IDE experience. Claude Code gives you a terminal and a configuration system that goes deep.
 
+<DemoCard title="The editor lock-in question" steps={[
+  { type: 'out', text: '── Windsurf ──' },
+  { type: 'cmd', text: 'Open Windsurf IDE (custom VS Code fork)' },
+  { type: 'out', text: 'Cascade agent built into the editor' },
+  { type: 'error', text: '⚠ Must use Windsurf as your editor' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── Claude Code ──' },
+  { type: 'cmd', text: 'Open any terminal + any editor', delay: 800 },
+  { type: 'success', text: '✓ Works with VS Code' },
+  { type: 'success', text: '✓ Works with Vim / Neovim' },
+  { type: 'success', text: '✓ Works with Zed' },
+  { type: 'success', text: '✓ Works with anything — it lives in your terminal' },
+  { type: 'warn', text: '→ Your editor stays yours. That\'s the difference.' },
+]} />
+
 ## Architecture Comparison
 
 | | Claude Code | Windsurf |

@@ -11,6 +11,21 @@ Think of hooks like git hooks, but for Claude Code. A pre-commit hook checks you
 
 The key benefit: hooks remove things you have to remember. Instead of saying "remember to format after every edit" or "always check for secrets before committing," you encode that behavior once and it happens automatically.
 
+<DemoCard title="Hooks working silently in the background" steps={[
+  { type: 'cmd', text: 'claude "add a new API endpoint for users"' },
+  { type: 'out', text: 'Writing src/app/api/users/route.ts...' },
+  { type: 'out', text: '[PostToolUse] Running prettier --write...' },
+  { type: 'success', text: '✓ Auto-formatted route.ts' },
+  { type: 'out', text: '[PostToolUse] Running eslint --fix...' },
+  { type: 'success', text: '✓ Lint clean' },
+  { type: 'cmd', text: 'claude "commit this"', delay: 1000 },
+  { type: 'out', text: '[PreToolUse] Scanning for secrets...' },
+  { type: 'error', text: '✗ Blocked: hardcoded DB_URL in route.ts:3' },
+  { type: 'out', text: 'Moving to .env.local...' },
+  { type: 'success', text: '✓ Secret removed. Commit succeeded.' },
+  { type: 'warn', text: '→ You configured this once. It runs forever.' },
+]} />
+
 ## The Three Hook Types
 
 ### PreToolUse

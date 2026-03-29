@@ -9,6 +9,22 @@ An autonomous loop is Claude Code running a task without your input, finishing, 
 
 This is the most advanced pattern in the Claude Code toolkit. It's also the one that demands the most respect. Autonomous loops are powerful when bounded properly and dangerous when they're not.
 
+<DemoCard title="Autonomous loop fixing tests overnight" steps={[
+  { type: 'cmd', text: 'claude --task-file fix-tests.md' },
+  { type: 'out', text: 'Task: Fix all failing tests until suite is green.' },
+  { type: 'out', text: 'Running npm test...' },
+  { type: 'error', text: '✗ 7 tests failing across 4 files' },
+  { type: 'out', text: 'Fixing auth.test.ts (assertion mismatch)...' },
+  { type: 'success', text: '✓ auth.test.ts — fixed, passing' },
+  { type: 'out', text: 'Fixing api.test.ts (missing mock)...' },
+  { type: 'success', text: '✓ api.test.ts — fixed, passing' },
+  { type: 'out', text: '... [session ends, stop hook restarts] ...' },
+  { type: 'out', text: 'Resuming task. 3 tests remaining.' },
+  { type: 'success', text: '✓ All 7 tests fixed. Suite is green.' },
+  { type: 'out', text: 'Deleting task file. Loop complete.' },
+  { type: 'warn', text: '→ You went to sleep. Woke up to a green build.' },
+]} />
+
 ## The Core Pattern
 
 The autonomous loop relies on three pieces:

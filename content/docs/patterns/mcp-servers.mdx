@@ -9,6 +9,21 @@ MCP stands for Model Context Protocol. It's a standard way for AI tools to conne
 
 Without MCP, Claude Code can only work with files on your machine. With MCP, it can read your Slack messages, check your GitHub PRs, query your database, and pull designs from Figma. All within the same conversation.
 
+<DemoCard title="MCP connecting Claude Code to your world" steps={[
+  { type: 'cmd', text: 'claude "what happened in #engineering today?"' },
+  { type: 'out', text: '[MCP: slack] Searching #engineering...' },
+  { type: 'success', text: '✓ Found 23 messages today' },
+  { type: 'out', text: 'Key threads:' },
+  { type: 'out', text: '  • Deploy blocked — DNS propagation (Sarah, 10:14am)' },
+  { type: 'out', text: '  • New hire onboarding checklist shared (Marcus, 11:30am)' },
+  { type: 'out', text: '  • Hotfix merged for checkout bug (PR #891)' },
+  { type: 'cmd', text: '"show me that PR"', delay: 1000 },
+  { type: 'out', text: '[MCP: github] Fetching PR #891...' },
+  { type: 'success', text: '✓ +12 -3 lines in src/checkout/validate.ts' },
+  { type: 'out', text: 'Fix: null check on shipping address before total calc' },
+  { type: 'warn', text: '→ Slack + GitHub in one conversation. That\'s MCP.' },
+]} />
+
 ## What MCP Servers Do
 
 An MCP server is a small program that sits between Claude Code and an external service. It translates Claude Code's requests into API calls and returns the results.

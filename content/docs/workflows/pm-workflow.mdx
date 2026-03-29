@@ -7,6 +7,22 @@ description: "You don't need to write code to use Claude Code. Here's how PMs us
 
 This is the most important thing to understand: Claude Code is not just for developers. If you are a Product Manager, you can use it without writing a single line of code. Claude Code reads files, searches across systems, synthesizes information, and automates repetitive knowledge work. That is exactly what PMs spend most of their day doing.
 
+<DemoCard title="A PM's Monday morning with Claude Code" steps={[
+  { type: 'cmd', text: 'claude /pulse' },
+  { type: 'out', text: 'Reading 4 active projects...' },
+  { type: 'success', text: '✓ Dashboard v2: on track, deploy Wednesday' },
+  { type: 'error', text: '⚠ Auth migration: blocked on legal review (3 days)' },
+  { type: 'success', text: '✓ Mobile app: sprint 4 started, 12 tickets' },
+  { type: 'warn', text: '⚠ Search redesign: no update in 5 days' },
+  { type: 'out', text: '' },
+  { type: 'cmd', text: 'claude /meeting-prep Sarah', delay: 1000 },
+  { type: 'out', text: 'Pulling context for 1:1 with Sarah...' },
+  { type: 'success', text: '✓ 2 open action items from last week' },
+  { type: 'success', text: '✓ Her PTO next Thursday — handoff needed' },
+  { type: 'success', text: '✓ Talking points generated' },
+  { type: 'warn', text: '→ Monday context in 2 minutes. No tab-switching.' },
+]} />
+
 ## Core PM Skills
 
 Claude Code can be extended with "skills," which are specialized workflows triggered by simple commands. Here are the ones built specifically for PM work.

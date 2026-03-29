@@ -3,6 +3,23 @@ title: "Team Adoption"
 description: "How to roll out Claude Code across your team. Shared configs, onboarding playbook, and getting buy-in from skeptics."
 ---
 
+<DemoCard title="Day 1 without shared config vs day 1 with" steps={[
+  { type: 'out', text: '── No shared CLAUDE.md ──' },
+  { type: 'cmd', text: 'claude "add a new API route"' },
+  { type: 'out', text: 'Created route.js' },
+  { type: 'error', text: '↑ Team uses TypeScript, not JavaScript' },
+  { type: 'out', text: 'Added express-style handler' },
+  { type: 'error', text: '↑ Team uses Next.js App Router' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── With shared CLAUDE.md ──' },
+  { type: 'cmd', text: 'claude "add a new API route"', delay: 1000 },
+  { type: 'out', text: 'Reading shared CLAUDE.md...' },
+  { type: 'success', text: '✓ Created route.ts (TypeScript)' },
+  { type: 'success', text: '✓ App Router handler with Zod validation' },
+  { type: 'success', text: '✓ Matches team conventions exactly' },
+  { type: 'warn', text: '→ One shared config. Consistent results for everyone.' },
+]} />
+
 ## Why Teams Resist
 
 Before you roll out Claude Code to your team, understand why people push back. It is rarely about the tool itself.

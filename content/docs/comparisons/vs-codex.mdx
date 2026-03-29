@@ -7,6 +7,21 @@ Two terminal-based AI coding agents from the two biggest AI labs. Both can read 
 
 OpenAI Codex (the CLI agent, not the old completion model) launched in 2025 as a direct competitor to Claude Code. Same category, very different approach to how an AI agent should work with your code.
 
+<DemoCard title="Local vs cloud — the core split" steps={[
+  { type: 'out', text: '── Claude Code ──' },
+  { type: 'cmd', text: 'claude "run the test suite"' },
+  { type: 'out', text: 'Running npm test locally...' },
+  { type: 'success', text: '✓ 142 tests pass (your machine, your env)' },
+  { type: 'success', text: '✓ Code never leaves your laptop' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── OpenAI Codex ──' },
+  { type: 'cmd', text: 'codex "run the test suite"', delay: 800 },
+  { type: 'out', text: 'Uploading to cloud sandbox...' },
+  { type: 'out', text: 'Installing dependencies in sandbox...' },
+  { type: 'success', text: '✓ 140 tests pass (sandbox env, 2 env-specific failures)' },
+  { type: 'warn', text: '→ Same task. Different tradeoffs. Local vs sandboxed.' },
+]} />
+
 ## Side-by-Side
 
 | | Claude Code | OpenAI Codex |

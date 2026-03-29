@@ -9,6 +9,21 @@ The biggest debugging mistake is guessing. You see an error, you think you know 
 
 Claude Code is at its best when you treat debugging as investigation, not guessing. Give it evidence, let it trace the path, and fix what is actually broken.
 
+<DemoCard title="Debugging like an investigator, not a guesser" steps={[
+  { type: 'cmd', text: 'claude "the checkout page returns 500 after clicking pay"' },
+  { type: 'out', text: 'Reading server logs...' },
+  { type: 'out', text: 'Found: TypeError at src/checkout/process.ts:47' },
+  { type: 'out', text: '  → shipping.address is undefined' },
+  { type: 'out', text: 'Tracing data flow from form to API...' },
+  { type: 'out', text: 'Found: form submits "shippingAddress" but API expects "shipping.address"' },
+  { type: 'success', text: '✓ Root cause: field name mismatch after last refactor' },
+  { type: 'out', text: 'Checking git blame...' },
+  { type: 'out', text: '  Introduced in commit a3f91e2 (2 days ago)' },
+  { type: 'success', text: '✓ Fixed mapping in src/checkout/process.ts:42' },
+  { type: 'success', text: '✓ Tests passing. Verified on localhost.' },
+  { type: 'warn', text: '→ Evidence first. Hypothesis second. Fix last.' },
+]} />
+
 ## The Six-Step Debugging Workflow
 
 Every debugging session should follow this structure, whether you are doing it yourself or with Claude Code.

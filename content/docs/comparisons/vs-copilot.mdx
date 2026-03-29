@@ -11,6 +11,22 @@ This is not really an apples-to-apples comparison. GitHub Copilot is an autocomp
 
 **Claude Code** waits for you to describe a task, then plans and executes it. It can read your entire codebase, create files, run terminal commands, and verify its own work. Think of it as a junior developer sitting next to you who can actually touch the keyboard.
 
+<DemoCard title="Copilot vs Claude Code — different jobs" steps={[
+  { type: 'out', text: '── GitHub Copilot ──' },
+  { type: 'cmd', text: 'function validateEm' },
+  { type: 'out', text: 'ail(email: string): boolean {  ← Tab to accept' },
+  { type: 'success', text: '✓ Fast. One line at a time.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── Claude Code ──' },
+  { type: 'cmd', text: '"add email validation to the signup flow"', delay: 1000 },
+  { type: 'out', text: 'Reading signup form, API route, and schema...' },
+  { type: 'success', text: '✓ Created validateEmail() in lib/validation.ts' },
+  { type: 'success', text: '✓ Added to signup form with error UI' },
+  { type: 'success', text: '✓ Added server-side check in API route' },
+  { type: 'success', text: '✓ Wrote 3 tests, all passing' },
+  { type: 'warn', text: '→ Autocomplete vs full execution. Both useful.' },
+]} />
+
 ## Side by Side
 
 | | Claude Code | GitHub Copilot |
