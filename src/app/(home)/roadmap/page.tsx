@@ -1,11 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowRight, Check, Lock, ChevronDown } from 'lucide-react';
-import type { Metadata } from 'next';
+import { DemoCard } from '@/components/demo-card';
 
-export const metadata: Metadata = {
-  title: 'Learning Roadmap',
-  description: 'Your visual guide through the Claude Code journey. See where you are, what comes next, and how the pieces fit together.',
-};
+// metadata handled by layout
 
 interface StageProps {
   number: string;
@@ -80,6 +79,22 @@ export default function RoadmapPage() {
           <br />
           Go at your own pace. Skip what you know.
         </p>
+
+        <div className="mt-8 mx-auto max-w-xl text-left">
+          <DemoCard title="Where you're headed" loop={true} steps={[
+            { type: 'out', text: '── Stage 1: Getting Started ──' },
+            { type: 'success', text: '✓ Install Claude Code' },
+            { type: 'success', text: '✓ Write your first CLAUDE.md' },
+            { type: 'out', text: '── Stage 3: Patterns ──', delay: 800 },
+            { type: 'success', text: '✓ Skills, hooks, sub-agents' },
+            { type: 'success', text: '✓ MCP: Claude talks to Slack, GitHub, Jira' },
+            { type: 'out', text: '── Stage 5: Power User ──', delay: 800 },
+            { type: 'success', text: '✓ Autonomous loops run while you sleep' },
+            { type: 'success', text: '✓ Team-wide shared config' },
+            { type: 'success', text: '✓ Claude Code is your operating system' },
+            { type: 'warn', text: '→ Start at Stage 1. Everything else follows.' },
+          ]} />
+        </div>
       </section>
 
       {/* Roadmap */}

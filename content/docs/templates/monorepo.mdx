@@ -9,6 +9,17 @@ Use this template for monorepos managed with Turborepo and npm/pnpm workspaces. 
 
 If you use Nx instead of Turborepo, swap the build commands but keep the boundary rules.
 
+<DemoCard title="Monorepo template enforcing boundaries" steps={[
+  { type: 'cmd', text: 'claude "add a date formatter to the web app"' },
+  { type: 'out', text: 'Reading CLAUDE.md... Turborepo monorepo detected.' },
+  { type: 'out', text: 'Checking: does packages/shared-utils have a formatter?' },
+  { type: 'success', text: '✓ Found formatDate() in packages/shared-utils' },
+  { type: 'out', text: 'Importing from @repo/shared-utils (not relative path)' },
+  { type: 'success', text: '✓ Added import to apps/web/src/lib/dates.ts' },
+  { type: 'out', text: 'Did NOT duplicate code in the app.' },
+  { type: 'warn', text: '→ Boundary rules prevent cross-app imports and duplication.' },
+]} />
+
 ```markdown title="CLAUDE.md"
 # CLAUDE.md
 

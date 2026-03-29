@@ -13,6 +13,23 @@ I see this comparison everywhere and it drives me a little crazy. Asking "Claude
 
 See the difference? Cursor helps you write code faster. Claude Code helps you build things without writing most of the code yourself.
 
+<DemoCard title="Cursor vs Claude Code — same task, different approach" steps={[
+  { type: 'out', text: '── Cursor ──' },
+  { type: 'cmd', text: 'You type: function validateEm...' },
+  { type: 'out', text: 'ail(email: string): boolean {  ← Tab to accept' },
+  { type: 'out', text: 'You type the next line... Tab... next line... Tab...' },
+  { type: 'success', text: '✓ Done in ~2 minutes, line by line' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── Claude Code ──' },
+  { type: 'cmd', text: '"add email validation to the signup flow"', delay: 1000 },
+  { type: 'out', text: 'Reading signup form, API route, and schema...' },
+  { type: 'success', text: '✓ Created lib/validation.ts' },
+  { type: 'success', text: '✓ Updated signup form with error states' },
+  { type: 'success', text: '✓ Added server-side validation in API route' },
+  { type: 'success', text: '✓ 3 tests written and passing' },
+  { type: 'warn', text: '→ Same task. Autocomplete vs full execution.' },
+]} />
+
 ## The Quick Breakdown
 
 | | Claude Code | Cursor |

@@ -1,11 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock } from 'lucide-react';
-import type { Metadata } from 'next';
+import { DemoCard } from '@/components/demo-card';
 
-export const metadata: Metadata = {
-  title: 'Tutorials — Hands-On Micro-Projects',
-  description: 'Stop reading, start doing. Guided micro-projects that teach Claude Code by building real things. 5-15 minutes each.',
-};
+// metadata moved to layout or handled by page title
 
 interface TutorialCardProps {
   title: string;
@@ -84,6 +83,20 @@ export default function TutorialsPage() {
         <p className="mt-4 text-lg text-fd-muted-foreground max-w-2xl mx-auto">
           Each tutorial is a guided micro-project. You&apos;ll paste commands, see real output, and walk away with something that works. 5-15 minutes each.
         </p>
+
+        <div className="mt-8 mx-auto max-w-xl text-left">
+          <DemoCard title="What a tutorial feels like" loop={true} steps={[
+            { type: 'cmd', text: 'claude' },
+            { type: 'success', text: '✓ Claude Code ready' },
+            { type: 'cmd', text: '"Create a landing page for my portfolio"', delay: 800 },
+            { type: 'out', text: 'Planning: hero section, about, projects grid, contact...' },
+            { type: 'success', text: '✓ Created index.html (beautiful gradient design)' },
+            { type: 'success', text: '✓ Created styles.css (responsive, dark mode)' },
+            { type: 'cmd', text: '"deploy it"', delay: 800 },
+            { type: 'success', text: '✓ Deployed to https://your-site.vercel.app' },
+            { type: 'warn', text: '→ From zero to live website. That\'s one tutorial.' },
+          ]} />
+        </div>
       </section>
 
       {/* Tutorials grid */}

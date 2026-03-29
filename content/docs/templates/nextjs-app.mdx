@@ -7,6 +7,18 @@ description: "Ready-to-use CLAUDE.md for Next.js App Router projects. Covers rou
 
 Use this template for standalone Next.js applications using the App Router with a `src/` directory structure. It covers the conventions that matter most: server component defaults, async API patterns from Next.js 15+, and a testing setup that keeps tests close to the code they validate.
 
+<DemoCard title="Next.js template in action" steps={[
+  { type: 'cmd', text: 'claude "add a user profile page"' },
+  { type: 'out', text: 'Reading CLAUDE.md... Next.js App Router, TypeScript strict.' },
+  { type: 'out', text: 'Creating Server Component (default per CLAUDE.md)...' },
+  { type: 'success', text: '✓ Created src/app/profile/page.tsx (Server Component)' },
+  { type: 'success', text: '✓ Created src/app/profile/loading.tsx (Suspense fallback)' },
+  { type: 'success', text: '✓ Async params: const { id } = await params' },
+  { type: 'success', text: '✓ Named export (not default — per code style rules)' },
+  { type: 'success', text: '✓ Created src/app/profile/page.test.tsx' },
+  { type: 'warn', text: '→ Every convention from your CLAUDE.md, followed automatically.' },
+]} />
+
 If you use the Pages Router or a different directory layout, adjust the project structure section accordingly.
 
 ```markdown title="CLAUDE.md"

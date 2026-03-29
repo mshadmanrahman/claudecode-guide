@@ -9,6 +9,19 @@ Use this template for Python applications and libraries that use modern tooling:
 
 If you use Django or FastAPI, add framework-specific conventions after the base template.
 
+<DemoCard title="Python template preventing legacy patterns" steps={[
+  { type: 'cmd', text: 'claude "add a new data processing module"' },
+  { type: 'out', text: 'Reading CLAUDE.md... Python project, uv, pytest, mypy.' },
+  { type: 'out', text: 'Creating src/processing/pipeline.py...' },
+  { type: 'success', text: '✓ Type hints on all functions (per CLAUDE.md)' },
+  { type: 'success', text: '✓ Used pathlib, not os.path (modern Python)' },
+  { type: 'success', text: '✓ Created tests/test_pipeline.py (pytest)' },
+  { type: 'success', text: '✓ uv add pandas (not pip install)' },
+  { type: 'out', text: 'Running: uv run mypy src/ && uv run pytest' },
+  { type: 'success', text: '✓ Types clean. 4 tests passing.' },
+  { type: 'warn', text: '→ No requirements.txt. No pip install. Modern Python only.' },
+]} />
+
 ```markdown title="CLAUDE.md"
 # CLAUDE.md
 

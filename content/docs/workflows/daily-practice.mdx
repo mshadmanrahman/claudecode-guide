@@ -3,6 +3,23 @@ title: The Daily Practice
 description: "The difference between 'I use Claude Code' and 'Claude Code is my operating system.' A concrete daily workflow that compounds over time."
 ---
 
+<DemoCard title="A day with the system vs without" steps={[
+  { type: 'out', text: '── Without the system ──' },
+  { type: 'cmd', text: 'claude' },
+  { type: 'out', text: '"Hey, I\'m working on a Next.js dashboard..."' },
+  { type: 'out', text: '"We use Tailwind and Drizzle ORM..."' },
+  { type: 'out', text: '"Yesterday I was working on the chart component..."' },
+  { type: 'error', text: '⚠ 10 minutes spent re-explaining. Every. Session.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── With the system ──' },
+  { type: 'cmd', text: 'claude', delay: 1000 },
+  { type: 'success', text: '✓ Memory loaded: 3 projects, 12 preferences' },
+  { type: 'success', text: '✓ Handoff loaded: chart component, tooltip pending' },
+  { type: 'cmd', text: '"continue with the chart tooltips"', delay: 800 },
+  { type: 'out', text: 'Resuming. Adding Recharts tooltips to Dashboard...' },
+  { type: 'warn', text: '→ Zero re-explanation. That\'s the compound effect.' },
+]} />
+
 ## Feeling Productive vs Being Productive
 
 Let me be real with you. Most people use Claude Code like a chatbot. Open it, ask a question, get an answer, close it. Next day, same thing. Clean slate every time.

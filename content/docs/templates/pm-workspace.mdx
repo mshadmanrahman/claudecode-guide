@@ -9,6 +9,21 @@ This template is for Product Managers who want Claude Code as their daily operat
 
 This is the most opinionated template in the gallery. It assumes you will build up skills and memory files over time.
 
+<DemoCard title="PM workspace in action — no code needed" steps={[
+  { type: 'cmd', text: 'claude /pulse' },
+  { type: 'success', text: '✓ Reading 4 project documents...' },
+  { type: 'out', text: 'Dashboard v2: on track, deploy Wednesday' },
+  { type: 'error', text: '⚠ Auth migration: blocked 3 days (legal review)' },
+  { type: 'success', text: '✓ Mobile app: sprint started, 12 tickets' },
+  { type: 'cmd', text: 'claude /meeting-prep Sarah', delay: 1000 },
+  { type: 'out', text: 'Pulling context for 1:1...' },
+  { type: 'success', text: '✓ 2 open action items from last week' },
+  { type: 'success', text: '✓ Talking points generated' },
+  { type: 'cmd', text: 'claude /weekly-status', delay: 1000 },
+  { type: 'success', text: '✓ Status report generated from Jira + GitHub + meetings' },
+  { type: 'warn', text: '→ Three commands. Monday morning sorted. No code written.' },
+]} />
+
 ```markdown title="CLAUDE.md"
 # CLAUDE.md
 

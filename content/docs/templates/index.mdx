@@ -5,6 +5,23 @@ description: Battle-tested CLAUDE.md configurations for different project types.
 
 > **Before using these templates**, complete the [Interactive Guide](/guide) first (at minimum steps 1-5). You need Claude Code installed and a working CLAUDE.md before templates make sense. If you haven't done that yet, [start here](/guide).
 
+<DemoCard title="Templates in action" steps={[
+  { type: 'out', text: '── Without a template ──' },
+  { type: 'cmd', text: 'claude "add a new API route"' },
+  { type: 'out', text: 'What framework are you using?' },
+  { type: 'out', text: 'What\'s your file structure?' },
+  { type: 'out', text: 'Do you use TypeScript?' },
+  { type: 'error', text: '⚠ 5 minutes of questions before any code' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── With a template CLAUDE.md ──' },
+  { type: 'cmd', text: 'claude "add a new API route"', delay: 1000 },
+  { type: 'out', text: 'Reading CLAUDE.md... Next.js App Router, TypeScript, Zod.' },
+  { type: 'success', text: '✓ Created src/app/api/users/route.ts' },
+  { type: 'success', text: '✓ Zod schema for request validation' },
+  { type: 'success', text: '✓ Error handling matching your conventions' },
+  { type: 'warn', text: '→ Copy a template. Customize it. Done.' },
+]} />
+
 ## Template Gallery
 
 These aren't generic starters. They're extracted from production workspaces and refined over months of daily use.
