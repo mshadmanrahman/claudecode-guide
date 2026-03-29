@@ -7,7 +7,13 @@ import {
 } from 'fumadocs-ui/layouts/docs/page';
 import { notFound } from 'next/navigation';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
+import { DemoCard } from '@/components/demo-card';
 import type { Metadata } from 'next';
+
+const mdxComponents = {
+  ...defaultMdxComponents,
+  DemoCard,
+};
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
@@ -27,7 +33,7 @@ export default async function Page(props: PageProps) {
       <DocsTitle>{data.title}</DocsTitle>
       <DocsDescription>{data.description}</DocsDescription>
       <DocsBody>
-        <MDX components={defaultMdxComponents} />
+        <MDX components={mdxComponents} />
       </DocsBody>
     </DocsPage>
   );

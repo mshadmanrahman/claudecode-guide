@@ -9,6 +9,18 @@ Every time you start a new Claude Code session, it begins with a blank slate. Wi
 
 The memory system fixes this. It gives Claude Code a structured way to remember you, your projects, and your preferences across sessions. Think of it as building a relationship with your tool instead of meeting a stranger every time.
 
+<DemoCard title="Memory in action" steps={[
+  { type: 'cmd', text: 'claude' },
+  { type: 'out', text: 'Reading MEMORY.md...' },
+  { type: 'success', text: '✓ Loaded: your role (PM), 4 active projects, 8 preferences' },
+  { type: 'success', text: '✓ Loaded: "never use em dashes in writing"' },
+  { type: 'success', text: '✓ Loaded: "Sebastian owns the API — match his patterns"' },
+  { type: 'out', text: 'Welcome back. I remember everything from last time.' },
+  { type: 'cmd', text: '"Prep for my 1:1 with Sarah"', delay: 1000 },
+  { type: 'out', text: 'Found 4 recent interactions, 2 open items...' },
+  { type: 'warn', text: '→ No re-explanation. It already knows you.' },
+]} />
+
 ## The Four Memory Types
 
 Memory in Claude Code is organized into four categories. Each serves a different purpose.

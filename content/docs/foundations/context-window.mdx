@@ -11,6 +11,18 @@ The context window is the amount of text Claude Code can "see" at once. Think of
 
 Claude Code uses models with 200K token context windows. That is roughly 150,000 words. Sounds huge, but it fills faster than you think.
 
+<DemoCard title="When your context window fills up" steps={[
+  { type: 'out', text: 'Context: ████████████████████░░░ 78%' },
+  { type: 'error', text: 'Performance is degrading — too much context' },
+  { type: 'cmd', text: '/compact', delay: 800 },
+  { type: 'out', text: 'Summarizing conversation...' },
+  { type: 'out', text: 'Keeping: file changes, decisions, current task' },
+  { type: 'out', text: 'Dropping: dead ends, verbose output' },
+  { type: 'success', text: '✓ Compacted' },
+  { type: 'success', text: 'Context: ████████░░░░░░░░░░░░░░ 35%' },
+  { type: 'warn', text: '→ 78% → 35%. Session saved.' },
+]} />
+
 Here is a rough sense of scale:
 
 | Content | Approximate tokens |

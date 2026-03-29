@@ -5,6 +5,18 @@ description: "Common Claude Code problems and how to fix them. Installation erro
 
 Something not working? You're probably not the first person to hit this. Here are the most common problems people run into with Claude Code, and the quickest way to fix each one.
 
+<DemoCard title="Quick diagnostic" steps={[
+  { type: 'cmd', text: 'node --version' },
+  { type: 'success', text: 'v22.12.0 ✓' },
+  { type: 'cmd', text: 'claude --version', delay: 600 },
+  { type: 'success', text: '1.0.41 ✓' },
+  { type: 'cmd', text: 'claude /doctor', delay: 600 },
+  { type: 'success', text: '✓ Authentication: valid' },
+  { type: 'success', text: '✓ Node.js: v22.12.0 (supported)' },
+  { type: 'success', text: '✓ npm: 10.9.0 (supported)' },
+  { type: 'warn', text: '→ Run these three commands to diagnose most issues.' },
+]} />
+
 ## Installation Problems
 
 ### "npm: command not found"

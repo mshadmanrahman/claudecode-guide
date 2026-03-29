@@ -3,6 +3,7 @@ import { Terminal, BookOpen, Zap, Coffee, Layout, ArrowRight, Sparkles, Shield, 
 import { TerminalCard, TerminalLine } from '@/components/terminal-card';
 import { FloatingCard } from '@/components/floating-card';
 import { EmailCapture } from '@/components/email-capture';
+import { DemoCard } from '@/components/demo-card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -120,7 +121,7 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* ── GIF Demo ── */}
+      {/* ── Live Demo ── */}
       <section className="mx-auto w-full max-w-3xl px-6 py-16">
         <p className="mb-4 text-center text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
           See it in action
@@ -128,14 +129,23 @@ export default function HomePage() {
         <h2 className="mb-8 text-center font-display text-2xl font-normal tracking-tight text-fd-foreground sm:text-3xl">
           One command creates your CLAUDE.md
         </h2>
-        <div className="overflow-hidden rounded-xl border border-fd-border">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/gifs/gif-init.gif"
-            alt="Running /init in Claude Code — it analyzes your project and generates a CLAUDE.md automatically"
-            className="w-full"
-          />
-        </div>
+        <DemoCard title="claude-code" steps={[
+          { type: 'cmd', text: '/init' },
+          { type: 'out', text: 'Analyzing your project...' },
+          { type: 'out', text: 'Reading package.json, tsconfig.json, tailwind.config...', delay: 500 },
+          { type: 'success', text: '✓ Generated CLAUDE.md', delay: 600 },
+          { type: 'out', text: '', delay: 300 },
+          { type: 'out', text: '# CLAUDE.md' },
+          { type: 'out', text: '## Project Overview' },
+          { type: 'out', text: 'Next.js 16 App Router. TypeScript strict.' },
+          { type: 'out', text: 'Tailwind CSS 4. Deployed on Vercel.' },
+          { type: 'out', text: '' },
+          { type: 'out', text: '## Code Style' },
+          { type: 'out', text: '- Server Components by default', delay: 300 },
+          { type: 'out', text: '- Tailwind classes only, no inline styles', delay: 300 },
+          { type: 'out', text: '- Use native fetch, never axios', delay: 300 },
+          { type: 'warn', text: '→ Now Claude Code knows YOUR project.', delay: 800 },
+        ]} />
         <p className="mt-4 text-center text-sm text-fd-muted-foreground">
           Claude Code reads your project, detects your stack, and writes the config for you.
         </p>

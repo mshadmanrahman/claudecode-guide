@@ -9,7 +9,16 @@ Every PM, developer, and power user hits the same wall: you open Claude Code, an
 
 This isn't an AI limitation. It's a workflow design failure.
 
-<img src="/gifs/gif-session-cmds.gif" alt="Using /clear and /compact to manage your Claude Code session" style={{borderRadius: '12px', border: '1px solid var(--fd-border)', width: '100%', maxWidth: '700px', margin: '24px 0'}} />
+<DemoCard title="Session management in action" steps={[
+  { type: 'cmd', text: 'claude' },
+  { type: 'success', text: '✓ Reading MEMORY.md... 3 projects, 12 preferences loaded' },
+  { type: 'success', text: '✓ Loading handoff from yesterday... context resumed' },
+  { type: 'out', text: 'Welcome back. Picking up where you left off.' },
+  { type: 'cmd', text: '"Continue with the dashboard feature"', delay: 1000 },
+  { type: 'out', text: 'Resuming: dashboard layout, 3 components done, chart pending.' },
+  { type: 'success', text: '✓ Zero re-explanation needed' },
+  { type: 'warn', text: '→ This is what a warm start looks like.' },
+]} />
 
 ## The Three Phases
 

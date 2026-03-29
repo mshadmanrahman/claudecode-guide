@@ -11,7 +11,16 @@ Think of skills as recipes. Instead of telling Claude Code "pull my calendar, ch
 
 Skills are the building blocks of a Claude Code operating system. They turn scattered knowledge into repeatable, composable workflows.
 
-<img src="/gifs/gif-skill.gif" alt="Creating a /commit skill in Claude Code — one word, three steps, zero thinking" style={{borderRadius: '12px', border: '1px solid var(--fd-border)', width: '100%', maxWidth: '700px', margin: '24px 0'}} />
+<DemoCard title="Creating your first skill" steps={[
+  { type: 'cmd', text: 'claude "Create a /commit skill that stages, commits, and pushes"' },
+  { type: 'out', text: 'Creating .claude/commands/commit.md...' },
+  { type: 'success', text: '✓ Created skill: /commit' },
+  { type: 'cmd', text: '/commit', delay: 1000 },
+  { type: 'out', text: 'Staging 3 files...' },
+  { type: 'out', text: 'Commit: "feat: add dark mode toggle to settings"' },
+  { type: 'success', text: '✓ Pushed to origin/main' },
+  { type: 'warn', text: '→ One word. Three steps. Zero thinking.' },
+]} />
 
 ## Anatomy of a Skill
 
