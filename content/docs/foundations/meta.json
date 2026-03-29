@@ -2,5 +2,5 @@
   "title": "Foundations",
   "root": true,
   "defaultOpen": true,
-  "pages": ["installation", "claude-md", "glossary", "memory-system", "session-lifecycle", "context-window", "cost-optimization", "troubleshooting"]
+  "pages": ["claude-md", "glossary", "cost-optimization", "installation", "session-lifecycle", "memory-system", "context-window", "troubleshooting"]
 }

@@ -16,10 +16,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         { text: 'Roadmap', url: '/roadmap' },
         { text: 'Docs', url: '/docs/foundations/claude-md' },
         { text: 'Templates', url: '/docs/templates' },
-        {
-          text: 'GitHub',
-          url: 'https://github.com/mshadmanrahman/claudecode-guide',
-        },
+        { text: 'Tutorials', url: '/tutorials' },
       ]}
     >
       {children}

@@ -79,7 +79,7 @@ export default function RoadmapPage() {
           <div className="flex items-center gap-6 text-sm">
             <Link href="/" className="text-fd-muted-foreground hover:text-fd-foreground transition-colors">Home</Link>
             <Link href="/docs/foundations/glossary" className="text-fd-muted-foreground hover:text-fd-foreground transition-colors">Glossary</Link>
-            <a href="https://github.com/mshadmanrahman/claudecode-guide" target="_blank" rel="noopener noreferrer" className="text-fd-muted-foreground hover:text-fd-foreground transition-colors">GitHub</a>
+            <Link href="/tutorials" className="text-fd-muted-foreground hover:text-fd-foreground transition-colors">Tutorials</Link>
           </div>
         </div>
       </nav>
