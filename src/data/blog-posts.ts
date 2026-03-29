@@ -845,6 +845,344 @@ export const blogPosts: BlogPost[] = [
 <p>It's not "how much code can Claude write." It's "how much of my workflow is automated, consistent, and context-aware." That number goes up every single day if you invest in the system.</p>
 <p>Day one is cool. Day thirty is a different way of working entirely. Stick with it. The compound effect is real.</p>`,
   },
+  {
+    slug: "10-claude-code-features-you-didnt-know-existed",
+    title: "10 Claude Code Features You Didn't Know Existed",
+    description: "Claude Code has way more depth than most people realize. Here are 10 features hiding in plain sight that will change how you work.",
+    date: "2026-03-26",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "tips", "listicle", "productivity"],
+    content: `<p>You've been using Claude Code for weeks and you think you know it. You don't. Here are 10 features most people completely miss.</p>
+
+<h2>1. Vim Mode</h2>
+<p>Hit <code>Escape</code> in the input and you're in vim-style navigation. If you already think in hjkl, this is free speed.</p>
+
+<h2>2. Theme Switching</h2>
+<p>Run <code>/config</code> and change your theme. Dark, light, and several in between. Small thing, but it makes late-night sessions less painful.</p>
+
+<h2>3. Multi-File Edits in One Prompt</h2>
+<p>You can ask Claude Code to edit 5 files at once. It tracks all changes, shows diffs for each, and lets you accept or reject individually. Stop doing one file at a time.</p>
+
+<h2>4. The /compact Command</h2>
+<p>Context window getting full? Run <code>/compact</code> to compress the conversation while keeping key decisions. Your session lives longer without losing the plot.</p>
+
+<h2>5. Headless Mode with <code>claude -p</code></h2>
+<p>Pipe a prompt directly: <code>claude -p "explain this function"</code>. No interactive session needed. Perfect for scripts and CI pipelines.</p>
+
+<h2>6. Custom Slash Commands</h2>
+<p>Drop a markdown file in <code>.claude/commands/</code> and it becomes a slash command. Your own <code>/deploy</code>, <code>/review</code>, or <code>/morning-standup</code>. Zero code required.</p>
+
+<h2>7. Git Awareness</h2>
+<p>Claude Code reads your git status, branch, and recent commits automatically. It knows what you changed. Ask "what did I just break?" and it actually knows.</p>
+
+<h2>8. Extended Thinking Toggle</h2>
+<p>Press <code>Option+T</code> (Mac) or <code>Alt+T</code> (Windows) to toggle extended thinking. For complex problems, this is the difference between a guess and a real answer.</p>
+
+<h2>9. Session Memory via Handoffs</h2>
+<p>Write a handoff at the end of each session and load it at the start of the next. Zero cold starts. Your Tuesday session picks up exactly where Monday left off.</p>
+
+<h2>10. MCP Server Connections</h2>
+<p>Connect to external tools — databases, APIs, browser automation — through the <a href="/docs/advanced/mcp">Model Context Protocol</a>. Claude Code stops being just a coding assistant and becomes an orchestration layer.</p>
+
+<p>Most people use maybe 3 of these. Start using all 10 and the productivity gap gets embarrassing. Read the full <a href="/docs/getting-started/basic-usage">Basic Usage Guide</a> for more.</p>`,
+  },
+  {
+    slug: "7-claude-md-sections-every-project-needs",
+    title: "7 CLAUDE.md Sections Every Project Needs",
+    description: "Not all CLAUDE.md files are created equal. These 7 sections separate a useful config from a game-changing one.",
+    date: "2026-03-26",
+    author: "Shadman Rahman",
+    tags: ["claude-md", "tutorial", "listicle"],
+    content: `<p>Everyone knows they need a CLAUDE.md. But most people write three lines and call it done. Here are the 7 sections that actually matter.</p>
+
+<h2>1. Tech Stack Declaration</h2>
+<p>List your framework, language version, and key libraries. This alone eliminates 50% of wrong suggestions. "Next.js 16, TypeScript, Tailwind CSS 4, Drizzle ORM." Done.</p>
+
+<h2>2. Coding Conventions</h2>
+<p>Tabs or spaces? Named exports or default? Functional components only? Put it here. Claude Code follows whatever you write. If you don't write it, you get a coin flip every time.</p>
+
+<h2>3. File Structure Map</h2>
+<p>Tell Claude Code where things live. <code>src/app/</code> for routes, <code>src/components/</code> for UI, <code>src/lib/</code> for utilities. It stops creating files in random places.</p>
+
+<h2>4. Communication Style</h2>
+<p>This is the underrated one. "Be direct. No fluff. Code first, explain only if asked." Or "explain your reasoning step by step." Claude Code adapts to whatever voice you want.</p>
+
+<h2>5. Build and Run Commands</h2>
+<p>List your dev server command, build command, test command, and deploy command. Claude Code can then run them without asking you what to type.</p>
+
+<h2>6. Session Lifecycle</h2>
+<p>Tell Claude Code what to do at the start and end of each session. "Read the latest handoff. Check git status. At the end, write a handoff to <code>.claude/handoffs/</code>." This is how you get continuity.</p>
+
+<h2>7. Forbidden Patterns</h2>
+<p>What should Claude Code NEVER do? "Never use <code>any</code> type. Never suppress lint rules. Never commit directly to main." Guardrails prevent disasters before they happen.</p>
+
+<p>Start with these 7. Add more as you discover your own patterns. The <a href="/docs/foundations/claude-md">CLAUDE.md deep dive</a> covers the full five-layer architecture.</p>`,
+  },
+  {
+    slug: "5-signs-you-should-upgrade-to-claude-max",
+    title: "5 Signs You Should Upgrade to Claude Max",
+    description: "Not sure if Claude Max is worth it? If any of these 5 things sound familiar, you're leaving serious value on the table.",
+    date: "2026-03-27",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "cost", "listicle"],
+    content: `<p>Claude Pro works fine for casual use. But if you've hit any of these walls, Max pays for itself in a week.</p>
+
+<h2>1. You Hit Rate Limits During Deep Work</h2>
+<p>Nothing kills flow state like a "please wait" message in the middle of a refactor. If you're hitting limits more than twice a week, you're losing more in productivity than Max costs.</p>
+
+<h2>2. You Run Multi-File Refactors Regularly</h2>
+<p>Big refactors eat context fast. Pro's limits mean you either rush the job or split it across sessions and lose context. Max gives you the runway to do it properly in one shot.</p>
+
+<h2>3. You Use Sub-Agents or Parallel Tasks</h2>
+<p>Running a code reviewer agent alongside a test writer agent alongside your main session? That burns through allocation fast. Max makes multi-agent workflows actually viable.</p>
+
+<h2>4. Your Sessions Regularly Exceed 30 Minutes</h2>
+<p>If your average session is a quick question, Pro is fine. But if you're doing architecture discussions, debugging complex issues, or building features end-to-end, those long sessions need Max-level capacity.</p>
+
+<h2>5. You've Started Rationing Your Prompts</h2>
+<p>This is the biggest red flag. If you're thinking "should I ask Claude this or save my allocation?" — you're optimizing for the wrong thing. Your time is worth more than the subscription difference.</p>
+
+<h2>The Math</h2>
+<p>Max is $100/month more than Pro. If it saves you 2 hours per week (it will), that's roughly $12.50 per hour saved. Most developers bill 10x that. It's not even close.</p>
+
+<p>Check the <a href="/docs/getting-started/installation">installation guide</a> for setup details and the <a href="/docs/advanced/cost-management">cost management guide</a> for tips on maximizing your plan.</p>`,
+  },
+  {
+    slug: "8-ways-pms-use-claude-code-without-writing-code",
+    title: "8 Ways PMs Use Claude Code Without Writing a Single Line of Code",
+    description: "Claude Code isn't just for developers. Here are 8 workflows product managers use daily that don't involve touching code.",
+    date: "2026-03-27",
+    author: "Shadman Rahman",
+    tags: ["pm", "productivity", "listicle", "non-technical"],
+    content: `<p>Claude Code has "code" in the name. Misleading. Half the power is in workflows that have nothing to do with writing code. Here's how PMs are using it.</p>
+
+<h2>1. Meeting Note Extraction</h2>
+<p>Paste your meeting transcript, get structured action items, decisions, and follow-ups. One prompt replaces 20 minutes of manual note cleanup.</p>
+
+<h2>2. PRD Generation</h2>
+<p>Describe a feature in plain English. Claude Code drafts a full PRD with user stories, acceptance criteria, and edge cases. You edit instead of writing from scratch.</p>
+
+<h2>3. Competitive Analysis</h2>
+<p>Point it at competitor docs, changelogs, or landing pages. Get a structured comparison table in minutes. Way faster than doing it manually in a spreadsheet.</p>
+
+<h2>4. Jira Ticket Writing</h2>
+<p>Describe what you need built. Claude Code writes the ticket with description, acceptance criteria, and technical hints your devs will actually appreciate.</p>
+
+<h2>5. Stakeholder Email Drafting</h2>
+<p>Feed it context about a project update. Get a clear, concise stakeholder email that hits the right tone. Skip the 30-minute wordsmithing session.</p>
+
+<h2>6. Data Analysis from CSV</h2>
+<p>Drop a CSV export into the conversation. Ask for trends, anomalies, or summaries. Claude Code reads the data and gives you insights without a single SQL query.</p>
+
+<h2>7. Sprint Retro Summaries</h2>
+<p>Paste the retro board output. Get a clean summary with themes, action items, and patterns across multiple sprints. Your eng manager will love you.</p>
+
+<h2>8. Technical Doc Translation</h2>
+<p>Dev team wrote an ADR full of jargon? Ask Claude Code to translate it to PM-speak. Understand the tradeoffs without pretending you know what "eventual consistency" means.</p>
+
+<p>The trick is setting up your <a href="/docs/foundations/claude-md">CLAUDE.md</a> with your PM context — your projects, your stakeholders, your communication style. Then every one of these workflows gets even better.</p>`,
+  },
+  {
+    slug: "6-autonomous-loop-ideas-to-run-overnight",
+    title: "6 Autonomous Loop Ideas to Run While You Sleep",
+    description: "Set up Claude Code to work while you sleep. These 6 autonomous loop patterns handle the tedious work so morning-you has a head start.",
+    date: "2026-03-27",
+    author: "Shadman Rahman",
+    tags: ["autonomous", "advanced", "listicle", "automation"],
+    content: `<p>The most underused Claude Code feature is autonomous loops. Set it up before bed, wake up to completed work. Here are 6 ideas worth trying.</p>
+
+<h2>1. Test Coverage Gap Filler</h2>
+<p>Point it at your repo with the prompt: "Find all files under 80% test coverage and write missing tests." It works through file by file, running tests after each one. Wake up to a green CI pipeline.</p>
+
+<h2>2. Dependency Audit and Update</h2>
+<p>Run a loop that checks for outdated dependencies, updates them one at a time, runs tests, and rolls back if anything breaks. Safe, methodical, and boring — perfect for a machine.</p>
+
+<h2>3. Documentation Generator</h2>
+<p>Point it at your undocumented functions with: "Add JSDoc to every exported function missing documentation." It reads the code, infers the purpose, and writes accurate docs. Review in the morning.</p>
+
+<h2>4. Lint and Fix Sweep</h2>
+<p>Got 200 lint warnings you've been ignoring? Set up a loop: "Fix one lint warning, run tests, commit if green, move to next." You wake up to a clean codebase and a tidy git history.</p>
+
+<h2>5. Migration Script Runner</h2>
+<p>Migrating from one pattern to another (class components to hooks, REST to tRPC, etc.)? Set up the pattern and let it work through every file overnight. Review the PR in the morning.</p>
+
+<h2>6. Security Scan and Patch</h2>
+<p>Run a security audit, then have Claude Code fix the low-hanging fruit — outdated packages with known CVEs, missing input validation, hardcoded strings that should be env vars.</p>
+
+<h2>Setting It Up</h2>
+<p>Use <code>claude -p</code> in headless mode with your prompt piped in. Add a stop condition (max iterations, time limit, or a STOP file). Read the <a href="/docs/patterns/autonomous-loops">autonomous loops guide</a> for the full setup pattern.</p>
+
+<p>The compound effect here is wild. One overnight loop per week means 52 automated work sessions per year. That's a full quarter of free engineering work.</p>`,
+  },
+  {
+    slug: "12-slash-commands-that-save-hours-per-week",
+    title: "12 Slash Commands That Save Hours Per Week",
+    description: "Custom slash commands are Claude Code's secret weapon. These 12 examples show what's possible when you stop typing the same prompts over and over.",
+    date: "2026-03-28",
+    author: "Shadman Rahman",
+    tags: ["shortcuts", "tips", "listicle", "productivity"],
+    content: `<p>If you're typing the same prompt more than twice, it should be a slash command. Here are 12 that real teams are using to save hours every week.</p>
+
+<h2>1. /review</h2>
+<p>Runs a code review on staged changes. Checks for security issues, performance problems, and style violations. One command replaces a 15-minute manual review.</p>
+
+<h2>2. /test</h2>
+<p>Generates tests for the current file. Reads the code, infers edge cases, writes tests. You review instead of writing from scratch.</p>
+
+<h2>3. /deploy</h2>
+<p>Runs your full deploy pipeline — build, test, lint, push. One command. No forgetting steps.</p>
+
+<h2>4. /morning</h2>
+<p>Reads your latest handoff, checks git status, shows open PRs and failing CI. Your entire daily standup context in 10 seconds.</p>
+
+<h2>5. /refactor</h2>
+<p>Analyzes a file for code smells and suggests improvements. Accept them one by one or all at once. Refactoring without the mental overhead.</p>
+
+<h2>6. /ticket</h2>
+<p>Creates a Jira/Linear ticket from a description. Formats it properly, adds acceptance criteria, and even suggests labels. PMs love this one.</p>
+
+<h2>7. /explain</h2>
+<p>Explains a complex function or file in plain English. Perfect for onboarding or revisiting code you wrote 6 months ago and no longer understand.</p>
+
+<h2>8. /migrate</h2>
+<p>Applies a migration pattern across matching files. "Convert all class components to functional" or "replace axios with fetch." Batch operations made safe.</p>
+
+<h2>9. /handoff</h2>
+<p>Writes a structured handoff document capturing what you did, what's left, and any blockers. Future-you will be grateful.</p>
+
+<h2>10. /pr</h2>
+<p>Creates a pull request with auto-generated title, description, and test plan from your commits. The PR description problem, solved.</p>
+
+<h2>11. /debug</h2>
+<p>Reads the error, checks recent changes, suggests fixes. Cuts the "stare at the stack trace" phase from 20 minutes to 2.</p>
+
+<h2>12. /cleanup</h2>
+<p>Finds dead code, unused imports, and orphaned files. Keeps your repo lean without the fear of accidentally deleting something important.</p>
+
+<p>Building these is trivial — just markdown files in <code>.claude/commands/</code>. The <a href="/docs/patterns/slash-commands">slash commands guide</a> shows you exactly how.</p>`,
+  },
+  {
+    slug: "4-mcp-servers-every-developer-should-connect",
+    title: "4 MCP Servers Every Developer Should Connect First",
+    description: "MCP turns Claude Code from a coding assistant into an orchestration layer. Start with these 4 servers and you'll never go back.",
+    date: "2026-03-28",
+    author: "Shadman Rahman",
+    tags: ["mcp", "tutorial", "listicle"],
+    content: `<p>The Model Context Protocol is what separates "Claude Code the chatbot" from "Claude Code the operating system." These 4 MCP servers are the foundation.</p>
+
+<h2>1. GitHub MCP Server</h2>
+<p>Read issues, create PRs, search code across repos, and manage releases — all from your Claude Code session. No more switching to the browser to check PR comments. Your entire GitHub workflow lives in one place.</p>
+
+<h2>2. Playwright Browser Automation</h2>
+<p>Claude Code can now control a browser. Navigate pages, click buttons, fill forms, take screenshots. Use it for E2E testing, visual verification, or scraping data you need for analysis. It's like Selenium but you describe what you want in English.</p>
+
+<h2>3. Database MCP (Postgres/Redis)</h2>
+<p>Connect your database and Claude Code can query it directly. Debug data issues, generate reports, verify migrations — without leaving your terminal. Just make sure you're connecting to dev, not prod. Obviously.</p>
+
+<h2>4. Slack MCP Server</h2>
+<p>Search messages, read channels, even send updates — all from Claude Code. Perfect for pulling context from team discussions into your coding session. "What did the team decide about the auth flow?" becomes a real query, not a memory test.</p>
+
+<h2>Setting Up Your First MCP Server</h2>
+<p>Add a <code>.mcp.json</code> file to your project root with the server configuration. Claude Code detects it automatically on next session start. No restart, no install, no drama.</p>
+
+<p>Once you have these 4 connected, Claude Code becomes the single interface for your entire development workflow. Read the full <a href="/docs/advanced/mcp">MCP deep dive</a> for configuration examples and advanced patterns.</p>`,
+  },
+  {
+    slug: "9-mistakes-killing-your-claude-code-productivity",
+    title: "9 Mistakes Killing Your Claude Code Productivity",
+    description: "You might be sabotaging your own Claude Code experience without realizing it. These 9 common mistakes are easy to fix once you spot them.",
+    date: "2026-03-28",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "tips", "listicle", "productivity"],
+    content: `<p>Most people blame Claude Code when they get bad results. But 9 times out of 10, it's a workflow problem, not a tool problem. Here's what you're probably doing wrong.</p>
+
+<h2>1. No CLAUDE.md File</h2>
+<p>This is the number one productivity killer. Every session starts blind. Claude guesses your stack, your style, your preferences. It guesses wrong. Fix this in 5 minutes.</p>
+
+<h2>2. Prompts That Are Too Vague</h2>
+<p>"Make this better" is not a prompt. "Refactor this function to reduce cyclomatic complexity and add error handling for the API call on line 23" is a prompt. Specificity wins.</p>
+
+<h2>3. Not Using Extended Thinking</h2>
+<p>For complex problems, extended thinking is the difference between a surface-level answer and genuine reasoning. Toggle it with <code>Option+T</code>. Use it for architecture decisions, debugging, and refactors.</p>
+
+<h2>4. Ignoring the Context Window</h2>
+<p>Your session has a context limit. If you dump your entire codebase in and then ask a question, the important stuff gets buried. Be selective. Use <code>/compact</code> when things get long.</p>
+
+<h2>5. One Giant Prompt Instead of a Conversation</h2>
+<p>Claude Code is conversational. Start with the goal, review the plan, then iterate. A 500-word prompt trying to specify everything upfront usually produces worse results than a 3-turn conversation.</p>
+
+<h2>6. Never Writing Handoffs</h2>
+<p>Every session without a handoff is knowledge lost. Tomorrow's session starts cold. Write a 30-second handoff at the end of each session. Future-you will be irrationally grateful.</p>
+
+<h2>7. Accepting Code Without Reviewing Diffs</h2>
+<p>Claude Code shows you diffs for a reason. Blindly accepting everything is how you get subtle bugs, wrong imports, and style violations. Spend 30 seconds reviewing. It's worth it.</p>
+
+<h2>8. Not Using Custom Commands</h2>
+<p>If you type the same prompt pattern more than twice, it should be a <a href="/docs/patterns/slash-commands">slash command</a>. "Write tests for this file" becomes <code>/test</code>. "Review my staged changes" becomes <code>/review</code>.</p>
+
+<h2>9. Treating It Like a Search Engine</h2>
+<p>Claude Code is a pair programmer, not Google. Give it context, not keywords. Share the file, explain the constraint, describe the outcome you want. The better you brief it, the better it performs.</p>
+
+<p>Fix these 9 mistakes and you'll get more value from Claude Code in a week than most people get in a month. Start with the <a href="/docs/foundations/claude-md">CLAUDE.md guide</a>.</p>`,
+  },
+  {
+    slug: "3-skills-you-can-build-in-under-10-minutes",
+    title: "3 Skills You Can Build in Under 10 Minutes",
+    description: "Claude Code Skills sound complex. They're not. Here are 3 you can build right now in under 10 minutes each.",
+    date: "2026-03-29",
+    author: "Shadman Rahman",
+    tags: ["skills", "tutorial", "listicle", "automation"],
+    content: `<p>Skills are just markdown files that teach Claude Code new tricks. No code. No framework. Just instructions in a file. Here are 3 you can build before your coffee gets cold.</p>
+
+<h2>1. The Commit Message Writer</h2>
+<p>Create <code>.claude/commands/commit.md</code> with instructions like: "Read the staged diff. Write a conventional commit message. Format: type(scope): description. Keep it under 72 characters. If the change is complex, add a body explaining why." That's it. Now <code>/commit</code> writes perfect commit messages every time.</p>
+
+<h3>Time to build: 3 minutes</h3>
+
+<h2>2. The Bug Report Template</h2>
+<p>Create <code>.claude/commands/bug-report.md</code> with: "Ask me to describe the bug. Then generate a structured bug report with: Summary, Steps to Reproduce, Expected Behavior, Actual Behavior, Environment, and Severity. Format as markdown." Now <code>/bug-report</code> produces clean, consistent reports your team can actually use.</p>
+
+<h3>Time to build: 3 minutes</h3>
+
+<h2>3. The Daily Standup Generator</h2>
+<p>Create <code>.claude/commands/standup.md</code> with: "Check git log for my commits since yesterday. Check for any open PRs. Read the latest handoff file. Generate a standup update with: What I did, What I'm doing today, Any blockers." Now <code>/standup</code> writes your standup from actual data instead of your foggy morning memory.</p>
+
+<h3>Time to build: 4 minutes</h3>
+
+<h2>The Pattern</h2>
+<p>Every skill follows the same structure: describe what Claude Code should do, what inputs to use, and how to format the output. Once you build 3, you'll start seeing skill opportunities everywhere.</p>
+
+<p>The <a href="/docs/patterns/slash-commands">slash commands guide</a> covers the full syntax and more advanced patterns like parameterized skills and multi-step workflows.</p>`,
+  },
+  {
+    slug: "top-5-claude-code-workflows-for-solo-founders",
+    title: "Top 5 Claude Code Workflows for Solo Founders",
+    description: "When you're the CEO, CTO, PM, and intern all at once, Claude Code becomes your unfair advantage. These 5 workflows are built for the one-person team.",
+    date: "2026-03-29",
+    author: "Shadman Rahman",
+    tags: ["productivity", "pm", "listicle", "story"],
+    content: `<p>Solo founders don't have the luxury of "let me hand this off to the team." You ARE the team. Here are 5 Claude Code workflows that give you back the hours you desperately need.</p>
+
+<h2>1. The Full-Stack Sprint</h2>
+<p>Set up your CLAUDE.md with your entire stack. Then run a focused 2-hour session where Claude Code helps you build end-to-end — database schema, API routes, frontend components, tests. One session, one feature, fully shipped. This is the workflow that makes solo founding actually viable in 2026.</p>
+
+<h2>2. The Overnight QA Loop</h2>
+<p>Before bed, kick off an autonomous loop that runs your test suite, finds gaps, writes missing tests, and creates a summary. Wake up to a QA report that would've taken your morning. Ship with confidence before lunch.</p>
+
+<h2>3. The Investor Update Writer</h2>
+<p>Create a <code>/investor-update</code> command that pulls your recent commits, deployment logs, and any metrics you track. It drafts a clean monthly update with progress, metrics, and next steps. Turns a 2-hour writing task into a 5-minute review.</p>
+
+<h2>4. The Competitive Research Session</h2>
+<p>Feed Claude Code your competitors' landing pages, changelogs, and pricing pages. Ask for a structured analysis: what they're doing that you're not, what you do better, where the gaps are. Strategy sessions without the strategy consultant.</p>
+
+<h2>5. The Sunday Architecture Review</h2>
+<p>Once a week, have Claude Code review your codebase holistically. "What's the messiest part of this repo? Where are the bottlenecks? What would break first under 10x traffic?" It's like having a senior engineer on retainer for $20/month.</p>
+
+<h2>The Solo Founder Stack</h2>
+<p>CLAUDE.md + custom commands + MCP servers + autonomous loops. That's the full stack. Each piece multiplies the others. Together, they're the difference between burning out at month 3 and shipping consistently at month 12.</p>
+
+<p>Start with the <a href="/guide">Interactive Setup Guide</a> and have your full workflow running in under an hour.</p>`,
+  },
 ];
 
 // Sorted newest first for display
