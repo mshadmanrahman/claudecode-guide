@@ -114,6 +114,27 @@ export default function HomePage() {
         </p>
       </section>
 
+      {/* ── GIF Demo ── */}
+      <section className="mx-auto w-full max-w-3xl px-6 py-16">
+        <p className="mb-4 text-center text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+          See it in action
+        </p>
+        <h2 className="mb-8 text-center font-display text-2xl font-normal tracking-tight text-fd-foreground sm:text-3xl">
+          One command creates your CLAUDE.md
+        </h2>
+        <div className="overflow-hidden rounded-xl border border-fd-border">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/gifs/gif-init.gif"
+            alt="Running /init in Claude Code — it analyzes your project and generates a CLAUDE.md automatically"
+            className="w-full"
+          />
+        </div>
+        <p className="mt-4 text-center text-sm text-fd-muted-foreground">
+          Claude Code reads your project, detects your stack, and writes the config for you.
+        </p>
+      </section>
+
       {/* ── Divider ── */}
       <div className="mx-auto w-full max-w-5xl border-t border-dashed border-fd-border" />
 
