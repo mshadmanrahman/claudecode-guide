@@ -120,7 +120,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`dark ${newsreader.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
+      className={`${newsreader.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -128,26 +128,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <script dangerouslySetInnerHTML={{ __html: `
-          (function() {
-            try {
-              var t = localStorage.getItem('theme');
-              if (!t || t === '"system"' || t === 'system' || t === 'light') {
-                localStorage.setItem('theme', 'dark');
-              }
-              document.documentElement.classList.add('dark');
-              document.documentElement.classList.remove('light');
-              document.documentElement.style.colorScheme = 'dark';
-            } catch(e) {}
-          })();
-        `}} />
       </head>
       <body className="flex min-h-screen flex-col antialiased">
         <RootProvider
           theme={{
-            defaultTheme: 'dark',
+            defaultTheme: 'light',
             attribute: 'class',
-            enableSystem: false,
+            enableSystem: true,
           }}
         >
           {children}

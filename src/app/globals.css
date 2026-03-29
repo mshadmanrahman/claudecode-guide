@@ -44,23 +44,23 @@
   --color-fd-diff-add-symbol: rgb(10, 200, 100);
 }
 
-/* Dark mode */
+/* Dark mode — softer, not cave-black */
 .dark {
-  --color-fd-background: #0a0a0a;
-  --color-fd-foreground: #fafafa;
-  --color-fd-card: #141414;
-  --color-fd-card-foreground: #fafafa;
-  --color-fd-popover: #1a1a1a;
-  --color-fd-popover-foreground: #fafafa;
-  --color-fd-primary: #fafafa;
-  --color-fd-primary-foreground: #0a0a0a;
-  --color-fd-secondary: #1a1a1a;
-  --color-fd-secondary-foreground: #fafafa;
-  --color-fd-muted: #1a1a1a;
+  --color-fd-background: #181818;
+  --color-fd-foreground: #f5f5f5;
+  --color-fd-card: #212121;
+  --color-fd-card-foreground: #f5f5f5;
+  --color-fd-popover: #252525;
+  --color-fd-popover-foreground: #f5f5f5;
+  --color-fd-primary: #f5f5f5;
+  --color-fd-primary-foreground: #181818;
+  --color-fd-secondary: #252525;
+  --color-fd-secondary-foreground: #f5f5f5;
+  --color-fd-muted: #252525;
   --color-fd-muted-foreground: #a3a3a3;
-  --color-fd-accent: rgba(255, 255, 255, 0.08);
-  --color-fd-accent-foreground: #fafafa;
-  --color-fd-border: rgba(255, 255, 255, 0.1);
+  --color-fd-accent: rgba(255, 255, 255, 0.06);
+  --color-fd-accent-foreground: #f5f5f5;
+  --color-fd-border: rgba(255, 255, 255, 0.12);
   --color-fd-ring: #525252;
   --color-fd-overlay: rgba(0, 0, 0, 0.5);
 }
