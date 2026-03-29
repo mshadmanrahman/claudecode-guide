@@ -1,41 +1,44 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight, Check, Mail } from 'lucide-react';
+import { ArrowRight, Check, Mail, Loader2 } from 'lucide-react';
 
 export function EmailCapture() {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
 
     setStatus('loading');
 
-    // Open Substack subscribe in background — most reliable method
-    const win = window.open(
-      `https://shadmanrahman.substack.com/subscribe?email=${encodeURIComponent(email)}&just_hierarchied=true`,
-      'substack-subscribe',
-      'width=500,height=400,left=200,top=200'
-    );
+    try {
+      // POST directly to Substack's subscribe endpoint
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
 
-    // Auto-close the popup after a short delay
-    setTimeout(() => {
-      try { win?.close(); } catch (_) { /* cross-origin, ignore */ }
-    }, 3000);
-
-    setStatus('success');
-    setEmail('');
+      if (res.ok) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
 
   if (status === 'success') {
     return (
       <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-6 text-center">
         <Check className="mx-auto mb-2 h-6 w-6 text-green-500" />
-        <p className="font-medium text-fd-foreground">You&apos;re in!</p>
+        <p className="font-medium text-fd-foreground">You&apos;re subscribed!</p>
         <p className="mt-1 text-sm text-fd-muted-foreground">
-          Check your email to confirm the subscription.
+          Check your inbox to confirm. Welcome aboard.
         </p>
         <button
           type="button"
@@ -71,10 +74,19 @@ export function EmailCapture() {
           disabled={status === 'loading'}
           className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-5 py-2.5 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90 disabled:opacity-50"
         >
-          Subscribe
-          <ArrowRight className="h-3.5 w-3.5" />
+          {status === 'loading' ? (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          ) : (
+            <>
+              Subscribe
+              <ArrowRight className="h-3.5 w-3.5" />
+            </>
+          )}
         </button>
       </form>
+      {status === 'error' && (
+        <p className="mt-2 text-xs text-red-500">Something went wrong. Please try again.</p>
+      )}
     </div>
   );
 }
