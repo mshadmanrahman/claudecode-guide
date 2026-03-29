@@ -1,69 +1,48 @@
 import Link from 'next/link';
-import { ArrowLeft, Calendar, User } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 import { notFound } from 'next/navigation';
-
-const posts: Record<string, {
-  title: string;
-  description: string;
-  date: string;
-  author: string;
-  content: React.ReactNode;
-}> = {
-  'why-most-people-use-claude-code-wrong': {
-    title: "Why Most People Use Claude Code Wrong (And How to Fix It in 5 Minutes)",
-    description: "You installed Claude Code, typed a prompt, got a mid answer, and walked away. Here's what you missed.",
-    date: "2026-03-29",
-    author: "Shadman Rahman",
-    content: (
-      <>
-        <p>Most people install Claude Code, type a question, get a mediocre answer, and walk away thinking &quot;AI isn&apos;t that useful yet.&quot;</p>
-        <p>But the problem isn&apos;t Claude Code. It&apos;s that they skipped the one file that makes it actually work.</p>
-
-        <h2>The CLAUDE.md Gap</h2>
-        <p>Without a <code>CLAUDE.md</code> file, every session starts blind. Claude Code doesn&apos;t know your stack, your coding style, or your preferences. It&apos;s guessing. And guessing produces mid results.</p>
-        <p>With CLAUDE.md, the same prompt produces dramatically different output. Your stack, your conventions, your communication preferences — all loaded before you even type.</p>
-
-        <h2>The 5-Minute Fix</h2>
-        <ol>
-          <li>Run <code>claude /init</code> in your project root</li>
-          <li>It generates a basic CLAUDE.md from your codebase</li>
-          <li>Add your communication preferences (&quot;be direct, no fluff&quot;)</li>
-          <li>Add your session lifecycle (&quot;read memory at start, write handoff at end&quot;)</li>
-        </ol>
-        <p>That&apos;s it. Four steps. Under 5 minutes. The improvement is immediate and honestly kind of wild.</p>
-
-        <h2>What Changes</h2>
-        <table>
-          <thead><tr><th>Before</th><th>After</th></tr></thead>
-          <tbody>
-            <tr><td><code>.jsx</code> files in a TypeScript project</td><td><code>.tsx</code> every time</td></tr>
-            <tr><td>Inline styles when you use Tailwind</td><td>Tailwind classes automatically</td></tr>
-            <tr><td>Verbose explanations</td><td>Direct answers matching your style</td></tr>
-            <tr><td>Every session starts cold</td><td>Memory + handoffs = zero re-explanation</td></tr>
-          </tbody>
-        </table>
-
-        <h2>The Compound Effect</h2>
-        <p>The real magic isn&apos;t day one. It&apos;s week three.</p>
-        <p>By then, Claude Code has accumulated your corrections, your preferences, and your project context. It stops making the mistakes you&apos;ve already fixed. Sessions start faster. The gap between &quot;using Claude Code&quot; and &quot;having Claude Code as an operating system&quot; gets wider every day.</p>
-
-        <h2>Start Here</h2>
-        <p>Read the full <Link href="/docs/foundations/claude-md" className="underline hover:text-fd-foreground">CLAUDE.md Guide</Link> for the five-layer architecture. Or jump straight to the <Link href="/guide" className="underline hover:text-fd-foreground">Interactive Setup Guide</Link> and follow the 9 steps.</p>
-        <p>Either way, don&apos;t use Claude Code without a CLAUDE.md. The difference is night and day.</p>
-      </>
-    ),
-  },
-};
+import { getPostBySlug, getRelatedPosts, blogPosts } from '@/data/blog-posts';
+import type { Metadata } from 'next';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
+  const post = getPostBySlug(params.slug);
+  if (!post) return { title: 'Post Not Found' };
+
+  return {
+    title: `${post.title} | Claude Code Guide Blog`,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: 'article',
+      publishedTime: post.date,
+      authors: [post.author],
+      tags: post.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+    },
+  };
+}
+
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({ slug: post.slug }));
+}
+
 export default async function BlogPostPage(props: PageProps) {
   const params = await props.params;
-  const post = posts[params.slug];
+  const post = getPostBySlug(params.slug);
   if (!post) notFound();
+
+  const relatedPosts = getRelatedPosts(params.slug, 3);
 
   return (
     <div className="flex flex-col bg-fd-background">
@@ -90,13 +69,53 @@ export default async function BlogPostPage(props: PageProps) {
         <h1 className="font-display text-3xl font-normal tracking-tight text-fd-foreground sm:text-4xl mb-4">
           {post.title}
         </h1>
-        <p className="text-lg text-fd-muted-foreground mb-12">
+        <p className="text-lg text-fd-muted-foreground mb-6">
           {post.description}
         </p>
 
-        <div className="prose prose-neutral dark:prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:mt-10 [&_h2]:mb-4 [&_p]:text-fd-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_code]:rounded [&_code]:bg-fd-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_li]:text-fd-muted-foreground [&_table]:text-sm [&_th]:text-left [&_th]:p-3 [&_th]:border-b [&_th]:border-fd-border [&_td]:p-3 [&_td]:border-b [&_td]:border-fd-border">
-          {post.content}
+        <div className="flex flex-wrap gap-1.5 mb-12">
+          {post.tags.map((tag) => (
+            <Link
+              key={tag}
+              href={`/blog?tag=${tag}`}
+              className="inline-flex items-center gap-1 rounded-full bg-fd-muted px-2.5 py-1 text-xs text-fd-muted-foreground hover:bg-fd-accent hover:text-fd-foreground transition-colors"
+            >
+              <Tag className="h-2.5 w-2.5" />
+              {tag}
+            </Link>
+          ))}
         </div>
+
+        <div
+          className="prose prose-neutral dark:prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-normal [&_h3]:tracking-tight [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:text-fd-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_code]:rounded [&_code]:bg-fd-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_li]:text-fd-muted-foreground [&_table]:text-sm [&_th]:text-left [&_th]:p-3 [&_th]:border-b [&_th]:border-fd-border [&_td]:p-3 [&_td]:border-b [&_td]:border-fd-border [&_a]:text-fd-foreground [&_a]:underline [&_a]:hover:text-fd-muted-foreground [&_strong]:text-fd-foreground [&_em]:text-fd-foreground"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+
+        {relatedPosts.length > 0 && (
+          <div className="mt-16 border-t border-fd-border pt-8">
+            <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground mb-6">
+              Related Posts
+            </h2>
+            <div className="grid gap-4">
+              {relatedPosts.map((related) => (
+                <Link
+                  key={related.slug}
+                  href={`/blog/${related.slug}`}
+                  className="group flex flex-col gap-2 rounded-xl border border-fd-border bg-fd-card p-5 transition-all hover:border-fd-muted-foreground/30 hover:bg-fd-accent"
+                >
+                  <div className="flex items-center gap-2 text-xs text-fd-muted-foreground">
+                    <Calendar className="h-3 w-3" />
+                    {new Date(related.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  </div>
+                  <h3 className="font-display text-base font-normal tracking-tight text-fd-foreground group-hover:underline">
+                    {related.title}
+                  </h3>
+                  <p className="text-sm text-fd-muted-foreground line-clamp-2">{related.description}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mt-16 border-t border-fd-border pt-8">
           <EmailCapture />
@@ -104,8 +123,4 @@ export default async function BlogPostPage(props: PageProps) {
       </article>
     </div>
   );
-}
-
-export function generateStaticParams() {
-  return Object.keys(posts).map((slug) => ({ slug }));
 }
