@@ -70,10 +70,10 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
         <span className="ml-2 font-mono text-[11px] text-fd-muted-foreground">{title}</span>
       </div>
 
-      {/* Content — fixed height terminal that scrolls internally */}
+      {/* Content — grows with content up to max height, then scrolls */}
       <div
         ref={scrollRef}
-        className="h-[280px] overflow-y-auto p-4 font-mono text-[13px] leading-relaxed sm:p-5 sm:text-sm"
+        className="min-h-[100px] max-h-[280px] overflow-y-auto p-4 font-mono text-[13px] leading-relaxed sm:p-5 sm:text-sm"
       >
         {steps.slice(0, visibleCount).map((step, i) => (
           <div
