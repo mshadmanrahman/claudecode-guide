@@ -1,15 +1,15 @@
 ---
 title: Hooks
-description: "Automate quality checks, formatting, and context injection. Hooks run before or after Claude Code takes action, so you don't have to remember."
+description: "Stop remembering to format, lint, and check for secrets. Configure it once, never think about it again."
 ---
 
-## What Are Hooks?
+## Why Do You Keep Forgetting?
 
-Hooks are scripts that run automatically at specific moments during a Claude Code session. They fire before a tool runs, after a tool runs, or when a session starts. You configure them once and they work silently in the background.
+Every time you tell Claude Code "remember to run Prettier after editing" or "always check for secrets before committing," you're wasting a prompt. You're also going to forget eventually.
 
-Think of hooks like git hooks, but for Claude Code. A pre-commit hook checks your code before committing. A Claude Code hook checks your code before Claude Code writes it, or loads context before you even ask for it.
+Hooks fix this permanently. They're scripts that fire automatically before a tool runs, after a tool runs, or when a session starts. You set them up once and they work silently forever.
 
-The key benefit: hooks remove things you have to remember. Instead of saying "remember to format after every edit" or "always check for secrets before committing," you encode that behavior once and it happens automatically.
+Think of them like git hooks, but for Claude Code. And honestly? They're more useful than most git hooks you've written.
 
 <DemoCard title="Hooks working silently in the background" steps={[
   { type: 'cmd', text: 'claude "add a new API endpoint for users"' },
@@ -30,34 +30,25 @@ The key benefit: hooks remove things you have to remember. Instead of saying "re
 
 ### PreToolUse
 
-Runs **before** Claude Code executes a tool. Use this to validate, modify, or block actions.
+Fires **before** Claude Code does something. This is your gatekeeper.
 
-Examples:
-- Block writes to protected files
-- Check that a file edit won't introduce secrets or API keys
-- Add a confirmation step before destructive operations
+Use it to block writes to protected files, catch secrets before they land in code, or add a confirmation step before anything destructive.
 
 ### PostToolUse
 
-Runs **after** Claude Code executes a tool. Use this to clean up, verify, or transform results.
+Fires **after** Claude Code does something. This is your cleanup crew.
 
-Examples:
-- Auto-format code after every file edit
-- Run a linter check after writing a new file
-- Log what tools were used for audit purposes
+Auto-format code after every edit. Run a linter on new files. Log tool usage for auditing. The stuff you'd otherwise have to nag about.
 
 ### SessionStart
 
-Runs **when a session begins**. Use this to load context, check environment state, or set up the workspace.
+Fires **when a session begins**. This is your context loader.
 
-Examples:
-- Remind Claude Code to read memory files
-- Check that required environment variables are set
-- Load the latest handoff document for context continuity
+Remind Claude Code to read memory files. Check that env vars are set. Load the latest handoff so you never start cold.
 
-## How to Configure Hooks
+## How to Configure Them
 
-Hooks live in your `.claude/settings.json` file. Each hook specifies when it fires and what command to run.
+Hooks live in your `.claude/settings.json`. Each one says when to fire and what to run.
 
 ```json
 {
@@ -83,11 +74,11 @@ Hooks live in your `.claude/settings.json` file. Each hook specifies when it fir
 }
 ```
 
-The `matcher` field controls which tools trigger the hook. Use pipe-separated tool names like `"Write|Edit"` to match multiple tools. If you omit `matcher`, the hook runs for every tool invocation.
+The `matcher` field controls which tools trigger the hook. Pipe-separate tool names like `"Write|Edit"` to match multiple. Leave it out and the hook fires on every tool call.
 
-## Your First Hook: Session Start Context Loader
+## Your First Hook (30 Seconds, Huge Payoff)
 
-The highest-value hook you can add today takes about 30 seconds to set up. It ensures Claude Code never starts a session cold.
+The single highest-value hook you can add right now ensures Claude Code never starts a session cold.
 
 ```json
 {
@@ -101,7 +92,7 @@ The highest-value hook you can add today takes about 30 seconds to set up. It en
 }
 ```
 
-Create `~/.claude/session-reminder.txt` with your standard startup instructions:
+Create `~/.claude/session-reminder.txt` with your startup checklist:
 
 ```text
 Session startup checklist:
@@ -111,11 +102,11 @@ Session startup checklist:
 4. If no handoff exists, ask what we're working on today
 ```
 
-Now every session begins with a nudge to load context. No more "wait, you forgot about what we did yesterday."
+No more "wait, you forgot about what we did yesterday." Done.
 
-## A Practical PostToolUse Hook
+## Auto-Format on Every Edit
 
-This hook runs Prettier after every file edit, so you never have to think about formatting:
+This is the second hook everyone should have. Prettier runs after every file edit so formatting is never a conversation:
 
 ```json
 {
@@ -130,16 +121,16 @@ This hook runs Prettier after every file edit, so you never have to think about 
 }
 ```
 
-The `|| true` at the end ensures the hook doesn't block Claude Code if Prettier fails (maybe the file type isn't supported). Always add a fallback for non-critical hooks.
+The `|| true` keeps things moving if Prettier can't handle a file type. Always add a fallback for non-critical hooks.
 
-## Tips for Writing Hooks
+## Tips That Actually Matter
 
-**Keep hooks fast.** Hooks block the action they're attached to. A PreToolUse hook that takes 10 seconds means Claude Code pauses for 10 seconds before every tool call. Aim for under 1 second.
+**Keep hooks fast.** They block the action they're attached to. A 10-second hook means Claude Code pauses for 10 seconds before every tool call. Under 1 second is the target.
 
-**Test with echo first.** Before wiring up a real script, use `echo` to verify the hook fires when expected. Once you see the output, swap in the real command.
+**Test with echo first.** Before wiring up a real script, use `echo` to verify the hook fires when you expect. Once confirmed, swap in the real command.
 
-**Don't overdo it.** Three or four well-chosen hooks beat twenty that create noise. Start with a SessionStart reminder and one PostToolUse formatter. Add more only when you feel the friction.
+**Don't go overboard.** Three or four well-chosen hooks beat twenty noisy ones. Start with a SessionStart reminder and one PostToolUse formatter. Add more only when you feel friction.
 
-**Use the right scope.** Hooks in `.claude/settings.json` at the project level only fire for that project. Hooks in `~/.claude/settings.json` fire globally. Put project-specific formatting hooks at the project level. Put universal safety checks at the global level.
+**Scope them right.** Hooks in `.claude/settings.json` at the project level only fire for that project. Hooks in `~/.claude/settings.json` fire globally. Project-specific formatting goes at the project level. Universal safety checks go global.
 
-**Handle failures gracefully.** A crashing hook can block your entire workflow. Always add `2>/dev/null || true` for non-critical hooks, and test your hook commands independently before adding them to the config.
+**Handle failures gracefully.** A crashing hook can block your entire workflow. Always add `2>/dev/null || true` for non-critical hooks, and test commands independently before adding them to config.

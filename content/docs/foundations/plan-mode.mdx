@@ -1,0 +1,95 @@
+---
+title: "Plan Mode: Think Before You Build"
+description: "The one toggle that saves you 30-40% on tokens and prevents Claude Code from sprinting in the wrong direction."
+---
+
+## The Most Expensive Mistake in Claude Code
+
+You type a big prompt. Claude Code starts coding immediately. Three files in, you realize it chose the wrong approach. Now you're burning tokens to undo work and start over.
+
+Plan mode fixes this. One toggle. Claude Code outlines its approach first, you approve it, then it executes. Simple concept, massive impact.
+
+<DemoCard title="Without plan mode vs with plan mode" steps={[
+  { type: 'out', text: '── Without Plan Mode ──' },
+  { type: 'cmd', text: '"refactor the auth system to use JWT instead of sessions"' },
+  { type: 'out', text: 'Creating lib/jwt.ts...' },
+  { type: 'out', text: 'Modifying 8 files...' },
+  { type: 'out', text: 'Removing session middleware...' },
+  { type: 'error', text: 'Broke 12 tests. Wrong approach — needed refresh tokens too.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── With Plan Mode ──' },
+  { type: 'cmd', text: 'Shift+Tab → Plan mode ON' },
+  { type: 'cmd', text: '"refactor the auth system to use JWT instead of sessions"' },
+  { type: 'out', text: 'Plan:' },
+  { type: 'out', text: '1. Create JWT utility with access + refresh token pairs' },
+  { type: 'out', text: '2. Add token refresh endpoint' },
+  { type: 'out', text: '3. Update middleware to validate JWT' },
+  { type: 'out', text: '4. Migrate session-based routes (8 files)' },
+  { type: 'out', text: '5. Update tests' },
+  { type: 'cmd', text: 'You: "Add rate limiting to the refresh endpoint"' },
+  { type: 'success', text: 'Plan updated. Now executing with corrections built in.' },
+  { type: 'warn', text: '5 minutes of planning saved 30 minutes of rework.' },
+]} />
+
+## How to Activate Plan Mode
+
+Three ways to get there:
+
+**Shift+Tab** — Toggle plan mode on/off. This is the one to memorize. When plan mode is active, you'll see an indicator in the prompt.
+
+**Type "plan" in your prompt** — Just including the word "plan" or "think about" nudges Claude Code toward planning behavior even without the toggle.
+
+**CLAUDE.md instruction** — Add `Always plan before implementing changes that touch more than 2 files` to your project config and it becomes the default behavior.
+
+## When Plan Mode Saves You
+
+**Multi-file refactors.** Anything touching 3+ files. The plan catches dependency chains you'd miss.
+
+**Architectural decisions.** "Should I use Server Components or Client Components here?" Let it reason through the tradeoffs before writing code.
+
+**Unfamiliar codebases.** First week on a new project? Plan mode forces Claude Code to read and understand before it writes.
+
+**Complex features.** New authentication flow, payment integration, database migration — anything with multiple moving parts.
+
+## When to Skip Plan Mode
+
+Not everything needs a plan. Don't overthink it.
+
+**Quick edits.** "Fix the typo in the header component." Just do it.
+
+**Single-file changes.** "Add a loading spinner to this button." Doesn't need a plan.
+
+**Simple questions.** "What does this function do?" Plan mode adds nothing here.
+
+**One-liner fixes.** "Change the primary color to blue-600." Just execute.
+
+The rule of thumb: if the task has fewer than 3 steps, skip the plan.
+
+## The Token Math
+
+Here's why plan mode actually saves money even though it adds an extra step:
+
+Without planning, Claude Code might write 500 lines of code, realize the approach is wrong, then rewrite 400 of those lines. That's 900 lines of output tokens billed.
+
+With planning, it spends 50 tokens on a plan, you course-correct, and it writes 500 lines once. That's 550 tokens total. You just saved 40%.
+
+<DemoCard title="Plan mode in your daily workflow" steps={[
+  { type: 'cmd', text: 'Shift+Tab  →  Toggle plan mode' },
+  { type: 'out', text: 'Plan mode: ON' },
+  { type: 'cmd', text: '"migrate our REST endpoints to tRPC"' },
+  { type: 'out', text: 'I\'ll plan this migration:' },
+  { type: 'out', text: '  Phase 1: Set up tRPC router and context' },
+  { type: 'out', text: '  Phase 2: Convert GET endpoints (users, posts, comments)' },
+  { type: 'out', text: '  Phase 3: Convert mutation endpoints' },
+  { type: 'out', text: '  Phase 4: Update client-side calls' },
+  { type: 'out', text: '  Phase 5: Remove old REST routes + test' },
+  { type: 'cmd', text: 'You: "Looks good, start with phase 1"' },
+  { type: 'success', text: 'Executing phase 1 with full context of what comes next.' },
+  { type: 'warn', text: 'Plan, review, execute. That\'s the rhythm.' },
+]} />
+
+## Pro Tip: Plan Mode + Extended Thinking
+
+When plan mode is on and extended thinking is enabled (Option+T on Mac), Claude Code does its deepest reasoning. It considers edge cases, alternative approaches, and potential pitfalls before writing a single line.
+
+For complex architectural work, this combination is worth every token.

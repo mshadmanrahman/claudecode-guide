@@ -1,13 +1,15 @@
 ---
 title: Autonomous Loops
-description: "Set Claude Code to work on recurring tasks while you sleep. Task templates, safety controls, and the art of letting go."
+description: "Let Claude Code fix your tests while you sleep. Task templates, kill switches, and knowing when to let go."
 ---
 
-## What Are Autonomous Loops?
+## What If You Just... Walked Away?
 
-An autonomous loop is Claude Code running a task without your input, finishing, and then picking up the next iteration automatically. You define the task, set the boundaries, and walk away. Claude Code keeps working until the job is done or you tell it to stop.
+Imagine this: it's Friday evening, 7 tests are failing, and you're tired. You point Claude Code at the test suite, set some boundaries, and go to bed. Saturday morning, the build is green.
 
-This is the most advanced pattern in the Claude Code toolkit. It's also the one that demands the most respect. Autonomous loops are powerful when bounded properly and dangerous when they're not.
+That's an autonomous loop. Claude Code runs a task, finishes a session, and the stop hook restarts it with the same task. It keeps going until the job is done or you tell it to stop.
+
+Let me be real: this is the most powerful pattern in the Claude Code toolkit. It's also the one that demands the most respect. Bounded properly, it's magic. Unbounded, it's a foot gun.
 
 <DemoCard title="Autonomous loop fixing tests overnight" steps={[
   { type: 'cmd', text: 'claude --task-file fix-tests.md' },
@@ -25,15 +27,13 @@ This is the most advanced pattern in the Claude Code toolkit. It's also the one 
   { type: 'warn', text: '→ You went to sleep. Woke up to a green build.' },
 ]} />
 
-## The Core Pattern
+## How It Works (Three Pieces)
 
-The autonomous loop relies on three pieces:
+The loop is dead simple:
 
 1. **A task template** that defines what to do
-2. **A stop hook** that re-feeds the task when Claude Code finishes a session
-3. **A safety mechanism** to kill the loop when needed
-
-Here's how the pieces fit together:
+2. **A stop hook** that re-feeds the task when a session ends
+3. **A kill switch** to stop everything when needed
 
 ```
 You start a session with a task template
@@ -44,9 +44,9 @@ You start a session with a task template
   → Loop continues until task is complete or you intervene
 ```
 
-## Setting Up a Task Template
+## Writing a Task Template
 
-Task templates live in a dedicated directory. Each template is a markdown file with clear scope and exit conditions.
+Task templates are markdown files with clear scope and hard exit conditions. This is where discipline matters.
 
 ```markdown
 # Task: Fix Failing Tests
@@ -77,9 +77,9 @@ Run the test suite and fix all failing tests until the suite is green.
 
 Save this to `~/.claude/autonomous/tasks/fix-tests.md`, then copy it to `~/.claude/autonomous/current-task.md` to activate.
 
-## The Stop Hook
+## The Stop Hook (What Creates the Loop)
 
-The stop hook is what creates the loop. When Claude Code finishes a session, the hook checks if `current-task.md` still exists. If it does, the hook re-launches Claude Code with the task.
+When Claude Code finishes a session, this hook checks if `current-task.md` still exists. If it does, the loop continues.
 
 ```bash
 #!/bin/bash
@@ -102,18 +102,18 @@ if [ -f "$TASK_FILE" ]; then
 fi
 ```
 
-## The Emergency Stop
+## The Kill Switch (Non-Negotiable)
 
-This is non-negotiable. Every autonomous loop must have a kill switch.
+Every autonomous loop needs a way to die. This is not optional.
 
 ```bash
 # Stop the loop immediately
 touch ~/.claude/autonomous/STOP
 ```
 
-That single command halts the loop at the next session boundary. The stop hook checks for this file before restarting. No `STOP` file, the loop continues. `STOP` file exists, the loop dies.
+One command. The stop hook checks for this file before restarting. No file, loop continues. File exists, loop dies.
 
-Always test your emergency stop before running a long autonomous task. Start a loop, trigger the stop, and verify it actually halts.
+**Always test your kill switch before running a long task.** Start a loop, trigger the stop, verify it halts. Do this first. Not after you've let it run for 6 hours.
 
 ## Real-World Example: Autonomous PR Reviewer
 
@@ -141,22 +141,24 @@ and leave structured feedback.
 5. Delete task file when no unreviewed PRs remain
 ```
 
-## When NOT to Use Autonomous Loops
+## When NOT to Use This
 
-**External APIs with side effects.** An autonomous loop that sends emails, creates Jira tickets, or posts to Slack can cause real damage if it misfires. Keep autonomous work read-heavy and write-light.
+Look, here's the deal. Some things should never run autonomously:
 
-**Production data.** Never point an autonomous loop at a production database. One bad query in a loop that runs 50 iterations is 50 bad queries.
+**External APIs with side effects.** A loop that sends emails or posts to Slack can cause real damage if it misfires. Keep autonomous work read-heavy and write-light.
+
+**Production data.** One bad query in a loop that runs 50 iterations is 50 bad queries. Just don't.
 
 **Unbounded scope.** "Refactor the entire codebase" is not an autonomous task. "Fix the 12 ESLint errors in src/utils/" is.
 
-**Anything you haven't done manually first.** If you haven't done the task by hand at least once, you don't know enough to write boundaries for it.
+**Anything you haven't done manually first.** If you haven't done the task by hand at least once, you don't know enough to write boundaries for it. Period.
 
-## Tips
+## Getting Started Safely
 
 **Start with read-only tasks.** Your first autonomous loop should read code, analyze patterns, or generate reports. Nothing that writes to external systems.
 
 **Define exit conditions clearly.** "Fix all tests" is bounded. "Improve code quality" is not. Every task needs a concrete finish line.
 
-**Check results before trusting.** Review the output of your first 3-5 autonomous runs manually. Trust builds gradually.
+**Review your first 3-5 runs manually.** Trust builds gradually. Don't set-and-forget until you've verified the output is solid.
 
-**Keep task files short.** A good task template is 20-30 lines. If you need more, the task is too big. Break it into smaller autonomous steps.
+**Keep task files short.** 20-30 lines is ideal. If you need more, the task is too big. Break it up.

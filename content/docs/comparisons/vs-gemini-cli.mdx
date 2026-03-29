@@ -1,0 +1,75 @@
+---
+title: Claude Code vs Gemini CLI
+description: "Google's free terminal agent just dropped. Here's how it actually stacks up against Claude Code — and where each one wins."
+---
+
+## Google Brought a Terminal Agent to the Fight
+
+Gemini CLI landed in mid-2025 and instantly got attention for one reason: it's free. Google's giving you Gemini 2.5 Pro in your terminal, open source, no credit card required. That's a big deal.
+
+But "free" and "better" aren't the same word. Let's break down what actually matters when you're shipping code.
+
+<DemoCard title="Same task, two different agents" steps={[
+  { type: 'out', text: '── Gemini CLI ──' },
+  { type: 'cmd', text: 'gemini "add user authentication to this app"' },
+  { type: 'out', text: 'Reading files...' },
+  { type: 'out', text: 'I\'ll add authentication using passport.js...' },
+  { type: 'success', text: '3 files created' },
+  { type: 'warn', text: 'No memory of your project preferences from last session' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── Claude Code ──' },
+  { type: 'cmd', text: 'claude "add user authentication to this app"' },
+  { type: 'out', text: 'Reading CLAUDE.md... Found: "Use next-auth v5, no passport"' },
+  { type: 'out', text: 'Reading memory... Found: "Auth uses GitHub OAuth provider"' },
+  { type: 'success', text: '5 files created, matching existing project conventions' },
+  { type: 'success', text: '2 tests written and passing' },
+  { type: 'warn', text: 'CLAUDE.md + memory = context that compounds over time.' },
+]} />
+
+## Where Claude Code Wins
+
+**Configuration depth.** CLAUDE.md is genuinely unmatched. You write your project rules once — stack preferences, coding style, file conventions — and every session respects them. Gemini CLI has no equivalent. Every session starts from zero context about your preferences.
+
+**Persistent memory.** Claude Code remembers things across sessions. Your team's naming conventions, that weird deployment quirk, the API you told it never to use. Gemini CLI doesn't have cross-session memory.
+
+**Hooks and extensibility.** Pre-tool hooks, post-tool hooks, custom skills, MCP servers — Claude Code's extension surface is massive. You can make it format code before every commit, run linters after edits, or connect to any API through MCP. Gemini CLI is much more barebones here.
+
+**Sub-agents.** Claude Code can spin up parallel sub-agents to divide work. Research in one thread, implementation in another, tests in a third. Gemini CLI runs single-threaded.
+
+**Tool use reliability.** Claude Code's tool calling — file edits, terminal commands, search — is battle-tested across millions of sessions. It rarely botches a file edit. Gemini CLI is newer and rougher around the edges.
+
+## Where Gemini CLI Wins
+
+**Price: literally free.** 60 requests per minute, 1,000 per day on the free tier. For hobby projects or learning, that's hard to beat. Claude Code costs $20/month minimum (Pro plan).
+
+**Context window.** Gemini 2.5 Pro handles up to 1M tokens natively. If you need to dump an entire codebase into context and ask questions, Gemini has raw capacity on its side.
+
+**Google ecosystem.** If you're deep in Google Cloud, Firebase, or Vertex AI, Gemini CLI integrates more naturally with those services.
+
+**Open source.** Gemini CLI is fully open source on GitHub. Claude Code's CLI is source-available but not open source in the traditional sense.
+
+## The Honest Take
+
+Here's my actual opinion: Gemini CLI is great for exploration and one-off tasks. It's free, it's capable, and for simple stuff it gets the job done.
+
+But for daily professional use — where you're working on the same codebase day after day, where project conventions matter, where you need the AI to learn your patterns — Claude Code's configuration system pulls away hard. The combination of CLAUDE.md, persistent memory, hooks, and MCP extensibility creates something Gemini CLI simply doesn't have yet: compounding context.
+
+<DemoCard title="Feature comparison at a glance" steps={[
+  { type: 'out', text: 'Price           Gemini: Free          Claude: $20/mo+' },
+  { type: 'out', text: 'Project config  Gemini: None          Claude: CLAUDE.md' },
+  { type: 'out', text: 'Memory          Gemini: None          Claude: Cross-session' },
+  { type: 'out', text: 'Hooks/Skills    Gemini: Basic         Claude: Deep' },
+  { type: 'out', text: 'MCP support     Gemini: Limited       Claude: Full ecosystem' },
+  { type: 'out', text: 'Sub-agents      Gemini: No            Claude: Yes' },
+  { type: 'out', text: 'Context window  Gemini: 1M tokens     Claude: 200K (Opus)' },
+  { type: 'out', text: 'Open source     Gemini: Yes           Claude: Source-available' },
+  { type: 'warn', text: 'Free gets you started. Configuration depth keeps you productive.' },
+]} />
+
+## When to Use Which
+
+**Use Gemini CLI** when you're exploring a new repo, doing quick one-off tasks, learning to code, or don't want to pay for anything yet. It's a solid free tool.
+
+**Use Claude Code** when you're working professionally on a codebase you'll touch every day. When conventions matter. When you want the AI to get smarter about your project over time instead of starting fresh every session.
+
+The best move? Try both. Gemini CLI costs nothing to test. But once you've experienced a well-configured CLAUDE.md with memory and hooks, you'll understand why practitioners pay for Claude Code.

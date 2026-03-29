@@ -1,15 +1,17 @@
 ---
 title: Building Skills
-description: "How to create composable, reusable workflows that turn multi-step tasks into single commands. The building blocks of your Claude Code operating system."
+description: "Turn your repeated multi-step tasks into single commands. Write once, execute forever."
 ---
 
-## What Is a Skill?
+## You Keep Explaining the Same Thing
 
-A skill is a markdown file that encodes a complete workflow. You write it once, and Claude Code executes it whenever the right keywords appear in your prompt.
+How many times have you told Claude Code the exact steps for formatting a PR description? Or the specific way your team runs the test suite? Or how to compile a meeting briefing?
 
-Think of skills as recipes. Instead of telling Claude Code "pull my calendar, check Jira for open tickets, scan Slack for recent threads, then compile a briefing" every time you have a meeting, you write a `meeting-prep` skill once. Next time you say "prep for my 1:1 with Sarah," Claude Code finds the skill, follows the steps, and delivers a structured briefing.
+If you're repeating instructions, you're doing it wrong.
 
-Skills are the building blocks of a Claude Code operating system. They turn scattered knowledge into repeatable, composable workflows.
+A skill is a markdown file that encodes a complete workflow. Write it once, and Claude Code executes it whenever you need it. Instead of "pull my calendar, check Jira, scan Slack, compile a briefing," you just say "prep for my 1:1 with Sarah." The skill handles the rest.
+
+Skills are the building blocks of a Claude Code operating system. They turn scattered tribal knowledge into repeatable, composable workflows.
 
 <DemoCard title="Creating your first skill" steps={[
   { type: 'cmd', text: 'claude "Create a /commit skill that stages, commits, and pushes"' },
@@ -22,9 +24,9 @@ Skills are the building blocks of a Claude Code operating system. They turn scat
   { type: 'warn', text: '→ One word. Three steps. Zero thinking.' },
 ]} />
 
-## Anatomy of a Skill
+## What a Skill Looks Like
 
-Every skill is a markdown file with a clear structure: a description at the top, trigger keywords, and step-by-step instructions.
+Every skill is a markdown file with a description, trigger keywords, and step-by-step instructions.
 
 ```markdown
 # Meeting Prep
@@ -55,21 +57,19 @@ Lead with the most actionable items. Skip anything
 older than 2 weeks unless it's unresolved.
 ```
 
-The trigger keywords are how Claude Code knows when to activate this skill. When your prompt contains "meeting prep" or "prep for 1:1," the skill loads automatically and Claude Code follows the instructions.
+The trigger keywords tell Claude Code when to activate the skill. When your prompt contains "meeting prep" or "prep for 1:1," the skill loads automatically.
 
-## How to Create Your First Skill
+## How to Build Your First One
 
-**Step 1: Identify a task you repeat.** Look for anything you explain to Claude Code more than twice. Formatting a PR description. Running a specific test suite. Generating a weekly status report. If you keep saying "remember, do it like last time," that's a skill waiting to be written.
+**Step 1: Find a task you repeat.** Anything you've explained to Claude Code more than twice. PR descriptions. Test suites. Status reports. If you keep saying "remember, do it like last time," that's a skill waiting to be written.
 
-**Step 2: Write the steps as markdown.** Be specific. Include the output format you want, the sources to check, the order of operations. Write it as if you're training a sharp junior developer who has never seen your workflow.
+**Step 2: Write the steps as markdown.** Be specific. Include the output format, the sources to check, the order of operations. Write it like you're training a sharp junior dev who's never seen your workflow.
 
-**Step 3: Save it as a markdown file.** Drop it in the right directory (see below) and add trigger keywords that match how you naturally ask for the task.
+**Step 3: Save it and add triggers.** Drop it in the right directory (see below) with trigger keywords that match how you naturally ask for the task.
 
-**Step 4: Test and iterate.** Run the skill a few times. When Claude Code misses a step or gets the format wrong, update the skill file. Skills improve through use.
+**Step 4: Test and iterate.** Run it a few times. When Claude Code misses a step or gets the format wrong, update the skill file. Skills get better through use.
 
 ## Where Skills Live
-
-Skills can live at two levels:
 
 | Location | Scope | Example |
 |---|---|---|
@@ -78,18 +78,20 @@ Skills can live at two levels:
 
 Project-level skills are specific to a codebase. User-level skills follow you everywhere.
 
-## Built-in vs Custom Skills
+## Built-in vs Custom: The Real Power Is Custom
 
-Claude Code ships with some built-in capabilities, but the real power comes from custom skills tailored to your workflow. Built-in skills handle generic tasks like code review or test generation. Custom skills encode your team's specific processes, your company's PR format, your preferred debugging sequence.
+Claude Code ships with some built-in capabilities for generic tasks like code review and test generation. They're fine.
 
-## Tips for Writing Good Skills
+But the real power is custom skills tailored to YOUR workflow. Your team's PR format. Your company's deploy checklist. Your preferred debugging sequence. That's where skills go from "neat" to "I can't work without this."
 
-**Start simple.** Your first skill should be 10-15 lines. Don't try to encode a 30-step workflow on day one.
+## Tips for Writing Great Skills
+
+**Start simple.** 10-15 lines for your first skill. Don't try to encode a 30-step workflow on day one.
 
 **One skill per workflow.** A "deploy" skill and a "rollback" skill are better than a "deploy-and-maybe-rollback" skill. Keep them focused and composable.
 
-**Iterate based on corrections.** When you correct Claude Code mid-skill, update the skill file immediately. The skill should absorb every lesson.
+**Iterate on corrections.** When you correct Claude Code mid-skill, update the skill file immediately. Every correction is a lesson the skill should absorb.
 
-**Be explicit about output format.** "Generate a report" is vague. "Generate a markdown table with columns: ticket, status, owner, next action" gets you consistent results every time.
+**Be explicit about output format.** "Generate a report" is vague. "Generate a markdown table with columns: ticket, status, owner, next action" gets consistent results every time.
 
-**Use trigger keywords that match natural language.** You want the skill to activate when you ask for it casually, not when you remember the exact command name.
+**Use natural trigger keywords.** You want the skill to activate when you ask casually, not when you remember the exact command name.

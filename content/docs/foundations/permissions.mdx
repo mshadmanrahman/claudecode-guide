@@ -1,0 +1,140 @@
+---
+title: "Permissions: Stop Clicking 'Allow' on Everything"
+description: "The #2 complaint about Claude Code is permission fatigue. Here's how to configure auto-accept for tools you trust and keep review for things that matter."
+---
+
+## The Permission Problem
+
+You ask Claude Code to refactor a component. It wants to read a file — allow. Edit a file — allow. Read another file — allow. Run a test — allow. Five clicks before anything happens.
+
+This is the number two complaint about Claude Code (number one is cost). And it's completely fixable. You just have to configure it once.
+
+<DemoCard title="Before and after permission configuration" steps={[
+  { type: 'out', text: '── Default (no config) ──' },
+  { type: 'cmd', text: '"fix the broken test in auth.test.ts"' },
+  { type: 'out', text: 'Read auth.test.ts? [Y/n]' },
+  { type: 'out', text: 'Read auth.ts? [Y/n]' },
+  { type: 'out', text: 'Edit auth.ts? [Y/n]' },
+  { type: 'out', text: 'Run npm test? [Y/n]' },
+  { type: 'out', text: 'Read test output? [Y/n]' },
+  { type: 'error', text: '5 permission prompts for a simple fix' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── After configuring allowedTools ──' },
+  { type: 'cmd', text: '"fix the broken test in auth.test.ts"' },
+  { type: 'out', text: 'Reading auth.test.ts...' },
+  { type: 'out', text: 'Reading auth.ts...' },
+  { type: 'out', text: 'Fixed: assertion expected wrong status code' },
+  { type: 'out', text: 'Running tests...' },
+  { type: 'success', text: 'All tests passing. Zero interruptions.' },
+  { type: 'warn', text: 'Configure once, flow forever.' },
+]} />
+
+## Setting Up allowedTools
+
+The magic lives in your `settings.json`. There are three levels:
+
+**Project-level** (`.claude/settings.json` in your repo) — shared with your team via git. Best for project-specific tools.
+
+**User-level** (`~/.claude/settings.json`) — your personal defaults across all projects.
+
+Here's what a solid starting config looks like:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "LS",
+      "Bash(npm test*)",
+      "Bash(npm run lint*)",
+      "Bash(npx tsc*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)"
+    ],
+    "deny": [
+      "Bash(rm -rf*)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)"
+    ]
+  }
+}
+```
+
+Read operations are always safe to auto-accept. Test and lint commands are safe. Destructive git commands? Always review.
+
+## The /permissions Command
+
+Already in a session and tired of clicking? Type `/permissions` to manage permissions on the fly.
+
+<DemoCard title="Managing permissions mid-session" steps={[
+  { type: 'cmd', text: '/permissions' },
+  { type: 'out', text: 'Current session permissions:' },
+  { type: 'out', text: '  Auto-allowed: Read, Glob, Grep, LS' },
+  { type: 'out', text: '  Requires approval: Edit, Bash, Write' },
+  { type: 'out', text: '' },
+  { type: 'cmd', text: 'Allow Edit for this session' },
+  { type: 'success', text: 'Edit operations auto-approved for this session' },
+  { type: 'warn', text: 'Session permissions reset when you close the terminal.' },
+]} />
+
+## Trust Levels: What to Auto-Accept vs Always Review
+
+**Always auto-accept (safe):**
+- `Read` — reading files never changes anything
+- `Glob` — searching file names is harmless
+- `Grep` — searching file contents is harmless
+- `LS` — listing directories is harmless
+- `Bash(git status*)` — read-only git commands
+- `Bash(git diff*)` — read-only git commands
+- `Bash(git log*)` — read-only git commands
+
+**Auto-accept with patterns (mostly safe):**
+- `Bash(npm test*)` — running tests
+- `Bash(npm run lint*)` — running linters
+- `Bash(npx tsc*)` — type checking
+- `Bash(cat *)` — reading file contents
+- `Edit` — if you trust Claude Code's edits (most people get here after a week)
+
+**Always review (potentially destructive):**
+- `Bash(rm *)` — deleting files
+- `Bash(git push*)` — pushing to remote
+- `Bash(git checkout*)` — switching branches
+- `Bash(git reset*)` — resetting changes
+- `Bash(npm publish*)` — publishing packages
+- `Bash(curl*)` — making network requests
+- Any command that touches production
+
+## The Progressive Trust Approach
+
+Don't configure everything on day one. Start conservative and open up as you build trust:
+
+**Week 1:** Auto-accept reads only. Review everything else. Learn what Claude Code actually does.
+
+**Week 2:** Auto-accept reads + test/lint commands. You now trust it won't run weird shell commands.
+
+**Week 3:** Auto-accept edits too. You've seen enough edits to trust the quality.
+
+**Week 4+:** You're only reviewing destructive operations and network calls. That's the sweet spot.
+
+<DemoCard title="The permission sweet spot" steps={[
+  { type: 'out', text: 'Auto-accept:  Read, Search, Edit, Test, Lint' },
+  { type: 'out', text: 'Always review: Delete, Push, Deploy, Network' },
+  { type: 'out', text: '' },
+  { type: 'success', text: '90% of operations flow without interruption' },
+  { type: 'success', text: '10% get human review where it actually matters' },
+  { type: 'warn', text: 'Maximum speed. Minimum risk.' },
+]} />
+
+## One More Thing: The Accept Button
+
+When a permission prompt does appear, you have options beyond just "allow":
+
+- **y** — Allow this once
+- **a** — Allow this tool for the entire session
+- **n** — Deny this request
+- **Escape** — Cancel the current operation
+
+The "a" option is your friend for exploratory sessions where you trust the general direction but didn't pre-configure permissions.

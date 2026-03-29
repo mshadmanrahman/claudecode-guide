@@ -1,6 +1,6 @@
 ---
 title: "Team Adoption"
-description: "How to roll out Claude Code across your team. Shared configs, onboarding playbook, and getting buy-in from skeptics."
+description: "Your team won't adopt Claude Code because you told them to. Here's what actually works."
 ---
 
 <DemoCard title="Day 1 without shared config vs day 1 with" steps={[
@@ -20,57 +20,55 @@ description: "How to roll out Claude Code across your team. Shared configs, onbo
   { type: 'warn', text: '→ One shared config. Consistent results for everyone.' },
 ]} />
 
-## Why Teams Resist
+## Why Your Team Is Pushing Back (And They're Not Wrong)
 
-Before you roll out Claude Code to your team, understand why people push back. It is rarely about the tool itself.
+Before you evangelize, understand the resistance. It's rarely about the tool.
 
-- **"It will replace me."** The most common fear, usually unspoken. Address it directly: Claude Code makes developers faster, it does not make them unnecessary. The people who adopt AI tools become more valuable, not less.
-- **"I do not have time to learn another tool."** Valid concern. The onboarding needs to be low-friction. Nobody wants a three-day workshop.
-- **"AI code is sloppy."** Often true when Claude Code has no configuration. Without a shared CLAUDE.md, it guesses at your conventions. With one, it follows your team's exact standards.
-- **"I tried ChatGPT once and it was useless."** Claude Code is fundamentally different from a chatbot. It reads your codebase, runs commands, and has persistent context. The comparison does not hold.
+- **"It will replace me."** The unspoken fear. Address it head-on: Claude Code makes devs faster, not unnecessary. The people who adopt AI tools become more valuable, not less.
+- **"I don't have time to learn another tool."** Totally valid. If onboarding takes more than an hour, your rollout plan is broken.
+- **"AI code is sloppy."** Often true -- when there's no config. Without a shared CLAUDE.md, Claude Code guesses at your conventions. With one, it follows your exact standards. The "sloppy" complaint is almost always a configuration problem.
+- **"I tried ChatGPT once and it was useless."** Claude Code is fundamentally different from a chatbot. It reads your codebase, runs commands, and has persistent context. The comparison doesn't hold, but you need to show that, not argue it.
 
-## The Champion Strategy
+## Don't Roll Out to Everyone. Start with Champions.
 
-Do not roll out to the whole team at once. Start small and let results do the convincing.
+This is the strategy that actually works. Forget the all-hands demo.
 
-**Step 1: Pick 2-3 champions.** Choose people who are curious about AI tooling and have influence on the team. They do not need to be the most senior engineers, just respected voices.
+**Step 1: Pick 2-3 champions.** Curious about AI, respected on the team. They don't need to be senior -- just people others listen to.
 
-**Step 2: Give champions one week to build their workflow.** Let them set up CLAUDE.md, create memory files, and integrate Claude Code into their actual work. No artificial exercises.
+**Step 2: Give them a week to build their workflow.** Real work, not artificial exercises. Let them set up CLAUDE.md, create memory files, and integrate Claude Code into their actual tasks.
 
-**Step 3: Champions share wins in a team setting.** A 10-minute demo in a team meeting showing a real task completed faster is worth more than any slide deck. Concrete examples: "I debugged this production issue in 15 minutes instead of 2 hours" or "It wrote all the test scaffolding for my feature."
+**Step 3: Champions demo real wins.** A 10-minute show in a team meeting. Concrete examples: "I debugged this production issue in 15 minutes instead of 2 hours" or "It wrote all the test scaffolding for my feature." This is worth more than any slide deck you'll ever make.
 
-**Step 4: Open it up with a shared config.** Once champions have proven the value, give the rest of the team a ready-made setup to start with.
+**Step 4: Open it up with a ready-made setup.** Once champions have proven the value, give the rest of the team a shared config to start with. Zero guesswork on day one.
 
-## Building a Shared CLAUDE.md
+## The Shared CLAUDE.md Is Everything
 
-A team-level CLAUDE.md is the single most important thing for consistent adoption. Without it, every developer gets a different experience. With it, Claude Code follows your team's standards from the first session.
+This is the single most important thing for consistent adoption. Without it, every developer gets a different experience. Some love it, others think it's broken. The difference is almost always configuration.
 
-Your shared CLAUDE.md should include:
+Your shared CLAUDE.md should cover:
 
 - **Coding standards:** Naming conventions, file organization, import ordering
-- **PR conventions:** Commit message format, review checklist, branch naming
-- **Testing rules:** Minimum coverage, testing framework, what to test vs what to skip
-- **Architecture patterns:** Where things live in your codebase, how modules connect
-- **Forbidden patterns:** Things Claude Code should never do (e.g., suppress lint rules, use `any` types, add `console.log` in production code)
+- **PR conventions:** Commit format, review checklist, branch naming
+- **Testing rules:** Minimum coverage, framework, what to test vs skip
+- **Architecture patterns:** Where things live, how modules connect
+- **Forbidden patterns:** Things Claude Code should never do (suppress lint, use `any`, add `console.log` in production)
 
-Store this in your repository's `.claude/CLAUDE.md` so it is version-controlled and everyone gets the same config automatically.
+Store it in `.claude/CLAUDE.md` in your repo. Version-controlled. Everyone gets the same config automatically.
 
-## Onboarding Checklist for New Team Members
+## Onboarding Checklist (Under 1 Hour)
 
-When someone new joins and needs to get started with Claude Code:
+When someone new needs to get started:
 
 - [ ] Install Claude Code CLI
 - [ ] Clone the repo (shared CLAUDE.md comes with it)
-- [ ] Create personal memory: role, current focus area, one preference
-- [ ] Run their first task: ask Claude Code to explain a file they are unfamiliar with
-- [ ] Run their second task: have Claude Code write a test for existing code
+- [ ] Create personal memory: role, current focus, one preference
+- [ ] First task: ask Claude Code to explain a file they're unfamiliar with
+- [ ] Second task: have Claude Code write a test for existing code
 - [ ] Pair with a champion for 30 minutes to see their workflow
 
-Keep it under an hour. The goal is a working setup, not mastery. Mastery comes from daily use.
+The goal is a working setup, not mastery. Mastery comes from daily use.
 
-## Measuring Success
-
-Track these metrics to know if adoption is working:
+## How to Know It's Working
 
 | Metric | How to Measure | Good Signal |
 |--------|---------------|-------------|
@@ -81,14 +79,14 @@ Track these metrics to know if adoption is working:
 
 Do not measure lines of code generated. That metric is meaningless and encourages the wrong behavior.
 
-## Common Mistakes
+## Mistakes That Kill Adoption
 
-**Forcing adoption.** Making Claude Code mandatory before people see the value creates resentment. Let the results pull people in.
+**Forcing it.** Making Claude Code mandatory before people see the value creates resentment. Let results pull people in.
 
-**No shared config.** Without a team CLAUDE.md, everyone gets inconsistent results. Some people love it, others think it is broken. The difference is usually configuration, not the tool.
+**No shared config.** The number one reason people think the tool is "bad." It's not bad. It just doesn't know your conventions yet.
 
-**No champions.** Rolling out to everyone simultaneously means nobody is an expert. Questions go unanswered, frustrations pile up, and the tool gets abandoned.
+**No champions.** Rolling out to everyone at once means nobody is an expert. Questions go unanswered, frustrations pile up, tool gets abandoned.
 
-**Overcomplicating the setup.** Start with a simple CLAUDE.md covering your top 5 conventions. You can always add more later. A 500-line config file on day one scares people off.
+**Overcomplicating the setup.** Start with a simple CLAUDE.md covering your top 5 conventions. A 500-line config file on day one scares people off.
 
-**Ignoring the skeptics.** The loudest critic often becomes the strongest advocate once they see a real demo. Invite them to watch a champion work, do not argue in the abstract.
+**Ignoring the skeptics.** Here's a secret: the loudest critic often becomes the strongest advocate once they see a real demo. Invite them to watch a champion work. Don't argue in the abstract.

@@ -1,0 +1,130 @@
+---
+title: "Claude Code in CI/CD Pipelines"
+description: "Run Claude Code in GitHub Actions, automate PR reviews, generate changelogs, and make your CI pipeline actually smart."
+---
+
+## Your CI Pipeline Is Dumb. Let's Fix That.
+
+Most CI pipelines run the same checks every time: lint, test, build, deploy. They don't understand what changed. They don't write helpful PR descriptions. They don't catch logical bugs that pass type checks.
+
+Claude Code in CI changes that. Using the `-p` flag (pipe mode), you can run Claude Code non-interactively in any pipeline. It reads your code, understands the context, and does real work — not just pass/fail gates.
+
+<DemoCard title="Claude Code in a GitHub Action" steps={[
+  { type: 'cmd', text: 'claude -p "review the changes in this PR and post a summary"' },
+  { type: 'out', text: 'Reading diff: 4 files changed, 127 additions, 43 deletions' },
+  { type: 'out', text: 'Analysis:' },
+  { type: 'out', text: '  - New rate limiting middleware added to /api/*' },
+  { type: 'out', text: '  - Redis connection pool size increased (good)' },
+  { type: 'out', text: '  - Missing error handling in fallback path (line 84)' },
+  { type: 'success', text: 'PR comment posted with summary + 1 suggestion' },
+  { type: 'warn', text: 'The -p flag = non-interactive mode. Perfect for CI.' },
+]} />
+
+## The -p Flag: Non-Interactive Mode
+
+The `-p` (pipe) flag is what makes CI integration possible. It tells Claude Code to run without prompts, read from stdin or arguments, and output results to stdout.
+
+```bash
+# Basic usage in CI
+claude -p "describe what changed in this PR"
+
+# Pipe input
+git diff main...HEAD | claude -p "review this diff for bugs"
+
+# With output format
+claude -p --output-format json "list all TODO comments in src/"
+```
+
+No permission prompts. No interactive UI. Just input, processing, output.
+
+## GitHub Actions: The Starter Workflow
+
+Here's a practical workflow that adds Claude Code to your PR process:
+
+```yaml
+name: Claude Code Review
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Review PR
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          git diff origin/main...HEAD | claude -p \
+            "Review this diff. Focus on bugs, security issues,
+             and missing error handling. Be concise." \
+            > review.md
+
+          gh pr comment ${{ github.event.number }} --body-file review.md
+```
+
+That's it. Every PR now gets an intelligent review comment.
+
+## Practical CI Use Cases
+
+**Automated PR descriptions.** Developers write bad PR descriptions (if they write them at all). Claude Code reads the diff and writes a real summary.
+
+```bash
+claude -p "write a PR description for these changes.
+  Include: what changed, why, and what to test." \
+  > pr-description.md
+```
+
+**Changelog generation.** Point Claude Code at your commits since the last release and get a human-readable changelog.
+
+```bash
+git log v1.2.0..HEAD --oneline | claude -p \
+  "generate a changelog grouped by: Features, Fixes, Other"
+```
+
+**Test generation.** When new code lands without tests, generate them automatically.
+
+```bash
+claude -p "write tests for any functions in src/utils/
+  that don't have corresponding test files"
+```
+
+<DemoCard title="Full CI pipeline with Claude Code" steps={[
+  { type: 'out', text: '── PR opened ──' },
+  { type: 'cmd', text: 'Step 1: claude -p "summarize this PR"' },
+  { type: 'success', text: 'PR description updated automatically' },
+  { type: 'cmd', text: 'Step 2: claude -p "review for bugs and security"' },
+  { type: 'success', text: 'Review comment posted: 1 bug found, 0 security issues' },
+  { type: 'cmd', text: 'Step 3: claude -p "check for missing tests"' },
+  { type: 'out', text: '2 new functions without test coverage' },
+  { type: 'cmd', text: 'Step 4: claude -p "generate tests for uncovered functions"' },
+  { type: 'success', text: 'Test file created and committed to PR branch' },
+  { type: 'warn', text: 'Smart CI = fewer bugs reaching production.' },
+]} />
+
+## Cost Considerations
+
+Running Claude Code in CI uses API tokens, so be intentional:
+
+- **Run on PR events only**, not every push to every branch
+- **Use Haiku for simple tasks** (PR descriptions, changelog) — it's 10x cheaper
+- **Use Sonnet for code review** — worth the cost for bug detection
+- **Cache aggressively** — don't re-review unchanged files
+- **Set token limits** — `--max-tokens 4096` prevents runaway usage
+
+A typical PR review costs $0.02-0.10 depending on diff size. That's cheaper than a missed bug in production.
+
+## Security Notes
+
+Your CI environment needs an `ANTHROPIC_API_KEY`. Store it as a GitHub Actions secret, never in your workflow file. Scope the API key to the minimum permissions needed.
+
+Claude Code in CI runs with whatever file access the runner has. It can read your entire repo. If that's a concern, use a restricted checkout that only includes the relevant directories.
+
+And one more thing: Claude Code's output in CI is deterministic-ish but not guaranteed. Don't use it as a hard gate (fail the build if Claude says no). Use it as advisory — post comments, flag concerns, suggest improvements. Keep humans in the approval loop.

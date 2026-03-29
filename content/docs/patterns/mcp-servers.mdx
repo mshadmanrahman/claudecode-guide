@@ -1,13 +1,15 @@
 ---
 title: MCP Servers
-description: "Connect Claude Code to your tools: Slack, GitHub, Jira, databases, and more. The Model Context Protocol explained simply."
+description: "Give Claude Code eyes and hands beyond your filesystem. Slack, GitHub, Jira, databases -- all in one conversation."
 ---
 
-## What Is MCP?
+## Claude Code Is Trapped on Your Machine (Until You Fix That)
 
-MCP stands for Model Context Protocol. It's a standard way for AI tools to connect to external services. Think of MCP servers as plugins for Claude Code. Each server gives Claude Code the ability to read from or write to an external tool.
+Out of the box, Claude Code can only see files on your disk. That's it. It can't check Slack, it can't read your PRs, it can't query your database.
 
-Without MCP, Claude Code can only work with files on your machine. With MCP, it can read your Slack messages, check your GitHub PRs, query your database, and pull designs from Figma. All within the same conversation.
+MCP (Model Context Protocol) changes that. MCP servers are plugins that connect Claude Code to external services. Each one gives Claude Code the ability to read from or write to a tool you already use.
+
+One conversation. Slack context, GitHub PRs, database queries, Figma specs. That's the pitch, and it actually delivers.
 
 <DemoCard title="MCP connecting Claude Code to your world" steps={[
   { type: 'cmd', text: 'claude "what happened in #engineering today?"' },
@@ -24,9 +26,9 @@ Without MCP, Claude Code can only work with files on your machine. With MCP, it 
   { type: 'warn', text: '→ Slack + GitHub in one conversation. That\'s MCP.' },
 ]} />
 
-## What MCP Servers Do
+## How It Works
 
-An MCP server is a small program that sits between Claude Code and an external service. It translates Claude Code's requests into API calls and returns the results.
+An MCP server is a small program that translates between Claude Code and an external API. Simple as that.
 
 ```
 Claude Code  →  MCP Server  →  External Service
@@ -34,7 +36,7 @@ Claude Code  →  MCP Server  →  External Service
                    ←  PR diff, comments, status
 ```
 
-Each server exposes a set of **tools** that Claude Code can call. The GitHub MCP server might expose tools like `get_file_contents`, `list_pull_requests`, and `create_pull_request`. Claude Code discovers these tools automatically and uses them when your prompt calls for it.
+Each server exposes **tools** that Claude Code can call -- things like `get_file_contents`, `list_pull_requests`, `create_pull_request`. Claude Code discovers them automatically and uses them when your prompt calls for it.
 
 ## Popular MCP Servers
 
@@ -47,13 +49,11 @@ Each server exposes a set of **tools** that Claude Code can call. The GitHub MCP
 | **Figma** | Read designs, extract components | "What are the specs for the new card component?" |
 | **Confluence** | Search docs, read pages | "Find the architecture doc for the auth service" |
 
-You don't need all of these. Most people start with one or two and add more over time.
+You don't need all of these. Most people start with one or two and add more as they feel the pull.
 
-## How to Set Up an MCP Server
+## Setting One Up
 
-MCP servers are configured in a `.mcp.json` file at your project root. Each entry defines a server name, how to start it, and what credentials it needs.
-
-Here's a minimal example connecting the GitHub MCP server:
+MCP servers live in a `.mcp.json` file at your project root. Here's GitHub -- the easiest one to start with:
 
 ```json
 {
@@ -69,13 +69,13 @@ Here's a minimal example connecting the GitHub MCP server:
 }
 ```
 
-When Claude Code starts, it reads `.mcp.json`, launches the configured servers, and discovers their tools. Now you can say "show me my open PRs" and Claude Code will call the GitHub MCP server to fetch them.
+When Claude Code starts, it reads `.mcp.json`, launches the servers, discovers their tools. Now "show me my open PRs" just works.
 
-For servers that use OAuth (like Slack or Figma), the setup involves an authorization flow instead of a static token. The MCP server documentation for each service walks you through this.
+For OAuth-based servers (Slack, Figma), there's an authorization flow instead of a static token. Each server's docs walk you through it.
 
-## A Complete Example: GitHub + Linear
+## A Real Setup: GitHub + Linear
 
-Here's a real `.mcp.json` that connects two services:
+Here's what a two-service config actually looks like:
 
 ```json
 {
@@ -98,17 +98,17 @@ Here's a real `.mcp.json` that connects two services:
 }
 ```
 
-With both connected, you can ask Claude Code things like: "Find the Linear ticket for the auth bug, then check if there's a related PR on GitHub." Claude Code coordinates across both servers in a single response.
+With both connected, you can say "Find the Linear ticket for the auth bug, then check if there's a related PR on GitHub." Claude Code coordinates across both in a single response. This is where it gets fun.
 
-## Security Considerations
+## Security: Take This Seriously
 
-MCP servers have real access to your tools. Treat them with the same care as any API integration.
+MCP servers have real access to your tools. Treat them like any API integration.
 
-**Only connect servers you trust.** Each MCP server runs as a process on your machine with the credentials you provide. Use official or well-maintained community servers.
+**Only connect servers you trust.** Each one runs as a process on your machine with the credentials you provide. Stick to official or well-maintained community servers.
 
-**Use scoped tokens.** Don't hand an MCP server your all-access admin token. Create a personal access token with the minimum permissions needed. For GitHub, read-only access to repos and PRs is enough for most workflows.
+**Use scoped tokens.** Don't hand over your admin token. Create a personal access token with minimum permissions. For GitHub, read-only repo and PR access covers most workflows.
 
-**Keep tokens out of version control.** Never commit `.mcp.json` with real tokens. Either use environment variables that reference your system keychain, or add `.mcp.json` to `.gitignore` and share a `.mcp.json.example` template with your team.
+**Keep tokens out of version control.** Never commit `.mcp.json` with real tokens. Use environment variables instead:
 
 ```json
 {
@@ -124,14 +124,14 @@ MCP servers have real access to your tools. Treat them with the same care as any
 }
 ```
 
-Using `$GITHUB_TOKEN` tells the server to read from your shell environment, keeping the actual secret out of the file.
+Using `$GITHUB_TOKEN` reads from your shell environment. The actual secret stays out of the file. Add `.mcp.json` to `.gitignore` and share a `.mcp.json.example` template with your team.
 
-## Tips for Getting Started
+## Getting Started
 
-**Start with one server.** GitHub is the easiest to set up and the most immediately useful. Get it working before adding more.
+**Start with GitHub.** It's the easiest to set up and the most immediately useful. Get it working before adding more.
 
-**Verify before expanding.** After connecting a server, test it with a simple query: "List my open PRs" or "Show me recent Slack messages." If that works, you know the connection is solid.
+**Test with a simple query.** "List my open PRs" or "Show me recent Slack messages." If that works, the connection is solid.
 
-**Check server documentation.** Each MCP server has its own setup guide with specific token scopes, OAuth flows, and supported tools. Five minutes reading the docs saves an hour of debugging.
+**Read the server docs.** Five minutes reading specific token scopes and supported tools saves an hour of debugging. Every time.
 
-**Watch for rate limits.** MCP servers make real API calls. If you ask Claude Code to "search all 500 repos for security issues," you might hit GitHub's rate limit. Be specific in your requests to keep API usage reasonable.
+**Watch for rate limits.** MCP servers make real API calls. "Search all 500 repos for security issues" will hit GitHub's rate limit fast. Be specific in your requests.

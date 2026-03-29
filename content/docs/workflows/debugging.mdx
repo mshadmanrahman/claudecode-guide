@@ -1,13 +1,15 @@
 ---
 title: "Debugging with Claude Code"
-description: "Systematic debugging strategies. Investigation mode, verification patterns, and how to unstick yourself when things break."
+description: "Stop guessing. Start investigating. A systematic approach that actually finds the bug."
 ---
 
-## The Investigation Mindset
+## You're Guessing. Stop That.
 
-The biggest debugging mistake is guessing. You see an error, you think you know what caused it, and you start changing code. Twenty minutes later you have changed six files, the original error is gone, and two new ones have appeared.
+Here's the most common debugging mistake: you see an error, you think you know what caused it, and you start changing code. Twenty minutes later you've touched six files, the original error is gone, and two new ones appeared.
 
-Claude Code is at its best when you treat debugging as investigation, not guessing. Give it evidence, let it trace the path, and fix what is actually broken.
+Sound familiar?
+
+Claude Code is at its best when you treat debugging as an investigation, not a guessing game. Give it evidence, let it trace the path, fix what's actually broken.
 
 <DemoCard title="Debugging like an investigator, not a guesser" steps={[
   { type: 'cmd', text: 'claude "the checkout page returns 500 after clicking pay"' },
@@ -24,70 +26,70 @@ Claude Code is at its best when you treat debugging as investigation, not guessi
   { type: 'warn', text: '→ Evidence first. Hypothesis second. Fix last.' },
 ]} />
 
-## The Six-Step Debugging Workflow
-
-Every debugging session should follow this structure, whether you are doing it yourself or with Claude Code.
+## The Six Steps (In Order, Every Time)
 
 ### 1. Reproduce
 
-Before anything else, confirm you can trigger the bug consistently. If you cannot reproduce it, you cannot verify your fix. Tell Claude Code exactly how to trigger the issue: the URL, the input, the sequence of clicks.
+Before anything else, confirm you can trigger the bug consistently. If you can't reproduce it, you can't verify your fix. Tell Claude Code exactly how: the URL, the input, the sequence of clicks.
 
 ### 2. Isolate
 
-Narrow down where the problem lives. Is it the frontend or the backend? Is it in your code or a dependency? Is it happening in development or only in production?
+Narrow it down. Frontend or backend? Your code or a dependency? Dev only or also production?
 
-Claude Code is excellent at this. Ask it to trace the data flow from the entry point (API call, user action, cron job) through the codebase. It can read multiple files simultaneously and map the path.
+Claude Code is excellent at this. Ask it to trace the data flow from the entry point through the codebase. It can read multiple files simultaneously and map the entire path.
 
 ### 3. Read the Logs
 
-This sounds obvious, but most people skip it. Logs tell you what actually happened, not what you think happened. Share the full error output with Claude Code, including the stack trace. Do not summarize or paraphrase the error: paste the exact output.
+This sounds obvious but most people skip it. Logs tell you what actually happened, not what you think happened.
 
-If there are no logs, that is your first problem to solve. Add logging at the boundaries (API entry/exit, database calls, external service calls) before continuing.
+Share the full error output with Claude Code. The entire stack trace. Don't summarize. Don't paraphrase. Paste the exact output.
+
+If there are no logs, that's your first problem. Add logging at the boundaries (API entry/exit, database calls, external services) before continuing.
 
 ### 4. Form a Hypothesis
 
-Based on the evidence, what do you think is causing the issue? Claude Code can help here by analyzing the code path, checking recent changes (`git log`, `git diff`), and looking for common patterns that cause the type of error you are seeing.
+Based on the evidence -- not your gut -- what's causing this? Claude Code can analyze the code path, check recent changes with `git log` and `git diff`, and look for common patterns that cause the type of error you're seeing.
 
 ### 5. Test the Fix
 
-Make the smallest possible change to test your hypothesis. Do not refactor three files while fixing a bug. Change one thing, run the reproduction steps, and see if the behavior changes.
+Make the smallest possible change. One thing. Run the reproduction steps. See if behavior changes.
+
+Do not refactor three files while fixing a bug. That's how you turn one bug into three.
 
 ### 6. Verify
 
-Confirm the fix works and has not broken anything else. Run your test suite. Check related functionality. If the bug was in an API endpoint, test other endpoints that share the same code path.
+Confirm the fix works AND hasn't broken anything else. Run your test suite. Check related functionality. If the bug was in an API endpoint, test other endpoints sharing the same code path.
 
-## Common Debugging Patterns
-
-Here are the questions people most often bring to Claude Code, and how to approach them.
+## The Hits: Common Debugging Scenarios
 
 ### "Why is this API returning 500?"
 
-Start with the server logs. A 500 error means an unhandled exception somewhere. Share the exact error message and stack trace with Claude Code. Ask it to read the file and line number from the stack trace and trace backward to find the root cause.
+Start with server logs. A 500 means an unhandled exception somewhere. Share the exact error message and stack trace. Ask Claude Code to read the file and line number from the trace, then walk backward to the root cause.
 
-Common culprits: missing environment variables, null values where an object is expected, database connection failures, and unhandled promise rejections.
+Common culprits: missing env vars, null where an object is expected, database connection failures, unhandled promise rejections.
 
 ### "Why is my component not rendering?"
 
-Check the browser console first. React and other frameworks surface rendering errors there. Share the console output with Claude Code. Common causes: a parent component is not passing the right props, conditional rendering logic is excluding it, or a data fetch is returning undefined.
+Browser console first. React and friends surface rendering errors there. Share the console output.
 
-Ask Claude Code to read the component file and its parent to trace the props and state.
+Common causes: parent not passing the right props, conditional rendering excluding it, data fetch returning undefined. Ask Claude Code to read both the component and its parent to trace props and state.
 
 ### "Why is the test failing?"
 
-Paste the full test output, not just the error line. Claude Code needs to see the expected vs actual values, the test name, and the file path. Often the test itself is correct and the implementation has a subtle bug. Sometimes the test is outdated and tests the wrong behavior.
+Paste the full test output. Not just the error line. Claude Code needs expected vs actual values, the test name, and the file path.
 
-Ask Claude Code to read both the test file and the implementation file. It can usually spot the mismatch quickly.
+Often the test is correct and the implementation has a subtle bug. Sometimes the test is outdated. Ask Claude Code to read both files. It usually spots the mismatch fast.
 
-## Tips for Effective Debugging Sessions
+## Tips That Make the Difference
 
-**Share the actual error message.** "It is not working" gives Claude Code nothing to work with. The exact error text, status code, or stack trace gives it everything.
+**Share the actual error.** "It's not working" gives Claude Code nothing. The exact error text, status code, or stack trace gives it everything.
 
-**Share the full stack trace.** The root cause is often three or four frames deep. The top-level error message is frequently a symptom, not the cause.
+**Share the full stack trace.** The root cause is often 3-4 frames deep. The top-level error is frequently a symptom, not the cause.
 
-**Let Claude Code read the files.** Do not paste code snippets and ask "what is wrong?" Let it read the full file with surrounding context. Bugs often come from interactions between functions, not from a single line.
+**Let Claude Code read the files.** Don't paste snippets and ask "what's wrong?" Let it read the full file with context. Bugs come from interactions between functions, not single lines.
 
-**Use sub-agents for parallel investigation.** If you are not sure whether the problem is in the frontend or backend, spawn two sub-agents: one to check the API logs and one to check the browser console output. This is faster than checking one at a time.
+**Use sub-agents for parallel investigation.** Not sure if it's frontend or backend? Spawn two agents: one checks API logs, one checks browser console output. Faster than sequential guessing.
 
-**Check recent changes.** Many bugs are introduced by recent commits. Ask Claude Code to run `git log` and `git diff` to see what changed recently in the affected files. The culprit is often in the last few commits.
+**Check recent changes.** Many bugs come from recent commits. Ask Claude Code to run `git log` and `git diff` on the affected files. The culprit is often in the last few commits.
 
-**Do not change code until you understand the problem.** This is the hardest discipline. The urge to "try something" is strong. Resist it. Understand first, then fix. A fix you do not understand is not a fix; it is a time bomb.
+**Do not change code until you understand the problem.** This is the hardest discipline. The urge to "try something" is strong. Resist it. Understand first, then fix. A fix you don't understand is not a fix -- it's a time bomb.

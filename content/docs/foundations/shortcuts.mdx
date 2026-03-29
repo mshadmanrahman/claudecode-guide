@@ -1,0 +1,122 @@
+---
+title: "Keyboard Shortcuts & Commands Cheat Sheet"
+description: "Every slash command, keyboard shortcut, and hidden trick in Claude Code. The stuff power users know and everyone else doesn't."
+---
+
+## You're Using 10% of Claude Code
+
+Most people type prompts and hit Enter. That's it. They don't know about slash commands. They don't know you can switch models mid-conversation. They don't know Escape cancels a running operation without killing the session.
+
+Here's everything in one place.
+
+<DemoCard title="Commands you probably don't know about" steps={[
+  { type: 'cmd', text: '/compact' },
+  { type: 'out', text: 'Context compressed: 48K tokens → 12K tokens' },
+  { type: 'success', text: 'Conversation continues with full understanding' },
+  { type: 'cmd', text: '/cost' },
+  { type: 'out', text: 'Session: $0.47 | Tokens in: 32K | Tokens out: 8.2K' },
+  { type: 'cmd', text: '/model sonnet' },
+  { type: 'out', text: 'Switched to claude-sonnet-4-20250514' },
+  { type: 'success', text: 'Cheaper model for simple tasks. Switch back anytime.' },
+  { type: 'warn', text: 'These three commands alone save people 30%+ on costs.' },
+]} />
+
+## Slash Commands
+
+These work by typing them directly into the Claude Code prompt.
+
+### Session Management
+
+| Command | What it does |
+|---------|-------------|
+| `/help` | Show all available commands |
+| `/clear` | Clear conversation history and start fresh |
+| `/compact` | Compress context to free up token space |
+| `/cost` | Show current session token usage and cost |
+| `/quit` or `/exit` | End the session |
+
+### Configuration
+
+| Command | What it does |
+|---------|-------------|
+| `/model` | Switch the active model (opus, sonnet, haiku) |
+| `/permissions` | View and manage tool permissions |
+| `/init` | Generate a CLAUDE.md file for your project |
+
+### Workflow
+
+| Command | What it does |
+|---------|-------------|
+| `/review` | Review recent changes for issues |
+| `/pr-comments` | Show unresolved PR comments |
+
+## Keyboard Shortcuts
+
+These work while you're in the Claude Code terminal interface.
+
+### The Essentials
+
+| Shortcut | What it does |
+|----------|-------------|
+| **Enter** | Send your message |
+| **Escape** | Cancel current operation (safe — doesn't lose context) |
+| **Ctrl+C** | Hard cancel / exit if pressed twice |
+| **Ctrl+L** | Clear the screen (keeps conversation) |
+| **Up arrow** | Cycle through previous prompts |
+
+### The Power Moves
+
+| Shortcut | What it does |
+|----------|-------------|
+| **Shift+Tab** | Toggle plan mode on/off |
+| **Option+T** (Mac) / **Alt+T** | Toggle extended thinking |
+| **Tab** | Accept autocomplete suggestion |
+| **Ctrl+R** | Search through prompt history |
+
+<DemoCard title="Keyboard shortcuts in practice" steps={[
+  { type: 'cmd', text: 'You type a big refactoring prompt and hit Enter' },
+  { type: 'out', text: 'Claude is editing files... 3 of 8 complete...' },
+  { type: 'cmd', text: 'You realize it\'s going wrong → press Escape' },
+  { type: 'out', text: 'Operation cancelled. Changes so far are kept.' },
+  { type: 'cmd', text: 'Shift+Tab → plan mode on' },
+  { type: 'cmd', text: 'Up arrow → re-send the same prompt' },
+  { type: 'out', text: 'Now it plans first instead of diving in' },
+  { type: 'success', text: 'Plan looks good → approve → clean execution' },
+  { type: 'warn', text: 'Escape + plan mode = undo button for AI coding.' },
+]} />
+
+## The Commands People Sleep On
+
+**/compact is a lifesaver.** Long session getting slow? Context window filling up? `/compact` compresses your conversation while keeping the important context. Use it before Claude Code starts forgetting things, not after.
+
+**/model for cost control.** Start complex tasks with Opus or Sonnet, then switch to Haiku for simple follow-ups. "Fix the typo I just introduced" doesn't need the most expensive model.
+
+**/cost for awareness.** Check it every 30 minutes during long sessions. If you're burning through tokens faster than expected, it's usually because the context window is bloated — time for `/compact`.
+
+**Escape is not Ctrl+C.** Escape gracefully stops the current operation. Claude Code keeps your conversation and any partial work. Ctrl+C is the hard kill — use it only when things are truly stuck.
+
+## CLI Flags Worth Knowing
+
+These go on the `claude` command itself, before you enter the interactive session:
+
+```bash
+claude -p "prompt"       # Non-interactive pipe mode (for CI/scripts)
+claude --model haiku     # Start with a specific model
+claude --resume          # Resume your last conversation
+claude --continue        # Continue the most recent session
+claude --verbose         # Show tool calls and internal reasoning
+```
+
+The `--resume` flag is underrated. Closed your terminal by accident? `claude --resume` picks up exactly where you left off. No lost context.
+
+## Quick Reference Card
+
+```
+Session:   /help  /clear  /compact  /cost  /quit
+Config:    /init  /model  /permissions
+Keys:      Escape (cancel)  Shift+Tab (plan)  Option+T (think)
+           Up (history)  Ctrl+R (search)  Tab (complete)
+CLI:       -p (pipe)  --resume  --continue  --verbose
+```
+
+Print this. Tape it to your monitor. You'll use it more than you think.
