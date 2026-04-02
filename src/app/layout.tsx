@@ -1,6 +1,7 @@
 import './globals.css';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import { Analytics } from '@vercel/analytics/next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Newsreader, Space_Grotesk, Geist_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
@@ -140,6 +141,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {children}
         </RootProvider>
         <Analytics />
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
       </body>
     </html>
   );
