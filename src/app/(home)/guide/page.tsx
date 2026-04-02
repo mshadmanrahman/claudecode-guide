@@ -10,9 +10,15 @@ import { CopyBlock } from '@/components/guide/copy-block';
 import { Collapsible } from '@/components/guide/collapsible';
 import { Checkpoint } from '@/components/guide/checkpoint';
 import { DemoCard } from '@/components/demo-card';
+import { AffiliateCTA } from '@/components/affiliate-cta';
+import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 
 export default function GuidePage() {
   const progress = useGuideProgress();
+  const ctas = getAffiliateCtasForPage('guide');
+  const inlineCta = ctas.find((cta) => cta.placement === 'inline');
+  const midBannerCta = ctas.find((cta) => cta.placement === 'mid-banner');
+  const endCardCta = ctas.find((cta) => cta.placement === 'end-card');
 
   if (!progress.loaded) {
     return (
@@ -68,6 +74,7 @@ export default function GuidePage() {
 
       {/* Guide Content */}
       <main className="mx-auto max-w-3xl space-y-16 px-6 pb-24">
+        {inlineCta ? <AffiliateCTA {...inlineCta} /> : null}
 
         {/* ═══════════ PHASE 1: Getting Started ═══════════ */}
         <section>
@@ -256,6 +263,8 @@ export default function GuidePage() {
             </div>
           )}
         </section>
+
+        {midBannerCta ? <AffiliateCTA {...midBannerCta} /> : null}
 
         {/* ═══════════ PHASE 2: Set Up Your Workspace ═══════════ */}
         <section>
@@ -561,6 +570,8 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
             ))}
           </div>
         </section>
+
+        {endCardCta ? <AffiliateCTA {...endCardCta} /> : null}
       </main>
 
       {/* Spacer for HomeLayout footer */}
