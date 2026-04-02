@@ -7,6 +7,24 @@ Claude Code is a command-line tool that brings Claude directly into your termina
 
 **What you need:** A computer (Mac, Windows, or Linux), an internet connection, and a paid Anthropic account.
 
+## Never Used a Terminal Before?
+
+No shame. Here's the 60-second version.
+
+A **terminal** (also called "command line" or "shell") is a text window where you type commands instead of clicking buttons. That's it. On Mac it's called **Terminal**, on Windows it's **PowerShell**, on Linux it's usually called **Terminal** too.
+
+Here are the only three commands you need to know:
+
+| Command | What it does | Example |
+|---------|-------------|---------|
+| `cd` | **Change directory** — move into a folder | `cd Documents` |
+| `mkdir` | **Make directory** — create a new folder | `mkdir my-project` |
+| `ls` | **List** — see what's in the current folder | `ls` |
+
+That's genuinely it. Everything else, you can ask Claude to do for you once it's installed.
+
+**"What's an environment variable?"** It's just a setting stored on your computer that programs can read. Like a name tag that says `API_KEY=abc123`. You won't need them during installation, but if you see `env` or `$VARIABLE` later, that's what they mean. Claude Code can set these up for you when the time comes.
+
 <DemoCard title="What the install looks like" steps={[
   { type: 'cmd', text: 'npm install -g @anthropic-ai/claude-code' },
   { type: 'out', text: 'added 1 package in 4s' },
@@ -182,9 +200,17 @@ Once Claude Code starts, type this prompt:
 Create a simple HTML page that says Hello World with some nice styling
 ```
 
-Watch it work. Claude Code will create a file, write HTML into it, and tell you what it did. Open the file in your browser to see the result.
+Watch it work. Claude Code will create a file, write HTML into it, and tell you what it did.
 
-You just used Claude Code for the first time.
+**How to actually see it:** Open the HTML file in your browser. The easiest way:
+- **Mac:** Run `open index.html` in your terminal
+- **Windows:** Run `start index.html` in PowerShell
+- **Linux:** Run `xdg-open index.html` in your terminal
+- **Or** just find the file in your file manager and double-click it
+
+You should see a styled "Hello World" page. You just used Claude Code for the first time.
+
+> **Pro tip:** You can also just ask Claude to do it: `"open the file in my browser"`. It knows how.
 
 ## What's Next
 

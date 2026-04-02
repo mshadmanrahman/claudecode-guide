@@ -33,6 +33,8 @@ Same person. Same prompt. Night and day difference. The only variable? A CLAUDE.
 
 ## OK So What Is It Actually?
 
+**First: what's a .md file?** It's just a text file written in **Markdown** — a simple way to format text using symbols like `#` for headings and `-` for bullet points. You can open it in any text editor (Notepad, VS Code, whatever). It's not code. It's closer to writing a Google Doc, but as a plain text file. If you've written a Reddit post or a GitHub README, you've already used Markdown.
+
 CLAUDE.md is a markdown file at the root of your project that tells Claude Code how to behave. Think of it like onboarding a new team member. You wouldn't just hand someone a laptop and say "go write code." You'd tell them:
 
 - What the project is and how it's structured
@@ -58,6 +60,10 @@ Deploy target: Vercel.
 ```
 
 Simple. But you'd be shocked how many people skip this. Without it, Claude Code has to infer your stack from your `package.json` every single time. Sometimes it guesses wrong.
+
+**"I don't know my tech stack."** That's completely fine. Your tech stack is just the tools and languages your project uses. If you don't know, run `claude /init` and Claude will figure it out by scanning your project files. It'll detect your framework, language, and tools automatically. You don't need to know what "Next.js" or "Drizzle ORM" means — Claude will write the right answer for you.
+
+> **The secret:** A huge amount of CLAUDE.md setup can be delegated to Claude itself. Just say: `"Scan my project and create a CLAUDE.md with my tech stack, build commands, and project structure."` It'll do it in 10 seconds. Then you just add your personal preferences on top.
 
 **Pro tip:** If you have a complex workspace, point to files instead of inlining everything. CLAUDE.md is an index, not a dump.
 

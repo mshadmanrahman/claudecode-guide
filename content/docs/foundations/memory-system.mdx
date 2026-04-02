@@ -21,6 +21,20 @@ The memory system fixes this. It gives Claude Code a structured way to remember 
   { type: 'warn', text: '→ No re-explanation. It already knows you.' },
 ]} />
 
+## Wait — Memory vs CLAUDE.md vs Config. What's the Difference?
+
+This confuses everyone. Here's the simple version:
+
+| File | What it does | Analogy |
+|------|-------------|---------|
+| **CLAUDE.md** | Tells Claude about *this project* — tech stack, build commands, coding rules | A project README for Claude |
+| **Memory files** | Tells Claude about *you* — your role, preferences, corrections, active work | Your personal profile that follows you |
+| **Config files** (`.claude/settings.json`) | Technical settings — which tools are allowed, model preferences, permissions | App settings (like dark mode on/off) |
+
+**CLAUDE.md** lives in your project folder and changes per project. **Memory** lives in `~/.claude/` and persists across all projects and sessions. **Config** is plumbing you rarely touch.
+
+Think of it this way: CLAUDE.md is project context ("this is a Next.js app"), memory is personal context ("I'm a PM who hates verbose output"), and config is machine settings ("allow the Read tool without asking").
+
 ## The Four Memory Types
 
 Memory in Claude Code is organized into four categories. Each serves a different purpose.
