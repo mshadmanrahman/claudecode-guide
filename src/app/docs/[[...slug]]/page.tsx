@@ -49,8 +49,10 @@ export default async function Page(props: PageProps) {
       <DocsTitle>{data.title}</DocsTitle>
       <DocsDescription>{data.description}</DocsDescription>
       <DocsBody>
-        {isComparisonPage && hasComparisonMetadata ? (
-          <section className="mb-6 rounded-xl border border-fd-border bg-fd-card/50 px-4 py-4 sm:px-5">
+        {process.env.NODE_ENV === 'development' &&
+        isComparisonPage &&
+        hasComparisonMetadata ? (
+          <section className="mb-6 rounded-xl border border-dashed border-fd-border bg-fd-card/50 px-4 py-4 sm:px-5">
             {comparisonMetadata.targetKeyword ? (
               <p className="text-sm text-fd-muted-foreground">
                 <span className="font-medium text-fd-foreground">
