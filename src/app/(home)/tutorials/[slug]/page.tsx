@@ -686,6 +686,290 @@ onboarding flow - users are dropping off at step 3."`,
     },
   },
 
+  'product-discovery-ost': {
+    title: 'Run Product Discovery with Opportunity Solution Trees',
+    slug: 'product-discovery-ost',
+    duration: '20 min',
+    difficulty: 'intermediate',
+    description:
+      'Use Teresa Torres\' Opportunity Solution Tree framework to go from customer interviews to validated experiments — all inside Claude Code.',
+    intro:
+      'Product discovery shouldn\'t be a mystery. Teresa Torres\' Opportunity Solution Tree (OST) gives you a clear structure: start with an outcome, map customer opportunities, brainstorm solutions, and design assumption tests. The problem? Building and maintaining an OST takes hours of manual synthesis. Claude Code collapses that into minutes. You\'ll paste raw interview notes and walk away with a structured tree and experiment designs. If you\'re new to OSTs, read Teresa\'s original framework at producttalk.org/opportunity-solution-trees.',
+    steps: [
+      {
+        title: 'Set up your discovery workspace',
+        description:
+          'Create a CLAUDE.md that gives Claude your product context and discovery goals. This is where you define the outcome you\'re chasing — the top of your OST.',
+        code: {
+          snippet: `cat > CLAUDE.md << 'EOF'
+# CLAUDE.md
+
+## Role
+Product Manager running continuous discovery.
+Framework: Opportunity Solution Trees (Teresa Torres).
+Reference: https://www.producttalk.org/opportunity-solution-trees/
+
+## Product Context
+- B2B SaaS project management tool
+- 2,400 active teams, 85% retention
+- Target outcome: Increase weekly active usage from 3.2 to 4.5 days/week
+
+## Discovery State
+- Conducting weekly customer interviews
+- 12 interviews completed this cycle
+- Focus: why teams stop using the tool mid-week
+
+## Output Preferences
+- Structure everything as Outcome → Opportunities → Solutions → Tests
+- Use markdown trees for visual hierarchy
+- Be specific — no vague opportunity statements
+EOF`,
+          language: 'bash',
+        },
+        demo: {
+          title: 'Discovery workspace ready',
+          steps: [
+            { type: 'cmd', text: 'mkdir product-discovery && cd product-discovery' },
+            { type: 'cmd', text: 'cat > CLAUDE.md << \'EOF\'', delay: 400 },
+            { type: 'success', text: 'Created CLAUDE.md with discovery context' },
+            { type: 'out', text: '  Outcome: Increase weekly active usage 3.2 → 4.5 days' },
+            { type: 'out', text: '  Framework: Opportunity Solution Trees' },
+            { type: 'warn', text: 'Claude now thinks in OSTs. Let\'s feed it data.' },
+          ],
+        },
+      },
+      {
+        title: 'Create a discovery skill',
+        description:
+          'This skill teaches Claude the OST framework — how to extract opportunities from interviews, distinguish opportunities from solutions, and structure everything into a tree. This is the engine.',
+        code: {
+          snippet: `mkdir -p .claude/skills
+cat > .claude/skills/discovery-ost.md << 'EOF'
+# Product Discovery — OST Skill
+
+Process customer interview data using Teresa Torres'
+Opportunity Solution Tree framework.
+
+## Framework Reference
+- Source: https://www.producttalk.org/opportunity-solution-trees/
+- Book: "Continuous Discovery Habits" by Teresa Torres
+
+## Key Definitions
+- **Outcome**: The measurable business/product result we're driving toward
+- **Opportunity**: A customer need, pain point, or desire (NOT a solution)
+- **Solution**: An idea that addresses one or more opportunities
+- **Assumption Test**: A small experiment to validate a risky assumption
+
+## Process
+1. Extract raw quotes and observations from interview notes
+2. Identify opportunities (needs, pains, desires) — never solutions
+3. Group related opportunities into themes
+4. For each opportunity, brainstorm 3+ solutions
+5. For each promising solution, identify riskiest assumption
+6. Design a small experiment to test that assumption
+
+## Opportunity Rules (Critical)
+- Opportunities are CUSTOMER problems, not OUR ideas
+- "Users want a dashboard" is a SOLUTION, not an opportunity
+- "Users can't see their team's progress at a glance" is an opportunity
+- Use the customer's language when possible
+- Every opportunity must connect to the target outcome
+
+## Output: Markdown Tree
+\`\`\`
+🎯 OUTCOME: [target metric]
+├── 🔍 Opportunity: [customer need]
+│   ├── 💡 Solution: [idea 1]
+│   │   └── 🧪 Test: [experiment]
+│   ├── 💡 Solution: [idea 2]
+│   │   └── 🧪 Test: [experiment]
+│   └── 💡 Solution: [idea 3]
+├── 🔍 Opportunity: [customer need]
+│   ├── 💡 Solution: [idea 1]
+│   └── 💡 Solution: [idea 2]
+\`\`\`
+EOF`,
+          language: 'bash',
+        },
+        demo: {
+          title: 'Discovery skill loaded',
+          steps: [
+            { type: 'cmd', text: 'cat > .claude/skills/discovery-ost.md' },
+            { type: 'success', text: 'Created discovery-ost.md', delay: 300 },
+            { type: 'out', text: '  Framework: Opportunity Solution Trees' },
+            { type: 'out', text: '  Process: interviews → opportunities → solutions → tests' },
+            { type: 'out', text: '  Guard: distinguishes opportunities from solutions' },
+            { type: 'warn', text: 'Claude won\'t confuse "wants a dashboard" with a real need.' },
+          ],
+        },
+      },
+      {
+        title: 'Feed it raw interview notes',
+        description:
+          'Here\'s where the magic happens. Paste your messy, unstructured interview notes. Claude extracts opportunities — the customer needs, pains, and desires hidden in the conversation.',
+        code: {
+          snippet: `claude "Extract opportunities from these interview notes:
+
+Interview: Sarah, PM at a 50-person startup (Mar 25)
+---
+'We use the tool Monday and Tuesday for sprint planning, but
+by Wednesday everyone's back in Slack. The notifications are
+overwhelming so people mute them. Then they miss actual updates.
+I wish there was a way to see just the things that changed since
+I last looked. Also the mobile app is basically useless — I
+can't approve anything on my phone so I have to wait until I'm
+at my desk. My team in Berlin is 6 hours ahead so by the time
+I approve their PRs it's already their end of day.'
+
+Interview: Jake, Eng Lead at a 200-person company (Mar 27)
+---
+'The weekly view is fine but I need a daily standup view. I
+check the tool first thing in the morning but there's no way to
+see just what happened overnight. I end up asking people in
+Slack anyway. Also the search is terrible — I can never find
+old decisions. We started using a separate wiki just for that.'"`,
+          language: 'bash',
+        },
+        demo: {
+          title: 'Extracting opportunities from interviews',
+          steps: [
+            { type: 'cmd', text: 'claude "Extract opportunities from these interview notes..."' },
+            { type: 'out', text: 'Loading skill: discovery-ost.md', delay: 400 },
+            { type: 'out', text: 'Processing 2 interviews...' },
+            { type: 'out', text: 'Extracting customer language...' },
+            { type: 'out', text: '' },
+            { type: 'success', text: '6 opportunities identified:' },
+            { type: 'out', text: '' },
+            { type: 'warn', text: '1. Users can\'t distinguish signal from noise in notifications' },
+            { type: 'out', text: '   Source: Sarah — "notifications are overwhelming, people mute them"' },
+            { type: 'warn', text: '2. No way to see what changed since last visit' },
+            { type: 'out', text: '   Source: Sarah — "wish I could see just the things that changed"' },
+            { type: 'warn', text: '3. Can\'t take action from mobile' },
+            { type: 'out', text: '   Source: Sarah — "can\'t approve anything on my phone"' },
+            { type: 'warn', text: '4. Async teams blocked by timezone gaps' },
+            { type: 'warn', text: '5. No overnight activity summary for daily standups' },
+            { type: 'warn', text: '6. Past decisions are unfindable' },
+            { type: 'out', text: '' },
+            { type: 'success', text: 'All framed as customer needs, not solutions.' },
+          ],
+        },
+      },
+      {
+        title: 'Build the full Opportunity Solution Tree',
+        description:
+          'Now ask Claude to build the complete tree — connecting your outcome to the opportunities, generating solutions for each, and identifying the riskiest assumptions. This is what takes hours manually.',
+        code: {
+          snippet: 'claude "Build the full OST. For each opportunity, brainstorm 3 solutions and identify the riskiest assumption for the most promising one."',
+          language: 'bash',
+        },
+        demo: {
+          title: 'Your Opportunity Solution Tree',
+          steps: [
+            { type: 'cmd', text: 'claude "Build the full OST..."' },
+            { type: 'out', text: 'Structuring tree from 6 opportunities...', delay: 600 },
+            { type: 'out', text: '' },
+            { type: 'success', text: '🎯 OUTCOME: Weekly active usage 3.2 → 4.5 days/week' },
+            { type: 'out', text: '├── 🔍 Can\'t distinguish signal from noise' },
+            { type: 'out', text: '│   ├── 💡 Smart notification digest (batched, prioritized)' },
+            { type: 'out', text: '│   ├── 💡 "What\'s new" changelog per project' },
+            { type: 'out', text: '│   └── 💡 AI summary of overnight activity' },
+            { type: 'out', text: '│       └── 🧪 Riskiest: Will users read a daily digest email?' },
+            { type: 'out', text: '├── 🔍 Can\'t take action from mobile' },
+            { type: 'out', text: '│   ├── 💡 Mobile approval flow (1-tap approve/reject)' },
+            { type: 'out', text: '│   ├── 💡 Slack-based approvals (no app needed)' },
+            { type: 'out', text: '│   └── 💡 Email-reply approvals' },
+            { type: 'out', text: '│       └── 🧪 Riskiest: Is approval actually the main mobile action?' },
+            { type: 'out', text: '├── 🔍 Past decisions are unfindable' },
+            { type: 'out', text: '│   └── (3 solutions with tests...)' },
+            { type: 'out', text: '' },
+            { type: 'success', text: 'Full tree: 6 opportunities, 18 solutions, 6 experiments.' },
+            { type: 'warn', text: 'Saved to discovery/ost-2026-03-29.md' },
+          ],
+        },
+      },
+      {
+        title: 'Generate assumption tests for your top solutions',
+        description:
+          'Pick the solutions you\'re most excited about and have Claude design lightweight experiments. Teresa Torres calls these "assumption tests" — small, fast experiments that reduce risk before you build anything.',
+        code: {
+          snippet: `claude "Design assumption tests for these two solutions:
+1. Smart notification digest (batched, prioritized)
+2. Mobile approval flow (1-tap approve/reject)
+
+For each, give me:
+- The riskiest assumption
+- A test I can run this week
+- What 'success' looks like (with a number)
+- Estimated effort"`,
+          language: 'bash',
+        },
+        demo: {
+          title: 'Experiments designed',
+          steps: [
+            { type: 'cmd', text: 'claude "Design assumption tests for..."' },
+            { type: 'out', text: 'Analyzing riskiest assumptions...', delay: 500 },
+            { type: 'out', text: '' },
+            { type: 'warn', text: '## Test 1: Smart Notification Digest' },
+            { type: 'out', text: 'Assumption: Users will open a daily digest email' },
+            { type: 'out', text: 'Test: Send a manual digest email to 50 users for 5 days' },
+            { type: 'out', text: 'Success: >40% open rate, >15% click-through to tool' },
+            { type: 'out', text: 'Effort: 2 hours (manual email via Mailchimp)' },
+            { type: 'out', text: '' },
+            { type: 'warn', text: '## Test 2: Mobile Approval Flow' },
+            { type: 'out', text: 'Assumption: Approval is the #1 mobile action needed' },
+            { type: 'out', text: 'Test: Survey 20 users — "What do you wish you could do on mobile?"' },
+            { type: 'out', text: 'Success: >50% mention approvals unprompted' },
+            { type: 'out', text: 'Effort: 1 hour (add question to next 20 interviews)' },
+            { type: 'out', text: '' },
+            { type: 'success', text: 'Both tests runnable this week. Total effort: 3 hours.' },
+            { type: 'warn', text: 'Ship experiments, not features.' },
+          ],
+        },
+      },
+      {
+        title: 'Keep your tree alive as a living document',
+        description:
+          'An OST isn\'t a one-time exercise — it evolves every week as you learn. Save it to a file and update it after every interview. Claude remembers the context and builds on what\'s there.',
+        code: {
+          snippet: `# After your next round of interviews:
+claude "Update the OST in discovery/ost-2026-03-29.md with these new findings:
+
+Interview: Maria, Designer at a 30-person agency (Apr 1)
+---
+'I actually love the notifications but they all look the same.
+I can't tell if something is urgent or just a comment. Color
+coding or priority levels would help. Also, I realized I
+only open the app when someone @mentions me — otherwise I
+forget it exists.'"`,
+          language: 'bash',
+        },
+        demo: {
+          title: 'Living discovery tree',
+          steps: [
+            { type: 'cmd', text: 'claude "Update the OST with new findings..."' },
+            { type: 'out', text: 'Reading existing tree (6 opportunities, 18 solutions)...', delay: 400 },
+            { type: 'out', text: 'Processing new interview (Maria, Designer)...' },
+            { type: 'out', text: '' },
+            { type: 'success', text: 'Updated: "Can\'t distinguish signal from noise"' },
+            { type: 'out', text: '  Added evidence: "all look the same, can\'t tell if urgent"' },
+            { type: 'out', text: '  New solution: Priority-based notification styling' },
+            { type: 'out', text: '' },
+            { type: 'warn', text: 'New opportunity discovered:' },
+            { type: 'out', text: '  🔍 "No trigger to return to the tool without @mentions"' },
+            { type: 'out', text: '  Source: Maria — "I only open when someone @mentions me"' },
+            { type: 'out', text: '' },
+            { type: 'success', text: 'Tree updated: 7 opportunities, 21 solutions.' },
+            { type: 'warn', text: 'Your OST grows smarter after every interview.' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Learn about continuous discovery with Teresa Torres',
+      href: 'https://www.producttalk.org/opportunity-solution-trees/',
+    },
+  },
+
   'weekly-status': {
     title: 'Build a Weekly Status Report Generator',
     slug: 'weekly-status',

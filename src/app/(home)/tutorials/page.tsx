@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock } from 'lucide-react';
+import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { EmailCapture } from '@/components/email-capture';
 
@@ -156,6 +156,17 @@ export default function TutorialsPage() {
         </div>
 
         <div className="grid gap-4">
+          <TutorialCard
+            title="Product Discovery with Opportunity Solution Trees"
+            description="Use Teresa Torres' OST framework to go from raw customer interviews to validated experiments. No sticky notes required."
+            duration="20 min"
+            difficulty="intermediate"
+            outcome="A living Opportunity Solution Tree with mapped opportunities, solutions, and experiment designs — built from real interview data."
+            href="/tutorials/product-discovery-ost"
+            icon={<TreePine className="h-5 w-5" />}
+            available={true}
+          />
+
           <TutorialCard
             title="Turn Meeting Notes into Jira Tickets"
             description="Paste your messy meeting notes. Get structured tickets with acceptance criteria. Never transcribe by hand again."
