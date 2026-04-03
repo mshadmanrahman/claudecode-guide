@@ -251,6 +251,16 @@ export default function GuidePage() {
               <Collapsible title="Stuck? Claude Code won't start?">
                 <p>Make sure you&apos;re logged in. Run <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">claude auth login</code> and follow the prompts to connect your Anthropic account.</p>
               </Collapsible>
+
+              <Collapsible title="Claude suggested a command I don't understand — is it safe?">
+                <p className="mb-2">This will happen a lot, and it&apos;s normal. Here&apos;s your framework:</p>
+                <ul className="list-disc space-y-1 pl-4">
+                  <li><strong>Read before you approve.</strong> Claude Code always asks permission before running commands. Don&apos;t click &quot;Yes&quot; on autopilot.</li>
+                  <li><strong>Look for red flags.</strong> Anything with <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">rm</code> (delete), <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">sudo</code> (admin access), or <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">--force</code> deserves a pause.</li>
+                  <li><strong>Ask Claude to explain it.</strong> Just type: &quot;What does that command do? Explain it simply.&quot; It will break it down for you.</li>
+                  <li><strong>When in doubt, say no.</strong> You can always deny a command and ask Claude to try a different approach.</li>
+                </ul>
+              </Collapsible>
             </GuideStep>
           </div>
 
