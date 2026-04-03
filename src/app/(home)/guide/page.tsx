@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, RotateCcw, BookOpen } from 'lucide-react';
+import { ArrowRight, RotateCcw, BookOpen, Bug, Lightbulb, MessageSquare } from 'lucide-react';
 import { useGuideProgress } from '@/components/guide/use-guide-progress';
 import { ProgressBar } from '@/components/guide/progress-bar';
 import { GuideStep } from '@/components/guide/guide-step';
 import { OsSelector } from '@/components/guide/os-selector';
+import { IdeSelector } from '@/components/guide/ide-selector';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { Collapsible } from '@/components/guide/collapsible';
 import { Checkpoint } from '@/components/guide/checkpoint';
@@ -63,7 +64,9 @@ export default function GuidePage() {
             Your progress is saved automatically.
           </p>
           <p className="mt-3 text-sm text-fd-muted-foreground">
-            Not ready for the terminal?{' '}
+            Works with VS Code, Cursor, JetBrains, or just the terminal.
+            <br />
+            Not ready for any of that?{' '}
             <a href="https://lovable.link/4IOZkKK" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground transition-colors">
               Try Lovable instead
             </a>{' '}
@@ -93,75 +96,179 @@ export default function GuidePage() {
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                First, pick your operating system. You&apos;ll see the exact commands for your machine.
+                How do you write code? Pick your setup and we&apos;ll show you the fastest path.
               </p>
 
-              <OsSelector selected={progress.selectedOs} onSelect={progress.setOs} />
+              <IdeSelector selected={progress.selectedIde} onSelect={progress.setIde} />
 
-              {progress.selectedOs === 'mac' && (
-                <div className="mt-4 space-y-4">
+              {/* VS Code path — extension install, no terminal needed */}
+              {progress.selectedIde === 'vscode' && (
+                <div className="mt-6 space-y-4">
+                  <div className="rounded-lg border-2 border-green-500/30 bg-green-500/5 p-4">
+                    <p className="text-sm font-medium text-fd-foreground">
+                      Great news — VS Code has a one-click extension.
+                    </p>
+                    <p className="mt-1 text-xs text-fd-muted-foreground">
+                      No terminal commands needed. The extension handles everything.
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-sm text-fd-muted-foreground">
+                      <strong>Option A:</strong> Open VS Code, press <kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Cmd/Ctrl + Shift + X</kbd>, search &quot;Claude Code&quot;, click Install.
+                    </p>
+                    <p className="text-sm text-fd-muted-foreground">
+                      <strong>Option B:</strong> Or install from the{' '}
+                      <a href="https://marketplace.visualstudio.com/items?itemName=anthropics.claude-code" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">VS Code Marketplace</a>.
+                    </p>
+                  </div>
+                  <Collapsible title="Also want the terminal version?">
+                    <p className="mb-2">The extension is enough to get started. But if you also want Claude Code in your terminal:</p>
+                    <CopyBlock code="npm install -g @anthropic-ai/claude-code" />
+                    <p className="mt-2">Need npm? Install Node.js from <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">nodejs.org</a> first.</p>
+                  </Collapsible>
+                </div>
+              )}
+
+              {/* Cursor path */}
+              {progress.selectedIde === 'cursor' && (
+                <div className="mt-6 space-y-4">
+                  <div className="rounded-lg border-2 border-blue-500/30 bg-blue-500/5 p-4">
+                    <p className="text-sm font-medium text-fd-foreground">
+                      Cursor has built-in Claude support, but Claude Code adds agent mode.
+                    </p>
+                    <p className="mt-1 text-xs text-fd-muted-foreground">
+                      Install the CLI to unlock the full power — skills, memory, MCP, and more.
+                    </p>
+                  </div>
                   <p className="text-sm text-fd-muted-foreground">
-                    Open Terminal (press <kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Cmd + Space</kbd>, type &quot;Terminal&quot;, hit Enter).
+                    Open Cursor&apos;s integrated terminal (<kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Ctrl + `</kbd>) and run:
                   </p>
                   <CopyBlock code="npm install -g @anthropic-ai/claude-code" />
                   <p className="text-sm text-fd-muted-foreground">
                     If you don&apos;t have npm, install Node.js first from <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">nodejs.org</a>.
                   </p>
-                  <Collapsible title="Stuck? npm not found?">
-                    <p>If you see &quot;npm: command not found&quot;, you need Node.js:</p>
-                    <div className="mt-2">
-                      <CopyBlock code="brew install node" />
-                    </div>
-                    <p className="mt-2">No Homebrew? Install it first:</p>
-                    <div className="mt-2">
-                      <CopyBlock code='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"' />
-                    </div>
+                  <Collapsible title="Stuck? npm not found in Cursor?">
+                    <p>Close and reopen Cursor after installing Node.js. The terminal needs to refresh its PATH.</p>
                   </Collapsible>
                 </div>
               )}
 
-              {progress.selectedOs === 'windows' && (
-                <div className="mt-4 space-y-4">
+              {/* JetBrains path */}
+              {progress.selectedIde === 'jetbrains' && (
+                <div className="mt-6 space-y-4">
+                  <div className="rounded-lg border-2 border-purple-500/30 bg-purple-500/5 p-4">
+                    <p className="text-sm font-medium text-fd-foreground">
+                      JetBrains IDEs have a Claude Code plugin.
+                    </p>
+                    <p className="mt-1 text-xs text-fd-muted-foreground">
+                      Works with IntelliJ IDEA, WebStorm, PyCharm, and all other JetBrains IDEs.
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-sm text-fd-muted-foreground">
+                      <strong>Option A:</strong> In your JetBrains IDE, go to Settings → Plugins → Marketplace, search &quot;Claude Code&quot;, click Install.
+                    </p>
+                    <p className="text-sm text-fd-muted-foreground">
+                      <strong>Option B:</strong> Or install from the{' '}
+                      <a href="https://plugins.jetbrains.com/plugin/claude-code" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">JetBrains Marketplace</a>.
+                    </p>
+                  </div>
+                  <Collapsible title="Also want the terminal version?">
+                    <p className="mb-2">The plugin is enough to get started. For the CLI version too:</p>
+                    <CopyBlock code="npm install -g @anthropic-ai/claude-code" />
+                  </Collapsible>
+                </div>
+              )}
+
+              {/* Terminal path — the original flow with OS selector */}
+              {progress.selectedIde === 'terminal' && (
+                <div className="mt-6 space-y-4">
                   <p className="text-sm text-fd-muted-foreground">
-                    Open PowerShell (press <kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Win + X</kbd>, select &quot;Terminal&quot;).
+                    Pick your operating system:
                   </p>
-                  <CopyBlock code="npm install -g @anthropic-ai/claude-code" language="powershell" />
-                  <p className="text-sm text-fd-muted-foreground">
-                    If you don&apos;t have npm, install Node.js from <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">nodejs.org</a> (download the LTS version).
-                  </p>
-                  <Collapsible title="Stuck? Permission errors?">
-                    <p>Run PowerShell as Administrator (right-click &gt; Run as Administrator), then try the install command again.</p>
-                  </Collapsible>
-                </div>
-              )}
+                  <OsSelector selected={progress.selectedOs} onSelect={progress.setOs} />
 
-              {progress.selectedOs === 'linux' && (
-                <div className="mt-4 space-y-4">
-                  <p className="text-sm text-fd-muted-foreground">Open your terminal and run:</p>
-                  <CopyBlock code="npm install -g @anthropic-ai/claude-code" />
-                  <Collapsible title="Stuck? Permission denied?">
-                    <p>If you get EACCES errors, fix npm permissions:</p>
-                    <div className="mt-2">
-                      <CopyBlock code={'mkdir -p ~/.npm-global\nnpm config set prefix \'~/.npm-global\'\nexport PATH=~/.npm-global/bin:$PATH'} />
+                  {progress.selectedOs === 'mac' && (
+                    <div className="space-y-4">
+                      <p className="text-sm text-fd-muted-foreground">
+                        Open Terminal (press <kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Cmd + Space</kbd>, type &quot;Terminal&quot;, hit Enter).
+                      </p>
+                      <CopyBlock code="npm install -g @anthropic-ai/claude-code" />
+                      <p className="text-sm text-fd-muted-foreground">
+                        If you don&apos;t have npm, install Node.js first from <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">nodejs.org</a>.
+                      </p>
+                      <Collapsible title="Stuck? npm not found?">
+                        <p>If you see &quot;npm: command not found&quot;, you need Node.js:</p>
+                        <div className="mt-2">
+                          <CopyBlock code="brew install node" />
+                        </div>
+                        <p className="mt-2">No Homebrew? Install it first:</p>
+                        <div className="mt-2">
+                          <CopyBlock code='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"' />
+                        </div>
+                      </Collapsible>
                     </div>
-                    <p className="mt-2">Add the export line to your ~/.bashrc or ~/.zshrc to make it permanent.</p>
-                  </Collapsible>
+                  )}
+
+                  {progress.selectedOs === 'windows' && (
+                    <div className="space-y-4">
+                      <p className="text-sm text-fd-muted-foreground">
+                        Open PowerShell (press <kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Win + X</kbd>, select &quot;Terminal&quot;).
+                      </p>
+                      <CopyBlock code="npm install -g @anthropic-ai/claude-code" language="powershell" />
+                      <p className="text-sm text-fd-muted-foreground">
+                        If you don&apos;t have npm, install Node.js from <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">nodejs.org</a> (download the LTS version).
+                      </p>
+                      <Collapsible title="Stuck? Permission errors?">
+                        <p>Run PowerShell as Administrator (right-click &gt; Run as Administrator), then try the install command again.</p>
+                      </Collapsible>
+                    </div>
+                  )}
+
+                  {progress.selectedOs === 'linux' && (
+                    <div className="space-y-4">
+                      <p className="text-sm text-fd-muted-foreground">Open your terminal and run:</p>
+                      <CopyBlock code="npm install -g @anthropic-ai/claude-code" />
+                      <Collapsible title="Stuck? Permission denied?">
+                        <p>If you get EACCES errors, fix npm permissions:</p>
+                        <div className="mt-2">
+                          <CopyBlock code={'mkdir -p ~/.npm-global\nnpm config set prefix \'~/.npm-global\'\nexport PATH=~/.npm-global/bin:$PATH'} />
+                        </div>
+                        <p className="mt-2">Add the export line to your ~/.bashrc or ~/.zshrc to make it permanent.</p>
+                      </Collapsible>
+                    </div>
+                  )}
+
+                  {!progress.selectedOs && (
+                    <p className="text-center text-sm text-fd-muted-foreground">
+                      Pick your OS above to see install instructions
+                    </p>
+                  )}
                 </div>
               )}
 
-              {!progress.selectedOs && (
+              {!progress.selectedIde && (
                 <p className="mt-4 text-center text-sm text-fd-muted-foreground">
-                  Pick your OS above to see install instructions
+                  Pick how you code above to see your install path
                 </p>
               )}
 
-              <DemoCard title="What you'll see" loop={false} steps={[
-                { type: 'cmd', text: 'npm install -g @anthropic-ai/claude-code' },
-                { type: 'out', text: 'added 1 package in 12s' },
-                { type: 'cmd', text: 'claude --version', delay: 800 },
-                { type: 'success', text: '✓ claude-code v1.0.24' },
-                { type: 'warn', text: '→ You\'re installed. Move to step 2.' },
-              ]} />
+              {progress.selectedIde && (
+                <DemoCard title="What you'll see" loop={false} steps={[
+                  ...(progress.selectedIde === 'vscode' || progress.selectedIde === 'jetbrains'
+                    ? [
+                        { type: 'success' as const, text: '✓ Extension installed' },
+                        { type: 'out' as const, text: 'Open the Claude Code panel in your sidebar' },
+                      ]
+                    : [
+                        { type: 'cmd' as const, text: 'npm install -g @anthropic-ai/claude-code' },
+                        { type: 'out' as const, text: 'added 1 package in 12s' },
+                      ]),
+                  { type: 'cmd' as const, text: 'claude --version', delay: 800 },
+                  { type: 'success' as const, text: '✓ claude-code v1.0.24' },
+                  { type: 'warn' as const, text: '→ You\'re installed. Move to step 2.' },
+                ]} />
+              )}
             </GuideStep>
 
             {/* Step 2: Choose a plan */}
@@ -229,13 +336,26 @@ export default function GuidePage() {
               completed={progress.isCompleted('first-prompt')}
               onToggle={progress.toggleStep}
             >
-              <p className="mb-4 text-sm text-fd-muted-foreground">
-                Navigate to any project folder (or create one), then start Claude Code:
-              </p>
-              <CopyBlock code={'mkdir my-first-project && cd my-first-project\nclaude'} />
-              <p className="my-4 text-sm text-fd-muted-foreground">
-                Claude Code will start. Try your first prompt:
-              </p>
+              {(progress.selectedIde === 'vscode' || progress.selectedIde === 'jetbrains') ? (
+                <div className="mb-4 space-y-3">
+                  <p className="text-sm text-fd-muted-foreground">
+                    Open any project folder in {progress.selectedIde === 'vscode' ? 'VS Code' : 'your JetBrains IDE'}, then open the Claude Code panel from the sidebar.
+                  </p>
+                  <p className="text-sm text-fd-muted-foreground">
+                    Type your first prompt:
+                  </p>
+                </div>
+              ) : (
+                <div className="mb-4 space-y-3">
+                  <p className="text-sm text-fd-muted-foreground">
+                    Navigate to any project folder (or create one), then start Claude Code:
+                  </p>
+                  <CopyBlock code={'mkdir my-first-project && cd my-first-project\nclaude'} />
+                  <p className="text-sm text-fd-muted-foreground">
+                    Claude Code will start. Try your first prompt:
+                  </p>
+                </div>
+              )}
               <CopyBlock code='"Create a simple HTML page that says Hello World with a nice design"' language="prompt" />
               <DemoCard title="What happens when you run it" loop={false} steps={[
                 { type: 'cmd', text: 'claude' },
@@ -577,6 +697,52 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
                 </div>
                 <ArrowRight className="h-4 w-4 text-fd-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══════════ Feedback ═══════════ */}
+        <section className="rounded-xl border border-fd-border bg-fd-card p-8">
+          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+            Help make this guide better
+          </h2>
+          <p className="mt-2 mb-6 text-sm text-fd-muted-foreground">
+            This guide is shaped by real feedback from people like you. If something was confusing, missing, or broken — tell me.
+          </p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              {
+                icon: Bug,
+                title: 'Report a bug',
+                desc: 'Something broken or looks wrong',
+                href: 'https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=bug-report.md',
+              },
+              {
+                icon: Lightbulb,
+                title: 'Request a guide',
+                desc: 'Topic you want covered next',
+                href: 'https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=content-request.md',
+              },
+              {
+                icon: MessageSquare,
+                title: 'General feedback',
+                desc: 'Anything else on your mind',
+                href: 'https://github.com/mshadmanrahman/claudecode-guide/issues/new',
+              },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start gap-3 rounded-lg border border-fd-border p-4 transition-colors hover:bg-fd-accent"
+              >
+                <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-fd-muted-foreground group-hover:text-fd-foreground transition-colors" />
+                <div className="flex-1">
+                  <div className="text-sm font-medium text-fd-foreground group-hover:underline">{item.title}</div>
+                  <div className="text-xs text-fd-muted-foreground">{item.desc}</div>
+                </div>
+              </a>
             ))}
           </div>
         </section>
