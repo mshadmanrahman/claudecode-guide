@@ -4,16 +4,20 @@ import { useState, useEffect, useCallback } from 'react';
 
 const STORAGE_KEY = 'claudecodeguide-progress';
 
+type IdeChoice = 'vscode' | 'cursor' | 'jetbrains' | 'terminal';
+
 interface GuideState {
   completedSteps: string[];
   selectedOs: 'mac' | 'windows' | 'linux' | null;
   selectedPlan: 'pro' | 'max' | null;
+  selectedIde: IdeChoice | null;
 }
 
 const defaultState: GuideState = {
   completedSteps: [],
   selectedOs: null,
   selectedPlan: null,
+  selectedIde: null,
 };
 
 export function useGuideProgress() {
@@ -60,6 +64,10 @@ export function useGuideProgress() {
     persist({ ...state, selectedPlan: plan });
   }, [state, persist]);
 
+  const setIde = useCallback((ide: IdeChoice) => {
+    persist({ ...state, selectedIde: ide });
+  }, [state, persist]);
+
   const resetProgress = useCallback(() => {
     persist(defaultState);
   }, [persist]);
@@ -74,6 +82,7 @@ export function useGuideProgress() {
     toggleStep,
     setOs,
     setPlan,
+    setIde,
     resetProgress,
     isCompleted: (stepId: string) => state.completedSteps.includes(stepId),
     progressPercent,
