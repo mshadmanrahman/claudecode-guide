@@ -283,7 +283,7 @@ export default function GuidePage() {
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                CLAUDE.md is the most important file in your project. It tells Claude Code how to behave. Create one in your project root:
+                Think of CLAUDE.md as <strong>a letter to Claude</strong> — it tells Claude who you are, what your project is, and how you want it to work. Without it, Claude guesses. With it, Claude knows. Create one in your project root:
               </p>
               <CopyBlock code={`# CLAUDE.md
 
@@ -507,7 +507,7 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
   }
 }`} language="json" />
               <p className="my-4 text-sm text-fd-muted-foreground">
-                Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project root. Set your <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable. Then try:
+                Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project root. Set your <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable — think of it as <strong>saving a password your computer remembers</strong>, so Claude Code can use it without you typing it every time. Then try:
               </p>
               <DemoCard title="MCP in action — talking to GitHub" loop={false} steps={[
                 { type: 'cmd', text: '"List my open pull requests"' },
