@@ -29,7 +29,7 @@ const CTA_PLACEMENTS: AffiliateCTAPlacement[] = ['inline', 'mid-banner', 'end-ca
 const AFFILIATE_LINKS = {
   vercelV0: 'https://v0.dev?ref=claudecodeguide',
   railway: 'https://railway.com?referralCode=shadman',
-  digitalOcean: 'https://www.digitalocean.com/?refcode=REPLACE_WITH_YOUR_CODE',
+  digitalOcean: 'https://m.do.co/c/4710894edcd3',
   coursera: 'https://www.coursera.org/professional-certificates?utm_source=claudecodeguide',
   proVsMax: '/docs/comparisons/pro-vs-max',
 } as const;
