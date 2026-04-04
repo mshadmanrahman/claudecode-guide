@@ -13,7 +13,26 @@ export interface AffiliateCTAConfig {
 type CTAConfigDraft = Omit<AffiliateCTAConfig, 'pageSlug' | 'variantId' | 'placement'>;
 
 const CTA_PLACEMENTS: AffiliateCTAPlacement[] = ['inline', 'mid-banner', 'end-card'];
-const DEFAULT_DESTINATION = 'https://claude.ai/upgrade';
+
+/**
+ * Affiliate destinations that actually pay commissions.
+ *
+ * Vercel v0: $5/lead + 30% recurring 6 months (partners.dub.co/v0)
+ * Railway: 15% recurring 12 months (railway.com/affiliate-program)
+ * DigitalOcean: 10% recurring 12 months
+ * Udemy: via Impact affiliate network
+ * Coursera: via Impact affiliate network
+ *
+ * Replace placeholder URLs below with your actual affiliate tracking links
+ * once you've signed up for each program.
+ */
+const AFFILIATE_LINKS = {
+  vercelV0: 'https://v0.dev?ref=claudecodeguide',
+  railway: 'https://railway.com?referralCode=REPLACE_WITH_YOUR_CODE',
+  digitalOcean: 'https://www.digitalocean.com/?refcode=REPLACE_WITH_YOUR_CODE',
+  coursera: 'https://www.coursera.org/professional-certificates?utm_source=claudecodeguide',
+  proVsMax: '/docs/comparisons/pro-vs-max',
+} as const;
 
 const guideDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
   inline: {
@@ -21,21 +40,21 @@ const guideDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
     description:
       'Start with Pro for guided practice, then upgrade when your daily usage grows. Keep momentum without paying for unused capacity.',
     ctaLabel: 'Compare Pro vs Max',
-    destination: '/docs/comparisons/pro-vs-max',
+    destination: AFFILIATE_LINKS.proVsMax,
   },
   'mid-banner': {
-    title: 'Ready for real projects?',
+    title: 'Need somewhere to deploy?',
     description:
-      'Use the same setup with your own repo. Claude plan limits affect throughput once you move from tutorials to production work.',
-    ctaLabel: 'See pricing and limits',
-    destination: DEFAULT_DESTINATION,
+      'Railway gives you one-click deploys from GitHub with generous free tier. Perfect for shipping what Claude Code builds.',
+    ctaLabel: 'Try Railway free',
+    destination: AFFILIATE_LINKS.railway,
   },
   'end-card': {
     title: 'Keep shipping: choose the plan that matches your workload',
     description:
       'Use our side-by-side comparison to pick the lowest-cost plan that still supports your daily coding and review flow.',
     ctaLabel: 'Open plan comparison',
-    destination: '/docs/comparisons/pro-vs-max',
+    destination: AFFILIATE_LINKS.proVsMax,
   },
 };
 
@@ -45,21 +64,21 @@ const comparisonDefaultDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
     description:
       'If Claude Code is your pick, validate plan limits and pricing before rollout so you do not hit avoidable bottlenecks later.',
     ctaLabel: 'View Claude plan breakdown',
-    destination: '/docs/comparisons/pro-vs-max',
+    destination: AFFILIATE_LINKS.proVsMax,
   },
   'mid-banner': {
-    title: 'Decision shortcut: pricing + limits in one place',
+    title: 'Ship your first project with v0',
     description:
-      'Use this before committing team workflows. You get clear differences on usage ceilings, context, and expected cost.',
-    ctaLabel: 'Review pricing details',
-    destination: DEFAULT_DESTINATION,
+      'Use Vercel v0 to turn your Claude Code output into a deployed app in minutes. AI-generated UI meets one-click deploy.',
+    ctaLabel: 'Try v0 free',
+    destination: AFFILIATE_LINKS.vercelV0,
   },
   'end-card': {
     title: 'Choose with confidence',
     description:
       'Open the final plan guide to match tool choice with budget, team size, and expected coding volume.',
     ctaLabel: 'Open buyer guide',
-    destination: '/docs/comparisons/pro-vs-max',
+    destination: AFFILIATE_LINKS.proVsMax,
   },
 };
 
@@ -123,10 +142,40 @@ function resolveComparisonDraft(
   };
 }
 
+const tutorialDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
+  inline: {
+    title: 'Want structured learning alongside this guide?',
+    description:
+      'Coursera professional certificates pair well with hands-on practice. Learn the theory, then build it with Claude Code.',
+    ctaLabel: 'Browse certificates',
+    destination: AFFILIATE_LINKS.coursera,
+  },
+  'mid-banner': {
+    title: 'Deploy what you just built',
+    description:
+      'Railway gives you one-click deploys from GitHub with a generous free tier. Ship what Claude Code builds in minutes.',
+    ctaLabel: 'Try Railway free',
+    destination: AFFILIATE_LINKS.railway,
+  },
+  'end-card': {
+    title: 'Keep building: pick a plan that fits',
+    description:
+      'Use our comparison to find the right Claude plan for your workload — from casual practice to daily production use.',
+    ctaLabel: 'Open plan comparison',
+    destination: AFFILIATE_LINKS.proVsMax,
+  },
+};
+
 export function getAffiliateCtasForPage(pageSlug: string): AffiliateCTAConfig[] {
   if (pageSlug === 'guide') {
     return CTA_PLACEMENTS.map((placement) =>
       createConfig(pageSlug, placement, guideDrafts[placement]),
+    );
+  }
+
+  if (pageSlug.startsWith('docs/tutorials/') || pageSlug.startsWith('tutorials/')) {
+    return CTA_PLACEMENTS.map((placement) =>
+      createConfig(pageSlug, placement, tutorialDrafts[placement]),
     );
   }
 
