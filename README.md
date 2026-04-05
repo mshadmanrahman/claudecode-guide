@@ -17,13 +17,9 @@ Conversational. Opinionated. Interactive terminal demos on every page.
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](https://github.com/mshadmanrahman/claudecode-guide/pulls)
 [![Stars](https://img.shields.io/github/stars/mshadmanrahman/claudecode-guide?style=for-the-badge&logo=github)](https://github.com/mshadmanrahman/claudecode-guide/stargazers)
 
-[Start the Guide](https://claudecodeguide.dev/guide) &bull; [Browse Docs](https://claudecodeguide.dev/docs/foundations/which-interface) &bull; [Read the Blog](https://claudecodeguide.dev/blog) &bull; [View Roadmap](https://claudecodeguide.dev/roadmap)
-
 </div>
 
 ---
-
-## The Problem
 
 Most people install Claude Code, type a prompt, get a mediocre answer, and walk away thinking "AI coding tools aren't that useful."
 
@@ -35,7 +31,30 @@ They're wrong. They just skipped the setup.
 
 This guide shows you how to go from zero to "I can't work without this" in about a week.
 
+## Start Here
+
+**The guide lives at [claudecodeguide.dev](https://claudecodeguide.dev).** You don't need to install anything or clone this repo. Just open the site and start reading.
+
+[**Open the 9-Step Setup Guide**](https://claudecodeguide.dev/guide) — takes about an hour, sticks forever.
+
+---
+
+## Who This Is For
+
+You don't need to be a developer. You don't need to know what a terminal is. You need to want Claude Code to actually work well.
+
+- **Absolute beginners** who installed Claude Code and aren't sure what to do next
+- **Developers** who use it daily but feel like they're leaving half the value on the table
+- **Product Managers** who want to ship without waiting for eng — there's a whole templates section for you
+- **Founders** building MVPs with AI and no dedicated engineering team
+- **Team Leads** rolling out Claude Code across a team and want a repeatable playbook
+- **Anyone** who tried it once, thought "meh", and deserves a second shot with proper context
+
+---
+
 ## What's Inside
+
+The guide is 34 pages across 5 sections. Here's the full table of contents:
 
 <table>
 <tr>
@@ -73,7 +92,7 @@ This guide shows you how to go from zero to "I can't work without this" in about
 <tr>
 <td>
 
-### Comparisons (5 pages)
+### Comparisons (6 pages)
 - [vs Cursor](https://claudecodeguide.dev/docs/comparisons/vs-cursor)
 - [vs GitHub Copilot](https://claudecodeguide.dev/docs/comparisons/vs-copilot)
 - [vs Windsurf](https://claudecodeguide.dev/docs/comparisons/vs-windsurf)
@@ -84,7 +103,7 @@ This guide shows you how to go from zero to "I can't work without this" in about
 </td>
 <td>
 
-### Templates (5 pages)
+### Templates (4 pages)
 - [Next.js App](https://claudecodeguide.dev/docs/templates/nextjs-app)
 - [Monorepo](https://claudecodeguide.dev/docs/templates/monorepo)
 - [Python Project](https://claudecodeguide.dev/docs/templates/python-project)
@@ -98,6 +117,8 @@ This guide shows you how to go from zero to "I can't work without this" in about
 </td>
 </tr>
 </table>
+
+---
 
 ## Every Page Has Interactive Terminal Demos
 
@@ -115,19 +136,35 @@ No walls of text. Every concept shows you what to expect before you try it:
 
 45+ animated terminal demos across 34 pages. The philosophy: **show, don't tell.**
 
-## Who This Is For
+---
 
-- **Product Managers** who want to ship without waiting for eng
-- **Developers** new to Claude Code who want a proper on-ramp
-- **Founders** building MVPs with AI
-- **Team Leads** rolling out Claude Code across a team
-- **Anyone** who tried Claude Code once and thought "meh"
+## PM Toolkit Family
 
-## Quick Start
+Once you've finished the guide, there are a few other tools built for the same audience — practitioners who want to actually get things done with AI, not just read about it.
 
-You don't need to clone this repo. Just visit **[claudecodeguide.dev](https://claudecodeguide.dev)**.
+If you're a PM specifically, [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) is built for you — Claude Code pre-configured for product work, ready to install once you've done the guide.
 
-To run locally or contribute:
+| Tool | What it does |
+|------|-------------|
+| [pm-pilot](https://github.com/mshadmanrahman/pm-pilot) | Claude Code configured for PMs. 25 skills, ready to install. |
+| [bug-shepherd](https://github.com/mshadmanrahman/bug-shepherd) | Zero-code bug triage for PMs. |
+| [ceremonies](https://github.com/mshadmanrahman/ceremonies) | Agile ceremonies that don't suck. Retros, estimation, team analytics — open source. |
+| [morning-digest](https://github.com/mshadmanrahman/morning-digest) | Your morning briefed in 30 seconds. |
+
+---
+
+## Contributing
+
+The guide is built with Next.js and Fumadocs. Every article is an `.mdx` file in `content/docs/`. If you can write Markdown, you can contribute.
+
+**Ways to help:**
+
+- **Fix a typo** — edit any `.mdx` file and open a PR
+- **Suggest a topic** — open an issue
+- **Add a template** — create a new `.mdx` in `content/docs/templates/`
+- **Improve a demo** — DemoCard components are in `src/components/demo-card.tsx`
+
+**To run the site locally:**
 
 ```bash
 git clone https://github.com/mshadmanrahman/claudecode-guide.git
@@ -136,7 +173,9 @@ npm install
 npm run dev
 ```
 
-## Tech Stack
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
+
+**Tech stack:**
 
 | Layer | Tech |
 |-------|------|
@@ -146,18 +185,6 @@ npm run dev
 | Styling | Tailwind CSS v4 |
 | Fonts | Newsreader + Space Grotesk + Geist Mono |
 | Hosting | [Vercel](https://vercel.com) |
-| Domain | [claudecodeguide.dev](https://claudecodeguide.dev) |
-
-## Contributing
-
-Every article is an `.mdx` file in `content/docs/`. If you can write Markdown, you can contribute.
-
-- **Fix a typo** — edit any `.mdx` file and open a PR
-- **Suggest a topic** — open an issue
-- **Add a template** — create a new `.mdx` in `content/docs/templates/`
-- **Improve a demo** — DemoCard components are in `src/components/demo-card.tsx`
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## Roadmap
 
@@ -171,6 +198,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 - [ ] Community templates gallery
 - [ ] "Ask the guide" AI assistant
 - [ ] Translations (Bengali, Swedish, Spanish)
+
+---
 
 ## Star History
 
