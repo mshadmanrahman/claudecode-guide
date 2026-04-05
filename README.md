@@ -150,6 +150,7 @@ If you're a PM specifically, [PM Pilot](https://github.com/mshadmanrahman/pm-pil
 | [bug-shepherd](https://github.com/mshadmanrahman/bug-shepherd) | Zero-code bug triage for PMs. |
 | [ceremonies](https://github.com/mshadmanrahman/ceremonies) | Agile ceremonies that don't suck. Retros, estimation, team analytics — open source. |
 | [morning-digest](https://github.com/mshadmanrahman/morning-digest) | Your morning briefed in 30 seconds. |
+| [root-kg](https://github.com/mshadmanrahman/root-kg) | Your knowledge graph. Ask questions across all your notes, meetings, and emails — cited answers in plain English. |
 
 ---
 
