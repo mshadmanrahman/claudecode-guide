@@ -85,12 +85,12 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
     >
       {/* Header — changes based on variant */}
       {variant === 'ide' ? (
-        <div className="flex items-center gap-2.5 border-b border-zinc-700 bg-[#1e1e1e] px-4 py-3">
-          <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-zinc-700 text-[10px] text-zinc-300">
+        <div className="flex items-center gap-2.5 border-b border-zinc-600 bg-zinc-800 px-4 py-3">
+          <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-zinc-600 text-[10px] text-zinc-200">
             ⌘
           </div>
-          <span className="text-xs font-medium text-zinc-300">AI Chat</span>
-          <span className="ml-auto font-mono text-[11px] text-zinc-500">Cursor · ⌘L</span>
+          <span className="text-xs font-medium text-zinc-200">AI Chat</span>
+          <span className="ml-auto font-mono text-[11px] text-zinc-400">Cursor · ⌘L</span>
         </div>
       ) : (
         <div className="flex items-center gap-2.5 border-b border-fd-border bg-fd-muted px-4 py-3">
@@ -121,7 +121,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
             <div
               className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 step.role === 'user'
-                  ? 'rounded-br-sm bg-blue-600 text-white dark:bg-blue-500'
+                  ? 'rounded-br-sm bg-[#525252] text-white'
                   : 'rounded-bl-sm border border-fd-border bg-fd-background text-fd-foreground'
               }`}
             >
