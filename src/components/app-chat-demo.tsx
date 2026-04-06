@@ -1,7 +1,35 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import { useInView } from '@/hooks/use-in-view';
+
+/** Render **bold**, `inline code`, and \n line breaks from chat text. */
+function renderChatText(text: string): ReactNode {
+  const lines = text.split('\n');
+  return lines.map((line, li) => {
+    const parts = line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+    const rendered = parts.map((part, pi) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={pi}>{part.slice(2, -2)}</strong>;
+      }
+      if (part.startsWith('`') && part.endsWith('`')) {
+        return (
+          <code key={pi} className="rounded bg-fd-muted px-1 py-0.5 font-mono text-[11px]">
+            {part.slice(1, -1)}
+          </code>
+        );
+      }
+      return part;
+    });
+    return (
+      <span key={li}>
+        {rendered}
+        {li < lines.length - 1 && <br />}
+      </span>
+    );
+  });
+}
 
 export type ChatRole = 'user' | 'claude';
 
@@ -74,11 +102,11 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
         </div>
       )}
 
-      {/* Message thread */}
+      {/* Message thread — fixed height prevents CLS as messages animate in */}
       <div
         ref={scrollRef}
         className="overflow-y-auto px-4 py-4 space-y-3"
-        style={{ minHeight: 120, maxHeight: 300 }}
+        style={{ height: 260 }}
       >
         {steps.slice(0, visibleCount).map((step, i) => (
           <div
@@ -96,9 +124,8 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
                   ? 'rounded-br-sm bg-zinc-700 text-zinc-50 dark:bg-zinc-600'
                   : 'rounded-bl-sm border border-fd-border bg-fd-background text-fd-foreground'
               }`}
-              style={{ whiteSpace: 'pre-line' }}
             >
-              {step.text}
+              {renderChatText(step.text)}
             </div>
           </div>
         ))}
