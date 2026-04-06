@@ -14,23 +14,17 @@ interface DemoData {
   }>;
 }
 
-interface AppDemoData {
+interface ChatDemoData {
   steps: ChatStep[];
 }
 
 interface TutorialStepDemoProps {
   demo?: DemoData;
-  appDemo?: AppDemoData;
+  appDemo?: ChatDemoData;
+  ideDemo?: ChatDemoData;
 }
 
-/**
- * Client island that renders either a terminal DemoCard or an AppChatDemo
- * based on the currently selected tutorial route (persisted in localStorage).
- *
- * Falls back gracefully: if the chosen route has no content, renders
- * whichever demo type is available.
- */
-export function TutorialStepDemo({ demo, appDemo }: TutorialStepDemoProps) {
+export function TutorialStepDemo({ demo, appDemo, ideDemo }: TutorialStepDemoProps) {
   const [route, setRoute] = useState<TutorialRoute>('app');
 
   useEffect(() => {
@@ -46,18 +40,21 @@ export function TutorialStepDemo({ demo, appDemo }: TutorialStepDemoProps) {
     return () => window.removeEventListener(ROUTE_CHANGE_EVENT, onRouteChange);
   }, []);
 
-  // Claude App route
-  if (route === 'app' && appDemo) {
-    return <AppChatDemo steps={appDemo.steps} loop={false} />;
+  if (route === 'app') {
+    if (appDemo) return <AppChatDemo steps={appDemo.steps} loop={false} variant="app" />;
   }
 
-  // Terminal / IDE route (both fall back to DemoCard for now)
-  if (route !== 'app' && demo) {
-    return <DemoCard title={demo.title} steps={demo.steps} loop={false} />;
+  if (route === 'ide') {
+    if (ideDemo) return <AppChatDemo steps={ideDemo.steps} loop={false} variant="ide" />;
   }
 
-  // Fallback: render whatever is available
-  if (appDemo) return <AppChatDemo steps={appDemo.steps} loop={false} />;
+  if (route === 'terminal') {
+    if (demo) return <DemoCard title={demo.title} steps={demo.steps} loop={false} />;
+  }
+
+  // Graceful fallback — show whatever is available for this step
+  if (appDemo) return <AppChatDemo steps={appDemo.steps} loop={false} variant="app" />;
+  if (ideDemo) return <AppChatDemo steps={ideDemo.steps} loop={false} variant="ide" />;
   if (demo) return <DemoCard title={demo.title} steps={demo.steps} loop={false} />;
 
   return null;

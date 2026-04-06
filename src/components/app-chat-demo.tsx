@@ -17,9 +17,11 @@ interface AppChatDemoProps {
   steps: ChatStep[];
   loop?: boolean;
   loopDelay?: number;
+  /** 'app' = claude.ai interface. 'ide' = VS Code / Cursor chat panel. */
+  variant?: 'app' | 'ide';
 }
 
-export function AppChatDemo({ steps, loop = true, loopDelay = 4000 }: AppChatDemoProps) {
+export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'app' }: AppChatDemoProps) {
   const [visibleCount, setVisibleCount] = useState(0);
   const [containerRef, isInView] = useInView(0.3);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,14 +55,24 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000 }: AppChatDem
       ref={containerRef}
       className="my-6 overflow-hidden rounded-xl border border-fd-border shadow-sm bg-fd-card"
     >
-      {/* App header */}
-      <div className="flex items-center gap-2.5 border-b border-fd-border bg-fd-muted px-4 py-3">
-        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#cc785c] text-[11px] font-bold text-white">
-          C
+      {/* Header — changes based on variant */}
+      {variant === 'ide' ? (
+        <div className="flex items-center gap-2.5 border-b border-zinc-700 bg-[#1e1e1e] px-4 py-3">
+          <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-zinc-700 text-[10px] text-zinc-300">
+            ⌘
+          </div>
+          <span className="text-xs font-medium text-zinc-300">AI Chat</span>
+          <span className="ml-auto font-mono text-[11px] text-zinc-500">Cursor · ⌘L</span>
         </div>
-        <span className="text-sm font-medium text-fd-foreground">Claude</span>
-        <span className="ml-auto font-mono text-[11px] text-fd-muted-foreground">claude.ai</span>
-      </div>
+      ) : (
+        <div className="flex items-center gap-2.5 border-b border-fd-border bg-fd-muted px-4 py-3">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#cc785c] text-[11px] font-bold text-white">
+            C
+          </div>
+          <span className="text-sm font-medium text-fd-foreground">Claude</span>
+          <span className="ml-auto font-mono text-[11px] text-fd-muted-foreground">claude.ai</span>
+        </div>
+      )}
 
       {/* Message thread */}
       <div
@@ -74,8 +86,8 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000 }: AppChatDem
             className={`flex items-end gap-2 animate-fade-in ${step.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {step.role === 'claude' && (
-              <div className="mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#cc785c] text-[11px] font-bold text-white">
-                C
+              <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white ${variant === 'ide' ? 'bg-violet-600' : 'bg-[#cc785c]'}`}>
+                {variant === 'ide' ? 'AI' : 'C'}
               </div>
             )}
             <div
@@ -94,8 +106,8 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000 }: AppChatDem
         {/* Typing indicator */}
         {showTyping && (
           <div className="flex items-end gap-2 justify-start animate-fade-in">
-            <div className="mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#cc785c] text-[11px] font-bold text-white">
-              C
+            <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white ${variant === 'ide' ? 'bg-violet-600' : 'bg-[#cc785c]'}`}>
+              {variant === 'ide' ? 'AI' : 'C'}
             </div>
             <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-fd-border bg-fd-background px-4 py-3">
               <span
@@ -119,7 +131,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000 }: AppChatDem
       <div className="border-t border-fd-border bg-fd-muted px-4 py-3">
         <div className="flex items-center gap-2 rounded-xl border border-fd-border bg-fd-background px-3 py-2">
           <span className="flex-1 text-xs text-fd-muted-foreground/60 select-none">
-            Message Claude…
+            {variant === 'ide' ? 'Ask Cursor…' : 'Message Claude…'}
           </span>
           <div className="flex h-5 w-5 items-center justify-center rounded-full bg-fd-muted-foreground/20">
             <svg className="h-2.5 w-2.5 rotate-90 text-fd-muted-foreground" fill="currentColor" viewBox="0 0 24 24">
