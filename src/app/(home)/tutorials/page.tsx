@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine, Network, Newspaper } from 'lucide-react';
+import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine, Network, Newspaper, Star, Lightbulb, BarChart2, BookOpen, Layout, Target, DollarSign } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { EmailCapture } from '@/components/email-capture';
 
@@ -213,12 +213,100 @@ export default function TutorialsPage() {
 
           <TutorialCard
             title="Build a Weekly Status Report Generator"
-            description="Pull from Jira, GitHub, and Slack. Generate a stakeholder-ready status report in seconds."
+            description="Pull from your projects and generate a stakeholder-ready status report in seconds."
             duration="15 min"
             difficulty="intermediate"
             outcome="A /weekly-status skill that generates your report from real data sources."
             href="/tutorials/weekly-status"
             icon={<Briefcase className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Run a Competitive Analysis in 30 Minutes"
+            description="Feed Claude your product and competitor info. Get a structured matrix and clear positioning gaps."
+            duration="30 min"
+            difficulty="intermediate"
+            outcome="A comparison matrix, positioning gap analysis, and a strategic recommendation ready to share."
+            href="/tutorials/competitive-analysis"
+            icon={<BarChart2 className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Turn Any Decision into a Clear Memo"
+            description="Brain dump a messy decision. Get a structured memo with options, recommendation, and risks."
+            duration="15 min"
+            difficulty="intermediate"
+            outcome="A decision memo ready for stakeholder review — problem, options, recommendation, risk register."
+            href="/tutorials/decision-memo"
+            icon={<Lightbulb className="h-5 w-5" />}
+            available={true}
+          />
+        </div>
+
+        <div className="mt-12 mb-8">
+          <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground">
+            For everyone
+          </h2>
+          <p className="mt-1 text-sm text-fd-muted-foreground">
+            No code, no terminal. Useful for anyone who works with documents, data, and other people.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          <TutorialCard
+            title="Write a Performance Review in 20 Minutes"
+            description="Paste your messy notes about a team member. Get a structured, balanced, specific review ready to submit."
+            duration="20 min"
+            difficulty="beginner"
+            outcome="A complete performance review across all dimensions — ready to copy into your HR system."
+            href="/tutorials/performance-review"
+            icon={<Star className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Turn 5 Articles into a Research Briefing Doc"
+            description="Paste your sources. Get a structured briefing with key insights, tensions, and implications."
+            duration="15 min"
+            difficulty="beginner"
+            outcome="A one-page briefing doc ready to share with your team or leadership — sourced, synthesised, and clear."
+            href="/tutorials/research-briefing"
+            icon={<BookOpen className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Build a Slide Deck Outline in 15 Minutes"
+            description="Tell Claude your goal and content. Get a narrative arc, slide-by-slide outline, and speaker notes."
+            duration="15 min"
+            difficulty="beginner"
+            outcome="A complete deck outline with a clear narrative and speaker notes — before you open PowerPoint."
+            href="/tutorials/slide-deck-outline"
+            icon={<Layout className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Build a Job Application Assistant"
+            description="Paste the job description and your background. Get a match analysis, tailored cover letter, and interview prep."
+            duration="20 min"
+            difficulty="beginner"
+            outcome="A tailored cover letter and answers to the top 3 interview questions — specific to the role."
+            href="/tutorials/job-application-assistant"
+            icon={<Target className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Build a Personal Finance Manager"
+            description="Paste your spending data. Get a breakdown, honest analysis, savings plan, and monthly review template."
+            duration="20 min"
+            difficulty="beginner"
+            outcome="A realistic savings plan with specific targets and a monthly review routine you'll actually follow."
+            href="/tutorials/personal-finance-manager"
+            icon={<DollarSign className="h-5 w-5" />}
             available={true}
           />
         </div>

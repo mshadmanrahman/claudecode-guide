@@ -1764,6 +1764,727 @@ When asked for "email format":
       href: '/docs/workflows/daily-practice',
     },
   },
+
+  'performance-review': {
+    title: 'Write a Performance Review in 20 Minutes',
+    slug: 'performance-review',
+    duration: '20 min',
+    difficulty: 'beginner',
+    availableRoutes: ['app', 'ide'],
+    description:
+      'Paste your messy notes about a team member. Walk away with a structured, balanced, specific review ready to submit.',
+    intro:
+      'Performance reviews are painful because they require translating months of memory into structured written feedback — fairly, specifically, and constructively. Most managers either write something vague ("great collaborator!") or spend two hours agonising over phrasing. Claude handles the structure. You provide the truth.',
+    steps: [
+      {
+        title: 'Give Claude the context',
+        description:
+          'Start by telling Claude who you\'re reviewing, what level they are, and what dimensions matter. The more specific, the more useful the output.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I need to write an annual performance review for a direct report. Can you help me structure this?' },
+            { role: 'claude', text: 'Yes — let\'s do this properly. To write something fair and useful, tell me:\n\n1. Their role and level (e.g. Senior PM, L5 Engineer)\n2. Review period (6-month, annual)\n3. What dimensions your company uses (impact, execution, collaboration, growth — or your company\'s rubric)\n4. Overall: are they a high performer, meeting expectations, or is this a difficult conversation?\n\nThe more you give me, the less I\'ll need to make up.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Help me write a performance review for my direct report. Senior PM, annual review, company rubric: impact / execution / collaboration / growth.' },
+            { role: 'claude', text: 'Got the structure. I\'ll need your raw observations before I draft anything — paste your notes (bullet points are fine, messy is fine) and I\'ll turn them into a structured review across those four dimensions.' },
+          ],
+        },
+      },
+      {
+        title: 'Paste your raw observations',
+        description:
+          'Don\'t filter yourself here. Paste messy notes, bullet points, Slack messages, whatever you have. Claude will synthesise it.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Her name is Priya, Senior PM. Strong: led the onboarding redesign, 40% improvement in activation, shipped on time. Weak: changed requirements late in sprints twice without using change control — engineering flagged it. She\'s technically strong but needs to grow as a collaborator with engineering.' },
+            { role: 'claude', text: 'Good material. Here\'s what I\'m working with:\n\n✅ Strong: High-impact delivery (onboarding, 40% activation), meets deadlines, technical depth\n⚠️ Growth area: Late-stage requirement changes without process — created friction with engineering\n\nOne question before I draft: was the activation improvement attributed directly to her project, and do you have a timeframe for the sprint incidents? Specifics make reviews credible and defensible. I\'ll draft with or without them.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Priya\'s highlights: onboarding redesign shipped Q3, 40% activation improvement. Issues: changed requirements twice mid-sprint without change control, engineering team flagged tension both times. Strong technically, needs to grow cross-functionally.' },
+            { role: 'claude', text: 'Understood. I have enough to draft across all four dimensions. The collaboration section will specifically name the change-control incidents — that\'s fair and actionable. Ready to generate the full draft.' },
+          ],
+        },
+      },
+      {
+        title: 'Generate the structured draft',
+        description:
+          'Claude writes the full review: overall summary, per-dimension ratings and commentary, and a forward-looking closing.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Draft the full review.' },
+            { role: 'claude', text: '**Performance Review — Priya [Last Name]**\nPeriod: Jan–Dec 2025\n\n**Overall**: Strong year on delivery and product impact. Clear development area in cross-functional process discipline.\n\n**Impact — Exceeds**\nPriya\'s signature achievement this year was leading the onboarding redesign end-to-end. A 40% improvement in activation is a meaningful business outcome — not a vanity metric. She identified the problem, drove alignment on the solution, and shipped on time against a Q3 deadline.\n\n**Execution — Meets**\nDelivers on her commitments. The opportunity is proactive communication when timelines or scope shift, before the impact lands on partners.\n\n**Collaboration — Developing**\nTwo incidents during the onboarding project where requirements changed late in the sprint without going through change control left the engineering team feeling blindsided. This created rework and eroded trust. The behaviour likely came from strong user instincts — but process matters. Expectation for next year: scope changes during development go through the agreed channel regardless of urgency.\n\n**Growth — Meets**\nPriya\'s technical depth is an asset. The growth edge is using it to bring partners along, not just to move faster alone.\n\n**Looking ahead**: Priya is ready for increased scope. The work to support it is specific and achievable.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Generate the full review.' },
+            { role: 'claude', text: '**Performance Review — Priya [Last Name]** · Annual · Reviewer: [You]\n\n**Overall**: Strong on delivery and impact. Collaboration is the targeted growth area.\n\n**Impact** — Exceeds\nLed onboarding redesign. 40% activation improvement, shipped Q3 on time. High business value.\n\n**Execution** — Meets\nReliable on commitments. Opportunity: proactive comms when scope shifts, before it hits partners.\n\n**Collaboration** — Developing\nTwo mid-sprint requirement changes without change control — both flagged by engineering. Root cause: strong product instincts operating without process discipline. Specific, fixable.\n\n**Growth** — Meets\nTechnical depth is an asset. Growth edge: using it to bring partners along.\n\n**Forward**: Ready for more scope. Development work is clear and bounded.\n\nWant me to expand any section or adjust ratings?' },
+          ],
+        },
+      },
+      {
+        title: 'Sharpen with specifics',
+        description:
+          'Generic feedback feels unfair. Ask Claude to strengthen any section with more concrete language tied to real outcomes.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'The Impact section is good but make it more narrative — I want leadership to understand why this was hard, not just that the outcome was good.' },
+            { role: 'claude', text: 'Updated Impact section:\n\n**Impact — Exceeds**\nThe onboarding redesign was Priya\'s defining achievement this year — and it wasn\'t a straightforward win. The project started with significant scope ambiguity, hit an engineering constraint in week six that threatened the timeline, and had at least one round of stakeholder pressure to reduce scope. Priya navigated all three without escalating to leadership.\n\nThe 40% activation improvement is the headline. But what it reflects is her ability to hold a complex, cross-functional project together under pressure — identifying the problem through user research, driving alignment on a non-obvious solution, and shipping on time. That\'s the kind of independent ownership we expect at the Senior PM level, and she delivered it.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Expand the Impact section — more narrative, explain why this was hard, not just what the outcome was.' },
+            { role: 'claude', text: 'Expanded:\n\nThe onboarding redesign wasn\'t a clean project. Scope was ambiguous at kick-off, an engineering constraint threatened the timeline at week six, and stakeholders pushed to reduce scope twice. Priya absorbed all of that without escalating. The 40% activation improvement reflects not just good product instincts but the kind of composure and independent ownership we need at Senior PM. She ran a hard project well.' },
+          ],
+        },
+      },
+      {
+        title: 'Calibrate the tone',
+        description:
+          'Ask Claude to adjust the balance — softer for a fragile conversation, more direct for a high performer who needs honest feedback to grow.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'The collaboration section feels too harsh given how strong the rest of the review is. She\'s a high performer overall — I want the tone to reflect that while still being honest about the growth area.' },
+            { role: 'claude', text: 'Here\'s a rebalanced version — same feedback, different framing:\n\n**Collaboration — Developing**\nPriya pushes hard on quality, and that\'s a feature, not a bug. The thing to sharpen is how she does it in the context of a sprint in motion. Two instances where requirements changed late without going through change control created rework for engineering and eroded some trust. This isn\'t a broad collaboration problem — it\'s a specific process habit that typically resolves as PMs take on larger, more visible projects where stakeholder trust becomes the resource that\'s hardest to rebuild.\n\nThe expectation for next year: when user insights demand a scope change mid-sprint, bring it through the process. The instinct is right; the timing and channel need to catch up.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Soften the collaboration section slightly — she\'s a strong performer overall, I don\'t want this to overshadow the rest.' },
+            { role: 'claude', text: 'Rebalanced:\n\n**Collaboration — Developing**\nPriya\'s instincts are right — she\'s pushing for the best product outcome. The habit to build is running those instincts through the process when it matters: two mid-sprint scope changes without change control created avoidable rework for engineering. This is a specific, bounded thing to fix — not a signal about her broader ability to work cross-functionally. Expectation for next year: when insights demand a change mid-sprint, bring it through the agreed channel.' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Build a weekly status report generator',
+      href: '/tutorials/weekly-status',
+    },
+  },
+
+  'decision-memo': {
+    title: 'Turn Any Decision into a Clear Memo in 15 Minutes',
+    slug: 'decision-memo',
+    duration: '15 min',
+    difficulty: 'intermediate',
+    availableRoutes: ['app', 'ide'],
+    description:
+      'Brain dump a messy decision. Walk away with a structured memo: problem, options, recommendation, risks, and next steps.',
+    intro:
+      'Most decisions fail to land not because the thinking was wrong, but because it was never written down clearly. A decision memo forces the logic out of your head and into a form other people can challenge, approve, and act on. Claude handles the structure — you just need to brain dump what you actually know.',
+    steps: [
+      {
+        title: 'Brain dump the decision',
+        description:
+          'Start messy. Type everything you know — the situation, what you\'re leaning toward, what\'s blocking you. Don\'t structure it yet.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I need to decide whether to rebuild our authentication system from scratch or migrate to Auth0. We\'ve been on a custom system for 4 years. It\'s getting fragile and the team hates maintaining it. Auth0 costs ~$2k/month at our scale. A rebuild would take 3–4 months and we\'d probably make the same mistakes again. But Auth0 feels like giving up control of a core system. We have a board review in 3 weeks and need a decision before then.' },
+            { role: 'claude', text: 'Good starting material. I can see the core tension: cost/control vs. maintenance drag + risk.\n\nBefore I structure this into a memo, two quick questions that will shape the recommendation:\n1. What\'s the current cost of maintaining the custom system? (Eng time, incidents, oncall burden)\n2. Are there any compliance or data residency requirements that would constrain Auth0?\n\nIf you don\'t have those numbers, I\'ll flag them as assumptions in the memo — but they\'re the crux of the financial case.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'I need a decision memo on auth system: rebuild from scratch vs. migrate to Auth0. Custom system is 4 years old, fragile, team hates it. Auth0 costs ~$2k/month. Rebuild = 3-4 months, same risks. Board review in 3 weeks.' },
+            { role: 'claude', text: 'I have enough to structure this. The core tension is control/cost vs. maintenance drag. I\'ll build the memo with: problem statement, three options (rebuild, Auth0, hybrid), tradeoffs, and a recommendation.\n\nDo you want me to include a financial comparison, or keep it qualitative for now?' },
+          ],
+        },
+      },
+      {
+        title: 'Define the problem statement',
+        description:
+          'Claude will sharpen your brain dump into a crisp one-paragraph problem statement — the most important part of any memo.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'No compliance constraints. Auth0 is fine on that front. Current maintenance cost is hard to quantify but it\'s probably 15–20% of one senior engineer\'s time across incidents and debt work.' },
+            { role: 'claude', text: 'Good. Here\'s the sharpened problem statement:\n\n---\n**Problem Statement**\nOur authentication system, built in-house four years ago, has accumulated significant technical debt and now consumes an estimated 15–20% of a senior engineer\'s capacity in maintenance and incident response. As we scale, this drag will increase. We need to decide whether to invest in a rebuild, migrate to a managed solution (Auth0), or find a hybrid path — with a decision before the board review in three weeks.\n\n**Decision owner**: [You]\n**Deadline**: [Date of board review]\n**Stakeholders**: Engineering, Product, Finance\n---\n\nDoes that capture it? I can adjust the framing before we move to options.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Draft the problem statement.' },
+            { role: 'claude', text: '**Problem Statement**\nThe in-house auth system (built 2021) carries significant technical debt and absorbs ~15–20% of a senior engineer\'s capacity in maintenance and incidents. This drag increases as we scale. We need a decision between rebuild, managed migration (Auth0), or hybrid — before the board review in three weeks.\n\n**Decision owner**: [You] | **Stakeholders**: Eng, Product, Finance\n\nReady to generate options.' },
+          ],
+        },
+      },
+      {
+        title: 'Generate options with tradeoffs',
+        description:
+          'A good decision memo never presents one option. Claude will generate three paths and lay out the honest tradeoffs for each.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Now generate the options section with honest tradeoffs.' },
+            { role: 'claude', text: '**Options**\n\n**Option A: Migrate to Auth0**\n→ Cost: ~$2,000/month (~$24k/year)\n→ Timeline: 6–8 weeks migration\n→ Pros: Eliminates maintenance burden immediately, gets MFA, SSO, SOC2 compliance baked in, frees the engineer\n→ Cons: Ongoing cost, vendor dependency, some customisation limits\n→ Risk: Migration bugs; mitigated by phased rollout\n\n**Option B: Full rebuild in-house**\n→ Cost: 3–4 months of 1–2 engineers (~$80–120k in eng time at market rate)\n→ Timeline: Q3 at earliest\n→ Pros: Full control, no vendor cost, built to your spec\n→ Cons: High opportunity cost, same risk of accruing debt again, no guarantee it\'s better\n→ Risk: Scope creep, timeline slip, team builds the same mistakes\n\n**Option C: Incremental hardening (do nothing differently)**\n→ Cost: Current ~15–20% eng time ongoing\n→ Timeline: N/A\n→ Pros: No migration risk, no upfront cost\n→ Cons: Problem compounds; incidents will increase with scale\n→ Risk: Auth incident in production — highest tail risk of the three options' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Generate three options with honest tradeoffs.' },
+            { role: 'claude', text: '**Option A: Migrate to Auth0** — $24k/year, 6–8 week migration, eliminates debt immediately. Vendor dependency tradeoff.\n\n**Option B: Full rebuild** — ~$80–120k eng time, 3–4 months, full control. High opportunity cost, same risk of re-accruing debt.\n\n**Option C: Status quo (incremental hardening)** — Current ~15–20% eng cost, no migration risk, but problem compounds at scale. Highest tail risk (auth incident).\n\nReady to write the recommendation?' },
+          ],
+        },
+      },
+      {
+        title: 'Write the recommendation',
+        description:
+          'The memo needs a clear recommendation with rationale — not "it depends." Claude will make the call based on the options.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Write the recommendation. I\'m leaning toward Auth0 but I\'m not 100% sure.' },
+            { role: 'claude', text: '**Recommendation: Option A — Migrate to Auth0**\n\nAt $24k/year, Auth0 costs approximately 20–30% of what a full rebuild would cost in engineering time alone — and it delivers the outcome immediately rather than in four months. The rebuild\'s core appeal (control) is largely theoretical: we didn\'t build a better system last time, and there\'s no structural reason we would now.\n\nThe maintenance drag will only grow as user volume increases. An auth incident at scale is a company-risk event. Paying $2k/month to remove that risk and free a senior engineer is straightforwardly good economics.\n\nThe migration is not zero-risk — rollout bugs are the primary concern — but a phased migration (5% → 20% → 100% of traffic over three weeks) manages that exposure well.\n\n**Recommended path**: Approve Auth0 migration. Assign lead engineer. Begin phased rollout within two weeks of approval.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Write the recommendation — lean toward Auth0.' },
+            { role: 'claude', text: '**Recommendation: Migrate to Auth0 (Option A)**\n\nAt $24k/year, Auth0 costs 20–30% of a rebuild in eng time alone, and delivers the outcome now rather than in Q3. The rebuild\'s main appeal — control — is largely theoretical; we didn\'t build a better system last time.\n\nMaintenance drag grows with scale. An auth incident is a company-risk event. $2k/month to eliminate it and free a senior engineer is good economics.\n\n**Path**: Approve migration, assign lead, phased rollout (5→20→100% over 3 weeks) to manage risk.' },
+          ],
+        },
+      },
+      {
+        title: 'Add risks and get sign-off ready',
+        description:
+          'Every memo needs a risk register and a clear ask. Claude will finish with the risks, mitigations, and the exact decision you need.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Add a risk register and a sign-off section.' },
+            { role: 'claude', text: '**Risks & Mitigations**\n\n| Risk | Likelihood | Impact | Mitigation |\n|---|---|---|---|\n| Migration bugs cause auth failures | Medium | High | Phased rollout; feature flag to revert |\n| Auth0 raises prices significantly | Low | Medium | Annual contract lock-in; review at renewal |\n| Team loses auth system knowledge | Low | Low | Internal docs before migration; not a critical risk |\n| Auth0 outage affects our availability | Low | High | Auth0 SLA is 99.99%; current system has no SLA |\n\n---\n\n**Decision Required**\n\nApprove migration to Auth0 at ~$2,000/month.\n\n**Decision owner**: [Your name]\n**Needed by**: [3 days before board review]\n**If approved**: Engineering begins migration planning immediately\n**If not approved**: Schedule a working session to revisit Option B scoping\n\n---\n\nThis memo is ready to send. Want me to write a one-paragraph executive summary for the top?' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Add risks, mitigations, and sign-off section.' },
+            { role: 'claude', text: '**Risks**\n• Migration bugs → phased rollout + revert flag (Medium likelihood, mitigated)\n• Auth0 price increase → annual contract (Low, mitigated)\n• Auth0 outage → 99.99% SLA, better than current (Low)\n\n**Decision Required**\nApprove Auth0 migration at ~$2k/month.\nDecision owner: [You] | Needed by: [date]\n\nMemo is complete. Want an exec summary paragraph for the top?' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Build a stakeholder map for your project',
+      href: '/tutorials/stakeholder-map',
+    },
+  },
+
+  'competitive-analysis': {
+    title: 'Run a Competitive Analysis in 30 Minutes',
+    slug: 'competitive-analysis',
+    duration: '30 min',
+    difficulty: 'intermediate',
+    availableRoutes: ['app', 'ide'],
+    description:
+      'Feed Claude your product and competitor info. Walk away with a structured comparison matrix and clear positioning gaps.',
+    intro:
+      'Most competitive analyses are either a 40-tab Notion graveyard nobody updates, or a vibes-based "we\'re different because we focus on the customer." Neither helps you make decisions. A useful competitive analysis is specific, structured, and tells you where you can win — not just who else is in the market. Let\'s build one.',
+    steps: [
+      {
+        title: 'Define what you\'re comparing and why',
+        description:
+          'The scope of the analysis determines its usefulness. Start by telling Claude your product, the decision you\'re trying to make, and who the relevant competitors are.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I need a competitive analysis. I\'m a PM at a B2B project management tool for agencies. We want to understand whether to build native time tracking or stay focused on project management. Main competitors: Asana, Monday.com, ClickUp, Teamwork (which has time tracking built in).' },
+            { role: 'claude', text: 'Good framing — this is a build vs. differentiate question, not just a landscape survey. That makes the analysis much more useful.\n\nTo do this right, I need two things:\n1. A quick description of your product — what you\'re known for, who your typical customer is, your current positioning\n2. What you know about each competitor\'s time tracking implementation — even rough notes (pricing tier it\'s on, how it\'s positioned, any feedback you\'ve heard)\n\nIf you don\'t have competitor details, I can work from general knowledge and you can correct what\'s wrong.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Competitive analysis for a B2B project management tool for agencies. Decision: build native time tracking or stay focused? Competitors: Asana, Monday.com, ClickUp, Teamwork (has time tracking).' },
+            { role: 'claude', text: 'Understood. Paste what you know about your product and each competitor — or I can start from general knowledge and you correct the gaps. What dimensions matter most for this decision: feature depth, pricing, target customer, or positioning?' },
+          ],
+        },
+      },
+      {
+        title: 'Describe your product and the competitors',
+        description:
+          'Give Claude the raw material — your positioning, pricing, and anything you know about competitors. Messy is fine.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Our product: project management for creative agencies. Strong on client portals and approval workflows — that\'s our differentiator. Mid-market, $25–50/user/month. No time tracking currently. Asana: general purpose, no native time tracking (integrations only). Monday: has basic time tracking as a column type, not agency-focused. ClickUp: has time tracking, very feature-dense, confusing for non-technical users. Teamwork: specifically for agencies, has full time tracking, strong on invoicing too.' },
+            { role: 'claude', text: 'That\'s a clear picture. A few things stand out before I build the matrix:\n\n• Teamwork is your most direct overlap — same ICP (agencies), has time tracking, has invoicing. That\'s your main competitive threat if you stay put.\n• ClickUp has time tracking but it\'s positioned as "everything tool" — complexity is your opening.\n• Your moat (client portals + approvals) is not something Teamwork or ClickUp does well.\n\nThis framing will shape the recommendation. Building the matrix now.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Our product: project mgmt for creative agencies. Differentiator: client portals + approval workflows. $25-50/user. No time tracking. Asana: no native time tracking. Monday: basic time tracking column. ClickUp: time tracking, feature-dense, confusing. Teamwork: agency-focused, full time tracking + invoicing.' },
+            { role: 'claude', text: 'Key signal: Teamwork is the only direct competitor on both ICP (agencies) and time tracking. ClickUp has the feature but not the positioning. Your moat (client portals) is underserved by all four competitors.\n\nBuilding comparison matrix now across: target customer, time tracking depth, client collaboration, pricing, positioning.' },
+          ],
+        },
+      },
+      {
+        title: 'Generate the comparison matrix',
+        description:
+          'Claude builds a structured side-by-side across the dimensions that matter for your decision.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Build the comparison matrix.' },
+            { role: 'claude', text: '| Dimension | Your Product | Asana | Monday.com | ClickUp | Teamwork |\n|---|---|---|---|---|---|\n| **Target ICP** | Creative agencies | General B2B | General B2B | SMB/General | Agencies |\n| **Time Tracking** | ❌ None | ❌ Integration only | ⚠️ Basic (column) | ✅ Full, native | ✅ Full + invoicing |\n| **Client Portals** | ✅ Core feature | ❌ | ⚠️ Limited | ❌ | ⚠️ Basic |\n| **Approval Workflows** | ✅ Core feature | ⚠️ Basic | ⚠️ Basic | ⚠️ Basic | ❌ |\n| **Invoicing** | ❌ | ❌ | ❌ | ❌ | ✅ |\n| **Pricing (per user)** | $25–50 | $13–25 | $12–24 | $7–19 | $13–18 |\n| **Complexity** | Medium | Medium | Medium | High | Medium |\n| **Positioning** | Agency-specific | General | Flexible | Everything | Agency-specific |\n\n**Reading this**: You\'re competing directly with Teamwork on ICP but winning on client collaboration. ClickUp has time tracking but is losing on clarity. Monday/Asana are general-purpose — less relevant to your agency customers.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Generate the comparison matrix.' },
+            { role: 'claude', text: '| | Your Product | Asana | Monday | ClickUp | Teamwork |\n|---|---|---|---|---|---|\n| ICP | Agencies ✅ | General | General | SMB | Agencies ✅ |\n| Time tracking | None ❌ | Integration | Basic ⚠️ | Full ✅ | Full+invoicing ✅ |\n| Client portals | Core ✅ | None | Limited ⚠️ | None | Basic ⚠️ |\n| Approval flows | Core ✅ | Basic | Basic | Basic | None ❌ |\n| Invoicing | None ❌ | None | None | None | Full ✅ |\n| Price/user | $25–50 | $13–25 | $12–24 | $7–19 | $13–18 |\n\nKey gap: Teamwork wins on time tracking + invoicing, you win on client collaboration. ClickUp has the feature but wrong ICP. Ready to extract positioning gaps.' },
+          ],
+        },
+      },
+      {
+        title: 'Extract positioning gaps',
+        description:
+          'The matrix is data. Now ask Claude to tell you what it means — where you can win that nobody else owns.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'What are the positioning gaps? Where can we actually win?' },
+            { role: 'claude', text: '**Positioning Gaps — Where You Can Win**\n\n**1. The client-facing PM tool for agencies (nobody owns this cleanly)**\nAsana and Monday are internal tools. Teamwork is agency-PM but not client-forward. Your client portal + approval workflow combination is the strongest "client-in-the-room" positioning in the space. Doubling down here is more defensible than adding time tracking.\n\n**2. Simplicity for agency ops (ClickUp\'s weakness)**\nClickUp has time tracking but its complexity alienates exactly the non-technical project managers and account managers who run agency operations. A clean, opinionated tool with built-in time tracking could take ClickUp customers.\n\n**3. Time tracking as the agency workflow gap**\nIf you add time tracking, you\'re one step away from invoicing — and at that point you\'re Teamwork with better client collaboration. That\'s a legitimate land-and-expand strategy. The question is whether time tracking is a distraction from your real moat or the next logical extension of it.\n\n**The uncomfortable truth**: Teamwork is the competitor to watch. They have your ICP, they have time tracking, and they\'re adding client features. If you don\'t build time tracking, your differentiator needs to be strong enough that agencies choose you and integrate a separate time tracker.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Extract the positioning gaps — where can we actually win?' },
+            { role: 'claude', text: '**Where you can win:**\n\n1. **Client-forward agency PM** — nobody owns this cleanly. Your portals + approvals are the strongest "client-in-the-room" story in the space. Most defensible position.\n\n2. **Anti-ClickUp for agencies** — ClickUp has the features but the complexity is a liability with non-technical agency ops people. Clean + opinionated wins here.\n\n3. **Time tracking as the logical next step** — build it and you\'re one step from invoicing, which makes you Teamwork with better client collab. That\'s a real land-and-expand play.\n\n**The risk**: Teamwork is your most dangerous competitor. Same ICP, has time tracking, adding client features. Your moat needs to outpace their roadmap.' },
+          ],
+        },
+      },
+      {
+        title: 'Write the strategic summary',
+        description:
+          'Turn the analysis into a one-page summary you can share with leadership — with a clear recommendation on the original decision.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Write the strategic summary with a recommendation on whether to build time tracking.' },
+            { role: 'claude', text: '**Competitive Analysis Summary — Time Tracking Decision**\n\n**Context**: We evaluated four competitors (Asana, Monday.com, ClickUp, Teamwork) across target customer, feature depth, positioning, and pricing to inform whether to build native time tracking.\n\n**Key findings**:\n• Teamwork is the only direct competitor on both ICP and time tracking. They\'re the threat.\n• ClickUp has time tracking but loses on complexity — our market to take if we stay clean and opinionated.\n• Our client portal + approval workflow is our strongest differentiator and currently underserved across the market.\n\n**Recommendation: Build time tracking, but phase it.**\n\nPhase 1 (this quarter): Basic time logging tied to tasks. Enough to stop losing deals to Teamwork on this feature.\nPhase 2 (next quarter): Connect time to project budgets. Unique combination with our existing project structure.\nDon\'t build invoicing yet — that\'s Teamwork\'s territory, and competing there takes us away from our positioning.\n\n**What this doesn\'t do**: It doesn\'t make us "feature complete." It makes us the best tool for agencies who need client collaboration and basic time accountability — which is a more defensible position than out-Teamworking Teamwork.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Write the strategic summary with a recommendation on building time tracking.' },
+            { role: 'claude', text: '**Competitive Analysis: Time Tracking Decision**\n\n**Recommendation: Build it, phased.**\n\nPhase 1: Basic time logging on tasks — stops losing Teamwork deals on this gap.\nPhase 2: Time-to-budget reporting — unique with our project structure, no competitor does this for client-facing work.\nHold on invoicing — that\'s Teamwork\'s game, not ours.\n\n**Strategic logic**: Our moat is client collaboration. Time tracking extends it without replacing it. Trying to out-Teamwork Teamwork is a worse bet than being the best client-forward PM tool with time accountability baked in.\n\n**Risk**: Teamwork is accelerating on client features. Phase 1 needs to ship this quarter.' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Turn meeting notes into structured tickets',
+      href: '/tutorials/meeting-to-jira',
+    },
+  },
+
+  'research-briefing': {
+    title: 'Turn 5 Articles into a Research Briefing Doc',
+    slug: 'research-briefing',
+    duration: '15 min',
+    difficulty: 'beginner',
+    availableRoutes: ['app', 'ide'],
+    description:
+      'Paste your sources — links, PDFs, copied text. Get a structured briefing doc with key insights, tensions, and implications.',
+    intro:
+      'Reading five articles and synthesising them into a coherent brief used to take two hours. The scanning, the note-taking, the "what does this mean for us" thinking. Claude can do the synthesis in minutes — you spend your time on the thinking that only you can do.',
+    steps: [
+      {
+        title: 'Define your research question',
+        description:
+          'Before you paste anything, tell Claude what you\'re trying to answer. A focused research question produces a much sharper brief than "summarise these links."',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I need a research briefing on how AI is changing product management roles. I\'m presenting to our leadership team next week to make the case for investing in AI tooling for our PM team.' },
+            { role: 'claude', text: 'Good framing — that\'s a specific question with a specific audience and goal. That shapes the brief significantly.\n\nFor a leadership audience making an investment decision, I\'ll structure the output around:\n1. What\'s actually changing (evidence-based, not hype)\n2. What the early adopters are doing and seeing\n3. The risk of not acting\n4. Practical implications / what investment looks like\n\nPaste your sources whenever you\'re ready. Links, copied text, or both.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'I\'m building a research brief on AI\'s impact on product management roles. Audience: leadership, making an investment case for PM AI tooling.' },
+            { role: 'claude', text: 'Understood. I\'ll structure the brief for a leadership investment decision — evidence, early adopter signals, risk of inaction, and a practical recommendation. Paste your sources.' },
+          ],
+        },
+      },
+      {
+        title: 'Paste your sources',
+        description:
+          'Paste article text, copy URLs for Claude to reference, or describe articles you\'ve read. Don\'t worry about formatting — Claude will extract what matters.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Here are my sources:\n\n1. Lenny\'s Newsletter piece on AI-native PMs — argues that PMs who use AI are 2–3x more productive on research and synthesis tasks, but the "judgment" work (prioritisation, stakeholder management) hasn\'t changed.\n\n2. McKinsey report on generative AI in knowledge work — 40% of knowledge work tasks can be partially automated; synthesis and summarisation are the highest-impact use cases.\n\n3. A16z essay on the "10x PM" — PMs who use AI tools are shipping faster discovery cycles and managing more surface area per person.\n\n4. LinkedIn article by a Head of Product at Intercom — they rolled out AI tooling for PMs, saw 30% reduction in time spent on research and reporting, reinvested into more customer interviews.\n\n5. HBR piece on AI and professional skills — knowledge workers who integrate AI maintain a learning advantage; those who don\'t face skills erosion over 3–5 years.' },
+            { role: 'claude', text: 'Good sources — strong signal across practitioner, consulting, and academic perspectives. Reading now...\n\nOne thing I notice before synthesising: there\'s an interesting tension across your sources. Lenny and A16z are bullish on AI for PMs; the HBR piece introduces a skills-erosion risk that cuts against naive adoption. That tension is actually useful for a leadership audience — it makes the argument more credible than pure advocacy. I\'ll surface it explicitly in the brief.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Sources: (1) Lenny\'s Newsletter — AI PMs 2-3x more productive on synthesis, judgment unchanged. (2) McKinsey — 40% of knowledge tasks automatable, synthesis highest impact. (3) A16z — "10x PM", faster discovery cycles. (4) Intercom Head of Product — 30% time savings on research/reporting, reinvested in customer interviews. (5) HBR — AI adopters gain learning advantage, non-adopters face skills erosion in 3-5 years.' },
+            { role: 'claude', text: 'Good set — practitioner, consulting, and academic perspectives covered. There\'s a useful tension: most sources are bullish on productivity, but HBR introduces a skills-erosion risk that makes the case more nuanced and credible. I\'ll surface that in the brief. Synthesising now.' },
+          ],
+        },
+      },
+      {
+        title: 'Extract key insights per source',
+        description:
+          'Claude reads each source and extracts the most relevant findings for your research question — removing noise, keeping signal.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Extract the key insight from each source.' },
+            { role: 'claude', text: '**Source-by-Source Insights**\n\n**1. Lenny\'s Newsletter**\n→ Key insight: AI amplifies execution (research, synthesis, writing) but not judgment. PMs who use AI are faster at the "doing" — not necessarily better at the "deciding." This is a crucial distinction for setting expectations.\n\n**2. McKinsey Report**\n→ Key insight: 40% automation figure is often cited but the nuance is "partially automated." Synthesis is highest-impact because the cognitive load is high and the output is relatively structured. Quantifiable ROI exists.\n\n**3. A16z Essay**\n→ Key insight: The PM-to-surface-area ratio is changing. AI-enabled PMs are managing broader product scope per person — this has hiring and org design implications, not just productivity ones.\n\n**4. Intercom Head of Product**\n→ Key insight: The real win wasn\'t the time saved — it was where the time went. They reinvested research/reporting savings into more customer contact. Output quality improved because the savings were intentional.\n\n**5. HBR**\n→ Key insight: Skills erosion is real. PMs who outsource cognitive work to AI without staying engaged with the underlying thinking lose craft over time. The risk isn\'t AI replacing PMs; it\'s PMs becoming dependent without staying sharp.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Extract key insight per source.' },
+            { role: 'claude', text: '1. **Lenny\'s**: AI amplifies execution, not judgment. Faster doing, not better deciding.\n2. **McKinsey**: Synthesis is highest-impact use case. ROI is quantifiable.\n3. **A16z**: PM-to-surface-area ratio changing. Org design implications, not just productivity.\n4. **Intercom**: The win wasn\'t time saved — it was where the savings went (more customer contact).\n5. **HBR**: Skills erosion risk if cognitive work is outsourced without staying engaged. The risk isn\'t replacement; it\'s dependency.' },
+          ],
+        },
+      },
+      {
+        title: 'Synthesise across sources',
+        description:
+          'Individual insights are useful; what\'s more useful is what they mean together. Ask Claude to synthesise — find the consensus, the tensions, and the implications.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Now synthesise across all five sources. What\'s the consensus, what are the tensions, and what does it mean for us?' },
+            { role: 'claude', text: '**Synthesis**\n\n**Where sources agree**\n• AI saves meaningful time on research, synthesis, and reporting (2–3x productivity gains are consistent)\n• The savings are real — but only valuable if reinvested intentionally\n• Judgment-intensive work (prioritisation, stakeholder management, strategy) remains human\n\n**Where sources disagree or introduce tension**\n• A16z and McKinsey focus on output gains; HBR raises the long-term skills erosion question. Both can be true simultaneously — short-term gains, long-term risk if not managed carefully\n• "Reinvest in customer interviews" (Intercom) and "don\'t outsource your thinking" (HBR) are actually the same idea: AI works best when it frees humans for more human work, not less\n\n**Implications for your team**\n• The case for investment is evidence-backed: 30–40% time savings on lower-value tasks, with quantifiable reallocation potential\n• The risk is not investing and watching AI-enabled competitors run faster discovery cycles while your PMs spend time on reports\n• The right framing for leadership: this isn\'t about replacing judgment with AI — it\'s about protecting your PMs\' time for the work only they can do' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Synthesise — consensus, tensions, implications.' },
+            { role: 'claude', text: '**Consensus**: AI saves 2-3x time on synthesis/research/reporting. Real gains, real if reinvested.\n\n**Tension**: A16z/McKinsey focus on output gains; HBR surfaces skills-erosion risk. Both are true — short-term wins, long-term risk if managed poorly.\n\n**The insight that ties it together**: AI works best when it frees humans for more human work (Intercom\'s customer interview reinvestment = HBR\'s "don\'t outsource your thinking").\n\n**Implication**: The case for investment is solid. The risk of not acting is watching competitors run faster discovery cycles. The framing: protect PM time for judgment work, not reduce PM headcount.' },
+          ],
+        },
+      },
+      {
+        title: 'Format as a briefing doc',
+        description:
+          'Package everything into a clean document ready to share with leadership.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Format this as a briefing doc I can share with leadership. One page, tight.' },
+            { role: 'claude', text: '# Research Briefing: AI in Product Management\n_Prepared for: [Leadership team] | Date: [Date]_\n\n## The Question\nHow is AI changing product management, and should we invest in AI tooling for our PM team?\n\n## What the Evidence Shows\nAcross five practitioner and research sources, the signal is consistent: AI tools reduce time spent on research, synthesis, and reporting by 30–40%. The highest-impact use case is synthesis — turning raw inputs into structured outputs.\n\nThe more important finding: the teams seeing the biggest gains aren\'t just saving time. They\'re reinvesting it in higher-value work — specifically, more customer contact and more strategic thinking.\n\n## The Tension Worth Naming\nHBR surfaces a real risk: PMs who outsource cognitive work to AI without staying engaged lose craft over time. This argues for thoughtful adoption (AI-assisted synthesis, human-led judgment) rather than wholesale delegation.\n\n## What This Means for Us\n- **The opportunity**: 30–40% time savings on lower-value tasks, reallocated to discovery and customer interviews\n- **The competitive risk**: Teams that adopt now build faster discovery cycles and manage more surface area per PM\n- **The downside risk of not acting**: Skills and speed gap widens over 12–24 months\n\n## Recommendation\nInvest in AI tooling for PMs, with a clear reinvestment mandate: time saved goes to customer contact, not capacity reduction.\n\n_Sources: Lenny\'s Newsletter, McKinsey (GenAI in Knowledge Work), A16z, Intercom (internal study), Harvard Business Review_' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Format as a tight one-page briefing doc for leadership.' },
+            { role: 'claude', text: '# AI in Product Management — Research Briefing\n\n**The question**: Should we invest in AI tooling for our PM team?\n\n**What 5 sources say**: 30–40% time savings on research/synthesis/reporting. Judgment work unchanged. Teams reinvesting savings in customer contact see the biggest gains (Intercom). Skills erosion is a real risk if adoption is passive (HBR).\n\n**The synthesis**: AI works best when it frees PMs for more human work — not less. The competitive risk of not acting is a widening discovery-speed gap.\n\n**Recommendation**: Invest. Define a reinvestment mandate: time saved → customer interviews, not headcount reduction.\n\n_Sources: Lenny, McKinsey, A16z, Intercom, HBR_' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Run a competitive analysis in 30 minutes',
+      href: '/tutorials/competitive-analysis',
+    },
+  },
+
+  'slide-deck-outline': {
+    title: 'Build a Slide Deck Outline in 15 Minutes',
+    slug: 'slide-deck-outline',
+    duration: '15 min',
+    difficulty: 'beginner',
+    availableRoutes: ['app', 'ide'],
+    description:
+      'Tell Claude your goal, audience, and content. Get a narrative arc, a slide-by-slide outline, and speaker notes — before you open PowerPoint.',
+    intro:
+      'The hardest part of any presentation isn\'t the design — it\'s the structure. Most people open PowerPoint or Keynote and start filling slides with bullets, only to realise halfway through that the story doesn\'t land. Claude helps you build the narrative first, so by the time you open your design tool, you know exactly what goes where.',
+    steps: [
+      {
+        title: 'Define your goal, audience, and time slot',
+        description:
+          'A deck for a 5-minute investor update and a deck for a 45-minute team workshop are completely different animals. Start by being specific.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I need to build a deck for a board update. 20 minutes, 8 board members (mix of operators and investors). Topic: our Q1 results and Q2 priorities. I want them to leave feeling confident about the business and clear on where we\'re investing next quarter.' },
+            { role: 'claude', text: 'Good brief. A few things I\'m noting:\n\n• Board audiences want signal, not detail — they\'ll ask questions for the nuance\n• "Confident about the business + clear on investment direction" = two distinct jobs: Q1 needs to earn credibility, Q2 needs to be crisp and arguable\n• 20 minutes for 8 people means interruptions are likely — you want a deck that still lands if you get pulled off script at slide 3\n\nBefore I build the narrative arc, tell me: is this a good quarter you\'re reporting, a mixed one, or a difficult one? The narrative structure changes significantly.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Board update deck. 20 minutes, 8 board members (operators + investors). Q1 results + Q2 priorities. Goal: confidence in business, clarity on next quarter investment.' },
+            { role: 'claude', text: 'Got it. Two questions before I build the outline: (1) Is this a strong, mixed, or difficult quarter? The narrative arc changes completely. (2) Any politically sensitive topics to handle carefully (e.g. a miss, a leadership change, a strategic pivot)?' },
+          ],
+        },
+      },
+      {
+        title: 'Brain dump your content',
+        description:
+          'Don\'t structure yet — just tell Claude everything you want to cover. The good news, the bad news, the decisions you need, all of it.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Mixed quarter. Revenue hit plan ($2.4M, +18% YoY). But NRR was below target (102% vs 115% target) — we lost two mid-market accounts to a competitor. New product launch went well — 60 beta customers, strong NPS. Team is at full strength after a rocky H2 last year. Q2 priorities: double down on enterprise segment, fix the mid-market retention issue, keep the product momentum going. We need board approval for an additional $300k in sales headcount.' },
+            { role: 'claude', text: 'That\'s a clear picture. Here\'s what I see in the story:\n\n**The honest narrative**: Strong top-line, one visible miss, proactive response already in motion. That\'s a credible board story — not a great quarter, but a managed one.\n\n**The structural challenge**: You need to address the NRR miss without letting it become the entire conversation. The sequence matters: surface it before they ask, own it, frame the response, and pivot to what Q2 is actually about (enterprise + momentum).\n\n**The ask**: The $300k headcount approval needs to come after you\'ve built confidence, not before. I\'ll sequence it at the end as the logical conclusion of the strategy, not as a standalone budget request.\n\nBuilding the narrative arc now.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Mixed quarter. Revenue: $2.4M +18% YoY (hit plan). NRR: 102% vs 115% target — lost 2 mid-market accounts to competitor. New product: 60 beta customers, strong NPS. Team: full strength. Q2: enterprise focus, fix mid-market retention, maintain product momentum. Need board approval: +$300k sales headcount.' },
+            { role: 'claude', text: 'Key story: strong top-line, one visible miss, response already framed. Classic "managed quarter" narrative.\n\nStructural note: surface the NRR miss proactively before they ask — own it, frame the cause, pivot to Q2 response. The $300k ask lands best at the end as the logical conclusion of strategy, not as a standalone line item.\n\nBuilding narrative arc.' },
+          ],
+        },
+      },
+      {
+        title: 'Generate the narrative arc',
+        description:
+          'Before building slides, Claude structures the story — the emotional journey you want the audience to take from open to close.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Build the narrative arc first, before the slides.' },
+            { role: 'claude', text: '**Narrative Arc — Q1 Board Update**\n\n1. **Open with confidence, not caveats** — Lead with the revenue number. Set the tone as "we\'re in control of this business" before introducing nuance.\n\n2. **Surface the miss proactively** — Bring up NRR before anyone asks. Frame it: "Here\'s what we saw, here\'s why, and here\'s what we\'re already doing about it." Owning a miss is more confidence-building than being asked about it.\n\n3. **Show the product momentum as the counterweight** — 60 beta customers + strong NPS is your signal that the investment thesis is still intact. This is the "despite the NRR headwind, we\'re building something" moment.\n\n4. **Q2 strategy flows from the Q1 story** — Enterprise focus + mid-market retention + product momentum aren\'t three separate things — they\'re a coherent response to what Q1 taught you.\n\n5. **Close with the ask as a logical conclusion** — $300k in sales headcount isn\'t a budget request; it\'s the resource needed to execute the Q2 strategy you just outlined. Sequence matters: strategy first, then the investment.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Build the narrative arc.' },
+            { role: 'claude', text: '**Arc**: Open strong (revenue) → own the miss proactively (NRR) → pivot to momentum (product beta) → frame Q2 as the coherent response → close with headcount ask as logical conclusion.\n\nThe goal: board leaves thinking "they know their business, they have a plan, the ask makes sense" — not "what happened to NRR?"' },
+          ],
+        },
+      },
+      {
+        title: 'Build the slide-by-slide outline',
+        description:
+          'Now Claude turns the narrative arc into a concrete slide structure — title, key message, and supporting content for each slide.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Now build the slide-by-slide outline.' },
+            { role: 'claude', text: '**Slide Deck Outline — Q1 Board Update**\n\n**Slide 1: Title** — Q1 2026 Business Update | [Date]\n\n**Slide 2: Q1 in One Slide** — Key message: "Solid quarter with one clear learning."\n• Revenue: $2.4M (+18% YoY) ✅\n• NRR: 102% (target 115%) ⚠️\n• Beta customers: 60 | NPS: [score] ✅\n• Team: Fully staffed ✅\n\n**Slide 3: Revenue Deep Dive** — Key message: "Top line is healthy and growing."\n• MoM trend, YoY comparison, new vs. expansion breakdown\n\n**Slide 4: The NRR Story** — Key message: "We know why, and we\'re already fixing it."\n• 2 mid-market churns, competitor named\n• Root cause: [your analysis]\n• Response already underway: [action taken]\n\n**Slide 5: Product Momentum** — Key message: "The new product is working."\n• 60 beta customers, NPS score, 3 customer quotes\n• What we\'re learning, what\'s next\n\n**Slide 6: Q2 Strategy** — Key message: "Three bets, clear logic."\n• Enterprise: [why, how, target]\n• Mid-market retention: [fix plan]\n• Product: [next milestone]\n\n**Slide 7: The Investment Case** — Key message: "To execute Q2, we need one thing."\n• $300k headcount: 2 enterprise AEs\n• Revenue model: payback period at current ACV\n• Ask: approve by [date]\n\n**Slide 8: Q&A / Appendix pointer**' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Build the slide-by-slide outline.' },
+            { role: 'claude', text: '8 slides:\n\n1. **Title** — Q1 2026 Board Update\n2. **Q1 snapshot** — Revenue ✅, NRR ⚠️, Product ✅, Team ✅\n3. **Revenue** — Top line healthy, MoM/YoY trend\n4. **NRR story** — Own the miss, name the cause, show the fix\n5. **Product momentum** — 60 beta customers, NPS, 3 customer quotes\n6. **Q2 strategy** — Enterprise / retention / product (coherent response to Q1)\n7. **Investment case** — $300k headcount, payback model, formal ask\n8. **Q&A + appendix pointer**' },
+          ],
+        },
+      },
+      {
+        title: 'Write speaker notes for the hardest slides',
+        description:
+          'The NRR slide and the ask slide are where presenters get into trouble. Ask Claude to write the speaker notes for those two.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Write speaker notes for slide 4 (the NRR slide) and slide 7 (the ask). Those are the two I\'m most nervous about.' },
+            { role: 'claude', text: '**Slide 4 — Speaker Notes (NRR)**\n\n*What to say*: "NRR came in at 102% against a 115% target — that\'s a miss, and I want to address it directly. We lost two mid-market accounts. In both cases, [competitor name] came in at a lower price point with a good-enough feature set for that segment. We saw the risk; we were too slow to respond.\n\nWhat we\'ve already done: [specific action — e.g., we\'ve repriced our mid-market tier, we\'ve assigned a dedicated CSM]. The accounts we\'ve retained in this segment since [date] are trending at [metric].\n\nThe reason I\'m not more worried: our enterprise accounts are at [NRR %] and the product bets we\'re making are aimed at the customer profile where we win. But mid-market retention is a real problem and Q2 has a specific plan for it."\n\n*What not to say*: Don\'t minimise it ("it\'s just two accounts"). Don\'t over-explain it. Own it and move through it.\n\n---\n\n**Slide 7 — Speaker Notes (The Ask)**\n\n*What to say*: "To execute the enterprise strategy I just walked you through, we need two enterprise AEs. At our current ACV and ramp time, the payback period is [X months] — that\'s well inside our planning horizon.\n\nI\'m asking the board to approve $300k in headcount. We\'ve identified two candidates we\'d move quickly on. The alternative is a slower Q2 while we stay capacity-constrained in the segment where we\'re winning."\n\n*Tone*: Confident, not apologetic. You\'ve built the case across the previous six slides — this is the logical conclusion, not a surprise.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Write speaker notes for slide 4 (NRR) and slide 7 (the ask).' },
+            { role: 'claude', text: '**Slide 4 notes**: Lead with "I want to address this directly." Name the cause, name the action already taken, give a forward-looking metric. Don\'t minimise, don\'t over-explain. Own it and move through it in under 90 seconds.\n\n**Slide 7 notes**: "To execute what I just outlined, we need two enterprise AEs. Payback at current ACV is [X months]. I\'m asking for $300k approval — we have candidates ready to move quickly. The alternative is running Q2 capacity-constrained in the segment where we\'re winning." Confident, not apologetic. The previous six slides built this case.' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Turn a decision into a clear memo',
+      href: '/tutorials/decision-memo',
+    },
+  },
+
+  'job-application-assistant': {
+    title: 'Build a Job Application Assistant in 20 Minutes',
+    slug: 'job-application-assistant',
+    duration: '20 min',
+    difficulty: 'beginner',
+    availableRoutes: ['app', 'ide'],
+    description:
+      'Paste the job description and your background. Get a match analysis, a tailored cover letter, and interview prep — for any role.',
+    intro:
+      'Most cover letters are generic because tailoring them properly takes an hour per application. Claude can do the matching, gap analysis, and first draft in minutes — so you spend your time on the interviews, not the paperwork. This works for any role, at any level.',
+    steps: [
+      {
+        title: 'Paste the job description',
+        description:
+          'Copy the full job description — including requirements, responsibilities, and any "about us" section. The more Claude has, the better the match analysis.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I want to apply for a Senior Product Manager role. Can you help me tailor my application?' },
+            { role: 'claude', text: 'Yes — let\'s do this properly rather than just polishing your existing CV.\n\nPaste the full job description first (including the "about the company" section if there is one). I\'ll identify the key signals they\'re looking for before you paste your background — that way I\'m matching rather than just summarising.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Help me apply for a Senior PM role. Starting with the job description.' },
+            { role: 'claude', text: 'Paste the full JD — requirements, responsibilities, about the company. I\'ll extract what they\'re actually looking for before we look at your background.' },
+          ],
+        },
+      },
+      {
+        title: 'Let Claude decode the job description',
+        description:
+          'Before you share your CV, Claude reads the JD and extracts what the hiring manager actually cares about — the signals hidden between the bullet points.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Senior PM role at a Series B fintech. JD says: 5+ years PM experience, experience with B2B SaaS products, led 0→1 product launches, comfortable with data and SQL basics, strong stakeholder management, experience working with financial services clients a plus. Company is 80 people, recently raised $30M, described as "fast-moving and scrappy."' },
+            { role: 'claude', text: 'Here\'s what I\'m reading between the lines:\n\n**What they\'re really asking for**:\n• "Led 0→1 launches" = they need someone who can handle ambiguity and doesn\'t need a playbook. This will be a theme in interviews.\n• "Comfortable with SQL basics" = they want a PM who won\'t be a bottleneck for data questions. You don\'t need to be an analyst, but you need to be self-sufficient.\n• "Stakeholder management" at an 80-person fintech = this likely means managing engineers and founders with strong opinions, not navigating a big corp hierarchy.\n• "Financial services clients a plus" = they\'re worried about domain knowledge. If you have any, lead with it. If you don\'t, address it proactively rather than hoping they don\'t notice.\n\n**The vibe**: "Fast-moving and scrappy" at Series B means they\'re in growth mode but not yet process-heavy. They want someone who ships, not someone who governs.\n\nNow paste your background. I\'ll match against these specific signals.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'JD: Senior PM at Series B fintech, 80 people, $30M raised. Requirements: 5+ years PM, B2B SaaS, led 0→1 launches, SQL basics, stakeholder management, fintech experience a plus. "Fast-moving and scrappy."' },
+            { role: 'claude', text: 'Reading between the lines:\n\n• **0→1 launches** = handle ambiguity, no playbook needed\n• **SQL basics** = data self-sufficiency, won\'t block engineers on queries\n• **Stakeholder mgmt at 80 people** = manage opinionated founders/engineers, not corp hierarchy\n• **Fintech a plus** = domain anxiety — address proactively if you don\'t have it\n• **"Scrappy"** = ships over governs\n\nPaste your background — I\'ll match against these signals.' },
+          ],
+        },
+      },
+      {
+        title: 'Paste your background',
+        description:
+          'Share your CV, LinkedIn summary, or just a list of your roles and key achievements. Claude will identify what matches strongly and what gaps to address.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'My background: 7 years in product. Currently Senior PM at a B2B HR tech company (300 people). Led the launch of a new employee engagement module from scratch — 0 to $2M ARR in 18 months. Comfortable with data, use Mixpanel and Amplitude daily, have done basic SQL for ad hoc queries. No fintech experience specifically, but worked with enterprise HR clients (CHRO-level stakeholders). Previous role was PM at a SaaS startup (40 people).' },
+            { role: 'claude', text: '**Match Analysis**\n\n✅ Strong matches:\n• 7 years PM experience (requirement: 5+)\n• 0→1 launch with real metrics ($2M ARR in 18 months) — this is your headline story\n• Data comfort (Mixpanel, Amplitude, SQL) — directly addresses the data requirement\n• Previous startup experience (40 people) — directly relevant to "scrappy" culture\n\n⚠️ Partial matches:\n• Stakeholder management — CHRO-level experience is great but it\'s HR, not fintech. Reframe as "selling complex software internally to senior, non-technical buyers" — that\'s transferable.\n\n❌ Gap to address:\n• No fintech experience — this is their only "a plus" that you\'re missing. Address it proactively in the cover letter: frame your enterprise client experience as evidence you can navigate regulated, risk-averse buyers. Don\'t pretend it\'s the same — show you understand the dynamic.\n\n**Overall**: Strong candidate. The 0→1 story is the anchor. Lead with it.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'My background: 7 years PM. Currently Sr PM at B2B HR tech (300 people). Led new module launch 0→1, $2M ARR in 18 months. Use Mixpanel/Amplitude/basic SQL. No fintech but worked with CHRO-level enterprise clients. Previous: PM at 40-person SaaS startup.' },
+            { role: 'claude', text: '**Match**:\n✅ 7 years (req: 5+)\n✅ 0→1 with metrics ($2M ARR 18 months) — your headline\n✅ Data comfort (Mixpanel, SQL)\n✅ Small startup experience (scrappy culture fit)\n⚠️ CHRO stakeholders = senior, non-technical buyers — transferable but needs reframing\n❌ No fintech — address proactively, don\'t ignore it\n\n**Lead with the 0→1 story. It\'s your strongest card.**' },
+          ],
+        },
+      },
+      {
+        title: 'Generate the tailored cover letter',
+        description:
+          'Claude writes a cover letter that matches your strongest signals to what they\'re specifically looking for — not a generic introduction.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Write the cover letter.' },
+            { role: 'claude', text: 'Hi [Hiring Manager],\n\nI\'ve spent seven years building B2B SaaS products — the last four leading product at a 300-person HR tech company. In that time, the work I\'m most proud of is taking an employee engagement module from a blank whiteboard to $2M ARR in 18 months. That journey — figuring out the right thing to build, then building the right team to build it — is exactly the kind of work I want to do at [Company].\n\nA few specific things that make me confident about this role:\n\n**0→1 in a fast-moving environment**: The engagement module didn\'t have a playbook. We ran rapid discovery, killed two feature directions that weren\'t working, and shipped an MVP that 40 enterprise clients adopted in the first quarter. I\'m comfortable with ambiguity and I know what "done" looks like when there\'s no precedent.\n\n**Data-driven without being analyst-dependent**: I run my own Mixpanel and Amplitude analyses daily, write basic SQL for ad hoc questions, and rarely wait for a data pull to inform a prioritisation decision. I know the difference between using data to make a decision and using data to justify one you\'ve already made.\n\n**Enterprise client experience**: I\'ve worked with CHRO-level buyers at large enterprises — risk-averse, compliance-conscious, with long procurement cycles. I haven\'t done this in fintech specifically, but the dynamics translate: building trust with regulated-industry buyers is a skill, and it\'s one I\'ve developed.\n\nI\'d love to talk about how I can bring this to [Company]. I\'m available [dates/times].\n\n[Your name]' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Write the cover letter.' },
+            { role: 'claude', text: 'Hi [Hiring Manager],\n\nSeven years in B2B SaaS product, most recently leading a 0→1 module launch from concept to $2M ARR in 18 months. That\'s the kind of work I want to do at [Company].\n\nThree things I bring directly to this role:\n\n**0→1 experience**: No playbook, two killed directions before we found the right one, 40 enterprise clients in the first quarter of launch. I know how to build when there\'s no precedent.\n\n**Data self-sufficiency**: Mixpanel and Amplitude daily, SQL for ad hoc queries. I don\'t wait for data pulls to make decisions.\n\n**Enterprise buyer experience**: CHRO-level stakeholders — risk-averse, compliance-conscious, long cycles. No fintech specifically, but the dynamic translates.\n\nI\'d love to talk. Available [dates].\n\n[Your name]' },
+          ],
+        },
+      },
+      {
+        title: 'Prep your top 3 interview answers',
+        description:
+          'Ask Claude to predict the questions you\'ll definitely get asked and help you structure strong answers using your actual experience.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'What are the top 3 interview questions I\'ll definitely get asked, and how should I answer them?' },
+            { role: 'claude', text: '**Question 1: "Tell me about a 0→1 product you launched."**\nThis is your strongest card — use it fully. Structure: Situation (blank whiteboard, no playbook) → Discovery (what you learned, what you killed) → Launch (how you shipped) → Outcome ($2M ARR, 40 clients). The key detail to include: what you killed and why. That signals judgment, not just execution.\n\n---\n\n**Question 2: "How do you handle stakeholder pushback when you believe you\'re right?"**\nThis is really asking: "Can you manage founders and engineers with strong opinions?" Answer with a specific story. The best answer acknowledges that you don\'t always know you\'re right — you know how to make the decision rigorous. Talk about how you use data and user evidence to defuse opinion-based arguments without making it personal.\n\n---\n\n**Question 3: "You don\'t have fintech experience — how will you get up to speed quickly?"**\nThey will ask this. Don\'t be defensive. Answer: "I\'ve already started — [specific thing you\'ve done, e.g., read about [regulation], talked to [person]]. More importantly, my experience with regulated-industry enterprise buyers means I understand the dynamics. I know how risk-averse buyers evaluate software, and I know not to assume fintech customers work the same way HR clients do. I\'ll be wrong about specific things early; I won\'t be wrong about the fundamentals."' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Top 3 interview questions I\'ll definitely get, and how to answer them.' },
+            { role: 'claude', text: '**Q1: "Walk me through a 0→1 launch."**\nUse the engagement module. Hit: blank slate → what you killed → how you shipped → $2M ARR. Include what you killed — that\'s the judgment signal.\n\n**Q2: "How do you handle pushback from engineers/founders?"**\nThey\'re asking if you can manage opinionated people without a hierarchy to hide behind. Answer: story + data/evidence as the defuser + making it rigorous not personal.\n\n**Q3: "You don\'t have fintech experience."**\nThey will say this. Don\'t be defensive. "I\'ve already started [specific action]. My enterprise client experience means I understand regulated-industry buyers. I\'ll be wrong about specifics early — I won\'t be wrong about the fundamentals."' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Build your first CLAUDE.md for your workflow',
+      href: '/tutorials/your-first-claude-md',
+    },
+  },
+
+  'personal-finance-manager': {
+    title: 'Build a Personal Finance Manager in 20 Minutes',
+    slug: 'personal-finance-manager',
+    duration: '20 min',
+    difficulty: 'beginner',
+    availableRoutes: ['app', 'ide'],
+    description:
+      'Paste your spending data. Get a breakdown, an honest analysis, a savings plan, and a monthly review template — without a spreadsheet.',
+    intro:
+      'Most people have a vague sense that they spend too much on certain things and not enough on others. A personal finance review makes that vague sense concrete. Claude can analyse your spending, find the patterns you\'ve been ignoring, and help you build a plan — without judging you and without needing a finance degree.',
+    steps: [
+      {
+        title: 'Set your financial context',
+        description:
+          'Start by giving Claude the basics — income, fixed costs, what you\'re trying to achieve. This isn\'t for a bank; it\'s so Claude can give you relevant advice rather than generic budgeting platitudes.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I want to get a handle on my personal finances. Can you help me analyse my spending and build a savings plan?' },
+            { role: 'claude', text: 'Yes — let\'s make this actually useful rather than generic.\n\nTo give you relevant advice, I need a few basics:\n1. Your approximate monthly take-home income (after tax)\n2. Your fixed monthly costs that don\'t change (rent/mortgage, loan repayments, subscriptions)\n3. What you\'re trying to achieve — emergency fund, saving for something specific, paying down debt, or just "spend less, have more money"?\n\nWe\'ll treat this like a real financial review, not a guilt trip. Numbers only — no judgment.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'I want a personal finance review — analyse my spending, find the leaks, build a savings plan.' },
+            { role: 'claude', text: 'Let\'s do this properly. I need:\n1. Monthly take-home income\n2. Fixed costs (rent, loans, standing orders)\n3. What you\'re trying to achieve (emergency fund, specific goal, debt paydown, general control)\n\nThen paste your spending data and I\'ll build the analysis.' },
+          ],
+        },
+      },
+      {
+        title: 'Share your spending data',
+        description:
+          'Copy your bank statement, paste a list of transactions, or just estimate by category. Claude will work with whatever level of detail you have.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Take-home: £3,800/month. Fixed costs: rent £1,200, student loan £180, phone £45, gym £45. Goal: save £500/month — I want a house deposit in 3 years.\n\nLast month\'s spending roughly: Groceries £320, Eating out/takeaways £380, Coffee shops £95, Uber/transport £140, Amazon/online shopping £260, Streaming services £48, Nights out £220, Clothing £180, Other/random £150.' },
+            { role: 'claude', text: 'Running the numbers...\n\n**Income after fixed costs**: £3,800 - £1,470 (fixed) = **£2,330 available**\n**Actual spending last month**: £1,793\n**Surplus**: £537 — technically you\'re already near your £500 target\n\nBut here\'s the honest picture:\n\n| Category | Last month | % of available | Flag |\n|---|---|---|---|\n| Groceries | £320 | 14% | Normal |\n| Eating out / takeaways | £380 | 16% | ⚠️ High |\n| Coffee shops | £95 | 4% | Worth examining |\n| Transport | £140 | 6% | Normal |\n| Amazon/online shopping | £260 | 11% | ⚠️ High |\n| Streaming | £48 | 2% | Fine |\n| Nights out | £220 | 9% | Lifestyle choice |\n| Clothing | £180 | 8% | ⚠️ High if recurring |\n| Other/random | £150 | 6% | Worth tracking |\n\n**The uncomfortable truth**: Your food spend (groceries + eating out + coffee) is £795/month — 34% of your available income. That\'s where most of the money is going.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Take-home: £3,800. Fixed costs: rent £1,200, loan £180, phone £45, gym £45. Goal: save £500/month for house deposit in 3 years. Spending: groceries £320, eating out £380, coffee £95, Uber £140, Amazon £260, streaming £48, nights out £220, clothing £180, other £150.' },
+            { role: 'claude', text: 'Numbers crunched:\n\nAvailable after fixed costs: £2,330\nTotal variable spending: £1,793\nSurplus: £537 (you\'re close to your target already)\n\n⚠️ High-flag categories:\n• Food total (grocery + eating out + coffee): £795 — 34% of available income\n• Amazon/online: £260 — often the easiest to reduce\n• Clothing: £180 — high if recurring\n\nThe deposit math: £500/month × 36 months = £18,000 in 3 years before interest. Reality check: is that the deposit size you need? Let\'s validate before building the plan.' },
+          ],
+        },
+      },
+      {
+        title: 'Get the honest analysis',
+        description:
+          'Claude tells you what\'s actually happening with your money — not what you want to hear, but what the data shows.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Give me the honest analysis. Where am I leaking money?' },
+            { role: 'claude', text: '**The Honest Analysis**\n\n**The real problem is food spending, not the obvious suspects**\nYou\'re spending £795/month on food (groceries + eating out + coffee). That\'s almost exactly a third of your available income. Eating out at £380 is particularly high — that\'s essentially a second grocery bill, but for restaurant margins. This isn\'t a moral judgment; it\'s just the biggest number.\n\n**Amazon is a slow leak, not a big purchase**\n£260 on Amazon suggests regular small purchases that feel insignificant individually but compound. This is classic "invisible spend" — worth auditing what you actually bought.\n\n**You\'re already near your savings target — barely**\nYour £537 surplus sounds good, but "other/random £150" almost certainly means your actual deficit months are breaking this. Real-world budgets have surprise costs every 2–3 months (car, travel, birthday gifts, etc.).\n\n**The clothing number needs context**\nIf this is one month that happened to have a clothing purchase, it\'s fine. If this is every month, that\'s £2,160/year — a significant number.\n\n**What this means**: You don\'t need to cut everything. You need to cut one thing meaningfully. Food is the lever.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Give me the honest analysis — where\'s the money going?' },
+            { role: 'claude', text: '**The Honest Picture**\n\n1. **Food is the main leak**: £795/month total (groceries + eating out + coffee) = 34% of available income. Eating out at £380 is a second grocery bill at restaurant margins.\n\n2. **Amazon is invisible spend**: £260 in small purchases that don\'t feel like spending. Classic accumulation pattern.\n\n3. **Your surplus is fragile**: £537 looks good but "other £150" means real-world months with surprises (travel, gifts, repairs) will break this regularly.\n\n4. **You don\'t need to cut everything** — you need to cut food spend by ~£150–200/month. That\'s the difference between fragile and solid.' },
+          ],
+        },
+      },
+      {
+        title: 'Build the savings plan',
+        description:
+          'Turn the analysis into a concrete monthly plan — realistic targets, not aspirational ones.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Build me a realistic savings plan. I want to hit £500/month consistently, not just in good months.' },
+            { role: 'claude', text: '**Your Savings Plan**\n\n**Target**: £500/month saved, consistently (not just good months)\n\n**The three changes that get you there**:\n\n1. **Eating out + takeaways: £380 → £220** (-£160)\nThis is the single highest-leverage change. You don\'t have to stop eating out — you have to halve it. Two fewer meals out per week. Still leaves room for one or two a week.\n\n2. **Amazon: £260 → £150** (-£110)\nAdd everything to your cart. Wait 48 hours. Buy half of it. This one change has the highest ROI per minute of effort.\n\n3. **Build a £300 buffer**: The "other/random £150" category will spike some months. Keep £300 in a separate current account as a monthly float — anything unspent at month end goes to the deposit fund.\n\n**The revised numbers**:\n• Available: £2,330\n• Revised spending: £1,793 - £270 (cuts) = £1,523\n• Surplus: £807\n• To savings (after buffer): **£507/month** ✅\n\n**The 3-year maths**: £507 × 36 = **£18,252** + interest. Does that match your deposit target?' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Build a realistic savings plan — £500/month consistently, not just good months.' },
+            { role: 'claude', text: '**3-Change Plan to £500+/month**\n\n1. **Eating out: £380 → £220** (-£160) — halve it, not eliminate it\n2. **Amazon: £260 → £150** (-£110) — 48-hour cart rule\n3. **£300 float buffer** — keeps surprise months from wiping the surplus\n\nRevised surplus: £2,330 - £1,523 = **£807**\nAfter buffer: **~£507/month to deposit fund** ✅\n\n3 years: £507 × 36 = **£18,252** before interest.\n\nIs that the deposit size you need?' },
+          ],
+        },
+      },
+      {
+        title: 'Create your monthly review template',
+        description:
+          'The plan only works if you check in. Ask Claude to build a 10-minute monthly review template you\'ll actually use.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Build me a monthly review template — something I\'ll actually do in 10 minutes, not a 2-hour spreadsheet session.' },
+            { role: 'claude', text: '**Your Monthly Finance Review (10 minutes, first weekend of the month)**\n\n**Step 1 — Run the numbers (3 min)**\nOpen your banking app. Write down:\n• Total variable spending last month: £___\n• Eating out + takeaways total: £___\n• Amazon / online total: £___\n• Amount transferred to savings: £___\n\n**Step 2 — Compare to plan (2 min)**\n• Was eating out under £220? ✅ / ❌\n• Was Amazon under £150? ✅ / ❌\n• Did I transfer £500+ to savings? ✅ / ❌\n\n**Step 3 — One honest sentence (2 min)**\nWrite one sentence about what happened. "Had two work dinners that I didn\'t track" is useful. "I don\'t know where it went" means you need to check the app.\n\n**Step 4 — Adjust next month (3 min)**\n• If you hit all three: do nothing different\n• If eating out was over: decide now which week this month you\'re cooking instead\n• If Amazon was over: check your order history, name the stuff you regret\n\n**The rule**: If you miss two months in a row, don\'t adjust the target downward — investigate what changed.\n\n---\n\nPaste this into a note in your phone. Set a recurring reminder for the first Saturday of every month. That\'s the whole system.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Create a monthly review template — 10 minutes, realistic, something I\'ll actually do.' },
+            { role: 'claude', text: '**Monthly Review (10 min, first weekend)**\n\n**3 min — Run the numbers**\n• Variable spending: £___\n• Eating out total: £___\n• Amazon total: £___\n• Transferred to savings: £___\n\n**2 min — Check the plan**\n• Eating out < £220? ✅❌\n• Amazon < £150? ✅❌\n• Savings ≥ £500? ✅❌\n\n**2 min — One honest sentence** about what happened\n\n**3 min — One adjustment** for next month (or nothing if all green)\n\n**Rule**: Miss two months in a row → investigate, don\'t lower the target.\n\nSave this to your phone. Set a monthly reminder.' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Build your first skill for reusable workflows',
+      href: '/tutorials/your-first-skill',
+    },
+  },
 };
 
 const ALL_SLUGS = Object.keys(TUTORIALS);
