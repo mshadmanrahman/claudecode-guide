@@ -81,7 +81,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000 }: AppChatDem
             <div
               className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 step.role === 'user'
-                  ? 'rounded-br-sm bg-fd-foreground text-fd-background'
+                  ? 'rounded-br-sm bg-zinc-700 text-zinc-50 dark:bg-zinc-600'
                   : 'rounded-bl-sm border border-fd-border bg-fd-background text-fd-foreground'
               }`}
               style={{ whiteSpace: 'pre-line' }}
