@@ -106,7 +106,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
       <div
         ref={scrollRef}
         className="overflow-y-auto px-4 py-4 space-y-3"
-        style={{ height: 260 }}
+        style={{ height: 300 }}
       >
         {steps.slice(0, visibleCount).map((step, i) => (
           <div
