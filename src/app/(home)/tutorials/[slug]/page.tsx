@@ -5,6 +5,11 @@ import { ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { EmailCapture } from '@/components/email-capture';
 import { CopyBlock } from '@/components/guide/copy-block';
+import { TutorialTracker } from '@/components/tutorial-tracker';
+import { TutorialCompleteButton } from '@/components/tutorial-complete-button';
+import { TutorialStepDemo } from '@/components/tutorial-step-demo';
+import { RouteSwitcher, type TutorialRoute } from '@/components/route-switcher';
+import { ShareCard } from '@/components/share-card';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -22,6 +27,13 @@ interface TutorialStep {
       delay?: number;
     }>;
   };
+  appDemo?: {
+    steps: Array<{
+      role: 'user' | 'claude';
+      text: string;
+      delay?: number;
+    }>;
+  };
 }
 
 interface Tutorial {
@@ -33,6 +45,8 @@ interface Tutorial {
   intro: string;
   steps: TutorialStep[];
   nextLink: { label: string; href: string };
+  /** Routes with authored content. Defaults to ['terminal'] for old tutorials, ['app'] for new. */
+  availableRoutes?: TutorialRoute[];
 }
 
 /* ------------------------------------------------------------------ */
@@ -970,6 +984,152 @@ forget it exists.'"`,
     },
   },
 
+  'stakeholder-map': {
+    title: 'Build a Stakeholder Map in 15 Minutes',
+    slug: 'stakeholder-map',
+    duration: '15 min',
+    difficulty: 'beginner',
+    availableRoutes: ['app'],
+    description:
+      'Turn a messy list of names and roles into a structured stakeholder map, communication plan, and outreach messages — no spreadsheet required.',
+    intro:
+      'Every PM, consultant, and white-collar professional builds stakeholder maps manually. You open a doc, start typing names, and two hours later you have a chart nobody reads. Let\'s use Claude to do the thinking. You bring the context, Claude builds the structure.',
+    steps: [
+      {
+        title: 'Open Claude.ai and give it your project context',
+        description:
+          'Go to claude.ai (or open the Claude desktop app). You\'re going to have a conversation — not run a command. Start by telling Claude what you\'re working on.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I need to build a stakeholder map for a new project. Can you help me?' },
+            { role: 'claude', text: 'Absolutely — stakeholder maps are one of my favourite things to help with. To get started, tell me:\n\n1. What\'s the project or initiative?\n2. Who are the people involved? (names + roles, even rough ones)\n3. What\'s your goal — getting decisions made, building buy-in, planning communications?' },
+          ],
+        },
+      },
+      {
+        title: 'Paste your stakeholder list — messy is fine',
+        description:
+          'Don\'t worry about formatting. Paste emails, org chart screenshots, LinkedIn titles, whatever you have. Claude will make sense of it.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Project: Launching a new employee onboarding tool company-wide.\n\nStakeholders: Sarah Chen (CHRO), Mike Torres (Head of IT), 3 HRBPs (names TBC), Aisha from Finance, CEO needs to approve the budget.' },
+            { role: 'claude', text: 'Got it. Here\'s your stakeholder map organized by influence and interest:\n\n🔴 High Influence, High Interest\n• Sarah Chen (CHRO) — Decision maker and champion. Needs regular updates, will present to CEO.\n• CEO — Budget approver. High stakes at approval gates, low day-to-day involvement.\n\n🟡 High Influence, Lower Interest\n• Mike Torres (Head of IT) — Technical gatekeeper for security and integrations. Communicate blockers early.\n• Aisha (Finance) — Controls budget approval. Needs ROI case, not implementation details.\n\n🟢 Lower Influence, High Interest\n• 3 HRBPs — Daily users. High interest in outcomes, low decision power. Keep informed via Sarah.' },
+          ],
+        },
+      },
+      {
+        title: 'Ask for a communication plan',
+        description:
+          'Now turn the map into a practical weekly plan — what to say, to whom, and through which channel.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Create a communication plan from this. Weekly cadence. What should I say to each person and how often?' },
+            { role: 'claude', text: 'Communication Plan — Weekly Cadence\n\nSarah Chen (CHRO)\n→ Channel: 1:1 or async Slack\n→ Frequency: Weekly\n→ Content: Progress vs milestones, risks flagged early, wins to celebrate\n\nCEO\n→ Channel: Email summary via Sarah\n→ Frequency: Monthly or at approval gates only\n→ Content: One paragraph — budget burn + key milestone status\n\nMike Torres (IT)\n→ Channel: Bi-weekly sync + async Slack\n→ Content: Integration checklist, security requirements, blockers\n\nAisha (Finance)\n→ Channel: Email\n→ Frequency: Before each approval gate\n→ Content: ROI summary + budget request with business case\n\nHRBPs (x3)\n→ Channel: Group Slack channel\n→ Frequency: Bi-weekly\n→ Content: Progress updates, what\'s changing for them, how to give feedback' },
+          ],
+        },
+      },
+      {
+        title: 'Draft an outreach message for a key stakeholder',
+        description:
+          'Pick any stakeholder you haven\'t connected with yet. Ask Claude to draft the first message.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Write an outreach message for Aisha in Finance. I need her to approve our Q3 budget request. She doesn\'t know me well yet.' },
+            { role: 'claude', text: 'Here\'s a concise, non-pushy message:\n\n---\nHi Aisha,\n\nI\'m leading the onboarding tool initiative for HR — Sarah Chen suggested you as the right finance contact for the Q3 budget request.\n\nI\'d love 20 minutes to walk you through the business case before the approval cycle opens. I have numbers on time-to-productivity improvements and IT support ticket reduction if that helps.\n\nWould Thursday 2pm or Friday morning work?\n\n— [Your name]\n---\n\nWant me to adjust the tone, add specific numbers, or make it shorter?' },
+          ],
+        },
+      },
+      {
+        title: 'Export as markdown for Notion or Confluence',
+        description:
+          'Ask Claude to package everything into a clean document you can paste into your team\'s tool.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Format everything as a clean markdown document I can paste into Notion.' },
+            { role: 'claude', text: '# Stakeholder Map — Onboarding Tool Launch\n_Last updated: [date]_\n\n## Stakeholder Matrix\n| Name | Role | Influence | Interest | Primary Owner |\n|---|---|---|---|---|\n| Sarah Chen | CHRO | High | High | You |\n| CEO | Executive | High | Medium | Sarah |\n| Mike Torres | Head of IT | High | Low | You |\n| Aisha | Finance Lead | High | Low | You |\n| HRBPs (x3) | HR Business Partners | Low | High | Sarah |\n\n## Communication Cadence\n[Full weekly plan as above...]\n\n## Key Risks\n1. IT approval bottleneck — surface integration requirements by Week 2\n2. CEO approval gate — ensure Sarah has the one-pager by Week 6\n\n✓ Ready to paste into Notion.' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Set up a CLAUDE.md for your PM workspace',
+      href: '/tutorials/your-first-claude-md',
+    },
+  },
+
+  'newsletter-automator': {
+    title: 'Automate Your Newsletter in 10 Minutes',
+    slug: 'newsletter-automator',
+    duration: '10 min',
+    difficulty: 'beginner',
+    availableRoutes: ['app'],
+    description:
+      'Feed Claude your sources — URLs, RSS feeds, or topics — and get a fully formatted newsletter draft ready to send.',
+    intro:
+      'Writing a newsletter is mostly curation: you scan ten tabs, decide what matters, and then spend an hour stitching it into prose. Claude can do the scanning, the summarizing, and the first draft. You do the editing and add your voice at the end.',
+    steps: [
+      {
+        title: 'Tell Claude what your newsletter is about',
+        description:
+          'Open Claude.ai and describe your newsletter in one message. The more specific, the better the draft.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I run a weekly newsletter for product managers called "PM Pulse." It covers product strategy, interesting frameworks, and one tool worth trying. My audience is mid-to-senior PMs at tech companies. Tone is smart but not stuffy — like a sharp PM friend texting you.' },
+            { role: 'claude', text: 'Love the brief — "smart PM friend texting you" is a great editorial voice to lock in.\n\nFor each issue I\'d suggest this structure:\n1. The insight (1 idea worth thinking about this week)\n2. The framework (a mental model or process, explained simply)\n3. The tool (one thing worth trying, with a real use case)\n\nDoes that match how you already run it? And should I write each section as short sharp takes, or longer explanations?' },
+          ],
+        },
+      },
+      {
+        title: 'Give Claude your sources',
+        description:
+          'Paste URLs, article titles, or just topics you\'ve been thinking about. Claude will turn them into newsletter content.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Here are my sources for this week:\n\n1. https://www.lennysnewsletter.com/p/the-arc-of-the-pm\n2. Teresa Torres just posted about continuous discovery — something about switching from output to outcome metrics\n3. I\'ve been experimenting with using Granola for meeting notes this week, it\'s been great\n4. Saw a tweet about "shape-up" methodology making a comeback at a few companies' },
+            { role: 'claude', text: 'Drafting PM Pulse — Issue [#]...\n\n**The Insight: The PM\'s Arc**\nMost PMs think their job is to ship features. The best ones know it\'s to move metrics. Lenny\'s piece this week maps what the evolution from output-focused to outcome-focused actually looks like in practice — and why so many smart PMs stay stuck at the feature-shipping stage longer than they should.\n\nWorth 10 minutes if you want a mirror to hold up to yourself.\n[link]\n\n**The Framework: Continuous Discovery (Teresa Torres)**\nTeresa\'s been beating the drum on this for years, but this week\'s post gets specific: the switch from "we shipped X" to "we moved Y" as your north star...' },
+          ],
+        },
+      },
+      {
+        title: 'Ask Claude to add your voice',
+        description:
+          'The first draft is accurate but probably a bit flat. Ask Claude to punch it up — add a hot take, sharpen the opener, make it sound more like you.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'The draft is good but too safe. Make the insight section punchier. Add a hot take. I\'m not afraid of disagreeing with conventional wisdom.' },
+            { role: 'claude', text: 'Here\'s the punched-up version:\n\n**The Insight: Most PMs Are Busy Faking Progress**\nLenny\'s new piece is a polite way of saying something blunt: most PMs are activity-oriented, not outcome-oriented. They\'re filling backlogs, running sprint ceremonies, and writing PRDs that nobody re-reads — while the metrics they supposedly own barely move.\n\nThe arc from "good PM" to "great PM" isn\'t about better frameworks. It\'s about tolerating the discomfort of being measured on outcomes you can\'t fully control.\n\nFewer features. More accountability. Most people won\'t do it.\n[link]\n\nWant me to keep this energy across all three sections?' },
+          ],
+        },
+      },
+      {
+        title: 'Get it formatted for your platform',
+        description:
+          'Whether you use Substack, Beehiiv, or plain email — ask Claude to format it correctly.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Format this for Substack. Include a subject line, preview text, and proper section headers.' },
+            { role: 'claude', text: 'Substack-ready version:\n\n**Subject line:** Most PMs are busy faking progress\n**Preview text:** The uncomfortable truth about output vs. outcome thinking\n\n---\n\nHey [first_name],\n\nThree things worth your attention this week:\n\n## 📌 The Insight\n**Most PMs Are Busy Faking Progress**\n[full section]\n\n## 🧠 The Framework\n**Continuous Discovery: Switching Your North Star**\n[full section]\n\n## 🛠 The Tool\n**Granola: Meeting Notes That Don\'t Suck**\n[full section]\n\n---\nSee you next week,\n[Your name]\n\n_Forwarded by a friend? Subscribe here._' },
+          ],
+        },
+      },
+      {
+        title: 'Save your newsletter prompt as a reusable template',
+        description:
+          'The instructions you just gave Claude are now a reusable recipe. Save them as your permanent "newsletter prompt" so you never start from scratch again.',
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Summarize the instructions I gave you into a reusable prompt I can paste at the start of every future session.' },
+            { role: 'claude', text: 'Here\'s your reusable newsletter prompt:\n\n---\nYou are the editor for "PM Pulse," a weekly newsletter for mid-to-senior product managers at tech companies. Tone: smart but not stuffy — like a sharp PM friend texting you.\n\nStructure each issue as:\n1. The Insight — 1 idea with a hot take, not afraid of being contrarian\n2. The Framework — a mental model, explained simply with practical application\n3. The Tool — one product worth trying, with a real use case from my week\n\nWhen I give you source URLs or topics, draft all three sections. Then ask if I want to punch up the tone. Format for Substack: subject line, preview text, [first_name] merge tag, section headers.\n---\n\nSave this. Paste it at the start of every newsletter session.' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Create your first reusable skill',
+      href: '/tutorials/your-first-skill',
+    },
+  },
+
   'weekly-status': {
     title: 'Build a Weekly Status Report Generator',
     slug: 'weekly-status',
@@ -1230,6 +1390,7 @@ export default async function TutorialPage({
   return (
     <div className="flex flex-col bg-fd-background">
       <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-24">
+        <TutorialTracker slug={tutorial.slug} title={tutorial.title} />
         {/* Back link */}
         <Link
           href="/tutorials"
@@ -1258,8 +1419,11 @@ export default async function TutorialPage({
           </p>
         </header>
 
+        {/* Route switcher */}
+        <RouteSwitcher availableRoutes={tutorial.availableRoutes ?? ['terminal']} />
+
         {/* Intro */}
-        <div className="mb-12 rounded-xl border border-fd-border bg-fd-card p-6">
+        <div data-tutorial-intro className="mb-12 rounded-xl border border-fd-border bg-fd-card p-6">
           <p className="text-sm leading-relaxed text-fd-muted-foreground">
             {tutorial.intro}
           </p>
@@ -1294,14 +1458,10 @@ export default async function TutorialPage({
                 </div>
               )}
 
-              {/* Demo card */}
-              {step.demo && (
+              {/* Demo — renders AppChatDemo or DemoCard based on selected route */}
+              {(step.demo ?? step.appDemo) && (
                 <div className="ml-12 mt-4">
-                  <DemoCard
-                    title={step.demo.title}
-                    steps={step.demo.steps}
-                    loop={false}
-                  />
+                  <TutorialStepDemo demo={step.demo} appDemo={step.appDemo} />
                 </div>
               )}
             </section>
@@ -1309,7 +1469,17 @@ export default async function TutorialPage({
         </div>
 
         {/* Footer */}
-        <div className="mt-20 space-y-8">
+        <div data-tutorial-complete-sentinel className="mt-20 space-y-8">
+          {/* Mark as complete */}
+          <TutorialCompleteButton slug={tutorial.slug} title={tutorial.title} />
+
+          {/* Share card */}
+          <ShareCard
+            tutorialTitle={tutorial.title}
+            tutorialSlug={tutorial.slug}
+            duration={tutorial.duration}
+          />
+
           {/* What's next */}
           <div className="rounded-xl border border-fd-border bg-fd-card p-6">
             <p className="text-sm font-medium text-fd-muted-foreground mb-2">

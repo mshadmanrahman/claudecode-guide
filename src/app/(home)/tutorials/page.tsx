@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine } from 'lucide-react';
+import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine, Network, Newspaper } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { EmailCapture } from '@/components/email-capture';
 
@@ -142,6 +142,39 @@ export default function TutorialsPage() {
             outcome="A reusable /skill command that automates a real task in your workflow."
             href="/tutorials/your-first-skill"
             icon={<Sparkles className="h-5 w-5" />}
+            available={true}
+          />
+        </div>
+
+        <div className="mt-12 mb-8">
+          <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground">
+            No terminal required
+          </h2>
+          <p className="mt-1 text-sm text-fd-muted-foreground">
+            These run entirely in the Claude.ai web app. Just open a tab and paste a prompt.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          <TutorialCard
+            title="Build a Stakeholder Map in 15 Minutes"
+            description="Turn a messy list of names and roles into a structured stakeholder map, communication plan, and outreach messages."
+            duration="15 min"
+            difficulty="beginner"
+            outcome="A stakeholder map, weekly communication plan, and a drafted outreach message — ready to paste into Notion."
+            href="/tutorials/stakeholder-map"
+            icon={<Network className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Automate Your Newsletter in 10 Minutes"
+            description="Feed Claude your sources — URLs, topics, or tweets — and get a formatted newsletter draft ready to send."
+            duration="10 min"
+            difficulty="beginner"
+            outcome="A full newsletter draft formatted for Substack or Beehiiv, plus a reusable prompt for every future issue."
+            href="/tutorials/newsletter-automator"
+            icon={<Newspaper className="h-5 w-5" />}
             available={true}
           />
         </div>

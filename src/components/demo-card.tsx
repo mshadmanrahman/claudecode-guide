@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useInView } from '@/hooks/use-in-view';
 
 interface DemoStep {
   /** 'cmd' = user input, 'out' = Claude output, 'success' = green output, 'warn' = amber annotation, 'error' = red output */
@@ -29,9 +30,8 @@ const TYPE_STYLES: Record<DemoStep['type'], string> = {
 
 export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3000 }: DemoCardProps) {
   const [visibleCount, setVisibleCount] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerRef, isInView] = useInView(0.3);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef);
 
   useEffect(() => {
     if (!isInView) return;
@@ -104,21 +104,3 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
   );
 }
 
-/** Intersection Observer hook — triggers animation only when visible */
-function useInView(ref: React.RefObject<HTMLElement | null>) {
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.3 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref]);
-
-  return inView;
-}
