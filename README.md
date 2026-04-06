@@ -54,7 +54,7 @@ You don't need to be a developer. You don't need to know what a terminal is. You
 
 ## What's Inside
 
-The guide is 34 pages across 5 sections. Here's the full table of contents:
+The guide is 34 pages across 5 sections, plus **15 hands-on tutorials** for every audience. Here's the full table of contents:
 
 <table>
 <tr>
@@ -114,6 +114,30 @@ The guide is 34 pages across 5 sections. Here's the full table of contents:
 - [Learning Roadmap](https://claudecodeguide.dev/roadmap)
 - [Blog](https://claudecodeguide.dev/blog)
 
+### Tutorials (15 hands-on micro-projects)
+**Start Here** — terminal + Claude App + VS Code routes
+- [Build Your First CLAUDE.md](https://claudecodeguide.dev/tutorials/your-first-claude-md)
+- [Ship a Landing Page in 30 Minutes](https://claudecodeguide.dev/tutorials/ship-a-landing-page)
+- [Create Your First Skill](https://claudecodeguide.dev/tutorials/your-first-skill)
+
+**No Terminal Required** — Claude web app only
+- [Build a Stakeholder Map](https://claudecodeguide.dev/tutorials/stakeholder-map)
+- [Automate Your Newsletter](https://claudecodeguide.dev/tutorials/newsletter-automator)
+
+**For Product Managers**
+- [Product Discovery with OSTs](https://claudecodeguide.dev/tutorials/product-discovery-ost)
+- [Meeting Notes → Jira Tickets](https://claudecodeguide.dev/tutorials/meeting-to-jira)
+- [Weekly Status Report Generator](https://claudecodeguide.dev/tutorials/weekly-status)
+- [Competitive Analysis in 30 Minutes](https://claudecodeguide.dev/tutorials/competitive-analysis)
+- [Decision Memo from a Brain Dump](https://claudecodeguide.dev/tutorials/decision-memo)
+
+**For Everyone** — no code, no terminal
+- [Performance Review in 20 Minutes](https://claudecodeguide.dev/tutorials/performance-review)
+- [5 Articles → Research Briefing](https://claudecodeguide.dev/tutorials/research-briefing)
+- [Slide Deck Outline in 15 Minutes](https://claudecodeguide.dev/tutorials/slide-deck-outline)
+- [Job Application Assistant](https://claudecodeguide.dev/tutorials/job-application-assistant)
+- [Personal Finance Manager](https://claudecodeguide.dev/tutorials/personal-finance-manager)
+
 </td>
 </tr>
 </table>
@@ -134,7 +158,7 @@ No walls of text. Every concept shows you what to expect before you try it:
   → Same task. Autocomplete vs full execution.
 ```
 
-45+ animated terminal demos across 34 pages. The philosophy: **show, don't tell.**
+45+ animated terminal demos across 34 pages. Every tutorial also has an animated Claude App chat demo — no terminal required. The philosophy: **show, don't tell.**
 
 ---
 
@@ -194,8 +218,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 - [x] Blog with Substack email capture
 - [x] Learning roadmap with 5 stages
 - [x] Dark mode, responsive, Vercel deployment
+- [x] 15 hands-on tutorials — terminal, Claude App, and VS Code/Cursor routes
+- [x] Animated AppChatDemo component for non-coder learning paths
+- [x] Shareable achievement cards at the end of every tutorial
+- [x] GA4 event tracking (tutorial_start, tutorial_complete)
 - [ ] Video walkthroughs (Remotion)
-- [ ] Guided tutorials (hands-on micro-projects)
 - [ ] Community templates gallery
 - [ ] "Ask the guide" AI assistant
 - [ ] Translations (Bengali, Swedish, Spanish)
