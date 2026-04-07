@@ -9,9 +9,13 @@ Every time you start a new Claude Code session, it begins with a blank slate. Wi
 
 The memory system fixes this. It gives Claude Code a structured way to remember you, your projects, and your preferences across sessions. Think of it as building a relationship with your tool instead of meeting a stranger every time.
 
-<DemoCard title="Memory in action" steps={[
+<Callout type="warn" title="Memory is not automatic">
+Memory files are **not** read automatically at session start. You need to either reference them in your `CLAUDE.md` (e.g., "Read `memory/MEMORY.md` at startup") or use a startup hook. Without explicit configuration, Claude Code will not know your memory files exist.
+</Callout>
+
+<DemoCard title="Memory in action (with CLAUDE.md configured)" steps={[
   { type: 'cmd', text: 'claude' },
-  { type: 'out', text: 'Reading MEMORY.md...' },
+  { type: 'out', text: 'Reading CLAUDE.md... following instruction to load MEMORY.md' },
   { type: 'success', text: '✓ Loaded: your role (PM), 4 active projects, 8 preferences' },
   { type: 'success', text: '✓ Loaded: "never use em dashes in writing"' },
   { type: 'success', text: '✓ Loaded: "Sebastian owns the API — match his patterns"' },
@@ -96,7 +100,15 @@ The memory system uses a simple file-based approach:
 
 Each memory file is a small Markdown file with frontmatter (title, created date, updated date) and a few paragraphs of structured content. Keep them focused: one topic per file.
 
-`MEMORY.md` acts as a table of contents. When a session starts, Claude Code reads this index and loads only the memories relevant to the current task. It does not read every file every time.
+`MEMORY.md` acts as a table of contents. When you configure Claude Code to read it (via CLAUDE.md or a startup hook), it serves as an index so Claude knows which memory files exist. You control which files get loaded — Claude reads what you tell it to read, not what it decides is relevant on its own.
+
+## The /memory Command
+
+Claude Code has a built-in `/memory` command that provides native memory persistence without any file setup. When you run `/memory` in a session, Claude Code saves key facts, preferences, and corrections to its internal memory store. These persist across sessions automatically.
+
+This is the simplest way to get started with memory — no files to create, no CLAUDE.md configuration needed. Just tell Claude something important and run `/memory` to save it.
+
+The file-based memory system described in this guide is a **complementary approach** that gives you more control: you can organize memories by category, version them in Git, share them across machines, and build structured indexes. Many users combine both — `/memory` for quick personal preferences, file-based memory for project and team context.
 
 ## What NOT to Save
 
@@ -123,7 +135,7 @@ Memory builds over time, and the returns accelerate.
 
 Ready to set up memory? Start here:
 
-- [ ] Create a `MEMORY.md` file in your `.claude/` directory
+- [ ] Create a `MEMORY.md` file in your `memory/` directory (e.g., `memory/MEMORY.md`)
 - [ ] Write your first user memory: your role, your main project, and one preference
 - [ ] After your next session, save one correction as a feedback memory
 - [ ] Add your active project with its tech stack and current status
