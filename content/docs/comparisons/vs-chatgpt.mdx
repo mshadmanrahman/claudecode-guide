@@ -1,0 +1,115 @@
+---
+title: Claude Code vs ChatGPT
+description: "You've been using ChatGPT. Now you're hearing about Claude Code. Here's the real difference, when to use which, and why they're not competing with each other."
+targetKeyword: "claude code vs chatgpt"
+comparisonEntities:
+  - "Claude Code"
+  - "ChatGPT"
+relatedLinks:
+  - title: "Claude Code vs Claude.ai"
+    href: "/docs/comparisons/vs-claude-web"
+    description: "The difference between Claude the chatbot and Claude Code the agent."
+  - title: "What is Claude Code?"
+    href: "/docs/foundations/what-is-claude-code"
+    description: "The full explainer for people brand new to Claude Code."
+  - title: "Which Claude Interface Should You Use?"
+    href: "/docs/foundations/which-interface"
+    description: "Terminal, desktop app, web app, or IDE extension."
+  - title: "Claude Pro vs Max vs API"
+    href: "/docs/comparisons/pro-vs-max"
+    description: "Pick the right plan for your workflow."
+---
+
+## This Is the Comparison You're Actually Looking For
+
+You've used ChatGPT. Maybe you pay for Plus. You've heard people on Twitter shipping entire apps with "Claude Code" and you're wondering: is this just another chatbot?
+
+No. It's a fundamentally different thing.
+
+**ChatGPT** is a chatbot you talk to in a browser. You ask questions, it gives answers. You copy-paste code snippets. It's great for brainstorming, writing, and quick answers.
+
+**Claude Code** is an AI agent that lives on your computer. It reads your files, writes code, runs commands, creates projects, runs tests, and deploys things. You describe what you want. It does the work.
+
+<DemoCard title="Same request, completely different experience" steps={[
+  { type: 'out', text: '-- ChatGPT --' },
+  { type: 'cmd', text: '"Build me a personal portfolio website"' },
+  { type: 'out', text: 'Here\'s some code you can use:' },
+  { type: 'out', text: '```html <div class="hero">... ``` (200 lines)' },
+  { type: 'out', text: 'Copy this into a file called index.html...' },
+  { type: 'warn', text: '→ You get TEXT. You copy-paste. You figure out the rest.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '-- Claude Code --', delay: 800 },
+  { type: 'cmd', text: '"Build me a personal portfolio website"' },
+  { type: 'out', text: 'Creating project structure...' },
+  { type: 'success', text: '✓ Created index.html, styles.css, script.js' },
+  { type: 'success', text: '✓ Added responsive design + dark mode' },
+  { type: 'success', text: '✓ Deployed to https://your-site.vercel.app' },
+  { type: 'warn', text: '→ You get a LIVE WEBSITE. On the internet. Done.' },
+]} />
+
+## The Real Difference
+
+| | ChatGPT | Claude Code |
+|---|---|---|
+| **What it is** | Chatbot in a browser | AI agent on your computer |
+| **Where it runs** | OpenAI's servers | Your machine (or browser via claude.ai/code) |
+| **What it sees** | Only what you paste | Your entire project, files, and terminal |
+| **Output** | Text you copy-paste | Real files, real commands, real results |
+| **Memory** | Limited (forgets between chats) | Persistent (remembers you across sessions) |
+| **Can it run code?** | Only in a sandbox | Yes, directly on your machine |
+| **Can it edit files?** | No | Yes, any file in your project |
+| **Can it deploy?** | No | Yes, to Vercel, Railway, etc. |
+| **Can it use your tools?** | GPTs/plugins (limited) | MCP: GitHub, Slack, Jira, databases, 20+ tools |
+| **Can it see your screen?** | No | Yes (Computer Use, since March 2026) |
+| **Price** | $20/mo (Plus) | $20/mo (Pro) -- same price, different product |
+
+## When ChatGPT Is Better
+
+Let's be honest. ChatGPT wins in some scenarios:
+
+**Quick questions while browsing.** "What's the difference between `map` and `forEach`?" -- ChatGPT is right there in a browser tab. Fast, frictionless, done.
+
+**Writing and brainstorming.** Blog posts, emails, marketing copy, brainstorming sessions. ChatGPT is excellent at conversational text generation. You don't need an agent for this.
+
+**Image generation.** ChatGPT has DALL-E built in. Claude Code doesn't generate images.
+
+**Mobile.** ChatGPT has a great mobile app. Claude Code is a desktop/terminal tool.
+
+**Casual use.** If you ask AI a few questions a week, ChatGPT is fine. You don't need the power of an agent.
+
+## When Claude Code Is Better (And It's a Different League)
+
+**Building anything.** Websites, apps, automations, scripts, tools. Claude Code creates actual files on your computer and can deploy them. ChatGPT gives you text to copy-paste.
+
+**Working with your existing projects.** Claude Code reads your codebase, understands your tech stack, remembers your preferences. ChatGPT starts from zero every time.
+
+**Automating your workflow.** Custom skills, hooks, MCP integrations. "Every morning, pull my calendar, check Slack, and compile a briefing." ChatGPT can't do this. Claude Code can.
+
+**Debugging.** Claude Code reads your error logs, traces the stack, checks recent changes, and proposes a fix. ChatGPT needs you to copy-paste the error and explain the context.
+
+**Anything that requires multiple steps.** ChatGPT handles one exchange at a time. Claude Code plans, executes, verifies, and iterates across multiple files and commands in a single flow.
+
+## The Migration Path
+
+If you're a ChatGPT user ready to try Claude Code:
+
+1. **Don't cancel ChatGPT yet.** Keep it for quick questions and writing. Use Claude Code for building.
+2. **Start with the desktop app or web app** (claude.ai/code). No terminal needed.
+3. **Try one real task.** The [Ship a Landing Page](/tutorials/ship-a-landing-page) tutorial takes 30 minutes and shows you the difference instantly.
+4. **Write a CLAUDE.md.** This is the file that makes Claude Code personal. [5-minute tutorial here](/tutorials/your-first-claude-md).
+5. **Follow the [Journey Map](/journey).** Pick "ChatGPT User" as your persona. Every step is designed for you.
+
+## Can I Use Both?
+
+Yes. Many people do.
+
+- **ChatGPT** for quick questions, writing, brainstorming, mobile use
+- **Claude Code** for building, deploying, automating, and working with real projects
+
+They're different tools for different jobs. The question isn't "which one?" -- it's "which one for this task?"
+
+## The Bottom Line
+
+ChatGPT is a conversationalist. Claude Code is a builder.
+
+If you want answers, use ChatGPT. If you want results, use Claude Code.

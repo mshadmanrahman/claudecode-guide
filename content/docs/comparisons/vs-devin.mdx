@@ -1,0 +1,96 @@
+---
+title: Claude Code vs Devin
+description: "Devin is the 'AI software engineer.' Claude Code is the AI agent that actually ships. Here's the honest comparison and why the approach matters more than the marketing."
+targetKeyword: "claude code vs devin"
+comparisonEntities:
+  - "Claude Code"
+  - "Devin"
+relatedLinks:
+  - title: "Claude Code vs Cursor"
+    href: "/docs/comparisons/vs-cursor"
+    description: "Terminal-native agent vs IDE-integrated autocomplete."
+  - title: "Claude Code vs OpenAI Codex"
+    href: "/docs/comparisons/vs-codex"
+    description: "Local terminal agent vs cloud-sandbox execution."
+  - title: "Claude Code vs ChatGPT"
+    href: "/docs/comparisons/vs-chatgpt"
+    description: "For ChatGPT users wondering what's different."
+---
+
+## The AI Engineer vs The AI Agent
+
+Devin made headlines as the "first AI software engineer." It runs in the cloud, gets assigned a task, and works autonomously in a sandboxed environment. You check back later and review what it built.
+
+Claude Code takes a different approach. It runs on YOUR machine, in YOUR project, with YOUR tools. You're in the loop. You see what it's doing. You approve changes in real time.
+
+Both are agentic. The philosophy is different.
+
+<DemoCard title="Different approaches to the same goal" steps={[
+  { type: 'out', text: '-- Devin --' },
+  { type: 'cmd', text: 'Assign: "Add user authentication to the app"' },
+  { type: 'out', text: '(Devin works in cloud sandbox...)' },
+  { type: 'out', text: '(You check back in 30 minutes...)' },
+  { type: 'out', text: 'PR ready for review. 12 files changed.' },
+  { type: 'warn', text: '→ Autonomous. You review after the fact.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '-- Claude Code --', delay: 800 },
+  { type: 'cmd', text: '"Add user authentication to the app"' },
+  { type: 'out', text: 'Plan: 1) NextAuth setup 2) Login page 3) Middleware 4) Tests' },
+  { type: 'cmd', text: 'Approve? → yes' },
+  { type: 'out', text: 'Creating auth config... Adding login page... Writing middleware...' },
+  { type: 'success', text: '✓ Auth added. 8 files. Tests passing.' },
+  { type: 'warn', text: '→ Collaborative. You approve the plan, watch it execute.' },
+]} />
+
+## The Comparison
+
+| | Claude Code | Devin |
+|---|---|---|
+| **Runs on** | Your machine | Cloud sandbox |
+| **Your codebase** | Direct access | Cloned copy |
+| **Human in the loop** | Yes (approve, redirect, intervene) | Mostly autonomous |
+| **Speed of feedback** | Real-time | Async (check back later) |
+| **Local tools** | Full access (terminal, editors, servers) | Sandboxed environment |
+| **MCP integrations** | 20+ (GitHub, Slack, Jira, etc.) | Limited |
+| **Custom automation** | Skills, hooks, sub-agents | Task assignment |
+| **Memory** | Remembers you across sessions | Per-task context |
+| **Pricing** | $20/mo (Pro) or API | $500/mo (Teams) |
+| **Open source** | CLI is open source | Proprietary |
+
+## Where Devin's Approach Works
+
+**Fully autonomous tasks.** If you have well-defined tasks with clear acceptance criteria and you trust the AI to execute without supervision, Devin's async model works. Assign the task, go do something else, review the PR.
+
+**Tasks you'd assign to a junior dev.** Bug fixes, small features, test writing. Things where the spec is clear and the risk of going off-track is low.
+
+**Team workflows.** Devin integrates into Slack and project management tools. You assign tasks like you'd assign them to a team member.
+
+## Where Claude Code Wins
+
+**You want to stay in control.** Plan mode, approval gates, real-time visibility. You see every file change, every command, every decision. This matters when you're working on production code.
+
+**Complex, ambiguous tasks.** "Improve the performance of this page" or "refactor the auth module." Tasks where the approach isn't obvious need a human in the loop to steer.
+
+**Your local environment matters.** Docker containers running locally, specific env vars, custom tooling, VPN access. Claude Code uses your actual machine.
+
+**Cost.** Claude Code Pro is $20/month. Devin Teams is $500/month. That's a 25x difference. For individuals and small teams, Claude Code is the practical choice.
+
+**Extensibility.** Skills, hooks, MCP servers, sub-agents. Claude Code becomes an operating system. Devin is a task runner.
+
+**Speed of iteration.** You give Claude Code a task, watch it work, redirect if it goes wrong, iterate in real time. With Devin, you wait for the result and then iterate on the PR. The feedback loop is tighter with Claude Code.
+
+## The Honest Take
+
+Devin's vision is compelling: an AI team member that works autonomously. But in practice, most real-world coding tasks need human judgment along the way. The requirements are ambiguous, the codebase has weird patterns, the right approach depends on context that's hard to specify upfront.
+
+Claude Code's collaborative model -- where you're in the loop but not doing the typing -- fits more workflows today. You get the speed of AI with the judgment of a human.
+
+## Who Should Use What
+
+| You are... | Use |
+|---|---|
+| Individual developer or small team | **Claude Code** (cost, control, extensibility) |
+| Large team with well-defined task queue | Consider **Devin** for defined tasks + **Claude Code** for interactive work |
+| Non-coder who wants to build things | **Claude Code** (Devin requires engineering context) |
+| Someone who wants to watch the AI work | **Claude Code** (real-time visibility) |
+| Someone who wants to assign and forget | **Devin** (async autonomous model) |

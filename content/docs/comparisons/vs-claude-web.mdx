@@ -1,0 +1,105 @@
+---
+title: Claude Code vs Claude.ai
+description: "You already use Claude.ai. Why would you need Claude Code? They share a name but they're completely different products. Here's the explainer."
+targetKeyword: "claude code vs claude ai"
+comparisonEntities:
+  - "Claude Code"
+  - "Claude.ai"
+relatedLinks:
+  - title: "Claude Code vs ChatGPT"
+    href: "/docs/comparisons/vs-chatgpt"
+    description: "How Claude Code compares to ChatGPT for ChatGPT users."
+  - title: "What is Claude Code?"
+    href: "/docs/foundations/what-is-claude-code"
+    description: "The full explainer for people new to Claude Code."
+  - title: "Which Claude Interface Should You Use?"
+    href: "/docs/foundations/which-interface"
+    description: "Terminal, desktop app, web app, or IDE extension."
+---
+
+## "I Already Use Claude. What's Different?"
+
+This is the #1 question we get. You go to claude.ai, you chat with Claude, it's great. Then someone mentions "Claude Code" and you think it's the same thing with a different name.
+
+It's not. They're as different as Google Docs and Google Cloud.
+
+**Claude.ai** is a chatbot. You type, it responds. Text in, text out.
+
+**Claude Code** is an agent. It reads your files, writes code, runs commands, uses tools, and builds things on your computer.
+
+Same AI brain. Completely different body.
+
+<DemoCard title="Claude.ai vs Claude Code" steps={[
+  { type: 'out', text: '-- Claude.ai (chat) --' },
+  { type: 'cmd', text: '"Write me a Python script to rename files"' },
+  { type: 'out', text: 'Here\'s a script you can use:' },
+  { type: 'out', text: '```python import os... ``` (copy this)' },
+  { type: 'warn', text: '→ You get code as TEXT. You save it yourself. You run it yourself.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '-- Claude Code (agent) --', delay: 800 },
+  { type: 'cmd', text: '"Rename all .jpeg files to .jpg in this folder"' },
+  { type: 'out', text: 'Scanning folder... Found 23 .jpeg files' },
+  { type: 'success', text: '✓ Renamed 23 files: photo1.jpeg → photo1.jpg...' },
+  { type: 'warn', text: '→ Already done. Files renamed. No script needed.' },
+]} />
+
+## The Quick Comparison
+
+| | Claude.ai (Chat) | Claude Code (Agent) |
+|---|---|---|
+| **What you do** | Type messages, get text back | Describe goals, watch them happen |
+| **File access** | Upload files one at a time | Reads your entire project folder |
+| **Can it edit files?** | No (gives you text to copy) | Yes, directly |
+| **Can it run commands?** | No | Yes (terminal commands, tests, deploys) |
+| **Can it use tools?** | Limited (artifacts, analysis) | Full (GitHub, Slack, Jira, databases via MCP) |
+| **Memory** | Per-project memory (limited) | Rich memory system (preferences, projects, feedback) |
+| **Custom automation** | No | Skills, hooks, sub-agents |
+| **Computer Use** | No | Yes (sees your screen, clicks, navigates) |
+| **Where it runs** | Browser tab | Your computer + optionally browser |
+
+## When to Use Claude.ai
+
+- **Quick questions.** "Explain this error message" or "what does this code do?"
+- **Document writing.** Drafting emails, reports, blog posts where you don't need file access
+- **Analysis.** Upload a CSV, ask questions about it
+- **Mobile.** Claude.ai works great on your phone
+- **Brainstorming.** Back-and-forth ideation where you're exploring, not building
+
+## When to Use Claude Code
+
+- **Building anything.** Websites, apps, scripts, automations
+- **Working in a project.** Claude Code sees your whole codebase, not just one file
+- **Multi-step tasks.** "Fix this bug, add a test, update the docs, commit"
+- **Automation.** Skills and hooks that run on triggers
+- **Tool integration.** Connect to GitHub, Slack, Jira, calendars, databases
+- **Debugging.** Read logs, trace errors, check git history, propose fixes
+- **Deployment.** Push to Vercel, Railway, or any platform
+
+## They Share a Subscription
+
+Here's the good news: **Claude Pro ($20/mo) includes both.** You get Claude.ai chat AND Claude Code access on the same plan. You're not paying twice.
+
+- **Claude Pro** ($20/mo): Chat + Claude Code with standard limits
+- **Claude Max** ($100/mo): Chat + Claude Code with 20x limits
+
+If you already pay for Claude Pro, you already have Claude Code. Just [install it](/docs/foundations/installation).
+
+## The Best of Both Worlds
+
+Most power users keep both open:
+
+- **Claude.ai in a browser tab** for quick questions and writing
+- **Claude Code in the terminal/desktop** for building and automation
+
+They complement each other. Claude.ai is your thinking partner. Claude Code is your building partner.
+
+## Ready to Try Claude Code?
+
+If you're already a Claude.ai user:
+
+1. You already have the subscription. [Install Claude Code](/docs/foundations/installation) (2 minutes).
+2. Write your [first CLAUDE.md](/tutorials/your-first-claude-md) (5 minutes).
+3. Try the [Journey Map](/journey) -- pick "ChatGPT User" or "Product Manager" as your persona.
+4. Build something. The [Ship a Landing Page](/tutorials/ship-a-landing-page) tutorial is a great first project.
+
+You'll wonder how you worked without it.
