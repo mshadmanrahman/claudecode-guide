@@ -1,13 +1,13 @@
 ---
-title: "Keyboard Shortcuts & Commands Cheat Sheet"
-description: "Every slash command, keyboard shortcut, and hidden trick in Claude Code. The stuff power users know and everyone else doesn't."
+title: "Complete Command Cheatsheet"
+description: "Every slash command, keyboard shortcut, CLI flag, and hidden trick in Claude Code. The most bookmarked page on the site. Updated for 2026."
 ---
 
 ## You're Using 10% of Claude Code
 
 Most people type prompts and hit Enter. That's it. They don't know about slash commands. They don't know you can switch models mid-conversation. They don't know Escape cancels a running operation without killing the session.
 
-Here's everything in one place.
+Here's everything in one place. Bookmark this page.
 
 <DemoCard title="Commands you probably don't know about" steps={[
   { type: 'cmd', text: '/compact' },
@@ -15,63 +15,88 @@ Here's everything in one place.
   { type: 'success', text: 'Conversation continues with full understanding' },
   { type: 'cmd', text: '/cost' },
   { type: 'out', text: 'Session: $0.47 | Tokens in: 32K | Tokens out: 8.2K' },
-  { type: 'cmd', text: '/model sonnet' },
-  { type: 'out', text: 'Switched to claude-sonnet-4-20250514' },
-  { type: 'success', text: 'Cheaper model for simple tasks. Switch back anytime.' },
-  { type: 'warn', text: 'These three commands alone save people 30%+ on costs.' },
+  { type: 'out', text: 'Per-model breakdown: Sonnet 85%, Opus 15%' },
+  { type: 'cmd', text: '/model opus' },
+  { type: 'out', text: 'Switched to claude-opus-4-6' },
+  { type: 'success', text: 'Use the big model when the task demands it.' },
+  { type: 'warn', text: '→ These three commands alone save people 30%+ on costs.' },
 ]} />
 
 ## Slash Commands
 
-These work by typing them directly into the Claude Code prompt.
+Type these directly into the Claude Code prompt.
 
 ### Session Management
 
 | Command | What it does |
 |---------|-------------|
-| `/help` | Show all available commands |
+| `/help` | Show all available commands and options |
 | `/clear` | Clear conversation history and start fresh |
-| `/compact` | Compress context to free up token space |
-| `/cost` | Show current session token usage and cost |
-| `/quit` or `/exit` | End the session |
+| `/compact` | Compress context to free up token space (keeps understanding) |
+| `/cost` | Show session token usage, cost, and per-model breakdown |
+| `/status` | Show current session info (model, permissions, context usage) |
+| `/usage` | Show API usage stats for your account |
+| `/quit` or `/exit` | End the session cleanly |
+| `/export` | Export conversation as JSON or Markdown |
+| `/rewind` | Undo the last turn in conversation |
 
 ### Configuration
 
 | Command | What it does |
 |---------|-------------|
 | `/model` | Switch the active model (opus, sonnet, haiku) |
-| `/permissions` | View and manage tool permissions |
+| `/model opus` | Switch to Opus 4.6 (most capable) |
+| `/model sonnet` | Switch to Sonnet 4.6 (fast and capable, default) |
+| `/model haiku` | Switch to Haiku 4.5 (fastest, cheapest) |
 | `/init` | Generate a CLAUDE.md file for your project |
+| `/config` | View and edit Claude Code configuration |
+| `/permissions` | View and manage tool permissions |
+| `/doctor` | Run diagnostics (checks install, auth, MCP health) |
+| `/memory` | View or manage Claude's memory about you |
 
 ### Workflow
 
 | Command | What it does |
 |---------|-------------|
 | `/review` | Review recent changes for issues |
-| `/pr-comments` | Show unresolved PR comments |
+| `/plan` | Enter plan mode (Claude proposes before doing) |
+| `/agents` | List and manage active sub-agents |
+| `/mcp` | View connected MCP servers and tools |
+| `/context` | Show what's loaded in the context window |
+
+### Custom Skills
+
+Any `.md` file in `~/.claude/skills/` or your project's `.claude/skills/` becomes a slash command:
+
+```
+/my-skill        # Runs the skill defined in my-skill.md
+/commit          # If you have a commit skill
+/review-pr 123   # Skills can take arguments
+```
 
 ## Keyboard Shortcuts
-
-These work while you're in the Claude Code terminal interface.
 
 ### The Essentials
 
 | Shortcut | What it does |
 |----------|-------------|
 | **Enter** | Send your message |
-| **Escape** | Cancel current operation (safe — doesn't lose context) |
+| **Escape** | Cancel current operation (safe — keeps context) |
+| **Escape, Escape** | Quick cancel (double-tap for immediate stop) |
 | **Ctrl+C** | Hard cancel / exit if pressed twice |
 | **Ctrl+L** | Clear the screen (keeps conversation) |
 | **Up arrow** | Cycle through previous prompts |
 
-### The Power Moves
+### Power User Shortcuts
 
 | Shortcut | What it does |
 |----------|-------------|
 | **Shift+Tab** | Toggle plan mode on/off |
-| **Option+T** (Mac) / **Alt+T** | Toggle extended thinking |
 | **Tab** | Accept autocomplete suggestion |
 | **Ctrl+R** | Search through prompt history |
+| **`!`** | Prefix to run a shell command directly (e.g., `! git status`) |
+| **`\`** | Multi-line input mode (type across multiple lines before sending) |
+| **`@`** | Reference a file or context (e.g., `@src/api.ts explain this`) |
 
 <DemoCard title="Keyboard shortcuts in practice" steps={[
   { type: 'cmd', text: 'You type a big refactoring prompt and hit Enter' },
@@ -82,41 +107,119 @@ These work while you're in the Claude Code terminal interface.
   { type: 'cmd', text: 'Up arrow → re-send the same prompt' },
   { type: 'out', text: 'Now it plans first instead of diving in' },
   { type: 'success', text: 'Plan looks good → approve → clean execution' },
-  { type: 'warn', text: 'Escape + plan mode = undo button for AI coding.' },
+  { type: 'warn', text: '→ Escape + plan mode = undo button for AI coding.' },
 ]} />
 
-## The Commands People Sleep On
+## CLI Flags
 
-**/compact is a lifesaver.** Long session getting slow? Context window filling up? `/compact` compresses your conversation while keeping the important context. Use it before Claude Code starts forgetting things, not after.
+These go on the `claude` command when you start a session:
 
-**/model for cost control.** Start complex tasks with Opus or Sonnet, then switch to Haiku for simple follow-ups. "Fix the typo I just introduced" doesn't need the most expensive model.
-
-**/cost for awareness.** Check it every 30 minutes during long sessions. If you're burning through tokens faster than expected, it's usually because the context window is bloated — time for `/compact`.
-
-**Escape is not Ctrl+C.** Escape gracefully stops the current operation. Claude Code keeps your conversation and any partial work. Ctrl+C is the hard kill — use it only when things are truly stuck.
-
-## CLI Flags Worth Knowing
-
-These go on the `claude` command itself, before you enter the interactive session:
+### Starting Sessions
 
 ```bash
-claude -p "prompt"       # Non-interactive pipe mode (for CI/scripts)
-claude --model haiku     # Start with a specific model
-claude --resume          # Resume your last conversation
-claude --continue        # Continue the most recent session
-claude --verbose         # Show tool calls and internal reasoning
+claude                       # Start interactive session in current directory
+claude "prompt here"         # Start with an initial prompt
+claude -p "prompt"           # Pipe mode (non-interactive, for scripts/CI)
+claude -c "continue"         # Continue the most recent session
+claude --resume              # Resume last conversation (pick up where you left off)
+```
+
+### Model & Behavior
+
+```bash
+claude --model opus          # Start with Opus 4.6
+claude --model sonnet        # Start with Sonnet 4.6 (default)
+claude --model haiku         # Start with Haiku 4.5
+claude --verbose             # Show tool calls and internal reasoning
+claude --bare                # Minimal output (for scripted calls)
+```
+
+### Context & Files
+
+```bash
+claude -r "system prompt"    # Add a system prompt / reasoning instruction
+claude @file.ts              # Load a file into context at start
 ```
 
 The `--resume` flag is underrated. Closed your terminal by accident? `claude --resume` picks up exactly where you left off. No lost context.
 
+## Hook Events
+
+Hooks are shell commands that fire automatically during Claude Code's lifecycle. You configure them in `settings.json`:
+
+| Event | When it fires |
+|-------|---------------|
+| `PreToolUse` | Before any tool call (Read, Write, Bash, etc.) |
+| `PostToolUse` | After a tool call completes |
+| `SessionStart` | When a new session begins |
+| `SessionEnd` | When a session ends |
+
+Example: auto-format code after every Write:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Write",
+      "command": "prettier --write $FILE_PATH"
+    }]
+  }
+}
+```
+
+Learn more in the [Hooks guide](/docs/patterns/hooks).
+
+## The Commands People Sleep On
+
+**/compact is a lifesaver.** Long session getting slow? Context window filling up? `/compact` compresses your conversation while keeping the important context. Use it before Claude starts forgetting things, not after.
+
+**/model for cost control.** Start complex tasks with Opus, then switch to Haiku for simple follow-ups. "Fix the typo I just introduced" doesn't need the most expensive model.
+
+**/cost for awareness.** Check it every 30 minutes during long sessions. Now shows per-model and cache-hit breakdown so you know exactly where your tokens go.
+
+**/rewind is your undo button.** Made Claude go in a wrong direction? `/rewind` takes you back one turn. Way better than `/clear`.
+
+**Escape is not Ctrl+C.** Escape gracefully stops the current operation. Claude keeps your conversation and any partial work. Ctrl+C is the hard kill — use it only when things are truly stuck.
+
+**`!` for quick shell commands.** Need to check `git status` without leaving Claude? Just type `! git status`. The output lands right in your conversation.
+
+## Headless & CI Mode
+
+Run Claude Code in automated pipelines:
+
+```bash
+# Pipe mode for CI/CD
+claude -p "run tests and report failures" | tee test-output.txt
+
+# Headless with specific model
+claude -p --model haiku "lint all TypeScript files"
+
+# Chain with other tools
+git diff | claude -p "review this diff for bugs"
+```
+
 ## Quick Reference Card
 
 ```
-Session:   /help  /clear  /compact  /cost  /quit
-Config:    /init  /model  /permissions
-Keys:      Escape (cancel)  Shift+Tab (plan)  Option+T (think)
-           Up (history)  Ctrl+R (search)  Tab (complete)
-CLI:       -p (pipe)  --resume  --continue  --verbose
+── Session ─────────────────────────────────────
+/help  /clear  /compact  /cost  /status  /usage
+/quit  /export  /rewind
+
+── Config ──────────────────────────────────────
+/init  /model  /config  /permissions  /doctor
+/memory  /context
+
+── Workflow ────────────────────────────────────
+/review  /plan  /agents  /mcp
+
+── Keyboard ────────────────────────────────────
+Escape (cancel)  Shift+Tab (plan)  Tab (complete)
+Up (history)  Ctrl+R (search)  ! (shell)
+\ (multi-line)  @ (file ref)
+
+── CLI ─────────────────────────────────────────
+-p (pipe)  -c (continue)  --resume  --verbose
+--model  --bare  -r (reasoning)
 ```
 
 Print this. Tape it to your monitor. You'll use it more than you think.

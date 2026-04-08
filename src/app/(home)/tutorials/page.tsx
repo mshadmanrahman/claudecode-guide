@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine, Network, Newspaper, Star, Lightbulb, BarChart2, BookOpen, Layout, Target, DollarSign } from 'lucide-react';
+import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine, Network, Newspaper, Star, Lightbulb, BarChart2, BookOpen, Layout, Target, DollarSign, Monitor } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { EmailCapture } from '@/components/email-capture';
 
@@ -142,6 +142,28 @@ export default function TutorialsPage() {
             outcome="A reusable /skill command that automates a real task in your workflow."
             href="/tutorials/your-first-skill"
             icon={<Sparkles className="h-5 w-5" />}
+            available={true}
+          />
+        </div>
+
+        <div className="mt-12 mb-8">
+          <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground">
+            New features
+          </h2>
+          <p className="mt-1 text-sm text-fd-muted-foreground">
+            The latest Claude Code capabilities. Try these if you want to see what&apos;s new.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          <TutorialCard
+            title="Let Claude See Your Screen in 5 Minutes"
+            description="Claude can now look at your screen, click buttons, and navigate apps. No setup. The feature that makes non-coders say 'wait, WHAT?'"
+            duration="5 min"
+            difficulty="beginner"
+            outcome="Claude seeing your screen and interacting with your apps. You'll never describe a visual bug in words again."
+            href="/tutorials/computer-use"
+            icon={<Monitor className="h-5 w-5" />}
             available={true}
           />
         </div>

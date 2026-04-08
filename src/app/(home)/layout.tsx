@@ -12,8 +12,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         ),
       }}
       links={[
+        { text: 'Journey', url: '/journey' },
         { text: 'Guide', url: '/guide' },
-        { text: 'Roadmap', url: '/roadmap' },
         { text: 'Docs', url: '/docs/foundations/which-interface' },
         { text: 'Templates', url: '/docs/templates' },
         { text: 'Tutorials', url: '/tutorials' },

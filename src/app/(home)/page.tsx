@@ -272,8 +272,8 @@ export default function HomePage() {
         </h2>
         <p className="mb-12 text-center text-fd-muted-foreground">
           Each stage builds on the last. Skip what you know.{' '}
-          <Link href="/roadmap" className="underline hover:text-fd-foreground transition-colors">
-            View full roadmap
+          <Link href="/journey" className="underline hover:text-fd-foreground transition-colors">
+            View the interactive journey map
           </Link>
         </p>
 

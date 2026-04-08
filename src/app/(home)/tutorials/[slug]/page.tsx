@@ -2485,6 +2485,142 @@ When asked for "email format":
       href: '/tutorials/your-first-skill',
     },
   },
+  'computer-use': {
+    title: 'Let Claude See Your Screen in 5 Minutes',
+    slug: 'computer-use',
+    duration: '5 min',
+    difficulty: 'beginner',
+    availableRoutes: ['app', 'terminal', 'ide'],
+    description:
+      'Claude Code can now see your screen, click buttons, and navigate apps. No setup needed. This is the feature that makes non-coders say "wait, WHAT?"',
+    intro:
+      'In March 2026, Anthropic shipped Computer Use for Claude Code. It means Claude can literally see what\'s on your screen, move the mouse, click things, type into forms, and navigate apps. You don\'t install anything extra. You just say "look at my screen" and it does. This changes everything for non-technical users because you can point at something and say "fix that."',
+    steps: [
+      {
+        title: 'Make sure Computer Use is enabled',
+        description:
+          'Computer Use is available on Claude Pro and Max plans. It works in the desktop app, terminal, and IDE extensions. No extra installation needed.',
+        demo: {
+          title: 'Check your setup',
+          steps: [
+            { type: 'cmd', text: 'claude' },
+            { type: 'success', text: 'Claude Code v4.6 ready' },
+            { type: 'cmd', text: '"Can you see my screen right now?"', delay: 400 },
+            { type: 'out', text: 'Let me check... Activating computer use...' },
+            { type: 'success', text: '✓ I can see your screen. You\'re on the macOS desktop with Chrome and VS Code open.' },
+            { type: 'warn', text: '→ That\'s it. No setup, no config. It just works.' },
+          ],
+        },
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'Can you see my screen?' },
+            { role: 'claude', text: 'Yes! I can see your screen right now. You\'re on your desktop with a browser open showing Gmail and a Notion page in another tab.\n\nI can:\n- Click on things\n- Type into fields\n- Scroll through pages\n- Take screenshots for reference\n\nWhat would you like me to help with?' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Can you see my screen? I need help with something visual.' },
+            { role: 'claude', text: 'Yes, I can see your screen. You have VS Code open with a React component, and there\'s a browser preview showing what looks like a broken layout - the sidebar is overlapping the main content.\n\nWant me to fix the CSS issue I can see?' },
+          ],
+        },
+      },
+      {
+        title: 'Ask Claude to do something visual',
+        description:
+          'The real power: point Claude at something on screen and ask it to interact with it. Fill a form, navigate an app, debug a visual bug.',
+        demo: {
+          title: 'Claude fills out a form for you',
+          steps: [
+            { type: 'cmd', text: '"I have a Jira ticket open in my browser. Can you read it and create a summary?"' },
+            { type: 'out', text: 'Looking at your screen...' },
+            { type: 'out', text: 'I can see JIRA-1234: "User authentication fails on mobile Safari"', delay: 400 },
+            { type: 'out', text: 'Reading the description and comments...', delay: 300 },
+            { type: 'success', text: '✓ Here\'s the summary:', delay: 500 },
+            { type: 'out', text: '  Bug: Safari mobile drops auth cookies after 30min idle' },
+            { type: 'out', text: '  Impact: ~2,400 mobile users/day affected' },
+            { type: 'out', text: '  Root cause: SameSite=Strict + Safari ITP' },
+            { type: 'out', text: '  Fix: Switch to SameSite=Lax with secure flag' },
+          ],
+        },
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I have a spreadsheet open in Google Sheets. Can you read the data in columns A through D and tell me the top 3 spenders?' },
+            { role: 'claude', text: 'Looking at your screen...\n\nI can see a Google Sheet with expense data. Here are the top 3 spenders from columns A-D:\n\n1. **Marketing Dept** - $24,500 (Q1 campaigns)\n2. **Engineering** - $18,200 (cloud infrastructure)\n3. **Sales** - $12,800 (travel + events)\n\nMarketing is 35% of total spend. Want me to create a chart or identify any unusual line items?' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Look at the browser preview on the right. The button is cut off on mobile. Can you fix it?' },
+            { role: 'claude', text: 'I can see the issue - the "Submit" button is overflowing its container on the mobile viewport. The problem is a fixed width on the button that doesn\'t account for padding.\n\nLet me fix this in your component...\n\n```tsx\n// Before: w-[200px] causes overflow\n// After: w-full sm:w-auto\n<button className="w-full sm:w-auto px-6 py-3">\n```\n\nThe button will now be full-width on mobile and auto-sized on desktop. Check your preview - it should update.' },
+          ],
+        },
+      },
+      {
+        title: 'Navigate between apps',
+        description:
+          'Claude can switch between apps, open new tabs, and work across multiple windows. Great for workflows that span several tools.',
+        demo: {
+          title: 'Cross-app workflow',
+          steps: [
+            { type: 'cmd', text: '"Open Chrome, go to our Figma file, screenshot the new design, then come back here and implement it"' },
+            { type: 'out', text: 'Opening Chrome...' },
+            { type: 'out', text: 'Navigating to figma.com/file/abc123...', delay: 500 },
+            { type: 'out', text: 'Taking screenshot of the header component...', delay: 400 },
+            { type: 'success', text: '✓ Got the design reference', delay: 300 },
+            { type: 'out', text: 'Switching back to the terminal...' },
+            { type: 'out', text: 'Implementing the header based on the Figma design...' },
+            { type: 'success', text: '✓ Created src/components/Header.tsx matching the design' },
+          ],
+        },
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'I need you to check my calendar for tomorrow, then draft an email declining the 2pm meeting because it conflicts with my 1:1.' },
+            { role: 'claude', text: 'Looking at your screen... I can see Google Calendar is open.\n\nTomorrow\'s schedule:\n- 10am: Sprint Planning\n- 1pm: 1:1 with Sarah (recurring)\n- 2pm: "Q2 Budget Review" (new invite)\n- 4pm: Design Review\n\nYou\'re right, the 2pm conflicts with your 1:1 wrap-up time. Here\'s a draft decline:\n\n---\n**To:** finance-team@company.com\n**Subject:** Re: Q2 Budget Review\n\nHi team, I have a scheduling conflict at 2pm tomorrow. Could we find a slot on Thursday instead? Happy to review the doc async in the meantime.\n\n---\n\nWant me to click "Decline" on the calendar event and paste this into Gmail?' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'Compare the Figma design in my browser with what\'s rendering in the preview. What\'s different?' },
+            { role: 'claude', text: 'I can see both - the Figma design on the left and your browser preview on the right.\n\n**Differences I spotted:**\n1. **Font size**: Figma shows 18px for body text, your preview is 16px\n2. **Spacing**: The card gap is 24px in Figma but 16px in your code\n3. **Border radius**: Figma cards have 12px radius, yours have 8px\n4. **Color**: The CTA button is `#2563EB` in Figma but you\'re using `#3B82F6` (lighter shade)\n\nWant me to fix all four? I can update the Tailwind classes right now.' },
+          ],
+        },
+      },
+      {
+        title: 'Use it for everyday tasks',
+        description:
+          'Computer Use shines for tasks that used to require you to describe what you\'re seeing. Now you just say "look at this" and Claude gets it instantly.',
+        demo: {
+          title: 'Real-world examples',
+          steps: [
+            { type: 'out', text: '── Things people actually do with Computer Use ──' },
+            { type: 'success', text: '"Read this error message on screen and fix it"' },
+            { type: 'success', text: '"Fill out this form with my saved info"', delay: 300 },
+            { type: 'success', text: '"Compare these two browser tabs side by side"', delay: 300 },
+            { type: 'success', text: '"Take a screenshot of this bug and file an issue"', delay: 300 },
+            { type: 'success', text: '"Read the chart in this dashboard and summarize trends"', delay: 300 },
+            { type: 'success', text: '"Navigate to Settings > Privacy and turn off tracking"', delay: 300 },
+            { type: 'warn', text: '→ If you can see it on screen, Claude can see it too.' },
+          ],
+        },
+        appDemo: {
+          steps: [
+            { role: 'user', text: 'What are some cool things I can do with computer use?' },
+            { role: 'claude', text: 'Here are the things people love most:\n\n**Visual debugging**\n"Look at my app and tell me what\'s wrong" - Claude sees the broken layout, reads the error, and fixes the code.\n\n**Form filling**\n"Fill out this expense report with last week\'s receipts" - Claude reads your data and fills fields for you.\n\n**Cross-app workflows**\n"Read this Slack message, create a Jira ticket, and link it to the sprint" - Claude navigates between apps.\n\n**Design-to-code**\n"Match my code to this Figma design" - Claude compares pixels and fixes differences.\n\n**Dashboard analysis**\n"Read these charts and tell me what\'s trending" - Claude reads graphs, tables, and dashboards.\n\nThe best part: you don\'t explain what you see anymore. You just say "look at my screen" and Claude gets the full picture.' },
+          ],
+        },
+        ideDemo: {
+          steps: [
+            { role: 'user', text: 'What\'s the most useful thing I can do with computer use in my IDE?' },
+            { role: 'claude', text: 'The killer feature: **visual debugging**.\n\nInstead of describing a bug in words, just say "look at the preview" and I can:\n\n1. **See the broken layout** and identify the exact CSS property causing it\n2. **Compare with the design** if you have Figma open alongside\n3. **Read error overlays** from React/Next.js and trace them to your code\n4. **Check responsive views** by looking at different viewport sizes\n5. **Spot accessibility issues** visible in the rendered page\n\nThe workflow: open your preview, point at the problem, I fix the code. No more "the button is kind of overlapping the thing on the left side when the screen is small" explanations.\n\nJust: "Look at this. Fix it."' },
+          ],
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Build your first custom skill',
+      href: '/tutorials/your-first-skill',
+    },
+  },
 };
 
 const ALL_SLUGS = Object.keys(TUTORIALS);
