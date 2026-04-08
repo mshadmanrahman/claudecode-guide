@@ -115,6 +115,21 @@ One command. The stop hook checks for this file before restarting. No file, loop
 
 **Always test your kill switch before running a long task.** Start a loop, trigger the stop, verify it halts. Do this first. Not after you've let it run for 6 hours.
 
+<DemoCard title="The kill switch saves you at 3am" steps={[
+  { type: 'out', text: 'Autonomous loop running (iteration 14)...' },
+  { type: 'out', text: 'Refactoring src/legacy/parser.ts...' },
+  { type: 'error', text: '✗ Wait — it\'s rewriting the public API contract' },
+  { type: 'out', text: '' },
+  { type: 'cmd', text: 'touch ~/.claude/autonomous/STOP', delay: 600 },
+  { type: 'out', text: '[Stop hook] Emergency stop detected.' },
+  { type: 'success', text: '✓ Loop halted. No more iterations.' },
+  { type: 'out', text: '' },
+  { type: 'cmd', text: 'git diff --stat', delay: 400 },
+  { type: 'out', text: '13 files changed. Last 2 iterations reverted.' },
+  { type: 'success', text: '✓ Good work preserved. Bad work rolled back.' },
+  { type: 'warn', text: '→ One command. Always test this before a long run.' },
+]} />
+
 ## Real-World Example: Autonomous PR Reviewer
 
 ```markdown

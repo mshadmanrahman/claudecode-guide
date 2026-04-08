@@ -123,6 +123,19 @@ This is the second hook everyone should have. Prettier runs after every file edi
 
 The `|| true` keeps things moving if Prettier can't handle a file type. Always add a fallback for non-critical hooks.
 
+<DemoCard title="SessionStart hook: never start cold again" steps={[
+  { type: 'cmd', text: 'claude' },
+  { type: 'out', text: '[SessionStart] Loading context...' },
+  { type: 'success', text: '✓ Read MEMORY.md (3 projects, 8 preferences)' },
+  { type: 'success', text: '✓ Read handoffs/2026-04-08.md' },
+  { type: 'success', text: '✓ Loaded: "Dashboard feature — tooltip PR pending review"' },
+  { type: 'out', text: '' },
+  { type: 'cmd', text: '"continue where we left off"', delay: 600 },
+  { type: 'out', text: 'Resuming dashboard tooltips. Reading PR #142 comments...' },
+  { type: 'success', text: '✓ Addressed 2 review comments. Updated tests.' },
+  { type: 'warn', text: '→ Zero re-explanation. The hook loaded everything.' },
+]} />
+
 ## Tips That Actually Matter
 
 **Keep hooks fast.** They block the action they're attached to. A 10-second hook means Claude Code pauses for 10 seconds before every tool call. Under 1 second is the target.

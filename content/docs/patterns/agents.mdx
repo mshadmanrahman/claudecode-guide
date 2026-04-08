@@ -46,6 +46,22 @@ Claude Code ships with several agent patterns ready to go:
 
 These spawn automatically when the task calls for it. You can also be explicit: "Run the code-reviewer on the files I just changed."
 
+<DemoCard title="Creating and using a custom agent" steps={[
+  { type: 'cmd', text: 'cat .claude/agents/pr-writer.md' },
+  { type: 'out', text: '# PR Description Writer' },
+  { type: 'out', text: '## Role: Generate PR descriptions from git diffs' },
+  { type: 'out', text: '## Steps: Read diff → Group changes → Write summary' },
+  { type: 'out', text: '' },
+  { type: 'cmd', text: '"Use the PR description writer for this branch"', delay: 600 },
+  { type: 'out', text: 'Loading agent: pr-writer.md...' },
+  { type: 'out', text: 'Reading git diff main...HEAD (4 commits, 8 files)...' },
+  { type: 'success', text: '✓ Generated PR description:' },
+  { type: 'out', text: '  ## Summary' },
+  { type: 'out', text: '  Adds rate limiting to auth endpoints with Redis backing.' },
+  { type: 'out', text: '  ## Changes: 2 features, 1 fix, 5 tests' },
+  { type: 'warn', text: '→ 20-line markdown file. Reusable forever.' },
+]} />
+
 ## Building Your Own Agents
 
 Custom agents are markdown files in `.claude/agents/`. Each one defines a role, behavior, and constraints.

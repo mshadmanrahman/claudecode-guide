@@ -100,6 +100,22 @@ Here's what a two-service config actually looks like:
 
 With both connected, you can say "Find the Linear ticket for the auth bug, then check if there's a related PR on GitHub." Claude Code coordinates across both in a single response. This is where it gets fun.
 
+<DemoCard title="Cross-service workflow: ticket → code → PR" steps={[
+  { type: 'cmd', text: 'claude "pick up the next ticket from my sprint"' },
+  { type: 'out', text: '[MCP: linear] Fetching your sprint backlog...' },
+  { type: 'success', text: '✓ INS-347: Add email validation to signup form' },
+  { type: 'out', text: 'Reading requirements... Creating branch...' },
+  { type: 'success', text: '✓ Implemented validation in src/auth/signup.ts' },
+  { type: 'success', text: '✓ 3 tests added, all passing' },
+  { type: 'out', text: '[MCP: github] Creating pull request...', delay: 500 },
+  { type: 'success', text: '✓ PR #204 created with description' },
+  { type: 'out', text: '[MCP: linear] Updating ticket status...', delay: 300 },
+  { type: 'success', text: '✓ INS-347 → In Review' },
+  { type: 'out', text: '[MCP: slack] Notifying #engineering...', delay: 300 },
+  { type: 'success', text: '✓ Posted: "PR #204 ready for review"' },
+  { type: 'warn', text: '→ Ticket → code → PR → notification. One prompt.' },
+]} />
+
 ## Security: Take This Seriously
 
 MCP servers have real access to your tools. Treat them like any API integration.

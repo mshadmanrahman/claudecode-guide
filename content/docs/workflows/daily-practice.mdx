@@ -93,6 +93,22 @@ Run `/weekly-status`. Auto-generates an accomplishment report from Jira, GitHub,
 
 No more "what did I do this week?" scrambling. No more staring at a blank status update trying to remember Monday.
 
+<DemoCard title="End-of-day handoff (2 minutes that save 10)" steps={[
+  { type: 'cmd', text: 'claude "write today\'s handoff"' },
+  { type: 'out', text: 'Scanning today\'s session history...' },
+  { type: 'out', text: 'Reading git log, memory updates, open tasks...' },
+  { type: 'success', text: '✓ Handoff written to _context/handoffs/2026-04-08.md:' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '  ## Done today' },
+  { type: 'out', text: '  - Shipped auth rate limiting (PR #204 merged)' },
+  { type: 'out', text: '  - Fixed checkout null pointer (Issue #42)' },
+  { type: 'out', text: '  ## Tomorrow' },
+  { type: 'out', text: '  - Dashboard tooltips PR needs review comments addressed' },
+  { type: 'out', text: '  ## Blockers' },
+  { type: 'out', text: '  - Legal review on session storage (waiting on compliance)' },
+  { type: 'warn', text: '→ Tomorrow morning: zero context loading. Just /resume.' },
+]} />
+
 ## The Before and After
 
 | Before | After |

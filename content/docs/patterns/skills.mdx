@@ -187,6 +187,20 @@ The user describes who they're emailing and what about.
 Subject line + email body. Ready to paste.
 ```
 
+<DemoCard title="A non-coder running /meeting-prep" steps={[
+  { type: 'cmd', text: '/meeting-prep Sarah' },
+  { type: 'out', text: 'Gathering context for 1:1 with Sarah...' },
+  { type: 'out', text: '[Slack] 4 threads with Sarah this week' },
+  { type: 'out', text: '[Linear] 2 shared tickets (1 blocked)' },
+  { type: 'out', text: '[Notes] Last 1:1: discussed PTO handoff' },
+  { type: 'out', text: '', delay: 400 },
+  { type: 'success', text: '✓ Briefing ready:' },
+  { type: 'out', text: '  Open items: API migration blocked on legal' },
+  { type: 'out', text: '  Her PTO: starts Thursday, handoff needed' },
+  { type: 'out', text: '  Suggested: align on sprint 5 priorities' },
+  { type: 'warn', text: '→ No code. No terminal knowledge. Just /meeting-prep.' },
+]} />
+
 ## Sharing Skills with Your Team
 
 Skills are just Markdown files. Share them like any other file:

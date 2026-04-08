@@ -71,6 +71,25 @@ Main agent: "Fix issues #42, #43, and #44 in parallel"
 
 Each sub-agent has a clean working directory, a focused context, and can commit independently.
 
+<DemoCard title="Three sub-agents, three worktrees, one command" steps={[
+  { type: 'cmd', text: 'claude "Fix issues #42, #43, and #44 in parallel"' },
+  { type: 'out', text: 'Creating 3 worktrees...' },
+  { type: 'success', text: '✓ ../fix-42 on branch fix/issue-42' },
+  { type: 'success', text: '✓ ../fix-43 on branch fix/issue-43' },
+  { type: 'success', text: '✓ ../fix-44 on branch fix/issue-44' },
+  { type: 'out', text: 'Spawning sub-agents...', delay: 500 },
+  { type: 'out', text: '  Agent 1: fixing null check in auth...' },
+  { type: 'out', text: '  Agent 2: updating deprecated API call...' },
+  { type: 'out', text: '  Agent 3: adding missing test coverage...' },
+  { type: 'success', text: '✓ All 3 issues fixed. 3 PRs ready for review.' },
+  { type: 'cmd', text: 'git worktree list', delay: 400 },
+  { type: 'out', text: '~/my-app          main      [clean]' },
+  { type: 'out', text: '~/fix-42          fix/issue-42  [1 commit ahead]' },
+  { type: 'out', text: '~/fix-43          fix/issue-43  [1 commit ahead]' },
+  { type: 'out', text: '~/fix-44          fix/issue-44  [2 commits ahead]' },
+  { type: 'warn', text: '→ Parallel fixes. No branch conflicts. No stashing.' },
+]} />
+
 ## When to Use Worktrees vs Branches
 
 | Scenario | Use | Why |

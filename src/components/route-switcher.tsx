@@ -44,7 +44,7 @@ export function RouteSwitcher({ availableRoutes = ['app'] }: RouteSwitcherProps)
       <div className="mb-2 flex items-center gap-1.5">
         <span className="text-xs font-medium text-fd-muted-foreground">Follow along using:</span>
       </div>
-      <div className="inline-flex items-center gap-1 rounded-lg border border-fd-border bg-fd-muted p-1">
+      <div className="inline-flex items-center gap-1 overflow-x-auto rounded-lg border border-fd-border bg-fd-muted p-1 max-w-full">
         {TABS.map(({ id, label, icon }) => {
           const available = availableRoutes.includes(id);
           const isActive = active === id;
@@ -54,7 +54,7 @@ export function RouteSwitcher({ availableRoutes = ['app'] }: RouteSwitcherProps)
               onClick={() => handleSelect(id)}
               disabled={!available}
               title={available ? undefined : 'Coming soon'}
-              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
+              className={`flex shrink-0 items-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium transition-all ${
                 isActive
                   ? 'bg-fd-background border border-fd-border text-fd-foreground shadow-sm'
                   : available

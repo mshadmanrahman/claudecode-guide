@@ -105,6 +105,18 @@ claude -p --model opus "audit this codebase for security vulnerabilities"
 
 **Rule of thumb:** Haiku for high-volume automated checks. Sonnet for standard CI tasks. Opus only when the stakes justify the cost.
 
+<DemoCard title="Chaining Claude calls in a CI pipeline" steps={[
+  { type: 'out', text: '── GitHub Actions workflow ──' },
+  { type: 'cmd', text: 'git diff origin/main...HEAD | claude -p "review this diff"' },
+  { type: 'out', text: '2 issues found: missing null check, unparameterized query' },
+  { type: 'cmd', text: 'npm test 2>&1 | claude -p --model haiku "summarize failures"', delay: 500 },
+  { type: 'out', text: '1 failure: auth.test.ts — expected 401, got 200' },
+  { type: 'cmd', text: 'claude -p "generate changelog from recent commits" > CHANGELOG.md', delay: 500 },
+  { type: 'success', text: '✓ CHANGELOG.md updated with 3 features, 1 fix' },
+  { type: 'out', text: 'Total CI cost: ~$0.04 (2 Haiku + 1 Sonnet call)' },
+  { type: 'warn', text: '→ Three AI steps in CI. Under 5 cents. Fully automated.' },
+]} />
+
 ## Practical Examples
 
 ### Generate Release Notes

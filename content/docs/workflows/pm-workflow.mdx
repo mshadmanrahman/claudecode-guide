@@ -75,6 +75,22 @@ What it does:
 
 The output is a draft, not a final product. You review it, add your narrative, and send. But 80% of the work is done.
 
+<DemoCard title="Post-meeting processing: decisions don't get lost" steps={[
+  { type: 'cmd', text: 'claude /post-meeting' },
+  { type: 'out', text: 'Paste your meeting notes (or point me to the doc):' },
+  { type: 'cmd', text: '"Sprint review with eng. Decided to cut scope on search..."', delay: 600 },
+  { type: 'out', text: 'Processing...' },
+  { type: 'success', text: '✓ Extracted:' },
+  { type: 'out', text: '  Decisions: Cut search filters to ship by Friday' },
+  { type: 'out', text: '  Actions: Sarah → update Jira, Marcus → notify design' },
+  { type: 'out', text: '  Risk: Client demo on Monday still shows full scope' },
+  { type: 'out', text: '' },
+  { type: 'out', text: 'Updating project doc...', delay: 400 },
+  { type: 'success', text: '✓ search-redesign.md updated with scope change' },
+  { type: 'success', text: '✓ 2 follow-up tasks created' },
+  { type: 'warn', text: '→ Meeting → actions → updated docs. 3 minutes.' },
+]} />
+
 ## The Product Brain
 
 Beyond individual skills, there is a bigger concept: the Product Brain. This is a directory of living project documents that update after every meeting and every decision.

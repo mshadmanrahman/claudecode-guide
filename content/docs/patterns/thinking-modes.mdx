@@ -97,6 +97,25 @@ The real power is combining these:
 
 **Extended thinking + Sonnet:** The daily sweet spot. Sonnet thinks through the problem but doesn't take as long as Opus.
 
+<DemoCard title="Same task, three effort levels" steps={[
+  { type: 'out', text: '── Low effort (Haiku) ──' },
+  { type: 'cmd', text: '"What does validateUser() do?"' },
+  { type: 'out', text: 'Checks email format and password length. Returns boolean.' },
+  { type: 'success', text: '✓ 2 seconds. $0.001.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── Medium effort (Sonnet) ──', delay: 500 },
+  { type: 'cmd', text: '"Fix the bug in validateUser()"' },
+  { type: 'out', text: 'Reading function... Found: regex misses + in emails' },
+  { type: 'success', text: '✓ Fixed regex. Test added. 8 seconds.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '── High effort (Opus + plan mode) ──', delay: 500 },
+  { type: 'cmd', text: '"Redesign the entire auth validation system"' },
+  { type: 'out', text: 'Thinking... Analyzing 12 files, 4 validation paths...' },
+  { type: 'out', text: 'Plan: Zod schemas → middleware chain → error types → tests' },
+  { type: 'success', text: '✓ 6-step plan. 45 seconds of reasoning. Worth it.' },
+  { type: 'warn', text: '→ Match the effort to the task. Don\'t use Opus for a yes/no.' },
+]} />
+
 ## Practical Patterns
 
 ### The "Think Then Do" Pattern

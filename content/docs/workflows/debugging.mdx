@@ -80,6 +80,23 @@ Paste the full test output. Not just the error line. Claude Code needs expected 
 
 Often the test is correct and the implementation has a subtle bug. Sometimes the test is outdated. Ask Claude Code to read both files. It usually spots the mismatch fast.
 
+<DemoCard title="Parallel investigation: frontend + backend" steps={[
+  { type: 'cmd', text: '"Login button does nothing when clicked"' },
+  { type: 'out', text: 'Spawning 2 investigation agents...' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '  Agent 1 (frontend):' },
+  { type: 'out', text: '  → onClick handler fires, fetch() returns 200' },
+  { type: 'success', text: '  ✓ Frontend is fine. Response body is empty though.' },
+  { type: 'out', text: '' },
+  { type: 'out', text: '  Agent 2 (backend):', delay: 400 },
+  { type: 'out', text: '  → POST /api/auth/login returns 200 but no session cookie' },
+  { type: 'error', text: '  ✗ Found: SESSION_SECRET env var is empty in .env.local' },
+  { type: 'out', text: '' },
+  { type: 'success', text: '✓ Root cause: missing env var after last .env reset' },
+  { type: 'success', text: '✓ Added SESSION_SECRET to .env.local. Login works.' },
+  { type: 'warn', text: '→ Two agents, two sides of the stack, one answer.' },
+]} />
+
 ## Tips That Make the Difference
 
 **Share the actual error.** "It's not working" gives Claude Code nothing. The exact error text, status code, or stack trace gives it everything.

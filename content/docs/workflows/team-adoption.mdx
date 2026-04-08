@@ -79,6 +79,22 @@ The goal is a working setup, not mastery. Mastery comes from daily use.
 
 Do not measure lines of code generated. That metric is meaningless and encourages the wrong behavior.
 
+<DemoCard title="Champion demo: the moment adoption clicks" steps={[
+  { type: 'out', text: '── Team meeting: Sarah demos Claude Code ──' },
+  { type: 'cmd', text: 'claude "find the production bug from last night\'s alert"' },
+  { type: 'out', text: 'Reading PagerDuty alert... Checking server logs...' },
+  { type: 'out', text: 'Found: OOM kill on worker-3 at 02:47 UTC' },
+  { type: 'out', text: 'Tracing memory leak to unbounded cache in search.ts...' },
+  { type: 'success', text: '✓ Root cause: missing cache eviction. Fix: add TTL.' },
+  { type: 'cmd', text: '"fix it, add a test, open a PR"', delay: 600 },
+  { type: 'success', text: '✓ Fixed src/search.ts — added 5min TTL' },
+  { type: 'success', text: '✓ Test added: cache evicts after TTL' },
+  { type: 'success', text: '✓ PR #891 opened with description' },
+  { type: 'out', text: '' },
+  { type: 'out', text: 'Team: "That took 3 minutes?!"' },
+  { type: 'warn', text: '→ One real demo > ten slide decks.' },
+]} />
+
 ## Mistakes That Kill Adoption
 
 **Forcing it.** Making Claude Code mandatory before people see the value creates resentment. Let results pull people in.

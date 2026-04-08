@@ -585,13 +585,13 @@ export default function CapabilitiesPage() {
             Each integration is a small server that translates between Claude and the tool&apos;s API.
             You add them to a <code>.mcp.json</code> file in your project, and Claude discovers them automatically.
           </p>
-          <div className="mt-4 flex items-center gap-3 font-mono text-xs text-fd-muted-foreground">
+          <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-xs text-fd-muted-foreground">
             <span className="rounded bg-fd-accent px-2 py-1">Your prompt</span>
-            <ArrowRight className="h-3 w-3" />
+            <ArrowRight className="h-3 w-3 shrink-0" />
             <span className="rounded bg-fd-accent px-2 py-1">Claude Code</span>
-            <ArrowRight className="h-3 w-3" />
+            <ArrowRight className="h-3 w-3 shrink-0" />
             <span className="rounded bg-fd-accent px-2 py-1">MCP Server</span>
-            <ArrowRight className="h-3 w-3" />
+            <ArrowRight className="h-3 w-3 shrink-0" />
             <span className="rounded bg-fd-accent px-2 py-1">GitHub / Slack / etc.</span>
           </div>
           <Link

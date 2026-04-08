@@ -454,104 +454,150 @@ function PersonaCard({
   return (
     <button
       onClick={onSelect}
-      className={`group relative flex flex-col items-start rounded-xl border p-5 text-left transition-all sm:p-6 ${
+      className={`group relative flex flex-col items-start rounded-xl border p-4 text-left transition-all sm:p-5 ${
         isSelected
           ? `${persona.color} ring-2 ring-current/20`
           : 'border-fd-border bg-fd-card hover:border-fd-muted-foreground/30 hover:bg-fd-accent'
       }`}
     >
       <Icon
-        className={`mb-3 h-6 w-6 ${isSelected ? '' : 'text-fd-muted-foreground group-hover:text-fd-foreground'} transition-colors`}
+        className={`mb-2 h-5 w-5 ${isSelected ? '' : 'text-fd-muted-foreground group-hover:text-fd-foreground'} transition-colors`}
       />
-      <span className="font-display text-lg font-normal tracking-tight text-fd-foreground">
+      <span className="font-display text-base font-normal tracking-tight text-fd-foreground">
         {persona.label}
       </span>
-      <span className="mt-1 text-sm text-fd-muted-foreground">{persona.tagline}</span>
+      <span className="mt-0.5 text-xs text-fd-muted-foreground">{persona.tagline}</span>
       {isSelected && (
-        <div className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-fd-primary text-fd-primary-foreground">
-          <Check className="h-3.5 w-3.5" />
+        <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-fd-primary text-fd-primary-foreground">
+          <Check className="h-3 w-3" />
         </div>
       )}
     </button>
   );
 }
 
-function NodeCard({
+/** Compact node for the bird's-eye map */
+function MapNode({
   node,
   isHighlighted,
   isCompleted,
   onToggleComplete,
+  accentColor,
 }: {
   node: JourneyNode;
   isHighlighted: boolean;
   isCompleted: boolean;
   onToggleComplete: () => void;
+  accentColor: string;
 }) {
   const Icon = node.icon;
 
   return (
     <div
-      className={`group relative rounded-xl border transition-all ${
+      className={`group relative rounded-lg border transition-all ${
         isHighlighted
-          ? 'border-fd-border bg-fd-card shadow-sm'
-          : 'border-fd-border/50 bg-fd-background opacity-40'
+          ? 'border-fd-border bg-fd-card shadow-sm hover:shadow-md'
+          : 'border-fd-border/40 bg-fd-background/50 opacity-35'
       }`}
     >
-      <div className="flex items-start gap-4 p-4 sm:p-5">
-        {/* Checkbox */}
+      <div className="flex items-center gap-2.5 p-2.5">
+        {/* Compact checkbox */}
         <button
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             onToggleComplete();
           }}
-          className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-colors ${
+          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors ${
             isCompleted
               ? 'border-green-500 bg-green-500 text-white'
-              : 'border-fd-border text-fd-muted-foreground hover:border-fd-foreground hover:text-fd-foreground'
+              : 'border-fd-border text-transparent hover:border-fd-foreground hover:text-fd-muted-foreground'
           }`}
           aria-label={isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
         >
-          <Check className="h-3 w-3" />
+          <Check className="h-2.5 w-2.5" />
         </button>
 
-        {/* Content */}
+        {/* Icon */}
+        <Icon className={`h-3.5 w-3.5 shrink-0 ${isHighlighted ? accentColor : 'text-fd-muted-foreground'}`} />
+
+        {/* Title + badge */}
+        <div className="flex-1 min-w-0">
+          <Link
+            href={node.href}
+            className={`block text-xs font-medium text-fd-foreground leading-tight hover:underline truncate ${isCompleted ? 'line-through opacity-60' : ''}`}
+          >
+            {node.title}
+          </Link>
+        </div>
+
+        {/* Badge */}
+        {node.badge && (
+          <span className="shrink-0 rounded-full bg-fd-accent px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wider text-fd-muted-foreground">
+            {node.badge}
+          </span>
+        )}
+      </div>
+
+      {/* Affiliate CTA — compact */}
+      {node.isDecisionPoint && node.affiliateHref && isHighlighted && (
+        <div className="border-t border-fd-border/50 px-2.5 py-1.5">
+          <a
+            href={node.affiliateHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+          >
+            {node.affiliateLabel}
+            <ExternalLink className="h-2.5 w-2.5" />
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Expanded detail card shown below the map on hover/click */
+function DetailPanel({
+  node,
+  accentColor,
+}: {
+  node: JourneyNode | null;
+  accentColor: string;
+}) {
+  if (!node) return (
+    <div className="rounded-xl border border-dashed border-fd-border bg-fd-background/50 p-6 text-center">
+      <p className="text-sm text-fd-muted-foreground">Click any node above to see details</p>
+    </div>
+  );
+
+  const Icon = node.icon;
+  return (
+    <div className="animate-fade-in rounded-xl border border-fd-border bg-fd-card p-5 shadow-sm">
+      <div className="flex items-start gap-3">
+        <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-fd-border bg-fd-background ${accentColor}`}>
+          <Icon className="h-4 w-4" />
+        </div>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <Link
-              href={node.href}
-              className={`font-medium text-fd-foreground hover:underline ${isCompleted ? 'line-through opacity-60' : ''}`}
-            >
+            <Link href={node.href} className="font-medium text-fd-foreground hover:underline">
               {node.title}
             </Link>
+            {node.duration && <span className="text-xs text-fd-muted-foreground">{node.duration}</span>}
             {node.badge && (
               <span className="rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-fd-muted-foreground">
                 {node.badge}
               </span>
             )}
-            {node.duration && (
-              <span className="text-xs text-fd-muted-foreground">{node.duration}</span>
-            )}
           </div>
-          <p className="mt-1 text-sm text-fd-muted-foreground leading-relaxed">
-            {node.description}
-          </p>
-
-          {/* Affiliate CTA */}
-          {node.isDecisionPoint && node.affiliateHref && isHighlighted && (
-            <a
-              href={node.affiliateHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/8 px-3 py-1.5 text-xs font-medium text-emerald-700 transition-colors hover:bg-emerald-500/15 dark:text-emerald-400"
-            >
-              {node.affiliateLabel}
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          )}
+          <p className="mt-1.5 text-sm text-fd-muted-foreground leading-relaxed">{node.description}</p>
+          <Link
+            href={node.href}
+            className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-fd-foreground hover:underline"
+          >
+            Go to guide <ArrowRight className="h-3 w-3" />
+          </Link>
         </div>
-
-        {/* Icon */}
-        <Icon className="mt-0.5 h-5 w-5 shrink-0 text-fd-muted-foreground" />
       </div>
     </div>
   );
@@ -582,6 +628,8 @@ export default function JourneyPage() {
   const [activePersona, setActivePersona] = useState<Persona>('chatgpt-user');
   const [completed, setCompleted] = useState<Set<string>>(new Set());
   const [mounted, setMounted] = useState(false);
+  const [selectedNode, setSelectedNode] = useState<JourneyNode | null>(null);
+  const [selectedSectionColor, setSelectedSectionColor] = useState('text-fd-muted-foreground');
 
   useEffect(() => {
     setCompleted(loadProgress());
@@ -610,113 +658,138 @@ export default function JourneyPage() {
   return (
     <div className="flex flex-col bg-fd-background">
       {/* ── Hero ── */}
-      <section className="relative mx-auto w-full max-w-4xl px-6 pt-16 pb-8 text-center">
+      <section className="relative mx-auto w-full max-w-6xl px-6 pt-16 pb-6 text-center">
         <div className="absolute inset-0 bg-grid bg-grid-fade opacity-30 pointer-events-none" />
         <div className="relative z-10">
-          <div className="animate-slide-up-fade mb-4 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm">
+          <div className="animate-slide-up-fade mb-3 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm">
             <Sparkles className="h-3.5 w-3.5 text-fd-muted-foreground" />
-            <span className="text-fd-muted-foreground">Interactive learning path</span>
+            <span className="text-fd-muted-foreground">Interactive learning map</span>
           </div>
 
-          <h1 className="animate-slide-up-fade delay-100 font-display text-4xl font-normal tracking-tight-display text-fd-foreground sm:text-5xl">
+          <h1 className="animate-slide-up-fade delay-100 font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
             Your Journey to Claude Code
           </h1>
-          <p className="animate-slide-up-fade delay-200 mx-auto mt-4 max-w-xl text-lg text-fd-muted-foreground">
-            Pick who you are. Follow the path. Check things off as you go.
-            <br />
-            Every step links to a real guide or tutorial.
+          <p className="animate-slide-up-fade delay-200 mx-auto mt-3 max-w-xl text-base text-fd-muted-foreground">
+            Pick who you are. See the whole map. Click nodes for details.
           </p>
         </div>
       </section>
 
-      {/* ── Persona Selector ── */}
-      <section className="mx-auto w-full max-w-4xl px-6 pb-8">
-        <p className="mb-4 text-center text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-          I am a...
-        </p>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {personas.map((p) => (
-            <PersonaCard
-              key={p.id}
-              persona={p}
-              isSelected={activePersona === p.id}
-              onSelect={() => setActivePersona(p.id)}
-            />
-          ))}
+      {/* ── Persona Selector (compact row) ── */}
+      <section className="mx-auto w-full max-w-6xl px-6 pb-4">
+        <div className="flex items-center gap-3 justify-center">
+          <span className="text-xs font-medium text-fd-muted-foreground">I am a</span>
+          <div className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-muted p-1">
+            {personas.map((p) => {
+              const Icon = p.icon;
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => setActivePersona(p.id)}
+                  className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium transition-all ${
+                    activePersona === p.id
+                      ? 'bg-fd-background border border-fd-border text-fd-foreground shadow-sm'
+                      : 'text-fd-muted-foreground hover:text-fd-foreground'
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  {p.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* ── Progress Bar ── */}
+      {/* ── Progress Bar (compact) ── */}
       {mounted && (
-        <section className="mx-auto w-full max-w-3xl px-6 pb-8">
-          <div className="rounded-xl border border-fd-border bg-fd-card p-4">
-            <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-fd-foreground">Your progress</span>
-              {completedCount > 0 && completedCount === visibleNodes.length && (
-                <span className="text-xs font-medium text-green-600 dark:text-green-400">
-                  Journey complete!
-                </span>
-              )}
-            </div>
+        <section className="mx-auto w-full max-w-2xl px-6 pb-6">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-medium text-fd-muted-foreground shrink-0">Progress</span>
             <ProgressBar completed={completedCount} total={visibleNodes.length} />
+            {completedCount > 0 && completedCount === visibleNodes.length && (
+              <span className="text-xs font-medium text-green-600 dark:text-green-400 shrink-0">
+                Complete!
+              </span>
+            )}
           </div>
         </section>
       )}
 
-      {/* ── Journey Map ── */}
-      <section className="mx-auto w-full max-w-3xl px-6 pb-24">
-        <div className="space-y-12">
-          {journeySections.map((section) => {
-            const sectionNodes = section.nodes.filter((n) =>
-              n.personas.includes(activePersona),
-            );
+      {/* ── Bird's-Eye Map ── */}
+      <section className="w-full pb-6 overflow-hidden">
+        {/* Scrollable container */}
+        <div className="overflow-x-auto px-6 pb-4 scrollbar-thin">
+          <div className="mx-auto flex gap-3 min-w-[900px] max-w-6xl">
+            {journeySections.map((section, sIdx) => {
+              const sectionNodes = section.nodes;
+              const relevantNodes = sectionNodes.filter((n) =>
+                n.personas.includes(activePersona),
+              );
+              const sectionCompleted = relevantNodes.filter((n) => completed.has(n.id)).length;
 
-            if (sectionNodes.length === 0) return null;
-
-            const sectionCompleted = sectionNodes.filter((n) => completed.has(n.id)).length;
-
-            return (
-              <div key={section.id} className="relative">
-                {/* Section header */}
-                <div className="mb-5 flex items-center gap-4">
-                  <div
-                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-fd-border ${section.accentBg} font-mono text-base font-bold ${section.colorClass}`}
-                  >
-                    {section.number}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground sm:text-2xl">
+              return (
+                <div key={section.id} className="flex items-stretch gap-3 flex-1">
+                  {/* Stage column */}
+                  <div className="flex flex-col min-w-[140px] flex-1">
+                    {/* Stage header */}
+                    <div className={`mb-2 rounded-lg border border-fd-border ${section.accentBg} p-2.5 text-center`}>
+                      <div className={`font-mono text-xs font-bold ${section.colorClass}`}>
+                        {section.number}
+                      </div>
+                      <div className="font-display text-sm font-medium text-fd-foreground mt-0.5 leading-tight">
                         {section.title}
-                      </h2>
+                      </div>
                       {mounted && (
-                        <span className="text-xs tabular-nums text-fd-muted-foreground">
-                          {sectionCompleted}/{sectionNodes.length}
-                        </span>
+                        <div className="text-[10px] text-fd-muted-foreground mt-1 tabular-nums">
+                          {sectionCompleted}/{relevantNodes.length} done
+                        </div>
                       )}
                     </div>
-                    <p className="text-sm text-fd-muted-foreground">{section.subtitle}</p>
-                  </div>
-                </div>
 
-                {/* Vertical connector + nodes */}
-                <div className="ml-[1.3rem] border-l-2 border-fd-border pl-8 sm:pl-10">
-                  <div className="space-y-3">
-                    {sectionNodes.map((node) => (
-                      <NodeCard
-                        key={node.id}
-                        node={node}
-                        isHighlighted={node.personas.includes(activePersona)}
-                        isCompleted={completed.has(node.id)}
-                        onToggleComplete={() => toggleComplete(node.id)}
-                      />
-                    ))}
+                    {/* Nodes */}
+                    <div className="space-y-1.5 flex-1">
+                      {sectionNodes.map((node) => (
+                        <div
+                          key={node.id}
+                          onClick={() => {
+                            setSelectedNode(node);
+                            setSelectedSectionColor(section.colorClass);
+                          }}
+                          className="cursor-pointer"
+                        >
+                          <MapNode
+                            node={node}
+                            isHighlighted={node.personas.includes(activePersona)}
+                            isCompleted={completed.has(node.id)}
+                            onToggleComplete={() => toggleComplete(node.id)}
+                            accentColor={section.colorClass}
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
+
+                  {/* Connector arrow between stages */}
+                  {sIdx < journeySections.length - 1 && (
+                    <div className="flex items-center shrink-0 px-0.5">
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-px h-4 bg-fd-border" />
+                        <ArrowRight className="h-3 w-3 text-fd-border" />
+                        <div className="w-px h-4 bg-fd-border" />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
+      </section>
+
+      {/* ── Detail Panel (below map) ── */}
+      <section className="mx-auto w-full max-w-3xl px-6 pb-8">
+        <DetailPanel node={selectedNode} accentColor={selectedSectionColor} />
       </section>
 
       {/* ── Bottom CTA ── */}
@@ -726,9 +799,7 @@ export default function JourneyPage() {
             Ready to start?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
-            Go back to the top, pick your persona, and follow the path.
-            <br />
-            Or jump straight into the first tutorial.
+            Click any node on the map above, or jump straight into the first tutorial.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
