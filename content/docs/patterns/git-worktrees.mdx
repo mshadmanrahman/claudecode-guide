@@ -1,0 +1,112 @@
+---
+title: "Git Worktrees & Parallel Work"
+description: "Work on multiple branches simultaneously without stashing or switching. Git worktrees let Claude Code handle several tasks in parallel without stepping on itself."
+---
+
+## The Problem: One Branch at a Time
+
+You're fixing a bug on `fix/auth-cookie`. Suddenly a P0 comes in. You need to switch to main, stash your work, create a new branch, fix the P0, push, switch back, pop your stash, and hope nothing broke.
+
+Git worktrees eliminate this.
+
+<DemoCard title="Parallel work with worktrees" steps={[
+  { type: 'cmd', text: 'git worktree add ../hotfix -b fix/p0-crash' },
+  { type: 'success', text: '✓ Created worktree at ../hotfix on branch fix/p0-crash' },
+  { type: 'cmd', text: 'cd ../hotfix && claude "fix the crash in checkout.ts"', delay: 500 },
+  { type: 'out', text: 'Reading checkout.ts... Found null pointer at line 42...' },
+  { type: 'success', text: '✓ Fixed. Test passing.' },
+  { type: 'cmd', text: 'git push && cd ../main-project', delay: 400 },
+  { type: 'success', text: '✓ Back to your original work. Nothing was stashed.' },
+  { type: 'warn', text: '→ Two branches. Two directories. Zero stashing.' },
+]} />
+
+## What Are Git Worktrees?
+
+A worktree is a **separate working directory** linked to the same Git repo. Each worktree has its own branch, its own file state, and its own Claude Code session. But they share the same Git history.
+
+```
+~/projects/my-app/            ← main worktree (your feature branch)
+~/projects/my-app-hotfix/     ← second worktree (P0 fix)
+~/projects/my-app-experiment/ ← third worktree (experimental idea)
+```
+
+All three point to the same repo. Commits in one are visible in the others. No stashing, no branch switching, no lost work.
+
+## Basic Commands
+
+```bash
+# Create a worktree on a new branch
+git worktree add ../my-app-hotfix -b fix/critical-bug
+
+# Create a worktree on an existing branch
+git worktree add ../my-app-feature feature/new-ui
+
+# List all worktrees
+git worktree list
+
+# Remove a worktree when done
+git worktree remove ../my-app-hotfix
+```
+
+## Why This Matters for Claude Code
+
+Claude Code works best with **focused sessions** -- one task, one context, one branch. Worktrees let you run multiple focused sessions in parallel:
+
+**Session 1** (in `~/projects/my-app/`): "Build the new dashboard feature"
+**Session 2** (in `~/projects/my-app-hotfix/`): "Fix the auth bug"
+**Session 3** (in `~/projects/my-app-docs/`): "Update the API documentation"
+
+Each Claude session sees only its own branch. No confusion. No accidental edits to the wrong branch. No context bleed.
+
+### With Sub-Agents
+
+Claude Code's sub-agents can work in separate worktrees. The main agent coordinates while each sub-agent works on its own branch in its own directory:
+
+```
+Main agent: "Fix issues #42, #43, and #44 in parallel"
+  ├── Sub-agent 1: worktree ../fix-42, branch fix/issue-42
+  ├── Sub-agent 2: worktree ../fix-43, branch fix/issue-43
+  └── Sub-agent 3: worktree ../fix-44, branch fix/issue-44
+```
+
+Each sub-agent has a clean working directory, a focused context, and can commit independently.
+
+## When to Use Worktrees vs Branches
+
+| Scenario | Use | Why |
+|---|---|---|
+| Quick context switch (< 5 min) | `git stash` + branch | Faster setup |
+| Working on two things simultaneously | **Worktree** | Both accessible at once |
+| P0 interrupt during a feature | **Worktree** | Don't lose your flow |
+| Parallel Claude Code sessions | **Worktree** | Clean separation |
+| Long-running experiment alongside main work | **Worktree** | No interference |
+| Simple branch for a PR | Branch | Worktree is overkill |
+
+## The Workflow
+
+```bash
+# 1. You're working on a feature
+cd ~/projects/my-app
+claude "continue working on the dashboard"
+
+# 2. P0 comes in — create a worktree
+git worktree add ../my-app-hotfix -b fix/p0-crash
+
+# 3. Open a new terminal, fix the P0
+cd ../my-app-hotfix
+claude "fix the crash in checkout.ts, write a test, push"
+
+# 4. Clean up when done
+git worktree remove ../my-app-hotfix
+
+# 5. Back to your feature — nothing was interrupted
+cd ~/projects/my-app
+claude --resume
+```
+
+## Tips
+
+- **Name worktree directories clearly.** `../my-app-hotfix` is better than `../worktree-1`.
+- **Clean up when done.** Abandoned worktrees clutter your filesystem. `git worktree prune` removes stale ones.
+- **One branch per worktree.** You can't check out the same branch in two worktrees. Git enforces this.
+- **Worktrees share `.git`.** Commits, tags, and remote refs are shared. Untracked files and working directory state are not.
