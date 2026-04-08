@@ -97,3 +97,119 @@ But the real power is custom skills tailored to YOUR workflow. Your team's PR fo
 **Be explicit about output format.** "Generate a report" is vague. "Generate a markdown table with columns: ticket, status, owner, next action" gets consistent results every time.
 
 **Use natural trigger keywords.** You want the skill to activate when you ask casually, not when you remember the exact command name.
+
+## Skills as Slash Commands
+
+Every skill file automatically becomes a slash command. The filename is the command name:
+
+```
+~/.claude/skills/weekly-status.md  →  /weekly-status
+~/.claude/skills/review-pr.md     →  /review-pr
+.claude/skills/deploy.md           →  /deploy
+```
+
+You can also pass arguments:
+
+```
+/review-pr 123          → Claude reviews PR #123
+/meeting-prep Sarah     → Claude preps for your meeting with Sarah
+/weekly-status --short  → Claude generates a brief version
+```
+
+The arguments show up in the skill's context. Your skill can reference them with a line like "Use the argument as the target" and Claude handles the rest.
+
+## Skills for Non-Coders
+
+You don't need to write code to create skills. Here are real examples people use every day without touching a terminal:
+
+### Performance Review Writer
+
+```markdown
+# Performance Review
+
+Write a structured performance review from my rough notes.
+
+## Input
+The user will paste messy bullet points about a team member.
+
+## Steps
+1. Organize into categories: Impact, Growth, Collaboration, Areas for Development
+2. Turn bullets into specific, evidence-based statements
+3. Add a summary paragraph
+4. Suggest 2-3 growth goals for next quarter
+
+## Tone
+Direct but supportive. No corporate fluff. Use specific examples.
+Write like a manager who respects the person's time.
+
+## Output
+Formatted review ready to paste into the HR system.
+```
+
+### Competitive Intelligence
+
+```markdown
+# Competitive Analysis
+
+Research a competitor and produce a structured analysis.
+
+## Input
+The user provides a competitor name or product URL.
+
+## Steps
+1. Search the web for recent news, pricing, and features
+2. Compare against our product (see CLAUDE.md for our features)
+3. Identify positioning gaps and opportunities
+4. Rate threat level: low / medium / high
+
+## Output
+A one-page analysis with: Overview, Feature Comparison,
+Pricing, Strengths, Weaknesses, Our Opportunity.
+```
+
+### Email Drafter
+
+```markdown
+# Draft Email
+
+Write a professional email from rough intent.
+
+## Input
+The user describes who they're emailing and what about.
+
+## Rules
+- Match my writing style (see memory for preferences)
+- Keep under 150 words unless the topic demands more
+- Always include a clear ask or next step
+- Never use "I hope this email finds you well"
+
+## Output
+Subject line + email body. Ready to paste.
+```
+
+## Sharing Skills with Your Team
+
+Skills are just Markdown files. Share them like any other file:
+
+**Option 1: Commit to the repo.** Put skills in `.claude/skills/` and they're available to anyone who clones the project. Great for project-specific workflows like deploy checklists or PR templates.
+
+**Option 2: Share a collection.** Create a GitHub repo of skills and share the link. People copy the `.md` files they want into their `~/.claude/skills/` directory.
+
+**Option 3: Use an open-source collection.** Projects like [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) ship 25+ ready-to-use skills you can install and customize.
+
+## Skill Ideas to Get You Started
+
+| Skill | What it does | Who it's for |
+|---|---|---|
+| `/weekly-status` | Generates status report from git + tickets | Everyone |
+| `/meeting-prep` | Gathers context from calendar, Slack, docs | PMs, managers |
+| `/review-pr` | Structured code review on any PR | Developers |
+| `/draft-email` | Writes emails from rough intent | Everyone |
+| `/competitive-analysis` | Researches and compares competitors | PMs, founders |
+| `/deploy` | Runs deploy checklist with safety checks | Developers |
+| `/standup` | Generates daily standup from recent activity | Everyone |
+| `/decision-memo` | Structures messy decisions into clear memos | PMs, leaders |
+| `/expense-report` | Formats expenses from raw data | Everyone |
+| `/onboarding` | Generates new hire onboarding checklist | Managers |
+
+Start with one. The one you'll use tomorrow morning. That's your first skill.
