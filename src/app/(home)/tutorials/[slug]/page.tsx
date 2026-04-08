@@ -2647,7 +2647,7 @@ export async function generateMetadata({
   if (!tutorial) return { title: 'Tutorial not found' };
 
   return {
-    title: `${tutorial.title} | Claude Code Guide`,
+    title: tutorial.title,
     description: tutorial.description,
   };
 }
