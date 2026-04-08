@@ -9,7 +9,7 @@ The context window is the amount of text Claude Code can "see" at once. Think of
 
 ## How Big Is It?
 
-Claude Code uses models with 200K token context windows. That is roughly 150,000 words. Sounds huge, but it fills faster than you think.
+Claude Code's models (Opus 4.6, Sonnet 4.6, Haiku 4.5) all support **1 million token context windows**. That's roughly 750,000 words. Sounds massive, and it is, but it still fills faster than you think in agentic workflows where Claude reads files, runs commands, and processes outputs.
 
 <DemoCard title="When your context window fills up" steps={[
   { type: 'out', text: 'Context: ████████████████████░░░ 78%' },
@@ -99,10 +99,10 @@ This is the power move for heavy users. Instead of fighting the context window, 
 1. Work in a focused block (30-60 minutes, one task)
 2. End the session with a handoff: what was done, what is next, key decisions
 3. Start a new session. Load only the handoff and relevant `CLAUDE.md`
-4. Fresh 200K tokens, zero wasted context
+4. Fresh 1M tokens, zero wasted context
 
 You lose nothing because the handoff captures everything that matters. You gain a full context window for the next task. Over a full day of work, this approach is dramatically more effective than one long session that degrades as context fills up.
 
-## What About the 1M Context Models?
+## 1M Tokens Is a Lot. You Still Need Strategy.
 
-Some Claude models support up to 1 million tokens. Claude Code can use these with the Max plan. The same principles apply at larger scales: context still fills up, just slower. The strategies above still help, they just become critical later in longer sessions rather than sooner.
+All current Claude models (Opus 4.6, Sonnet 4.6, Haiku 4.5) support 1 million tokens. That's a massive working memory. But the same principles apply: context still fills up during long agentic sessions, and the strategies above still help. They just become critical later in longer sessions rather than sooner. And more context means higher costs per session -- another reason to stay disciplined.
