@@ -6,4 +6,5 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .vercel
-videos/
+/videos/
+!public/videos/

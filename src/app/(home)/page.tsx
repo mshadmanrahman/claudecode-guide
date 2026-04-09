@@ -149,6 +149,19 @@ export default function HomePage() {
         <p className="mt-4 text-center text-sm text-fd-muted-foreground">
           Claude Code reads your project, detects your stack, and writes the config for you.
         </p>
+
+        {/* Video walkthrough GIF */}
+        <div className="mt-8 overflow-hidden rounded-xl border border-fd-border shadow-sm">
+          <img
+            src="/videos/gif-init.gif"
+            alt="Animated walkthrough of running /init to generate CLAUDE.md"
+            className="w-full"
+            loading="lazy"
+          />
+        </div>
+        <p className="mt-3 text-center text-xs text-fd-muted-foreground">
+          Watch /init analyze a real project and generate a complete CLAUDE.md
+        </p>
       </section>
 
       {/* ── Divider ── */}
@@ -364,9 +377,15 @@ export default function HomePage() {
       {/* ── Footer ── */}
       <footer className="mt-auto border-t border-fd-border px-6 py-8">
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="font-mono text-sm text-fd-muted-foreground">
-            claudecodeguide<span className="font-bold text-fd-foreground">.dev</span>
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="font-mono text-sm text-fd-muted-foreground">
+              claudecodeguide<span className="font-bold text-fd-foreground">.dev</span>
+            </p>
+            <span className="text-fd-border">|</span>
+            <Link href="/bn" className="text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors">
+              বাংলায় পড়ুন
+            </Link>
+          </div>
           <p className="text-sm text-fd-muted-foreground">
             Built by{' '}
             <a
