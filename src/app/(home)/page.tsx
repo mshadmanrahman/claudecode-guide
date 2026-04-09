@@ -150,18 +150,6 @@ export default function HomePage() {
           Claude Code reads your project, detects your stack, and writes the config for you.
         </p>
 
-        {/* Video walkthrough GIF */}
-        <div className="mt-8 overflow-hidden rounded-xl border border-fd-border shadow-sm">
-          <img
-            src="/videos/gif-init.gif"
-            alt="Animated walkthrough of running /init to generate CLAUDE.md"
-            className="w-full"
-            loading="lazy"
-          />
-        </div>
-        <p className="mt-3 text-center text-xs text-fd-muted-foreground">
-          Watch /init analyze a real project and generate a complete CLAUDE.md
-        </p>
       </section>
 
       {/* ── Divider ── */}
