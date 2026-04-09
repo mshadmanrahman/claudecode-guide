@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   ArrowRight,
-  Check,
   ChevronDown,
   MessageSquare,
   Briefcase,
@@ -30,13 +29,12 @@ import {
   Lightbulb,
   GraduationCap,
   Palette,
+  Map,
 } from 'lucide-react';
 
 /* ─────────────────────────────────────────────
    Types
    ───────────────────────────────────────────── */
-
-type Persona = 'chatgpt-user' | 'pm' | 'developer' | 'founder' | 'student' | 'designer';
 
 interface JourneyNode {
   id: string;
@@ -45,92 +43,30 @@ interface JourneyNode {
   href: string;
   duration?: string;
   icon: React.ElementType;
-  personas: Persona[];
+  /** Audience badges shown on the node */
+  audiences: string[];
   isDecisionPoint?: boolean;
   affiliateLabel?: string;
   affiliateHref?: string;
   badge?: string;
 }
 
-interface JourneySection {
+interface JourneyStage {
   id: string;
   number: string;
   title: string;
   subtitle: string;
   colorClass: string;
   accentBg: string;
-  accentBorder: string;
   dotColor: string;
   nodes: JourneyNode[];
 }
 
 /* ─────────────────────────────────────────────
-   Persona definitions
-   ───────────────────────────────────────────── */
-
-const personas: {
-  id: Persona;
-  label: string;
-  shortLabel: string;
-  tagline: string;
-  icon: React.ElementType;
-  color: string;
-}[] = [
-  {
-    id: 'chatgpt-user',
-    label: 'ChatGPT User',
-    shortLabel: 'ChatGPT',
-    tagline: "I've used AI chat. What's different here?",
-    icon: MessageSquare,
-    color: 'border-green-500/40 bg-green-500/8 text-green-700 dark:text-green-400',
-  },
-  {
-    id: 'founder',
-    label: 'Founder',
-    shortLabel: 'Founder',
-    tagline: 'I need to ship an MVP, fast.',
-    icon: Lightbulb,
-    color: 'border-orange-500/40 bg-orange-500/8 text-orange-700 dark:text-orange-400',
-  },
-  {
-    id: 'pm',
-    label: 'Product Manager',
-    shortLabel: 'PM',
-    tagline: "I don't write code. Can I still use this?",
-    icon: Briefcase,
-    color: 'border-blue-500/40 bg-blue-500/8 text-blue-700 dark:text-blue-400',
-  },
-  {
-    id: 'designer',
-    label: 'Designer',
-    shortLabel: 'Designer',
-    tagline: 'I do UX/UI. How does this fit my workflow?',
-    icon: Palette,
-    color: 'border-pink-500/40 bg-pink-500/8 text-pink-700 dark:text-pink-400',
-  },
-  {
-    id: 'developer',
-    label: 'Developer',
-    shortLabel: 'Dev',
-    tagline: 'I code. Show me what this can actually do.',
-    icon: Code2,
-    color: 'border-purple-500/40 bg-purple-500/8 text-purple-700 dark:text-purple-400',
-  },
-  {
-    id: 'student',
-    label: 'Student',
-    shortLabel: 'Student',
-    tagline: "I'm learning to code with AI help.",
-    icon: GraduationCap,
-    color: 'border-cyan-500/40 bg-cyan-500/8 text-cyan-700 dark:text-cyan-400',
-  },
-];
-
-/* ─────────────────────────────────────────────
    Journey data
    ───────────────────────────────────────────── */
 
-const journeySections: JourneySection[] = [
+const stages: JourneyStage[] = [
   {
     id: 'understand',
     number: '01',
@@ -138,29 +74,28 @@ const journeySections: JourneySection[] = [
     subtitle: 'What is this thing and why should I care?',
     colorClass: 'text-green-600 dark:text-green-400',
     accentBg: 'bg-green-500/10',
-    accentBorder: 'border-green-500/30',
     dotColor: 'bg-green-500',
     nodes: [
       {
         id: 'what-is-claude-code',
         title: 'What is Claude Code?',
         description:
-          'Not another chatbot. Claude Code is an AI that lives in your computer, reads your files, runs commands, and builds things. Think ChatGPT... but it can actually DO stuff.',
+          'Not another chatbot. Claude Code is an AI that lives in your computer, reads your files, runs commands, and builds things.',
         href: '/docs/foundations/what-is-claude-code',
         duration: '5 min read',
         icon: Sparkles,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
         badge: 'start here',
       },
       {
         id: 'choose-interface',
         title: 'Choose Your Interface',
         description:
-          'Desktop app, web app, terminal, or IDE extension. Pick the one that feels right. The desktop app is the easiest start for non-coders.',
+          'Desktop app, web app, terminal, or IDE extension. Pick the one that feels right. The desktop app is the easiest start.',
         href: '/docs/foundations/which-interface',
         duration: '3 min read',
         icon: Monitor,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
       },
       {
         id: 'pick-a-plan',
@@ -170,7 +105,7 @@ const journeySections: JourneySection[] = [
         href: '/docs/comparisons/pro-vs-max',
         duration: '4 min read',
         icon: CreditCard,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
         isDecisionPoint: true,
         affiliateLabel: 'Get Claude Pro',
         affiliateHref: 'https://claude.ai/upgrade',
@@ -181,64 +116,62 @@ const journeySections: JourneySection[] = [
     id: 'setup',
     number: '02',
     title: 'Set Up',
-    subtitle: 'Get it running. Takes about 10 minutes.',
+    subtitle: 'Get it running. About 10 minutes.',
     colorClass: 'text-blue-600 dark:text-blue-400',
     accentBg: 'bg-blue-500/10',
-    accentBorder: 'border-blue-500/30',
     dotColor: 'bg-blue-500',
     nodes: [
       {
         id: 'install',
         title: 'Install Claude Code',
         description:
-          'One command to install. Works on Mac, Windows, and Linux. If you chose the desktop app, just download and open it.',
+          'One command to install. Works on Mac, Windows, and Linux. Desktop app users: just download and open.',
         href: '/docs/foundations/installation',
         duration: '5 min',
         icon: Download,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
       },
       {
         id: 'first-claude-md',
         title: 'Write Your First CLAUDE.md',
         description:
-          'The magic file that teaches Claude about YOUR work. Your role, your preferences, your project. This is what makes it personal.',
+          'The magic file that teaches Claude about YOUR work. Run /init and Claude creates it from your project automatically.',
         href: '/tutorials/your-first-claude-md',
         duration: '5 min tutorial',
         icon: FileText,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
         badge: 'tutorial',
       },
       {
         id: 'glossary',
         title: 'Learn the Vocabulary',
         description:
-          'Context window, tokens, MCP, hooks... every term explained in plain English. Bookmark this page.',
+          'Context window, tokens, MCP, hooks... every term explained in plain English.',
         href: '/docs/foundations/glossary',
         duration: '3 min skim',
         icon: Brain,
-        personas: ['chatgpt-user', 'pm', 'student', 'founder', 'designer'],
+        audiences: ['Beginners', 'PMs'],
       },
     ],
   },
   {
     id: 'first-win',
     number: '03',
-    title: 'Get Your First Win',
+    title: 'First Win',
     subtitle: 'Build something real. Feel the magic.',
     colorClass: 'text-amber-600 dark:text-amber-400',
     accentBg: 'bg-amber-500/10',
-    accentBorder: 'border-amber-500/30',
     dotColor: 'bg-amber-500',
     nodes: [
       {
         id: 'ship-landing-page',
         title: 'Ship a Landing Page',
         description:
-          'From empty folder to live website in 30 minutes. No coding experience needed. Claude writes it, you review it.',
+          'From empty folder to live website in 30 minutes. No coding experience needed.',
         href: '/tutorials/ship-a-landing-page',
         duration: '30 min tutorial',
         icon: Rocket,
-        personas: ['chatgpt-user', 'developer', 'founder', 'student'],
+        audiences: ['Founders', 'Students', 'Devs'],
         badge: 'tutorial',
       },
       {
@@ -249,7 +182,7 @@ const journeySections: JourneySection[] = [
         href: '/tutorials/stakeholder-map',
         duration: '15 min tutorial',
         icon: Users,
-        personas: ['pm'],
+        audiences: ['PMs'],
         badge: 'no code',
       },
       {
@@ -260,29 +193,29 @@ const journeySections: JourneySection[] = [
         href: '/tutorials/slide-deck-outline',
         duration: '10 min tutorial',
         icon: LayoutDashboard,
-        personas: ['designer', 'pm', 'founder'],
+        audiences: ['Designers', 'PMs', 'Founders'],
         badge: 'no code',
       },
       {
         id: 'meeting-to-jira',
         title: 'Meeting Notes to Jira Tickets',
         description:
-          'Paste raw meeting notes, get structured Jira tickets. The task that used to take 45 minutes now takes 5.',
+          'Paste raw meeting notes, get structured tickets. 45 minutes of work in 5.',
         href: '/tutorials/meeting-to-jira',
         duration: '10 min tutorial',
         icon: LayoutDashboard,
-        personas: ['pm'],
+        audiences: ['PMs'],
         badge: 'tutorial',
       },
       {
         id: 'deploy',
         title: 'Deploy It Live',
         description:
-          'Push your creation to the internet. Railway or Vercel, one command. Share the link.',
+          'Push your creation to the internet. One command. Share the link.',
         href: '/docs/workflows/daily-practice',
         duration: '5 min',
         icon: Globe,
-        personas: ['chatgpt-user', 'developer', 'founder', 'student'],
+        audiences: ['Founders', 'Devs', 'Students'],
         isDecisionPoint: true,
         affiliateLabel: 'Deploy on Railway',
         affiliateHref: 'https://railway.com?referralCode=shadman',
@@ -292,52 +225,51 @@ const journeySections: JourneySection[] = [
   {
     id: 'build-habits',
     number: '04',
-    title: 'Build the Habits',
-    subtitle: "Go from \"that was cool\" to \"I can't work without this.\"",
+    title: 'Build Habits',
+    subtitle: "Go from \"cool\" to \"can't work without it.\"",
     colorClass: 'text-purple-600 dark:text-purple-400',
     accentBg: 'bg-purple-500/10',
-    accentBorder: 'border-purple-500/30',
     dotColor: 'bg-purple-500',
     nodes: [
       {
         id: 'session-lifecycle',
         title: 'How Sessions Work',
         description:
-          'Start warm, work efficiently, end with a trail. The session lifecycle separates power users from frustrated ones.',
+          'Start warm, work efficiently, end with a trail. This is what separates power users from frustrated ones.',
         href: '/docs/foundations/session-lifecycle',
         duration: '6 min read',
         icon: Zap,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
       },
       {
         id: 'memory-system',
         title: 'Memory: It Remembers You',
         description:
-          'After a week of use, Claude knows your preferences, your projects, your writing style. The compound effect is real.',
+          'After a week, Claude knows your preferences, projects, and writing style. The compound effect is real.',
         href: '/docs/foundations/memory-system',
         duration: '5 min read',
         icon: Brain,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
       },
       {
         id: 'daily-practice',
         title: 'Daily Practice',
         description:
-          'Morning standup, midday builds, end-of-day review. The rhythm that makes AI feel like a natural extension of your workflow.',
+          'Morning standup, midday builds, end-of-day review. The rhythm that makes AI feel natural.',
         href: '/docs/workflows/daily-practice',
         duration: '8 min read',
         icon: Terminal,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
       },
       {
         id: 'cost-optimization',
         title: 'Keep Costs Down',
         description:
-          "Context window tricks, when to use /compact, how to pick the right model. Don't burn money on tokens you don't need.",
+          "Context window tricks, /compact, model selection. Don't burn money on tokens you don't need.",
         href: '/docs/foundations/cost-optimization',
         duration: '5 min read',
         icon: CreditCard,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student'],
+        audiences: ['Everyone'],
       },
     ],
   },
@@ -348,60 +280,59 @@ const journeySections: JourneySection[] = [
     subtitle: 'Skills, hooks, agents. This is where it gets powerful.',
     colorClass: 'text-rose-600 dark:text-rose-400',
     accentBg: 'bg-rose-500/10',
-    accentBorder: 'border-rose-500/30',
     dotColor: 'bg-rose-500',
     nodes: [
       {
         id: 'skills',
-        title: 'Create Custom Skills',
+        title: 'Custom Skills',
         description:
-          'Turn any multi-step task into a single /command. Write a Markdown file, get a personal automation. No code required.',
+          'Turn any multi-step task into a single /command. Write a Markdown file, get a personal automation.',
         href: '/tutorials/your-first-skill',
         duration: '10 min tutorial',
         icon: Puzzle,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
         badge: 'tutorial',
       },
       {
         id: 'hooks',
-        title: 'Hooks: Automatic Quality Gates',
+        title: 'Hooks',
         description:
-          'Run checks before every commit. Format code on save. Inject context automatically. Set it once, forget it.',
+          'Run checks before every commit. Format code on save. Inject context automatically.',
         href: '/docs/patterns/hooks',
         duration: '8 min read',
         icon: Zap,
-        personas: ['developer'],
+        audiences: ['Devs'],
       },
       {
         id: 'sub-agents',
-        title: 'Sub-Agents: Delegation',
+        title: 'Sub-Agents',
         description:
-          'Spin up specialized agents for focused tasks. A code reviewer, a test runner, a researcher. All working in parallel.',
+          'Spin up specialized agents: code reviewer, test runner, researcher. All working in parallel.',
         href: '/docs/patterns/agents',
         duration: '10 min read',
         icon: Bot,
-        personas: ['developer'],
+        audiences: ['Devs'],
       },
       {
         id: 'mcp-servers',
-        title: 'MCP: Connect Everything',
+        title: 'MCP Servers',
         description:
-          'Claude talks to GitHub, Slack, Jira, Linear, Figma, your database. MCP is the protocol that makes Claude a hub, not a silo.',
+          'Connect Claude to GitHub, Slack, Jira, Linear, Figma. The protocol that makes Claude a hub.',
         href: '/docs/patterns/mcp-servers',
         duration: '12 min read',
         icon: Server,
-        personas: ['pm', 'developer', 'designer'],
+        audiences: ['PMs', 'Devs', 'Designers'],
       },
       {
         id: 'computer-use',
-        title: 'Computer Use (NEW)',
+        title: 'Computer Use',
         description:
-          'Claude can see your screen, click buttons, and navigate apps. No setup. Just say "look at my screen" and it does.',
+          'Claude can see your screen, click buttons, and navigate apps. Say "look at my screen" and it does.',
         href: '/tutorials/computer-use',
         duration: '5 min read',
         icon: Cpu,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
-        badge: 'new in 2026',
+        audiences: ['Everyone'],
+        badge: 'new',
       },
     ],
   },
@@ -409,212 +340,150 @@ const journeySections: JourneySection[] = [
     id: 'mastery',
     number: '06',
     title: 'Mastery',
-    subtitle: 'Run Claude while you sleep. Lead your team to adopt it.',
+    subtitle: 'Run Claude while you sleep. Lead your team.',
     colorClass: 'text-indigo-600 dark:text-indigo-400',
     accentBg: 'bg-indigo-500/10',
-    accentBorder: 'border-indigo-500/30',
     dotColor: 'bg-indigo-500',
     nodes: [
       {
         id: 'autonomous-loops',
         title: 'Autonomous Loops',
         description:
-          'Give Claude a task, go to sleep, wake up to a PR. Safety controls, progress reports, and automatic checkpoints.',
+          'Give Claude a task, go to sleep, wake up to a PR. Safety controls and automatic checkpoints.',
         href: '/docs/patterns/autonomous-loops',
         duration: '10 min read',
         icon: Zap,
-        personas: ['developer', 'founder'],
+        audiences: ['Devs', 'Founders'],
       },
       {
         id: 'pm-workflow',
-        title: 'The PM Power Workflow',
+        title: 'PM Power Workflow',
         description:
-          'Meeting prep, status reports, competitive analysis, decision memos. All without writing a line of code.',
+          'Meeting prep, status reports, competitive analysis, decision memos. All without code.',
         href: '/docs/workflows/pm-workflow',
         duration: '8 min read',
         icon: Briefcase,
-        personas: ['pm'],
+        audiences: ['PMs'],
       },
       {
         id: 'design-workflow',
         title: 'Design System Automation',
         description:
-          'Generate component specs from Figma, audit for accessibility, maintain a living style guide. Claude as your design ops assistant.',
+          'Generate component specs from Figma, audit accessibility, maintain a living style guide.',
         href: '/docs/workflows/daily-practice',
         duration: '8 min read',
         icon: Palette,
-        personas: ['designer'],
+        audiences: ['Designers'],
       },
       {
         id: 'team-adoption',
         title: 'Roll Out to Your Team',
         description:
-          'Shared CLAUDE.md configs, onboarding guides, getting buy-in from skeptics. The playbook for team-wide adoption.',
+          'Shared configs, onboarding guides, getting buy-in from skeptics. The adoption playbook.',
         href: '/docs/workflows/team-adoption',
         duration: '10 min read',
         icon: Users,
-        personas: ['pm', 'developer', 'founder'],
+        audiences: ['PMs', 'Devs', 'Founders'],
       },
       {
         id: 'templates',
-        title: 'Grab a Template & Ship',
+        title: 'Grab a Template',
         description:
-          'Copy-paste CLAUDE.md for Next.js, Python, monorepos, PM workspaces. Battle-tested by real teams.',
+          'Copy-paste CLAUDE.md for Next.js, Python, monorepos, PM workspaces. Battle-tested.',
         href: '/docs/templates',
         duration: 'Browse',
         icon: FileText,
-        personas: ['chatgpt-user', 'pm', 'developer', 'founder', 'student', 'designer'],
+        audiences: ['Everyone'],
       },
       {
         id: 'compare-tools',
         title: 'Compare Your Options',
         description:
-          'Claude Code vs Cursor, vs Copilot, vs Codex, vs Windsurf. Honest side-by-side comparisons.',
+          'Claude Code vs Cursor, Copilot, Codex, Windsurf. Honest side-by-side comparisons.',
         href: '/docs/comparisons/vs-cursor',
         duration: 'Browse',
         icon: Shield,
-        personas: ['chatgpt-user', 'developer', 'founder', 'student'],
-        isDecisionPoint: true,
-        affiliateLabel: 'Try v0 by Vercel',
-        affiliateHref: 'https://v0.dev?ref=claudecodeguide',
+        audiences: ['Devs', 'Founders', 'Students'],
       },
     ],
   },
 ];
 
 /* ─────────────────────────────────────────────
-   Helpers
+   Audience color map
    ───────────────────────────────────────────── */
 
-const STORAGE_KEY = 'ccg-journey-progress';
-
-function loadProgress(): Set<string> {
-  if (typeof window === 'undefined') return new Set();
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return new Set();
-    return new Set(JSON.parse(raw) as string[]);
-  } catch {
-    return new Set();
-  }
-}
-
-function saveProgress(completed: Set<string>) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([...completed]));
-  } catch {
-    // silently ignore if localStorage is full/blocked
-  }
-}
+const audienceColors: Record<string, string> = {
+  Everyone: 'bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400',
+  Beginners: 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  PMs: 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+  Devs: 'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+  Founders: 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
+  Students: 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400',
+  Designers: 'bg-pink-50 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
+};
 
 /* ─────────────────────────────────────────────
    Components
    ───────────────────────────────────────────── */
 
-function ProgressBar({ completed, total }: { completed: number; total: number }) {
-  const pct = total === 0 ? 0 : Math.round((completed / total) * 100);
-  return (
-    <div className="flex items-center gap-3">
-      <div className="h-2 flex-1 overflow-hidden rounded-full bg-fd-accent">
-        <div
-          className="h-full rounded-full bg-green-500 transition-all duration-500"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
-      <span className="text-sm font-medium tabular-nums text-fd-muted-foreground">
-        {completed}/{total}
-      </span>
-    </div>
-  );
-}
-
-function NodeRow({
+function NodeCard({
   node,
-  isHighlighted,
-  isCompleted,
   isExpanded,
-  onToggleComplete,
-  onToggleExpand,
-  accentColor,
-  dotColor,
+  onToggle,
+  stageColor,
 }: {
   node: JourneyNode;
-  isHighlighted: boolean;
-  isCompleted: boolean;
   isExpanded: boolean;
-  onToggleComplete: () => void;
-  onToggleExpand: () => void;
-  accentColor: string;
-  dotColor: string;
+  onToggle: () => void;
+  stageColor: string;
 }) {
   const Icon = node.icon;
 
   return (
     <div
-      className={`transition-all ${
-        isHighlighted ? 'opacity-100' : 'opacity-25 pointer-events-none'
+      className={`rounded-xl border transition-all ${
+        isExpanded
+          ? 'border-fd-border bg-fd-card shadow-sm'
+          : 'border-fd-border/60 bg-fd-background hover:border-fd-border hover:bg-fd-card/50'
       }`}
     >
-      {/* Collapsed row */}
+      {/* Header row */}
       <button
-        onClick={onToggleExpand}
-        disabled={!isHighlighted}
-        className={`group flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all sm:gap-4 sm:px-5 sm:py-4 ${
-          isExpanded
-            ? 'border-fd-border bg-fd-card shadow-sm'
-            : 'border-fd-border/60 bg-fd-background hover:border-fd-border hover:bg-fd-card/50'
-        }`}
+        onClick={onToggle}
+        className="flex w-full items-center gap-3 px-4 py-3 text-left sm:gap-4 sm:px-5 sm:py-3.5"
       >
-        {/* Checkbox */}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onToggleComplete();
-          }}
-          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-            isCompleted
-              ? `${dotColor} border-transparent text-white`
-              : 'border-fd-border text-transparent hover:border-fd-foreground hover:text-fd-muted-foreground'
-          }`}
-          aria-label={isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
-        >
-          <Check className="h-3 w-3" />
-        </button>
-
-        {/* Icon */}
         <div
           className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-fd-border/60 ${
             isExpanded ? 'bg-fd-accent' : 'bg-fd-background'
           }`}
         >
-          <Icon className={`h-4 w-4 ${accentColor}`} />
+          <Icon className={`h-4 w-4 ${stageColor}`} />
         </div>
 
-        {/* Title */}
         <div className="flex-1 min-w-0">
-          <span
-            className={`text-sm font-medium text-fd-foreground ${
-              isCompleted ? 'line-through opacity-60' : ''
-            }`}
-          >
-            {node.title}
-          </span>
-          {node.duration && !isExpanded && (
-            <span className="ml-2 text-xs text-fd-muted-foreground hidden sm:inline">
-              {node.duration}
-            </span>
-          )}
+          <span className="text-sm font-medium text-fd-foreground">{node.title}</span>
         </div>
 
-        {/* Badge */}
+        {/* Audience badges */}
+        <div className="hidden items-center gap-1 sm:flex">
+          {node.audiences.map((a) => (
+            <span
+              key={a}
+              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${audienceColors[a] ?? audienceColors.Everyone}`}
+            >
+              {a}
+            </span>
+          ))}
+        </div>
+
+        {/* Feature badge */}
         {node.badge && (
           <span className="shrink-0 rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-fd-muted-foreground">
             {node.badge}
           </span>
         )}
 
-        {/* Expand chevron */}
         <ChevronDown
           className={`h-4 w-4 shrink-0 text-fd-muted-foreground transition-transform ${
             isExpanded ? 'rotate-180' : ''
@@ -622,9 +491,21 @@ function NodeRow({
         />
       </button>
 
-      {/* Expanded details (inline accordion) */}
+      {/* Expanded content */}
       {isExpanded && (
-        <div className="ml-6 sm:ml-10 border-l-2 border-fd-border/40 pl-5 sm:pl-7 pb-1 pt-3">
+        <div className="border-t border-fd-border/40 px-5 pb-4 pt-3 sm:px-6">
+          {/* Mobile audience badges */}
+          <div className="flex flex-wrap items-center gap-1 mb-3 sm:hidden">
+            {node.audiences.map((a) => (
+              <span
+                key={a}
+                className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${audienceColors[a] ?? audienceColors.Everyone}`}
+              >
+                {a}
+              </span>
+            ))}
+          </div>
+
           <p className="text-sm text-fd-muted-foreground leading-relaxed">
             {node.description}
           </p>
@@ -633,7 +514,7 @@ function NodeRow({
               href={node.href}
               className="inline-flex items-center gap-1.5 rounded-lg bg-fd-primary px-4 py-2 text-xs font-medium text-fd-primary-foreground transition-all hover:opacity-90"
             >
-              {node.duration ? node.duration : 'Read more'}
+              {node.duration ?? 'Read more'}
               <ArrowRight className="h-3 w-3" />
             </Link>
             {node.isDecisionPoint && node.affiliateHref && (
@@ -659,188 +540,88 @@ function NodeRow({
    ───────────────────────────────────────────── */
 
 export default function JourneyPage() {
-  const [activePersona, setActivePersona] = useState<Persona>('chatgpt-user');
-  const [completed, setCompleted] = useState<Set<string>>(new Set());
-  const [mounted, setMounted] = useState(false);
   const [expandedNode, setExpandedNode] = useState<string | null>(null);
-
-  useEffect(() => {
-    setCompleted(loadProgress());
-    setMounted(true);
-  }, []);
-
-  function toggleComplete(nodeId: string) {
-    setCompleted((prev) => {
-      const next = new Set(prev);
-      if (next.has(nodeId)) {
-        next.delete(nodeId);
-      } else {
-        next.add(nodeId);
-      }
-      saveProgress(next);
-      return next;
-    });
-  }
 
   function toggleExpand(nodeId: string) {
     setExpandedNode((prev) => (prev === nodeId ? null : nodeId));
   }
 
-  const visibleNodes = journeySections.flatMap((s) =>
-    s.nodes.filter((n) => n.personas.includes(activePersona)),
-  );
-  const completedCount = visibleNodes.filter((n) => completed.has(n.id)).length;
+  const totalNodes = stages.reduce((sum, s) => sum + s.nodes.length, 0);
 
   return (
     <div className="flex flex-col bg-fd-background">
       {/* ── Hero ── */}
-      <section className="relative mx-auto w-full max-w-3xl px-6 pt-16 pb-8 text-center">
+      <section className="relative mx-auto w-full max-w-3xl px-6 pt-16 pb-10 text-center">
         <div className="absolute inset-0 bg-grid bg-grid-fade opacity-30 pointer-events-none" />
         <div className="relative z-10">
           <div className="animate-slide-up-fade mb-3 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm">
-            <Sparkles className="h-3.5 w-3.5 text-fd-muted-foreground" />
-            <span className="text-fd-muted-foreground">Your personal learning path</span>
+            <Map className="h-3.5 w-3.5 text-fd-muted-foreground" />
+            <span className="text-fd-muted-foreground">
+              {stages.length} stages &middot; {totalNodes} topics
+            </span>
           </div>
 
           <h1 className="animate-slide-up-fade delay-100 font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-5xl">
-            Your Journey to Claude Code
+            The Claude Code Roadmap
           </h1>
           <p className="animate-slide-up-fade delay-200 mx-auto mt-3 max-w-xl text-base text-fd-muted-foreground">
-            Pick who you are. See your path. Expand any step for details.
+            Everything you need to go from zero to mastery. Expand any topic for details.
           </p>
-        </div>
-      </section>
 
-      {/* ── Persona Selector ── */}
-      <section className="mx-auto w-full max-w-3xl px-6 pb-6">
-        <p className="text-xs font-medium text-fd-muted-foreground mb-3 text-center">
-          I am a...
-        </p>
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
-          {personas.map((p) => {
-            const Icon = p.icon;
-            const isActive = activePersona === p.id;
-            return (
-              <button
-                key={p.id}
-                onClick={() => {
-                  setActivePersona(p.id);
-                  setExpandedNode(null);
-                }}
-                className={`group relative flex flex-col items-center gap-1.5 rounded-xl border px-3 py-3 text-center transition-all ${
-                  isActive
-                    ? `${p.color} ring-2 ring-current/20`
-                    : 'border-fd-border bg-fd-card hover:border-fd-muted-foreground/30'
-                }`}
+          {/* Legend */}
+          <div className="animate-slide-up-fade delay-300 mt-6 flex flex-wrap items-center justify-center gap-2">
+            {Object.entries(audienceColors).map(([label, cls]) => (
+              <span
+                key={label}
+                className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${cls}`}
               >
-                <Icon
-                  className={`h-5 w-5 ${isActive ? '' : 'text-fd-muted-foreground'} transition-colors`}
-                />
-                <span className="text-xs font-medium leading-tight text-fd-foreground">
-                  {p.shortLabel}
-                </span>
-                {isActive && (
-                  <div className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-fd-primary text-fd-primary-foreground">
-                    <Check className="h-2.5 w-2.5" />
-                  </div>
-                )}
-              </button>
-            );
-          })}
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
-        {/* Tagline for active persona */}
-        <p className="mt-3 text-center text-sm text-fd-muted-foreground italic">
-          &ldquo;{personas.find((p) => p.id === activePersona)?.tagline}&rdquo;
-        </p>
       </section>
 
-      {/* ── Progress ── */}
-      {mounted && (
-        <section className="mx-auto w-full max-w-3xl px-6 pb-8">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-medium text-fd-muted-foreground shrink-0">Progress</span>
-            <ProgressBar completed={completedCount} total={visibleNodes.length} />
-            {completedCount > 0 && completedCount === visibleNodes.length && (
-              <span className="text-xs font-medium text-green-600 dark:text-green-400 shrink-0">
-                Complete!
-              </span>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* ── Vertical Timeline ── */}
+      {/* ── Roadmap ── */}
       <section className="mx-auto w-full max-w-3xl px-6 pb-16">
         <div className="relative">
           {/* Vertical connector line */}
           <div className="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-green-500/40 via-purple-500/40 to-indigo-500/40 sm:left-6" />
 
           <div className="space-y-10">
-            {journeySections.map((section) => {
-              const relevantNodes = section.nodes.filter((n) =>
-                n.personas.includes(activePersona),
-              );
-              const sectionCompleted = relevantNodes.filter((n) =>
-                completed.has(n.id),
-              ).length;
-              const allDone = relevantNodes.length > 0 && sectionCompleted === relevantNodes.length;
-
-              return (
-                <div key={section.id} className="relative">
-                  {/* Stage header with dot on the line */}
-                  <div className="flex items-center gap-4 mb-4 sm:gap-5">
-                    {/* Dot on timeline */}
-                    <div
-                      className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 sm:h-12 sm:w-12 ${
-                        allDone
-                          ? 'border-green-500 bg-green-500 text-white'
-                          : `border-fd-border ${section.accentBg}`
-                      }`}
-                    >
-                      {allDone ? (
-                        <Check className="h-5 w-5" />
-                      ) : (
-                        <span className={`font-mono text-sm font-bold ${section.colorClass}`}>
-                          {section.number}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Stage title */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-baseline gap-2">
-                        <h2 className={`font-display text-lg font-semibold tracking-tight ${section.colorClass}`}>
-                          {section.title}
-                        </h2>
-                        {mounted && (
-                          <span className="text-xs text-fd-muted-foreground tabular-nums">
-                            {sectionCompleted}/{relevantNodes.length}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm text-fd-muted-foreground">{section.subtitle}</p>
-                    </div>
+            {stages.map((stage) => (
+              <div key={stage.id} className="relative">
+                {/* Stage header */}
+                <div className="flex items-center gap-4 mb-4 sm:gap-5">
+                  <div
+                    className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-fd-border sm:h-12 sm:w-12 ${stage.accentBg}`}
+                  >
+                    <span className={`font-mono text-sm font-bold ${stage.colorClass}`}>
+                      {stage.number}
+                    </span>
                   </div>
-
-                  {/* Nodes */}
-                  <div className="ml-5 space-y-2 sm:ml-6 pl-5 sm:pl-7">
-                    {section.nodes.map((node) => (
-                      <NodeRow
-                        key={node.id}
-                        node={node}
-                        isHighlighted={node.personas.includes(activePersona)}
-                        isCompleted={completed.has(node.id)}
-                        isExpanded={expandedNode === node.id}
-                        onToggleComplete={() => toggleComplete(node.id)}
-                        onToggleExpand={() => toggleExpand(node.id)}
-                        accentColor={section.colorClass}
-                        dotColor={section.dotColor}
-                      />
-                    ))}
+                  <div className="flex-1 min-w-0">
+                    <h2 className={`font-display text-lg font-semibold tracking-tight ${stage.colorClass}`}>
+                      {stage.title}
+                    </h2>
+                    <p className="text-sm text-fd-muted-foreground">{stage.subtitle}</p>
                   </div>
                 </div>
-              );
-            })}
+
+                {/* Nodes */}
+                <div className="ml-5 space-y-2 pl-5 sm:ml-6 sm:pl-7">
+                  {stage.nodes.map((node) => (
+                    <NodeCard
+                      key={node.id}
+                      node={node}
+                      isExpanded={expandedNode === node.id}
+                      onToggle={() => toggleExpand(node.id)}
+                      stageColor={stage.colorClass}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -852,21 +633,25 @@ export default function JourneyPage() {
             Ready to start?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
-            Click the first step on your journey, or jump straight into a tutorial.
+            New here? The{' '}
+            <Link href="/guide" className="font-medium text-fd-foreground underline">
+              step-by-step guide
+            </Link>{' '}
+            walks you through setup. Or jump into a tutorial.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/tutorials/your-first-claude-md"
+              href="/guide"
               className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
             >
-              Start the first tutorial
+              Start the guided setup
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              href="/docs/foundations/which-interface"
+              href="/tutorials"
               className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
             >
-              Browse the docs
+              Browse tutorials
             </Link>
           </div>
 
