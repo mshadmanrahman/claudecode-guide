@@ -318,12 +318,10 @@ export default function GuidePage() {
               </p>
 
               <a
-                href="https://claude.ai/upgrade"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/docs/comparisons/pro-vs-max"
                 className="mt-4 inline-flex items-center gap-2 rounded-lg bg-fd-primary px-5 py-2.5 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
               >
-                Get Claude {progress.selectedPlan === 'max' ? 'Max' : 'Pro'}
+                Compare Pro vs Max
                 <ArrowRight className="h-4 w-4" />
               </a>
             </GuideStep>

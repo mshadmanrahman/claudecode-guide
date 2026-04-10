@@ -94,8 +94,8 @@ const stages: Stage[] = [
         duration: '4 min',
         icon: CreditCard,
         isDecisionPoint: true,
-        affiliateLabel: 'Get Claude Pro',
-        affiliateHref: 'https://claude.ai/upgrade',
+        affiliateLabel: 'Compare Pro vs Max',
+        affiliateHref: '/docs/comparisons/pro-vs-max',
       },
     ],
   },
@@ -574,12 +574,10 @@ export default function JourneyPage() {
               Most tutorials work best with Claude Pro ($20/mo) or Max ($100/mo).
             </p>
             <a
-              href="https://claude.ai/upgrade"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/docs/comparisons/pro-vs-max"
               className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
-              Get Claude Pro
+              Compare Pro vs Max
               <ExternalLink className="h-3.5 w-3.5" />
             </a>
           </div>

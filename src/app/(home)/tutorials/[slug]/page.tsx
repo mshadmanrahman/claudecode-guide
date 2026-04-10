@@ -2646,9 +2646,23 @@ export async function generateMetadata({
   const tutorial = TUTORIALS[slug];
   if (!tutorial) return { title: 'Tutorial not found' };
 
+  const ogImageUrl = `/api/og?title=${encodeURIComponent(tutorial.title)}&description=${encodeURIComponent(tutorial.description)}`;
+
   return {
     title: tutorial.title,
     description: tutorial.description,
+    openGraph: {
+      title: tutorial.title,
+      description: tutorial.description,
+      type: 'article',
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: tutorial.title,
+      description: tutorial.description,
+      images: [ogImageUrl],
+    },
   };
 }
 

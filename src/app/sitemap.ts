@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${page.url}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: page.url.includes('foundations') ? 0.9 : 0.8,
+    priority: page.url.includes('comparisons') ? 0.95 : page.url.includes('foundations') ? 0.9 : 0.8,
   }));
 
   const blogListingPage = {

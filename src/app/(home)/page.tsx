@@ -351,12 +351,10 @@ export default function HomePage() {
             Claude Pro ($20/mo) is all you need to start. Upgrade to Max when you&apos;re hooked.
           </p>
           <a
-            href="https://claude.ai/upgrade"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/docs/comparisons/pro-vs-max"
             className="mt-8 inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
           >
-            Get Claude Pro
+            Compare Pro vs Max
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>

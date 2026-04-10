@@ -638,12 +638,10 @@ export default function CapabilitiesPage() {
               Computer use, extended thinking, and most MCP integrations work best with Pro ($20/mo) or Max ($100/mo).
             </p>
             <a
-              href="https://claude.ai/upgrade"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/docs/comparisons/pro-vs-max"
               className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
-              Get Claude Pro
+              Compare Pro vs Max
               <ExternalLink className="h-3.5 w-3.5" />
             </a>
           </div>
