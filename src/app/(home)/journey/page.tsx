@@ -469,11 +469,10 @@ const installInstructions: Record<string, InstallBlock> = {
   'linux-desktop': {
     heading: 'Desktop App on Linux',
     steps: [
-      'Go to claude.ai/download for the Linux package.',
-      'Install via your package manager or run the .deb/.rpm.',
-      'Open Claude and sign in.',
+      'There is no official Claude desktop app for Linux yet.',
+      'Your best options: use the web app at claude.ai (works great in any browser) or install the CLI for the full power-user experience.',
     ],
-    note: 'Linux desktop app availability may vary. The CLI or web app are reliable alternatives.',
+    note: 'The CLI is actually the most popular choice on Linux - and it gives you more capabilities than the desktop app anyway.',
   },
   'linux-cli': {
     heading: 'Terminal (CLI) on Linux',

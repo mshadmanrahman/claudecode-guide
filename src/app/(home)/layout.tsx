@@ -12,8 +12,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         ),
       }}
       links={[
+        { text: 'Guide', url: '/guide' },
         { text: 'Journey', url: '/journey' },
-        { text: 'Capabilities', url: '/capabilities' },
         { text: 'Docs', url: '/docs/foundations/what-is-claude-code' },
         { text: 'Tutorials', url: '/tutorials' },
         { text: 'Blog', url: '/blog' },

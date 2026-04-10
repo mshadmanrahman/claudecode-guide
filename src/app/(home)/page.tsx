@@ -45,10 +45,10 @@ export default function HomePage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              href="/docs/foundations/claude-md"
+              href="/docs/foundations/what-is-claude-code"
               className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
             >
-              Jump to the docs
+              What is Claude Code?
             </Link>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function HomePage() {
               number: '01',
               title: 'Get set up',
               description: 'Install Claude Code, pick a plan, and write your first prompt. Takes about 10 minutes.',
-              href: '/docs/foundations/claude-md',
+              href: '/docs/foundations/installation',
             },
             {
               icon: BookOpen,

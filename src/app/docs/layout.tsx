@@ -14,6 +14,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         ),
         url: '/',
       }}
+      githubUrl="https://github.com/mshadmanrahman/claudecode-guide"
       sidebar={{
         defaultOpenLevel: 1,
         banner: (
@@ -25,6 +26,18 @@ export default function Layout({ children }: { children: ReactNode }) {
             <a href="/tutorials" className="text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors">Tutorials</a>
             <span className="text-fd-border">|</span>
             <a href="/blog" className="text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors">Blog</a>
+          </div>
+        ),
+        footer: (
+          <div className="pt-2 border-t border-fd-border">
+            <a
+              href="https://github.com/mshadmanrahman/claudecode-guide/issues/new"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+            >
+              Stuck? Open an issue
+            </a>
           </div>
         ),
       }}
