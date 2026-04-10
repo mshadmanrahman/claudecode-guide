@@ -27,6 +27,9 @@ import {
   Palette,
   Map,
 } from 'lucide-react';
+import { PathPicker } from '@/components/journey/path-picker';
+import { useJourneySelections } from '@/hooks/use-journey-selections';
+import type { JourneyOs, JourneyInterface } from '@/hooks/use-journey-selections';
 
 /* ─────────────────────────────────────────────
    Types
@@ -374,11 +377,143 @@ const audienceColor: Record<string, string> = {
 };
 
 /* ─────────────────────────────────────────────
+   Personalised install instructions (12 combos)
+   ───────────────────────────────────────────── */
+
+interface InstallBlock {
+  heading: string;
+  steps: string[];
+  note?: string;
+}
+
+const installInstructions: Record<string, InstallBlock> = {
+  'mac-web': {
+    heading: 'Web App on macOS',
+    steps: [
+      'Open Safari or Chrome.',
+      'Go to claude.ai and sign in (or create an account).',
+      'Start a new conversation. That\'s it - nothing to install.',
+    ],
+  },
+  'mac-desktop': {
+    heading: 'Desktop App on macOS',
+    steps: [
+      'Go to claude.ai/download and click "Download for Mac".',
+      'Open the .dmg file and drag Claude to your Applications folder.',
+      'Open Claude from Applications. Sign in.',
+    ],
+    note: 'The desktop app works offline for some features and feels snappier than the browser.',
+  },
+  'mac-cli': {
+    heading: 'Terminal (CLI) on macOS',
+    steps: [
+      'Open Terminal (press Cmd+Space, type "Terminal", hit Enter).',
+      'If you don\'t have Node.js, install it first: brew install node',
+      'Install Claude Code: npm install -g @anthropic-ai/claude-code',
+      'Type claude and press Enter. Follow the login prompt.',
+    ],
+    note: 'This is the power-user path. You\'ll be running Claude right alongside your files.',
+  },
+  'mac-ide': {
+    heading: 'IDE Extension on macOS',
+    steps: [
+      'Open VS Code, Cursor, or your JetBrains IDE.',
+      'Go to the Extensions/Plugins marketplace.',
+      'Search for "Claude Code" and click Install.',
+      'Sign in when prompted. Claude appears in your sidebar.',
+    ],
+    note: 'If you use Cursor, Claude is already built into the editor - you may not need a separate extension.',
+  },
+  'windows-web': {
+    heading: 'Web App on Windows',
+    steps: [
+      'Open Chrome or Edge.',
+      'Go to claude.ai and sign in (or create an account).',
+      'Start a new conversation. Nothing to install.',
+    ],
+  },
+  'windows-desktop': {
+    heading: 'Desktop App on Windows',
+    steps: [
+      'Go to claude.ai/download and click "Download for Windows".',
+      'Run the installer (.exe). Follow the prompts.',
+      'Open Claude from your Start menu. Sign in.',
+    ],
+  },
+  'windows-cli': {
+    heading: 'Terminal (CLI) on Windows',
+    steps: [
+      'Open PowerShell (search "PowerShell" in Start menu).',
+      'If you don\'t have Node.js, download it from nodejs.org first.',
+      'Install Claude Code: npm install -g @anthropic-ai/claude-code',
+      'Type claude and press Enter. Follow the login prompt.',
+    ],
+    note: 'Windows Subsystem for Linux (WSL) also works great if you prefer a Linux-like terminal.',
+  },
+  'windows-ide': {
+    heading: 'IDE Extension on Windows',
+    steps: [
+      'Open VS Code, Cursor, or your JetBrains IDE.',
+      'Go to Extensions/Plugins and search "Claude Code".',
+      'Click Install. Sign in when prompted.',
+    ],
+  },
+  'linux-web': {
+    heading: 'Web App on Linux',
+    steps: [
+      'Open your browser.',
+      'Go to claude.ai and sign in (or create an account).',
+      'Start a new conversation. Nothing to install.',
+    ],
+  },
+  'linux-desktop': {
+    heading: 'Desktop App on Linux',
+    steps: [
+      'Go to claude.ai/download for the Linux package.',
+      'Install via your package manager or run the .deb/.rpm.',
+      'Open Claude and sign in.',
+    ],
+    note: 'Linux desktop app availability may vary. The CLI or web app are reliable alternatives.',
+  },
+  'linux-cli': {
+    heading: 'Terminal (CLI) on Linux',
+    steps: [
+      'Open your terminal.',
+      'Make sure Node.js 18+ is installed: node --version',
+      'Install Claude Code: npm install -g @anthropic-ai/claude-code',
+      'Type claude and press Enter. Follow the login prompt.',
+    ],
+    note: 'You probably already have a terminal open. This is the natural path for Linux users.',
+  },
+  'linux-ide': {
+    heading: 'IDE Extension on Linux',
+    steps: [
+      'Open VS Code or your JetBrains IDE.',
+      'Go to Extensions/Plugins and search "Claude Code".',
+      'Click Install. Sign in when prompted.',
+    ],
+  },
+};
+
+const interfaceBlurbs: Record<JourneyInterface, string> = {
+  web: 'The web app at claude.ai is the easiest way to start. No installation, no terminal, no setup. Just a chat interface in your browser. Great for writing, brainstorming, and learning what Claude can do before going deeper.',
+  desktop: 'The desktop app gives you a native window on your computer. It feels faster than the browser, works with keyboard shortcuts, and stays in your dock/taskbar. Same capabilities as the web app, but more integrated into your workflow.',
+  cli: 'The terminal (CLI) is where Claude Code truly shines. It reads your files, runs commands, writes code, and builds entire projects. This is the "AI pair programmer" experience. It requires a bit of setup but unlocks the most power.',
+  ide: 'IDE extensions bring Claude directly into your code editor. You get AI assistance right next to your code - ask questions, get completions, run commands - without switching windows. Best of both worlds.',
+};
+
+function getInstallBlock(os: JourneyOs | null, iface: JourneyInterface | null): InstallBlock | null {
+  if (!os || !iface) return null;
+  return installInstructions[`${os}-${iface}`] ?? null;
+}
+
+/* ─────────────────────────────────────────────
    Page
    ───────────────────────────────────────────── */
 
 export default function JourneyPage() {
   const [expandedNode, setExpandedNode] = useState<string | null>(null);
+  const journey = useJourneySelections();
 
   return (
     <div className="flex flex-col bg-fd-background">
@@ -399,6 +534,19 @@ export default function JourneyPage() {
           </p>
         </div>
       </section>
+
+      {/* ── Path Picker ── */}
+      {journey.loaded && (
+        <section className="mx-auto w-full max-w-4xl px-6 pb-8 animate-slide-up-fade delay-300">
+          <PathPicker
+            os={journey.os}
+            iface={journey.iface}
+            onOsChange={journey.setOs}
+            onInterfaceChange={journey.setInterface}
+            onReset={journey.reset}
+          />
+        </section>
+      )}
 
       {/* ── Stage Cards ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
@@ -502,9 +650,41 @@ export default function JourneyPage() {
                                 ))}
                               </div>
                             )}
-                            <p className="text-sm text-fd-muted-foreground leading-relaxed">
-                              {node.description}
-                            </p>
+                            {/* Personalised content for install + choose-interface */}
+                            {node.id === 'install' && getInstallBlock(journey.os, journey.iface) ? (
+                              <div className="space-y-3">
+                                <p className="text-sm font-medium text-fd-foreground">
+                                  {getInstallBlock(journey.os, journey.iface)!.heading}
+                                </p>
+                                <ol className="list-decimal list-inside space-y-1.5 text-sm text-fd-muted-foreground leading-relaxed">
+                                  {getInstallBlock(journey.os, journey.iface)!.steps.map((step) => (
+                                    <li key={step}>{step}</li>
+                                  ))}
+                                </ol>
+                                {getInstallBlock(journey.os, journey.iface)!.note && (
+                                  <p className="text-xs text-fd-muted-foreground/80 italic">
+                                    {getInstallBlock(journey.os, journey.iface)!.note}
+                                  </p>
+                                )}
+                              </div>
+                            ) : node.id === 'choose-interface' && journey.iface ? (
+                              <p className="text-sm text-fd-muted-foreground leading-relaxed">
+                                {interfaceBlurbs[journey.iface]}
+                              </p>
+                            ) : node.id === 'install' || node.id === 'choose-interface' ? (
+                              <div className="space-y-2">
+                                <p className="text-sm text-fd-muted-foreground leading-relaxed">
+                                  {node.description}
+                                </p>
+                                <p className="text-xs text-fd-muted-foreground/70 italic">
+                                  Pick your setup above to see exact steps for your platform.
+                                </p>
+                              </div>
+                            ) : (
+                              <p className="text-sm text-fd-muted-foreground leading-relaxed">
+                                {node.description}
+                              </p>
+                            )}
                             <div className="mt-3 flex flex-wrap items-center gap-3">
                               <Link
                                 href={node.href}
