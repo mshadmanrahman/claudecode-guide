@@ -31,6 +31,7 @@ const AFFILIATE_LINKS = {
   railway: 'https://railway.com?referralCode=shadman',
   digitalOcean: 'https://m.do.co/c/4710894edcd3',
   coursera: 'https://www.coursera.org/professional-certificates?utm_source=claudecodeguide',
+  granola: 'https://www.granola.ai?via=shadman-rahman',
   proVsMax: '/docs/comparisons/pro-vs-max',
 } as const;
 
@@ -166,6 +167,41 @@ const tutorialDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
   },
 };
 
+/**
+ * Pages where Granola (AI meeting notes) is contextually relevant.
+ * Granola referral: https://www.granola.ai?via=shadman-rahman
+ */
+const GRANOLA_PAGES = new Set([
+  'docs/patterns/mcp-servers',
+  'docs/workflows/daily-practice',
+  'docs/workflows/pm-workflow',
+  'docs/templates/pm-workspace',
+]);
+
+const workflowDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
+  inline: {
+    title: 'Capture meetings without lifting a finger',
+    description:
+      'Granola uses AI to transcribe and summarize your meetings automatically. Pair it with Claude Code via MCP to turn meeting notes into action items, tickets, and code.',
+    ctaLabel: 'Try Granola free',
+    destination: AFFILIATE_LINKS.granola,
+  },
+  'mid-banner': {
+    title: 'Need somewhere to deploy?',
+    description:
+      'Railway gives you one-click deploys from GitHub with generous free tier. Perfect for shipping what Claude Code builds.',
+    ctaLabel: 'Try Railway free',
+    destination: AFFILIATE_LINKS.railway,
+  },
+  'end-card': {
+    title: 'Pick the right Claude plan for your workflow',
+    description:
+      'Use our side-by-side comparison to match plan to workload so you never hit limits mid-sprint.',
+    ctaLabel: 'Open plan comparison',
+    destination: AFFILIATE_LINKS.proVsMax,
+  },
+};
+
 export function getAffiliateCtasForPage(pageSlug: string): AffiliateCTAConfig[] {
   if (pageSlug === 'guide') {
     return CTA_PLACEMENTS.map((placement) =>
@@ -176,6 +212,12 @@ export function getAffiliateCtasForPage(pageSlug: string): AffiliateCTAConfig[] 
   if (pageSlug.startsWith('docs/tutorials/') || pageSlug.startsWith('tutorials/')) {
     return CTA_PLACEMENTS.map((placement) =>
       createConfig(pageSlug, placement, tutorialDrafts[placement]),
+    );
+  }
+
+  if (GRANOLA_PAGES.has(pageSlug)) {
+    return CTA_PLACEMENTS.map((placement) =>
+      createConfig(pageSlug, placement, workflowDrafts[placement]),
     );
   }
 
