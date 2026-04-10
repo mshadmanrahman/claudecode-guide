@@ -229,11 +229,26 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 
 ---
 
-## Star History
+## Support
 
-If this guide helped you, a star helps others find it.
+If this guide helped you, give it a star -- it helps others find it and keeps development going.
+
+[![GitHub stars](https://img.shields.io/github/stars/mshadmanrahman/claudecode-guide?style=social)](https://github.com/mshadmanrahman/claudecode-guide/stargazers)
 
 [![Star History Chart](https://api.star-history.com/svg?repos=mshadmanrahman/claudecode-guide&type=Date)](https://star-history.com/#mshadmanrahman/claudecode-guide&Date)
+
+---
+
+## See Also
+
+- **[pm-pilot](https://github.com/mshadmanrahman/pm-pilot)** -- Claude Code configured for PMs. 25 skills out of the box.
+- **[root-kg](https://github.com/mshadmanrahman/root-kg)** -- Personal knowledge graph. Ask questions across all your notes, meetings, and emails.
+- **[morning-digest](https://github.com/mshadmanrahman/morning-digest)** -- Your morning briefed in 30 seconds. Calendar, email, Slack, and action items.
+- **[discovery-md](https://github.com/mshadmanrahman/discovery-md)** -- AI product discovery for PMs. From braindump to stakeholder one-pager.
+- **[ceremonies](https://github.com/mshadmanrahman/ceremonies)** -- Agile ceremonies that don't suck. Retros, estimation, team memory.
+- **[bug-shepherd](https://github.com/mshadmanrahman/bug-shepherd)** -- Zero-code bug triage for PMs. Reproduce and sync bugs without reading code.
+
+---
 
 ## License
 
