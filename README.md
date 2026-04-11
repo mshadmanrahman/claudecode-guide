@@ -35,7 +35,7 @@ This guide shows you how to go from zero to "I can't work without this" in about
 
 **The guide lives at [claudecodeguide.dev](https://claudecodeguide.dev).** You don't need to install anything or clone this repo. Just open the site and start reading.
 
-[**Open the 9-Step Setup Guide**](https://claudecodeguide.dev/guide) — takes about an hour, sticks forever.
+[**Open the 9-Step Setup Guide**](https://claudecodeguide.dev/guide)  - takes about an hour, sticks forever.
 
 ---
 
@@ -45,7 +45,7 @@ You don't need to be a developer. You don't need to know what a terminal is. You
 
 - **Absolute beginners** who installed Claude Code and aren't sure what to do next
 - **Developers** who use it daily but feel like they're leaving half the value on the table
-- **Product Managers** who want to ship without waiting for eng — there's a whole templates section for you
+- **Product Managers** who want to ship without waiting for eng  - there's a whole templates section for you
 - **Founders** building MVPs with AI and no dedicated engineering team
 - **Team Leads** rolling out Claude Code across a team and want a repeatable playbook
 - **Anyone** who tried it once, thought "meh", and deserves a second shot with proper context
@@ -61,31 +61,31 @@ The guide is 34 pages across 5 sections, plus **15 hands-on tutorials** for ever
 <td width="50%">
 
 ### Foundations (9 pages)
-- [Which Interface?](https://claudecodeguide.dev/docs/foundations/which-interface) — Terminal vs IDE vs Web vs Desktop
-- [The CLAUDE.md Guide](https://claudecodeguide.dev/docs/foundations/claude-md) — The most important file in your project
-- [Session Lifecycle](https://claudecodeguide.dev/docs/foundations/session-lifecycle) — Stop re-explaining yourself
-- [Plan Mode](https://claudecodeguide.dev/docs/foundations/plan-mode) — Think before you build
-- [Permissions](https://claudecodeguide.dev/docs/foundations/permissions) — Stop clicking "Allow" on everything
-- [Prompting](https://claudecodeguide.dev/docs/foundations/prompting) — It's not what you think
-- [Shortcuts](https://claudecodeguide.dev/docs/foundations/shortcuts) — Commands cheat sheet
-- [Cost Optimization](https://claudecodeguide.dev/docs/foundations/cost-optimization) — Is it worth $200/month?
-- [Glossary](https://claudecodeguide.dev/docs/foundations/glossary) — Every term in plain English
+- [Which Interface?](https://claudecodeguide.dev/docs/foundations/which-interface)  - Terminal vs IDE vs Web vs Desktop
+- [The CLAUDE.md Guide](https://claudecodeguide.dev/docs/foundations/claude-md)  - The most important file in your project
+- [Session Lifecycle](https://claudecodeguide.dev/docs/foundations/session-lifecycle)  - Stop re-explaining yourself
+- [Plan Mode](https://claudecodeguide.dev/docs/foundations/plan-mode)  - Think before you build
+- [Permissions](https://claudecodeguide.dev/docs/foundations/permissions)  - Stop clicking "Allow" on everything
+- [Prompting](https://claudecodeguide.dev/docs/foundations/prompting)  - It's not what you think
+- [Shortcuts](https://claudecodeguide.dev/docs/foundations/shortcuts)  - Commands cheat sheet
+- [Cost Optimization](https://claudecodeguide.dev/docs/foundations/cost-optimization)  - Is it worth $200/month?
+- [Glossary](https://claudecodeguide.dev/docs/foundations/glossary)  - Every term in plain English
 
 </td>
 <td width="50%">
 
 ### Patterns (5 pages)
-- [Skills](https://claudecodeguide.dev/docs/patterns/skills) — Turn tasks into commands
-- [Hooks](https://claudecodeguide.dev/docs/patterns/hooks) — Automate quality checks
-- [Sub-Agents](https://claudecodeguide.dev/docs/patterns/agents) — Delegate focused work
-- [MCP Servers](https://claudecodeguide.dev/docs/patterns/mcp-servers) — Connect to Slack, GitHub, Jira
-- [Autonomous Loops](https://claudecodeguide.dev/docs/patterns/autonomous-loops) — Work while you sleep
+- [Skills](https://claudecodeguide.dev/docs/patterns/skills)  - Turn tasks into commands
+- [Hooks](https://claudecodeguide.dev/docs/patterns/hooks)  - Automate quality checks
+- [Sub-Agents](https://claudecodeguide.dev/docs/patterns/agents)  - Delegate focused work
+- [MCP Servers](https://claudecodeguide.dev/docs/patterns/mcp-servers)  - Connect to Slack, GitHub, Jira
+- [Autonomous Loops](https://claudecodeguide.dev/docs/patterns/autonomous-loops)  - Work while you sleep
 
 ### Workflows (4 pages)
-- [Daily Practice](https://claudecodeguide.dev/docs/workflows/daily-practice) — The system that compounds
-- [Debugging](https://claudecodeguide.dev/docs/workflows/debugging) — Stop guessing, start investigating
-- [Team Adoption](https://claudecodeguide.dev/docs/workflows/team-adoption) — Roll out to your team
-- [CI/CD](https://claudecodeguide.dev/docs/workflows/ci-cd) — Claude Code in pipelines
+- [Daily Practice](https://claudecodeguide.dev/docs/workflows/daily-practice)  - The system that compounds
+- [Debugging](https://claudecodeguide.dev/docs/workflows/debugging)  - Stop guessing, start investigating
+- [Team Adoption](https://claudecodeguide.dev/docs/workflows/team-adoption)  - Roll out to your team
+- [CI/CD](https://claudecodeguide.dev/docs/workflows/ci-cd)  - Claude Code in pipelines
 
 </td>
 </tr>
@@ -115,12 +115,12 @@ The guide is 34 pages across 5 sections, plus **15 hands-on tutorials** for ever
 - [Blog](https://claudecodeguide.dev/blog)
 
 ### Tutorials (15 hands-on micro-projects)
-**Start Here** — terminal + Claude App + VS Code routes
+**Start Here**  - terminal + Claude App + VS Code routes
 - [Build Your First CLAUDE.md](https://claudecodeguide.dev/tutorials/your-first-claude-md)
 - [Ship a Landing Page in 30 Minutes](https://claudecodeguide.dev/tutorials/ship-a-landing-page)
 - [Create Your First Skill](https://claudecodeguide.dev/tutorials/your-first-skill)
 
-**No Terminal Required** — Claude web app only
+**No Terminal Required**  - Claude web app only
 - [Build a Stakeholder Map](https://claudecodeguide.dev/tutorials/stakeholder-map)
 - [Automate Your Newsletter](https://claudecodeguide.dev/tutorials/newsletter-automator)
 
@@ -131,7 +131,7 @@ The guide is 34 pages across 5 sections, plus **15 hands-on tutorials** for ever
 - [Competitive Analysis in 30 Minutes](https://claudecodeguide.dev/tutorials/competitive-analysis)
 - [Decision Memo from a Brain Dump](https://claudecodeguide.dev/tutorials/decision-memo)
 
-**For Everyone** — no code, no terminal
+**For Everyone**  - no code, no terminal
 - [Performance Review in 20 Minutes](https://claudecodeguide.dev/tutorials/performance-review)
 - [5 Articles → Research Briefing](https://claudecodeguide.dev/tutorials/research-briefing)
 - [Slide Deck Outline in 15 Minutes](https://claudecodeguide.dev/tutorials/slide-deck-outline)
@@ -158,23 +158,23 @@ No walls of text. Every concept shows you what to expect before you try it:
   → Same task. Autocomplete vs full execution.
 ```
 
-45+ animated terminal demos across 34 pages. Every tutorial also has an animated Claude App chat demo — no terminal required. The philosophy: **show, don't tell.**
+45+ animated terminal demos across 34 pages. Every tutorial also has an animated Claude App chat demo  - no terminal required. The philosophy: **show, don't tell.**
 
 ---
 
 ## PM Toolkit Family
 
-Once you've finished the guide, there are a few other tools built for the same audience — practitioners who want to actually get things done with AI, not just read about it.
+Once you've finished the guide, there are a few other tools built for the same audience  - practitioners who want to actually get things done with AI, not just read about it.
 
-If you're a PM specifically, [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) is built for you — Claude Code pre-configured for product work, ready to install once you've done the guide.
+If you're a PM specifically, [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) is built for you  - Claude Code pre-configured for product work, ready to install once you've done the guide.
 
 | Tool | What it does |
 |------|-------------|
 | [pm-pilot](https://github.com/mshadmanrahman/pm-pilot) | Claude Code configured for PMs. 25 skills, ready to install. |
 | [bug-shepherd](https://github.com/mshadmanrahman/bug-shepherd) | Zero-code bug triage for PMs. |
-| [ceremonies](https://github.com/mshadmanrahman/ceremonies) | Agile ceremonies that don't suck. Retros, estimation, team analytics — open source. |
+| [ceremonies](https://github.com/mshadmanrahman/ceremonies) | Agile ceremonies that don't suck. Retros, estimation, team analytics  - open source. |
 | [morning-digest](https://github.com/mshadmanrahman/morning-digest) | Your morning briefed in 30 seconds. |
-| [root-kg](https://github.com/mshadmanrahman/root-kg) | Your knowledge graph. Ask questions across all your notes, meetings, and emails — cited answers in plain English. |
+| [root-kg](https://github.com/mshadmanrahman/root-kg) | Your knowledge graph. Ask questions across all your notes, meetings, and emails  - cited answers in plain English. |
 
 ---
 
@@ -184,10 +184,10 @@ The guide is built with Next.js and Fumadocs. Every article is an `.mdx` file in
 
 **Ways to help:**
 
-- **Fix a typo** — edit any `.mdx` file and open a PR
-- **Suggest a topic** — open an issue
-- **Add a template** — create a new `.mdx` in `content/docs/templates/`
-- **Improve a demo** — DemoCard components are in `src/components/demo-card.tsx`
+- **Fix a typo**  - edit any `.mdx` file and open a PR
+- **Suggest a topic**  - open an issue
+- **Add a template**  - create a new `.mdx` in `content/docs/templates/`
+- **Improve a demo**  - DemoCard components are in `src/components/demo-card.tsx`
 
 **To run the site locally:**
 
@@ -218,7 +218,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 - [x] Blog with Substack email capture
 - [x] Learning roadmap with 5 stages
 - [x] Dark mode, responsive, Vercel deployment
-- [x] 15 hands-on tutorials — terminal, Claude App, and VS Code/Cursor routes
+- [x] 15 hands-on tutorials  - terminal, Claude App, and VS Code/Cursor routes
 - [x] Animated AppChatDemo component for non-coder learning paths
 - [x] Shareable achievement cards at the end of every tutorial
 - [x] GA4 event tracking (tutorial_start, tutorial_complete)
