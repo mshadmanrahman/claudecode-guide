@@ -161,7 +161,7 @@ const tutorialDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
   'end-card': {
     title: 'Keep building: pick a plan that fits',
     description:
-      'Use our comparison to find the right Claude plan for your workload — from casual practice to daily production use.',
+      'Use our comparison to find the right Claude plan for your workload : from casual practice to daily production use.',
     ctaLabel: 'Open plan comparison',
     destination: AFFILIATE_LINKS.proVsMax,
   },

@@ -2,7 +2,7 @@
 @import 'fumadocs-ui/css/preset.css';
 
 /*
- * Claude Code Guide — Custom color system
+ * Claude Code Guide : Custom color system
  * We do NOT import fumadocs-ui/css/neutral.css (their default colors).
  * Instead we define our own colors from scratch using the same variable names.
  */
@@ -44,7 +44,7 @@
   --color-fd-diff-add-symbol: rgb(10, 200, 100);
 }
 
-/* Dark mode — softer, not cave-black */
+/* Dark mode : softer, not cave-black */
 .dark {
   --color-fd-background: #181818;
   --color-fd-foreground: #f5f5f5;
@@ -130,6 +130,15 @@
 
 .animate-blink {
   animation: blink 1s step-end infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.005); }
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
 }
 
 .delay-100 { animation-delay: 100ms; }

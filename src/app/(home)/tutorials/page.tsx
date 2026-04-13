@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine, Network, Newspaper, Star, Lightbulb, BarChart2, BookOpen, Layout, Target, DollarSign, Monitor } from 'lucide-react';
+import { ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock, TreePine, Network, Newspaper, Star, Lightbulb, BarChart2, BookOpen, Layout, Target, DollarSign, Monitor, Gamepad2, Image, Music, MessageCircle, Code2, Layers, GitPullRequest } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { EmailCapture } from '@/components/email-capture';
 
@@ -104,6 +104,50 @@ export default function TutorialsPage() {
       <section className="mx-auto w-full max-w-3xl px-6 pb-24">
         <div className="mb-8">
           <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground">
+            Quick wins (zero experience needed)
+          </h2>
+          <p className="mt-1 text-sm text-fd-muted-foreground">
+            Fun stuff you can build in under 15 minutes. No coding, no terminal. Just vibes.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          <TutorialCard
+            title="Build a Quiz Game About Anything"
+            description="Tell Claude a topic. Get a playable quiz with scoring, hints, and a leaderboard. Share it with friends."
+            duration="10 min"
+            difficulty="beginner"
+            outcome="A working quiz game you can play in your browser and share with a link."
+            href="/tutorials/quiz-game"
+            icon={<Gamepad2 className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Make a Meme Generator"
+            description="Describe the meme you want. Claude builds a page that creates memes with custom text on any image."
+            duration="15 min"
+            difficulty="beginner"
+            outcome="A meme generator that runs locally. Upload any image, add text, download the result."
+            href="/tutorials/meme-generator"
+            icon={<Image className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Build a Spotify Playlist Analyzer"
+            description="Paste your playlist. Get stats on mood, energy, tempo patterns, and a 'vibe summary' you can share."
+            duration="10 min"
+            difficulty="beginner"
+            outcome="A visual breakdown of your playlist's vibe with shareable stats and recommendations."
+            href="/tutorials/playlist-analyzer"
+            icon={<Music className="h-5 w-5" />}
+            available={true}
+          />
+        </div>
+
+        <div className="mt-12 mb-8">
+          <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground">
             Start here
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
@@ -112,6 +156,17 @@ export default function TutorialsPage() {
         </div>
 
         <div className="grid gap-4">
+          <TutorialCard
+            title="Coming from ChatGPT? Here's What's Different"
+            description="Claude feels different from ChatGPT. Here is why that happens, and how to fix it in five minutes so your preferences actually stick."
+            duration="10 min"
+            difficulty="beginner"
+            outcome="A CLAUDE.md that loads your preferences automatically, so Claude knows who you are before you type your first message."
+            href="/tutorials/coming-from-chatgpt"
+            icon={<MessageCircle className="h-5 w-5" />}
+            available={true}
+          />
+
           <TutorialCard
             title="Build Your First CLAUDE.md in 5 Minutes"
             description="The single most important thing you can do. Create the file that turns Claude Code from generic to personalized."
@@ -183,7 +238,7 @@ export default function TutorialsPage() {
             description="Turn a messy list of names and roles into a structured stakeholder map, communication plan, and outreach messages."
             duration="15 min"
             difficulty="beginner"
-            outcome="A stakeholder map, weekly communication plan, and a drafted outreach message — ready to paste into Notion."
+            outcome="A stakeholder map, weekly communication plan, and a drafted outreach message, ready to paste into Notion."
             href="/tutorials/stakeholder-map"
             icon={<Network className="h-5 w-5" />}
             available={true}
@@ -191,7 +246,7 @@ export default function TutorialsPage() {
 
           <TutorialCard
             title="Automate Your Newsletter in 10 Minutes"
-            description="Feed Claude your sources — URLs, topics, or tweets — and get a formatted newsletter draft ready to send."
+            description="Feed Claude your sources (URLs, topics, or tweets) and get a formatted newsletter draft ready to send."
             duration="10 min"
             difficulty="beginner"
             outcome="A full newsletter draft formatted for Substack or Beehiiv, plus a reusable prompt for every future issue."
@@ -216,7 +271,7 @@ export default function TutorialsPage() {
             description="Use Teresa Torres' OST framework to go from raw customer interviews to validated experiments. No sticky notes required."
             duration="20 min"
             difficulty="intermediate"
-            outcome="A living Opportunity Solution Tree with mapped opportunities, solutions, and experiment designs — built from real interview data."
+            outcome="A living Opportunity Solution Tree with mapped opportunities, solutions, and experiment designs, built from real interview data."
             href="/tutorials/product-discovery-ost"
             icon={<TreePine className="h-5 w-5" />}
             available={true}
@@ -260,9 +315,53 @@ export default function TutorialsPage() {
             description="Brain dump a messy decision. Get a structured memo with options, recommendation, and risks."
             duration="15 min"
             difficulty="intermediate"
-            outcome="A decision memo ready for stakeholder review — problem, options, recommendation, risk register."
+            outcome="A decision memo ready for stakeholder review. Problem, options, recommendation, risk register."
             href="/tutorials/decision-memo"
             icon={<Lightbulb className="h-5 w-5" />}
+            available={true}
+          />
+        </div>
+
+        <div className="mt-12 mb-8">
+          <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground">
+            For Developers
+          </h2>
+          <p className="mt-1 text-sm text-fd-muted-foreground">
+            You already know the stack. These tutorials show you how to use Claude Code the way senior engineers actually do.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          <TutorialCard
+            title="Start a Next.js Project with Claude Code"
+            description="Scaffold, configure, build, test, and deploy a production-ready Next.js 16 App Router project. TypeScript strict mode, Tailwind CSS 4, Vitest, and Vercel in one session."
+            duration="20 min"
+            difficulty="intermediate"
+            outcome="A live Next.js 16 app on Vercel with a CLAUDE.md, passing tests, and zero TypeScript errors."
+            href="/tutorials/nextjs-with-claude"
+            icon={<Layers className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="Debug and Refactor Like a Senior Dev"
+            description="Feed Claude a real stack trace and watch it trace through your codebase. Refactor components with tests staying green. Build a debugging habit that scales."
+            duration="15 min"
+            difficulty="intermediate"
+            outcome="A CLAUDE.md with project-specific debugging rules, a refactored component, and a repeatable workflow for any bug."
+            href="/tutorials/debug-and-refactor"
+            icon={<Code2 className="h-5 w-5" />}
+            available={true}
+          />
+
+          <TutorialCard
+            title="PR Reviews That Actually Find Bugs"
+            description="Stop rubber-stamping PRs. Use Claude to catch real bugs, identify untested code paths, and write review comments that actually help."
+            duration="15 min"
+            difficulty="intermediate"
+            outcome="A repeatable PR review workflow using gh CLI and Claude: diff analysis, missing test identification, and drafted review comments ready to post."
+            href="/tutorials/pr-review-workflow"
+            icon={<GitPullRequest className="h-5 w-5" />}
             available={true}
           />
         </div>
@@ -282,7 +381,7 @@ export default function TutorialsPage() {
             description="Paste your messy notes about a team member. Get a structured, balanced, specific review ready to submit."
             duration="20 min"
             difficulty="beginner"
-            outcome="A complete performance review across all dimensions — ready to copy into your HR system."
+            outcome="A complete performance review across all dimensions, ready to copy into your HR system."
             href="/tutorials/performance-review"
             icon={<Star className="h-5 w-5" />}
             available={true}
@@ -293,7 +392,7 @@ export default function TutorialsPage() {
             description="Paste your sources. Get a structured briefing with key insights, tensions, and implications."
             duration="15 min"
             difficulty="beginner"
-            outcome="A one-page briefing doc ready to share with your team or leadership — sourced, synthesised, and clear."
+            outcome="A one-page briefing doc ready to share with your team or leadership. Sourced, synthesised, and clear."
             href="/tutorials/research-briefing"
             icon={<BookOpen className="h-5 w-5" />}
             available={true}
@@ -304,7 +403,7 @@ export default function TutorialsPage() {
             description="Tell Claude your goal and content. Get a narrative arc, slide-by-slide outline, and speaker notes."
             duration="15 min"
             difficulty="beginner"
-            outcome="A complete deck outline with a clear narrative and speaker notes — before you open PowerPoint."
+            outcome="A complete deck outline with a clear narrative and speaker notes, before you open PowerPoint."
             href="/tutorials/slide-deck-outline"
             icon={<Layout className="h-5 w-5" />}
             available={true}
@@ -315,7 +414,7 @@ export default function TutorialsPage() {
             description="Paste the job description and your background. Get a match analysis, tailored cover letter, and interview prep."
             duration="20 min"
             difficulty="beginner"
-            outcome="A tailored cover letter and answers to the top 3 interview questions — specific to the role."
+            outcome="A tailored cover letter and answers to the top 3 interview questions, specific to the role."
             href="/tutorials/job-application-assistant"
             icon={<Target className="h-5 w-5" />}
             available={true}

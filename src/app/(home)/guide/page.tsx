@@ -12,6 +12,7 @@ import { Collapsible } from '@/components/guide/collapsible';
 import { Checkpoint } from '@/components/guide/checkpoint';
 import { DemoCard } from '@/components/demo-card';
 import { AffiliateCTA } from '@/components/affiliate-cta';
+import { DeprecationBanner } from '@/components/deprecation-banner';
 import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 
 export default function GuidePage() {
@@ -31,6 +32,11 @@ export default function GuidePage() {
 
   return (
     <div className="min-h-screen bg-fd-background">
+      <DeprecationBanner
+        message="We've built a better getting-started experience! The new guided setup walks you through everything step by step."
+        linkText="Try the new Start Here"
+        linkHref="/start"
+      />
       <ProgressBar
         percent={progress.progressPercent}
         completed={progress.completedCount}
@@ -101,12 +107,12 @@ export default function GuidePage() {
 
               <IdeSelector selected={progress.selectedIde} onSelect={progress.setIde} />
 
-              {/* VS Code path — extension install, no terminal needed */}
+              {/* VS Code path, extension install, no terminal needed */}
               {progress.selectedIde === 'vscode' && (
                 <div className="mt-6 space-y-4">
                   <div className="rounded-lg border-2 border-green-500/30 bg-green-500/5 p-4">
                     <p className="text-sm font-medium text-fd-foreground">
-                      Great news — VS Code has a one-click extension.
+                      Great news. VS Code has a one-click extension.
                     </p>
                     <p className="mt-1 text-xs text-fd-muted-foreground">
                       No terminal commands needed. The extension handles everything.
@@ -137,7 +143,7 @@ export default function GuidePage() {
                       Cursor has built-in Claude support, but Claude Code adds agent mode.
                     </p>
                     <p className="mt-1 text-xs text-fd-muted-foreground">
-                      Install the CLI to unlock the full power — skills, memory, MCP, and more.
+                      Install the CLI to unlock the full power: skills, memory, MCP, and more.
                     </p>
                   </div>
                   <p className="text-sm text-fd-muted-foreground">
@@ -180,7 +186,7 @@ export default function GuidePage() {
                 </div>
               )}
 
-              {/* Terminal path — the original flow with OS selector */}
+              {/* Terminal path, the original flow with OS selector */}
               {progress.selectedIde === 'terminal' && (
                 <div className="mt-6 space-y-4">
                   <p className="text-sm text-fd-muted-foreground">
@@ -370,7 +376,7 @@ export default function GuidePage() {
                 <p>Make sure you&apos;re logged in. Run <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">claude auth login</code> and follow the prompts to connect your Anthropic account.</p>
               </Collapsible>
 
-              <Collapsible title="Claude suggested a command I don't understand — is it safe?">
+              <Collapsible title="Claude suggested a command I don't understand. Is it safe?">
                 <p className="mb-2">This will happen a lot, and it&apos;s normal. Here&apos;s your framework:</p>
                 <ul className="list-disc space-y-1 pl-4">
                   <li><strong>Read before you approve.</strong> Claude Code always asks permission before running commands. Don&apos;t click &quot;Yes&quot; on autopilot.</li>
@@ -411,7 +417,7 @@ export default function GuidePage() {
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Think of CLAUDE.md as <strong>a letter to Claude</strong> — it tells Claude who you are, what your project is, and how you want it to work. Without it, Claude guesses. With it, Claude knows. Create one in your project root:
+                Think of CLAUDE.md as <strong>a letter to Claude</strong>. It tells Claude who you are, what your project is, and how you want it to work. Without it, Claude guesses. With it, Claude knows. Create one in your project root:
               </p>
               <CopyBlock code={`# CLAUDE.md
 
@@ -436,8 +442,8 @@ npm run test   # Run tests
               <DemoCard title="The difference CLAUDE.md makes" loop={false} steps={[
                 { type: 'out', text: '── Without CLAUDE.md ──' },
                 { type: 'cmd', text: '"Add a login form"' },
-                { type: 'error', text: '  Created LoginForm.jsx (wrong — you use .tsx)' },
-                { type: 'error', text: '  Used inline styles (wrong — you use Tailwind)' },
+                { type: 'error', text: '  Created LoginForm.jsx (wrong, you use .tsx)' },
+                { type: 'error', text: '  Used inline styles (wrong, you use Tailwind)' },
                 { type: 'out', text: '' },
                 { type: 'out', text: '── With CLAUDE.md ──' },
                 { type: 'cmd', text: '"Add a login form"', delay: 1000 },
@@ -635,15 +641,15 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
   }
 }`} language="json" />
               <p className="my-4 text-sm text-fd-muted-foreground">
-                Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project root. Set your <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable — think of it as <strong>saving a password your computer remembers</strong>, so Claude Code can use it without you typing it every time. Then try:
+                Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project root. Set your <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable (think of it as <strong>saving a password your computer remembers</strong>, so Claude Code can use it without you typing it every time). Then try:
               </p>
-              <DemoCard title="MCP in action — talking to GitHub" loop={false} steps={[
+              <DemoCard title="MCP in action: talking to GitHub" loop={false} steps={[
                 { type: 'cmd', text: '"List my open pull requests"' },
                 { type: 'out', text: '[MCP: github] Querying pull requests...' },
                 { type: 'success', text: '✓ Connected to your-username/my-project' },
                 { type: 'out', text: '2 PRs open:' },
-                { type: 'out', text: '  #12 — Add user dashboard (you, 2 days ago)' },
-                { type: 'out', text: '  #14 — Fix login redirect (you, today)' },
+                { type: 'out', text: '  #12: Add user dashboard (you, 2 days ago)' },
+                { type: 'out', text: '  #14: Fix login redirect (you, today)' },
                 { type: 'warn', text: '→ Claude Code just talked to GitHub. No browser needed.' },
               ]} />
 
@@ -705,7 +711,7 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
             Help make this guide better
           </h2>
           <p className="mt-2 mb-6 text-sm text-fd-muted-foreground">
-            This guide is shaped by real feedback from people like you. If something was confusing, missing, or broken — tell me.
+            This guide is shaped by real feedback from people like you. If something was confusing, missing, or broken, tell me.
           </p>
           <div className="grid gap-3 sm:grid-cols-3">
             {[

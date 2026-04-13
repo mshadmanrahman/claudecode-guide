@@ -5,7 +5,7 @@ description: "The #2 complaint about Claude Code is permission fatigue. Here's h
 
 ## The Permission Problem
 
-You ask Claude Code to refactor a component. It wants to read a file — allow. Edit a file — allow. Read another file — allow. Run a test — allow. Five clicks before anything happens.
+You ask Claude Code to refactor a component. It wants to read a file : allow. Edit a file : allow. Read another file : allow. Run a test : allow. Five clicks before anything happens.
 
 This is the number two complaint about Claude Code (number one is cost). And it's completely fixable. You just have to configure it once.
 
@@ -33,9 +33,9 @@ This is the number two complaint about Claude Code (number one is cost). And it'
 
 The magic lives in your `settings.json`. There are three levels:
 
-**Project-level** (`.claude/settings.json` in your repo) — shared with your team via git. Best for project-specific tools.
+**Project-level** (`.claude/settings.json` in your repo) : shared with your team via git. Best for project-specific tools.
 
-**User-level** (`~/.claude/settings.json`) — your personal defaults across all projects.
+**User-level** (`~/.claude/settings.json`) : your personal defaults across all projects.
 
 Here's what a solid starting config looks like:
 
@@ -83,28 +83,28 @@ Already in a session and tired of clicking? Type `/permissions` to manage permis
 ## Trust Levels: What to Auto-Accept vs Always Review
 
 **Always auto-accept (safe):**
-- `Read` — reading files never changes anything
-- `Glob` — searching file names is harmless
-- `Grep` — searching file contents is harmless
-- `LS` — listing directories is harmless
-- `Bash(git status*)` — read-only git commands
-- `Bash(git diff*)` — read-only git commands
-- `Bash(git log*)` — read-only git commands
+- `Read` : reading files never changes anything
+- `Glob` : searching file names is harmless
+- `Grep` : searching file contents is harmless
+- `LS` : listing directories is harmless
+- `Bash(git status*)` : read-only git commands
+- `Bash(git diff*)` : read-only git commands
+- `Bash(git log*)` : read-only git commands
 
 **Auto-accept with patterns (mostly safe):**
-- `Bash(npm test*)` — running tests
-- `Bash(npm run lint*)` — running linters
-- `Bash(npx tsc*)` — type checking
-- `Bash(cat *)` — reading file contents
-- `Edit` — if you trust Claude Code's edits (most people get here after a week)
+- `Bash(npm test*)` : running tests
+- `Bash(npm run lint*)` : running linters
+- `Bash(npx tsc*)` : type checking
+- `Bash(cat *)` : reading file contents
+- `Edit` : if you trust Claude Code's edits (most people get here after a week)
 
 **Always review (potentially destructive):**
-- `Bash(rm *)` — deleting files
-- `Bash(git push*)` — pushing to remote
-- `Bash(git checkout*)` — switching branches
-- `Bash(git reset*)` — resetting changes
-- `Bash(npm publish*)` — publishing packages
-- `Bash(curl*)` — making network requests
+- `Bash(rm *)` : deleting files
+- `Bash(git push*)` : pushing to remote
+- `Bash(git checkout*)` : switching branches
+- `Bash(git reset*)` : resetting changes
+- `Bash(npm publish*)` : publishing packages
+- `Bash(curl*)` : making network requests
 - Any command that touches production
 
 ## The Progressive Trust Approach
@@ -132,9 +132,9 @@ Don't configure everything on day one. Start conservative and open up as you bui
 
 When a permission prompt does appear, you have options beyond just "allow":
 
-- **y** — Allow this once
-- **a** — Allow this tool for the entire session
-- **n** — Deny this request
-- **Escape** — Cancel the current operation
+- **y** : Allow this once
+- **a** : Allow this tool for the entire session
+- **n** : Deny this request
+- **Escape** : Cancel the current operation
 
 The "a" option is your friend for exploratory sessions where you trust the general direction but didn't pre-configure permissions.

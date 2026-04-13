@@ -119,7 +119,7 @@ function FeaturedHero({ post }: { post: BlogPost }) {
       href={`/blog/${post.slug}`}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-fd-border bg-fd-card transition-all hover:border-fd-muted-foreground/30 hover:shadow-lg lg:flex-row"
     >
-      {/* Accent bar — top on mobile, left on desktop */}
+      {/* Accent bar : top on mobile, left on desktop */}
       <div className={`h-1.5 w-full lg:h-auto lg:w-1.5 ${accent}`} />
 
       <div className="flex flex-1 flex-col gap-4 p-6 sm:p-8 lg:p-10">

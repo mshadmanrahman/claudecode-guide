@@ -121,7 +121,7 @@ const builtInCapabilities: Capability[] = [
   {
     icon: Bot,
     title: 'Sub-Agents',
-    description: 'Spin up specialized agents for parallel tasks. A reviewer, a tester, a researcher -- all at once.',
+    description: 'Spin up specialized agents for parallel tasks. A reviewer, a tester, a researcher: all at once.',
   },
   {
     icon: Zap,
@@ -527,9 +527,9 @@ export default function CapabilitiesPage() {
                 and it becomes a <code className="text-fd-foreground">/slash-command</code> you can run anytime.
               </p>
               <div className="mt-4 space-y-2 text-sm text-fd-muted-foreground">
-                <p><code className="text-fd-foreground">/weekly-status</code> -- generates your status report from project data</p>
-                <p><code className="text-fd-foreground">/meeting-prep</code> -- gathers context from calendar, Slack, and docs</p>
-                <p><code className="text-fd-foreground">/review-pr</code> -- runs a structured code review on any PR</p>
+                <p><code className="text-fd-foreground">/weekly-status</code>: generates your status report from project data</p>
+                <p><code className="text-fd-foreground">/meeting-prep</code>: gathers context from calendar, Slack, and docs</p>
+                <p><code className="text-fd-foreground">/review-pr</code>: runs a structured code review on any PR</p>
               </div>
               <div className="mt-6 flex gap-3">
                 <Link

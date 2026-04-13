@@ -1,6 +1,6 @@
 ---
 title: "Terminal vs IDE vs Web vs Desktop"
-description: "Claude Code runs everywhere now — terminal, VS Code, JetBrains, web app, desktop app. Here's which one to use and when. The answer isn't what you think."
+description: "Claude Code runs everywhere now : terminal, VS Code, JetBrains, web app, desktop app. Here's which one to use and when. The answer isn't what you think."
 ---
 
 ## Wait, There Are Multiple Ways to Use Claude Code?
@@ -36,9 +36,9 @@ Here's the honest answer most guides won't give you:
 
 | You are... | Use this | Why |
 |---|---|---|
-| A developer comfortable in the terminal | **Terminal (CLI)** | Maximum power, full extensibility |
-| A developer who lives in VS Code | **VS Code Extension** | Same power, never leave your editor |
-| A developer who lives in JetBrains | **JetBrains Extension** | Same power, native IDE integration |
+| A developer comfortable in the terminal | **Terminal (<VocabBridge term="CLI" explanation="Command Line Interface: a way to use software by typing text commands instead of clicking buttons.">CLI</VocabBridge>)** | Maximum power, full extensibility |
+| A developer who lives in VS Code | **VS Code <VocabBridge term="Extension" explanation="An add-on that gives extra features to a program, like installing a new app on your phone.">Extension</VocabBridge>** | Same power, never leave your editor |
+| A developer who lives in JetBrains | **JetBrains Extension** | Same power, native <VocabBridge term="IDE" explanation="Integrated Development Environment: a fancy text editor designed for writing code, with built-in tools for testing and debugging.">IDE</VocabBridge> integration |
 | A PM or non-developer | **Desktop App** or **Web App** | No terminal knowledge needed |
 | Trying Claude Code for the first time | **Web App** | Zero install, instant start |
 | On a shared/company machine with restrictions | **Web App** | Nothing to install |
@@ -48,8 +48,8 @@ Here's the honest answer most guides won't give you:
 This is where Claude Code started and where it's most powerful. If you're comfortable in the terminal, this is probably where you should be.
 
 **What you get:**
-- Full access to hooks, skills, MCP servers, and sub-agents
-- Direct filesystem access (Claude Code reads and writes your actual files)
+- Full access to <VocabBridge term="hooks" explanation="Automatic triggers that run actions when something happens, like 'when I save a file, check it for errors'.">hooks</VocabBridge>, skills, <VocabBridge term="MCP servers" explanation="Plugins that connect Claude to tools like GitHub, Slack, or databases so it can work with them directly.">MCP servers</VocabBridge>, and <VocabBridge term="sub-agents" explanation="Independent AI helpers that work on separate tasks in parallel, like having multiple assistants.">sub-agents</VocabBridge>
+- Direct <VocabBridge term="filesystem" explanation="Your computer's file and folder system: everything stored on your hard drive.">filesystem</VocabBridge> access (Claude Code reads and writes your actual files)
 - Runs alongside any editor you want (VS Code, Vim, Zed, Emacs, whatever)
 - Configuration via `CLAUDE.md` files checked into your repo
 - Autonomous loops and background tasks
@@ -59,7 +59,7 @@ This is where Claude Code started and where it's most powerful. If you're comfor
 - No visual diff preview (you see diffs after, not before)
 - Initial learning curve is steeper
 
-<DemoCard title="Terminal — the full experience" steps={[
+<DemoCard title="Terminal : the full experience" steps={[
   { type: 'cmd', text: 'claude' },
   { type: 'success', text: '✓ Reading CLAUDE.md... loaded 19 skills, 9 agents' },
   { type: 'success', text: '✓ Memory: 3 projects, 12 preferences' },
@@ -87,7 +87,7 @@ The VS Code and JetBrains extensions embed Claude Code directly into your editor
 - Slightly less screen real estate (the panel takes space)
 - Extension might lag behind the CLI on bleeding-edge features
 
-<DemoCard title="VS Code extension — code and agent side by side" steps={[
+<DemoCard title="VS Code extension : code and agent side by side" steps={[
   { type: 'cmd', text: 'Cmd+Shift+P → Claude Code: Open Panel' },
   { type: 'success', text: '✓ Claude Code panel opens in sidebar' },
   { type: 'cmd', text: '"explain this function and suggest improvements"', delay: 800 },
@@ -133,7 +133,7 @@ The Claude Code desktop app (Mac and Windows) gives you a dedicated native appli
 
 **What you give up:**
 - Basically the same as the CLI but in an app window
-- Marginal differences from terminal — mostly a matter of preference
+- Marginal differences from terminal : mostly a matter of preference
 
 **Best for:** People who prefer apps over terminals, Mac/Windows users who want a dedicated workspace for Claude Code.
 
@@ -145,7 +145,7 @@ If you've never used Claude Code, **start with the web app**. Zero friction. You
 
 If you like it and want more power, **install the CLI or the IDE extension** depending on where you spend your day. VS Code users should grab the extension. Terminal people should use the CLI.
 
-If you become a power user — building skills, running hooks, using MCP servers, setting up autonomous loops — you'll end up in the **terminal** regardless. That's where the full configuration system lives and where the most advanced features work.
+If you become a power user : building skills, running hooks, using MCP servers, setting up autonomous loops : you'll end up in the **terminal** regardless. That's where the full configuration system lives and where the most advanced features work.
 
 The surfaces aren't competing with each other. They're on-ramps to the same system. Pick the one that matches where you are today, and know that you can move up anytime.
 

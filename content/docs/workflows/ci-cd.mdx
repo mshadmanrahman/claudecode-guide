@@ -7,7 +7,7 @@ description: "Run Claude Code in GitHub Actions, automate PR reviews, generate c
 
 Most CI pipelines run the same checks every time: lint, test, build, deploy. They don't understand what changed. They don't write helpful PR descriptions. They don't catch logical bugs that pass type checks.
 
-Claude Code in CI changes that. Using the `-p` flag (pipe mode), you can run Claude Code non-interactively in any pipeline. It reads your code, understands the context, and does real work — not just pass/fail gates.
+Claude Code in CI changes that. Using the `-p` flag (pipe mode), you can run Claude Code non-interactively in any pipeline. It reads your code, understands the context, and does real work : not just pass/fail gates.
 
 <DemoCard title="Claude Code in a GitHub Action" steps={[
   { type: 'cmd', text: 'claude -p "review the changes in this PR and post a summary"' },
@@ -114,10 +114,10 @@ claude -p "write tests for any functions in src/utils/
 Running Claude Code in CI uses API tokens, so be intentional:
 
 - **Run on PR events only**, not every push to every branch
-- **Use Haiku for simple tasks** (PR descriptions, changelog) — it's 10x cheaper
-- **Use Sonnet for code review** — worth the cost for bug detection
-- **Cache aggressively** — don't re-review unchanged files
-- **Set token limits** — `--max-tokens 4096` prevents runaway usage
+- **Use Haiku for simple tasks** (PR descriptions, changelog) : it's 10x cheaper
+- **Use Sonnet for code review** : worth the cost for bug detection
+- **Cache aggressively** : don't re-review unchanged files
+- **Set token limits** : `--max-tokens 4096` prevents runaway usage
 
 A typical PR review costs $0.02-0.10 depending on diff size. That's cheaper than a missed bug in production.
 
@@ -127,4 +127,4 @@ Your CI environment needs an `ANTHROPIC_API_KEY`. Store it as a GitHub Actions s
 
 Claude Code in CI runs with whatever file access the runner has. It can read your entire repo. If that's a concern, use a restricted checkout that only includes the relevant directories.
 
-And one more thing: Claude Code's output in CI is deterministic-ish but not guaranteed. Don't use it as a hard gate (fail the build if Claude says no). Use it as advisory — post comments, flag concerns, suggest improvements. Keep humans in the approval loop.
+And one more thing: Claude Code's output in CI is deterministic-ish but not guaranteed. Don't use it as a hard gate (fail the build if Claude says no). Use it as advisory : post comments, flag concerns, suggest improvements. Keep humans in the approval loop.

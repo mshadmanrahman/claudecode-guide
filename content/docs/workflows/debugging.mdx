@@ -48,7 +48,7 @@ If there are no logs, that's your first problem. Add logging at the boundaries (
 
 ### 4. Form a Hypothesis
 
-Based on the evidence -- not your gut -- what's causing this? Claude Code can analyze the code path, check recent changes with `git log` and `git diff`, and look for common patterns that cause the type of error you're seeing.
+Based on the evidence: not your gut: what's causing this? Claude Code can analyze the code path, check recent changes with `git log` and `git diff`, and look for common patterns that cause the type of error you're seeing.
 
 ### 5. Test the Fix
 
@@ -109,4 +109,4 @@ Often the test is correct and the implementation has a subtle bug. Sometimes the
 
 **Check recent changes.** Many bugs come from recent commits. Ask Claude Code to run `git log` and `git diff` on the affected files. The culprit is often in the last few commits.
 
-**Do not change code until you understand the problem.** This is the hardest discipline. The urge to "try something" is strong. Resist it. Understand first, then fix. A fix you don't understand is not a fix -- it's a time bomb.
+**Do not change code until you understand the problem.** This is the hardest discipline. The urge to "try something" is strong. Resist it. Understand first, then fix. A fix you don't understand is not a fix: it's a time bomb.

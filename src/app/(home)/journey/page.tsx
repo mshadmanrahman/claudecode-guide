@@ -28,6 +28,7 @@ import {
   Map,
 } from 'lucide-react';
 import { PathPicker } from '@/components/journey/path-picker';
+import { DeprecationBanner } from '@/components/deprecation-banner';
 import { useJourneySelections } from '@/hooks/use-journey-selections';
 import type { JourneyOs, JourneyInterface } from '@/hooks/use-journey-selections';
 
@@ -516,6 +517,11 @@ export default function JourneyPage() {
 
   return (
     <div className="flex flex-col bg-fd-background">
+      <DeprecationBanner
+        message="Looking for the quickest way to get started? Our new guided setup gets you from zero to your first win in 5 minutes."
+        linkText="Go to Start Here"
+        linkHref="/start"
+      />
       {/* ── Hero ── */}
       <section className="relative mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
         <div className="absolute inset-0 bg-grid bg-grid-fade opacity-30 pointer-events-none" />

@@ -50,7 +50,7 @@ git worktree remove ../my-app-hotfix
 
 ## Why This Matters for Claude Code
 
-Claude Code works best with **focused sessions** -- one task, one context, one branch. Worktrees let you run multiple focused sessions in parallel:
+Claude Code works best with **focused sessions**: one task, one context, one branch. Worktrees let you run multiple focused sessions in parallel:
 
 **Session 1** (in `~/projects/my-app/`): "Build the new dashboard feature"
 **Session 2** (in `~/projects/my-app-hotfix/`): "Fix the auth bug"
@@ -108,7 +108,7 @@ Each sub-agent has a clean working directory, a focused context, and can commit 
 cd ~/projects/my-app
 claude "continue working on the dashboard"
 
-# 2. P0 comes in — create a worktree
+# 2. P0 comes in : create a worktree
 git worktree add ../my-app-hotfix -b fix/p0-crash
 
 # 3. Open a new terminal, fix the P0
@@ -118,7 +118,7 @@ claude "fix the crash in checkout.ts, write a test, push"
 # 4. Clean up when done
 git worktree remove ../my-app-hotfix
 
-# 5. Back to your feature — nothing was interrupted
+# 5. Back to your feature : nothing was interrupted
 cd ~/projects/my-app
 claude --resume
 ```

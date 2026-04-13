@@ -4,11 +4,11 @@ import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 
 export const metadata: Metadata = {
-  title: 'Claude Code গাইড — বাংলায়',
+  title: 'Claude Code গাইড : বাংলায়',
   description:
     'Claude Code শিখুন বাংলায়। ইনস্টলেশন, সেটআপ, এবং প্রথম প্রজেক্ট তৈরি করুন। কোনো পূর্ব অভিজ্ঞতা লাগবে না।',
   openGraph: {
-    title: 'Claude Code গাইড — বাংলায়',
+    title: 'Claude Code গাইড : বাংলায়',
     description: 'Claude Code শিখুন বাংলায়। ইনস্টলেশন থেকে প্রথম প্রজেক্ট পর্যন্ত।',
   },
 };
@@ -28,7 +28,7 @@ export default function BengaliGuidePage() {
           </h1>
           <p className="mt-4 text-lg text-fd-muted-foreground">
             আপনি যদি ChatGPT ব্যবহার করে থাকেন, তাহলে Claude Code বুঝতে পারবেন।
-            এটি আপনার কম্পিউটারে বসে কাজ করে — ফাইল পড়ে, কোড লেখে, কমান্ড চালায়।
+            এটি আপনার কম্পিউটারে বসে কাজ করে, ফাইল পড়ে, কোড লেখে, কমান্ড চালায়।
           </p>
           <p className="mt-2 text-sm text-fd-muted-foreground">
             <Link href="/" className="underline hover:text-fd-foreground">

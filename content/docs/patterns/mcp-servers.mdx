@@ -1,6 +1,6 @@
 ---
 title: MCP Servers
-description: "Give Claude Code eyes and hands beyond your filesystem. Slack, GitHub, Jira, databases -- all in one conversation."
+description: "Give Claude Code eyes and hands beyond your filesystem. Slack, GitHub, Jira, databases: all in one conversation."
 ---
 
 ## Claude Code Is Trapped on Your Machine (Until You Fix That)
@@ -16,7 +16,7 @@ One conversation. Slack context, GitHub PRs, database queries, Figma specs. That
   { type: 'out', text: '[MCP: slack] Searching #engineering...' },
   { type: 'success', text: '✓ Found 23 messages today' },
   { type: 'out', text: 'Key threads:' },
-  { type: 'out', text: '  • Deploy blocked — DNS propagation (Sarah, 10:14am)' },
+  { type: 'out', text: '  • Deploy blocked : DNS propagation (Sarah, 10:14am)' },
   { type: 'out', text: '  • New hire onboarding checklist shared (Marcus, 11:30am)' },
   { type: 'out', text: '  • Hotfix merged for checkout bug (PR #891)' },
   { type: 'cmd', text: '"show me that PR"', delay: 1000 },
@@ -36,7 +36,7 @@ Claude Code  →  MCP Server  →  External Service
                    ←  PR diff, comments, status
 ```
 
-Each server exposes **tools** that Claude Code can call -- things like `get_file_contents`, `list_pull_requests`, `create_pull_request`. Claude Code discovers them automatically and uses them when your prompt calls for it.
+Each server exposes **tools** that Claude Code can call: things like `get_file_contents`, `list_pull_requests`, `create_pull_request`. Claude Code discovers them automatically and uses them when your prompt calls for it.
 
 ## Popular MCP Servers
 
@@ -53,7 +53,7 @@ You don't need all of these. Most people start with one or two and add more as t
 
 ## Setting One Up
 
-MCP servers live in a `.mcp.json` file at your project root. Here's GitHub -- the easiest one to start with:
+MCP servers live in a `.mcp.json` file at your project root. Here's GitHub: the easiest one to start with:
 
 ```json
 {

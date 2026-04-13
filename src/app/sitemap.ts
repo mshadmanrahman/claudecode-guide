@@ -7,7 +7,25 @@ const TUTORIAL_SLUGS = [
   'ship-a-landing-page',
   'your-first-skill',
   'meeting-to-jira',
+  'product-discovery-ost',
+  'stakeholder-map',
+  'newsletter-automator',
   'weekly-status',
+  'performance-review',
+  'decision-memo',
+  'competitive-analysis',
+  'research-briefing',
+  'slide-deck-outline',
+  'job-application-assistant',
+  'personal-finance-manager',
+  'computer-use',
+  'coming-from-chatgpt',
+  'debug-and-refactor',
+  'nextjs-with-claude',
+  'pr-review-workflow',
+  'meme-generator',
+  'playlist-analyzer',
+  'quiz-game',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -60,6 +78,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/pm-pilot`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/roadmap`,

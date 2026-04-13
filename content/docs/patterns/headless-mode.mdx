@@ -5,7 +5,7 @@ description: "Run Claude Code without a human at the keyboard. Pipe mode for scr
 
 ## Claude Code Without the Chat
 
-Everything you've seen so far is interactive: you type, Claude responds, you approve. But Claude Code also runs **headless** -- no human in the loop. You pipe in a prompt, it does the work, and pipes out the result.
+Everything you've seen so far is interactive: you type, Claude responds, you approve. But Claude Code also runs **headless**: no human in the loop. You pipe in a prompt, it does the work, and pipes out the result.
 
 This is how Claude Code becomes part of your build pipeline, your CI/CD, your automation scripts.
 
@@ -110,7 +110,7 @@ claude -p --model opus "audit this codebase for security vulnerabilities"
   { type: 'cmd', text: 'git diff origin/main...HEAD | claude -p "review this diff"' },
   { type: 'out', text: '2 issues found: missing null check, unparameterized query' },
   { type: 'cmd', text: 'npm test 2>&1 | claude -p --model haiku "summarize failures"', delay: 500 },
-  { type: 'out', text: '1 failure: auth.test.ts — expected 401, got 200' },
+  { type: 'out', text: '1 failure: auth.test.ts : expected 401, got 200' },
   { type: 'cmd', text: 'claude -p "generate changelog from recent commits" > CHANGELOG.md', delay: 500 },
   { type: 'success', text: '✓ CHANGELOG.md updated with 3 features, 1 fix' },
   { type: 'out', text: 'Total CI cost: ~$0.04 (2 Haiku + 1 Sonnet call)' },

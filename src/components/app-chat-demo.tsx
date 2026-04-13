@@ -83,7 +83,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
       ref={containerRef}
       className="my-6 overflow-hidden rounded-xl border border-fd-border shadow-sm bg-fd-card"
     >
-      {/* Header — changes based on variant */}
+      {/* Header : changes based on variant */}
       {variant === 'ide' ? (
         <div className="flex items-center gap-2.5 border-b border-zinc-600 bg-zinc-800 px-4 py-3">
           <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-zinc-600 text-[10px] text-zinc-200">
@@ -102,7 +102,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
         </div>
       )}
 
-      {/* Message thread — fixed height prevents CLS as messages animate in */}
+      {/* Message thread : fixed height prevents CLS as messages animate in */}
       <div
         ref={scrollRef}
         className="overflow-y-auto px-4 py-4 space-y-3"

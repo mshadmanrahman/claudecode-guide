@@ -10,7 +10,7 @@ Every time you start a new Claude Code session, it begins with a blank slate. Wi
 The memory system fixes this. It gives Claude Code a structured way to remember you, your projects, and your preferences across sessions. Think of it as building a relationship with your tool instead of meeting a stranger every time.
 
 <Callout type="info" title="Memory loads automatically">
-Both `CLAUDE.md` files and your `MEMORY.md` index are **loaded automatically** at session start. `CLAUDE.md` loads in full. `MEMORY.md` loads the first 200 lines (or 25KB). You don't need hooks or manual config -- it just works.
+Both `CLAUDE.md` files and your `MEMORY.md` index are **loaded automatically** at session start. `CLAUDE.md` loads in full. `MEMORY.md` loads the first 200 lines (or 25KB). You don't need hooks or manual config: it just works.
 </Callout>
 
 <DemoCard title="Memory loads automatically at session start" steps={[
@@ -18,7 +18,7 @@ Both `CLAUDE.md` files and your `MEMORY.md` index are **loaded automatically** a
   { type: 'out', text: 'Loading CLAUDE.md... Loading MEMORY.md (auto)...' },
   { type: 'success', text: '✓ Loaded: your role (PM), 4 active projects, 8 preferences' },
   { type: 'success', text: '✓ Loaded: "never use em dashes in writing"' },
-  { type: 'success', text: '✓ Loaded: "Sebastian owns the API — match his patterns"' },
+  { type: 'success', text: '✓ Loaded: "Sebastian owns the API : match his patterns"' },
   { type: 'out', text: 'Welcome back. I remember everything from last time.' },
   { type: 'cmd', text: '"Prep for my 1:1 with Sarah"', delay: 1000 },
   { type: 'out', text: 'Found 4 recent interactions, 2 open items...' },
@@ -43,24 +43,24 @@ All CLAUDE.md files load automatically at session start. Subdirectory CLAUDE.md 
 
 ### 2. Auto Memory (Claude Writes It)
 
-Auto memory is Claude writing notes to itself. When it discovers something important -- your preferred build command, a debugging insight, an architecture decision -- it saves it for next time. **This is on by default.**
+Auto memory is Claude writing notes to itself. When it discovers something important: your preferred build command, a debugging insight, an architecture decision: it saves it for next time. **This is on by default.**
 
 | Detail | Value |
 |--------|-------|
 | **Storage** | `~/.claude/projects/<project>/memory/` (per git repo) |
-| **Index** | `MEMORY.md` -- loaded at session start (first 200 lines / 25KB) |
-| **Topic files** | `debugging.md`, `api-conventions.md`, etc. -- loaded on demand |
+| **Index** | `MEMORY.md`: loaded at session start (first 200 lines / 25KB) |
+| **Topic files** | `debugging.md`, `api-conventions.md`, etc.: loaded on demand |
 | **Toggle** | Run `/memory` to turn on/off or browse files |
 
 Auto memory is what makes Claude get better over time without you doing anything. It notices patterns, saves corrections, and builds context automatically.
 
 ### What About Config?
 
-Config files (`.claude/settings.json`) are separate from memory. They control technical settings -- which tools are allowed, model preferences, permissions. Think of memory as *knowledge* and config as *plumbing*.
+Config files (`.claude/settings.json`) are separate from memory. They control technical settings: which tools are allowed, model preferences, permissions. Think of memory as *knowledge* and config as *plumbing*.
 
 ## Organizing Your Memory (Recommended Pattern)
 
-Auto memory creates topic files organically. But if you want more structure -- especially for teams or complex setups -- here's a proven four-category pattern that works well:
+Auto memory creates topic files organically. But if you want more structure: especially for teams or complex setups: here's a proven four-category pattern that works well:
 
 ### 1. User Memory
 
@@ -106,7 +106,7 @@ Where to find things in external systems.
 This type prevents Claude Code from guessing where things live. Instead of searching your codebase every time, it knows exactly where to look.
 
 <Callout type="info" title="This is a pattern, not a requirement">
-These four categories are a recommended organizational pattern, not built into Claude Code. Auto memory creates its own topic files organically. You can use this structure, auto memory alone, or combine both -- whatever works for your workflow.
+These four categories are a recommended organizational pattern, not built into Claude Code. Auto memory creates its own topic files organically. You can use this structure, auto memory alone, or combine both: whatever works for your workflow.
 </Callout>
 
 ## How Memory is Structured
@@ -126,10 +126,10 @@ Each topic file is a small Markdown file with frontmatter (name, description, ty
 
 The `/memory` command is your dashboard for everything memory-related. Run it to:
 
-- **See all loaded context** -- every CLAUDE.md, CLAUDE.local.md, and rules file currently active
+- **See all loaded context**: every CLAUDE.md, CLAUDE.local.md, and rules file currently active
 - **Toggle auto memory** on or off for the current project
-- **Browse memory files** -- get a link to open the memory folder
-- **Open files in your editor** -- quickly edit any memory file
+- **Browse memory files**: get a link to open the memory folder
+- **Open files in your editor**: quickly edit any memory file
 
 <DemoCard title="/memory in action" steps={[
   { type: 'cmd', text: '/memory' },
@@ -145,7 +145,7 @@ The `/memory` command is your dashboard for everything memory-related. Run it to
   { type: 'warn', text: '→ One command. Full visibility into what Claude knows.' },
 ]} />
 
-You don't need to run `/memory` to use memory -- it loads automatically. This command is for when you want to inspect, toggle, or edit what's there.
+You don't need to run `/memory` to use memory: it loads automatically. This command is for when you want to inspect, toggle, or edit what's there.
 
 ## What NOT to Save
 
@@ -179,6 +179,6 @@ Want to go further? Build on top of auto memory:
 - [ ] Create a `CLAUDE.local.md` for personal preferences you don't want in Git
 - [ ] Add a `~/.claude/CLAUDE.md` with your role and global preferences
 - [ ] After a correction, ask Claude to save it as a feedback memory
-- [ ] Review your `MEMORY.md` index periodically -- prune stale entries
+- [ ] Review your `MEMORY.md` index periodically: prune stale entries
 
 You do not need to build the whole system at once. Auto memory handles the basics. The structured approach adds precision on top. The best memory systems are grown, not designed upfront.

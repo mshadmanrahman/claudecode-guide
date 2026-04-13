@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     template: '%s | Claude Code Guide',
-    default: 'Claude Code Guide — Your Step-by-Step AI Coding Companion',
+    default: 'Claude Code Guide : Your Step-by-Step AI Coding Companion',
   },
   description:
     'Learn Claude Code from zero. Step-by-step guide covering setup, daily workflows, CLAUDE.md templates, memory systems, and more. No jargon, no gatekeeping.',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     shortcut: '/favicon.svg',
   },
   openGraph: {
-    title: 'Claude Code Guide — Your Step-by-Step AI Coding Companion',
+    title: 'Claude Code Guide : Your Step-by-Step AI Coding Companion',
     description:
       'Learn Claude Code from zero. Setup guides, daily workflows, templates, and honest comparisons. Built by a PM who taught hundreds of people to use AI tools.',
     type: 'website',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/api/og`,
         width: 1200,
         height: 630,
-        alt: 'Claude Code Guide',
+        alt: 'Claude Code Guide: Tell it what you need. It builds it.',
       },
     ],
   },

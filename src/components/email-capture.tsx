@@ -87,6 +87,17 @@ export function EmailCapture() {
       {status === 'error' && (
         <p className="mt-2 text-xs text-red-500">Something went wrong. Please try again.</p>
       )}
+      <p className="mt-3 text-center text-xs text-fd-muted-foreground">
+        Or follow on{' '}
+        <a
+          href="https://shadmanrahman.substack.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-fd-foreground transition-colors"
+        >
+          Substack
+        </a>
+      </p>
     </div>
   );
 }

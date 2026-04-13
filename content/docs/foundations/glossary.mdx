@@ -61,7 +61,7 @@ A reusable workflow encoded as a markdown file. Instead of explaining a multi-st
   { type: 'success', text: '✓ Loaded project context for Dashboard v2' },
   { type: 'out', text: 'Suggested talking points:' },
   { type: 'out', text: '  1. Dashboard deploy blocked on API review' },
-  { type: 'out', text: '  2. Her PTO next week — handoff needed' },
+  { type: 'out', text: '  2. Her PTO next week : handoff needed' },
   { type: 'out', text: '  3. Open question: Redis vs Edge Config' },
   { type: 'warn', text: '→ One keyword triggered a full workflow. That\'s a skill.' },
 ]} />
@@ -110,9 +110,9 @@ A small program that translates between Claude Code and an external service. Eac
   { type: 'out', text: '[MCP: github] Querying pull requests...' },
   { type: 'success', text: '✓ Connected to github.com/acme/webapp' },
   { type: 'out', text: '3 PRs awaiting your review:' },
-  { type: 'out', text: '  #142 — Fix auth redirect loop (Sarah)' },
-  { type: 'out', text: '  #145 — Add dark mode toggle (Marcus)' },
-  { type: 'out', text: '  #147 — Upgrade to Next.js 16 (bot)' },
+  { type: 'out', text: '  #142 : Fix auth redirect loop (Sarah)' },
+  { type: 'out', text: '  #145 : Add dark mode toggle (Marcus)' },
+  { type: 'out', text: '  #147 : Upgrade to Next.js 16 (bot)' },
   { type: 'cmd', text: '"review #142 and leave comments"', delay: 1000 },
   { type: 'out', text: '[MCP: github] Reading PR #142 diff...' },
   { type: 'success', text: '✓ Posted 2 review comments on #142' },
@@ -148,7 +148,7 @@ A mode where Claude Code outlines its approach before doing anything. Instead of
   { type: 'out', text: '  3. Build API route POST /api/notifications' },
   { type: 'out', text: '  4. Add toast component to layout' },
   { type: 'out', text: '  5. Write tests for service + API' },
-  { type: 'cmd', text: '"looks good, but skip the toast — use Sonner"', delay: 1200 },
+  { type: 'cmd', text: '"looks good, but skip the toast : use Sonner"', delay: 1200 },
   { type: 'success', text: '✓ Updated plan: using Sonner instead of custom toast' },
   { type: 'success', text: '✓ Executing step 1 of 5...' },
   { type: 'warn', text: '→ Think first, build second. No wasted tokens.' },
@@ -177,14 +177,14 @@ The rules in your CLAUDE.md that govern how Claude Code works. When to plan firs
 ## File Types
 
 ### Markdown (`.md` files)
-A lightweight way to write formatted text using plain characters. `**bold**` becomes **bold**. `# Heading` becomes a big heading. That's it. You don't need special software — it's just a text file with a `.md` extension.
+A lightweight way to write formatted text using plain characters. `**bold**` becomes **bold**. `# Heading` becomes a big heading. That's it. You don't need special software : it's just a text file with a `.md` extension.
 
 Why does this matter? Because almost everything in Claude Code's world is a markdown file. CLAUDE.md is one. Skills are one. Handoffs are one. Memory files are one. The `.md` just signals "this file contains human-readable text with some light formatting." Nothing scary.
 
 > **Practical tip:** If you've ever written a bullet list, you already know 80% of markdown. Just replace dashes with `- ` and you're done.
 
 ### Environment Variables (`.env` files)
-Secret settings your app needs at runtime — things like API keys, database passwords, and service URLs. They live outside your code so you don't accidentally paste your password into GitHub.
+Secret settings your app needs at runtime : things like API keys, database passwords, and service URLs. They live outside your code so you don't accidentally paste your password into GitHub.
 
 A `.env` file looks like this:
 
@@ -194,7 +194,7 @@ OPENAI_API_KEY=sk-abc123...
 PORT=3000
 ```
 
-Your code reads them with `process.env.DATABASE_URL` (in Node.js) or equivalent. The file never gets committed to git — you'll see `.env` in `.gitignore` on basically every project.
+Your code reads them with `process.env.DATABASE_URL` (in Node.js) or equivalent. The file never gets committed to git : you'll see `.env` in `.gitignore` on basically every project.
 
 > **If Claude Code tells you to add something to `.env`:** It means "create a file called `.env` at the root of your project and paste this line in." That's it. You can do it in any text editor, or just say *"create the .env file for me"* and Claude will do it.
 

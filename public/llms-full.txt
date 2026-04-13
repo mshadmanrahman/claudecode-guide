@@ -2796,3 +2796,48 @@ The API gets more economical when you are doing targeted, low-token tasks at hig
 ### Recommendation
 
 Start with Pro. It is $20/month and covers most people's needs while they learn. Upgrade to Max when you find yourself waiting for rate limits, not before. The API is for building products, not for personal coding sessions. Do not overthink it: you can switch plans anytime.
+
+---
+
+## PM Pilot
+
+PM Pilot is a free, open-source AI co-pilot for product managers. It provides 25 skills, 5 agents, and a persistent memory system that handles meeting prep, PRDs, status reports, stakeholder briefs, market sizing, and more.
+
+### Works With Any AI Tool
+
+PM Pilot is not locked to one platform. The skills are markdown files that work with:
+
+- **ChatGPT**: Copy-paste any skill file into a conversation. Zero install.
+- **Claude (claude.ai)**: Same copy-paste approach. Works immediately.
+- **Gemini**: Same copy-paste approach. Works immediately.
+- **Claude Desktop**: Create a project and paste skills into project instructions for persistent memory.
+- **Claude Code CLI**: Full power mode with live Jira, Slack, Calendar, and meeting transcript integrations via MCP servers.
+- **Cursor and VS Code**: Use with Claude Code extension inside your IDE.
+
+### Core Skills
+
+The five most-used skills:
+
+1. **meeting-prep**: Pulls open tickets, unresolved threads, and past action items. Generates a structured brief with talking points.
+2. **weekly-status**: Aggregates sprint data, blockers, and wins into a stakeholder-ready status report.
+3. **prd-writer**: Guides you through problem, audience, scope, and success metrics. Outputs a structured PRD.
+4. **people-sync**: Builds context profiles for each person you work with. Tracks commitments, communication style, and history.
+5. **market-sizing**: TAM/SAM/SOM analysis with sources and assumptions made explicit.
+
+### Memory System
+
+PM Pilot maintains a structured memory directory that persists across sessions:
+
+- **product-brain/**: Living product context documents (roadmap, architecture, team, decisions)
+- **people/**: Individual profiles for everyone you work with
+- **org/**: Organizational context (politics, priorities, culture)
+- **templates/**: Reusable output formats
+
+### Getting Started
+
+- **Zero install**: Visit https://github.com/mshadmanrahman/pm-pilot and copy any skill file into ChatGPT, Claude, or Gemini.
+- **Claude Desktop**: Download Claude Desktop, create a project, paste skill contents into project instructions.
+- **Full CLI**: Clone the repo, copy skills/rules/agents into ~/.claude/, and run /configure-pm-pilot.
+
+Learn more: https://claudecodeguide.dev/pm-pilot
+GitHub: https://github.com/mshadmanrahman/pm-pilot

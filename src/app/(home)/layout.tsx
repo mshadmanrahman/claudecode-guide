@@ -12,10 +12,10 @@ export default function Layout({ children }: { children: ReactNode }) {
         ),
       }}
       links={[
-        { text: 'Guide', url: '/guide' },
-        { text: 'Journey', url: '/journey' },
-        { text: 'Docs', url: '/docs/foundations/what-is-claude-code' },
+        { text: 'Start Here', url: '/start' },
         { text: 'Tutorials', url: '/tutorials' },
+        { text: 'PM Pilot', url: '/pm-pilot' },
+        { text: 'Docs', url: '/docs' },
         { text: 'Blog', url: '/blog' },
       ]}
     >

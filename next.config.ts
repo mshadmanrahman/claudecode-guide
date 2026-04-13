@@ -6,30 +6,26 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   async redirects() {
     return [
-      {
-        source: '/docs',
-        destination: '/docs/foundations/which-interface',
-        permanent: true,
-      },
+      // Section-level redirects: send bare folder URLs to first page in section
       {
         source: '/docs/foundations',
-        destination: '/docs/foundations/which-interface',
-        permanent: true,
+        destination: '/docs/foundations/what-is-claude-code',
+        permanent: false,
       },
       {
         source: '/docs/patterns',
         destination: '/docs/patterns/skills',
-        permanent: true,
+        permanent: false,
       },
       {
         source: '/docs/workflows',
         destination: '/docs/workflows/daily-practice',
-        permanent: true,
+        permanent: false,
       },
       {
         source: '/docs/comparisons',
         destination: '/docs/comparisons/vs-cursor',
-        permanent: true,
+        permanent: false,
       },
     ];
   },

@@ -52,7 +52,7 @@ export function TutorialStepDemo({ demo, appDemo, ideDemo }: TutorialStepDemoPro
     if (demo) return <DemoCard title={demo.title} steps={demo.steps} loop={false} />;
   }
 
-  // Graceful fallback — show whatever is available for this step
+  // Graceful fallback : show whatever is available for this step
   if (appDemo) return <AppChatDemo steps={appDemo.steps} loop={false} variant="app" />;
   if (ideDemo) return <AppChatDemo steps={ideDemo.steps} loop={false} variant="ide" />;
   if (demo) return <DemoCard title={demo.title} steps={demo.steps} loop={false} />;

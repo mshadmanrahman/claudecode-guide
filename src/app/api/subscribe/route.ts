@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     }
 
-    // Substack might return various statuses — treat all as success
+    // Substack might return various statuses : treat all as success
     // since the email is likely already subscribed or queued
     return NextResponse.json({ success: true });
   } catch {

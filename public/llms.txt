@@ -38,6 +38,10 @@
 - [Claude Code vs Windsurf](https://claudecodeguide.dev/docs/comparisons/vs-windsurf): Two different approaches to AI-assisted development.
 - [Pro vs Max vs API](https://claudecodeguide.dev/docs/comparisons/pro-vs-max): Which Claude plan for which workflow. Real numbers and recommendations.
 
+## PM Pilot
+
+- [PM Pilot](https://claudecodeguide.dev/pm-pilot): AI-powered meeting prep, PRDs, and status reports for product managers. Works with ChatGPT, Claude, Gemini, Cursor, and VS Code. 25 skills, 5 agents, persistent memory. Free and open source.
+
 ## Optional
 
 - [Interactive Setup Guide](https://claudecodeguide.dev/guide): 9-step guided setup with progress tracking. Best for absolute beginners.

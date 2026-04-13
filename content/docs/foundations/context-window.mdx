@@ -13,7 +13,7 @@ Claude Code's models (Opus 4.6, Sonnet 4.6, Haiku 4.5) all support **1 million t
 
 <DemoCard title="When your context window fills up" steps={[
   { type: 'out', text: 'Context: ████████████████████░░░ 78%' },
-  { type: 'error', text: 'Performance is degrading — too much context' },
+  { type: 'error', text: 'Performance is degrading : too much context' },
   { type: 'cmd', text: '/compact', delay: 800 },
   { type: 'out', text: 'Summarizing conversation...' },
   { type: 'out', text: 'Keeping: file changes, decisions, current task' },
@@ -105,4 +105,4 @@ You lose nothing because the handoff captures everything that matters. You gain 
 
 ## 1M Tokens Is a Lot. You Still Need Strategy.
 
-All current Claude models (Opus 4.6, Sonnet 4.6, Haiku 4.5) support 1 million tokens. That's a massive working memory. But the same principles apply: context still fills up during long agentic sessions, and the strategies above still help. They just become critical later in longer sessions rather than sooner. And more context means higher costs per session -- another reason to stay disciplined.
+All current Claude models (Opus 4.6, Sonnet 4.6, Haiku 4.5) support 1 million tokens. That's a massive working memory. But the same principles apply: context still fills up during long agentic sessions, and the strategies above still help. They just become critical later in longer sessions rather than sooner. And more context means higher costs per session: another reason to stay disciplined.

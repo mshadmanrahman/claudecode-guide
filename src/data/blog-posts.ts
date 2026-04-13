@@ -21,7 +21,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2>The CLAUDE.md Gap</h2>
 <p>Without a <code>CLAUDE.md</code> file, every session starts blind. Claude Code doesn't know your stack, your coding style, or your preferences. It's guessing. And guessing produces mid results.</p>
-<p>With CLAUDE.md, the same prompt produces dramatically different output. Your stack, your conventions, your communication preferences — all loaded before you even type.</p>
+<p>With CLAUDE.md, the same prompt produces dramatically different output. Your stack, your conventions, your communication preferences, all loaded before you even type.</p>
 
 <h2>The 5-Minute Fix</h2>
 <ol>
@@ -73,11 +73,11 @@ export const blogPosts: BlogPost[] = [
 <h2>The Five Layers</h2>
 <p>CLAUDE.md isn't just one file. It's a <a href="/docs/foundations/claude-md">five-layer architecture</a>:</p>
 <ol>
-<li><strong>Enterprise</strong> — org-wide rules everyone follows</li>
-<li><strong>Project root</strong> — your repo's CLAUDE.md</li>
-<li><strong>Feature-scoped</strong> — nested CLAUDE.md in subdirectories</li>
-<li><strong>User-level</strong> — your personal ~/.claude/CLAUDE.md</li>
-<li><strong>Session-level</strong> — memory and handoffs that persist</li>
+<li><strong>Enterprise</strong> : org-wide rules everyone follows</li>
+<li><strong>Project root</strong> : your repo's CLAUDE.md</li>
+<li><strong>Feature-scoped</strong> : nested CLAUDE.md in subdirectories</li>
+<li><strong>User-level</strong> : your personal ~/.claude/CLAUDE.md</li>
+<li><strong>Session-level</strong> : memory and handoffs that persist</li>
 </ol>
 
 <h2>The One-Minute Version</h2>
@@ -97,11 +97,11 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Why It Happens</h2>
 <p>Claude Code doesn't have persistent memory by default. Each session is a blank slate. The model doesn't remember yesterday's conversation, your preferences, or where you left off.</p>
-<p>But here's the thing — it <em>can</em> remember. You just have to set it up.</p>
+<p>But here's the thing, it <em>can</em> remember. You just have to set it up.</p>
 
 <h2>The 3-Step Fix</h2>
 <p><strong>Step 1: Memory files.</strong> Create a <code>memory/</code> directory. At the end of each session, Claude writes what it learned. At the start of the next session, it reads those files. Zero re-explanation needed.</p>
-<p><strong>Step 2: Handoffs.</strong> When you finish a work block, write a <a href="/docs/foundations/memory-system">handoff document</a> — what was done, what's next, what's blocked. Next session picks up exactly where you left off.</p>
+<p><strong>Step 2: Handoffs.</strong> When you finish a work block, write a <a href="/docs/foundations/memory-system">handoff document</a> : what was done, what's next, what's blocked. Next session picks up exactly where you left off.</p>
 <p><strong>Step 3: Session lifecycle in CLAUDE.md.</strong> Add instructions to your <a href="/docs/foundations/claude-md">CLAUDE.md</a>: "At session start, read memory/. At session end, write a handoff." Now it happens automatically.</p>
 
 <h2>The Result</h2>
@@ -121,7 +121,7 @@ export const blogPosts: BlogPost[] = [
 <h2>The Core Difference</h2>
 <p>ChatGPT is a conversation. Claude Code is a <strong>development environment</strong>.</p>
 <p>ChatGPT lives in a browser tab. It can't read your files, run your tests, or edit your code. You copy-paste snippets back and forth like it's 2019.</p>
-<p>Claude Code lives in your terminal. It reads your entire codebase. It edits files directly. It runs commands. It sees your git history. It's not chatting with you — it's working alongside you.</p>
+<p>Claude Code lives in your terminal. It reads your entire codebase. It edits files directly. It runs commands. It sees your git history. It's not chatting with you, it's working alongside you.</p>
 
 <h2>What This Means in Practice</h2>
 <ul>
@@ -139,7 +139,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "your-first-hour-with-claude-code",
     title: "Your First Hour with Claude Code: A Realistic Timeline",
-    description: "What actually happens in your first 60 minutes. No hype, no fluff — just a realistic walkthrough.",
+    description: "What actually happens in your first 60 minutes. No hype, no fluff. Just a realistic walkthrough.",
     date: "2026-03-05",
     author: "Shadman Rahman",
     tags: ["claude-code", "tutorial", "getting-started"],
@@ -162,7 +162,7 @@ export const blogPosts: BlogPost[] = [
 <p>You ask the same complex question again. This time, with CLAUDE.md loaded, the answer matches your stack, your style, your conventions. The difference is jarring.</p>
 
 <h2>Minutes 50-60: Building Momentum</h2>
-<p>You start using <a href="/docs/foundations/plan-mode">Plan Mode</a> for bigger tasks. You set up a memory file. You write your first handoff. You realize this isn't a chatbot — it's a workflow.</p>
+<p>You start using <a href="/docs/foundations/plan-mode">Plan Mode</a> for bigger tasks. You set up a memory file. You write your first handoff. You realize this isn't a chatbot. It's a workflow.</p>
 <p>The first hour is a rollercoaster. Push through the "wait" phase. Everything after minute 35 is where it clicks.</p>`,
   },
   {
@@ -201,7 +201,7 @@ export const blogPosts: BlogPost[] = [
 <p>Here's the truth: a mediocre prompt with great context beats a perfect prompt with no context. Every single time.</p>
 
 <h2>The Experiment</h2>
-<p>I tested this. Same task — "add a dark mode toggle to the settings page." Two approaches:</p>
+<p>I tested this. Same task, "add a dark mode toggle to the settings page." Two approaches:</p>
 <p><strong>Approach A:</strong> Elaborate prompt. "You are a senior React developer. Think step by step. Consider accessibility. Use best practices..." No CLAUDE.md.</p>
 <p><strong>Approach B:</strong> Simple prompt. "Add a dark mode toggle to the settings page." Full <a href="/docs/foundations/claude-md">CLAUDE.md</a> with stack info, conventions, and file structure.</p>
 <p>Approach B won. By a lot. It used the right components, the right styling system, and put the file in the right place. Approach A produced technically correct code that didn't match the project at all.</p>
@@ -270,12 +270,12 @@ export const blogPosts: BlogPost[] = [
 <p>Then I let Claude Code work. It read the codebase, understood the component system, built the calculator, styled it to match, and created the page.</p>
 
 <h2>The PM Workflow</h2>
-<p>Here's the thing — I wasn't "coding." I was doing what PMs do:</p>
+<p>Here's the thing. I wasn't "coding." I was doing what PMs do:</p>
 <ul>
-<li><strong>Defining requirements</strong> — telling Claude Code what the feature should do</li>
-<li><strong>Reviewing output</strong> — checking if the result matched my vision</li>
-<li><strong>Iterating</strong> — "make the comparison table wider" / "add a monthly toggle"</li>
-<li><strong>Testing</strong> — clicking through the feature to verify it works</li>
+<li><strong>Defining requirements</strong> : telling Claude Code what the feature should do</li>
+<li><strong>Reviewing output</strong> : checking if the result matched my vision</li>
+<li><strong>Iterating</strong> : "make the comparison table wider" / "add a monthly toggle"</li>
+<li><strong>Testing</strong> : clicking through the feature to verify it works</li>
 </ul>
 <p>The full <a href="/docs/workflows/pm-workflow">PM workflow guide</a> breaks this down in detail.</p>
 
@@ -295,9 +295,9 @@ export const blogPosts: BlogPost[] = [
 
 <h2>The Memory Architecture</h2>
 <p>The <a href="/docs/foundations/memory-system">memory system</a> has three layers:</p>
-<p><strong>Layer 1: CLAUDE.md</strong> — Static context. Your stack, conventions, preferences. Doesn't change session to session.</p>
-<p><strong>Layer 2: Memory files</strong> — Accumulated knowledge. What Claude learned about your project, your corrections, your patterns. Grows over time.</p>
-<p><strong>Layer 3: Handoffs</strong> — Session-specific state. What was done, what's next, what's blocked. Written at session end, read at session start.</p>
+<p><strong>Layer 1: CLAUDE.md</strong> : Static context. Your stack, conventions, preferences. Doesn't change session to session.</p>
+<p><strong>Layer 2: Memory files</strong> : Accumulated knowledge. What Claude learned about your project, your corrections, your patterns. Grows over time.</p>
+<p><strong>Layer 3: Handoffs</strong> : Session-specific state. What was done, what's next, what's blocked. Written at session end, read at session start.</p>
 
 <h2>Setting It Up</h2>
 <ol>
@@ -325,9 +325,9 @@ export const blogPosts: BlogPost[] = [
 <h2>What Are Hooks?</h2>
 <p><a href="/docs/patterns/hooks">Hooks</a> are scripts that run automatically at specific points in Claude Code's execution:</p>
 <ul>
-<li><strong>PreToolUse</strong> — runs before Claude uses a tool (write file, run command)</li>
-<li><strong>PostToolUse</strong> — runs after a tool completes (auto-format, validate)</li>
-<li><strong>Stop</strong> — runs when a session ends (final checks, cleanup)</li>
+<li><strong>PreToolUse</strong> : runs before Claude uses a tool (write file, run command)</li>
+<li><strong>PostToolUse</strong> : runs after a tool completes (auto-format, validate)</li>
+<li><strong>Stop</strong> : runs when a session ends (final checks, cleanup)</li>
 </ul>
 
 <h2>Three Hooks Everyone Should Have</h2>
@@ -350,7 +350,7 @@ export const blogPosts: BlogPost[] = [
     content: `<p>The number one question I get: "How much does Claude Code actually cost?" The answer depends entirely on how you use it. Let's break it down.</p>
 
 <h2>The Three Tiers</h2>
-<p><strong>Claude Pro ($20/mo):</strong> You get Claude Code included but with usage limits. Good for casual users — maybe 2-3 sessions a day. You'll hit the cap if you're doing heavy development.</p>
+<p><strong>Claude Pro ($20/mo):</strong> You get Claude Code included but with usage limits. Good for casual users (maybe 2-3 sessions a day). You'll hit the cap if you're doing heavy development.</p>
 <p><strong>Claude Max ($100-200/mo):</strong> Higher limits, priority access. For daily drivers who use Claude Code as their primary dev tool. The sweet spot for most professionals.</p>
 <p><strong>API Direct:</strong> Pay per token. No monthly cap. Best for teams, CI/CD, and heavy automation. Can be cheaper OR more expensive depending on volume.</p>
 
@@ -365,7 +365,7 @@ export const blogPosts: BlogPost[] = [
 </table>
 
 <h2>The Hidden Cost: Context Window</h2>
-<p>The real cost driver isn't time — it's <a href="/docs/foundations/context-window">context window</a> usage. Every file Claude reads, every command output it processes, every conversation turn — it all consumes tokens.</p>
+<p>The real cost driver isn't time, it's <a href="/docs/foundations/context-window">context window</a> usage. Every file Claude reads, every command output it processes, every conversation turn, it all consumes tokens.</p>
 <p>The <a href="/docs/foundations/cost-optimization">cost optimization guide</a> covers how to reduce token usage by 30-50% through smart context management, Plan Mode, and efficient prompting.</p>
 
 <h2>My Recommendation</h2>
@@ -440,11 +440,11 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Top 5 MCP Servers to Start With</h2>
 <ol>
-<li><strong>GitHub</strong> — read issues, PRs, and code search</li>
-<li><strong>Postgres/SQLite</strong> — query your database</li>
-<li><strong>Slack</strong> — read channel context</li>
-<li><strong>Browser</strong> — fetch web pages and documentation</li>
-<li><strong>Filesystem</strong> — extended file operations</li>
+<li><strong>GitHub</strong> : read issues, PRs, and code search</li>
+<li><strong>Postgres/SQLite</strong> : query your database</li>
+<li><strong>Slack</strong> : read channel context</li>
+<li><strong>Browser</strong> : fetch web pages and documentation</li>
+<li><strong>Filesystem</strong> : extended file operations</li>
 </ol>
 
 <h2>The Mental Model</h2>
@@ -462,7 +462,7 @@ export const blogPosts: BlogPost[] = [
 <p>Then I went to sleep.</p>
 
 <h2>The Setup</h2>
-<p><a href="/docs/patterns/autonomous-loops">Autonomous loops</a> let Claude Code work without human approval for each step. You set guardrails — what it can and can't do — and let it run.</p>
+<p><a href="/docs/patterns/autonomous-loops">Autonomous loops</a> let Claude Code work without human approval for each step. You set guardrails (what it can and can't do) and let it run.</p>
 <p>My guardrails:</p>
 <ul>
 <li>Can read and write files in the <code>src/auth/</code> directory</li>
@@ -477,7 +477,7 @@ export const blogPosts: BlogPost[] = [
 <p>Was it perfect? No. I'd have named two files differently. One test was redundant. Minor stuff.</p>
 
 <h2>The Risk/Reward</h2>
-<p>Autonomous mode is powerful but requires trust. Start small — a well-scoped refactoring task with clear boundaries. Don't let it loose on your entire codebase on day one.</p>
+<p>Autonomous mode is powerful but requires trust. Start small, with a well-scoped refactoring task and clear boundaries. Don't let it loose on your entire codebase on day one.</p>
 <p>Set up a stop mechanism (I use a STOP file that halts execution). Limit the scope. Review everything in the morning.</p>
 <p>The math is hard to argue with: 8 hours of compute time while I slept. That refactoring would have taken me two full days of focused work.</p>
 <p>Read the <a href="/docs/patterns/autonomous-loops">autonomous loops guide</a> before trying this. Guardrails are not optional.</p>`,
@@ -498,10 +498,10 @@ export const blogPosts: BlogPost[] = [
 <p>"Use good coding practices" tells Claude nothing. "Use TypeScript strict mode, Tailwind for styling, and put components in src/components/" tells it everything. Be specific. Be opinionated.</p>
 
 <h2>Mistake 3: No Session Lifecycle</h2>
-<p>The most valuable section of <a href="/docs/foundations/claude-md">CLAUDE.md</a> is the session lifecycle — what to read at start, what to write at end. Without it, you lose the <a href="/docs/foundations/memory-system">memory system</a> entirely.</p>
+<p>The most valuable section of <a href="/docs/foundations/claude-md">CLAUDE.md</a> is the session lifecycle : what to read at start, what to write at end. Without it, you lose the <a href="/docs/foundations/memory-system">memory system</a> entirely.</p>
 
 <h2>Mistake 4: No Communication Preferences</h2>
-<p>Tell Claude Code HOW to talk to you. "Be direct. No preamble. Code first, explanation after. Don't ask if I want you to proceed — just do it." This saves hundreds of back-and-forth messages.</p>
+<p>Tell Claude Code HOW to talk to you. "Be direct. No preamble. Code first, explanation after. Don't ask if I want you to proceed, just do it." This saves hundreds of back-and-forth messages.</p>
 
 <h2>Mistake 5: Never Updating It</h2>
 <p>Your CLAUDE.md should evolve. When Claude makes a mistake you've corrected before, add it to CLAUDE.md. When you discover a pattern that works, document it. A living CLAUDE.md gets more powerful every week.</p>
@@ -529,10 +529,10 @@ export const blogPosts: BlogPost[] = [
 <h2>What Non-Engineers Actually Do</h2>
 <p>Claude Code reads your codebase and writes code. YOUR job is to:</p>
 <ul>
-<li>Describe what you want (requirements — a PM skill)</li>
-<li>Review what it built (QA — a PM skill)</li>
-<li>Iterate on details (feedback — everyone's skill)</li>
-<li>Test the result (clicking around — literally anyone)</li>
+<li>Describe what you want (requirements, a PM skill)</li>
+<li>Review what it built (QA, a PM skill)</li>
+<li>Iterate on details (feedback, everyone's skill)</li>
+<li>Test the result (clicking around, literally anyone)</li>
 </ul>
 <p>Does that sound like coding? No. It sounds like product management.</p>
 
@@ -566,10 +566,10 @@ export const blogPosts: BlogPost[] = [
 <h2>What's a Handoff?</h2>
 <p>A handoff is a structured document written at the end of every session. It contains:</p>
 <ol>
-<li><strong>What was accomplished</strong> — specific files changed, features built, bugs fixed</li>
-<li><strong>What's in progress</strong> — partially completed work, open questions</li>
-<li><strong>What's blocked</strong> — dependencies, decisions needed, external factors</li>
-<li><strong>Next step</strong> — the exact first action for the next session</li>
+<li><strong>What was accomplished</strong> : specific files changed, features built, bugs fixed</li>
+<li><strong>What's in progress</strong> : partially completed work, open questions</li>
+<li><strong>What's blocked</strong> : dependencies, decisions needed, external factors</li>
+<li><strong>Next step</strong> : the exact first action for the next session</li>
 </ol>
 
 <h2>The Template</h2>
@@ -632,7 +632,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-21",
     author: "Shadman Rahman",
     tags: ["claude-code", "comparison", "cursor"],
-    content: `<p>I use both. That's the honest take upfront. They're not competitors — they're complements. But the internet loves a fight, so let's break it down.</p>
+    content: `<p>I use both. That's the honest take upfront. They're not competitors, they're complements. But the internet loves a fight, so let's break it down.</p>
 
 <h2>Cursor's Strengths</h2>
 <ul>
@@ -645,8 +645,8 @@ export const blogPosts: BlogPost[] = [
 <h2>Claude Code's Strengths</h2>
 <ul>
 <li><strong>CLI-native:</strong> If you live in the terminal, Claude Code feels like home.</li>
-<li><strong>Deep context:</strong> <a href="/docs/foundations/claude-md">CLAUDE.md</a>, memory, handoffs — the context system is unmatched.</li>
-<li><strong>Automation:</strong> <a href="/docs/patterns/hooks">Hooks</a>, <a href="/docs/patterns/skills">skills</a>, <a href="/docs/patterns/autonomous-loops">autonomous loops</a> — build workflows, not just code.</li>
+<li><strong>Deep context:</strong> <a href="/docs/foundations/claude-md">CLAUDE.md</a>, memory, handoffs : the context system is unmatched.</li>
+<li><strong>Automation:</strong> <a href="/docs/patterns/hooks">Hooks</a>, <a href="/docs/patterns/skills">skills</a>, <a href="/docs/patterns/autonomous-loops">autonomous loops</a> : build workflows, not just code.</li>
 <li><strong>Agentic:</strong> <a href="/docs/patterns/agents">Sub-agents</a>, delegation, parallel execution.</li>
 </ul>
 
@@ -675,7 +675,7 @@ export const blogPosts: BlogPost[] = [
 <p>Give Claude the full picture. Error message, reproduction steps, expected behavior. Don't make it guess.</p>
 
 <h3>Phase 2: Diagnose</h3>
-<p>"Read the relevant files and explain what's causing this. Don't fix it yet — just explain."</p>
+<p>"Read the relevant files and explain what's causing this. Don't fix it yet, just explain."</p>
 <p>This is the step most people skip. They jump straight to "fix it" and Claude makes changes based on incomplete understanding. Force the diagnosis first.</p>
 
 <h3>Phase 3: Fix and Verify</h3>
@@ -723,7 +723,7 @@ export const blogPosts: BlogPost[] = [
 </ul>
 
 <h2>The Setup</h2>
-<p>The skill template is simple. It runs git commands, reads structured files, and formats the output. No external integrations needed — everything comes from your local project state.</p>
+<p>The skill template is simple. It runs git commands, reads structured files, and formats the output. No external integrations needed. Everything comes from your local project state.</p>
 
 <h2>Beyond Status Reports</h2>
 <p>The same pattern works for:</p>
@@ -753,10 +753,10 @@ export const blogPosts: BlogPost[] = [
 </ul>
 
 <h2>What Works</h2>
-<p><strong>1. Start with one champion.</strong> Find the person on your team who's most curious about AI tools. Help them get set up properly — CLAUDE.md, memory, handoffs, the whole stack. Let them become the proof point.</p>
-<p><strong>2. Solve a real pain point.</strong> Don't show Claude Code doing cool tricks. Show it solving something the team actually hates — writing tests, updating docs, migrating code. Pain-driven adoption sticks.</p>
+<p><strong>1. Start with one champion.</strong> Find the person on your team who's most curious about AI tools. Help them get set up properly. CLAUDE.md, memory, handoffs, the whole stack. Let them become the proof point.</p>
+<p><strong>2. Solve a real pain point.</strong> Don't show Claude Code doing cool tricks. Show it solving something the team actually hates, like writing tests, updating docs, or migrating code. Pain-driven adoption sticks.</p>
 <p><strong>3. Share the CLAUDE.md.</strong> A team-level <a href="/docs/foundations/claude-md">CLAUDE.md</a> is the single best adoption tool. When everyone shares the same context file, Claude Code is consistent across the team.</p>
-<p><strong>4. Create team skills.</strong> Build <a href="/docs/patterns/skills">skills</a> for your team's specific workflows. Code review, PR creation, test generation — custom to your stack and conventions.</p>
+<p><strong>4. Create team skills.</strong> Build <a href="/docs/patterns/skills">skills</a> for your team's specific workflows. Code review, PR creation, test generation, custom to your stack and conventions.</p>
 
 <h2>The Rollout Timeline</h2>
 <p>The <a href="/docs/workflows/team-adoption">team adoption guide</a> lays out a 4-week plan:</p>
@@ -824,7 +824,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-29",
     author: "Shadman Rahman",
     tags: ["claude-code", "productivity", "story", "tips"],
-    content: `<p>Everyone talks about Claude Code like it's a switch — you turn it on and suddenly you're 10x productive. That's not how it works. It's a compound curve.</p>
+    content: `<p>Everyone talks about Claude Code like it's a switch. You turn it on and suddenly you're 10x productive. That's not how it works. It's a compound curve.</p>
 
 <h2>Day 1-3: The Novelty Phase</h2>
 <p>Everything is new. You're asking Claude Code random questions, testing its limits, showing colleagues. Output quality is inconsistent because you haven't set up <a href="/docs/foundations/claude-md">CLAUDE.md</a> yet. Fun, but not productive.</p>
@@ -833,7 +833,7 @@ export const blogPosts: BlogPost[] = [
 <p>You create CLAUDE.md. You set up the <a href="/docs/foundations/session-lifecycle">session lifecycle</a>. You write your first handoff. Suddenly, sessions are coherent. The quality jump is immediate and noticeable.</p>
 
 <h2>Day 8-14: The Integration Phase</h2>
-<p>You start using Claude Code for real work. Not experiments — actual features, actual bugs, actual refactoring. You build your first <a href="/docs/patterns/skills">skill</a>. You configure your first <a href="/docs/patterns/hooks">hook</a>. The tool starts fitting your workflow instead of the other way around.</p>
+<p>You start using Claude Code for real work. Not experiments. Actual features, actual bugs, actual refactoring. You build your first <a href="/docs/patterns/skills">skill</a>. You configure your first <a href="/docs/patterns/hooks">hook</a>. The tool starts fitting your workflow instead of the other way around.</p>
 
 <h2>Day 15-21: The Acceleration Phase</h2>
 <p>Memory kicks in. Claude Code knows your patterns without being told. Sessions start in 30 seconds instead of 10 minutes. You're shipping features faster than you can write tickets for them. Other people notice.</p>
@@ -882,7 +882,7 @@ export const blogPosts: BlogPost[] = [
 <p>Write a handoff at the end of each session and load it at the start of the next. Zero cold starts. Your Tuesday session picks up exactly where Monday left off.</p>
 
 <h2>10. MCP Server Connections</h2>
-<p>Connect to external tools — databases, APIs, browser automation — through the <a href="/docs/advanced/mcp">Model Context Protocol</a>. Claude Code stops being just a coding assistant and becomes an orchestration layer.</p>
+<p>Connect to external tools (databases, APIs, browser automation) through the <a href="/docs/advanced/mcp">Model Context Protocol</a>. Claude Code stops being just a coding assistant and becomes an orchestration layer.</p>
 
 <p>Most people use maybe 3 of these. Start using all 10 and the productivity gap gets embarrassing. Read the full <a href="/docs/getting-started/basic-usage">Basic Usage Guide</a> for more.</p>`,
   },
@@ -940,7 +940,7 @@ export const blogPosts: BlogPost[] = [
 <p>If your average session is a quick question, Pro is fine. But if you're doing architecture discussions, debugging complex issues, or building features end-to-end, those long sessions need Max-level capacity.</p>
 
 <h2>5. You've Started Rationing Your Prompts</h2>
-<p>This is the biggest red flag. If you're thinking "should I ask Claude this or save my allocation?" — you're optimizing for the wrong thing. Your time is worth more than the subscription difference.</p>
+<p>This is the biggest red flag. If you're thinking "should I ask Claude this or save my allocation?", you're optimizing for the wrong thing. Your time is worth more than the subscription difference.</p>
 
 <h2>The Math</h2>
 <p>Max is $100/month more than Pro. If it saves you 2 hours per week (it will), that's roughly $12.50 per hour saved. Most developers bill 10x that. It's not even close.</p>
@@ -980,7 +980,7 @@ export const blogPosts: BlogPost[] = [
 <h2>8. Technical Doc Translation</h2>
 <p>Dev team wrote an ADR full of jargon? Ask Claude Code to translate it to PM-speak. Understand the tradeoffs without pretending you know what "eventual consistency" means.</p>
 
-<p>The trick is setting up your <a href="/docs/foundations/claude-md">CLAUDE.md</a> with your PM context — your projects, your stakeholders, your communication style. Then every one of these workflows gets even better.</p>`,
+<p>The trick is setting up your <a href="/docs/foundations/claude-md">CLAUDE.md</a> with your PM context, including your projects, your stakeholders, and your communication style. Then every one of these workflows gets even better.</p>`,
   },
   {
     slug: "6-autonomous-loop-ideas-to-run-overnight",
@@ -995,7 +995,7 @@ export const blogPosts: BlogPost[] = [
 <p>Point it at your repo with the prompt: "Find all files under 80% test coverage and write missing tests." It works through file by file, running tests after each one. Wake up to a green CI pipeline.</p>
 
 <h2>2. Dependency Audit and Update</h2>
-<p>Run a loop that checks for outdated dependencies, updates them one at a time, runs tests, and rolls back if anything breaks. Safe, methodical, and boring — perfect for a machine.</p>
+<p>Run a loop that checks for outdated dependencies, updates them one at a time, runs tests, and rolls back if anything breaks. Safe, methodical, and boring. Perfect for a machine.</p>
 
 <h2>3. Documentation Generator</h2>
 <p>Point it at your undocumented functions with: "Add JSDoc to every exported function missing documentation." It reads the code, infers the purpose, and writes accurate docs. Review in the morning.</p>
@@ -1007,7 +1007,7 @@ export const blogPosts: BlogPost[] = [
 <p>Migrating from one pattern to another (class components to hooks, REST to tRPC, etc.)? Set up the pattern and let it work through every file overnight. Review the PR in the morning.</p>
 
 <h2>6. Security Scan and Patch</h2>
-<p>Run a security audit, then have Claude Code fix the low-hanging fruit — outdated packages with known CVEs, missing input validation, hardcoded strings that should be env vars.</p>
+<p>Run a security audit, then have Claude Code fix the low-hanging fruit, like outdated packages with known CVEs, missing input validation, and hardcoded strings that should be env vars.</p>
 
 <h2>Setting It Up</h2>
 <p>Use <code>claude -p</code> in headless mode with your prompt piped in. Add a stop condition (max iterations, time limit, or a STOP file). Read the <a href="/docs/patterns/autonomous-loops">autonomous loops guide</a> for the full setup pattern.</p>
@@ -1030,7 +1030,7 @@ export const blogPosts: BlogPost[] = [
 <p>Generates tests for the current file. Reads the code, infers edge cases, writes tests. You review instead of writing from scratch.</p>
 
 <h2>3. /deploy</h2>
-<p>Runs your full deploy pipeline — build, test, lint, push. One command. No forgetting steps.</p>
+<p>Runs your full deploy pipeline : build, test, lint, push. One command. No forgetting steps.</p>
 
 <h2>4. /morning</h2>
 <p>Reads your latest handoff, checks git status, shows open PRs and failing CI. Your entire daily standup context in 10 seconds.</p>
@@ -1059,7 +1059,7 @@ export const blogPosts: BlogPost[] = [
 <h2>12. /cleanup</h2>
 <p>Finds dead code, unused imports, and orphaned files. Keeps your repo lean without the fear of accidentally deleting something important.</p>
 
-<p>Building these is trivial — just markdown files in <code>.claude/commands/</code>. The <a href="/docs/patterns/slash-commands">slash commands guide</a> shows you exactly how.</p>`,
+<p>Building these is trivial. Just markdown files in <code>.claude/commands/</code>. The <a href="/docs/patterns/slash-commands">slash commands guide</a> shows you exactly how.</p>`,
   },
   {
     slug: "4-mcp-servers-every-developer-should-connect",
@@ -1071,16 +1071,16 @@ export const blogPosts: BlogPost[] = [
     content: `<p>The Model Context Protocol is what separates "Claude Code the chatbot" from "Claude Code the operating system." These 4 MCP servers are the foundation.</p>
 
 <h2>1. GitHub MCP Server</h2>
-<p>Read issues, create PRs, search code across repos, and manage releases — all from your Claude Code session. No more switching to the browser to check PR comments. Your entire GitHub workflow lives in one place.</p>
+<p>Read issues, create PRs, search code across repos, and manage releases, all from your Claude Code session. No more switching to the browser to check PR comments. Your entire GitHub workflow lives in one place.</p>
 
 <h2>2. Playwright Browser Automation</h2>
 <p>Claude Code can now control a browser. Navigate pages, click buttons, fill forms, take screenshots. Use it for E2E testing, visual verification, or scraping data you need for analysis. It's like Selenium but you describe what you want in English.</p>
 
 <h2>3. Database MCP (Postgres/Redis)</h2>
-<p>Connect your database and Claude Code can query it directly. Debug data issues, generate reports, verify migrations — without leaving your terminal. Just make sure you're connecting to dev, not prod. Obviously.</p>
+<p>Connect your database and Claude Code can query it directly. Debug data issues, generate reports, and verify migrations without leaving your terminal. Just make sure you're connecting to dev, not prod. Obviously.</p>
 
 <h2>4. Slack MCP Server</h2>
-<p>Search messages, read channels, even send updates — all from Claude Code. Perfect for pulling context from team discussions into your coding session. "What did the team decide about the auth flow?" becomes a real query, not a memory test.</p>
+<p>Search messages, read channels, even send updates, all from Claude Code. Perfect for pulling context from team discussions into your coding session. "What did the team decide about the auth flow?" becomes a real query, not a memory test.</p>
 
 <h2>Setting Up Your First MCP Server</h2>
 <p>Add a <code>.mcp.json</code> file to your project root with the server configuration. Claude Code detects it automatically on next session start. No restart, no install, no drama.</p>
@@ -1164,7 +1164,7 @@ export const blogPosts: BlogPost[] = [
     content: `<p>Solo founders don't have the luxury of "let me hand this off to the team." You ARE the team. Here are 5 Claude Code workflows that give you back the hours you desperately need.</p>
 
 <h2>1. The Full-Stack Sprint</h2>
-<p>Set up your CLAUDE.md with your entire stack. Then run a focused 2-hour session where Claude Code helps you build end-to-end — database schema, API routes, frontend components, tests. One session, one feature, fully shipped. This is the workflow that makes solo founding actually viable in 2026.</p>
+<p>Set up your CLAUDE.md with your entire stack. Then run a focused 2-hour session where Claude Code helps you build end-to-end, covering database schema, API routes, frontend components, and tests. One session, one feature, fully shipped. This is the workflow that makes solo founding actually viable in 2026.</p>
 
 <h2>2. The Overnight QA Loop</h2>
 <p>Before bed, kick off an autonomous loop that runs your test suite, finds gaps, writes missing tests, and creates a summary. Wake up to a QA report that would've taken your morning. Ship with confidence before lunch.</p>
@@ -1182,6 +1182,138 @@ export const blogPosts: BlogPost[] = [
 <p>CLAUDE.md + custom commands + MCP servers + autonomous loops. That's the full stack. Each piece multiplies the others. Together, they're the difference between burning out at month 3 and shipping consistently at month 12.</p>
 
 <p>Start with the <a href="/guide">Interactive Setup Guide</a> and have your full workflow running in under an hour.</p>`,
+  },
+  {
+    slug: "you-dont-need-settings-json-hacks",
+    title: "You Don't Need settings.json Hacks to Fix Claude Code",
+    description: "A viral tweet says 4 environment variables fix 'nerfed' Claude Code. Here's what actually fixes it: governance, not flags.",
+    date: "2026-04-14",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "claude-md", "productivity", "settings", "tutorial"],
+    content: `<p>A tweet went viral last week. Over a thousand bookmarks. The claim: Claude Code got "nerfed," and four environment variables in <code>settings.json</code> fix it.</p>
+
+<p>The settings look like this:</p>
+<pre><code>{
+  "effortLevel": "high",
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "1",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
+  }
+}</code></pre>
+
+<p>Here's the deal: these settings aren't wrong. They do make behavior more consistent. But they're a band-aid, not a fix. They trade flexibility for predictability by disabling features you actually want.</p>
+
+<p>The real problem isn't that Claude Code is nerfed. It's that without clear instructions, Claude Code is guessing. And guessing produces inconsistent results.</p>
+
+<h2>What Those Settings Actually Do</h2>
+
+<p><strong><code>effortLevel: "high"</code></strong> forces extended thinking on every turn. Claude will reason deeply about everything, including tasks that don't need it. You get consistency, but you also burn more tokens on simple git commits and file reads.</p>
+
+<p><strong><code>CLAUDE_CODE_DISABLE_1M_CONTEXT</code></strong> turns off the extended context window. The theory: a smaller window forces more focused output. The trade-off: you hit context compression sooner on long sessions, losing earlier context when you need it most.</p>
+
+<p><strong><code>CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING</code></strong> stops Claude from dynamically adjusting reasoning depth per turn. Every response gets the same thinking budget. Simple question? Same budget. Complex architecture decision? Same budget. Consistent, but wasteful.</p>
+
+<p><strong><code>CLAUDE_CODE_DISABLE_AUTO_MEMORY</code></strong> kills automatic memory between sessions. No corrections remembered, no preferences carried forward. Every session starts from zero again.</p>
+
+<p>See the pattern? Each setting disables intelligence to gain predictability. That's a losing trade when there's a better option.</p>
+
+<h2>The Real Fix: Reduce Ambiguity, Not Features</h2>
+
+<p>The best comment in that viral thread wasn't from the original poster. It was this:</p>
+<blockquote><p>"Stability usually comes from less ambiguity, not more tokens."</p></blockquote>
+
+<p>That's the whole insight. Claude Code isn't inconsistent because its features are broken. It's inconsistent because it doesn't know what you want. Tell it clearly, and the "nerfed" feeling disappears.</p>
+
+<p>This is what a <a href="/docs/foundations/claude-md">CLAUDE.md file</a> does. It removes ambiguity at the instruction level instead of removing capability at the settings level.</p>
+
+<h2>Five Layers of Governance</h2>
+
+<p>After running Claude Code daily for months across multiple projects, I've landed on a five-layer system that makes behavior rock-solid without disabling anything.</p>
+
+<h3>Layer 1: Global Rules</h3>
+<p>These apply to every project. They live in <code>~/.claude/rules/common/</code> and set your baseline engineering standards.</p>
+<ul>
+<li><strong>Code quality</strong>: immutability, file size limits, TDD mandatory, security checks</li>
+<li><strong>Workflow</strong>: research, plan, test, review, commit. In that order. Every time.</li>
+<li><strong>Verification</strong>: "evidence before claims." Run the proof command, read the output, state the claim with evidence. No "this should work."</li>
+<li><strong>Model routing</strong>: use Sonnet for routine work, Opus for architecture. Don't burn expensive tokens on git commits.</li>
+<li><strong>Debugging</strong>: systematic three-phase process. Hard stop after two failed hypotheses.</li>
+</ul>
+
+<h3>Layer 2: Project Rules</h3>
+<p>These live in your project directory and specialize the global rules for your specific codebase.</p>
+<ul>
+<li>Standard patterns (fail fast, trust the system, minimal output)</li>
+<li>Git workflow (one branch per epic, humans resolve conflicts)</li>
+<li>Path standards (relative paths only in public-facing output)</li>
+<li>Testing rules (use the test runner agent, no mocking, always clean up)</li>
+</ul>
+
+<h3>Layer 3: CLAUDE.md (The Orchestrator)</h3>
+<p>This is the glue layer. It controls what gets loaded and when:</p>
+<ul>
+<li>Session startup sequence (scan memory index, load relevant shards, check recent handoffs)</li>
+<li>Token budget rules (max 2 files in main thread before delegating to a subagent)</li>
+<li>File placement (screenshots go here, experiments go there, PM docs go somewhere else)</li>
+<li>Boundary rules (nested repos stay independent, runtime state stays out of git)</li>
+</ul>
+<p>Read the full <a href="/docs/foundations/claude-md">CLAUDE.md guide</a> for setup details.</p>
+
+<h3>Layer 4: Memory System (Persistent Behavioral State)</h3>
+<p>This is where corrections become permanent. When you tell Claude Code "don't do X," that correction gets saved to a memory file. Next session reads it. The mistake never repeats.</p>
+<p>This is the opposite of disabling auto-memory. Instead of killing the feature, you're making it structured and intentional. A sharded index keeps it lightweight: one-line pointers in the index file, full content in separate shards loaded only when relevant.</p>
+<p>Learn how to set this up in the <a href="/docs/foundations/memory-system">memory system guide</a>.</p>
+
+<h3>Layer 5: Session Context (Ephemeral)</h3>
+<p>Plans, tasks, and conversation state for the current session. Disposable by default. Anything worth keeping gets promoted to Layer 4.</p>
+
+<h2>The Anti-Bloat Pattern</h2>
+
+<p>The biggest risk with governance files is bloating your context. Every token spent on instructions is a token not spent on your actual work.</p>
+
+<p>The solution: <strong>pointer in the index, content in the doc.</strong></p>
+
+<p>Your memory index file (always loaded) contains one-line pointers, not full content. Each pointer links to a shard file that's only loaded when relevant. A fresh session scanning the index sees what exists but doesn't pay the token cost unless it's actually working on that topic.</p>
+
+<p>Same pattern for your CLAUDE.md. Keep it lean (under 100 lines). Link out to detailed docs. The orchestrator stays lightweight while the full governance system stays accessible.</p>
+
+<p>This is the opposite of what most people do. They stuff everything into one CLAUDE.md, wonder why context gets expensive, and then disable features to compensate. Don't do that. Structure it instead.</p>
+
+<h2>Settings.json Hacks vs. Governance: A Comparison</h2>
+
+<p>Here's what each approach gives you:</p>
+
+<p><strong>The settings.json approach (4 env vars):</strong></p>
+<ul>
+<li>Consistent reasoning depth (but wasteful on simple tasks)</li>
+<li>Predictable context window (but shorter sessions)</li>
+<li>No adaptive behavior (stable but rigid)</li>
+<li>No memory between sessions (predictable but amnesiac)</li>
+</ul>
+
+<p><strong>The governance approach (structured rules + memory):</strong></p>
+<ul>
+<li>Appropriate reasoning depth per task (model routing)</li>
+<li>Full context window with smart token management (subagent strategy)</li>
+<li>Clear instructions eliminate guessing (ambiguity removed, not features)</li>
+<li>Persistent corrections that compound over time (feedback loops)</li>
+</ul>
+
+<p>The settings approach caps out fast. It works for week one. Governance compounds. It gets better every session as your memory system accumulates corrections and your rules cover more edge cases.</p>
+
+<h2>Getting Started</h2>
+
+<p>You don't need all five layers on day one. Start with two things:</p>
+<ol>
+<li><strong>A CLAUDE.md file</strong>. Run <code>claude /init</code> in your project. Add your stack, conventions, and preferences. Takes 5 minutes. <a href="/docs/foundations/claude-md">Full guide here.</a></li>
+<li><strong>A memory directory</strong>. Create <code>memory/</code> in your project. Add "read memory at session start, write corrections to memory" in your CLAUDE.md. Takes 2 minutes. <a href="/docs/foundations/memory-system">Full guide here.</a></li>
+</ol>
+
+<p>That's the 80/20. Seven minutes of setup replaces four environment variables and gives you something that actually improves over time.</p>
+
+<p>Don't disable the intelligence. Direct it.</p>`,
   },
 ];
 

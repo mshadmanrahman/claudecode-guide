@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight, Check, Lock, ChevronDown } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
+import { DeprecationBanner } from '@/components/deprecation-banner';
 
 // metadata handled by layout
 
@@ -69,6 +70,11 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
 export default function RoadmapPage() {
   return (
     <div className="flex flex-col bg-fd-background">
+      <DeprecationBanner
+        message="We've redesigned the learning path! The new Docs section has organized content with progress tracking built in."
+        linkText="Browse the new Docs"
+        linkHref="/docs"
+      />
       {/* Hero */}
       <section className="mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
         <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl">

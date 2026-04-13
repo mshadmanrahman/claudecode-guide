@@ -18,6 +18,8 @@ interface DemoCardProps {
   loop?: boolean;
   /** Pause in ms before restarting when looping */
   loopDelay?: number;
+  /** Override the max content height in px (default 280) */
+  maxHeight?: number;
 }
 
 const TYPE_STYLES: Record<DemoStep['type'], string> = {
@@ -28,7 +30,7 @@ const TYPE_STYLES: Record<DemoStep['type'], string> = {
   error: 'text-red-600 dark:text-red-400 text-xs',
 };
 
-export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3000 }: DemoCardProps) {
+export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3000, maxHeight = 280 }: DemoCardProps) {
   const [visibleCount, setVisibleCount] = useState(0);
   const [containerRef, isInView] = useInView(0.3);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -70,11 +72,11 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
         <span className="ml-2 font-mono text-[11px] text-fd-muted-foreground">{title}</span>
       </div>
 
-      {/* Content — fixed height based on step count, scrolls when full */}
+      {/* Content : fixed height based on step count, scrolls when full */}
       <div
         ref={scrollRef}
         className="overflow-y-auto p-4 font-mono text-[13px] leading-relaxed sm:p-5 sm:text-sm"
-        style={{ height: Math.min(Math.max(steps.length * 24 + 32, 100), 280) }}
+        style={{ height: Math.min(Math.max(steps.length * 24 + 32, 100), maxHeight) }}
       >
         {steps.slice(0, visibleCount).map((step, i) => (
           <div
