@@ -87,6 +87,9 @@ export function BlogContent({ html }: { html: string }) {
           shikiPre.style.border = 'none';
           shikiPre.style.fontSize = '14px';
           shikiPre.style.lineHeight = '1.6';
+          shikiPre.style.overflowX = 'auto';
+          shikiPre.style.whiteSpace = 'pre-wrap';
+          shikiPre.style.wordBreak = 'break-word';
         }
 
         pre.replaceWith(wrapper);
