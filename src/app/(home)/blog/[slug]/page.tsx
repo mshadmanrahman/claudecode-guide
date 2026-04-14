@@ -14,6 +14,8 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const post = getPostBySlug(params.slug);
   if (!post) return { title: 'Post Not Found' };
 
+  const ogImageUrl = `/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.description)}`;
+
   return {
     title: `${post.title} | Claude Code Guide Blog`,
     description: post.description,
@@ -24,11 +26,13 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
+      images: [ogImageUrl],
     },
   };
 }
