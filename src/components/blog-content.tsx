@@ -78,7 +78,7 @@ export function BlogContent({ html }: { html: string }) {
           </div>
         `;
 
-        // Override shiki's generated pre/code styles
+        // Override shiki's generated pre/code styles and reset prose bleeding
         const shikiPre = wrapper.querySelector('pre');
         if (shikiPre) {
           shikiPre.style.margin = '0';
@@ -90,7 +90,24 @@ export function BlogContent({ html }: { html: string }) {
           shikiPre.style.overflowX = 'auto';
           shikiPre.style.whiteSpace = 'pre-wrap';
           shikiPre.style.wordBreak = 'break-word';
+          shikiPre.style.background = 'transparent';
         }
+
+        // Reset prose code styles that bleed into the highlighted output
+        const codeEls = wrapper.querySelectorAll('code');
+        codeEls.forEach((code) => {
+          code.style.background = 'transparent';
+          code.style.padding = '0';
+          code.style.borderRadius = '0';
+          code.style.fontSize = 'inherit';
+        });
+
+        // Reset any span backgrounds from prose
+        const spans = wrapper.querySelectorAll('span');
+        spans.forEach((span) => {
+          if (!span.style.color) return;
+          span.style.background = 'transparent';
+        });
 
         pre.replaceWith(wrapper);
       } catch {
