@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
+import { BlogContent } from '@/components/blog-content';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getRelatedPosts, blogPosts } from '@/data/blog-posts';
 import type { Metadata } from 'next';
@@ -91,9 +92,10 @@ export default async function BlogPostPage(props: PageProps) {
         </div>
 
         <div
-          className="prose prose-neutral dark:prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-normal [&_h3]:tracking-tight [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:text-fd-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_code]:rounded [&_code]:bg-fd-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_pre]:bg-neutral-900 [&_pre]:text-neutral-100 [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:font-mono [&_pre]:text-sm [&_pre]:leading-relaxed [&_pre]:my-6 [&_pre]:border [&_pre]:border-neutral-700 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-neutral-100 [&_li]:text-fd-muted-foreground [&_table]:text-sm [&_th]:text-left [&_th]:p-3 [&_th]:border-b [&_th]:border-fd-border [&_td]:p-3 [&_td]:border-b [&_td]:border-fd-border [&_a]:text-fd-foreground [&_a]:underline [&_a]:hover:text-fd-muted-foreground [&_strong]:text-fd-foreground [&_em]:text-fd-foreground [&_blockquote]:border-l-2 [&_blockquote]:border-fd-border [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-fd-muted-foreground"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+          className="prose prose-neutral dark:prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-normal [&_h3]:tracking-tight [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:text-fd-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_code]:rounded [&_code]:bg-fd-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_li]:text-fd-muted-foreground [&_table]:text-sm [&_th]:text-left [&_th]:p-3 [&_th]:border-b [&_th]:border-fd-border [&_td]:p-3 [&_td]:border-b [&_td]:border-fd-border [&_a]:text-fd-foreground [&_a]:underline [&_a]:hover:text-fd-muted-foreground [&_strong]:text-fd-foreground [&_em]:text-fd-foreground [&_blockquote]:border-l-2 [&_blockquote]:border-fd-border [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-fd-muted-foreground"
+        >
+          <BlogContent html={post.content} />
+        </div>
 
         {relatedPosts.length > 0 && (
           <div className="mt-16 border-t border-fd-border pt-8">
