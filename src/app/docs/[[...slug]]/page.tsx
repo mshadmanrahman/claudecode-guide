@@ -204,8 +204,6 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
-  const ogImageUrl = `/api/og?title=${encodeURIComponent(page.data.title)}&description=${encodeURIComponent(page.data.description ?? '')}`;
-
   return {
     title: page.data.title,
     description: page.data.description,
@@ -213,13 +211,13 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       title: page.data.title,
       description: page.data.description,
       type: 'article',
-      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+      images: [{ url: '/og-home.png', width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title: page.data.title,
       description: page.data.description,
-      images: [ogImageUrl],
+      images: ['/og-home.png'],
     },
   };
 }

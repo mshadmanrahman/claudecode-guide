@@ -4102,8 +4102,6 @@ export async function generateMetadata({
   const tutorial = TUTORIALS[slug];
   if (!tutorial) return { title: 'Tutorial not found' };
 
-  const ogImageUrl = `/api/og?title=${encodeURIComponent(tutorial.title)}&description=${encodeURIComponent(tutorial.description)}`;
-
   const canonicalUrl = `https://claudecodeguide.dev/tutorials/${slug}`;
   const seoTitle = tutorial.title.includes('Claude Code')
     ? tutorial.title
@@ -4118,13 +4116,13 @@ export async function generateMetadata({
       description: tutorial.description,
       type: 'article',
       url: canonicalUrl,
-      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+      images: [{ url: '/og-home.png', width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title: seoTitle,
       description: tutorial.description,
-      images: [ogImageUrl],
+      images: ['/og-home.png'],
     },
   };
 }

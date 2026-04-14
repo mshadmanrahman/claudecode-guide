@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/api/og`,
+        url: `${siteUrl}/og-home.png`,
         width: 1200,
         height: 630,
         alt: 'Claude Code Guide: Tell it what you need. It builds it.',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: 'Claude Code Guide',
     description:
       'Your calm, step-by-step guide to Claude Code. From "what is this?" to "I can\'t work without it."',
-    images: [`${siteUrl}/api/og`],
+    images: [`${siteUrl}/og-home.png`],
   },
   keywords: [
     'claude code',
