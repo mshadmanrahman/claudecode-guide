@@ -34,7 +34,7 @@ const DEMOS: DemoSequence[] = [
       { type: 'out', text: 'Creating project structure...', delay: 600 },
       { type: 'out', text: 'Writing game logic and UI...', delay: 500 },
       { type: 'out', text: 'Adding 20 questions across 4 categories...', delay: 400 },
-      { type: 'success', text: '\u2713 Quiz game ready \u2014 run npm start to play', delay: 600 },
+      { type: 'success', text: '\u2713 Quiz game ready. Run npm start to play', delay: 600 },
     ],
   },
   {

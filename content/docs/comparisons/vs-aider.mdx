@@ -1,6 +1,6 @@
 ---
 title: Claude Code vs Aider
-description: "Both are terminal-based AI coding tools. One is open source and model-agnostic. The other is a fully integrated agent. Here's how to choose (2026 comparison)."
+description: "Both run in your terminal. Aider edits files. Claude Code runs the whole task. Here's when that difference actually matters (2026 comparison)."
 targetKeyword: "claude code vs aider"
 comparisonEntities:
   - "Claude Code"
@@ -17,13 +17,13 @@ relatedLinks:
     description: "Every Claude Code command, shortcut, and flag."
 ---
 
-## Two Terminal Tools, Different Philosophies
+## Two terminal tools. Very different jobs.
 
-Aider and Claude Code both run in your terminal. Both help you write code with AI. But they come from different worlds.
+Aider and Claude Code both run in your terminal. Both help you write code with AI. But they're doing fundamentally different things.
 
-**Aider** is an open-source, model-agnostic coding assistant. It works with any LLM (GPT-4, Claude, Gemini, local models). It focuses on code editing: you tell it what to change, it edits the files. It's lean, flexible, and hackable.
+Aider is an open-source, model-agnostic coding assistant. It works with any LLM: GPT-4, Claude, Gemini, local models. You tell it what to change, it edits the files. It's lean, flexible, and genuinely hackable. The learning curve is gentle.
 
-**Claude Code** is Anthropic's first-party agent. It only runs Claude models, but it goes way beyond code editing. It plans, executes, tests, deploys, connects to external tools, and remembers you across sessions. It's an operating system, not just an editor.
+Claude Code is Anthropic's first-party agent. It only runs Claude models, but it goes well beyond code editing. It plans, executes, tests, deploys, connects to external tools, and remembers you across sessions. It's closer to an operating system than an editor.
 
 <DemoCard title="Same terminal, different depth" steps={[
   { type: 'out', text: '-- Aider --' },
@@ -43,7 +43,7 @@ Aider and Claude Code both run in your terminal. Both help you write code with A
   { type: 'warn', text: '→ Full execution. Tests run. Multiple files. Done.' },
 ]} />
 
-## The Comparison
+## The comparison
 
 | | Claude Code | Aider |
 |---|---|---|
@@ -59,33 +59,33 @@ Aider and Claude Code both run in your terminal. Both help you write code with A
 | **IDE integration** | VS Code, JetBrains extensions | Terminal only |
 | **Pricing** | $20/mo (Pro) or API costs | Free (you bring your own API key) |
 
-## Where Aider Wins
+## Where Aider wins
 
-**Model flexibility.** Aider works with any model. Want to use GPT-4 for some tasks and a local Llama model for others? Aider does that. Claude Code is locked to Claude.
+**Model flexibility.** Aider works with any model. Want to use GPT-4 for some tasks and a local Llama model for others? Aider handles that. Claude Code is locked to Claude. If model flexibility matters to your workflow, this is a real advantage.
 
-**Cost control.** Aider is free. You only pay for API tokens. If you already have an OpenAI or Anthropic API key, you can start immediately with zero subscription.
+**Cost.** Aider is free. You only pay for API tokens. If you already have an Anthropic or OpenAI API key, you start immediately with zero subscription. Depending on your usage patterns, this can be significantly cheaper than $20/month.
 
-**Simplicity.** Aider does one thing well: AI-assisted code editing. The learning curve is gentle. There's no skills, hooks, MCP, or agent framework to learn.
+**Simplicity.** Aider does one thing well: AI-assisted code editing. There's no skills system, no hooks, no MCP, no agent framework to learn. If you want something you can be productive with in 10 minutes, Aider wins on this.
 
-**Hackability.** Fully open source, Python-based, easy to fork and customize. If you want to build your own workflows on top, Aider is more modifiable.
+**Hackability.** Fully open source, Python-based, easy to fork and modify. If you want to build your own workflows on top of an AI coding tool, Aider gives you more surface area to work with.
 
-**Auto-commits.** Aider commits every change automatically with a descriptive message. Easy to review and revert individual edits.
+**Auto-commits.** Aider commits every change automatically with a descriptive message. Easy to review and revert individual edits. This is actually a nice workflow for careful, incremental changes.
 
-## Where Claude Code Wins
+## Where Claude Code wins
 
-**It's an agent, not an editor.** Claude Code doesn't just edit files. It plans an approach, creates files, runs tests, reads output, fixes failures, and commits. Aider edits what you tell it to. Claude Code figures out what needs to happen.
+**It's an agent, not an editor.** This is the core difference. Claude Code doesn't just edit files. It reads your project structure, forms a plan, creates and modifies multiple files, runs tests, reads the output, fixes failures, and commits. Aider edits what you point it at. Claude Code figures out what needs to happen and does it.
 
-**Context awareness.** Claude Code automatically reads your project structure, package.json, configs, and CLAUDE.md. With Aider, you manually `/add` files to its context.
+**Context awareness.** Claude Code automatically reads your project structure, package.json, configs, and CLAUDE.md. With Aider, you manually `/add` every file to its context. On a large project, this is a real time sink.
 
-**Tool ecosystem.** MCP servers connect Claude Code to GitHub, Slack, Jira, databases, and more. Aider works with files on disk. Period.
+**Tool ecosystem.** MCP servers connect Claude Code to GitHub, Slack, Jira, databases, and more. I use this daily for things like creating GitHub issues directly from Claude without leaving the terminal. Aider works with files on disk. That's its scope.
 
-**Memory.** Claude Code remembers your preferences, past decisions, and project context across sessions. Aider starts fresh every time.
+**Memory.** Claude Code remembers your preferences, past decisions, and project context across sessions. Aider starts fresh every time. On a project I've been working on for months, this is not a small thing.
 
-**Non-coder accessibility.** Claude Code has a desktop app, web app, and IDE extensions. You can use it without ever touching the terminal. Aider is terminal-only.
+**Non-coder accessibility.** Claude Code has a desktop app, web app, and IDE extensions. Aider is terminal-only. If you're a PM or designer who wants to use AI to build things, Claude Code has on-ramps that Aider doesn't.
 
-**First-party support.** Claude Code is built by Anthropic. It gets first access to new Claude features (computer use, extended thinking, agent teams). Aider implements them later, if at all.
+**First-party support.** Claude Code is built by Anthropic. It gets first access to new Claude capabilities: computer use, extended thinking, agent teams. Aider implements them later if at all.
 
-## Who Should Use What
+## Who should use what
 
 | You are... | Use |
 |---|---|
@@ -98,6 +98,6 @@ Aider and Claude Code both run in your terminal. Both help you write code with A
 | Wants tool integrations (Slack, Jira) | **Claude Code** |
 | Wants memory across sessions | **Claude Code** |
 
-## Can You Use Both?
+## Can you use both?
 
-Yes, and some people do. Aider for quick edits where you want model choice. Claude Code for complex multi-step tasks where you want the full agent experience. They don't conflict: they're different terminals.
+Yes, and some people do. Aider for quick edits where you want model choice. Claude Code for complex multi-step tasks where you want the full agent. They don't conflict. They're just different terminals you open depending on the job.

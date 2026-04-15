@@ -8,26 +8,26 @@ const GUIDE_URL = 'https://claudecodeguide.dev';
 const levels = [
   {
     level: '01',
-    title: 'Works with any AI chat',
+    title: 'Any AI chat, right now',
     subtitle: 'Zero install',
     description:
-      'Copy any PM Pilot skill from GitHub and paste it into ChatGPT, Claude, Gemini, or any AI chat. No terminal, no setup. Works today, right now.',
+      'Grab any skill file from GitHub and paste it into ChatGPT, Claude, or Gemini. No terminal. No account. You can try this in the next 2 minutes.',
     link: null,
   },
   {
     level: '02',
-    title: 'Better with Claude Desktop',
+    title: 'Claude Desktop',
     subtitle: '5 min setup',
     description:
-      'Open Claude Desktop, create a project, and paste any PM Pilot skill into the project instructions. No terminal needed. Skills persist across every conversation.',
+      'Create a project in Claude Desktop and paste any skill into the project instructions. No terminal needed. Skills stick across every conversation.',
     link: null,
   },
   {
     level: '03',
-    title: 'Full power with Claude Code',
+    title: 'Claude Code CLI',
     subtitle: 'Live Jira, Slack, Calendar',
     description:
-      'Install Claude Code CLI and connect your tools. PM Pilot reads live data: real tickets, real threads, real deadlines.',
+      'This is where it gets serious. PM Pilot reads live data: real tickets, real Slack threads, real deadlines. I use this every day.',
     link: GUIDE_URL,
   },
 ];
@@ -46,7 +46,7 @@ export function PmPilotJourneyMap() {
             Start where you are
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Never used a terminal? No problem. PM Pilot meets you at your current comfort level.
+            Never opened a terminal? Fine. You can get value from PM Pilot today, without installing anything. Upgrade whenever you&apos;re ready.
           </p>
         </div>
 
@@ -80,17 +80,17 @@ export function PmPilotJourneyMap() {
                     rel="noopener noreferrer"
                     className="text-fd-muted-foreground hover:text-fd-foreground transition-colors"
                   >
-                    Connect{' '}
+                    Add{' '}
                     <span className="font-medium text-fd-foreground underline underline-offset-2">
                       Granola
                     </span>{' '}
-                    for meeting transcripts
+                    to get meeting transcripts too
                   </a>
                   <a
                     href={GUIDE_URL}
                     className="text-fd-muted-foreground hover:text-fd-foreground transition-colors"
                   >
-                    Setup guide on{' '}
+                    Full setup guide at{' '}
                     <span className="font-medium text-fd-foreground underline underline-offset-2">
                       claudecodeguide.dev
                     </span>

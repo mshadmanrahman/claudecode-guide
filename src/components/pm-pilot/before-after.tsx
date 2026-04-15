@@ -5,23 +5,23 @@ import { useInView } from '@/hooks/use-in-view';
 const comparisons = [
   {
     task: 'Meeting prep',
-    before: "45 min digging through Jira, Slack, and last week's notes",
-    after: '30 seconds. A brief lands in your terminal.',
+    before: "45 min digging through Jira, Slack, and last week's notes. Then the meeting starts.",
+    after: '30 seconds. A brief drops in your terminal. You walk in actually ready.',
   },
   {
     task: 'Weekly status',
-    before: '2 hours assembling updates, chasing people, guessing at progress',
-    after: 'Auto-generated from real Jira data, formatted and ready to send.',
+    before: '2 hours chasing people for updates and guessing at sprint progress',
+    after: 'Pulled from real Jira data, formatted, ready to send. Takes a minute.',
   },
   {
     task: 'PRD writing',
-    before: 'Staring at a blank Confluence template for 40 minutes',
-    after: 'Guided braindump-first process. Structure comes after thinking.',
+    before: 'Staring at a blank Confluence template for 40 minutes, writing nothing',
+    after: 'Braindump first, structure second. You think out loud; it organises the output.',
   },
   {
     task: 'Market sizing',
-    before: 'Days of spreadsheet hell, questionable data sources',
-    after: 'Structured TAM / SAM / SOM in minutes. Cite your assumptions.',
+    before: 'Days in spreadsheets with numbers you half-trust',
+    after: 'TAM, SAM, SOM with explicit assumptions baked in. Takes minutes.',
   },
 ];
 
@@ -40,10 +40,10 @@ export function PmPilotBeforeAfter() {
             01
           </span>
           <h2 className="mt-4 font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
-            What changes
+            What actually changes
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            PM Pilot doesn&apos;t replace your judgment. It removes everything blocking it.
+            I didn&apos;t want a tool that thinks for me. I wanted one that handles the busywork so I could actually think.
           </p>
         </div>
 

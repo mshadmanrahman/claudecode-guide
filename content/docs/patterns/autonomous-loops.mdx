@@ -1,15 +1,15 @@
 ---
 title: Autonomous Loops
-description: "Let Claude Code fix your tests while you sleep. Task templates, kill switches, and knowing when to let go."
+description: "Point Claude Code at a problem, walk away, come back to a green build. Task templates, kill switches, and why boundaries matter more than anything else."
 ---
 
-## What If You Just... Walked Away?
+## What if you just walked away?
 
-Imagine this: it's Friday evening, 7 tests are failing, and you're tired. You point Claude Code at the test suite, set some boundaries, and go to bed. Saturday morning, the build is green.
+Here's something I've actually done. Friday evening, 7 tests failing, tired. I wrote a task template, set up a stop hook, and went to sleep. Saturday morning: green build, summary in the log.
 
-That's an autonomous loop. Claude Code runs a task, finishes a session, and the stop hook restarts it with the same task. It keeps going until the job is done or you tell it to stop.
+That's an autonomous loop. Claude Code runs a task, the session ends, and a stop hook restarts it with the same task file. It keeps going until the job is done or you tell it to stop.
 
-Let me be real: this is the most powerful pattern in the Claude Code toolkit. It's also the one that demands the most respect. Bounded properly, it's magic. Unbounded, it's a foot gun.
+Long story short: this is the most powerful pattern in the Claude Code toolkit. It's also the one that demands the most respect. Bounded properly, it's magic. Unbounded, it will wreck your codebase at 2am while you sleep peacefully.
 
 <DemoCard title="Autonomous loop fixing tests overnight" steps={[
   { type: 'cmd', text: 'claude --task-file fix-tests.md' },
@@ -27,13 +27,13 @@ Let me be real: this is the most powerful pattern in the Claude Code toolkit. It
   { type: 'warn', text: '→ You went to sleep. Woke up to a green build.' },
 ]} />
 
-## How It Works (Three Pieces)
+## How it works (three pieces)
 
-The loop is dead simple:
+The loop itself is dead simple. Three things make it run:
 
-1. **A task template** that defines what to do
+1. **A task template** that defines the objective and hard limits
 2. **A stop hook** that re-feeds the task when a session ends
-3. **A kill switch** to stop everything when needed
+3. **A kill switch** to stop everything immediately when needed
 
 ```
 You start a session with a task template
@@ -44,9 +44,9 @@ You start a session with a task template
   → Loop continues until task is complete or you intervene
 ```
 
-## Writing a Task Template
+## Writing a task template
 
-Task templates are markdown files with clear scope and hard exit conditions. This is where discipline matters.
+Task templates are markdown files. The discipline isn't in the prose, it's in the exit conditions. If you write vague boundaries, you'll get vague behavior at 4am.
 
 ```markdown
 # Task: Fix Failing Tests
@@ -77,9 +77,9 @@ Run the test suite and fix all failing tests until the suite is green.
 
 Save this to `~/.claude/autonomous/tasks/fix-tests.md`, then copy it to `~/.claude/autonomous/current-task.md` to activate.
 
-## The Stop Hook (What Creates the Loop)
+## The stop hook (what creates the loop)
 
-When Claude Code finishes a session, this hook checks if `current-task.md` still exists. If it does, the loop continues.
+When Claude Code finishes a session, this hook checks if `current-task.md` still exists. If it does, loop continues.
 
 ```bash
 #!/bin/bash
@@ -102,7 +102,7 @@ if [ -f "$TASK_FILE" ]; then
 fi
 ```
 
-## The Kill Switch (Non-Negotiable)
+## The kill switch (non-negotiable)
 
 Every autonomous loop needs a way to die. This is not optional.
 
@@ -113,7 +113,7 @@ touch ~/.claude/autonomous/STOP
 
 One command. The stop hook checks for this file before restarting. No file, loop continues. File exists, loop dies.
 
-**Always test your kill switch before running a long task.** Start a loop, trigger the stop, verify it halts. Do this first. Not after you've let it run for 6 hours.
+**Always test your kill switch before running a long task.** Start a loop, trigger the stop, verify it halts. Do this first. Not after you've let it run for 6 hours and it's rewritten your public API.
 
 <DemoCard title="The kill switch saves you at 3am" steps={[
   { type: 'out', text: 'Autonomous loop running (iteration 14)...' },
@@ -130,7 +130,7 @@ One command. The stop hook checks for this file before restarting. No file, loop
   { type: 'warn', text: '→ One command. Always test this before a long run.' },
 ]} />
 
-## Real-World Example: Autonomous PR Reviewer
+## Real-world example: autonomous PR reviewer
 
 ```markdown
 # Task: Review Open Pull Requests
@@ -156,24 +156,24 @@ and leave structured feedback.
 5. Delete task file when no unreviewed PRs remain
 ```
 
-## When NOT to Use This
+## When NOT to use this
 
-Look, here's the deal. Some things should never run autonomously:
+Some things should never run autonomously. Here's the deal.
 
-**External APIs with side effects.** A loop that sends emails or posts to Slack can cause real damage if it misfires. Keep autonomous work read-heavy and write-light.
+**External APIs with side effects.** A loop that sends emails or posts to Slack causes real damage if it misfires 20 times. Keep autonomous work read-heavy and write-light.
 
-**Production data.** One bad query in a loop that runs 50 iterations is 50 bad queries. Just don't.
+**Production data.** One bad query in a loop that runs 50 iterations is 50 bad queries. Don't.
 
-**Unbounded scope.** "Refactor the entire codebase" is not an autonomous task. "Fix the 12 ESLint errors in src/utils/" is.
+**Unbounded scope.** "Refactor the entire codebase" is not an autonomous task. "Fix the 12 ESLint errors in src/utils/" is. The difference is a concrete finish line.
 
-**Anything you haven't done manually first.** If you haven't done the task by hand at least once, you don't know enough to write boundaries for it. Period.
+**Anything you haven't done manually first.** If you haven't done the task by hand at least once, you don't know enough to write boundaries for it. Period. This rule has saved me multiple times.
 
-## Getting Started Safely
+## Getting started safely
 
 **Start with read-only tasks.** Your first autonomous loop should read code, analyze patterns, or generate reports. Nothing that writes to external systems.
 
 **Define exit conditions clearly.** "Fix all tests" is bounded. "Improve code quality" is not. Every task needs a concrete finish line.
 
-**Review your first 3-5 runs manually.** Trust builds gradually. Don't set-and-forget until you've verified the output is solid.
+**Review your first 3-5 runs manually.** Trust builds gradually. Don't set-and-forget until you've verified the output a few times.
 
-**Keep task files short.** 20-30 lines is ideal. If you need more, the task is too big. Break it up.
+**Keep task files short.** 20-30 lines is ideal. If you need more, the task is probably too big. Break it into smaller loops.

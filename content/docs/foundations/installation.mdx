@@ -1,31 +1,29 @@
 ---
 title: How to Install Claude Code
-description: "Step-by-step installation guide for Mac, Windows, and Linux. From zero to your first prompt in 10 minutes."
+description: "Zero to your first real prompt in 10 minutes. Mac, Windows, Linux. No experience required."
 ---
 
-Claude Code brings Claude directly into your coding environment. You type what you want in plain English, and it reads, writes, and runs code for you. This guide will get you from zero to your first working prompt in about 10 minutes.
+Claude Code lives on your computer and works directly with your files. One install, then you talk to it in plain English. This gets you there.
 
-**What you need:** A computer (Mac, Windows, or Linux), an internet connection, and a paid Anthropic account.
+**What you need:** A computer (Mac, Windows, or Linux), internet, and a paid Anthropic account.
 
-> **Using VS Code or JetBrains?** You can install Claude Code as an extension : no terminal needed. Search "Claude Code" in your editor's extension/plugin marketplace. The rest of this page covers the terminal (CLI) install for those who want it.
+> **Using VS Code or JetBrains?** Search "Claude Code" in your editor's extension marketplace. No terminal needed. The rest of this page covers the CLI install for people who want it.
 
 ## Never Used a Terminal Before?
 
-No shame. Here's the 60-second version.
+No shame here. A terminal (also called "command line" or "shell") is just a text window where you type commands instead of clicking buttons. On Mac it's called Terminal, on Windows it's PowerShell, on Linux it's usually Terminal too.
 
-A **terminal** (also called "command line" or "shell") is a text window where you type commands instead of clicking buttons. That's it. On Mac it's called **Terminal**, on Windows it's **PowerShell**, on Linux it's usually called **Terminal** too.
-
-Here are the only three commands you need to know:
+Three commands are all you need to know:
 
 | Command | What it does | Example |
 |---------|-------------|---------|
-| `cd` | **Change directory** : move into a folder | `cd Documents` |
-| `mkdir` | **Make directory** : create a new folder | `mkdir my-project` |
-| `ls` | **List** : see what's in the current folder | `ls` |
+| `cd` | Move into a folder | `cd Documents` |
+| `mkdir` | Create a new folder | `mkdir my-project` |
+| `ls` | See what's in the current folder | `ls` |
 
-That's genuinely it. Everything else, you can ask Claude to do for you once it's installed.
+Everything else, you can ask Claude to do for you once it's running.
 
-**"What's an environment variable?"** It's just a setting stored on your computer that programs can read. Like a name tag that says `API_KEY=abc123`. You won't need them during installation, but if you see `env` or `$VARIABLE` later, that's what they mean. Claude Code can set these up for you when the time comes.
+One more thing you'll see later: "environment variables." Think of those as settings stored on your computer that programs can read. Like a sticky note that says `API_KEY=abc123`. You won't need them during installation. Claude Code can set them up for you when the time comes.
 
 <DemoCard title="What the install looks like" steps={[
   { type: 'cmd', text: 'npm install -g @anthropic-ai/claude-code' },
@@ -43,71 +41,69 @@ That's genuinely it. Everything else, you can ask Claude to do for you once it's
 
 ## Install Node.js First
 
-Claude Code runs on Node.js, which is a program that lets tools like Claude Code work on your computer. Think of it as the engine under the hood. You need version 18 or newer.
+Claude Code runs on Node.js, which is basically the engine that makes CLI tools like this work on your machine. You need version 18 or newer.
 
-**Check if you already have it:** Open your terminal (instructions below) and type:
+Check if you already have it. Open your terminal and type:
 
 ```bash
 node --version
 ```
 
-If you see something like `v18.17.0` or higher, you're good. Skip ahead to the installation step for your operating system.
-
-**If you don't have Node.js**, head to [nodejs.org](https://nodejs.org) and download the LTS (Long Term Support) version. Run the installer and follow the prompts. It takes about two minutes.
+If you see something like `v18.17.0` or higher, skip ahead. If you get an error, go to [nodejs.org](https://nodejs.org) and download the LTS version. Run the installer, follow the prompts. Two minutes.
 
 ## macOS
 
 ### Step 1: Open Terminal
 
-Press **Cmd + Space** to open Spotlight, type **Terminal**, and hit Enter. A window with a text prompt will appear. This is where you'll type commands.
+Press **Cmd + Space**, type **Terminal**, hit Enter. A window with a text prompt appears.
 
 ### Step 2: Install Claude Code
 
-Paste this command and press Enter:
+Paste this and press Enter:
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
 
-<VocabBridge term="npm" explanation="Node Package Manager: a tool that downloads and installs programs for you, like an app store for developer tools.">npm</VocabBridge> will download and install Claude Code globally on your machine. You should see some progress text scroll by, and then it will finish.
+<VocabBridge term="npm" explanation="Node Package Manager: a tool that downloads and installs programs for you, like an app store for developer tools.">npm</VocabBridge> downloads and installs Claude Code globally. You'll see progress text scroll by, then it stops.
 
 ### Troubleshooting on Mac
 
-**"npm: command not found"** means Node.js isn't installed yet. Either download it from [nodejs.org](https://nodejs.org) or, if you use <VocabBridge term="Homebrew" explanation="A popular Mac tool that installs software from the command line: like an app store you type into.">Homebrew</VocabBridge>, run:
+**"npm: command not found"** means Node.js isn't installed. Download from [nodejs.org](https://nodejs.org) or, if you use <VocabBridge term="Homebrew" explanation="A popular Mac tool that installs software from the command line: like an app store you type into.">Homebrew</VocabBridge>:
 
 ```bash
 brew install node
 ```
 
-**"EACCES: permission denied"** means npm doesn't have the right permissions. The quickest fix:
+**"EACCES: permission denied"** is a permissions issue. Quick fix:
 
 ```bash
 sudo npm install -g @anthropic-ai/claude-code
 ```
 
-You'll be asked for your Mac password. Type it (nothing will appear on screen, that's normal) and press Enter.
+Type your Mac password when asked. Nothing will appear on screen while you type. That's normal.
 
-For a more permanent fix that avoids needing `sudo` in the future, see the [troubleshooting page](/docs/foundations/troubleshooting).
+For a permanent fix that avoids `sudo` in the future, see the [troubleshooting page](/docs/foundations/troubleshooting).
 
 ## Windows
 
-You have two options on Windows. The direct install is faster. WSL gives you a better long-term experience.
+Two options. Direct install is faster. WSL gives you a better experience long-term.
 
 ### Option A: Direct Install (Fastest)
 
-**Step 1:** Open **PowerShell**. Press the Windows key, type **PowerShell**, and click "Run as Administrator."
+Open **PowerShell**. Press Windows key, type PowerShell, click "Run as Administrator."
 
-**Step 2:** Paste this command and press Enter:
+Paste this and press Enter:
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
 
-That's it. If you get a permission error, make sure you opened PowerShell as Administrator (right-click, "Run as Administrator").
+If you get a permission error, make sure you opened PowerShell as Administrator.
 
-### Option B: WSL (Recommended for Daily Use)
+### Option B: WSL (Better for Daily Use)
 
-WSL (Windows Subsystem for Linux) gives you a Linux environment inside Windows. Claude Code works best here because many development tools are designed for Linux and Mac.
+WSL (Windows Subsystem for Linux) gives you a Linux environment inside Windows. More development tools are designed for Linux and Mac, so things tend to work more smoothly here.
 
 **Step 1:** Open PowerShell as Administrator and run:
 
@@ -115,9 +111,9 @@ WSL (Windows Subsystem for Linux) gives you a Linux environment inside Windows. 
 wsl --install
 ```
 
-Restart your computer when prompted.
+Restart when prompted.
 
-**Step 2:** After restarting, open the Ubuntu app from your Start menu. It will finish setting up and ask you to create a username and password.
+**Step 2:** After restarting, open the Ubuntu app from your Start menu. It finishes setup and asks for a username and password.
 
 **Step 3:** Inside Ubuntu, install Node.js and Claude Code:
 
@@ -131,7 +127,7 @@ npm install -g @anthropic-ai/claude-code
 
 ### Step 1: Open your terminal
 
-Most Linux distributions have a terminal shortcut with **Ctrl + Alt + T**.
+Most Linux distributions use **Ctrl + Alt + T**.
 
 ### Step 2: Install Claude Code
 
@@ -141,7 +137,7 @@ npm install -g @anthropic-ai/claude-code
 
 ### Troubleshooting on Linux
 
-**"EACCES: permission denied"** is common on Linux. Instead of using `sudo`, fix npm's default directory:
+**"EACCES: permission denied"** is common. Fix npm's default directory instead of using `sudo`:
 
 ```bash
 mkdir -p ~/.npm-global
@@ -156,80 +152,78 @@ Then run the install command again:
 npm install -g @anthropic-ai/claude-code
 ```
 
-## Verify Your Installation
+## Verify It Worked
 
-On any operating system, confirm everything worked by running:
+On any operating system:
 
 ```bash
 claude --version
 ```
 
-You should see a version number printed. If you see an error instead, check the [troubleshooting page](/docs/foundations/troubleshooting).
+You should see a version number. Error instead? Check the [troubleshooting page](/docs/foundations/troubleshooting).
 
-## Log In and Start Claude Code
+## Log In and Start
 
 ### Step 1: Launch Claude Code
 
-Open your terminal, navigate to any folder (or stay where you are), and type:
+Navigate to any folder and type:
 
 ```bash
 claude
 ```
 
-The first time you run this, Claude Code will walk you through logging in with your Anthropic account.
+First time, it walks you through logging in with your Anthropic account.
 
 ### Step 2: You Need a Paid Plan
 
-Claude Code requires an active subscription:
+Claude Code requires an active subscription. Free tier doesn't include it.
 
-- **Claude Pro** ($20/month) gives you a generous daily allowance
-- **Claude Max** ($100/month) gives you significantly more capacity for heavy usage
+- **Claude Pro** ($20/month): generous daily limit, good for most people
+- **Claude Max** ($100/month): significantly more capacity for heavy use
 
-The free tier does not include Claude Code access. If you don't have a plan yet, sign up at [claude.ai](https://claude.ai).
+Sign up at [claude.ai](https://claude.ai) if you haven't yet.
 
 ## Your First Prompt
 
-Let's make sure everything works. Navigate to a folder where you'd like to experiment:
+Let's confirm everything works. Navigate somewhere to experiment:
 
 ```bash
 mkdir claude-test && cd claude-test
 claude
 ```
 
-Once Claude Code starts, type this prompt:
+Once Claude Code starts, type:
 
 ```
 Create a simple HTML page that says Hello World with some nice styling
 ```
 
-Watch it work. Claude Code will create a file, write HTML into it, and tell you what it did.
+Watch what happens. Claude Code creates a file, writes HTML into it, tells you what it did.
 
-**How to actually see it:** Open the HTML file in your browser. The easiest way:
-- **Mac:** Run `open index.html` in your terminal
-- **Windows:** Run `start index.html` in PowerShell
-- **Linux:** Run `xdg-open index.html` in your terminal
-- **Or** just find the file in your file manager and double-click it
+To see the result in your browser:
+- **Mac:** `open index.html` in terminal
+- **Windows:** `start index.html` in PowerShell
+- **Linux:** `xdg-open index.html`
+- Or just find the file in your file manager and double-click it
 
-You should see a styled "Hello World" page. You just used Claude Code for the first time.
+You should see a styled "Hello World" page. That's Claude Code doing real work.
 
-> **Pro tip:** You can also just ask Claude to do it: `"open the file in my browser"`. It knows how.
+> **Shortcut:** You can also just ask: `"open the file in my browser"`. It knows how.
 
 ## What's Next
 
-You're installed and running. Here's where to go from here:
+You're in. Here's where to go from here:
 
-- **[Full Guided Setup](/guide)** walks you through configuring Claude Code for real projects
-- **[CLAUDE.md Guide](/docs/foundations/claude-md)** shows you how to set up your workspace so Claude Code remembers your preferences
-- **[Glossary](/docs/foundations/glossary)** if you run into any terms you don't recognize
+- **[Full Guided Setup](/guide)** for configuring Claude Code for real projects
+- **[CLAUDE.md Guide](/docs/foundations/claude-md)** so Claude Code remembers your preferences between sessions
+- **[Glossary](/docs/foundations/glossary)** for any terms you don't recognize
 
 ### Not Ready for the Terminal?
 
-If the terminal feels intimidating right now, that's completely fine. [Lovable](https://lovable.link/4IOZkKK) lets you build apps with AI using a visual interface instead. No terminal, no code. You can always come back to Claude Code when you're ready. (20% off your first month with that link.)
+Completely fine. [Lovable](https://lovable.link/4IOZkKK) lets you build apps with AI using a visual interface. No terminal, no code. Come back to Claude Code whenever you're ready. (20% off your first month with that link.)
 
 ### Still Stuck?
 
-If something went wrong and the steps above didn't help:
-
-- Check the [Troubleshooting page](/docs/foundations/troubleshooting) for common fixes
-- Visit [Anthropic's official documentation](https://docs.anthropic.com/en/docs/claude-code) for the latest setup instructions
-- Search the [Claude Code GitHub issues](https://github.com/anthropics/claude-code/issues) to see if others hit the same problem
+- [Troubleshooting page](/docs/foundations/troubleshooting) for common fixes
+- [Anthropic's official documentation](https://docs.anthropic.com/en/docs/claude-code) for the latest
+- [Claude Code GitHub issues](https://github.com/anthropics/claude-code/issues) if others hit the same problem

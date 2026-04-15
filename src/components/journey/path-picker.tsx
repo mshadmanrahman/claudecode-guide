@@ -35,7 +35,7 @@ export function PathPicker({ os, iface, onOsChange, onInterfaceChange, onReset }
         Personalise your path
       </h3>
       <p className="mt-1 text-sm text-fd-muted-foreground">
-        Tell us your setup and we&apos;ll tailor the steps for you.
+        Tell me your setup and I&apos;ll tailor the steps for you.
       </p>
 
       {/* Step 1: OS */}
@@ -61,7 +61,7 @@ export function PathPicker({ os, iface, onOsChange, onInterfaceChange, onReset }
         <div className="mt-4 flex items-center justify-between animate-slide-up-fade">
           <p className="flex items-center gap-2 text-sm text-green-700 dark:text-green-400">
             <Check className="h-4 w-4" />
-            Got it &mdash; {osLabels[os]} + {interfaceLabels[iface]}. Steps are tailored for you.
+            Got it: {osLabels[os]} + {interfaceLabels[iface]}. Steps are tailored for you.
           </p>
           <button
             type="button"

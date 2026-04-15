@@ -1,15 +1,15 @@
 ---
 title: Hooks
-description: "Stop remembering to format, lint, and check for secrets. Configure it once, never think about it again."
+description: "This is where the real power is. Configure behaviors once, they run silently forever. Format on every edit, block secrets before they commit, load context at session start."
 ---
 
-## Why Do You Keep Forgetting?
+## You keep forgetting. Hooks don't.
 
-Every time you tell Claude Code "remember to run Prettier after editing" or "always check for secrets before committing," you're wasting a prompt. You're also going to forget eventually.
+Every time you tell Claude Code "remember to run Prettier after editing" or "always check for secrets before committing," you're burning a prompt. And you're going to forget to say it eventually.
 
-Hooks fix this permanently. They're scripts that fire automatically before a tool runs, after a tool runs, or when a session starts. You set them up once and they work silently forever.
+Hooks fix this permanently. They're scripts that fire automatically before a tool runs, after a tool runs, or when a session starts. Set them up once and they work silently forever.
 
-Think of them like git hooks, but for Claude Code. And honestly? They're more useful than most git hooks you've written.
+Think of them like git hooks, but for Claude Code. And frankly, they're more useful than most git hooks you've actually written.
 
 <DemoCard title="Hooks working silently in the background" steps={[
   { type: 'cmd', text: 'claude "add a new API endpoint for users"' },
@@ -26,7 +26,7 @@ Think of them like git hooks, but for Claude Code. And honestly? They're more us
   { type: 'warn', text: '→ You configured this once. It runs forever.' },
 ]} />
 
-## The Three Hook Types
+## The three hook types
 
 ### PreToolUse
 
@@ -38,15 +38,15 @@ Use it to block writes to protected files, catch secrets before they land in cod
 
 Fires **after** Claude Code does something. This is your cleanup crew.
 
-Auto-format code after every edit. Run a linter on new files. Log tool usage for auditing. The stuff you'd otherwise have to nag about.
+Auto-format code after every edit. Run a linter on new files. Log tool usage for auditing. The stuff you'd otherwise have to nag about constantly.
 
 ### SessionStart
 
 Fires **when a session begins**. This is your context loader.
 
-Remind Claude Code to read memory files. Check that env vars are set. Load the latest handoff so you never start cold.
+Remind Claude Code to read memory files. Check that env vars are set. Load the latest handoff so you never start a session cold. This one is criminally underused.
 
-## How to Configure Them
+## How to configure them
 
 Hooks live in your `.claude/settings.json`. Each one says when to fire and what to run.
 
@@ -76,9 +76,9 @@ Hooks live in your `.claude/settings.json`. Each one says when to fire and what 
 
 The `matcher` field controls which tools trigger the hook. Pipe-separate tool names like `"Write|Edit"` to match multiple. Leave it out and the hook fires on every tool call.
 
-## Your First Hook (30 Seconds, Huge Payoff)
+## Your first hook (30 seconds, huge payoff)
 
-The single highest-value hook you can add right now ensures Claude Code never starts a session cold.
+The single highest-value hook ensures Claude Code never starts a session cold. I've used this one for months and it's saved me more time than any other single config change.
 
 ```json
 {
@@ -104,9 +104,9 @@ Session startup checklist:
 
 No more "wait, you forgot about what we did yesterday." Done.
 
-## Auto-Format on Every Edit
+## Auto-format on every edit
 
-This is the second hook everyone should have. Prettier runs after every file edit so formatting is never a conversation:
+The second hook everyone should have. Prettier runs after every file edit so formatting is never a conversation:
 
 ```json
 {
@@ -128,7 +128,7 @@ The `|| true` keeps things moving if Prettier can't handle a file type. Always a
   { type: 'out', text: '[SessionStart] Loading context...' },
   { type: 'success', text: '✓ Read MEMORY.md (3 projects, 8 preferences)' },
   { type: 'success', text: '✓ Read handoffs/2026-04-08.md' },
-  { type: 'success', text: '✓ Loaded: "Dashboard feature : tooltip PR pending review"' },
+  { type: 'success', text: '✓ Loaded: "Dashboard feature: tooltip PR pending review"' },
   { type: 'out', text: '' },
   { type: 'cmd', text: '"continue where we left off"', delay: 600 },
   { type: 'out', text: 'Resuming dashboard tooltips. Reading PR #142 comments...' },
@@ -136,14 +136,14 @@ The `|| true` keeps things moving if Prettier can't handle a file type. Always a
   { type: 'warn', text: '→ Zero re-explanation. The hook loaded everything.' },
 ]} />
 
-## Tips That Actually Matter
+## Tips that actually matter
 
-**Keep hooks fast.** They block the action they're attached to. A 10-second hook means Claude Code pauses for 10 seconds before every tool call. Under 1 second is the target.
+**Keep hooks fast.** They block the action they're attached to. A 10-second hook means Claude Code pauses 10 seconds before every tool call. Under 1 second is the target. Profile your hooks if they feel slow.
 
-**Test with echo first.** Before wiring up a real script, use `echo` to verify the hook fires when you expect. Once confirmed, swap in the real command.
+**Test with echo first.** Before wiring up a real script, use `echo` to verify the hook fires when you expect. Confirm the timing, then swap in the real command.
 
-**Don't go overboard.** Three or four well-chosen hooks beat twenty noisy ones. Start with a SessionStart reminder and one PostToolUse formatter. Add more only when you feel friction.
+**Don't go overboard.** Three or four well-chosen hooks beat twenty noisy ones. Start with a SessionStart reminder and one PostToolUse formatter. Add more only when you feel actual friction.
 
 **Scope them right.** Hooks in `.claude/settings.json` at the project level only fire for that project. Hooks in `~/.claude/settings.json` fire globally. Project-specific formatting goes at the project level. Universal safety checks go global.
 
-**Handle failures gracefully.** A crashing hook can block your entire workflow. Always add `2>/dev/null || true` for non-critical hooks, and test commands independently before adding them to config.
+**Handle failures gracefully.** A crashing hook can block your entire workflow. Always add `2>/dev/null || true` for non-critical hooks. Test commands independently before adding them to config.

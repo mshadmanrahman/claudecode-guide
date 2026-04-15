@@ -1,15 +1,15 @@
 ---
 title: The Definitive CLAUDE.md Guide
-description: Skip this file and Claude Code is basically guessing. Here's how to actually set it up so every session starts warm and every response is on point.
+description: "Skip this file and Claude Code guesses its way through every session. Here's how to write one that actually works, and why most people do it wrong."
 ---
 
 ## Why Most People Get Bad Results
 
-Here's the deal. Most people install Claude Code, type a question, get a mid answer, and walk away thinking "AI isn't that useful yet."
+Most people install Claude Code, type something, get a mediocre answer, and conclude "AI isn't that useful yet."
 
-But the problem isn't Claude Code. It's that they skipped the one file that makes it actually work.
+The problem isn't Claude Code. They skipped the one file that makes it work.
 
-Without CLAUDE.md, every session starts blind. Claude Code doesn't know your stack. Doesn't know your coding style. Doesn't know that your team uses Tailwind, not styled-components. Doesn't know you hate verbose output. It's guessing. And guessing produces mid results.
+Without CLAUDE.md, every session starts blind. Claude Code doesn't know your stack. Doesn't know your coding style. Doesn't know your team uses Tailwind, not styled-components. Doesn't know you hate verbose output. It guesses. And guessing produces average results.
 
 <DemoCard title="Same prompt. Completely different results." steps={[
   { type: 'cmd', text: 'claude "Add a login form"' },
@@ -29,24 +29,19 @@ Without CLAUDE.md, every session starts blind. Claude Code doesn't know your sta
   { type: 'warn', text: '→ Same prompt. Completely different result.' },
 ]} />
 
-Same person. Same prompt. Night and day difference. The only variable? A CLAUDE.md file.
+Same person. Same prompt. Night and day difference. The only variable: a CLAUDE.md file.
 
 ## OK So What Is It Actually?
 
-**First: what's a .md file?** It's just a text file written in **Markdown** : a simple way to format text using symbols like `#` for headings and `-` for bullet points. You can open it in any text editor (Notepad, VS Code, whatever). It's not code. It's closer to writing a Google Doc, but as a plain text file. If you've written a Reddit post or a GitHub README, you've already used Markdown.
+First, what's a `.md` file? It's just a text file written in **Markdown**: a simple way to format text using symbols like `#` for headings and `-` for bullet points. You can open it in any text editor. It's not code. If you've ever written a Reddit post or a GitHub README, you've already used Markdown.
 
-CLAUDE.md is a markdown file at the root of your project that tells Claude Code how to behave. Think of it like onboarding a new team member. You wouldn't just hand someone a laptop and say "go write code." You'd tell them:
+CLAUDE.md sits at the root of your project and tells Claude Code how to behave. Think of onboarding a new team member. You wouldn't hand someone a laptop and say "go write code." You'd tell them what the project is, what tech stack you use, how you like things done, and what mistakes to avoid.
 
-- What the project is and how it's structured
-- What tech stack you use
-- How you like things done
-- What mistakes to avoid
-
-That's literally what CLAUDE.md does. Except this team member reads your instructions perfectly, every single time, and never forgets them during the session.
+That's what CLAUDE.md does. Except this team member reads your instructions perfectly, every single time, and never forgets them.
 
 ## The Five Things Your CLAUDE.md Needs
 
-Most people write one section and call it done. That gets you maybe 30% of the value. Here's the full picture:
+Most people write one section and call it done. That gets you maybe 30% of the value.
 
 ### 1. Tell it what it's working with
 
@@ -59,13 +54,13 @@ Auth: Clerk.
 Deploy target: Vercel.
 ```
 
-Simple. But you'd be shocked how many people skip this. Without it, Claude Code has to infer your stack from your `package.json` every single time. Sometimes it guesses wrong.
+Simple. But you'd be surprised how many people skip this. Without it, Claude Code infers your stack from your `package.json` every single time. Sometimes it guesses wrong.
 
-**"I don't know my tech stack."** That's completely fine. Your tech stack is just the tools and languages your project uses. If you don't know, run `claude /init` and Claude will figure it out by scanning your project files. It'll detect your framework, language, and tools automatically. You don't need to know what "Next.js" or "Drizzle ORM" means : Claude will write the right answer for you.
+**"I don't know my tech stack."** That's fine. Your tech stack is just the tools and languages your project uses. If you're unsure, run `claude /init` and Claude scans your project files, detects your framework and language, and writes the CLAUDE.md for you. You don't need to know what "Drizzle ORM" means. Just let it figure it out.
 
-> **The secret:** A huge amount of CLAUDE.md setup can be delegated to Claude itself. Just say: `"Scan my project and create a CLAUDE.md with my tech stack, build commands, and project structure."` It'll do it in 10 seconds. Then you just add your personal preferences on top.
+> **The real shortcut:** You can delegate almost all of CLAUDE.md setup to Claude. Say: `"Scan my project and create a CLAUDE.md with my tech stack, build commands, and project structure."` Done in 10 seconds. Then add your personal preferences on top.
 
-**Pro tip:** If you have a complex workspace, point to files instead of inlining everything. CLAUDE.md is an index, not a dump.
+For complex workspaces, point to files instead of inlining everything. CLAUDE.md is an index, not a dump.
 
 ```markdown
 Read `docs/architecture.md` for the full system design.
@@ -74,7 +69,7 @@ Read `docs/conventions.md` for coding standards.
 
 ### 2. Define how sessions start and end
 
-This is the most underused part and honestly the biggest game-changer.
+This is the most underused section. Also the biggest game-changer.
 
 ```markdown
 ## Session Lifecycle
@@ -85,7 +80,7 @@ This is the most underused part and honestly the biggest game-changer.
 
 Without this, every session is stateless. You close the tab, everything's gone. With it, sessions compound. After a month, Claude Code knows your projects, your preferences, and your common patterns without you saying a word.
 
-I know what you're thinking: "That sounds like extra work." It is, for about a week. Then it starts saving you 15-20 minutes per session. The math is not close.
+I know what you're thinking: "That's extra work." It is, for about a week. Then it starts saving 15-20 minutes per session. The math isn't close.
 
 ### 3. Tell it how you communicate
 
@@ -98,9 +93,9 @@ I know what you're thinking: "That sounds like extra work." It is, for about a w
 - Code should be production-ready, not "here's a starting point."
 ```
 
-This is huge and nobody talks about it. Without explicit preferences, Claude Code defaults to that verbose, hedging, "here are several approaches you might consider" mode. You know the one. It's polite but useless when you need a straight answer.
+This matters a lot and nobody talks about it. Without explicit preferences, Claude Code defaults to that verbose, hedging, "here are several approaches you might consider" mode. Polite but useless when you need a straight answer.
 
-Put your communication preferences in CLAUDE.md and suddenly every response matches how you actually want to work.
+Put your communication preferences in CLAUDE.md and every response starts matching how you actually want to work.
 
 ### 4. Set the rules for how it works
 
@@ -113,7 +108,7 @@ Put your communication preferences in CLAUDE.md and suddenly every response matc
 4. Verify before calling it done. Run tests. Check the diff.
 ```
 
-This is the difference between "doing things" and "doing things well." Without orchestration rules, Claude Code will just start writing code the moment you ask. Sometimes that's fine. For anything complex, you want it to plan first, break down the work, and verify the result.
+Without orchestration rules, Claude Code starts writing code the moment you ask. Sometimes that's fine. For anything complex, you want it to plan first, break down the work, and verify the result. This section is what separates "doing things" from "doing things well."
 
 ### 5. Register your tools
 
@@ -126,13 +121,13 @@ Rules: `_context/rules/` (coding standards)
 Commands: `.claude/commands/` (slash commands)
 ```
 
-This tells Claude Code what it has to work with. Skills, agents, hooks, custom commands. If it doesn't know they exist, it won't use them.
+If Claude Code doesn't know your skills and agents exist, it won't use them. This tells it what it has to work with.
 
 ## The Three Mistakes Everyone Makes
 
 ### Mistake 1: Dumping everything inline
 
-Your CLAUDE.md is 2000 lines long. It has your entire coding style guide, all your project history, and your life story. Claude Code reads it all at the start of every session, eats a chunk of your context window, and starts ignoring half of it.
+Your CLAUDE.md is 2000 lines long. It has your entire coding style guide, all your project history, and your life story. Claude Code reads it all at the start of every session, eats a chunk of your context window, and starts ignoring half of it anyway.
 
 **Fix:** Keep CLAUDE.md under 100 lines. Use it as a table of contents that points to other files. Let Claude Code read those on demand.
 
@@ -140,7 +135,7 @@ Your CLAUDE.md is 2000 lines long. It has your entire coding style guide, all yo
 
 You don't define start/end protocols. Every session starts cold. You spend 10 minutes re-explaining what happened yesterday.
 
-**Fix:** Add the session lifecycle section above. Two minutes of investment at the end of each session saves ten minutes at the start of the next one. Every single time.
+**Fix:** Add the session lifecycle section. Two minutes of investment at the end of each session saves ten at the start of the next. Every single time.
 
 ### Mistake 3: Being vague
 
@@ -173,16 +168,16 @@ CLAUDE.md (index, ~80 lines)
 
 Every session starts in under 10 seconds. Zero re-explanation. Corrections from last month still apply. Handoffs from yesterday load automatically.
 
-It took about a week to set up. It saves 30+ minutes daily. The ROI is absurd.
+Took about a week to set up. Saves 30+ minutes daily. The ROI is absurd.
 
 ## Getting Started (5 Minutes)
 
-You don't need all of this on day one. Start small:
+You don't need all of this on day one.
 
 **Right now:** Run `claude /init` in your project. It generates a basic CLAUDE.md from your codebase. That alone is a massive improvement over nothing.
 
-**This week:** Add communication preferences and basic session lifecycle (read memory at start, write handoff at end).
+**This week:** Add communication preferences and a basic session lifecycle (read memory at start, write handoff at end).
 
 **This month:** Add orchestration rules as you discover patterns. Add skills for repeated workflows.
 
-The system grows with you. That's the point. You don't need to architect the whole thing upfront. You need to start, and then let it compound.
+The system grows with you. You don't need to architect the whole thing upfront. Start, and let it compound.

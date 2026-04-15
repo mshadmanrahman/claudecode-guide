@@ -496,10 +496,10 @@ const installInstructions: Record<string, InstallBlock> = {
 };
 
 const interfaceBlurbs: Record<JourneyInterface, string> = {
-  web: 'The web app at claude.ai is the easiest way to start. No installation, no terminal, no setup. Just a chat interface in your browser. Great for writing, brainstorming, and learning what Claude can do before going deeper.',
-  desktop: 'The desktop app gives you a native window on your computer. It feels faster than the browser, works with keyboard shortcuts, and stays in your dock/taskbar. Same capabilities as the web app, but more integrated into your workflow.',
-  cli: 'The terminal (CLI) is where Claude Code truly shines. It reads your files, runs commands, writes code, and builds entire projects. This is the "AI pair programmer" experience. It requires a bit of setup but unlocks the most power.',
-  ide: 'IDE extensions bring Claude directly into your code editor. You get AI assistance right next to your code - ask questions, get completions, run commands - without switching windows. Best of both worlds.',
+  web: 'claude.ai in a browser tab. Nothing to install, nothing to configure. Just open it and start. Good for writing, brainstorming, and getting a feel for what Claude can do before committing to anything.',
+  desktop: 'A proper native window on your computer. Feels snappier than the browser, lives in your dock, works with keyboard shortcuts. Same capabilities as the web app but less context-switching.',
+  cli: 'This is where Claude Code genuinely earns its name. It reads your files, runs commands, writes code, builds whole projects. The "AI pair programmer" thing people keep talking about. A bit of setup upfront, a lot of power after.',
+  ide: 'Claude lives right inside your editor. Ask questions, get completions, run commands without leaving VS Code or Cursor. No window switching. It\'s surprisingly good once you get used to it.',
 };
 
 function getInstallBlock(os: JourneyOs | null, iface: JourneyInterface | null): InstallBlock | null {
@@ -518,7 +518,7 @@ export default function JourneyPage() {
   return (
     <div className="flex flex-col bg-fd-background">
       <DeprecationBanner
-        message="Looking for the quickest way to get started? Our new guided setup gets you from zero to your first win in 5 minutes."
+        message="Want the fastest path? The new guided setup gets you from zero to your first win in under 5 minutes."
         linkText="Go to Start Here"
         linkHref="/start"
       />
@@ -528,14 +528,14 @@ export default function JourneyPage() {
         <div className="relative z-10">
           <div className="animate-slide-up-fade mb-3 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm">
             <Map className="h-3.5 w-3.5 text-fd-muted-foreground" />
-            <span className="text-fd-muted-foreground">The complete learning path</span>
+            <span className="text-fd-muted-foreground">The full learning path</span>
           </div>
 
           <h1 className="animate-slide-up-fade delay-100 font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-5xl">
             The Claude Code Roadmap
           </h1>
           <p className="animate-slide-up-fade delay-200 mx-auto mt-3 max-w-lg text-base text-fd-muted-foreground">
-            Six stages from first install to mastery. Click any topic to learn more.
+            Six stages, first install to actual mastery. Click any topic to dig in.
           </p>
         </div>
       </section>
@@ -733,7 +733,7 @@ export default function JourneyPage() {
             <Link href="/guide" className="font-medium text-fd-foreground underline">
               step-by-step guide
             </Link>{' '}
-            walks you through setup hands-on.
+            walks you through setup with your hands on the keyboard.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
@@ -756,7 +756,7 @@ export default function JourneyPage() {
               Need Claude Pro to follow along?
             </p>
             <p className="mt-1 text-xs text-fd-muted-foreground">
-              Most tutorials work best with Claude Pro ($20/mo) or Max ($100/mo).
+              Most of these work best with Claude Pro ($20/mo) or Max ($100/mo). I use Max.
             </p>
             <a
               href="/docs/comparisons/pro-vs-max"

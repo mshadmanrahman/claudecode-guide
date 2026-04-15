@@ -33,7 +33,7 @@ export default function GuidePage() {
   return (
     <div className="min-h-screen bg-fd-background">
       <DeprecationBanner
-        message="We've built a better getting-started experience! The new guided setup walks you through everything step by step."
+        message="There's a better way to start now. The new guided setup walks you through everything, step by step, in under 5 minutes."
         linkText="Try the new Start Here"
         linkHref="/start"
       />
@@ -62,12 +62,12 @@ export default function GuidePage() {
 
         <div className="mt-8 text-center">
           <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl">
-            Let&apos;s get you started.
+            Let&apos;s get you running.
           </h1>
           <p className="mt-4 text-lg text-fd-muted-foreground">
             9 steps. Check each one off as you go.
             <br />
-            Your progress is saved automatically.
+            Progress saves automatically so you can come back anytime.
           </p>
           <p className="mt-3 text-sm text-fd-muted-foreground">
             Works with VS Code, Cursor, JetBrains, or just the terminal.
@@ -102,7 +102,7 @@ export default function GuidePage() {
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                How do you write code? Pick your setup and we&apos;ll show you the fastest path.
+                How do you write code? Pick your setup and I&apos;ll show you the fastest path.
               </p>
 
               <IdeSelector selected={progress.selectedIde} onSelect={progress.setIde} />
@@ -112,10 +112,10 @@ export default function GuidePage() {
                 <div className="mt-6 space-y-4">
                   <div className="rounded-lg border-2 border-green-500/30 bg-green-500/5 p-4">
                     <p className="text-sm font-medium text-fd-foreground">
-                      Great news. VS Code has a one-click extension.
+                      Good news. VS Code has a one-click extension.
                     </p>
                     <p className="mt-1 text-xs text-fd-muted-foreground">
-                      No terminal commands needed. The extension handles everything.
+                      No terminal commands needed. The extension does the whole setup.
                     </p>
                   </div>
                   <div className="space-y-3">
@@ -140,10 +140,10 @@ export default function GuidePage() {
                 <div className="mt-6 space-y-4">
                   <div className="rounded-lg border-2 border-blue-500/30 bg-blue-500/5 p-4">
                     <p className="text-sm font-medium text-fd-foreground">
-                      Cursor has built-in Claude support, but Claude Code adds agent mode.
+                      Cursor already has Claude baked in, but Claude Code adds real agent mode.
                     </p>
                     <p className="mt-1 text-xs text-fd-muted-foreground">
-                      Install the CLI to unlock the full power: skills, memory, MCP, and more.
+                      Install the CLI to unlock skills, memory, MCP, and everything else.
                     </p>
                   </div>
                   <p className="text-sm text-fd-muted-foreground">
@@ -286,7 +286,7 @@ export default function GuidePage() {
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Claude Code requires a paid plan. Pick one:
+                Claude Code needs a paid plan. Here&apos;s what each gets you:
               </p>
 
               <div className="grid grid-cols-2 gap-3">
@@ -301,7 +301,7 @@ export default function GuidePage() {
                 >
                   <div className="font-medium text-fd-foreground">Pro</div>
                   <div className="font-mono text-lg font-bold text-fd-foreground">$20/mo</div>
-                  <div className="mt-1 text-xs text-fd-muted-foreground">Perfect for getting started</div>
+                  <div className="mt-1 text-xs text-fd-muted-foreground">Good starting point</div>
                 </button>
                 <button
                   type="button"
@@ -319,7 +319,7 @@ export default function GuidePage() {
               </div>
 
               <p className="mt-4 text-sm text-fd-muted-foreground">
-                Our recommendation: <strong className="text-fd-foreground">start with Pro</strong>. Upgrade later if you hit rate limits.{' '}
+                I started with Pro. Upgraded to Max after a few weeks when I kept hitting limits.{' '}
                 <Link href="/docs/comparisons/pro-vs-max" className="underline hover:text-fd-foreground">Read the full comparison</Link>.
               </p>
 
@@ -391,8 +391,8 @@ export default function GuidePage() {
           {progress.isCompleted('install') && progress.isCompleted('plan') && progress.isCompleted('first-prompt') && (
             <div className="mt-6">
               <Checkpoint
-                title="Phase 1 complete!"
-                description="You've installed Claude Code, picked a plan, and written your first prompt. You're officially in the game."
+                title="Phase 1 done."
+                description="Installed, plan picked, first prompt sent. You're in the game now."
               />
             </div>
           )}
@@ -417,7 +417,7 @@ export default function GuidePage() {
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Think of CLAUDE.md as <strong>a letter to Claude</strong>. It tells Claude who you are, what your project is, and how you want it to work. Without it, Claude guesses. With it, Claude knows. Create one in your project root:
+                Think of CLAUDE.md as <strong>a letter to Claude</strong>. It tells Claude who you are, what your project is, and how you want it to work. Without it, Claude guesses. With it, Claude just knows. Create one in your project root:
               </p>
               <CopyBlock code={`# CLAUDE.md
 
@@ -468,7 +468,7 @@ npm run test   # Run tests
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Memory lets Claude Code remember you across sessions. Create a memory index:
+                Memory lets Claude Code remember you between sessions. Without it, you start from scratch every time. Create a memory index:
               </p>
               <CopyBlock code={'mkdir -p .claude/memory\ntouch .claude/memory/MEMORY.md'} />
               <p className="my-4 text-sm text-fd-muted-foreground">
@@ -500,7 +500,7 @@ npm run test   # Run tests
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                At the end of each session, write a short handoff so the next session picks up where you left off. Just tell Claude Code:
+                At the end of each session, write a short handoff. That way the next session picks up exactly where you left off instead of starting cold. Just tell Claude Code:
               </p>
               <CopyBlock code={'"Write a handoff for this session. What did we do, what\'s next, and any key decisions."'} language="prompt" />
               <DemoCard title="Handoff → warm start" loop={false} steps={[
@@ -526,8 +526,8 @@ npm run test   # Run tests
           {progress.isCompleted('claude-md') && progress.isCompleted('memory') && progress.isCompleted('handoff') && (
             <div className="mt-6">
               <Checkpoint
-                title="Phase 2 complete!"
-                description="You have a configured workspace with memory and handoffs. Sessions now compound over time instead of starting from scratch."
+                title="Phase 2 done."
+                description="Workspace configured, memory running, handoffs set up. Sessions now build on each other instead of starting cold every time."
               />
             </div>
           )}
@@ -550,7 +550,7 @@ npm run test   # Run tests
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                The difference between &quot;I use Claude Code sometimes&quot; and &quot;I can&apos;t work without it&quot; comes down to daily habits:
+                The gap between &quot;I use Claude Code sometimes&quot; and &quot;I literally can&apos;t work without it&quot; is daily habits. Here&apos;s the rhythm I use:
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex items-start gap-3 rounded-lg bg-fd-muted/50 p-3">
@@ -580,7 +580,7 @@ npm run test   # Run tests
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                A skill turns a multi-step task into a single command. Think of something you explain to Claude Code repeatedly, then encode it:
+                A skill turns a multi-step task into a single command. Think about something you explain to Claude Code over and over. That&apos;s your first skill. Encode it once, run it forever:
               </p>
               <CopyBlock code={'mkdir -p .claude/skills'} />
               <p className="my-4 text-sm text-fd-muted-foreground">
@@ -627,7 +627,7 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                MCP servers let Claude Code talk to your other tools. The easiest first connection is GitHub:
+                MCP servers let Claude Code talk to your other tools. Think: Claude asks GitHub a question and gets a real answer. The easiest first connection is GitHub:
               </p>
               <CopyBlock code={`{
   "mcpServers": {
@@ -681,7 +681,7 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
             What comes next
           </h2>
           <p className="mt-2 mb-6 text-sm text-fd-muted-foreground">
-            You&apos;ve completed the guided setup. Here&apos;s where to go deeper:
+            Setup done. Here&apos;s where the real power starts:
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             {[
@@ -708,10 +708,10 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
         {/* ═══════════ Feedback ═══════════ */}
         <section className="rounded-xl border border-fd-border bg-fd-card p-8">
           <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
-            Help make this guide better
+            Help me make this better
           </h2>
           <p className="mt-2 mb-6 text-sm text-fd-muted-foreground">
-            This guide is shaped by real feedback from people like you. If something was confusing, missing, or broken, tell me.
+            I update this based on real feedback. If something was confusing, missing, or just plain wrong, tell me. Takes 30 seconds.
           </p>
           <div className="grid gap-3 sm:grid-cols-3">
             {[

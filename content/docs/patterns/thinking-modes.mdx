@@ -3,11 +3,11 @@ title: "Thinking Modes & Extended Reasoning"
 description: "Claude Code can think before it acts. Extended thinking, plan mode, and effort levels explained. When to let it reason deeply vs when to just get the answer."
 ---
 
-## Sometimes You Want Claude to Think Harder
+## Default mode is fast. Sometimes you need deep.
 
-By default, Claude Code jumps straight to an answer. That's great for simple tasks. But for complex problems: architecture decisions, tricky bugs, multi-step plans: you want it to **think first**.
+By default, Claude Code jumps straight to an answer. That's great for simple tasks. But for complex problems: architecture decisions, tricky bugs, multi-step plans: you want it to think first, not just react.
 
-Claude Code has three ways to control how deeply it thinks:
+Claude Code has three ways to control how deeply it thinks before doing anything.
 
 <DemoCard title="Thinking modes in action" steps={[
   { type: 'cmd', text: '"Fix the auth bug" → instant response' },
@@ -22,27 +22,25 @@ Claude Code has three ways to control how deeply it thinks:
   { type: 'warn', text: '→ Same prompt. Different depth. Better result.' },
 ]} />
 
-## Extended Thinking
+## Extended thinking
 
-**What it is:** Claude "thinks out loud" internally before giving you an answer. It reasons through the problem step by step, considers edge cases, and arrives at a more thoughtful response.
+Extended thinking means Claude "thinks out loud" internally before giving you an answer. It reasons through the problem step by step, considers edge cases, and arrives at a more careful response.
 
-**When to use it:**
-- Complex debugging where the first approach failed
-- Architecture decisions with trade-offs
+**When it's worth it:**
+- Complex debugging where your first approach already failed
+- Architecture decisions with real trade-offs
 - Security reviews where you can't afford to miss something
-- Refactoring that touches many files
+- Refactoring that touches 10+ files
 
-**How to enable it:**
-- In settings: set thinking effort level
-- In conversation: ask Claude to "think carefully about this" or "reason through this step by step"
+**How to enable it:** Set the thinking effort level in settings, or just ask: "think carefully about this" or "reason through this step by step" in your prompt.
 
-**What it costs:** Extended thinking uses output tokens for the reasoning process. You pay for the thinking, but the quality improvement is often worth it for complex tasks.
+**What it costs:** Extended thinking uses output tokens for the reasoning process. You pay for the thinking. For complex tasks, the quality improvement is usually worth it. For a simple bug fix, it's overkill.
 
 All three models (Opus 4.6, Sonnet 4.6, Haiku 4.5) support extended thinking with their 1M token context windows.
 
-## Plan Mode
+## Plan mode
 
-Plan mode is the most practical thinking feature for daily use. Instead of diving into code changes immediately, Claude proposes a plan first.
+Plan mode is the most practical thinking feature for daily use. Instead of diving into code changes immediately, Claude proposes a plan first. You review it, adjust if needed, then it executes.
 
 **Toggle it:** `Shift+Tab` in the terminal, or `/plan` as a slash command.
 
@@ -52,16 +50,16 @@ Plan mode is the most practical thinking feature for daily use. Instead of divin
 3. You review and approve (or adjust)
 4. Claude executes the approved plan
 
-**When to use plan mode:**
-- Any task that touches more than 2-3 files
-- When you're not sure about the approach
-- For destructive operations (deleting files, resetting databases)
-- When onboarding a new team member (they review the plan to learn)
+**Use plan mode when:**
+- Any task touching more than 2-3 files
+- You're not sure about the approach
+- Destructive operations (deleting files, resetting databases)
+- Onboarding a new team member who needs to see the steps
 
-**When to skip it:**
+**Skip plan mode when:**
 - Quick fixes ("change this color from blue to green")
 - Single-file edits
-- Tasks you've done many times before
+- Tasks you've done the same way dozens of times
 
 ```bash
 # Enable plan mode for the session
@@ -71,9 +69,9 @@ Plan mode is the most practical thinking feature for daily use. Instead of divin
 # Shift+Tab (toggles on/off)
 ```
 
-## Effort Levels
+## Effort levels
 
-Some tasks need deep thinking. Others just need a quick answer. Effort levels let you control the balance:
+Some tasks need deep thinking. Others just need a quick answer. Effort levels let you control the balance without switching models:
 
 | Level | What it means | Example |
 |---|---|---|
@@ -81,21 +79,17 @@ Some tasks need deep thinking. Others just need a quick answer. Effort levels le
 | **Medium** | Standard analysis (default) | "Fix this bug" |
 | **High** | Deep reasoning, considers edge cases | "Design the auth system" |
 
-You can hint at the effort level in your prompt:
+You can hint at the effort level in your prompt. "Quick question..." signals low effort. "Think carefully about..." signals high effort. "Consider all edge cases..." signals maximum depth. Claude picks up on these cues.
 
-- "Quick question..." signals low effort
-- "Think carefully about..." signals high effort
-- "Consider all edge cases..." signals maximum depth
+## Combining thinking modes
 
-## Combining Thinking Modes
+The real power is mixing these together.
 
-The real power is combining these:
+**Plan mode + Opus:** For architecture decisions. Claude thinks deeply AND shows you the plan before executing. Maximum safety, maximum quality. Use this when you're redesigning something load-bearing.
 
-**Plan mode + Opus:** For architecture decisions. Claude thinks deeply AND shows you the plan before executing. Maximum safety, maximum quality.
+**Quick mode + Haiku:** For rapid iteration. Fast answers, low cost. Great for "does this look right?" checks throughout the day.
 
-**Quick mode + Haiku:** For rapid iteration. Fast answers, low cost. Great for "does this look right?" checks.
-
-**Extended thinking + Sonnet:** The daily sweet spot. Sonnet thinks through the problem but doesn't take as long as Opus.
+**Extended thinking + Sonnet:** The daily sweet spot. Sonnet thinks through the problem carefully but doesn't take as long (or cost as much) as Opus. This is what I use for most non-trivial tasks.
 
 <DemoCard title="Same task, three effort levels" steps={[
   { type: 'out', text: '── Low effort (Haiku) ──' },
@@ -116,9 +110,9 @@ The real power is combining these:
   { type: 'warn', text: '→ Match the effort to the task. Don\'t use Opus for a yes/no.' },
 ]} />
 
-## Practical Patterns
+## Practical patterns
 
-### The "Think Then Do" Pattern
+### The "think then do" pattern
 
 ```
 "Before you make any changes, analyze this codebase and tell me:
@@ -129,9 +123,9 @@ The real power is combining these:
 Then wait for my approval before making changes."
 ```
 
-This forces Claude to think first even without plan mode.
+This forces Claude to think first even without plan mode. Useful when you want the reasoning visible but don't want to toggle a mode.
 
-### The "Rubber Duck" Pattern
+### The "rubber duck" pattern
 
 ```
 "I'm stuck on this bug. Don't fix it yet. Just think through 
@@ -139,13 +133,13 @@ what could be causing it. List your hypotheses from most to
 least likely."
 ```
 
-Use Claude as a thinking partner, not just a code generator.
+Use Claude as a thinking partner, not just a code generator. Sometimes the most valuable thing it does is help you articulate the problem clearly.
 
-### The "Pre-mortem" Pattern
+### The "pre-mortem" pattern
 
 ```
 "I'm about to deploy this change. Before I do, think about 
 what could go wrong. What edge cases am I missing?"
 ```
 
-Extended thinking + pre-mortem catches issues that quick mode would miss.
+Extended thinking plus a pre-mortem catches issues that quick mode would miss entirely. I run this before any deploy that touches auth, payments, or data migrations.

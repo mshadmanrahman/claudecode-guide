@@ -1,6 +1,6 @@
 ---
 title: Claude Pro vs Max vs API
-description: "Which Claude plan for which workflow. Real cost breakdown with usage patterns so you pick the right one (2026 pricing)."
+description: "Start with Pro. Upgrade when you start watching the clock waiting for rate limits. The API is for building products, not personal use. Here's the actual breakdown."
 targetKeyword: "claude pro vs max"
 comparisonEntities:
   - "Claude Pro"
@@ -18,7 +18,7 @@ relatedLinks:
     description: "The full explainer for people brand new to Claude Code."
 ---
 
-Claude Code runs on your Anthropic plan. Picking the right one saves you money or frustration. Here is the honest breakdown.
+Claude Code runs on your Anthropic plan. Picking the right one saves you money or frustration. Here's the honest breakdown.
 
 <DemoCard title="When you know it's time to upgrade" steps={[
   { type: 'cmd', text: 'claude "refactor the auth module"' },
@@ -33,7 +33,7 @@ Claude Code runs on your Anthropic plan. Picking the right one saves you money o
   { type: 'warn', text: '→ Pro is great. Until it isn\'t. You\'ll know when.' },
 ]} />
 
-## Plans at a Glance
+## Plans at a glance
 
 | | Claude Pro | Claude Max 5x | Claude Max 20x | API (Pay-per-token) |
 |---|---|---|---|---|
@@ -43,46 +43,34 @@ Claude Code runs on your Anthropic plan. Picking the right one saves you money o
 | **Best for** | Getting started, light-to-moderate daily use | Full-time coding with Claude Code | All-day heavy agentic workflows | Building apps, CI/CD pipelines, programmatic use |
 | **Access to** | Sonnet + Opus | Sonnet + Opus | Sonnet + Opus | All models via API |
 
-## When Pro Is Enough
+## When Pro is enough
 
-Pro works great if you are using Claude Code for a few tasks per day. Maybe you ask it to write a feature in the morning, debug something after lunch, and refactor a module before end of day. If you are not hitting rate limits regularly, Pro is the right call.
+Pro covers most people. If you're using Claude Code for a few focused tasks per day — write a feature in the morning, debug something after lunch, refactor a module before end of day — you're probably fine. The rate limits exist but they're not aggressive for normal usage.
 
-**Signs Pro is working for you:**
-- You rarely see "rate limit" messages
-- You use Claude Code for 1-3 focused sessions per day
-- You are still learning and experimenting
+Signs Pro is working for you: you rarely see "rate limit" messages, you use Claude Code for 1-3 focused sessions per day, and you're still figuring out your workflow. Don't pay more until you've hit the ceiling.
 
-## When to Upgrade to Max
+## When to upgrade to Max
 
-You will know it is time. The signal is consistent rate limiting during your working hours. If you find yourself waiting for limits to reset, or timing your prompts to avoid hitting the ceiling, Max pays for itself in saved frustration.
+Long story short: you'll feel it. The signal is rate limits hitting during your actual working hours, not just when you're abusing it. If you're watching the clock waiting for limits to reset, or timing your prompts to avoid hitting the ceiling, the $80/month jump from Pro to Max 5x pays for itself fast.
 
-**Signs you need Max:**
-- You hit rate limits multiple times per week
-- You run long agentic sessions (30+ minutes of continuous back-and-forth)
-- You use sub-agents or parallel workflows that consume tokens fast
-- Your work is blocked waiting for limits to reset
+Signs you need Max: you hit rate limits multiple times per week, you run long agentic sessions (30+ minutes of continuous back-and-forth), you use sub-agents or parallel workflows that consume tokens quickly, or your work is sitting idle waiting for limits to clear.
 
-**5x vs 20x?** Start with 5x. Most heavy users find it sufficient. 20x is for people running Claude Code all day with complex multi-agent workflows, autonomous loops, or very large codebases that consume a lot of context.
+**5x or 20x?** Start with 5x ($100/month). Most heavy users find it sufficient. 20x is for people running Claude Code continuously with complex multi-agent workflows, autonomous loops, or very large codebases that chew through context. I'm guessing fewer than 10% of users actually need it.
 
-## When the API Makes Sense
+## When the API makes sense
 
-The API is not really a "plan" for personal coding. It is for building things. If you are integrating Claude into your own application, running it in CI/CD pipelines, or building tools that call Claude programmatically, that is API territory.
+The API isn't really a "plan" for personal coding. It's for building things.
 
-**Use the API when:**
-- You are building a product that uses Claude under the hood
-- You need Claude in automated pipelines (testing, code review, deployment)
-- You want fine-grained control over model selection per request
-- You need to manage costs at the token level
+If you're integrating Claude into your own application, running it in CI/CD pipelines, or building tools that call Claude programmatically — that's API territory. The pricing model (per token, per request) makes sense when you need fine-grained cost control or automated access.
 
-**Do not use the API when:**
-- You just want to use Claude Code for personal coding (Pro or Max is simpler and often cheaper)
+Don't use the API just because it sounds more technical. For personal coding sessions, Pro or Max is almost always simpler and cheaper.
 
-## Cost Reality Check
+## The actual cost math
 
-A typical coding session with Claude Code might use 50,000-200,000 tokens depending on how large your codebase is and how many files it reads. On the API, that is roughly $0.15-$3.00 per session at Sonnet pricing. If you are doing 3-5 sessions a day, Pro at $20/month is almost certainly cheaper than API pricing.
+A typical coding session with Claude Code uses somewhere between 50,000 and 200,000 tokens, depending on how large your codebase is and how many files it reads. At Sonnet API pricing, that's roughly $0.15 to $3.00 per session. Three to five sessions a day adds up to $1.35 to $15.00 per day. Pro at $20/month is cheaper than a single heavy week of API usage.
 
-The API gets more economical when you are doing targeted, low-token tasks at high volume, or when you need programmatic access that the CLI does not provide.
+The API gets more economical for targeted, low-token tasks at high volume, or when you need programmatic access the CLI doesn't offer.
 
 ## Recommendation
 
-Start with Pro. It is $20/month and covers most people's needs while they learn. Upgrade to Max when you find yourself waiting for rate limits, not before. The API is for building products, not for personal coding sessions. Do not overthink it: you can switch plans anytime.
+Start with Pro. It's $20/month and covers most people while they learn what their actual usage looks like. Upgrade to Max 5x when you find yourself waiting for rate limits, not before. The API is for building products. Don't overthink it — you can switch plans anytime.

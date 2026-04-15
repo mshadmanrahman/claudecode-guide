@@ -1,11 +1,13 @@
 ---
 title: "Claude Code Basics: The Quick Reference"
-description: "Just installed Claude Code and feeling lost in the terminology? Here are the eight core concepts explained in plain English. Short, scannable, and linkable."
+description: "Eight terms you'll hit in your first hour. Explained fast, in plain English, so the rest of the docs actually make sense."
 ---
 
 ## Start Here
 
-New to Claude Code? There are eight things you'll hear about constantly. This page explains all of them fast, so the rest of the docs actually make sense.
+There are eight things you'll hear about constantly when using Claude Code. This page explains all of them fast.
+
+Not everything needs a deep dive. This is the cheat sheet.
 
 <DemoCard title="terms you'll encounter in your first session" steps={[
   { type: 'cmd', text: 'claude "refactor my auth module"' },
@@ -25,11 +27,11 @@ New to Claude Code? There are eight things you'll hear about constantly. This pa
 
 ## What is CLAUDE.md?
 
-**Your project's instruction manual.** Like a README, but Claude actually reads it at the start of every session.
+**Your project's instruction manual.** Like a README, except Claude actually reads it at the start of every session.
 
-Put things in CLAUDE.md that you'd otherwise have to repeat every conversation: your coding style, the tech stack, the rules ("always write tests before code"), the things Claude keeps getting wrong. It lives at the root of your project.
+Without a CLAUDE.md, Claude Code is guessing. Your stack, your style, your rules, what mistakes to avoid. It has to infer all of it every single time. With a good one, it's like a team member who actually read the onboarding docs.
 
-Without a CLAUDE.md, Claude Code is guessing. With a good one, it behaves like a team member who actually read the onboarding docs. You can create a starter one at any time by running `/init` in your session.
+Put things in CLAUDE.md that you'd otherwise repeat every conversation. Coding style, tech stack, what Claude keeps getting wrong. It lives at the root of your project. Run `/init` anytime to get a starter version generated from your codebase.
 
 ```markdown
 # CLAUDE.md
@@ -52,7 +54,7 @@ Learn more: [Full CLAUDE.md Guide](/docs/foundations/claude-md)
 
 ## What are Slash Commands?
 
-**Shortcuts you type directly into Claude Code.** They start with `/` and trigger built-in actions instantly.
+**Shortcuts you type directly into Claude Code.** Start with `/`, trigger a built-in action instantly.
 
 <DemoCard title="the most useful slash commands" steps={[
   { type: 'cmd', text: '/help' },
@@ -70,15 +72,15 @@ Learn more: [Full CLAUDE.md Guide](/docs/foundations/claude-md)
   { type: 'warn', text: '→ These six commands alone will save you hours.' },
 ]} />
 
-The most useful ones to know on day one:
+The ones to know on day one:
 
-- `/help` - see everything available
-- `/clear` - fresh start (loses conversation history)
-- `/compact` - compress context without losing understanding (use this before `/clear`)
-- `/cost` - check what your session has spent
-- `/model opus` / `/model sonnet` / `/model haiku` - switch AI models mid-session
-- `/init` - auto-generate a CLAUDE.md for your project
-- `/rewind` - undo the last conversation turn
+- `/help`: see everything available
+- `/clear`: fresh start (loses conversation history)
+- `/compact`: compress context without losing understanding (use this before `/clear`)
+- `/cost`: check what your session has spent
+- `/model opus` / `/model sonnet` / `/model haiku`: switch AI models mid-session
+- `/init`: auto-generate a CLAUDE.md for your project
+- `/rewind`: undo the last conversation turn
 
 Learn more: [Complete Command Cheatsheet](/docs/foundations/shortcuts)
 
@@ -88,9 +90,9 @@ Learn more: [Complete Command Cheatsheet](/docs/foundations/shortcuts)
 
 **Custom slash commands you create with a Markdown file.** No code required.
 
-A Skill is just a `.md` file that describes a workflow. Drop it in `~/.claude/skills/` and it becomes a `/skill-name` command available in every session. Put it in your project's `.claude/skills/` and it's project-specific.
+A Skill is a `.md` file that describes a workflow. Drop it in `~/.claude/skills/` and it becomes a `/skill-name` command in every session. Put it in your project's `.claude/skills/` folder and it stays project-specific.
 
-Here is a minimal example. Create a file called `commit.md`:
+Minimal example. Create a file called `commit.md`:
 
 ```markdown
 # Commit
@@ -99,7 +101,7 @@ Stage all changes, write a conventional commit message based on the diff,
 and commit. Always include a short summary of what changed and why.
 ```
 
-Now type `/commit` in any session and Claude runs that exact workflow, without you explaining it from scratch every time.
+Now type `/commit` in any session and Claude runs that workflow without you explaining it from scratch. Every time.
 
 Skills are the difference between "using AI" and "having a system." One-time setup, repeatable forever.
 
@@ -128,12 +130,12 @@ You configure them in `.claude/settings.json`. They fire without you remembering
 }
 ```
 
-The four moments you can hook into:
+Four moments you can hook into:
 
-- `PreToolUse` - before Claude calls a tool (Read, Write, Bash, etc.)
-- `PostToolUse` - after a tool completes
-- `SessionStart` - when a new session opens
-- `SessionEnd` - when the session closes
+- `PreToolUse`: before Claude calls a tool (Read, Write, Bash, etc.)
+- `PostToolUse`: after a tool completes
+- `SessionStart`: when a new session opens
+- `SessionEnd`: when the session closes
 
 Common uses: auto-format files after Claude writes them, run a security scan before commits, log what Claude does in CI.
 
@@ -143,7 +145,7 @@ Learn more: [Hooks Guide](/docs/patterns/hooks)
 
 ## What is MCP?
 
-**How Claude connects to tools outside your local files.** MCP stands for Model Context Protocol. It is a standard that lets Claude talk to GitHub, Slack, Jira, databases, and dozens of other services.
+**How Claude connects to tools outside your local files.** MCP stands for Model Context Protocol. It's a standard that lets Claude talk to GitHub, Slack, Jira, databases, and dozens of other services.
 
 <DemoCard title="MCP connecting Claude to GitHub" steps={[
   { type: 'cmd', text: 'claude "what PRs need my review?"' },
@@ -157,7 +159,7 @@ Learn more: [Hooks Guide](/docs/patterns/hooks)
   { type: 'warn', text: '→ Claude Code talked to GitHub directly. That is MCP.' },
 ]} />
 
-You configure MCP servers in `.mcp.json`. Each server gives Claude a set of capabilities: read GitHub PRs, post Slack messages, query your database. Claude picks the right one based on what you ask for.
+You configure MCP servers in `.mcp.json`. Each server gives Claude a set of capabilities: read GitHub PRs, post Slack messages, query your database. Claude picks the right one based on what you ask.
 
 Learn more: [MCP Setup Guide](/docs/patterns/mcp-servers)
 
@@ -165,9 +167,9 @@ Learn more: [MCP Setup Guide](/docs/patterns/mcp-servers)
 
 ## What is the Context Window?
 
-**How much Claude can "see" at once.** Think of it as working memory. Every file Claude reads, every message you send, every output it generates: all of that sits inside the context window during your session.
+**How much Claude can "see" at once.** Working memory. Every file Claude reads, every message you send, every output it generates: all of it sits inside the context window during your session.
 
-Current models support up to 1 million tokens (roughly 750,000 words). That sounds enormous, but long sessions with many files fill up faster than you'd expect.
+Current models support up to 1 million tokens (roughly 750,000 words). That sounds enormous, and it is. But long sessions with many files fill up faster than you'd expect.
 
 <DemoCard title="watching context fill up" steps={[
   { type: 'cmd', text: '/status' },
@@ -181,7 +183,7 @@ Current models support up to 1 million tokens (roughly 750,000 words). That soun
   { type: 'warn', text: '→ /compact shrinks the window without losing the plot.' },
 ]} />
 
-When the context fills, Claude Code compresses the conversation automatically (or you can do it manually with `/compact`). It keeps the important parts, summarizes the rest. Use `/status` to check how full you are.
+When context fills, Claude Code compresses the conversation automatically. Or you can do it manually with `/compact`. It keeps the important parts and summarizes the rest. Use `/status` to check where you are.
 
 Learn more: [Context Window Deep Dive](/docs/foundations/context-window)
 
@@ -189,7 +191,7 @@ Learn more: [Context Window Deep Dive](/docs/foundations/context-window)
 
 ## What is a Model?
 
-**The actual AI brain doing the work.** Claude Code runs on three different models, each with different speed, capability, and cost.
+**The actual AI brain doing the work.** Claude Code runs on three models with different speed, capability, and cost.
 
 | Model | Speed | Best for |
 |---|---|---|
@@ -197,7 +199,7 @@ Learn more: [Context Window Deep Dive](/docs/foundations/context-window)
 | **Sonnet 4.6** | Fast | 80% of daily work. The default. |
 | **Haiku 4.5** | Fastest | Quick edits, simple questions, linting |
 
-The rule of thumb: start with Sonnet (the default). Switch to Opus when the problem is genuinely hard and you need it right the first time. Switch to Haiku when the task is trivial and speed matters.
+Start with Sonnet (the default). Switch to Opus when the problem is genuinely hard. Switch to Haiku when the task is trivial and speed matters more than depth.
 
 ```
 /model opus     # Big task? Bring in the senior model.
@@ -205,7 +207,7 @@ The rule of thumb: start with Sonnet (the default). Switch to Opus when the prob
 /model haiku    # Just checking a typo? Use the fast one.
 ```
 
-You can switch mid-session anytime with `/model`. The conversation continues uninterrupted.
+You can switch mid-session anytime. The conversation continues uninterrupted.
 
 Learn more: [Which Claude Model Should I Use?](/docs/foundations/model-selection)
 
@@ -215,11 +217,11 @@ Learn more: [Which Claude Model Should I Use?](/docs/foundations/model-selection
 
 **How Claude remembers things across sessions.** By default, every session starts completely blank. The memory system fixes that.
 
-Memory in Claude Code is file-based: plain Markdown files that Claude reads at the start of sessions to pick up context. There are two levels:
+Memory in Claude Code is file-based: plain Markdown files that Claude reads at the start of sessions. Two levels:
 
 **Project memory** (`CLAUDE.md` and files in `.claude/`): what Claude knows about this specific project. Tech stack, rules, current state.
 
-**User memory** (`~/.claude/MEMORY.md`): what Claude knows about you across all projects. Your preferences, writing style, things you've corrected before.
+**User memory** (`~/.claude/MEMORY.md`): what Claude knows about you across all projects. Preferences, writing style, corrections you've made before.
 
 <DemoCard title="memory at work" steps={[
   { type: 'cmd', text: 'claude "continue the API work from yesterday"' },
@@ -230,6 +232,6 @@ Memory in Claude Code is file-based: plain Markdown files that Claude reads at t
   { type: 'warn', text: '→ No re-explaining. Memory carried the context.' },
 ]} />
 
-Without memory, you repeat yourself every session. With memory, Claude Code compounds: it gets more useful the longer you use it.
+Without memory, you repeat yourself every session. With it, Claude Code compounds: it gets more useful the longer you use it.
 
 Learn more: [Memory System Guide](/docs/foundations/memory-system)

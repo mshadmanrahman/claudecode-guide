@@ -60,8 +60,7 @@ export function PmPilotIntegrations() {
             Connect your work tools
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Level 3 only. PM Pilot gets dramatically more useful when it can see your actual work
-            tools.
+            Claude Code CLI only. This is where PM Pilot goes from &quot;useful&quot; to &quot;I can&apos;t work without it.&quot;
           </p>
         </div>
 
@@ -97,9 +96,8 @@ export function PmPilotIntegrations() {
           style={{ animationDelay: '600ms' }}
         >
           <p className="text-sm text-fd-muted-foreground leading-relaxed">
-            <span className="font-medium text-fd-foreground">No MCP servers connected?</span>{' '}
-            Skills like market-sizing, prd, prioritize, and critique work with zero external
-            connections. You just type and go.
+            <span className="font-medium text-fd-foreground">No integrations yet?</span>{' '}
+            Skills like market-sizing, prd, prioritize, and critique don&apos;t need any of this. They work the moment you install PM Pilot.
           </p>
         </div>
       </div>

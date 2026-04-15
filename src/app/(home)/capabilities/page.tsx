@@ -425,8 +425,8 @@ export default function CapabilitiesPage() {
             What Claude Code Can Do
           </h1>
           <p className="animate-slide-up-fade delay-200 mx-auto mt-4 max-w-2xl text-lg text-fd-muted-foreground">
-            Built-in superpowers plus connections to the tools you already use.
-            Think of it as ChatGPT plugins, but they actually work.
+            Built-in capabilities out of the box, plus connections to every tool you already use.
+            Think of it like ChatGPT plugins. Except these actually work.
           </p>
         </div>
       </section>
@@ -438,7 +438,7 @@ export default function CapabilitiesPage() {
             Built-in Capabilities
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
-            These work out of the box. No setup, no plugins, no config.
+            These work right away. No setup, no plugins, no config file you have to figure out.
           </p>
         </div>
 
@@ -463,7 +463,7 @@ export default function CapabilitiesPage() {
             <Link href="/docs/patterns/mcp-servers" className="underline hover:text-fd-foreground transition-colors">
               MCP (Model Context Protocol)
             </Link>
-            . One conversation, all your data.
+            . One conversation. All your data in one place.
           </p>
         </div>
 
@@ -523,8 +523,8 @@ export default function CapabilitiesPage() {
               </h3>
               <p className="mt-4 text-fd-muted-foreground leading-relaxed">
                 A skill is a Markdown file that teaches Claude a new command.
-                Write what you want it to do in plain English, save it as a <code className="text-fd-foreground">.md</code> file,
-                and it becomes a <code className="text-fd-foreground">/slash-command</code> you can run anytime.
+                Write what you want it to do in plain English. Save it as a <code className="text-fd-foreground">.md</code> file.
+                It becomes a <code className="text-fd-foreground">/slash-command</code> you can run anytime. Simple as that.
               </p>
               <div className="mt-4 space-y-2 text-sm text-fd-muted-foreground">
                 <p><code className="text-fd-foreground">/weekly-status</code>: generates your status report from project data</p>
@@ -582,8 +582,8 @@ export default function CapabilitiesPage() {
           </h3>
           <p className="mt-2 text-sm text-fd-muted-foreground leading-relaxed max-w-2xl">
             Claude Code uses <strong>MCP (Model Context Protocol)</strong> to talk to external tools.
-            Each integration is a small server that translates between Claude and the tool&apos;s API.
-            You add them to a <code>.mcp.json</code> file in your project, and Claude discovers them automatically.
+            Each integration is a small server that sits between Claude and the tool&apos;s API, translating.
+            You add them to a <code>.mcp.json</code> file in your project. Claude finds them automatically from there.
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-xs text-fd-muted-foreground">
             <span className="rounded bg-fd-accent px-2 py-1">Your prompt</span>
@@ -611,7 +611,7 @@ export default function CapabilitiesPage() {
             Ready to try it?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
-            Start with the guided journey or jump straight into a tutorial.
+            Start with the guided journey or skip straight to a hands-on tutorial.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
@@ -632,10 +632,10 @@ export default function CapabilitiesPage() {
           {/* Affiliate end-card */}
           <div className="mt-8 rounded-xl border border-indigo-500/20 bg-indigo-500/5 p-5">
             <p className="text-sm font-medium text-fd-foreground">
-              Need Claude Pro to use all capabilities?
+              Need Claude Pro to use all of this?
             </p>
             <p className="mt-1 text-xs text-fd-muted-foreground">
-              Computer use, extended thinking, and most MCP integrations work best with Pro ($20/mo) or Max ($100/mo).
+              Computer use, extended thinking, and most MCP integrations need Pro ($20/mo) or Max ($100/mo). Worth it.
             </p>
             <a
               href="/docs/comparisons/pro-vs-max"

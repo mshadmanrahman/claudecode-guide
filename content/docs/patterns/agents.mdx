@@ -1,13 +1,15 @@
 ---
 title: Sub-Agents
-description: "Stop burning your main context on 200-line code reviews. Delegate to focused agents, get the summary back."
+description: "Your main context window is too valuable to burn on a 200-line code review. Delegate to focused agents and get the summary back."
 ---
 
-## Your Main Conversation Is Not a Dumpster
+## Your main session is not a dumping ground
 
-Here's what happens without sub-agents: you ask Claude Code to review your auth changes, it reads 15 files, writes a 200-line audit, and now your context window is half gone. You needed the 5-line summary. Not the journey.
+I run 8 agents daily. That sounds like a lot until you realize the alternative: asking Claude Code to review auth changes, watching it read 15 files and write a 200-line audit, and noticing your context window is now half gone.
 
-Sub-agents fix this. They're separate Claude Code instances that handle focused tasks in their own context window. The security review happens over there. The test generation happens over there. Your main session stays clean.
+You needed the 5-line summary. Not the journey.
+
+Sub-agents fix this. They're separate Claude Code instances that handle focused tasks in their own context windows. The security review happens over there. The test generation happens over there. Your main session stays clean and can keep steering.
 
 <DemoCard title="Sub-agents working in parallel" steps={[
   { type: 'cmd', text: 'claude "ship the new auth feature"' },
@@ -24,15 +26,15 @@ Sub-agents fix this. They're separate Claude Code instances that handle focused 
   { type: 'warn', text: '→ 3 expert reviews in the time of 1. Main session stayed clean.' },
 ]} />
 
-## Why This Is a Big Deal
+## Why this actually matters
 
-**Your context stays focused.** The main session handles decisions. Agents handle the deep dives. You get the result without the noise.
+**Your context stays focused.** The main session makes decisions. Agents do the deep dives. You get the result, not the noise.
 
-**Parallel execution.** Need a code review, security scan, and test generation? That's three agents working simultaneously, not one sequential chain. Three expert reviews in the time of one.
+**Parallel execution.** Code review, security scan, and test generation running at the same time, not queued up. Three expert reviews in the time of one.
 
-**Specialization.** Each agent carries instructions tuned for its job. A code-reviewer knows your team's standards. A tdd-guide enforces test-first. Better instructions, better output.
+**Specialization that holds.** Each agent carries instructions tuned for exactly one job. A code-reviewer knows your team's standards. A tdd-guide enforces test-first. Better instructions, better output, every time.
 
-## Built-in Agent Types
+## Built-in agent types
 
 Claude Code ships with several agent patterns ready to go:
 
@@ -62,9 +64,9 @@ These spawn automatically when the task calls for it. You can also be explicit: 
   { type: 'warn', text: '→ 20-line markdown file. Reusable forever.' },
 ]} />
 
-## Building Your Own Agents
+## Building your own agents
 
-Custom agents are markdown files in `.claude/agents/`. Each one defines a role, behavior, and constraints.
+Custom agents are markdown files in `.claude/agents/`. Each one defines a role, behavior, and constraints. Here's one I use constantly:
 
 ```markdown
 # PR Description Writer
@@ -88,26 +90,26 @@ You generate pull request descriptions from git diffs.
 - Use conventional commit categories
 ```
 
-Save it, then invoke it: "Use the PR description writer for this branch." Claude Code reads the file, follows the instructions, delivers the output. That simple.
+Save it, then invoke it: "Use the PR description writer for this branch." Claude Code reads the file, follows the instructions, delivers the output. Simple as that.
 
-## When to Delegate vs Just Do It
+## When to delegate vs just do it
 
-Not everything needs an agent. Here's the honest breakdown:
+Not everything needs an agent. Here's the honest breakdown.
 
 **Delegate when:**
-- The task requires reading a ton of files (research, audits)
-- You need the result but don't care about the process
+- The task requires reading a ton of files (research, audits, anything that looks like exploration)
+- You need the result but don't care about the intermediate steps
 - Multiple tasks can run in parallel
 - It's a review, scan, or verification task
 
 **Just do it directly when:**
-- It's a quick edit (a few lines)
-- You need to steer every step
+- It's a quick edit (a few lines, maybe two files)
+- You need to steer every step in real time
 - It's a one-off question about the codebase
 
-The rule of thumb: if it takes more than a minute and you don't need to babysit it, delegate.
+The rough rule: if it takes more than a minute and you don't need to babysit it, delegate.
 
-## Parallel Execution Is the Real Power
+## Parallel execution is the real unlock
 
 For complex tasks, launch multiple agents at once:
 
@@ -118,16 +120,16 @@ Launch 3 agents in parallel:
 3. Agent 3: Test coverage analysis for the API routes
 ```
 
-Each works independently, uses its own context, returns a focused report. This is where sub-agents go from "nice to have" to "how did I work without this."
+Each works independently, uses its own context, returns a focused report. This is where sub-agents go from "nice to have" to "I can't work without this."
 
-## Tips from the Trenches
+## Things I learned the hard way
 
-**One task per agent.** An agent that does code review AND writes tests is two agents crammed into one. Split them.
+**One task per agent.** An agent that does code review AND writes tests is two agents crammed into one file. Split them. You'll thank yourself later.
 
 **Be specific.** "Review this file for security issues" works way better than "look at the code and tell me if anything's wrong." Bounded tasks, better results.
 
-**Trust but verify.** Agents are good, not perfect. Skim the output before acting. False positives happen. Edge cases get missed.
+**Trust but verify.** Agents are good, not perfect. Skim the output before acting on it. False positives happen. Edge cases get missed.
 
-**Start with the built-ins.** Use code-reviewer and tdd-guide for a week before writing custom agents. You'll learn what you actually need.
+**Start with the built-ins.** Use code-reviewer and tdd-guide for a week before writing custom agents. You'll learn what you actually need, not what you think you need.
 
-**Keep agent files short.** 20-40 lines is the sweet spot. If your agent file hits 200 lines, you're encoding multiple agents into one.
+**Keep agent files short.** 20-40 lines is the sweet spot. If your agent file hits 200 lines, you've encoded multiple agents into one. Break it up.

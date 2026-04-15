@@ -33,15 +33,14 @@ export function SectionIndex({ sections }: SectionIndexProps) {
           </h1>
         </div>
         <p className="text-lg text-fd-muted-foreground">
-          Everything you need to know about Claude Code, organized by topic.
-          Read in order or jump to what you need.
+          Everything about Claude Code, organized by topic. Read straight through or jump to what matters right now.
         </p>
 
         {/* Overall progress */}
         {loaded && visitedCount > 0 && (
           <div className="mt-6 rounded-xl border border-fd-border bg-fd-card p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-fd-foreground">Your progress</span>
+              <span className="text-sm font-medium text-fd-foreground">Progress</span>
               <span className="text-sm text-fd-muted-foreground">
                 {visitedCount} of {totalPages} pages
               </span>
@@ -114,11 +113,11 @@ export function SectionIndex({ sections }: SectionIndexProps) {
             href={sections[0].pages[0].url}
             className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
           >
-            {visitedCount > 0 ? 'Continue reading' : 'Start from the beginning'}
+            {visitedCount > 0 ? 'Keep reading' : 'Start at the beginning'}
             <ArrowRight className="h-4 w-4" />
           </Link>
           <p className="mt-4 text-sm text-fd-muted-foreground">
-            Prefer email updates?{' '}
+            Want updates?{' '}
             <a
               href="https://shadmanrahman.substack.com/"
               target="_blank"

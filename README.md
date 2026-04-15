@@ -10,7 +10,7 @@
 **The practitioner's guide to Claude Code.**
 From "what even is this?" to "I can't work without it."
 
-Conversational. Opinionated. Interactive terminal demos on every page.
+Opinionated. Conversational. Interactive terminal demos on every page.
 
 [![Live Site](https://img.shields.io/badge/claudecodeguide.dev-000?style=for-the-badge&logo=vercel&logoColor=white)](https://claudecodeguide.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
@@ -158,15 +158,15 @@ No walls of text. Every concept shows you what to expect before you try it:
   → Same task. Autocomplete vs full execution.
 ```
 
-45+ animated terminal demos across 34 pages. Every tutorial also has an animated Claude App chat demo  - no terminal required. The philosophy: **show, don't tell.**
+45+ animated terminal demos across 34 pages. Every tutorial also has an animated Claude App chat demo (no terminal required). The philosophy: show, don't tell.
 
 ---
 
 ## PM Toolkit Family
 
-Once you've finished the guide, there are a few other tools built for the same audience  - practitioners who want to actually get things done with AI, not just read about it.
+Once you've finished the guide, there are a few other tools built for the same audience: people who want to actually get things done with AI, not just read about it.
 
-If you're a PM specifically, [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) is built for you  - Claude Code pre-configured for product work, ready to install once you've done the guide.
+If you're a PM, [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) is the one to install next. Claude Code pre-configured for product work, 25 skills ready to go.
 
 | Tool | What it does |
 |------|-------------|
@@ -231,7 +231,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 
 ## Support
 
-If this guide helped you, give it a star -- it helps others find it and keeps development going.
+If this guide helped you, give it a star. It helps others find it and keeps development going.
 
 [![GitHub stars](https://img.shields.io/github/stars/mshadmanrahman/claudecode-guide?style=social)](https://github.com/mshadmanrahman/claudecode-guide/stargazers)
 
@@ -241,12 +241,12 @@ If this guide helped you, give it a star -- it helps others find it and keeps de
 
 ## See Also
 
-- **[pm-pilot](https://github.com/mshadmanrahman/pm-pilot)** -- Claude Code configured for PMs. 25 skills out of the box.
-- **[root-kg](https://github.com/mshadmanrahman/root-kg)** -- Personal knowledge graph. Ask questions across all your notes, meetings, and emails.
-- **[morning-digest](https://github.com/mshadmanrahman/morning-digest)** -- Your morning briefed in 30 seconds. Calendar, email, Slack, and action items.
-- **[discovery-md](https://github.com/mshadmanrahman/discovery-md)** -- AI product discovery for PMs. From braindump to stakeholder one-pager.
-- **[ceremonies](https://github.com/mshadmanrahman/ceremonies)** -- Agile ceremonies that don't suck. Retros, estimation, team memory.
-- **[bug-shepherd](https://github.com/mshadmanrahman/bug-shepherd)** -- Zero-code bug triage for PMs. Reproduce and sync bugs without reading code.
+- **[pm-pilot](https://github.com/mshadmanrahman/pm-pilot)**: Claude Code configured for PMs. 25 skills out of the box.
+- **[root-kg](https://github.com/mshadmanrahman/root-kg)**: Personal knowledge graph. Ask questions across all your notes, meetings, and emails.
+- **[morning-digest](https://github.com/mshadmanrahman/morning-digest)**: Your morning briefed in 30 seconds. Calendar, email, Slack, and action items.
+- **[discovery-md](https://github.com/mshadmanrahman/discovery-md)**: AI product discovery for PMs. From braindump to stakeholder one-pager.
+- **[ceremonies](https://github.com/mshadmanrahman/ceremonies)**: Agile ceremonies that don't suck. Retros, estimation, team memory.
+- **[bug-shepherd](https://github.com/mshadmanrahman/bug-shepherd)**: Zero-code bug triage for PMs. Reproduce and sync bugs without reading code.
 
 ---
 
@@ -259,9 +259,9 @@ MIT. Use it, fork it, make it yours.
 <div align="center">
 
 **Built by [Shadman Rahman](https://shadmanrahman.substack.com)**
-Senior Product Manager. Claude Code practitioner. Writing about AI workflows.
+Senior PM. Full-stack builder. Writing about AI workflows that actually work.
 
-[Subscribe to the newsletter](https://shadmanrahman.substack.com) for new guides and updates.
+[Subscribe](https://shadmanrahman.substack.com) for new guides when they ship.
 
 [Share on LinkedIn](https://www.linkedin.com/shareArticle?mini=true&url=https://claudecodeguide.dev&title=Claude%20Code%20Guide) &bull; [Share on X](https://twitter.com/intent/tweet?text=The%20practitioner%27s%20guide%20to%20Claude%20Code.%20Interactive%20terminal%20demos%20on%20every%20page.%20%F0%9F%94%A5&url=https://claudecodeguide.dev)
 

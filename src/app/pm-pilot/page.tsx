@@ -15,13 +15,13 @@ import { PmPilotFooter } from '@/components/pm-pilot/footer';
 const siteUrl = 'https://claudecodeguide.dev';
 
 export const metadata: Metadata = {
-  title: 'PM Pilot - AI-Powered Meeting Prep, PRDs, and Status Reports',
+  title: 'PM Pilot - Meeting Prep, PRDs, and Status Reports on Autopilot',
   description:
-    'AI-powered meeting prep, PRDs, and status reports for product managers. Works with ChatGPT, Claude, Gemini, and gets even more powerful with Claude Code. Free and open source.',
+    'I built PM Pilot because I was tired of spending half my day on status updates instead of actual product work. Works with ChatGPT, Claude, Gemini. Gets way more powerful with Claude Code. Free and open source.',
   openGraph: {
-    title: 'PM Pilot - AI-Powered Meeting Prep, PRDs, and Status Reports',
+    title: 'PM Pilot - Meeting Prep, PRDs, and Status Reports on Autopilot',
     description:
-      'AI-powered meeting prep, PRDs, and status reports for product managers. Works with ChatGPT, Claude, Gemini. Free and open source.',
+      'Built by a PM who got tired of context-switching. Works with ChatGPT, Claude, Gemini. Free and open source.',
     type: 'website',
     siteName: 'Claude Code Guide',
     url: `${siteUrl}/pm-pilot`,
@@ -30,15 +30,15 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-pm-pilot.png`,
         width: 1200,
         height: 630,
-        alt: 'PM Pilot - AI-powered meeting prep, PRDs, and status reports for product managers',
+        alt: 'PM Pilot - meeting prep, PRDs, and status reports for product managers',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PM Pilot - AI-Powered Meeting Prep, PRDs, and Status Reports',
+    title: 'PM Pilot - Meeting Prep, PRDs, and Status Reports on Autopilot',
     description:
-      'AI-powered meeting prep, PRDs, and status reports. Works with ChatGPT, Claude, Gemini. Free and open source.',
+      'Built by a PM who was tired of context-switching. Works with ChatGPT, Claude, Gemini. Free and open source.',
     images: [`${siteUrl}/og-pm-pilot.png`],
   },
   keywords: [

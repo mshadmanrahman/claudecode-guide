@@ -1,13 +1,13 @@
 ---
 title: "How to Prompt Claude Code (It's Not What You Think)"
-description: "The biggest mistake? Treating Claude Code like ChatGPT. Good prompts are specific, bounded, and lean on CLAUDE.md : not clever wording."
+description: "Your CLAUDE.md file does 80% of the prompting work. The actual prompt just needs to say what you want right now. Stop crafting. Start specifying."
 ---
 
-## Forget Everything You Know About Prompting
+## Drop the ChatGPT habits.
 
-If you've been crafting elaborate ChatGPT prompts with "act as a senior engineer" and "think step by step" : stop. Claude Code doesn't work that way.
+"Act as a senior engineer." "Think step by step." "First analyze the codebase architecture, then identify the best design pattern..." These prompting tricks work fine in ChatGPT. They don't help in Claude Code. Mostly they just burn tokens.
 
-Here's the thing most people miss: with Claude Code, your CLAUDE.md file does 80% of the prompting work. The actual prompt you type? It just needs to be specific about what you want done right now. No persona. No chain-of-thought instructions. Just the task.
+Here's what actually matters: your CLAUDE.md does 80% of the prompting work. It tells Claude Code your stack, your patterns, your coding style, your constraints. The prompt you type is just the task. Not the context. Not the persona. Just: what do you need right now?
 
 <DemoCard title="ChatGPT brain vs Claude Code brain" steps={[
   { type: 'out', text: '── ChatGPT prompting habits (don\'t do this) ──' },
@@ -26,23 +26,21 @@ Here's the thing most people miss: with Claude Code, your CLAUDE.md file does 80
 
 **Rule 1: Be specific about the outcome.**
 
-Not "improve the dashboard" but "add a bar chart showing monthly revenue to the analytics dashboard using recharts." Claude Code needs a concrete target, not a vague direction.
+Not "improve the dashboard" but "add a bar chart showing monthly revenue to the analytics dashboard using recharts." Claude Code needs a concrete target, not a direction. Vague goals produce mediocre results and extra back-and-forth.
 
 **Rule 2: Reference existing code.**
 
-"Make the settings page work like the profile page" is worth more than a paragraph explaining your preferred layout. Claude Code can read your codebase : use that.
+"Make the settings page work like the profile page" is worth more than a paragraph explaining your preferred layout. Claude Code reads your codebase. Use that. Point at things that already exist.
 
-**Rule 3: Set boundaries.**
+**Rule 3: Set the boundaries.**
 
-"Add error handling to the checkout flow. Don't change the payment provider integration." Telling Claude Code what NOT to touch is often more valuable than explaining what to do.
+"Add error handling to the checkout flow. Don't change the payment provider integration." Telling Claude Code what NOT to touch is often more valuable than explaining what to do. Scope is everything. Without it, things sprawl.
 
 ## The "Spec Dump" Mistake
 
-I see this constantly. Someone pastes an entire PRD : 2,000 words of requirements, acceptance criteria, edge cases : into a single prompt.
+I see this constantly. Someone pastes an entire PRD into a single prompt. 2,000 words of requirements, acceptance criteria, edge cases, API contracts. All at once.
 
-What happens? Claude Code tries to do everything at once. It misses details. It makes contradictory choices. It burns through your context window.
-
-Instead: break it down.
+What happens? Claude Code tries to do everything at once. It misses details. It makes contradictory choices. It burns through your context window and delivers something half-right that takes longer to fix than if you'd broken it down.
 
 <DemoCard title="Spec dump vs iterative prompting" steps={[
   { type: 'out', text: '── The Spec Dump (don\'t do this) ──' },
@@ -63,35 +61,35 @@ Instead: break it down.
 ## Prompt Patterns That Work
 
 **The fix prompt:** "The checkout page returns 500 when the cart is empty. Fix it."
-Clear problem, testable outcome.
+Clear problem. Testable outcome. Nothing ambiguous.
 
 **The add prompt:** "Add pagination to the /api/posts endpoint. 20 items per page, cursor-based."
-Specific feature with concrete parameters.
+Specific feature, concrete parameters. Claude Code knows exactly what done looks like.
 
 **The refactor prompt:** "Extract the validation logic from UserForm into a shared useValidation hook. Keep the same tests passing."
-Clear scope with a safety constraint.
+Clear scope with a safety constraint. The "keep tests passing" part is important. It sets a quality bar.
 
 **The investigate prompt:** "Why does the search take 3 seconds on pages with 100+ results? Don't fix it yet, just explain."
-Separating investigation from action prevents premature changes.
+Separating investigation from action is underrated. You get the diagnosis first, and you decide whether the proposed fix is worth it before Claude Code touches anything.
 
 ## What Makes a Bad Prompt
 
-**Too vague:** "Make it better." Better how? Faster? Prettier? More accessible?
+**Too vague:** "Make it better." Better how? Faster? More accessible? Cheaper to run? Pick one.
 
-**Too broad:** "Build the entire user management system." Break it into pieces.
+**Too broad:** "Build the entire user management system." Break it into pieces. Every time.
 
-**Too prescriptive:** "Create a file called utils/auth.ts, export a function called validateToken that takes a string parameter named token and returns..." You're writing the code at that point. Just tell Claude Code what you need, not how to type it.
+**Too prescriptive:** "Create a file called utils/auth.ts, export a function called validateToken that takes a string parameter named token..." At that point you're writing pseudocode. Tell Claude Code what you need it to do, not how to type it.
 
-**Redundant with CLAUDE.md:** "Use TypeScript, follow our ESLint rules, use Tailwind for styling." If it's in your CLAUDE.md, you don't need to repeat it. That's the whole point.
+**Redundant with CLAUDE.md:** "Use TypeScript, follow our ESLint rules, use Tailwind for styling." If it's already in your CLAUDE.md, repeating it in every prompt wastes tokens and clutters your prompts. The whole point of CLAUDE.md is to avoid this.
 
 ## The Prompt Quality Checklist
 
-Before you hit Enter, quick gut check:
+Before you hit Enter:
 
 - Does it describe what you want, not how to do it?
 - Is it scoped to one logical task?
 - Does it reference existing code or patterns when relevant?
-- Are the boundaries clear (what to change, what not to change)?
+- Are the boundaries clear: what to change and what not to change?
 - Is it something CLAUDE.md doesn't already cover?
 
-If yes to all five, you've got a good prompt. Ship it.
+Five yes answers. Ship it.

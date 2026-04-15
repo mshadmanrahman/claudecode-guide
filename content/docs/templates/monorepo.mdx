@@ -1,13 +1,13 @@
 ---
 title: "Template: Monorepo"
-description: "CLAUDE.md for Turborepo monorepos. Workspace-aware rules, package boundaries, and shared configurations."
+description: "CLAUDE.md for Turborepo monorepos. Package boundaries enforced, workspace-aware, no spaghetti imports."
 ---
 
 > **Prerequisites:** Complete the [Interactive Guide](/guide) (steps 1-5) and read [The CLAUDE.md Guide](/docs/foundations/claude-md) first. You need Claude Code installed and understand how CLAUDE.md works before customizing a template.
 
-Use this template for monorepos managed with Turborepo and npm/pnpm workspaces. It enforces package boundaries so Claude does not accidentally import across apps or bypass shared packages. The template assumes a standard `apps/` + `packages/` layout.
+Monorepos fall apart when code starts bleeding across boundaries. `apps/web` importing directly from `apps/docs`, utilities duplicated in three places, nobody sure where a type actually lives. This template solves that.
 
-If you use Nx instead of Turborepo, swap the build commands but keep the boundary rules.
+Use it for monorepos managed with Turborepo and npm/pnpm workspaces. It assumes a standard `apps/` + `packages/` layout. If you use Nx instead of Turborepo, swap the build commands but keep the boundary rules.
 
 <DemoCard title="Monorepo template enforcing boundaries" steps={[
   { type: 'cmd', text: 'claude "add a date formatter to the web app"' },
@@ -122,4 +122,4 @@ Say "in packages/ui" or "in apps/web", not just file paths.
 1. Copy the code block above into a `CLAUDE.md` file at the monorepo root
 2. Update the workspace structure to match your actual `apps/` and `packages/` layout
 3. Replace `@repo/` with your actual scope if you use a different npm org prefix
-4. Consider adding a `CLAUDE.md` inside each app for app-specific rules (Claude reads the nearest one)
+4. Add a `CLAUDE.md` inside each app for app-specific rules. Claude reads the nearest one, so per-app configs layer on top of the root.

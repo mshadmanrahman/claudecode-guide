@@ -1,11 +1,13 @@
 ---
 title: "Template: Next.js App"
-description: "Ready-to-use CLAUDE.md for Next.js App Router projects. Covers routing, server components, testing, and Vercel deployment."
+description: "Copy-paste CLAUDE.md for Next.js App Router projects. Server components by default, async params, testing conventions baked in."
 ---
 
 > **Prerequisites:** Complete the [Interactive Guide](/guide) (steps 1-5) and read [The CLAUDE.md Guide](/docs/foundations/claude-md) first. You need Claude Code installed and understand how CLAUDE.md works before customizing a template.
 
-Use this template for standalone Next.js applications using the App Router with a `src/` directory structure. It covers the conventions that matter most: server component defaults, async API patterns from Next.js 15+, and a testing setup that keeps tests close to the code they validate.
+Use this template for standalone Next.js applications using the App Router with a `src/` directory structure. I built this against a real production app and it handles the conventions that trip people up the most: server component defaults, the async API patterns added in Next.js 15, and a testing setup that keeps tests next to the code they cover.
+
+If you use the Pages Router or a different directory layout, adjust the project structure section accordingly.
 
 <DemoCard title="Next.js template in action" steps={[
   { type: 'cmd', text: 'claude "add a user profile page"' },
@@ -18,8 +20,6 @@ Use this template for standalone Next.js applications using the App Router with 
   { type: 'success', text: '✓ Created src/app/profile/page.test.tsx' },
   { type: 'warn', text: '→ Every convention from your CLAUDE.md, followed automatically.' },
 ]} />
-
-If you use the Pages Router or a different directory layout, adjust the project structure section accordingly.
 
 ```markdown title="CLAUDE.md"
 # CLAUDE.md
@@ -122,5 +122,5 @@ edit the file directly rather than describing what to change.
 
 1. Copy the code block above into a `CLAUDE.md` file at your project root
 2. Update the build commands if you use `pnpm`, `yarn`, or `bun` instead of `npm`
-3. Adjust the directory layout section if your project does not use a `src/` directory
-4. Add project-specific rules as you discover patterns that Claude should follow
+3. Adjust the directory layout section if your project doesn't use a `src/` directory
+4. Add project-specific rules as you find patterns Claude keeps getting wrong

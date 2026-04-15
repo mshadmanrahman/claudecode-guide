@@ -4,10 +4,10 @@ Thanks for wanting to help. Here's how to make it easy for both of us.
 
 ## The Fastest Contributions (No Coding)
 
-- **Fix a typo** — edit any `.mdx` file in `content/docs/` and open a PR
-- **Suggest a topic** — [open an issue](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=content-request.md)
-- **Share your template** — [submit your CLAUDE.md](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=template-submission.md)
-- **Report a bug** — [open a bug report](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=bug-report.md)
+- **Fix a typo**: edit any `.mdx` file in `content/docs/` and open a PR
+- **Suggest a topic**: [open an issue](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=content-request.md)
+- **Share your template**: [submit your CLAUDE.md](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=template-submission.md)
+- **Report a bug**: [open a bug report](https://github.com/mshadmanrahman/claudecode-guide/issues/new?template=bug-report.md)
 
 ## Content Structure
 

@@ -5,7 +5,7 @@ export function PmPilotFooter() {
         <div className="flex items-center gap-3 text-sm text-fd-muted-foreground">
           <span className="font-mono font-semibold text-fd-foreground">PM Pilot</span>
           <span className="text-fd-border">|</span>
-          <span>Built by a PM with 14 years of experience</span>
+          <span>Built by a PM, for PMs</span>
           <span className="text-fd-border">|</span>
           <span>MIT License</span>
         </div>

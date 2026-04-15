@@ -1,15 +1,15 @@
 ---
 title: "Template: PM Workspace"
-description: "The complete Claude Code setup for Product Managers. Memory, skills, meeting workflows, and the Product Brain pattern."
+description: "The full Claude Code setup for Product Managers. Memory system, skills, meeting workflows, and the Product Brain pattern. No coding required."
 ---
 
 > **Prerequisites:** Complete the [Interactive Guide](/guide) (steps 1-5) and read [The CLAUDE.md Guide](/docs/foundations/claude-md) first. You need Claude Code installed and understand how CLAUDE.md works before customizing a template.
 
-> **Want this pre-built?** [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) is a ready-made implementation of this pattern : 25 skills, memory templates, and agents, all configured for PMs. Install it instead of building from scratch, then customize from there.
+> **Want this pre-built?** [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) is a ready-made implementation of this pattern: 25 skills, memory templates, and agents, all configured for PMs. Install it instead of building from scratch, then customize from there.
 
-This template is for Product Managers who want Claude Code as their daily operating system, not just a code assistant. It sets up a workspace where Claude remembers your projects, processes meetings, tracks decisions, and gives you a pulse on everything you own. No coding required.
+This template is for Product Managers who want Claude Code as a daily operating system, not a code assistant. Set it up and Claude remembers your projects, processes meetings, tracks decisions, and gives you a pulse on everything you own. No coding required.
 
-This is the most opinionated template in the gallery. It assumes you will build up skills and memory files over time.
+It's the most opinionated template in the gallery. It assumes you'll invest a week building the memory and skills layer. That investment pays back fast.
 
 <DemoCard title="PM workspace in action : no code needed" steps={[
   { type: 'cmd', text: 'claude /pulse' },
@@ -79,7 +79,7 @@ Skills are reusable workflows invoked by name:
 | `/weekly-status` | End of week | Auto-generates accomplishment report from completed work |
 | `/deep-context` | Research mode | Searches all sources for everything known about a topic |
 
-You do not need to build these on day one. Start with `/meeting-prep` and
+You don't need to build these on day one. Start with `/meeting-prep` and
 `/post-meeting`, then add more as your workflow demands them.
 
 ## Memory System
@@ -129,4 +129,4 @@ mkdir -p _scratch
 
 3. Start with one project doc in `_product-brain/` describing a product you currently own
 4. Add a `_memory/MEMORY.md` index file listing your active projects and key people
-5. Skills and agents are optional at first. The memory system and product brain are the foundation. Build skills when you notice yourself repeating the same workflow three or more times.
+5. Skills and agents are optional at first. The memory system and product brain are the foundation. Add skills when you notice yourself repeating the same workflow three or more times. That's when you'll feel the payoff.

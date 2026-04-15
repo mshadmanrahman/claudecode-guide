@@ -141,7 +141,7 @@ export function StartFlow() {
             What do you want to make?
           </h1>
           <p className="animate-slide-up-fade delay-100 mt-6 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
-            Pick one. We&apos;ll walk you through everything step by step.
+            Pick one. I&apos;ll walk you through everything from there.
           </p>
         </section>
 
@@ -178,9 +178,9 @@ export function StartFlow() {
           </div>
 
           <p className="mt-12 text-center text-sm text-fd-muted-foreground">
-            Already have Claude Code installed?{' '}
+            Already installed and running?{' '}
             <Link href="/tutorials" className="font-medium text-fd-foreground hover:underline">
-              Browse tutorials
+              Browse tutorials instead
             </Link>
           </p>
         </section>
@@ -200,7 +200,7 @@ export function StartFlow() {
           nextLabel=""
         >
           <p className="text-fd-muted-foreground leading-relaxed">
-            Claude works everywhere. Pick the one that feels right.
+            Claude works in a few different places. Pick whichever fits you best.
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             {INTERFACE_OPTIONS.map((option) => {
@@ -237,9 +237,9 @@ export function StartFlow() {
             })}
           </div>
           <p className="text-sm text-fd-muted-foreground">
-            Not sure?{' '}
+            Not sure which?{' '}
             <Link href="/docs/foundations/which-interface" className="underline hover:text-fd-foreground">
-              Compare all four options
+              I wrote a comparison of all four
             </Link>
           </p>
         </ProgressiveStep>
@@ -260,7 +260,7 @@ export function StartFlow() {
           nextLabel={os ? `I'm on ${OS_CONFIGS[os].name}` : 'Pick one above'}
         >
           <p className="text-fd-muted-foreground leading-relaxed">
-            We&apos;ll customize the terminal instructions for your system.
+            I&apos;ll tailor the terminal instructions for your system.
           </p>
           <div className="grid grid-cols-3 gap-3">
             {OS_OPTIONS.map((option) => {
@@ -358,7 +358,7 @@ export function StartFlow() {
           nextLabel="Done, what's next"
         >
           <p className="text-fd-muted-foreground leading-relaxed">
-            Copy this and paste it into {osConfig.terminalName}. Then press Enter and wait about 30 seconds.
+            Copy this, paste it into {osConfig.terminalName}, press Enter. Takes about 30 seconds.
           </p>
 
           <CopyBlock code={osConfig.installCommand} />
@@ -368,7 +368,7 @@ export function StartFlow() {
               What &quot;<VocabBridge term="npm install" explanation="npm is like an app store for coding tools. This command downloads Claude Code and sets it up on your computer.">npm install</VocabBridge>&quot; means
             </h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
-              Think of it as downloading an app, but instead of clicking a button in the App Store,
+              It&apos;s like downloading an app, except instead of clicking a button in the App Store,
               you&apos;re typing the download command. Same idea, different interface.
             </p>
           </div>
@@ -433,17 +433,17 @@ export function StartFlow() {
           <CopyBlock code="claude" />
 
           <p className="text-fd-muted-foreground leading-relaxed">
-            A browser window will open. Sign in with your Anthropic account.
+            A browser window will open. Sign in with your Anthropic account and you&apos;re in.
           </p>
 
           <div className="rounded-xl border border-fd-border bg-fd-card p-6">
-            <h3 className="text-sm font-medium text-fd-foreground mb-2">Don&apos;t have an account?</h3>
+            <h3 className="text-sm font-medium text-fd-foreground mb-2">No account yet?</h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
-              It takes 30 seconds.{' '}
+              Takes about 30 seconds.{' '}
               <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">
                 Create one at console.anthropic.com
               </a>
-              . You&apos;ll need a Claude Pro ($20/month) or Max plan to use Claude Code.
+              . You&apos;ll need Claude Pro ($20/month) or Max to use Claude Code.
             </p>
           </div>
         </ProgressiveStep>
@@ -531,12 +531,12 @@ export function StartFlow() {
           {/* Want more power? */}
           <div className="mt-8 rounded-xl border border-fd-border bg-fd-accent/50 p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">
-              Want even more?
+              Want to go further?
             </h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
-              {interfaceChoice === 'web' && 'The web app is great for getting started. For working with your own files and projects, try the Desktop App or Terminal (CLI).'}
-              {interfaceChoice === 'desktop' && 'The desktop app handles most tasks. For full power (reading your codebase, running tests, deploying), try the Terminal (CLI).'}
-              {interfaceChoice === 'vscode' && 'VS Code extension gives you Claude right in your editor. For standalone tasks, the web app at claude.ai works great too.'}
+              {interfaceChoice === 'web' && 'The web app is a solid start. When you want to work with your actual files and projects, the Desktop App or Terminal (CLI) unlocks a lot more.'}
+              {interfaceChoice === 'desktop' && 'The desktop app covers most things. For the full experience, reading your codebase, running tests, deploying, the Terminal (CLI) is where it gets interesting.'}
+              {interfaceChoice === 'vscode' && 'VS Code extension puts Claude right next to your code. For standalone tasks outside your editor, claude.ai in the browser works great alongside it.'}
             </p>
             <Link
               href="/docs/foundations/which-interface"
@@ -646,7 +646,7 @@ export function StartFlow() {
             {trackConfig.headline}
           </h2>
           <p className="text-fd-muted-foreground leading-relaxed mb-8">
-            Copy this into {osConfig.terminalName} and press Enter. Then sit back.
+            Copy this into {osConfig.terminalName} and press Enter. Then let it do its thing.
           </p>
 
           <CopyBlock code={trackConfig.prompt} />
@@ -665,7 +665,7 @@ export function StartFlow() {
               ))}
             </ul>
             <p className="mt-4 text-sm text-fd-muted-foreground">
-              This takes 1-3 minutes. It&apos;s doing real work, not just copying a template.
+              Usually 1-3 minutes. It&apos;s doing real work, not just copying a template.
             </p>
           </div>
 
@@ -702,10 +702,10 @@ export function StartFlow() {
           {/* Iteration prompt */}
           <div className="mt-8 rounded-xl border border-fd-border bg-fd-accent/50 p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">
-              Want to change something?
+              Want to tweak something?
             </h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed mb-3">
-              Just tell Claude. That&apos;s the whole workflow:
+              Just tell Claude. That&apos;s the whole loop:
             </p>
             <p className="font-display text-lg text-fd-foreground">
               Describe &rarr; Claude builds &rarr; You review &rarr; Describe changes &rarr; Repeat
@@ -783,13 +783,13 @@ export function StartFlow() {
   return (
     <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
       <div className="mx-auto text-center">
-        <p className="text-fd-muted-foreground">Something went wrong. Let&apos;s start over.</p>
+        <p className="text-fd-muted-foreground">Something went wrong. Let&apos;s try again from the start.</p>
         <button
           type="button"
           onClick={() => goToStep(0)}
           className="mt-4 cursor-pointer text-sm font-medium text-fd-foreground hover:underline"
         >
-          Go back to the beginning
+          Back to the beginning
         </button>
       </div>
     </main>

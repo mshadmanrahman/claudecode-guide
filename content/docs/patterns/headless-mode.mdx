@@ -1,13 +1,15 @@
 ---
 title: "Headless Mode & CI/CD"
-description: "Run Claude Code without a human at the keyboard. Pipe mode for scripts, CI/CD integration, and automated workflows. The feature that makes Claude Code a build tool, not just a chat."
+description: "Claude Code without a human at the keyboard. Pipe mode turns it into a build tool you can wire into GitHub Actions, pre-commit hooks, and nightly jobs."
 ---
 
-## Claude Code Without the Chat
+## Claude Code doesn't need you watching
 
-Everything you've seen so far is interactive: you type, Claude responds, you approve. But Claude Code also runs **headless**: no human in the loop. You pipe in a prompt, it does the work, and pipes out the result.
+Everything so far has been interactive: you type, Claude responds, you approve. That's the normal mode.
 
-This is how Claude Code becomes part of your build pipeline, your CI/CD, your automation scripts.
+But Claude Code also runs without you. You pipe in a prompt, it does the work, and pipes out the result. No chat, no approval prompts, no human in the loop.
+
+This is how Claude Code becomes part of your build pipeline.
 
 <DemoCard title="Headless mode in action" steps={[
   { type: 'cmd', text: 'echo "review this PR for bugs" | claude -p' },
@@ -19,9 +21,9 @@ This is how Claude Code becomes part of your build pipeline, your CI/CD, your au
   { type: 'warn', text: '→ No chat. No approval prompts. Just input → output.' },
 ]} />
 
-## The `-p` Flag: Pipe Mode
+## The `-p` flag: pipe mode
 
-The key flag is `-p` (pipe mode). It makes Claude Code non-interactive:
+The key flag is `-p`. It makes Claude Code non-interactive:
 
 ```bash
 # Basic: prompt as argument
@@ -37,13 +39,9 @@ claude -p "generate a changelog from recent commits" > CHANGELOG.md
 git diff | claude -p "review this diff" | claude -p "format as markdown table"
 ```
 
-**Key difference from interactive mode:**
-- No approval prompts (Claude can't ask "should I proceed?")
-- No tool permission dialogs
-- Output goes to stdout, errors to stderr
-- Exit code 0 on success, non-zero on failure
+Key differences from interactive mode: no approval prompts, no tool permission dialogs, output goes to stdout, errors to stderr. Exit code 0 on success, non-zero on failure. You can script around it like any other Unix tool.
 
-## CI/CD Integration
+## CI/CD integration
 
 ### GitHub Actions
 
@@ -69,7 +67,7 @@ jobs:
         run: gh pr comment ${{ github.event.number }} --body-file review.md
 ```
 
-### Pre-commit Hook
+### Pre-commit hook
 
 ```bash
 #!/bin/bash
@@ -80,7 +78,7 @@ git diff --cached | claude -p --model haiku \
   grep -q "PASS" || { echo "Review failed. Fix issues first."; exit 1; }
 ```
 
-### Automated Test Analysis
+### Automated test analysis
 
 ```bash
 # Run tests, feed failures to Claude
@@ -88,9 +86,9 @@ npm test 2>&1 | claude -p "Analyze these test results.
   For each failure, explain the likely cause and suggest a fix."
 ```
 
-## Model Selection for Headless
+## Model selection for headless
 
-Use the `--model` flag to pick the right model for the job:
+Use the `--model` flag to match the model to the job:
 
 ```bash
 # Haiku for fast, cheap tasks (linting, formatting checks)
@@ -103,7 +101,7 @@ git diff | claude -p --model sonnet "review this diff"
 claude -p --model opus "audit this codebase for security vulnerabilities"
 ```
 
-**Rule of thumb:** Haiku for high-volume automated checks. Sonnet for standard CI tasks. Opus only when the stakes justify the cost.
+Haiku for high-volume automated checks. Sonnet for standard CI tasks. Opus only when the stakes justify the cost. A full CI pipeline with 2 Haiku calls and 1 Sonnet call typically runs under $0.05.
 
 <DemoCard title="Chaining Claude calls in a CI pipeline" steps={[
   { type: 'out', text: '── GitHub Actions workflow ──' },
@@ -117,9 +115,9 @@ claude -p --model opus "audit this codebase for security vulnerabilities"
   { type: 'warn', text: '→ Three AI steps in CI. Under 5 cents. Fully automated.' },
 ]} />
 
-## Practical Examples
+## Practical examples
 
-### Generate Release Notes
+### Generate release notes
 
 ```bash
 git log v1.2.0..HEAD --oneline | claude -p \
@@ -127,14 +125,14 @@ git log v1.2.0..HEAD --oneline | claude -p \
    Write for end users, not developers." > release-notes.md
 ```
 
-### Automated Documentation
+### Automated documentation
 
 ```bash
 claude -p "Read all TypeScript files in src/api/ and generate 
   API documentation in Markdown format" > docs/api-reference.md
 ```
 
-### Nightly Codebase Health Check
+### Nightly codebase health check
 
 ```bash
 claude -p "Analyze this project for: dead code, unused dependencies, 
@@ -142,11 +140,11 @@ claude -p "Analyze this project for: dead code, unused dependencies,
   Output as a checklist." | tee health-report.md
 ```
 
-## Security Considerations
+## Security: don't skip this section
 
 Headless mode runs with whatever API key is in the environment. In CI:
 
 - **Use secrets management.** Never hardcode API keys in workflow files.
 - **Scope permissions.** Use project-level API keys with limited access.
 - **Review outputs.** Automated Claude output should be reviewed before merging or deploying.
-- **Cost awareness.** Automated pipelines can run up costs fast. Use Haiku for high-frequency checks, set spend alerts.
+- **Watch your costs.** Automated pipelines can spend fast. Use Haiku for high-frequency checks, set spend alerts in the Anthropic console.

@@ -18,8 +18,8 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
   const tutorialUrl = `${SITE_URL}/tutorials/${tutorialSlug}`;
 
   const shareText = name.trim()
-    ? `Just completed "${tutorialTitle}" on Claude Code Guide in ${duration}, and I didn't need to write a single line of code.\n\n${name.trim()} used Claude to do the heavy lifting. You can too.\n\n👇 Free tutorial:`
-    : `Just completed "${tutorialTitle}" on Claude Code Guide in ${duration}.\n\nNo coding experience needed. Claude does the work, you do the thinking.\n\n👇 Free tutorial:`;
+    ? `Just finished "${tutorialTitle}" on Claude Code Guide in ${duration}. Didn't write a single line of code.\n\n${name.trim()} let Claude do the heavy lifting. You can too.\n\n👇 Free tutorial:`
+    : `Just finished "${tutorialTitle}" on Claude Code Guide in ${duration}.\n\nNo coding needed. Claude does the work, you steer.\n\n👇 Free tutorial:`;
 
   const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(tutorialUrl)}`;
 
@@ -33,11 +33,11 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
     <div className="rounded-xl border border-fd-border bg-fd-card p-6 space-y-4">
       <div className="flex items-center gap-2">
         <Share2 className="h-4 w-4 text-fd-muted-foreground" />
-        <p className="text-sm font-medium text-fd-foreground">Share what you built</p>
+        <p className="text-sm font-medium text-fd-foreground">Tell someone what you built</p>
       </div>
 
       <p className="text-xs text-fd-muted-foreground leading-relaxed">
-        Let your network know. Pre-filled post (edit before posting).
+        Pre-filled post, ready to go. Edit it before you post.
       </p>
 
       {/* Name input */}

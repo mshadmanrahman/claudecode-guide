@@ -5,23 +5,23 @@ import { useInView } from '@/hooks/use-in-view';
 const principles = [
   {
     num: '01',
-    text: 'Braindump before structure. Never open a template before the thinking is externalized.',
+    text: 'Braindump before structure. Templates create false clarity. Thinking comes first; the skeleton follows.',
   },
   {
     num: '02',
-    text: 'Memory over transcripts. A 200-line memory file beats a 50,000-token session replay.',
+    text: 'Memory beats transcripts. A 200-line memory file is more useful than scrolling back through a 50,000-token conversation.',
   },
   {
     num: '03',
-    text: 'Skills load on demand. 25 skills, zero startup cost.',
+    text: 'Skills load on demand. There are 25 of them, but only the ones you actually use ever touch your context window.',
   },
   {
     num: '04',
-    text: 'Rules are compressed. Around 950 tokens total, not 9,500.',
+    text: 'Rules stay compressed. Around 950 tokens total. Not 9,500.',
   },
   {
     num: '05',
-    text: 'Every session compounds. Corrections become rules. Meetings become stakeholder intelligence.',
+    text: 'Every session builds on the last. Corrections become saved rules. Meetings become stakeholder notes.',
   },
 ];
 
@@ -49,17 +49,13 @@ export function PmPilotWhyExists() {
           style={{ animationDelay: '100ms' }}
         >
           <p className="text-lg leading-relaxed text-fd-muted-foreground">
-            PMs spend 60% of their time on status updates, meeting prep, and context-gathering.
-            Not on product thinking. Not on strategy. Not on the work that actually moves the
-            needle.
+            I tracked my time for a week. More than half of it was status updates, meeting prep, and chasing context across Jira and Slack. That&apos;s not product work. That&apos;s admin with a fancier title.
           </p>
           <p className="text-lg font-medium text-fd-foreground">
-            PM Pilot gives you that time back.
+            So I built a system to eat the admin.
           </p>
           <p className="text-lg leading-relaxed text-fd-muted-foreground">
-            It started as one PM&apos;s personal setup. 14 years of product experience across
-            startups and enterprise, distilled into reusable skills and workflows. The kind of
-            system you&apos;d build for yourself if you had the time.
+            14 years of PM experience across startups and enterprise, compressed into reusable skills. The kind of setup I always wanted but never had time to build properly. Until I did.
           </p>
         </div>
 

@@ -48,10 +48,10 @@ export function GuideStep({ stepId, number, title, completed, onToggle, children
         <div className="border-t border-fd-border px-6 py-6">
           {children}
           <p className="mt-6 text-xs text-fd-muted-foreground">
-            Stuck? Something not working?{' '}
+            Stuck?{' '}
             <Link href="/docs/foundations/troubleshooting" className="underline hover:text-fd-foreground">
-              Check the troubleshooting guide
-            </Link>.
+              Troubleshooting guide
+            </Link>{' '}has you covered.
           </p>
         </div>
       )}

@@ -1,13 +1,13 @@
 ---
 title: "Claude Code in CI/CD Pipelines"
-description: "Run Claude Code in GitHub Actions, automate PR reviews, generate changelogs, and make your CI pipeline actually smart."
+description: "Run Claude Code non-interactively in GitHub Actions. Automated PR reviews, changelog generation, and bug detection that actually understands your code."
 ---
 
-## Your CI Pipeline Is Dumb. Let's Fix That.
+## Your CI pipeline runs the same checks every time. It has no idea what changed.
 
-Most CI pipelines run the same checks every time: lint, test, build, deploy. They don't understand what changed. They don't write helpful PR descriptions. They don't catch logical bugs that pass type checks.
+Lint, test, build, deploy. Same gates, every PR. They don't understand context. They don't write helpful PR descriptions. They don't catch the logical bug that passed your type checker.
 
-Claude Code in CI changes that. Using the `-p` flag (pipe mode), you can run Claude Code non-interactively in any pipeline. It reads your code, understands the context, and does real work : not just pass/fail gates.
+Claude Code in CI changes that. The `-p` flag runs it non-interactively in any pipeline. It reads your code, understands the diff, and does real work. Not just pass/fail.
 
 <DemoCard title="Claude Code in a GitHub Action" steps={[
   { type: 'cmd', text: 'claude -p "review the changes in this PR and post a summary"' },
@@ -22,7 +22,7 @@ Claude Code in CI changes that. Using the `-p` flag (pipe mode), you can run Cla
 
 ## The -p Flag: Non-Interactive Mode
 
-The `-p` (pipe) flag is what makes CI integration possible. It tells Claude Code to run without prompts, read from stdin or arguments, and output results to stdout.
+The `-p` (pipe) flag makes CI integration possible. It tells Claude Code to run without prompts, read from stdin or arguments, and output results to stdout.
 
 ```bash
 # Basic usage in CI
@@ -35,7 +35,7 @@ git diff main...HEAD | claude -p "review this diff for bugs"
 claude -p --output-format json "list all TODO comments in src/"
 ```
 
-No permission prompts. No interactive UI. Just input, processing, output.
+No permission prompts. No interactive UI. Input, processing, output. Simple as that.
 
 ## GitHub Actions: The Starter Workflow
 
@@ -111,20 +111,20 @@ claude -p "write tests for any functions in src/utils/
 
 ## Cost Considerations
 
-Running Claude Code in CI uses API tokens, so be intentional:
+Running Claude Code in CI uses API tokens. Be intentional about it.
 
 - **Run on PR events only**, not every push to every branch
-- **Use Haiku for simple tasks** (PR descriptions, changelog) : it's 10x cheaper
-- **Use Sonnet for code review** : worth the cost for bug detection
-- **Cache aggressively** : don't re-review unchanged files
-- **Set token limits** : `--max-tokens 4096` prevents runaway usage
+- **Use Haiku for simple tasks** (PR descriptions, changelog): it's roughly 10x cheaper than Sonnet
+- **Use Sonnet for code review**: worth the cost for actual bug detection
+- **Cache aggressively**: don't re-review unchanged files
+- **Set token limits**: `--max-tokens 4096` prevents runaway usage
 
-A typical PR review costs $0.02-0.10 depending on diff size. That's cheaper than a missed bug in production.
+A typical PR review costs $0.02-0.10 depending on diff size. That's cheaper than one missed production bug.
 
 ## Security Notes
 
-Your CI environment needs an `ANTHROPIC_API_KEY`. Store it as a GitHub Actions secret, never in your workflow file. Scope the API key to the minimum permissions needed.
+Your CI environment needs an `ANTHROPIC_API_KEY`. Store it as a GitHub Actions secret. Never put it in your workflow file. Scope the API key to the minimum permissions needed.
 
 Claude Code in CI runs with whatever file access the runner has. It can read your entire repo. If that's a concern, use a restricted checkout that only includes the relevant directories.
 
-And one more thing: Claude Code's output in CI is deterministic-ish but not guaranteed. Don't use it as a hard gate (fail the build if Claude says no). Use it as advisory : post comments, flag concerns, suggest improvements. Keep humans in the approval loop.
+Here's the thing: Claude Code's output in CI is consistent but not guaranteed identical. Don't use it as a hard gate that fails the build. Use it as advisory. Post comments, flag concerns, suggest improvements. Keep humans in the approval loop.

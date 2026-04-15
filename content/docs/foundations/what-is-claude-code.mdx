@@ -1,13 +1,13 @@
 ---
 title: "What is Claude Code?"
-description: "You've used ChatGPT. You've heard people shipping apps with AI. Claude Code is how they actually do it. Here's what it is, why it's different, and whether it's for you."
+description: "ChatGPT tells you what to do. Claude Code actually does it. Here's what it is, what it's genuinely good at, and whether it's worth your time."
 ---
 
 ## The 30-Second Version
 
-**Claude Code is an AI that lives on your computer.** It can read your files, write code, run commands, browse the web, and build things. You talk to it in plain English. It does the work.
+**Claude Code is an AI that lives on your computer.** It reads your files, writes code, runs commands, and builds things. You talk to it in plain English.
 
-If ChatGPT is a person you text for advice, Claude Code is a colleague sitting next to you with access to your actual project.
+If ChatGPT is a person you text for advice, Claude Code is a colleague sitting next to you with access to your actual project. Not just suggestions. Real output. Real files.
 
 <DemoCard title="claude-code" steps={[
   { type: 'cmd', text: '"Build me a personal website with my resume"' },
@@ -20,7 +20,7 @@ If ChatGPT is a person you text for advice, Claude Code is a colleague sitting n
 
 ## How Is This Different from ChatGPT?
 
-This is the question everyone asks. Here's the honest answer:
+This is the question everyone asks. Honest answer:
 
 | | ChatGPT | Claude Code |
 |---|---|---|
@@ -31,53 +31,41 @@ This is the question everyone asks. Here's the honest answer:
 | **Output** | Text you copy-paste | Actual files on your computer |
 | **Best for** | Questions and brainstorming | Building, fixing, and shipping real things |
 
-**Neither is "better."** They're different tools for different jobs.
+Neither is "better." They're different tools for different jobs.
 
-- Need a quick answer while browsing? ChatGPT (or Claude.ai chat) is great.
-- Need to build a website, automate a workflow, or fix a bug? Claude Code.
+Need a quick answer while browsing? ChatGPT. Need to build something, fix a bug, or automate a workflow? Claude Code.
 
 ## What Can It Actually Do?
 
-Here are real things people do with Claude Code every day:
+Here are real things people use it for every day.
 
 ### If You're a Complete Beginner
-- **Build a personal website** from scratch in 30 minutes
-- **Create a resume** in multiple formats (PDF, HTML, plain text)
-- **Automate boring tasks** like renaming files, organizing folders, processing spreadsheets
-- **Learn to code** by having Claude explain and build alongside you
+- **Build a personal website** from scratch in about 30 minutes
+- **Automate boring tasks** like renaming files, organizing folders, or processing spreadsheets
+- **Learn to code** with Claude explaining and building alongside you
 
 ### If You're a Product Manager
 - **Turn meeting notes into Jira tickets** in seconds
-- **Generate stakeholder maps** from a list of names and roles
 - **Write competitive analyses** by researching and comparing products
-- **Create weekly status reports** from your project data
-- **Build slide deck outlines** for presentations
+- **Build slide deck outlines** and status reports from your project data
 
 ### If You're a Developer
-- **Ship features faster** with an AI pair programmer that knows your codebase
+- **Ship features faster** with an AI that knows your codebase
 - **Debug systematically** instead of guessing
-- **Write and run tests** automatically
-- **Refactor entire codebases** safely
-- **Set up CI/CD, deployment, and infrastructure** with natural language
+- **Refactor entire codebases** safely, with tests written first
 
 ### If You're Anyone
-- **Draft documents** with your writing style
-- **Research topics** across the web
-- **Manage personal finances** with custom spreadsheets
-- **Prepare for job interviews** with tailored materials
+- Draft documents in your writing style
+- Research topics across the web
+- Prepare for job interviews with tailored materials
 
 ## Do I Need to Know How to Code?
 
-**No.**
+No. I know that sounds like a marketing line. It isn't.
 
-This is the part that surprises people. Claude Code started as a tool for developers, but it's evolved into something much broader.
+Claude Code started as a developer tool, but it's grown into something much broader. With the desktop or web app, you never open a terminal. You type what you want, Claude figures out how to do it, you review what it creates.
 
-With the **desktop app** or **web app**, you never need to open a terminal. You can:
-- Type what you want in plain English
-- Claude figures out how to do it
-- You review and approve what it creates
-
-The tutorials on this site are designed for people who've never written a line of code. If you can describe what you want, you can build with Claude Code.
+The tutorials on this site are written for people who've never touched code. If you can describe what you want, you can build with Claude Code.
 
 ## How Much Does It Cost?
 
@@ -94,32 +82,30 @@ Most people start with Pro. It's the sweet spot.
 
 ## The Models Behind It
 
-Claude Code runs on Anthropic's AI models. The latest as of 2026:
+Claude Code runs on three AI models. You don't have to pick manually. It routes based on your plan and task complexity. But it helps to know what you're working with:
 
-- **Claude Opus 4.6**: The most capable model. Deep reasoning, 1M <VocabBridge term="token" explanation="A small chunk of text (roughly a word) that AI models use to measure how much they read and write.">token</VocabBridge> <VocabBridge term="context window" explanation="How much text the AI can 'see' at once: like how many pages it can hold in its head.">context window</VocabBridge>, extended thinking. Best for complex tasks.
-- **Claude Sonnet 4.6**: Fast and capable. Handles 80% of daily work. Best balance of speed and quality.
-- **Claude Haiku 4.5**: Fastest and cheapest. Great for simple tasks, code review, and quick lookups.
-
-You don't need to pick manually. Claude Code routes to the right model based on your plan and the task complexity.
+- **Claude Opus 4.6**: Deepest reasoning. 1M <VocabBridge term="token" explanation="A small chunk of text (roughly a word) that AI models use to measure how much they read and write.">token</VocabBridge> <VocabBridge term="context window" explanation="How much text the AI can 'see' at once: like how many pages it can hold in its head.">context window</VocabBridge>. Use it when the problem is genuinely hard and you need it right the first time.
+- **Claude Sonnet 4.6**: Fast and capable. Handles 80% of daily work without breaking a sweat. The default for a reason.
+- **Claude Haiku 4.5**: Fastest and cheapest. Great for quick edits, code review, and simple lookups.
 
 ## What's New in 2026?
 
-Claude Code has shipped a lot of updates recently:
+Claude Code has shipped a lot recently. The ones worth knowing about:
 
 - **Computer Use** (March 2026): Claude can now see your screen, click buttons, and navigate apps. No setup required.
 - **Desktop App**: Full native app on Mac, Windows, and Linux. No terminal needed.
 - **Web App**: Use Claude Code at claude.ai/code. Zero install.
-- **1M Token Context**: Both Opus and Sonnet can now process massive projects in a single session.
-- **Skills**: Create custom <VocabBridge term="slash commands" explanation="Shortcuts you type starting with / that trigger a specific action, like /commit or /review.">slash commands</VocabBridge> with a simple Markdown file. No code.
+- **1M Token Context**: Both Opus and Sonnet can process massive projects in a single session.
+- **Skills**: Create custom <VocabBridge term="slash commands" explanation="Shortcuts you type starting with / that trigger a specific action, like /commit or /review.">slash commands</VocabBridge> with a simple Markdown file. No code required.
 - **Agent Teams**: Run multiple Claude sessions in parallel, each focused on a different task.
 - **<VocabBridge term="MCP" explanation="Model Context Protocol: a standard that lets Claude plug into other tools like GitHub, Slack, or databases.">MCP</VocabBridge> Protocol**: Connect Claude to GitHub, Slack, Jira, databases, and 50+ other tools.
 
 ## Where to Start
 
-Three paths, pick one:
+Three paths:
 
 1. **I want the guided experience**: Go to the [Interactive Journey Map](/journey) and pick your persona.
-2. **I want to follow a tutorial**: Start with [Your First CLAUDE.md](/tutorials/your-first-claude-md) (5 minutes).
-3. **I just want to install it**: Go to the [Installation Guide](/docs/foundations/installation).
+2. **I want to follow a tutorial**: Start with [Your First CLAUDE.md](/tutorials/your-first-claude-md). Takes 5 minutes.
+3. **I just want to install it**: [Installation Guide](/docs/foundations/installation).
 
-You're in the right place. Let's go.
+Pick one and go.

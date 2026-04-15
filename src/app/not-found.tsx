@@ -8,7 +8,7 @@ export default function NotFound() {
         Page not found
       </h1>
       <p className="mt-3 max-w-md text-fd-muted-foreground">
-        Looks like this page doesn&apos;t exist. No worries &mdash; here are some good starting points:
+        This page doesn&apos;t exist. Here are some places to start instead:
       </p>
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <Link

@@ -1,13 +1,13 @@
 ---
 title: Session Lifecycle
-description: "Stop re-explaining yourself every session. Here's the start-work-end protocol that makes Claude Code actually remember what happened yesterday."
+description: "Stop re-explaining yourself every session. A five-minute setup makes Claude Code remember your projects, preferences, and yesterday's work automatically."
 ---
 
-## You're Wasting 10 Minutes Every Session
+## If your first message every session is explaining what you're working on, you're wasting 10 minutes.
 
-Real talk. If you open Claude Code and the first thing you do is explain what project you're working on, what happened yesterday, and what you need to do today, you're doing it wrong.
+That's not an AI limitation. That's a workflow problem. And it's fully fixable.
 
-That's not an AI limitation. That's a workflow problem. And it's fixable in about five minutes of setup.
+I built this system after realizing I was typing the same three paragraphs of context at the start of every session: what project, what stage, what just happened. Once I stopped doing that, sessions got noticeably faster. Not because Claude Code got smarter, but because I stopped treating it like a first meeting every time.
 
 <DemoCard title="Cold start vs warm start" steps={[
   { type: 'cmd', text: 'claude' },
@@ -22,13 +22,13 @@ That's not an AI limitation. That's a workflow problem. And it's fixable in abou
 
 ## The Three Phases
 
-Every productive session follows the same pattern: start warm, work smart, end with a trail. Here's how.
+Every productive session follows the same pattern: start warm, work smart, end with a trail. Simple as that.
 
 ### Phase 1: Start (Don't Start Cold)
 
 When a session begins, Claude Code reads three things:
 
-1. **Memory** (`MEMORY.md`): Who you are, what you're working on, your preferences, your past corrections
+1. **Memory** (`MEMORY.md`): Who you are, what you're working on, your preferences, past corrections
 2. **Latest handoff**: What happened last session, what decisions were made, what's next
 3. **Project docs**: Current state of your active projects
 
@@ -40,32 +40,30 @@ You configure this in CLAUDE.md:
 **Starting**: Read MEMORY.md. Check handoffs/ for latest handoff. Resume context.
 ```
 
-That's it. Three reads. Zero re-explanation. It picks up exactly where you left off.
-
-The difference is night and day. Instead of "let me explain the project again," you get "continue with the dashboard feature" and it just... knows.
+Three reads. Zero re-explanation. It picks up where you left off, and you say "continue with the dashboard feature" instead of typing four paragraphs of setup.
 
 ### Phase 2: Work (Stop Guessing, Start Planning)
 
-During a session, four rules make the difference between "using Claude Code" and "being productive with Claude Code":
+Four things separate "using Claude Code" from "being productive with Claude Code":
 
-**Plan before you build.** If the task has more than two steps, don't just start coding. Enter plan mode. Align on the approach. Then execute. This sounds slower. It saves tokens and prevents "that's not what I wanted" loops.
+**Plan before you build.** If the task has more than two steps, don't just start coding. Enter plan mode, align on the approach, then execute. This sounds slower. It genuinely saves tokens and prevents the "that's not what I wanted" rework loops that cost real time.
 
-**Delegate to sub-agents.** Research in one agent, code review in another, test execution in a third. Your main conversation stays focused on decisions. Sub-agents do the grunt work.
+**Delegate to sub-agents.** Research in one agent, code review in another, test execution in a third. Your main conversation stays on decisions. Sub-agents handle the grunt work so you're not burning your context window on mechanical tasks.
 
-**Capture every correction.** This is the one most people skip and it's the one with the highest ROI. When Claude Code makes a mistake and you fix it, that correction needs to get saved as a memory entry. Otherwise next session, same mistake. It's like training a team member who gets amnesia every night.
+**Capture every correction.** This is the one people skip, and it's the highest-ROI habit here. When Claude Code makes a mistake and you fix it, save that correction as a memory entry. Otherwise next session: same mistake. It's like training a team member who gets complete amnesia every night.
 
-**Verify before done.** Nothing is "done" until tests pass, logs are clean, and the behavior matches what you asked for. "It looks right" is not verification.
+**Verify before done.** Nothing is done until tests pass, logs are clean, and the behavior matches what you asked for. "It looks right" is not verification. Run the thing.
 
 ### Phase 3: End (Two Minutes That Save Ten)
 
 Before you close the session:
 
-1. **Write a handoff** if work is in-progress. Doesn't need to be fancy. Three bullet points:
+1. **Write a handoff** if work is in-progress. Doesn't need to be long. Three bullet points:
    - What was done
    - What's next
    - Any decisions or blockers
 
-2. **Save corrections** if Claude Code made mistakes you had to fix. These become permanent rules.
+2. **Save corrections** to memory if Claude Code made mistakes you had to fix. These become permanent rules.
 
 Here's a handoff template:
 
@@ -86,9 +84,9 @@ Here's a handoff template:
 - Wire up real API data
 ```
 
-That took 60 seconds to write. Tomorrow's session reads it and you save yourself 10 minutes of "where was I?" fumbling.
+That took 60 seconds to write. Tomorrow's session reads it and skips 10 minutes of "where was I" fumbling.
 
-## The Memory Types (What to Save, What to Skip)
+## The Memory Types
 
 Not everything belongs in memory. Here's the cheat sheet:
 
@@ -99,29 +97,30 @@ Not everything belongs in memory. Here's the cheat sheet:
 | Active project context | Debugging solutions (the fix is in the code) |
 | Where to find external things | Temporary task details |
 
-Four types of memory, each with a purpose:
+Four memory types, each with a different purpose:
 
 - **user**: Who you are, how you work ("Senior PM, prefers direct communication")
 - **feedback**: What you corrected ("Don't mock databases in tests. We got burned last quarter.")
 - **project**: What's happening ("Auth rewrite is compliance-driven, not tech debt")
 - **reference**: Where to look ("Pipeline bugs tracked in Linear project INGEST")
 
-Each memory is its own markdown file. MEMORY.md is just an index that links to them.
+Each memory is its own markdown file. MEMORY.md is just an index that links to them. The system stays lean because you only load what's relevant to the current task.
 
-## What This Actually Looks Like Over Time
+## What This Looks Like Over Time
 
-| Timeframe | What changes |
-|-----------|-------------|
-| **Week 1** | Sessions start faster. Less re-explanation. Feels like extra work writing handoffs. |
-| **Month 1** | Memory captures your style. Common mistakes stop happening. |
-| **Month 3** | It knows your projects, people, and preferences. Anticipates what you need. |
-| **Month 6** | Institutional knowledge is encoded. New team members could read your memory to onboard. |
+Week 1: Sessions start faster. Less re-explanation. Writing handoffs feels like extra work (it is, slightly).
 
-This isn't a chatbot getting smarter. It's your practice getting more efficient. Small daily investments that compound over time. The people who set this up and stick with it for a month never go back.
+Month 1: Memory captures your style. Common mistakes stop repeating. The friction of writing handoffs disappears because you see the payoff.
+
+Month 3: It knows your projects, people, preferences. Anticipates what you need without you spelling it out.
+
+Month 6: Institutional knowledge is encoded. A new team member could read your memory files to get up to speed on how you work and what matters in your projects.
+
+This isn't the AI getting smarter. It's your practice getting more efficient. Small investments that compound.
 
 ## Set It Up Right Now
 
-Seriously. Five minutes.
+Five minutes. Seriously.
 
 - [ ] Add the session lifecycle section to your CLAUDE.md
 - [ ] Create `memory/MEMORY.md` as an empty file
@@ -129,4 +128,4 @@ Seriously. Five minutes.
 - [ ] Write your first memory: who you are, what you're focused on
 - [ ] At the end of today's session, write a three-line handoff
 
-That's it. You're in the system now. Everything after this compounds.
+That's it. You're in the system. Everything after this compounds.

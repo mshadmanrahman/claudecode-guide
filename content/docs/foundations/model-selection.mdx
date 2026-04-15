@@ -1,19 +1,13 @@
 ---
 title: "Which Claude Model Should I Use?"
-description: "Opus 4.6, Sonnet 4.6, Haiku 4.5 : there are three models and they're very different. Here's when to use which, what they cost, and how Claude Code picks for you."
+description: "Sonnet handles 80% of what you'll ever do. Here's exactly when to reach for the others, what they cost, and how to stop paying for more than you need."
 ---
 
-## The Three Models
+## Start with Sonnet. That's the answer.
 
-Claude Code runs on three AI models. Think of them as three colleagues with different strengths:
+Seriously. If you're new to Claude Code, just use Sonnet 4.6 for everything and stop reading here. You can come back to this page when Sonnet doesn't cut it.
 
-| Model | Speed | Capability | Best For |
-|---|---|---|---|
-| **Opus 4.6** | Slower (20-30 tok/s) | Most capable | Complex architecture, multi-file refactors, deep analysis |
-| **Sonnet 4.6** | Fast (40-60 tok/s) | Very capable | 80% of daily work. Bug fixes, features, code reviews |
-| **Haiku 4.5** | Fastest | Good for simple tasks | Quick lookups, formatting, simple edits |
-
-All three support **1 million token context windows** and **extended thinking** : meaning they can reason through complex problems step by step before answering.
+Still here? Good. There are three models, they're meaningfully different, and picking wrong costs you either money or quality.
 
 <DemoCard title="claude-code" steps={[
   { type: 'cmd', text: '/model' },
@@ -28,38 +22,36 @@ All three support **1 million token context windows** and **extended thinking** 
 
 ## When to Use Opus 4.6
 
-**Use Opus when the stakes are high or the problem is complex.**
+Use Opus when getting it wrong the first time is expensive.
 
 - Designing system architecture or making foundational decisions
 - Refactoring that touches 10+ files
-- Debugging cross-file issues where your first approach failed
-- Writing PRDs, competitive analysis, or strategy documents
-- Complex multi-step reasoning that requires getting it right the first time
-- Security reviews and code audits
+- Debugging cross-file issues where your first approach already failed
+- Writing PRDs, competitive analysis, strategy documents
+- Security reviews and code audits where you need to be thorough
 
-Opus is the "senior engineer" : slower, more expensive, but the quality ceiling is higher. When you need it, you really need it.
+It generates at 20-30 tokens per second versus Sonnet's 40-60. You feel that. For a quick bug fix it's irritating. For a 2-hour architecture session it's worth every second of waiting.
 
 **Pricing:** $5 input / $25 output per million tokens.
 
 ## When to Use Sonnet 4.6
 
-**Use Sonnet for almost everything else. This is your daily driver.**
+This is your daily driver. 80% of tasks, Sonnet is the right call.
 
 - Single-file edits and bug fixes
-- Writing tests, documentation, and reviews
+- Writing tests, docs, code reviews
 - CSS tweaks and UI changes
 - Git operations and daily workflow
-- Code generation for straightforward features
+- Features that are mostly straightforward
 - Answering questions about your codebase
-- Content writing when the strategy is already decided
 
-Sonnet is faster and cheaper, and for 80% of tasks the quality difference from Opus is negligible.
+Here's the thing most people discover after a week: for most tasks, the quality difference between Sonnet and Opus is negligible. You're not leaving capability on the table. You're being efficient.
 
 **Pricing:** $3 input / $15 output per million tokens.
 
 ## When to Use Haiku 4.5
 
-**Use Haiku for speed-critical or high-volume tasks.**
+Haiku is for volume work where you don't need reasoning. Think of it like the intern who types really fast.
 
 - Quick code formatting
 - Simple lookups ("what does this function do?")
@@ -67,57 +59,47 @@ Sonnet is faster and cheaper, and for 80% of tasks the quality difference from O
 - Basic text transformations
 - Syntax checks
 
-Haiku is the "intern with a fast typing speed" : great for volume work where you don't need deep reasoning.
+The real use case here is sub-agents. When you're running background code review or spinning up a test-execution agent, Haiku is fast and cheap enough that you can run several in parallel without watching your bill climb.
 
-**Pricing:** The cheapest option. Good for tasks where speed matters more than depth.
+**Pricing:** Cheapest of the three. Exact numbers fluctuate but it's a fraction of Sonnet.
 
 ## How Claude Code Picks For You
 
-If you're on **Claude Pro** or **Max**, you generally don't need to pick manually. Claude Code routes based on your plan:
+On **Claude Pro** ($20/month) you get Sonnet by default with generous daily usage. That's enough for most people. Full stop.
 
-- **Pro ($20/month):** Defaults to Sonnet. You get generous daily usage. Good for most people.
-- **Max ($100/month):** Defaults to Sonnet with access to Opus. 20x the usage of Pro. For power users.
-- **API (pay per use):** Full control over which model to use. You pick per request.
+On **Claude Max** ($100/month) you still default to Sonnet but get Opus access and 20x the usage of Pro. Get here when you're hitting Pro limits daily, not before.
+
+On the **API** (pay per use) you pick the model per request. Full control, full responsibility for the bill.
 
 ### Switching Models Mid-Session
 
-You can switch models at any time:
-
 ```bash
-# In the terminal
 /model opus     # Switch to Opus for a complex task
 /model sonnet   # Switch back for regular work
 /model haiku    # Switch to Haiku for quick tasks
 ```
 
+You can do this mid-conversation, mid-task. The context carries over. Switch to Opus when you hit something hard, switch back when it's done.
+
 ## Which Plan Should I Get?
 
-| You are... | Recommended plan | Why |
-|---|---|---|
-| Trying it out | **Free** | See if you like it before committing |
-| Occasional user (a few times/week) | **Pro ($20/mo)** | Plenty of usage for regular workflows |
-| Daily user, building real things | **Pro ($20/mo)** | Still usually enough. Upgrade if you hit limits. |
-| Power user, all day every day | **Max ($100/mo)** | 20x usage, Opus access when needed |
-| Building apps that use Claude | **API** | Pay per token. Full model control. |
+If you're just trying it out: start free, see if you like it.
 
-**Start with Pro.** Most people never need Max. You'll know if you need it because you'll hit the daily limit and feel frustrated.
+If you're using it regularly: Pro at $20/month handles most people's actual usage. I'd start here and upgrade only when you start hitting limits and it frustrates you. You'll know.
+
+If you're a power user building things all day: Max at $100/month gives you the headroom. The Opus access is nice but honestly it's the 20x usage that makes Max worth it.
+
+If you're building apps that call Claude: API, pay per token, pick your model per call.
+
+## The Decision in One Line
+
+Sonnet for everything. Opus when Sonnet's first pass wasn't good enough. Haiku for background agents and volume work.
+
+That's it. Start there and adjust based on what you actually experience, not what you imagine might be better.
 
 ## Pro Tips
 
-1. **Start every task on Sonnet.** Only switch to Opus if Sonnet's first attempt doesn't cut it.
-2. **Use Haiku for sub-agents.** If you're running code review or test agents in the background, Haiku is fast and cheap.
-3. **Watch your context window.** A 1M token context sounds huge, but if you're loading entire codebases, costs add up. Use `/compact` to trim.
-4. **Extended thinking is free in terms of input.** The model "thinks" before answering but you only pay for the output tokens.
-
-## The Decision Flowchart
-
-```
-Is this task complex (architecture, 10+ files, strategy)?
-├── Yes → Use Opus
-└── No
-    Is this a quick formatting/lookup task?
-    ├── Yes → Use Haiku
-    └── No → Use Sonnet (default)
-```
-
-Keep it simple. Sonnet for 80% of work. Opus for the hard stuff. Haiku for the fast stuff.
+1. **Start every session on Sonnet.** Only switch to Opus if the first attempt clearly isn't cutting it.
+2. **Use Haiku for sub-agents.** Code review and test agents running in the background don't need Opus-level reasoning.
+3. **Watch your context window.** The 1M token limit sounds massive, but loading whole codebases repeatedly adds up. Use `/compact` to trim.
+4. **Extended thinking costs output tokens, not input.** The model reasons internally before answering but you pay for the final response, not the thinking. Worth knowing.

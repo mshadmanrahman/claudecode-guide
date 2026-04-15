@@ -82,7 +82,7 @@ export default function TutorialsPage() {
           Stop reading. Start building.
         </h1>
         <p className="mt-4 text-lg text-fd-muted-foreground max-w-2xl mx-auto">
-          Each tutorial is a guided micro-project. You&apos;ll paste commands, see real output, and walk away with something that works. 5-15 minutes each.
+          Each one is a guided micro-project. You paste commands, see real output, and walk away with something that works. Most are 5-15 minutes.
         </p>
 
         <div className="mt-8 mx-auto max-w-xl text-left">
@@ -107,7 +107,7 @@ export default function TutorialsPage() {
             Quick wins (zero experience needed)
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
-            Fun stuff you can build in under 15 minutes. No coding, no terminal. Just vibes.
+            Fun stuff you can build in under 15 minutes. No coding, no terminal required.
           </p>
         </div>
 
@@ -151,7 +151,7 @@ export default function TutorialsPage() {
             Start here
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
-            No experience needed. Just a terminal and a Claude subscription.
+            No experience needed. Just a terminal and a Claude subscription. These are the ones I&apos;d do first.
           </p>
         </div>
 
@@ -206,7 +206,7 @@ export default function TutorialsPage() {
             New features
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
-            The latest Claude Code capabilities. Try these if you want to see what&apos;s new.
+            The latest Claude Code capabilities. Worth trying if you want to see how fast things are moving.
           </p>
         </div>
 
@@ -228,7 +228,7 @@ export default function TutorialsPage() {
             No terminal required
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
-            These run entirely in the Claude.ai web app. Just open a tab and paste a prompt.
+            These run entirely in the Claude.ai web app. Open a tab, paste a prompt, you&apos;re done.
           </p>
         </div>
 
@@ -261,7 +261,7 @@ export default function TutorialsPage() {
             For Product Managers
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
-            You don&apos;t need to write code. These workflows are built for how PMs actually work.
+            You don&apos;t need to write a single line of code. These are built around how PMs actually spend their time.
           </p>
         </div>
 
@@ -327,7 +327,7 @@ export default function TutorialsPage() {
             For Developers
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
-            You already know the stack. These tutorials show you how to use Claude Code the way senior engineers actually do.
+            You already know the stack. These show you how to use Claude Code the way senior engineers actually use it, not how the demos make it look.
           </p>
         </div>
 
@@ -371,7 +371,7 @@ export default function TutorialsPage() {
             For everyone
           </h2>
           <p className="mt-1 text-sm text-fd-muted-foreground">
-            No code, no terminal. Useful for anyone who works with documents, data, and other people.
+            No code, no terminal. Just Claude doing useful work for you. Documents, data, people stuff.
           </p>
         </div>
 
@@ -436,10 +436,10 @@ export default function TutorialsPage() {
         <div className="mt-16 space-y-6">
           <div className="rounded-xl border border-fd-border bg-fd-card p-10 text-center">
             <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
-              Want more tutorials?
+              Want more?
             </h2>
             <p className="mt-3 text-fd-muted-foreground max-w-lg mx-auto">
-              New tutorials drop regularly. Subscribe to get notified when they land.
+              I add new tutorials regularly. Subscribe and I&apos;ll tell you when they land.
             </p>
             <div className="mt-6 mx-auto max-w-md">
               <EmailCapture />
@@ -450,7 +450,7 @@ export default function TutorialsPage() {
               href="/guide"
               className="inline-flex items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
             >
-              Or try the 9-step Interactive Guide
+              Or work through the 9-step Interactive Guide
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>

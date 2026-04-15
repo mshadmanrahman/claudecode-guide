@@ -242,7 +242,7 @@ export default function BlogPage() {
           Blog
         </h1>
         <p className="mt-3 max-w-lg text-lg text-fd-muted-foreground">
-          Tips, strategies, and real talk about working with Claude Code.
+          Things I&apos;ve learned using Claude Code daily. Tips, patterns, and the occasional honest take.
         </p>
       </section>
 
@@ -290,7 +290,7 @@ export default function BlogPage() {
       {/* Empty state */}
       {filteredPosts.length === 0 && (
         <section className="mx-auto w-full max-w-5xl px-6 pb-16 text-center">
-          <p className="text-fd-muted-foreground">No posts found for this tag.</p>
+          <p className="text-fd-muted-foreground">Nothing in this tag yet.</p>
           <button
             onClick={() => setActiveTag(null)}
             className="mt-3 text-sm font-medium text-fd-foreground underline underline-offset-4"

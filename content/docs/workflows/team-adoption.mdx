@@ -1,6 +1,6 @@
 ---
 title: "Team Adoption"
-description: "Your team won't adopt Claude Code because you told them to. Here's what actually works."
+description: "Your team won't adopt Claude Code because you told them to. Here's the champion-first strategy that actually works."
 ---
 
 <DemoCard title="Day 1 without shared config vs day 1 with" steps={[
@@ -24,20 +24,20 @@ description: "Your team won't adopt Claude Code because you told them to. Here's
 
 Before you evangelize, understand the resistance. It's rarely about the tool.
 
-- **"It will replace me."** The unspoken fear. Address it head-on: Claude Code makes devs faster, not unnecessary. The people who adopt AI tools become more valuable, not less.
+- **"It will replace me."** The unspoken fear. Address it directly: Claude Code makes devs faster, not unnecessary. The people who adopt AI tools become more valuable, not less.
 - **"I don't have time to learn another tool."** Totally valid. If onboarding takes more than an hour, your rollout plan is broken.
-- **"AI code is sloppy."** Often true: when there's no config. Without a shared CLAUDE.md, Claude Code guesses at your conventions. With one, it follows your exact standards. The "sloppy" complaint is almost always a configuration problem.
-- **"I tried ChatGPT once and it was useless."** Claude Code is fundamentally different from a chatbot. It reads your codebase, runs commands, and has persistent context. The comparison doesn't hold, but you need to show that, not argue it.
+- **"AI code is sloppy."** Often true, when there's no config. Without a shared CLAUDE.md, Claude Code guesses at your conventions. With one, it follows your exact standards. The "sloppy" complaint is almost always a configuration problem.
+- **"I tried ChatGPT once and it was useless."** Claude Code is fundamentally different from a chatbot. It reads your codebase, runs commands, and has persistent context. That comparison doesn't hold, but you need to show that, not argue it.
 
 ## Don't Roll Out to Everyone. Start with Champions.
 
 This is the strategy that actually works. Forget the all-hands demo.
 
-**Step 1: Pick 2-3 champions.** Curious about AI, respected on the team. They don't need to be senior: just people others listen to.
+**Step 1: Pick 2-3 champions.** Curious about AI, respected on the team. They don't need to be senior, just people others listen to.
 
 **Step 2: Give them a week to build their workflow.** Real work, not artificial exercises. Let them set up CLAUDE.md, create memory files, and integrate Claude Code into their actual tasks.
 
-**Step 3: Champions demo real wins.** A 10-minute show in a team meeting. Concrete examples: "I debugged this production issue in 15 minutes instead of 2 hours" or "It wrote all the test scaffolding for my feature." This is worth more than any slide deck you'll ever make.
+**Step 3: Champions demo real wins.** A 10-minute show in a team meeting. Concrete examples: "I debugged this production issue in 15 minutes instead of 2 hours" or "It wrote all the test scaffolding for my feature." This is worth more than any slide deck.
 
 **Step 4: Open it up with a ready-made setup.** Once champions have proven the value, give the rest of the team a shared config to start with. Zero guesswork on day one.
 
@@ -87,7 +87,7 @@ Do not measure lines of code generated. That metric is meaningless and encourage
   { type: 'out', text: 'Tracing memory leak to unbounded cache in search.ts...' },
   { type: 'success', text: '✓ Root cause: missing cache eviction. Fix: add TTL.' },
   { type: 'cmd', text: '"fix it, add a test, open a PR"', delay: 600 },
-  { type: 'success', text: '✓ Fixed src/search.ts : added 5min TTL' },
+  { type: 'success', text: '✓ Fixed src/search.ts: added 5min TTL' },
   { type: 'success', text: '✓ Test added: cache evicts after TTL' },
   { type: 'success', text: '✓ PR #891 opened with description' },
   { type: 'out', text: '' },
@@ -105,4 +105,4 @@ Do not measure lines of code generated. That metric is meaningless and encourage
 
 **Overcomplicating the setup.** Start with a simple CLAUDE.md covering your top 5 conventions. A 500-line config file on day one scares people off.
 
-**Ignoring the skeptics.** Here's a secret: the loudest critic often becomes the strongest advocate once they see a real demo. Invite them to watch a champion work. Don't argue in the abstract.
+**Ignoring the skeptics.** Long story short: the loudest critic often becomes the strongest advocate once they see a real demo. Invite them to watch a champion work. Don't argue in the abstract.

@@ -18,62 +18,62 @@ const pmCore: Skill[] = [
     name: 'meeting-prep',
     trigger: '"prep for my meeting with X"',
     description:
-      'Briefing from Jira, Slack, and Calendar. Includes political context and open questions.',
+      'Pulls a brief from Jira, Slack, and Calendar. Covers political context, open questions, and what you owe each other.',
   },
   {
     name: 'people-sync',
     trigger: '"sync people from meeting"',
-    description: 'Reads Granola transcript, updates stakeholder files with new context.',
+    description: 'Reads a Granola transcript, then updates your stakeholder files. No manual note-taking.',
   },
   {
     name: 'weekly-status',
     trigger: '"weekly status"',
-    description: 'Accomplishment report pulled from connected systems. Formatted and ready to send.',
+    description: 'Hits your connected systems, writes the update, formats it to send. You just review.',
   },
   {
     name: 'deep-context',
     trigger: '"tell me everything about X"',
-    description: 'Cross-channel research across Jira, Slack, Confluence, and memory.',
+    description: 'Searches Jira, Slack, Confluence, and memory all at once. Good for onboarding to a problem fast.',
   },
   {
     name: 'market-sizing',
     trigger: '"size the market for X"',
-    description: 'TAM, SAM, SOM with explicit data sources and assumptions.',
+    description: 'TAM, SAM, SOM with all assumptions written out. Beats the spreadsheet you half-trust.',
   },
   {
     name: 'ask-company',
     trigger: '"who owns X at my company"',
-    description: 'Enterprise knowledge assistant. Searches org context and memory.',
+    description: 'Searches org context and memory to answer ownership questions. Surprisingly useful.',
   },
   {
     name: 'dogfood',
     trigger: '"dogfood this app"',
-    description: 'Systematic QA walkthrough with structured bug reports.',
+    description: 'Walks through your app systematically and produces structured bug reports.',
   },
   {
     name: 'lenny-podcast',
     trigger: '"what does Lenny say about X"',
-    description: 'Searches 269+ PM podcast episodes for relevant insights.',
+    description: 'Searches 269+ PM podcast episodes. Good for a second opinion before a decision.',
   },
   {
     name: 'prd',
     trigger: '"write a PRD for X"',
-    description: 'Braindump first, then structure. No more blank-page paralysis.',
+    description: 'Braindump first, then structure. The blank-page problem is the whole problem this solves.',
   },
   {
     name: 'prioritize',
     trigger: '"rank these features"',
-    description: 'RICE, ICE, WSJF, MoSCoW, Kano. Pick your framework or let it recommend.',
+    description: 'RICE, ICE, WSJF, MoSCoW, Kano. Pick one or let it recommend the right fit.',
   },
   {
     name: 'synthesize-interviews',
     trigger: '"synthesize these interviews"',
-    description: 'Extracts themes and actionable recommendations from user research.',
+    description: 'Pulls themes and actual recommendations from user research notes.',
   },
   {
     name: 'critique',
     trigger: '"critique this doc"',
-    description: 'Pressure-tests documents for logic gaps, missing assumptions, and weak arguments.',
+    description: 'Pushes back on logic gaps, missing assumptions, and weak arguments. Honest, not polite.',
   },
 ];
 
@@ -81,29 +81,29 @@ const compactCategories: SkillCategory[] = [
   {
     title: 'Productivity (6 skills)',
     skills: [
-      { name: 'session-init', trigger: '', description: 'Loads workspace context at session start' },
-      { name: 'handoff-doc', trigger: '', description: 'Creates portable handoff documents' },
-      { name: 'strategic-compact', trigger: '', description: 'Compresses strategy into actionable briefs' },
-      { name: 'orchestrator', trigger: '', description: 'Wave-based parallel agent execution' },
-      { name: 'manifest-reader', trigger: '', description: 'Reads and summarizes agent manifests' },
-      { name: 'meta-observer', trigger: '', description: 'Background observation and logging' },
+      { name: 'session-init', trigger: '', description: 'Loads your workspace context at the start of every session' },
+      { name: 'handoff-doc', trigger: '', description: 'Writes a portable handoff doc so nothing gets lost between sessions' },
+      { name: 'strategic-compact', trigger: '', description: 'Compresses a strategy doc down to what actually matters' },
+      { name: 'orchestrator', trigger: '', description: 'Runs multiple agents in parallel waves' },
+      { name: 'manifest-reader', trigger: '', description: 'Reads and summarises agent configuration files' },
+      { name: 'meta-observer', trigger: '', description: 'Watches sessions in the background and logs patterns' },
     ],
   },
   {
     title: 'Dev (4 skills)',
     skills: [
-      { name: 'tdd-workflow', trigger: '', description: 'Test-driven development enforcement' },
-      { name: 'verification-loop', trigger: '', description: 'Build, test, lint verification' },
-      { name: 'search-first', trigger: '', description: 'Research before implementation' },
-      { name: 'security-review', trigger: '', description: 'Security audit for code changes' },
+      { name: 'tdd-workflow', trigger: '', description: 'Enforces test-first development' },
+      { name: 'verification-loop', trigger: '', description: 'Runs build, test, and lint in sequence' },
+      { name: 'search-first', trigger: '', description: 'Checks existing solutions before writing new code' },
+      { name: 'security-review', trigger: '', description: 'Audits code changes for security issues' },
     ],
   },
   {
     title: 'Content (3 skills)',
     skills: [
       { name: 'market-research', trigger: '', description: 'Competitive and market analysis' },
-      { name: 'writing-style', trigger: '', description: 'Personal voice and tone enforcement' },
-      { name: 'writing-substack', trigger: '', description: 'Substack-optimized content creation' },
+      { name: 'writing-style', trigger: '', description: 'Enforces your personal voice and tone' },
+      { name: 'writing-substack', trigger: '', description: 'Formats and structures content for Substack' },
     ],
   },
 ];
@@ -125,10 +125,10 @@ export function PmPilotFullSkillRef() {
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">09</span>
           <h2 className="mt-4 font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
-            Full skill reference
+            Everything that&apos;s in the box
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            25 skills, 5 agents, 4 slash commands. All open source, all editable.
+            25 skills, 5 agents, 4 slash commands. All open source. All just markdown files you can read and edit.
           </p>
         </div>
 

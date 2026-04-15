@@ -1,13 +1,13 @@
 ---
 title: "Permissions: Stop Clicking 'Allow' on Everything"
-description: "The #2 complaint about Claude Code is permission fatigue. Here's how to configure auto-accept for tools you trust and keep review for things that matter."
+description: "Permission fatigue is the number two complaint about Claude Code. Five minutes of config fixes it permanently. Here's exactly what to set and why."
 ---
 
-## The Permission Problem
+## Five clicks before anything actually happens.
 
-You ask Claude Code to refactor a component. It wants to read a file : allow. Edit a file : allow. Read another file : allow. Run a test : allow. Five clicks before anything happens.
+That's what default Claude Code feels like. You ask it to fix a test. It wants to read the file. Allow. Edit the file. Allow. Run the test. Allow. Check the output. Allow. It's like having an assistant who asks permission before touching anything in the office.
 
-This is the number two complaint about Claude Code (number one is cost). And it's completely fixable. You just have to configure it once.
+The fix takes five minutes. You configure it once. Then it just works.
 
 <DemoCard title="Before and after permission configuration" steps={[
   { type: 'out', text: '── Default (no config) ──' },
@@ -31,13 +31,13 @@ This is the number two complaint about Claude Code (number one is cost). And it'
 
 ## Setting Up allowedTools
 
-The magic lives in your `settings.json`. There are three levels:
+The config lives in `settings.json`. Two places to put it:
 
-**Project-level** (`.claude/settings.json` in your repo) : shared with your team via git. Best for project-specific tools.
+**Project-level** (`.claude/settings.json` in your repo): gets checked into git, shared with your team. Good for project-specific tools like your test runner or lint commands.
 
-**User-level** (`~/.claude/settings.json`) : your personal defaults across all projects.
+**User-level** (`~/.claude/settings.json`): your personal defaults across every project you work on.
 
-Here's what a solid starting config looks like:
+Here's a solid starting config:
 
 ```json
 {
@@ -63,11 +63,11 @@ Here's what a solid starting config looks like:
 }
 ```
 
-Read operations are always safe to auto-accept. Test and lint commands are safe. Destructive git commands? Always review.
+Read operations are always safe. Your test and lint commands are safe. Anything that deletes files or pushes to remote: always keep human review on those.
 
 ## The /permissions Command
 
-Already in a session and tired of clicking? Type `/permissions` to manage permissions on the fly.
+Mid-session and tired of clicking? Type `/permissions` to manage it on the fly.
 
 <DemoCard title="Managing permissions mid-session" steps={[
   { type: 'cmd', text: '/permissions' },
@@ -80,44 +80,41 @@ Already in a session and tired of clicking? Type `/permissions` to manage permis
   { type: 'warn', text: 'Session permissions reset when you close the terminal.' },
 ]} />
 
-## Trust Levels: What to Auto-Accept vs Always Review
+## What to Auto-Accept vs What to Always Review
 
-**Always auto-accept (safe):**
-- `Read` : reading files never changes anything
-- `Glob` : searching file names is harmless
-- `Grep` : searching file contents is harmless
-- `LS` : listing directories is harmless
-- `Bash(git status*)` : read-only git commands
-- `Bash(git diff*)` : read-only git commands
-- `Bash(git log*)` : read-only git commands
+**Always auto-accept:**
+- `Read`: reading files literally never changes anything
+- `Glob`: searching file names, harmless
+- `Grep`: searching file contents, harmless
+- `LS`: listing directories, harmless
+- `Bash(git status*)`, `Bash(git diff*)`, `Bash(git log*)`: read-only git commands
 
 **Auto-accept with patterns (mostly safe):**
-- `Bash(npm test*)` : running tests
-- `Bash(npm run lint*)` : running linters
-- `Bash(npx tsc*)` : type checking
-- `Bash(cat *)` : reading file contents
-- `Edit` : if you trust Claude Code's edits (most people get here after a week)
+- `Bash(npm test*)`: running your tests
+- `Bash(npm run lint*)`: running linters
+- `Bash(npx tsc*)`: type checking
+- `Edit`: once you've used Claude Code for a week and trust the edit quality, most people add this
 
-**Always review (potentially destructive):**
-- `Bash(rm *)` : deleting files
-- `Bash(git push*)` : pushing to remote
-- `Bash(git checkout*)` : switching branches
-- `Bash(git reset*)` : resetting changes
-- `Bash(npm publish*)` : publishing packages
-- `Bash(curl*)` : making network requests
-- Any command that touches production
+**Always review:**
+- `Bash(rm *)`: file deletion
+- `Bash(git push*)`: pushing to remote
+- `Bash(git checkout*)`: branch switching
+- `Bash(git reset*)`: resetting changes
+- `Bash(npm publish*)`: publishing packages
+- `Bash(curl*)`: making network requests
+- Anything touching production
 
 ## The Progressive Trust Approach
 
-Don't configure everything on day one. Start conservative and open up as you build trust:
+Don't try to configure everything perfectly on day one. You don't yet know what Claude Code actually does in your workflow.
 
-**Week 1:** Auto-accept reads only. Review everything else. Learn what Claude Code actually does.
+Week 1: Auto-accept reads only. Watch what it actually does before each operation.
 
-**Week 2:** Auto-accept reads + test/lint commands. You now trust it won't run weird shell commands.
+Week 2: Add test and lint commands to auto-accept. You've seen enough by now to know it's not running weird shell commands.
 
-**Week 3:** Auto-accept edits too. You've seen enough edits to trust the quality.
+Week 3: Add `Edit` if you're confident in the edit quality. Most people get here.
 
-**Week 4+:** You're only reviewing destructive operations and network calls. That's the sweet spot.
+Week 4+: You're reviewing only destructive operations and network calls. That's the sweet spot: 90% of operations flow without interruption, 10% get a human eye where it matters.
 
 <DemoCard title="The permission sweet spot" steps={[
   { type: 'out', text: 'Auto-accept:  Read, Search, Edit, Test, Lint' },
@@ -130,11 +127,11 @@ Don't configure everything on day one. Start conservative and open up as you bui
 
 ## One More Thing: The Accept Button
 
-When a permission prompt does appear, you have options beyond just "allow":
+When a permission prompt does appear, you've got more options than just Y:
 
-- **y** : Allow this once
-- **a** : Allow this tool for the entire session
-- **n** : Deny this request
-- **Escape** : Cancel the current operation
+- **y**: Allow this once
+- **a**: Allow this tool for the entire session (use this during exploratory work)
+- **n**: Deny this request
+- **Escape**: Cancel the current operation
 
-The "a" option is your friend for exploratory sessions where you trust the general direction but didn't pre-configure permissions.
+The `a` option is underused. When you're in an exploratory session and trust the general direction but didn't pre-configure permissions, `a` gets you out of the click loop fast.

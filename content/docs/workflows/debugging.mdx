@@ -1,15 +1,15 @@
 ---
 title: "Debugging with Claude Code"
-description: "Stop guessing. Start investigating. A systematic approach that actually finds the bug."
+description: "Give it evidence, not guesses. How to use Claude Code as a real investigator instead of a code slot machine."
 ---
 
-## You're Guessing. Stop That.
+## Most debugging mistakes happen in the first 30 seconds.
 
-Here's the most common debugging mistake: you see an error, you think you know what caused it, and you start changing code. Twenty minutes later you've touched six files, the original error is gone, and two new ones appeared.
+You see an error. You think you know what caused it. You start changing code.
 
-Sound familiar?
+Twenty minutes later you've touched six files, the original error is gone, and two new ones appeared. Sound familiar?
 
-Claude Code is at its best when you treat debugging as an investigation, not a guessing game. Give it evidence, let it trace the path, fix what's actually broken.
+Claude Code is at its best when you treat debugging as an investigation. Give it evidence, let it trace the path, fix what's actually broken. Not what you suspect is broken.
 
 <DemoCard title="Debugging like an investigator, not a guesser" steps={[
   { type: 'cmd', text: 'claude "the checkout page returns 500 after clicking pay"' },
@@ -36,19 +36,19 @@ Before anything else, confirm you can trigger the bug consistently. If you can't
 
 Narrow it down. Frontend or backend? Your code or a dependency? Dev only or also production?
 
-Claude Code is excellent at this. Ask it to trace the data flow from the entry point through the codebase. It can read multiple files simultaneously and map the entire path.
+Claude Code is excellent at this step. Ask it to trace the data flow from the entry point through the codebase. It can read multiple files simultaneously and map the entire path.
 
 ### 3. Read the Logs
 
 This sounds obvious but most people skip it. Logs tell you what actually happened, not what you think happened.
 
-Share the full error output with Claude Code. The entire stack trace. Don't summarize. Don't paraphrase. Paste the exact output.
+Share the full error output with Claude Code. The entire stack trace. Don't summarize it, don't paraphrase it. Paste the exact output. The root cause is often 3-4 frames deep, and the top-level error is frequently a symptom.
 
 If there are no logs, that's your first problem. Add logging at the boundaries (API entry/exit, database calls, external services) before continuing.
 
 ### 4. Form a Hypothesis
 
-Based on the evidence: not your gut: what's causing this? Claude Code can analyze the code path, check recent changes with `git log` and `git diff`, and look for common patterns that cause the type of error you're seeing.
+Based on the evidence, not your gut: what's causing this? Claude Code can analyze the code path, check recent changes with `git log` and `git diff`, and look for common patterns that cause the type of error you're seeing.
 
 ### 5. Test the Fix
 
@@ -101,12 +101,10 @@ Often the test is correct and the implementation has a subtle bug. Sometimes the
 
 **Share the actual error.** "It's not working" gives Claude Code nothing. The exact error text, status code, or stack trace gives it everything.
 
-**Share the full stack trace.** The root cause is often 3-4 frames deep. The top-level error is frequently a symptom, not the cause.
-
 **Let Claude Code read the files.** Don't paste snippets and ask "what's wrong?" Let it read the full file with context. Bugs come from interactions between functions, not single lines.
 
 **Use sub-agents for parallel investigation.** Not sure if it's frontend or backend? Spawn two agents: one checks API logs, one checks browser console output. Faster than sequential guessing.
 
-**Check recent changes.** Many bugs come from recent commits. Ask Claude Code to run `git log` and `git diff` on the affected files. The culprit is often in the last few commits.
+**Check recent changes.** A lot of bugs come from recent commits. Ask Claude Code to run `git log` and `git diff` on the affected files. The culprit is usually in the last few commits.
 
-**Do not change code until you understand the problem.** This is the hardest discipline. The urge to "try something" is strong. Resist it. Understand first, then fix. A fix you don't understand is not a fix: it's a time bomb.
+**Do not change code until you understand the problem.** This is the hardest discipline. The urge to "try something" is strong. Resist it. Understand first, then fix. A fix you don't understand isn't a fix. It's a time bomb.

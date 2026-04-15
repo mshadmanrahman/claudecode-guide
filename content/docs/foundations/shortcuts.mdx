@@ -1,13 +1,13 @@
 ---
 title: "Complete Command Cheatsheet"
-description: "Every slash command, keyboard shortcut, CLI flag, and hidden trick in Claude Code. The most bookmarked page on the site. Updated for 2026."
+description: "Every slash command, keyboard shortcut, CLI flag, and hook event in Claude Code. The three commands that alone save 30% on costs are buried in here."
 ---
 
-## You're Using 10% of Claude Code
+## Most people use about 10% of Claude Code.
 
-Most people type prompts and hit Enter. That's it. They don't know about slash commands. They don't know you can switch models mid-conversation. They don't know Escape cancels a running operation without killing the session.
+They type prompts and hit Enter. That's it. They don't know `/compact` exists. They don't know you can switch models mid-conversation. They definitely don't know that pressing Escape cancels a running operation without losing any context.
 
-Here's everything in one place. Bookmark this page.
+This is everything, in one place.
 
 <DemoCard title="Commands you probably don't know about" steps={[
   { type: 'cmd', text: '/compact' },
@@ -81,7 +81,7 @@ Any `.md` file in `~/.claude/skills/` or your project's `.claude/skills/` become
 | Shortcut | What it does |
 |----------|-------------|
 | **Enter** | Send your message |
-| **Escape** | Cancel current operation (safe : keeps context) |
+| **Escape** | Cancel current operation (safe: keeps context) |
 | **Escape, Escape** | Quick cancel (double-tap for immediate stop) |
 | **Ctrl+C** | Hard cancel / exit if pressed twice |
 | **Ctrl+L** | Clear the screen (keeps conversation) |
@@ -112,7 +112,7 @@ Any `.md` file in `~/.claude/skills/` or your project's `.claude/skills/` become
 
 ## CLI Flags
 
-These go on the `claude` command when you start a session:
+These go on the `claude` command when you start a session.
 
 ### Starting Sessions
 
@@ -141,7 +141,7 @@ claude -r "system prompt"    # Add a system prompt / reasoning instruction
 claude @file.ts              # Load a file into context at start
 ```
 
-The `--resume` flag is underrated. Closed your terminal by accident? `claude --resume` picks up exactly where you left off. No lost context.
+The `--resume` flag is criminally underrated. Closed your terminal by accident? `claude --resume` picks up exactly where you left off. No lost context.
 
 ## Hook Events
 
@@ -171,17 +171,17 @@ Learn more in the [Hooks guide](/docs/patterns/hooks).
 
 ## The Commands People Sleep On
 
-**/compact is a lifesaver.** Long session getting slow? Context window filling up? `/compact` compresses your conversation while keeping the important context. Use it before Claude starts forgetting things, not after.
+**/compact is a lifesaver.** Long session getting sluggish? Context window filling up? `/compact` compresses your conversation while preserving the important context. Use it before Claude starts forgetting things, not after. I run it every 30-40 minutes during long sessions.
 
-**/model for cost control.** Start complex tasks with Opus, then switch to Haiku for simple follow-ups. "Fix the typo I just introduced" doesn't need the most expensive model.
+**/model for cost control.** Start complex tasks with Opus, then switch to Haiku for simple follow-ups. "Fix the typo I just introduced" doesn't need the most expensive model. You can switch mid-conversation without losing context.
 
-**/cost for awareness.** Check it every 30 minutes during long sessions. Now shows per-model and cache-hit breakdown so you know exactly where your tokens go.
+**/cost for awareness.** Check it every 30 minutes during long sessions. Shows per-model and cache-hit breakdown so you know exactly where your tokens are going. Most people are surprised by the breakdown.
 
-**/rewind is your undo button.** Made Claude go in a wrong direction? `/rewind` takes you back one turn. Way better than `/clear`.
+**/rewind is your undo button.** Sent Claude Code in the wrong direction? `/rewind` takes you back one turn. Way more useful than `/clear`, which nukes everything.
 
-**Escape is not Ctrl+C.** Escape gracefully stops the current operation. Claude keeps your conversation and any partial work. Ctrl+C is the hard kill : use it only when things are truly stuck.
+**Escape is not Ctrl+C.** Escape gracefully stops the current operation. Claude Code keeps your conversation and any partial work. Ctrl+C is the hard kill. Use it only when things are truly stuck. The difference matters.
 
-**`!` for quick shell commands.** Need to check `git status` without leaving Claude? Just type `! git status`. The output lands right in your conversation.
+**`!` for quick shell commands.** Need to check `git status` without leaving the Claude Code session? Just type `! git status`. The output lands right in your conversation, and Claude Code can reference it.
 
 ## Headless & CI Mode
 
@@ -222,4 +222,4 @@ Up (history)  Ctrl+R (search)  ! (shell)
 --model  --bare  -r (reasoning)
 ```
 
-Print this. Tape it to your monitor. You'll use it more than you think.
+Print this. Tape it to your monitor. You'll reference it more than you think.

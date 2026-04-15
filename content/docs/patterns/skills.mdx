@@ -1,17 +1,17 @@
 ---
 title: Building Skills
-description: "Turn your repeated multi-step tasks into single commands. Write once, execute forever."
+description: "You can build your own commands in 5 minutes. Write the workflow once as a markdown file, then run it forever with a single word."
 ---
 
-## You Keep Explaining the Same Thing
+## You keep explaining the same thing
 
-How many times have you told Claude Code the exact steps for formatting a PR description? Or the specific way your team runs the test suite? Or how to compile a meeting briefing?
+How many times have you told Claude Code the exact steps for formatting a PR description? Or the specific way your team runs the test suite? Or how to compile a meeting briefing before a 1:1?
 
 If you're repeating instructions, you're doing it wrong.
 
-A skill is a markdown file that encodes a complete workflow. Write it once, and Claude Code executes it whenever you need it. Instead of "pull my calendar, check Jira, scan Slack, compile a briefing," you just say "prep for my 1:1 with Sarah." The skill handles the rest.
+A skill is a markdown file that encodes a complete workflow. Write it once, and Claude Code executes it whenever you need it. Instead of "pull my calendar, check Jira, scan Slack, compile a briefing," you just say `/meeting-prep Sarah`. The skill handles the rest.
 
-Skills are the building blocks of a Claude Code operating system. They turn scattered tribal knowledge into repeatable, composable workflows.
+Skills turn scattered tribal knowledge into repeatable, composable workflows. They're the building blocks of a Claude Code operating system tailored to how you actually work.
 
 <DemoCard title="Creating your first skill" steps={[
   { type: 'cmd', text: 'claude "Create a /commit skill that stages, commits, and pushes"' },
@@ -24,7 +24,7 @@ Skills are the building blocks of a Claude Code operating system. They turn scat
   { type: 'warn', text: '→ One word. Three steps. Zero thinking.' },
 ]} />
 
-## What a Skill Looks Like
+## What a skill looks like
 
 Every skill is a markdown file with a description, trigger keywords, and step-by-step instructions.
 
@@ -59,17 +59,17 @@ older than 2 weeks unless it's unresolved.
 
 The trigger keywords tell Claude Code when to activate the skill. When your prompt contains "meeting prep" or "prep for 1:1," the skill loads automatically.
 
-## How to Build Your First One
+## How to build your first one
 
 **Step 1: Find a task you repeat.** Anything you've explained to Claude Code more than twice. PR descriptions. Test suites. Status reports. If you keep saying "remember, do it like last time," that's a skill waiting to be written.
 
-**Step 2: Write the steps as markdown.** Be specific. Include the output format, the sources to check, the order of operations. Write it like you're training a sharp junior dev who's never seen your workflow.
+**Step 2: Write the steps as markdown.** Be specific. Include the output format, the sources to check, the order of operations. Write it like you're training a sharp junior dev who's never seen your workflow before.
 
 **Step 3: Save it and add triggers.** Drop it in the right directory (see below) with trigger keywords that match how you naturally ask for the task.
 
 **Step 4: Test and iterate.** Run it a few times. When Claude Code misses a step or gets the format wrong, update the skill file. Skills get better through use.
 
-## Where Skills Live
+## Where skills live
 
 | Location | Scope | Example |
 |---|---|---|
@@ -78,15 +78,15 @@ The trigger keywords tell Claude Code when to activate the skill. When your prom
 
 Project-level skills are specific to a codebase. User-level skills follow you everywhere.
 
-## Built-in vs Custom: The Real Power Is Custom
+## Built-in vs custom: the real power is custom
 
-Claude Code ships with some built-in capabilities for generic tasks like code review and test generation. They're fine.
+Claude Code ships with some built-in capabilities for generic tasks like code review and test generation. They're fine for getting started.
 
-But the real power is custom skills tailored to YOUR workflow. Your team's PR format. Your company's deploy checklist. Your preferred debugging sequence. That's where skills go from "neat" to "I can't work without this."
+But the real power is custom skills tailored to YOUR workflow. Your team's PR format. Your company's deploy checklist. Your preferred debugging sequence. That's where skills go from "neat" to "I genuinely can't work without this."
 
-> **Don't want to start from zero?** The meeting-prep skill above comes from [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) : an open-source collection of 25 PM-focused skills (meeting prep, weekly status, PRDs, market sizing, stakeholder intelligence) you can install and customize instead of building each one yourself.
+> **Don't want to start from zero?** The meeting-prep skill above comes from [PM Pilot](https://github.com/mshadmanrahman/pm-pilot): an open-source collection of 25 PM-focused skills (meeting prep, weekly status, PRDs, market sizing, stakeholder intelligence) you can install and customize instead of building each one yourself.
 
-## Tips for Writing Great Skills
+## Tips for writing great skills
 
 **Start simple.** 10-15 lines for your first skill. Don't try to encode a 30-step workflow on day one.
 
@@ -94,11 +94,11 @@ But the real power is custom skills tailored to YOUR workflow. Your team's PR fo
 
 **Iterate on corrections.** When you correct Claude Code mid-skill, update the skill file immediately. Every correction is a lesson the skill should absorb.
 
-**Be explicit about output format.** "Generate a report" is vague. "Generate a markdown table with columns: ticket, status, owner, next action" gets consistent results every time.
+**Be explicit about output format.** "Generate a report" is vague. "Generate a markdown table with columns: ticket, status, owner, next action" gets consistent results every time. This matters more than most people realize.
 
 **Use natural trigger keywords.** You want the skill to activate when you ask casually, not when you remember the exact command name.
 
-## Skills as Slash Commands
+## Skills as slash commands
 
 Every skill file automatically becomes a slash command. The filename is the command name:
 
@@ -118,11 +118,11 @@ You can also pass arguments:
 
 The arguments show up in the skill's context. Your skill can reference them with a line like "Use the argument as the target" and Claude handles the rest.
 
-## Skills for Non-Coders
+## Skills for non-coders
 
 You don't need to write code to create skills. Here are real examples people use every day without touching a terminal:
 
-### Performance Review Writer
+### Performance review writer
 
 ```markdown
 # Performance Review
@@ -146,7 +146,7 @@ Write like a manager who respects the person's time.
 Formatted review ready to paste into the HR system.
 ```
 
-### Competitive Intelligence
+### Competitive intelligence
 
 ```markdown
 # Competitive Analysis
@@ -167,7 +167,7 @@ A one-page analysis with: Overview, Feature Comparison,
 Pricing, Strengths, Weaknesses, Our Opportunity.
 ```
 
-### Email Drafter
+### Email drafter
 
 ```markdown
 # Draft Email
@@ -201,9 +201,9 @@ Subject line + email body. Ready to paste.
   { type: 'warn', text: '→ No code. No terminal knowledge. Just /meeting-prep.' },
 ]} />
 
-## Sharing Skills with Your Team
+## Sharing skills with your team
 
-Skills are just Markdown files. Share them like any other file:
+Skills are just Markdown files. Share them like any other file.
 
 **Option 1: Commit to the repo.** Put skills in `.claude/skills/` and they're available to anyone who clones the project. Great for project-specific workflows like deploy checklists or PR templates.
 
@@ -211,7 +211,7 @@ Skills are just Markdown files. Share them like any other file:
 
 **Option 3: Use an open-source collection.** Projects like [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) ship 25+ ready-to-use skills you can install and customize.
 
-## Skill Ideas to Get You Started
+## Skill ideas to get you started
 
 | Skill | What it does | Who it's for |
 |---|---|---|
@@ -226,4 +226,4 @@ Skills are just Markdown files. Share them like any other file:
 | `/expense-report` | Formats expenses from raw data | Everyone |
 | `/onboarding` | Generates new hire onboarding checklist | Managers |
 
-Start with one. The one you'll use tomorrow morning. That's your first skill.
+Start with one. The one you'll actually use tomorrow morning. That's your first skill.

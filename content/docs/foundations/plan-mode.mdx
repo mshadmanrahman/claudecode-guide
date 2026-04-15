@@ -1,13 +1,13 @@
 ---
 title: "Plan Mode: Think Before You Build"
-description: "The one toggle that saves you 30-40% on tokens and prevents Claude Code from sprinting in the wrong direction."
+description: "One toggle that stops Claude Code from sprinting in the wrong direction. Saves 30-40% on tokens. Takes two seconds to turn on."
 ---
 
-## The Most Expensive Mistake in Claude Code
+## The most expensive mistake in Claude Code is letting it start coding without alignment.
 
-You type a big prompt. Claude Code starts coding immediately. Three files in, you realize it chose the wrong approach. Now you're burning tokens to undo work and start over.
+You send a big prompt. Claude Code starts immediately. Three files in, you realize it chose the wrong approach. Now you're spending tokens to undo work that shouldn't have been done in the first place. I've done this more times than I want to admit.
 
-Plan mode fixes this. One toggle. Claude Code outlines its approach first, you approve it, then it executes. Simple concept, massive impact.
+Plan mode fixes this. Claude Code outlines its full approach first, you review it, optionally correct it, then it executes. One toggle. Massive impact on complex tasks.
 
 <DemoCard title="Without plan mode vs with plan mode" steps={[
   { type: 'out', text: '── Without Plan Mode ──' },
@@ -15,7 +15,7 @@ Plan mode fixes this. One toggle. Claude Code outlines its approach first, you a
   { type: 'out', text: 'Creating lib/jwt.ts...' },
   { type: 'out', text: 'Modifying 8 files...' },
   { type: 'out', text: 'Removing session middleware...' },
-  { type: 'error', text: 'Broke 12 tests. Wrong approach : needed refresh tokens too.' },
+  { type: 'error', text: 'Broke 12 tests. Wrong approach: needed refresh tokens too.' },
   { type: 'out', text: '' },
   { type: 'out', text: '── With Plan Mode ──' },
   { type: 'cmd', text: 'Shift+Tab → Plan mode ON' },
@@ -33,45 +33,45 @@ Plan mode fixes this. One toggle. Claude Code outlines its approach first, you a
 
 ## How to Activate Plan Mode
 
-Three ways to get there:
+Three ways:
 
-**Shift+Tab** : Toggle plan mode on/off. This is the one to memorize. When plan mode is active, you'll see an indicator in the prompt.
+**Shift+Tab** is the one to memorize. Toggles plan mode on/off. When it's active you'll see an indicator in the prompt.
 
-**Type "plan" in your prompt** : Just including the word "plan" or "think about" nudges Claude Code toward planning behavior even without the toggle.
+**Type "plan" or "think about" in your prompt.** Including either phrase nudges Claude Code toward planning behavior even without the toggle. Useful when you just want one-off planning without changing the mode.
 
-**CLAUDE.md instruction** : Add `Always plan before implementing changes that touch more than 2 files` to your project config and it becomes the default behavior.
+**CLAUDE.md instruction.** Add `Always plan before implementing changes that touch more than 2 files` to your project config and planning becomes the automatic default for anything substantial.
 
-## When Plan Mode Saves You
+## When Plan Mode Is Worth It
 
-**Multi-file refactors.** Anything touching 3+ files. The plan catches dependency chains you'd miss.
+**Multi-file refactors.** Anything touching 3+ files. The plan catches dependency chains you'd miss yourself and surfaces them before a single line is written.
 
-**Architectural decisions.** "Should I use Server Components or Client Components here?" Let it reason through the tradeoffs before writing code.
+**Architectural decisions.** "Should I use Server Components or Client Components here?" Let it reason through the tradeoffs in the plan. Then you decide. Then it codes.
 
-**Unfamiliar codebases.** First week on a new project? Plan mode forces Claude Code to read and understand before it writes.
+**Unfamiliar codebases.** First week on a new project? Plan mode forces Claude Code to read and understand the existing code before it writes anything. This alone has saved me from embarrassing PRs.
 
-**Complex features.** New authentication flow, payment integration, database migration : anything with multiple moving parts.
+**Complex features.** New authentication flow, payment integration, database migration. Anything with 5+ moving parts deserves a plan.
 
 ## When to Skip Plan Mode
 
-Not everything needs a plan. Don't overthink it.
+Not everything needs planning. Overthinking simple tasks just adds friction.
 
-**Quick edits.** "Fix the typo in the header component." Just do it.
+**Quick edits.** "Fix the typo in the header component." Just execute.
 
-**Single-file changes.** "Add a loading spinner to this button." Doesn't need a plan.
+**Single-file changes.** "Add a loading spinner to this button." No plan needed.
 
-**Simple questions.** "What does this function do?" Plan mode adds nothing here.
+**Simple questions.** "What does this function do?" Plan mode adds nothing here, literally nothing.
 
-**One-liner fixes.** "Change the primary color to blue-600." Just execute.
+**One-liner fixes.** "Change the primary color to blue-600." Just do it.
 
-The rule of thumb: if the task has fewer than 3 steps, skip the plan.
+Rough rule: fewer than 3 steps, skip the plan.
 
-## The Token Math
+## The Token Math (This Is Why It Actually Saves Money)
 
-Here's why plan mode actually saves money even though it adds an extra step:
+Here's the counterintuitive part. Plan mode adds an extra step, which feels like it should cost more. It doesn't.
 
-Without planning, Claude Code might write 500 lines of code, realize the approach is wrong, then rewrite 400 of those lines. That's 900 lines of output tokens billed.
+Without planning, Claude Code might write 500 lines of code, realize the approach was wrong, then rewrite 400 of those lines. That's 900 lines of output tokens billed.
 
-With planning, it spends 50 tokens on a plan, you course-correct, and it writes 500 lines once. That's 550 tokens total. You just saved 40%.
+With planning, it spends maybe 50 tokens on a plan, you catch the problem, it writes 500 lines correctly the first time. That's 550 tokens total. You just saved 40%. The plan paid for itself 7 times over.
 
 <DemoCard title="Plan mode in your daily workflow" steps={[
   { type: 'cmd', text: 'Shift+Tab  →  Toggle plan mode' },
@@ -88,8 +88,8 @@ With planning, it spends 50 tokens on a plan, you course-correct, and it writes 
   { type: 'warn', text: 'Plan, review, execute. That\'s the rhythm.' },
 ]} />
 
-## Pro Tip: Plan Mode + Extended Thinking
+## Plan Mode + Extended Thinking
 
-When plan mode is on and extended thinking is enabled (Option+T on Mac), Claude Code does its deepest reasoning. It considers edge cases, alternative approaches, and potential pitfalls before writing a single line.
+When plan mode is on and extended thinking is enabled (Option+T on Mac), Claude Code does its deepest reasoning before touching a single file. It considers edge cases, alternative approaches, and potential problems you haven't even thought to ask about.
 
-For complex architectural work, this combination is worth every token.
+For complex architectural work, this combination is worth every extra token. For everything else, plan mode alone is enough.

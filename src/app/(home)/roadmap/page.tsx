@@ -71,19 +71,19 @@ export default function RoadmapPage() {
   return (
     <div className="flex flex-col bg-fd-background">
       <DeprecationBanner
-        message="We've redesigned the learning path! The new Docs section has organized content with progress tracking built in."
+        message="The learning path got a full redesign. The new Docs section has everything organized, with progress tracking built in."
         linkText="Browse the new Docs"
         linkHref="/docs"
       />
       {/* Hero */}
       <section className="mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
         <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl">
-          Your learning journey
+          Your learning path
         </h1>
         <p className="mt-4 text-lg text-fd-muted-foreground">
-          Follow the path from zero to power user. Each step builds on the last.
+          From zero to power user. Each stage builds on what came before.
           <br />
-          Go at your own pace. Skip what you know.
+          Go at your own pace. Skip what you already know.
         </p>
 
         <div className="mt-8 mx-auto max-w-xl text-left">
@@ -271,7 +271,7 @@ export default function RoadmapPage() {
             Ready to begin?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
-            Start with Stage 01. Everything else follows naturally.
+            Start at Stage 01. Everything else clicks into place from there.
           </p>
           <Link
             href="/docs/foundations/claude-md"

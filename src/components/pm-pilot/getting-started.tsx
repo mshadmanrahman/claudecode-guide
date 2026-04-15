@@ -61,10 +61,10 @@ export function PmPilotGettingStarted() {
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">05</span>
           <h2 className="mt-4 font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
-            Three ways to get started
+            Three ways in
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Pick the level that matches your comfort. You can always upgrade later.
+            Pick what fits where you are right now. You can always go deeper later.
           </p>
         </div>
 
@@ -72,15 +72,14 @@ export function PmPilotGettingStarted() {
           {/* Level 1 */}
           <LevelCard num="01" title="Zero install" subtitle="ChatGPT, Gemini, claude.ai" inView={inView} delay={100}>
             <p>
-              Go to{' '}
+              Open{' '}
               <span className="font-medium text-fd-foreground">claude.ai</span>,{' '}
               <span className="font-medium text-fd-foreground">ChatGPT</span>, or{' '}
-              <span className="font-medium text-fd-foreground">Gemini</span>. Paste the contents
-              of any skill file into your conversation. That&apos;s it.
+              <span className="font-medium text-fd-foreground">Gemini</span>. Copy any skill file
+              and paste it straight into the chat. That&apos;s it.
             </p>
             <p>
-              You won&apos;t get Jira or Slack integrations, but you&apos;ll instantly see the
-              structured thinking PM Pilot brings to every task.
+              No Jira or Slack yet, but you&apos;ll immediately see how structured the output is. Worth 2 minutes to try.
             </p>
             <a
               href={MEETING_PREP_SKILL}
@@ -88,7 +87,7 @@ export function PmPilotGettingStarted() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 font-medium text-fd-foreground underline underline-offset-2 hover:text-green-600 dark:hover:text-green-400 transition-colors"
             >
-              Try the meeting-prep skill file
+              Open the meeting-prep skill file
               <svg
                 className="h-3.5 w-3.5"
                 fill="none"
@@ -120,14 +119,14 @@ export function PmPilotGettingStarted() {
                 </a>
               </li>
               <li>
-                Open it and go to{' '}
+                Open it. Go to{' '}
                 <span className="font-medium text-fd-foreground">Settings &rarr; Projects</span>
               </li>
               <li>
-                Create a new project (e.g. &quot;PM Pilot&quot;)
+                Create a project. Call it &quot;PM Pilot&quot; or whatever you like.
               </li>
               <li>
-                Copy-paste any{' '}
+                Paste any{' '}
                 <a
                   href="https://github.com/mshadmanrahman/pm-pilot/tree/main/skills"
                   target="_blank"
@@ -136,19 +135,18 @@ export function PmPilotGettingStarted() {
                 >
                   skill file
                 </a>
-                {' '}contents into the project instructions
+                {' '}into the project instructions
               </li>
             </ol>
             <p>
-              That&apos;s it. Claude Desktop remembers your skills between sessions. No terminal, no command line.
+              Done. Skills persist between sessions. No terminal, ever.
             </p>
           </LevelCard>
 
           {/* Level 3 */}
-          <LevelCard num="03" title="Full CLI with Claude Code" subtitle="Maximum power" inView={inView} delay={300}>
+          <LevelCard num="03" title="Claude Code CLI" subtitle="Full power" inView={inView} delay={300}>
             <p>
-              This is the full setup. Live Jira data, Slack threads, calendar context, meeting
-              transcripts. Everything PM Pilot was designed for.
+              This is the real thing. Live Jira, Slack threads, calendar, meeting transcripts. I built PM Pilot for this setup; it&apos;s what I actually use.
             </p>
             <p>
               Follow the{' '}
@@ -160,7 +158,7 @@ export function PmPilotGettingStarted() {
               >
                 Claude Code setup guide
               </a>
-              , then run:
+              {' '}to get started, then run:
             </p>
             <div className="overflow-x-auto rounded-lg border border-fd-border bg-fd-background p-4 font-mono text-xs leading-relaxed">
               <pre className="text-fd-foreground">{installCommands}</pre>
@@ -170,17 +168,17 @@ export function PmPilotGettingStarted() {
               <code className="rounded bg-fd-background px-1.5 py-0.5 font-mono text-xs text-green-600 dark:text-green-400">
                 /configure-pm-pilot
               </code>{' '}
-              inside Claude Code to complete setup.
+              inside Claude Code and you&apos;re set.
             </p>
             <p className="text-xs text-fd-muted-foreground/70">
-              Don&apos;t have git?{' '}
+              No git installed?{' '}
               <a
                 href={GIT_DOWNLOAD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline underline-offset-2 hover:text-fd-foreground transition-colors"
               >
-                Download it here.
+                Get it here first.
               </a>
             </p>
           </LevelCard>

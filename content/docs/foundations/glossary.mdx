@@ -1,11 +1,11 @@
 ---
 title: "Glossary"
-description: "Every Claude Code term explained like you're talking to a friend. No jargon. No assumptions. Bookmark this one."
+description: "Every Claude Code term explained plainly. No jargon. No assumed knowledge. Bookmark this and come back whenever something doesn't make sense."
 ---
 
 ## The Jargon-Free Zone
 
-Claude Code has its own vocabulary and honestly some of it sounds more intimidating than it is. This page breaks every term down in plain English.
+Claude Code has its own vocabulary and some of it sounds more intimidating than it is. This page breaks every term down in plain English.
 
 <DemoCard title="Terms you'll see in action" steps={[
   { type: 'cmd', text: 'claude "Fix the login bug"' },
@@ -23,19 +23,19 @@ Claude Code has its own vocabulary and honestly some of it sounds more intimidat
 ## The Basics
 
 ### Claude Code
-A command-line tool that lets you work with Claude AI directly in your terminal. Unlike ChatGPT (browser) or Claude.ai (also browser), Claude Code runs right next to your code, your files, and your tools. It can read files, write code, run commands, and actually do things in your project.
+A command-line tool that lets you work with Claude AI directly in your terminal. Unlike ChatGPT (browser) or Claude.ai (also browser), Claude Code runs right next to your code, your files, and your tools. It reads files, writes code, runs commands, and actually does things in your project. Not just advice. Action.
 
 ### CLAUDE.md
-A file at the root of your project that tells Claude Code how to behave. Think of it as a "house rules" document. Your coding standards, communication preferences, workflow patterns. Claude Code reads it at the start of every session. Skip it and Claude Code is guessing. Write a good one and it's like a new team member who read the entire onboarding doc.
+A file at the root of your project that tells Claude Code how to behave. Think of it as a "house rules" document: your coding standards, communication preferences, workflow patterns. Claude Code reads it at the start of every session. Skip it and Claude Code is guessing. Write a good one and it's like a new team member who read the entire onboarding doc.
 
 ### Session
 One conversation with Claude Code. You open it, do some work, close it. That's a session. The key thing: without memory and handoffs, every session starts from scratch. With them, sessions build on each other.
 
 ### Context Window
-How much information Claude can "see" at any one time. Think of it like working memory. A bigger window means it can consider more files and history at once, but it also costs more tokens. When you hear "context is getting full," it means Claude is running out of working memory for this session.
+How much information Claude can "see" at any one time. Working memory. A bigger window means it can consider more files and history at once, but it also costs more tokens. When you hear "context is getting full," it means Claude is running out of working memory for this session.
 
 ### Prompt
-What you type to tell Claude Code what to do. Can be a question, a task, a command, whatever. The quality of your prompt directly affects the quality of the output. But here's the thing most people miss: a good CLAUDE.md matters more than a clever prompt. Context beats cleverness every time.
+What you type to tell Claude Code what to do. A question, a task, a command. The quality of your prompt affects the quality of the output. But here's the thing most people miss: a good CLAUDE.md matters more than a clever prompt. Context beats cleverness every time.
 
 ## Memory and Persistence
 
@@ -43,7 +43,7 @@ What you type to tell Claude Code what to do. Can be a question, a task, a comma
 A file-based system that lets Claude Code remember things across sessions. Your role, your projects, your preferences, corrections you've made. Without it, every session is a blank slate. With it, Claude Code gets better over time. Like training a team member, except the lessons actually stick.
 
 ### Handoff
-A document you write at the end of a session that captures what was done, what decisions were made, and what's next. The next session reads this to pick up where you left off. It's literally a note to your future self (and future Claude Code sessions). Takes two minutes, saves ten.
+A document you write at the end of a session that captures what was done, what decisions were made, and what's next. The next session reads this to pick up where you left off. It's literally a note to your future self and future Claude Code sessions. Takes two minutes, saves ten.
 
 ### Product Brain
 A directory of living project documents that track each project's current state. Not stale PRDs from six months ago. Living docs that update after every meeting and decision. The source of truth for what's actually happening.
@@ -51,7 +51,7 @@ A directory of living project documents that track each project's current state.
 ## Automation and Power Features
 
 ### Skill
-A reusable workflow encoded as a markdown file. Instead of explaining a multi-step task every time, you write it once and trigger it with keywords or commands. Example: a `/meeting-prep` skill that automatically pulls relevant context before any meeting. Skills are the difference between "using AI" and "having a system."
+A reusable workflow encoded as a markdown file. Instead of explaining a multi-step task every time, you write it once and trigger it with keywords or commands. A `/meeting-prep` skill that automatically pulls relevant context before any meeting, for example. Skills are the difference between "using AI" and "having a system."
 
 <DemoCard title="Skill in action" steps={[
   { type: 'cmd', text: 'claude "prep for my 1:1 with Sarah"' },
@@ -67,7 +67,7 @@ A reusable workflow encoded as a markdown file. Instead of explaining a multi-st
 ]} />
 
 ### Hook
-A script that runs automatically at specific moments. Before a tool runs, after a tool runs, when a session starts. Like automation rules that fire without you remembering to do anything. Example: auto-format code after Claude writes it. Auto-run security checks before commits.
+A script that runs automatically at specific moments. Before a tool runs, after a tool runs, when a session starts. Automation rules that fire without you remembering to do anything. Auto-format code after Claude writes it. Auto-run security checks before commits.
 
 <DemoCard title="Hook in action" steps={[
   { type: 'cmd', text: 'claude "commit these changes"' },
@@ -82,7 +82,7 @@ A script that runs automatically at specific moments. Before a tool runs, after 
 ]} />
 
 ### Sub-Agent
-A separate Claude Code instance that handles one focused task. Your main conversation delegates work to agents that work independently and report back. Research in one agent, code review in another, testing in a third. Keeps your main session clean and focused on decisions.
+A separate Claude Code instance that handles one focused task. Your main conversation delegates work to agents that run independently and report back. Research in one agent, code review in another, testing in a third. Keeps your main session clean and focused on decisions.
 
 <DemoCard title="Sub-agents in action" steps={[
   { type: 'cmd', text: 'claude "refactor the auth module"' },
@@ -100,10 +100,10 @@ A separate Claude Code instance that handles one focused task. Your main convers
 ]} />
 
 ### MCP (Model Context Protocol)
-A standard for connecting Claude Code to external tools. GitHub, Slack, Jira, databases, whatever. Think of MCP servers as plugins that give Claude Code superpowers beyond just reading and writing files.
+A standard for connecting Claude Code to external tools. GitHub, Slack, Jira, databases. Think of MCP servers as plugins that give Claude Code abilities beyond just reading and writing local files.
 
 ### MCP Server
-A small program that translates between Claude Code and an external service. Each server gives Claude Code specific abilities. "Read GitHub PRs," "search Slack messages," "create Jira tickets." You configure them in `.mcp.json` and Claude Code uses them when needed.
+A small program that translates between Claude Code and an external service. Each server gives Claude Code specific abilities: read GitHub PRs, search Slack messages, create Jira tickets. You configure them in `.mcp.json` and Claude Code uses them when relevant.
 
 <DemoCard title="MCP server in action" steps={[
   { type: 'cmd', text: 'claude "what PRs need my review?"' },
@@ -122,7 +122,7 @@ A small program that translates between Claude Code and an external service. Eac
 ## Plans and Pricing
 
 ### Claude Pro
-$20/month. Good for getting started and moderate daily use. You'll get a solid few hours of active sessions per day. Most people start here and it's genuinely useful.
+$20/month. Good for getting started and moderate daily use. You get a solid few hours of active sessions per day. Most people start here.
 
 ### Claude Max
 The power user plan. $100/month gets you 5x the Pro quota. $200/month gets you 20x. For people who've made Claude Code their primary work tool. If you're hitting usage limits on Pro more than twice a week, this is worth the upgrade.
@@ -131,12 +131,12 @@ The power user plan. $100/month gets you 5x the Pro quota. $200/month gets you 2
 The unit that measures how much Claude reads and writes. Roughly 4 characters equals 1 token. Your plan has a daily budget. Bigger context windows and longer conversations use more tokens. When you hear "optimize your token usage," it just means "be efficient with Claude's working memory."
 
 ### Rate Limit
-When you've used your daily token allocation and things slow down. A sign you're either on too small a plan, or you're using context inefficiently (long sessions without clearing, pasting entire files instead of pointing to them).
+When you've used your daily token allocation and things slow down. A sign you're either on too small a plan, or using context inefficiently (long sessions without clearing, pasting entire files instead of pointing to them).
 
 ## Workflow Concepts
 
 ### Plan Mode
-A mode where Claude Code outlines its approach before doing anything. Instead of immediately writing code (which might be wrong), it proposes a plan first. You review, adjust, then it executes. Saves tokens, prevents wrong-direction work, and honestly just produces better results.
+A mode where Claude Code outlines its approach before doing anything. Instead of immediately writing code (which might be wrong), it proposes a plan first. You review, adjust, then it executes. Saves tokens, prevents wrong-direction work, and produces better results.
 
 <DemoCard title="Plan mode in action" steps={[
   { type: 'cmd', text: 'claude "add user notifications"' },
@@ -155,7 +155,7 @@ A mode where Claude Code outlines its approach before doing anything. Instead of
 ]} />
 
 ### Autonomous Loop
-Claude Code running a task, finishing, and automatically starting the next iteration without your input. Advanced pattern for repetitive tasks like fixing linting errors across a codebase or running through a checklist. Powerful but use with guardrails.
+Claude Code running a task, finishing, and automatically starting the next iteration without your input. Advanced pattern for repetitive tasks like fixing linting errors across a codebase or running through a checklist. Powerful, but use with guardrails.
 
 <DemoCard title="Autonomous loop in action" steps={[
   { type: 'cmd', text: 'claude "fix all ESLint errors in src/"' },
@@ -177,14 +177,14 @@ The rules in your CLAUDE.md that govern how Claude Code works. When to plan firs
 ## File Types
 
 ### Markdown (`.md` files)
-A lightweight way to write formatted text using plain characters. `**bold**` becomes **bold**. `# Heading` becomes a big heading. That's it. You don't need special software : it's just a text file with a `.md` extension.
+A lightweight way to write formatted text using plain characters. `**bold**` becomes **bold**. `# Heading` becomes a big heading. That's it. Just a text file with a `.md` extension.
 
-Why does this matter? Because almost everything in Claude Code's world is a markdown file. CLAUDE.md is one. Skills are one. Handoffs are one. Memory files are one. The `.md` just signals "this file contains human-readable text with some light formatting." Nothing scary.
+Why does this matter? Almost everything in Claude Code's world is a markdown file. CLAUDE.md is one. Skills are one. Handoffs are one. Memory files are one. The `.md` just signals "this file contains human-readable text with light formatting." Nothing scary.
 
-> **Practical tip:** If you've ever written a bullet list, you already know 80% of markdown. Just replace dashes with `- ` and you're done.
+> **Practical tip:** If you've ever written a bullet list, you already know 80% of markdown. Just start lines with `- ` and you're done.
 
 ### Environment Variables (`.env` files)
-Secret settings your app needs at runtime : things like API keys, database passwords, and service URLs. They live outside your code so you don't accidentally paste your password into GitHub.
+Secret settings your app needs at runtime: things like API keys, database passwords, and service URLs. They live outside your code so you don't accidentally paste your password into GitHub.
 
 A `.env` file looks like this:
 
@@ -194,9 +194,9 @@ OPENAI_API_KEY=sk-abc123...
 PORT=3000
 ```
 
-Your code reads them with `process.env.DATABASE_URL` (in Node.js) or equivalent. The file never gets committed to git : you'll see `.env` in `.gitignore` on basically every project.
+Your code reads them with `process.env.DATABASE_URL` (in Node.js). The file never gets committed to git. You'll see `.env` in `.gitignore` on basically every project.
 
-> **If Claude Code tells you to add something to `.env`:** It means "create a file called `.env` at the root of your project and paste this line in." That's it. You can do it in any text editor, or just say *"create the .env file for me"* and Claude will do it.
+> **If Claude Code tells you to add something to `.env`:** It means "create a file called `.env` at the root of your project and paste this line in." That's it. You can do it in any text editor, or just say "create the .env file for me" and Claude will do it.
 
 ### `.claude/`
 A hidden directory in your project containing Claude Code config: settings, hooks, skills, and agent definitions. Think of it like `.git/` but for Claude Code.
@@ -205,7 +205,7 @@ A hidden directory in your project containing Claude Code config: settings, hook
 The index file for your memory system. Lists all memory files with one-line summaries. Claude Code reads this to know what memories exist and which ones to load.
 
 ### `.mcp.json`
-Configuration file that defines which MCP servers Claude Code connects to. Where you set up your "plugins" for GitHub, Slack, etc.
+Configuration file that defines which MCP servers Claude Code connects to. Where you set up your "plugins" for GitHub, Slack, and so on.
 
 ### `settings.json`
 Claude Code's configuration file at `.claude/settings.json`. Defines hooks, permissions, and tool settings. The mechanical config, as opposed to CLAUDE.md which is the behavioral config.

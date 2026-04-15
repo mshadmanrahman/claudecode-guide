@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Start Here : Claude Code Guide',
-  description: 'Pick your first project and get set up with Claude Code in under 10 minutes. No coding experience required.',
+  description: 'Pick your first project, get set up with Claude Code in under 10 minutes. No coding experience needed.',
 };
 
 export default function StartPage() {

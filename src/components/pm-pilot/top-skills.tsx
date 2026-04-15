@@ -10,32 +10,32 @@ const skills = [
     num: '01',
     name: '/meeting-prep',
     description:
-      'Aggregates Jira tickets, Slack threads, and calendar context into a structured brief before any meeting.',
+      'Checks Jira, Slack, and your calendar, then gives you a brief. Who owes what, what got missed, what to ask. I use this before every 1:1.',
   },
   {
     num: '02',
     name: '/prd',
     description:
-      'Guides you through a braindump-first process before opening any template. No more blank-page panic.',
+      'Asks you to brain-dump first. No template until the thinking is done. Genuinely prevents the thing where you write a whole PRD that says nothing.',
   },
   {
     num: '03',
     name: '/weekly-status',
     description:
-      'Pulls real sprint data and generates a shareable status update for stakeholders. Formatted and ready.',
+      'Hits Jira, counts what closed, flags the blockers, writes the update. You just review and send.',
   },
   {
     num: '04',
     name: '/market-sizing',
     description:
-      'Structures your TAM / SAM / SOM analysis with explicit assumptions. Works from a quick description.',
+      'TAM, SAM, SOM with all the assumptions written out. Saves you from the spreadsheet that nobody believes anyway.',
   },
   {
     num: '05',
     name: '/people-sync',
     description: (
       <>
-        Pulls meeting transcripts from{' '}
+        Reads transcripts from{' '}
         <a
           href={GRANOLA_AFFILIATE}
           target="_blank"
@@ -44,7 +44,7 @@ const skills = [
         >
           Granola
         </a>{' '}
-        and builds a relationship map. Know who said what before your next conversation.
+        and updates your stakeholder notes automatically. No more forgetting what you promised last week.
       </>
     ),
   },
@@ -79,10 +79,10 @@ export function PmPilotTopSkills() {
             03
           </span>
           <h2 className="mt-4 font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
-            Five skills for your first week
+            Five skills worth trying first
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Every skill is a markdown file you can read, edit, or fork. No black boxes.
+            Each one is a markdown file. Read it, edit it, fork it. Nothing is hidden.
           </p>
         </div>
 
@@ -117,7 +117,7 @@ export function PmPilotTopSkills() {
           }`}
         >
           <p className="mb-3 text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-            Example: /weekly-status in action
+            /weekly-status, running live
           </p>
           <DemoCard title="pm-pilot : weekly status" steps={WEEKLY_STATUS_STEPS} loop loopDelay={4000} />
         </div>

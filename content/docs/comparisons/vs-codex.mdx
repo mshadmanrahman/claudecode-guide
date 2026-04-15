@@ -1,6 +1,6 @@
 ---
 title: Claude Code vs OpenAI Codex
-description: "Two AI coding agents from the two biggest AI labs. Different philosophies, different strengths. Here's the honest comparison (2026)."
+description: "Both are terminal AI agents from the two biggest labs. The real difference is local vs cloud, and it matters more than you'd think."
 targetKeyword: "claude code vs codex"
 comparisonEntities:
   - "Claude Code"
@@ -17,9 +17,9 @@ relatedLinks:
     description: "Pick the right Claude plan for your workflow."
 ---
 
-Two terminal-based AI coding agents from the two biggest AI labs. Both can read your codebase, write code, and run commands. The differences are in philosophy and execution.
+Two terminal-based AI coding agents from the two biggest AI labs. Both can read your codebase, write code, and run commands. The meaningful differences are in philosophy, not marketing.
 
-OpenAI Codex (the CLI agent, not the old completion model) launched in 2025 as a direct competitor to Claude Code. Same category, very different approach to how an AI agent should work with your code.
+OpenAI Codex (the CLI agent, not the old completion model) launched in 2025 as a direct competitor to Claude Code. Same category, very different bets on how an AI agent should work with your code.
 
 <DemoCard title="Local vs cloud : the core split" steps={[
   { type: 'out', text: '── Claude Code ──' },
@@ -52,46 +52,46 @@ OpenAI Codex (the CLI agent, not the old completion model) launched in 2025 as a
 
 ## Where Claude Code Wins
 
-**Deep configuration.** `CLAUDE.md` files live in your repo, checked into version control. Your entire team shares the same AI context. Codex uses system prompts that don't travel with the codebase the same way.
+**Deep configuration.** `CLAUDE.md` files live in your repo, checked into version control. Your whole team shares the same AI context automatically. Codex uses system prompts that don't travel with the codebase the same way. Small difference in theory, real difference day-to-day.
 
-**Persistent memory.** Claude Code remembers corrections, preferences, and project context across sessions. Codex starts fresh each time. Over weeks and months, this compounds. You stop repeating yourself.
+**Persistent memory.** Claude Code remembers corrections, preferences, and project context across sessions. Codex starts fresh every time. Over weeks, this compounds. You stop repeating yourself. You stop re-explaining things you already explained.
 
-**Local execution.** Your code never leaves your machine. Claude Code reads files, runs tests, and executes commands locally. Codex uploads your code to a cloud sandbox. For proprietary codebases or compliance-sensitive work, this matters.
+**Local execution.** Your code never leaves your machine. Claude Code reads files, runs tests, and executes commands locally. Codex uploads your code to a cloud sandbox. For anything proprietary or compliance-sensitive, local wins.
 
-**Extensibility.** Hooks let you run custom scripts before and after tool calls. MCP servers connect Claude Code to external tools. Skills add domain-specific knowledge. Sub-agents handle parallel workstreams. Codex has a more contained extension model.
+**Extensibility.** Hooks let you run custom scripts before and after tool calls. MCP servers connect Claude Code to external tools. Skills add domain-specific behavior. Sub-agents handle parallel workstreams. Codex has a more contained model here.
 
-**Lower entry price.** Claude Pro at $20/month gives you meaningful Claude Code usage. Codex requires ChatGPT Pro at $200/month for the full experience, or you pay per-token through the API.
+**Lower entry price.** Claude Pro at $20/month gives you meaningful Claude Code usage. Codex requires ChatGPT Pro at $200/month for the full experience, or you pay per-token through the API. That's a 10x price difference at the entry level.
 
 ## Where Codex Wins
 
-**Sandboxed execution.** Every Codex task runs in an isolated cloud environment. If you are running untrusted code or want guaranteed isolation, the sandbox model is inherently safer than local execution.
+**Sandboxed execution.** Every Codex task runs in an isolated cloud environment. If you're running untrusted code or want guaranteed isolation from your local machine, the sandbox model is inherently safer. Claude Code runs locally, which is powerful but means it can actually affect your files.
 
-**Parallel cloud tasks.** You can kick off multiple Codex tasks simultaneously, each in its own sandbox. Claude Code runs locally and sequentially by default (sub-agents help, but it is a different model).
+**Parallel cloud tasks.** You can kick off multiple Codex tasks simultaneously, each in its own sandbox. Claude Code runs locally and sequentially by default. Sub-agents help with this, but it's a different model.
 
-**OpenAI ecosystem.** If your team already uses ChatGPT, GPT-4, and OpenAI's API, Codex fits naturally. Same billing, same account, same mental model.
+**OpenAI ecosystem fit.** If your team already bills through ChatGPT and GPT-4 and you want one account, one invoice, one mental model: Codex fits that. Adding Claude Code means a new billing relationship and a new tool to learn.
 
-**Potentially better for exploration.** The sandbox model means you can let Codex try things without worrying about local side effects. It cannot accidentally delete your files or break your local environment.
+**Exploration without consequences.** The sandbox means you can let Codex try things aggressively without worrying about local side effects. It cannot accidentally delete your files or break your local environment. That's a real safety property.
 
 ## The Philosophical Difference
 
-This is the real split: Claude Code trusts you with local access. Codex sandboxes everything.
+Here's the thing: Claude Code trusts you with local access. Codex sandboxes everything.
 
-Claude Code treats your machine as the workspace. It reads your files directly, runs your test suite, modifies your code in place. You see every change as it happens. The tradeoff: you need to trust the agent, and the agent needs your local environment to work.
+Claude Code treats your machine as the workspace. It reads your files directly, runs your test suite, modifies your code in place. You see every change as it happens. The tradeoff: you need to trust the agent, and the agent needs your local environment to actually work.
 
-Codex treats the cloud as the workspace. It clones your code into a sandbox, does its work there, and hands back a diff. The tradeoff: you lose the tight feedback loop of local execution, and the sandbox may not perfectly replicate your local environment.
+Codex treats the cloud as the workspace. It clones your code into a sandbox, works there, and hands back a diff. The tradeoff: you lose the tight feedback loop of local execution, and the sandbox may not perfectly replicate your environment. Those 2 env-specific test failures in the demo above? Real problem.
 
-Claude Code is configurable and extensible. You shape it with `CLAUDE.md`, hooks, skills, and memory. Codex is more opinionated and contained. Less setup, but less control.
+Claude Code is configurable and extensible. You shape it with `CLAUDE.md`, hooks, skills, and memory. Codex is more opinionated and contained. Less setup cost, but less control over how it behaves.
 
 ## Can You Use Both?
 
-Technically yes, but it is unusual. They solve the same problem from different angles, and most developers pick one ecosystem. The configuration investment (writing good `CLAUDE.md` files, building up memory, setting up hooks) makes switching costly.
+Technically yes, but it's unusual in practice. They solve the same problem from different angles, and most developers pick one ecosystem. The configuration investment (writing good `CLAUDE.md` files, building memory, setting up hooks) makes switching costly. Once you've built that foundation in Claude Code, starting over in Codex isn't appealing.
 
-If you are evaluating both, spend a week with each on a real project. The theoretical differences matter less than which one clicks with your workflow.
+If you're genuinely evaluating both: spend a week on a real project with each. The theoretical differences matter less than which one actually fits your workflow.
 
 ## Recommendation
 
-If you want deep local control, persistent memory, and extensibility: Claude Code. If you want cloud-sandboxed execution and are already in the OpenAI ecosystem: Codex.
+If you want deep local control, persistent memory, and the ability to customize everything: Claude Code. If you want cloud-sandboxed execution and you're already bought into OpenAI: Codex.
 
-For most developers starting fresh, Claude Code at $20/month is the better entry point than Codex at $200/month. You get a capable agent, full local access, and the ability to grow into advanced features like hooks, MCP, and sub-agents as you need them.
+For most developers starting fresh, Claude Code at $20/month is the better entry point. You get a capable agent, full local access, and room to grow into advanced features as you need them. The $200/month ask for Codex is a hard sell when you're still figuring out whether agent-based coding works for you.
 
-If budget is not the deciding factor, it comes down to local vs. cloud and how much you want to customize. Claude Code rewards investment in configuration. Codex works well out of the box with less setup.
+If budget isn't the deciding factor, it comes down to local vs. cloud and how much you want to customize. Claude Code rewards investment in configuration. Codex works well out of the box with less setup. I'm guessing most people reading this care more about control than convenience, but that's your call.

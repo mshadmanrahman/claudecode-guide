@@ -1,9 +1,9 @@
 ---
 title: Troubleshooting
-description: "Common Claude Code problems and how to fix them. Installation errors, auth issues, rate limits, and more."
+description: "The actual fixes for the most common Claude Code problems. Installation errors, auth issues, rate limits, disappearing changes. I've hit all of these."
 ---
 
-Something not working? You're probably not the first person to hit this. Here are the most common problems people run into with Claude Code, and the quickest way to fix each one.
+Something's broken. Let's fix it. Here's what I've seen come up most often, and the shortest path to each solution.
 
 <DemoCard title="Quick diagnostic" steps={[
   { type: 'cmd', text: 'node --version' },
@@ -21,11 +21,11 @@ Something not working? You're probably not the first person to hit this. Here ar
 
 ### "npm: command not found"
 
-This means Node.js isn't installed on your machine. npm comes bundled with Node.js, so you need to install it first.
+Node.js isn't installed. npm comes bundled with Node.js, so you need Node first.
 
-**Fix:** Download and install Node.js from [nodejs.org](https://nodejs.org). Pick the LTS version. After installing, close your terminal, open a new one, and try the install command again.
+**Fix:** Download Node.js from [nodejs.org](https://nodejs.org). Pick the LTS version. After installing, close your terminal, open a new one, and try again.
 
-On Mac with Homebrew, you can also run:
+On Mac with Homebrew:
 
 ```bash
 brew install node
@@ -33,7 +33,7 @@ brew install node
 
 ### "EACCES: permission denied"
 
-npm is trying to install files in a folder your user account doesn't have permission to write to. This is very common on Mac and Linux.
+npm is trying to write files somewhere your user account can't access. Very common on Mac and Linux, annoying but easy to fix.
 
 **Quick fix (Mac):** Add `sudo` before the command:
 
@@ -41,44 +41,44 @@ npm is trying to install files in a folder your user account doesn't have permis
 sudo npm install -g @anthropic-ai/claude-code
 ```
 
-**Proper fix (Mac and Linux):** Change npm's default directory so you never need `sudo`:
+**Proper fix (Mac and Linux):** Change npm's default directory so you never need `sudo` again:
 
 ```bash
 mkdir -p ~/.npm-global
 npm config set prefix '~/.npm-global'
 ```
 
-Then add the new directory to your PATH. If you use **bash**:
+Then add the new directory to your PATH. For **bash**:
 
 ```bash
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-If you use **zsh** (default on newer Macs):
+For **zsh** (default on newer Macs):
 
 ```bash
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-Now run the install command again without `sudo`.
+Now reinstall without `sudo`.
 
-**Windows fix:** Make sure you opened PowerShell as Administrator. Right-click PowerShell in the Start menu and choose "Run as Administrator."
+**Windows:** Open PowerShell as Administrator. Right-click PowerShell in the Start menu and choose "Run as Administrator."
 
 ### "claude: command not found" After Installing
 
-The install succeeded, but your terminal doesn't know where to find the `claude` command. This is a PATH issue.
+The install succeeded but your terminal doesn't know where the `claude` binary lives. PATH issue.
 
 **Fix 1:** Close your terminal and open a new one. Sometimes the PATH just needs a refresh.
 
-**Fix 2:** Find where npm installed the package and add it to your PATH:
+**Fix 2:** Find where npm installed it and add that to your PATH:
 
 ```bash
 npm config get prefix
 ```
 
-This prints a path (like `/usr/local` or `~/.npm-global`). The `claude` command lives in the `bin` folder inside that path. Add it to your shell config:
+This prints a path like `/usr/local` or `~/.npm-global`. The `claude` binary lives in the `bin` folder inside that path.
 
 ```bash
 echo 'export PATH=$(npm config get prefix)/bin:$PATH' >> ~/.zshrc
@@ -93,76 +93,70 @@ Replace `.zshrc` with `.bashrc` if you use bash.
 
 ### "401 Unauthorized"
 
-Your login session has expired or was never completed.
+Your login session expired or was never completed.
 
-**Fix:** Re-authenticate by running:
+**Fix:**
 
 ```bash
 claude auth login
 ```
 
-Follow the prompts to log in again. This opens a browser window where you'll sign in with your Anthropic account.
+This opens a browser window where you sign in with your Anthropic account. Follow the prompts.
 
 ### "You need a paid plan"
 
-Claude Code is not included in the free Anthropic tier. You need an active subscription.
+Claude Code isn't included in the free Anthropic tier.
 
-**Fix:** Sign up for a paid plan at [claude.ai](https://claude.ai):
+**Fix:** Sign up at [claude.ai](https://claude.ai). Claude Pro ($20/month) works well for most people. Claude Max ($100/month) gives you much higher daily limits if you're hitting Pro's ceiling. After subscribing, run `claude auth login` to re-authenticate.
 
-- **Claude Pro** ($20/month) works well for most users
-- **Claude Max** ($100/month) gives you much higher daily limits
+### Session Expired Mid-Work
 
-After subscribing, run `claude auth login` to re-authenticate with your paid account.
+If Claude Code suddenly stops working with an authentication error during a session, your token likely expired.
 
-### Session Expired
-
-If Claude Code suddenly stops working mid-session with an authentication error, your token likely expired.
-
-**Fix:** Run `claude auth login` to get a fresh session. Your work in progress is safe because Claude Code operates on your local files.
+**Fix:** Run `claude auth login` to get a fresh session. Your actual work is safe because Claude Code edits your local files directly, it doesn't hold your code hostage.
 
 ## Performance Problems
 
 ### "Rate limit reached"
 
-You've hit your plan's usage quota for the current period. This is more common on the Pro plan during heavy use.
+You've hit your plan's usage quota. More common on Pro during heavy-use days.
 
-**Fix:** Wait for the limit to reset (usually resets daily). In the meantime, here are ways to use your quota more efficiently:
+**Fix:** Wait for the limit to reset (usually daily). While you wait:
 
-- **Use `/compact`** to compress your conversation history and free up context
-- **Start fresh sessions** for new tasks instead of continuing a long one
-- **Be specific in your prompts** so Claude Code doesn't need multiple rounds to understand what you want
-- **Upgrade to Max** ($100/month) if you consistently hit limits
+- Run `/compact` to compress your conversation history and reduce context per request
+- Start fresh sessions for new tasks instead of continuing a long running one
+- Write more specific prompts so Claude Code doesn't need multiple rounds to understand what you want
+- Upgrade to Max ($100/month) if you consistently hit limits. You'll know it's time when it starts frustrating you.
 
 ### "Claude Code is slow"
 
-Long conversations build up a large context window, which makes each response take longer to generate.
+Long conversations accumulate a large context window, which makes each response slower to generate. This is the most common source of sluggishness.
 
 **Fix:**
 
-- **Start a new session** when switching to a different task. Each fresh session is fast.
-- **Run `/compact`** to reduce the context size without losing important information
-- **Close unrelated files** before asking Claude Code to work on something new
-- **Write a [handoff document](/docs/foundations/session-lifecycle)** before ending a session, then start fresh next time
+- Start a new session when switching to a different task. Each fresh session is fast.
+- Run `/compact` to reduce context size without losing important information. I do this every 30-40 minutes in long sessions.
+- Write a [handoff document](/docs/foundations/session-lifecycle) before ending a session, then start fresh next time. Warm starts are faster than bloated old sessions.
 
 ### Response Gets Cut Off
 
-The context window is full. Claude Code ran out of room to generate its response.
+Context window is full. Claude Code ran out of room to finish its response.
 
-**Fix:** Start a new session. Before you do, ask Claude Code to summarize what it was working on so you can pick up where you left off. Even better, set up a [session lifecycle](/docs/foundations/session-lifecycle) so context carries over automatically.
+**Fix:** Start a new session. Before you do, ask Claude Code to summarize what it was working on so you can pick up in the new session. Better yet, set up a [session lifecycle](/docs/foundations/session-lifecycle) so context carries over automatically.
 
 ## File and Project Problems
 
 ### "Claude can't see my files"
 
-Claude Code works in whatever directory you launched it from. If your files are elsewhere, it won't find them.
+Claude Code works in whatever directory you launched it from. If your files are somewhere else, it won't find them.
 
-**Fix:** Make sure you're in the right folder before starting Claude Code:
+**Fix:** Check your current directory before starting:
 
 ```bash
 pwd
 ```
 
-This prints your current directory. Navigate to your project folder first:
+Navigate to your project folder, then start Claude Code:
 
 ```bash
 cd /path/to/your/project
@@ -171,31 +165,31 @@ claude
 
 ### Claude Modified the Wrong File
 
-If your project has similarly named files, Claude Code might pick the wrong one.
+Happens when your project has similarly named files in different directories.
 
-**Fix:** Be specific in your prompts. Instead of "update the config file," say "update `src/config/database.ts`." Including the full file path removes any ambiguity.
+**Fix:** Be specific in your prompts. Instead of "update the config file," say "update `src/config/database.ts`." Full file paths remove all ambiguity.
 
-You can also undo changes with git:
+To undo unwanted changes:
 
 ```bash
 git diff           # See what changed
-git checkout: filename.ts  # Undo changes to a specific file
+git checkout -- filename.ts  # Undo changes to a specific file
 ```
 
 ### Changes Disappeared
 
-Claude Code edits files directly, but it does not automatically commit to git. If you ran `git checkout` or switched branches, your changes might be gone.
+Claude Code edits files directly but doesn't automatically commit to git. If you ran `git checkout` or switched branches, your changes might be gone.
 
-**Fix:** Check your git status to see what happened:
+**Fix:** Check git status first:
 
 ```bash
 git status
 git diff
 ```
 
-If changes are still there but unstaged, you're fine. If they're gone, check `git reflog` to see if they can be recovered.
+If changes are still there but unstaged, you're fine. If they're gone, check `git reflog`. Sometimes you can recover from there.
 
-**Prevention:** Commit your work frequently. Ask Claude Code to "commit these changes" or do it yourself:
+**Prevention:** Commit frequently. Ask Claude Code to "commit these changes" after significant work, or do it yourself:
 
 ```bash
 git add -A && git commit -m "work in progress"
@@ -203,8 +197,8 @@ git add -A && git commit -m "work in progress"
 
 ## Getting More Help
 
-If none of the above solved your problem:
+None of the above fixed it:
 
-- **[Anthropic's official docs](https://docs.anthropic.com/en/docs/claude-code)** have the latest setup and usage guides
-- **[GitHub Issues](https://github.com/anthropics/claude-code/issues)** is where bugs and feature requests are tracked. Search for your error message.
-- **[Anthropic Discord](https://discord.gg/anthropic)** has a community of Claude Code users who might have hit the same issue
+- **[Anthropic's official docs](https://docs.anthropic.com/en/docs/claude-code)**: latest setup and usage guides, updated more frequently than any third-party site
+- **[GitHub Issues](https://github.com/anthropics/claude-code/issues)**: where actual bugs are tracked. Search for your error message before filing a new one.
+- **[Anthropic Discord](https://discord.gg/anthropic)**: community of Claude Code users. If you've hit a weird edge case, someone else probably has too.

@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Claude Code Guide: Tell It What You Need. It Builds It.',
-  description: 'Your calm, step-by-step guide to Claude. Build apps, organize notes, analyze data. All in plain English. Web, Desktop, Terminal, or VS Code.',
+  description: 'A no-fluff guide to Claude Code. I built this so you can skip the confusion and get to the good stuff faster. Web, Desktop, Terminal, VS Code.',
 };
 
 const STATS = [
@@ -21,24 +21,24 @@ const HOW_IT_WORKS = [
   {
     step: 1,
     icon: MousePointerClick,
-    title: 'Pick what you want to build',
-    description: 'Choose a project: a game, a document, a chart. No coding knowledge needed.',
+    title: 'Pick something you want',
+    description: 'A game, a document, a chart. No coding knowledge needed. Really.',
     color: 'text-green-600 dark:text-green-400',
     bg: 'bg-green-500/10',
   },
   {
     step: 2,
     icon: Rocket,
-    title: 'Follow the guided setup',
-    description: 'We walk you through choosing an interface and getting started. Under 3 minutes.',
+    title: 'Follow the setup',
+    description: 'I walk you through picking an interface and getting running. Under 3 minutes.',
     color: 'text-blue-600 dark:text-blue-400',
     bg: 'bg-blue-500/10',
   },
   {
     step: 3,
     icon: Sparkles,
-    title: 'Paste a prompt and watch it work',
-    description: 'Type what you want in plain English. Claude does the rest. You have something real.',
+    title: 'Paste a prompt, watch it go',
+    description: 'Plain English. Claude does the rest. You end up with something real.',
     color: 'text-purple-600 dark:text-purple-400',
     bg: 'bg-purple-500/10',
   },
@@ -81,7 +81,7 @@ const CONTENT_SECTIONS = [
   {
     icon: BookOpen,
     title: 'Foundations',
-    description: 'What Claude is, how it works, and which interface is right for you.',
+    description: 'What Claude actually is, how it works under the hood, and which interface fits you.',
     count: 15,
     href: '/docs/foundations',
     color: 'text-blue-600 dark:text-blue-400',
@@ -89,7 +89,7 @@ const CONTENT_SECTIONS = [
   {
     icon: Workflow,
     title: 'Workflows',
-    description: 'Real patterns for daily work: writing, research, code review, project management.',
+    description: 'Patterns I use daily: writing, research, code review, project management.',
     count: 5,
     href: '/docs/workflows',
     color: 'text-green-600 dark:text-green-400',
@@ -97,7 +97,7 @@ const CONTENT_SECTIONS = [
   {
     icon: Layers,
     title: 'Patterns',
-    description: 'Prompting techniques, memory setup, and CLAUDE.md configuration.',
+    description: 'How to prompt well, set up memory, and configure CLAUDE.md so it actually helps.',
     count: 8,
     href: '/docs/patterns',
     color: 'text-purple-600 dark:text-purple-400',
@@ -105,7 +105,7 @@ const CONTENT_SECTIONS = [
   {
     icon: FileCode,
     title: 'Templates',
-    description: 'Copy-paste starter configs for Python, React, Node.js, and more.',
+    description: 'Copy-paste starter configs for Python, React, Node.js, and more. Grab and go.',
     count: 5,
     href: '/docs/templates',
     color: 'text-amber-600 dark:text-amber-400',
@@ -113,7 +113,7 @@ const CONTENT_SECTIONS = [
   {
     icon: GitCompare,
     title: 'Comparisons',
-    description: 'Claude vs ChatGPT, Cursor, Copilot, and others. Honest, side-by-side.',
+    description: 'Claude vs ChatGPT, Cursor, Copilot, and others. I tested them all. Honest takes.',
     count: 10,
     href: '/docs/comparisons',
     color: 'text-rose-600 dark:text-rose-400',
@@ -135,8 +135,8 @@ export default function HomePage() {
           </h1>
 
           <p className="animate-slide-up-fade delay-100 mt-8 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
-            Your calm, step-by-step guide to Claude.
-            Build apps, organize notes, analyze data. All in plain English.
+            I built this because the official docs assumed you already knew things.
+            You don&apos;t need to. Plain English, start to finish.
           </p>
 
           {/* Interface badges */}
@@ -236,7 +236,7 @@ export default function HomePage() {
           How it works
         </h2>
         <p className="mb-14 text-center text-fd-muted-foreground max-w-lg mx-auto">
-          No installs, no config files, no coding bootcamp. Just pick, set up, and go.
+          No coding bootcamp. No config files you don&apos;t understand. Just pick something, set it up, and go make it.
         </p>
 
         <div className="grid gap-6 sm:grid-cols-3">
@@ -286,12 +286,11 @@ export default function HomePage() {
         </p>
         <p className="mt-6 font-display text-3xl font-normal leading-snug tracking-tight-display text-fd-muted-foreground sm:text-4xl">
           If you can describe what you want in plain English,
-          you can use Claude.
+          you can use Claude. That&apos;s genuinely it.
         </p>
         <p className="mt-8 text-fd-muted-foreground leading-relaxed">
-          Written by a Product Manager who taught hundreds of people to use AI tools.
-          <br />
-          You&apos;re in safe hands.
+          I&apos;m a PM who&apos;s used AI tools with hundreds of people across different roles.
+          I know where people get stuck. This guide skips those parts.
         </p>
       </section>
 
@@ -307,7 +306,7 @@ export default function HomePage() {
           What do you want to make?
         </h2>
         <p className="mb-12 text-center text-fd-muted-foreground max-w-lg mx-auto">
-          Choose one. We&apos;ll walk you through setup and have you building in under 10 minutes.
+          Pick one. I&apos;ll walk you through setup and you&apos;ll have something real in under 10 minutes.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-3">
@@ -345,13 +344,13 @@ export default function HomePage() {
       {/* ── What's Inside (Feature Grid) ── */}
       <section className="mx-auto w-full max-w-5xl px-6 py-24">
         <p className="mb-2 text-center text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-          Everything you need
+          What&apos;s in here
         </p>
         <h2 className="mb-4 text-center font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
           What&apos;s inside the guide
         </h2>
         <p className="mb-14 text-center text-fd-muted-foreground max-w-lg mx-auto">
-          From first-time setup to advanced workflows. Each section is written for humans, not robots.
+          First-time setup to advanced workflows. I wrote everything for actual humans, not people who already know the answer.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -399,15 +398,14 @@ export default function HomePage() {
                 <span className="text-fd-muted-foreground">For doing.</span>
               </h3>
               <p className="mt-4 text-fd-muted-foreground leading-relaxed">
-                Claude builds apps, writes documents, analyzes data,
-                organizes your work, and automates the boring stuff.
-                Use it on the web, desktop, terminal, or your editor.
+                Claude builds apps, writes documents, analyzes spreadsheets, and automates the stuff that takes you forever.
+                It works on the web, desktop, terminal, or inside your editor. You pick.
               </p>
               <Link
                 href="/tutorials"
                 className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-fd-foreground hover:underline"
               >
-                See what people build <ArrowRight className="h-3.5 w-3.5" />
+                See what people actually build <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
             <div className="border-t border-fd-border bg-fd-accent/50 p-8 lg:border-l lg:border-t-0">
@@ -447,8 +445,8 @@ export default function HomePage() {
             Ready to try it?
           </h2>
           <p className="mt-4 text-fd-muted-foreground max-w-md mx-auto leading-relaxed">
-            Pick a project, choose your interface, and follow the guided setup.
-            You&apos;ll have something real in 10 minutes.
+            Pick a project, choose your interface, follow the steps.
+            Ten minutes from now you&apos;ll have something that actually works.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link

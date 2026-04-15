@@ -36,16 +36,16 @@ export function EmailCapture() {
     return (
       <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-6 text-center">
         <Check className="mx-auto mb-2 h-6 w-6 text-green-500" />
-        <p className="font-medium text-fd-foreground">You&apos;re subscribed!</p>
+        <p className="font-medium text-fd-foreground">You&apos;re in.</p>
         <p className="mt-1 text-sm text-fd-muted-foreground">
-          Check your inbox to confirm. Welcome aboard.
+          Check your inbox to confirm. Good to have you here.
         </p>
         <button
           type="button"
           onClick={() => setStatus('idle')}
           className="mt-3 text-xs text-fd-muted-foreground underline hover:text-fd-foreground"
         >
-          Subscribe another email
+          Add another email
         </button>
       </div>
     );
@@ -55,10 +55,10 @@ export function EmailCapture() {
     <div className="rounded-xl border border-fd-border bg-fd-card p-6">
       <div className="flex items-center gap-2 mb-3">
         <Mail className="h-4 w-4 text-fd-muted-foreground" />
-        <p className="text-sm font-medium text-fd-foreground">Stay in the loop</p>
+        <p className="text-sm font-medium text-fd-foreground">New guides, when they ship</p>
       </div>
       <p className="text-sm text-fd-muted-foreground mb-4">
-        New guides, templates, and tips. No spam. Unsubscribe anytime.
+        Guides, templates, and real workflows. No fluff. Unsubscribe whenever.
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row">
         <input
@@ -85,7 +85,7 @@ export function EmailCapture() {
         </button>
       </form>
       {status === 'error' && (
-        <p className="mt-2 text-xs text-red-500">Something went wrong. Please try again.</p>
+        <p className="mt-2 text-xs text-red-500">That didn&apos;t work. Try again?</p>
       )}
       <p className="mt-3 text-center text-xs text-fd-muted-foreground">
         Or follow on{' '}

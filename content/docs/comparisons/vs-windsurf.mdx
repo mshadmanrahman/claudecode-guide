@@ -1,6 +1,6 @@
 ---
 title: Claude Code vs Windsurf
-description: "Two agentic coding tools with very different philosophies. GUI-first vs terminal-native. Here's how to choose (2026 comparison)."
+description: "Windsurf is an IDE with an agent built in. Claude Code is an agent that works with whatever IDE you already have. That's the whole choice, really."
 targetKeyword: "claude code vs windsurf"
 comparisonEntities:
   - "Claude Code"
@@ -30,11 +30,11 @@ Windsurf and Claude Code are both agentic. They can both plan, write code, and e
   { type: 'success', text: '✓ Works with VS Code' },
   { type: 'success', text: '✓ Works with Vim / Neovim' },
   { type: 'success', text: '✓ Works with Zed' },
-  { type: 'success', text: '✓ Works with anything : it lives in your terminal' },
+  { type: 'success', text: '✓ Works with anything. It lives in your terminal.' },
   { type: 'warn', text: '→ Your editor stays yours. That\'s the difference.' },
 ]} />
 
-## Architecture Comparison
+## Architecture comparison
 
 | | Claude Code | Windsurf |
 |---|---|---|
@@ -47,17 +47,19 @@ Windsurf and Claude Code are both agentic. They can both plan, write code, and e
 | **Multi-file edits** | Yes | Yes |
 | **Command execution** | Yes, in your terminal | Yes, in embedded terminal |
 
-## The Editor Lock-in Question
+## The editor lock-in question
 
-This is the biggest practical difference. Windsurf is a full IDE. If you adopt it, you leave VS Code (or whatever you use now) behind. Some people are fine with that. Others find it a dealbreaker.
+This is the biggest practical difference and it's worth being direct about it. Windsurf is a full IDE. Adopting it means leaving VS Code, Vim, Zed, or whatever you currently use. Some people are genuinely fine with that. Others find it a dealbreaker, especially if they've spent years configuring their setup.
 
-Claude Code does not care what editor you use. It runs in a terminal window alongside whatever you already have open. Vim user? Fine. Zed? Fine. VS Code? Also fine. Your editor stays yours.
+Claude Code doesn't touch your editor. It runs in a terminal window alongside whatever you already have open. Your muscle memory stays intact. Your keybindings, your extensions, your workflow — all untouched.
 
-## Agent Capabilities
+I built this site using Claude Code while keeping Zed open for reviewing diffs. That wouldn't have worked with Windsurf.
 
-Both tools can handle multi-step coding tasks. Windsurf's Cascade agent has a nice visual flow where you can see it thinking, planning, and making changes. Claude Code shows this in the terminal with a text-based interface.
+## Agent capabilities
 
-Where Claude Code pulls ahead is extensibility. The `CLAUDE.md` system lets you teach the agent about your project, your conventions, your workflow. Hooks let you run custom scripts before or after any tool use. MCP servers let you connect external tools and data sources. Skills let you package reusable workflows. This configuration system is deeply composable in a way Windsurf's built-in features are not.
+Both tools handle multi-step coding tasks. Windsurf's Cascade agent has a nice visual flow where you can watch it thinking and planning. Some people find that reassuring. Claude Code shows the same process as text in the terminal, which is less visually polished but just as functional.
+
+Where Claude Code pulls ahead is extensibility. The `CLAUDE.md` system lets you teach the agent your project conventions, your coding style, the libraries you prefer. Hooks run custom scripts before or after any tool use. MCP servers connect external tools and data sources. Skills package reusable workflows you can invoke by name. This configuration system is deeply composable. Windsurf's built-in features are more fixed.
 
 ## Pricing
 
@@ -68,23 +70,23 @@ Where Claude Code pulls ahead is extensibility. The `CLAUDE.md` system lets you 
 | **Claude Pro** (for Claude Code) | $20/month | Moderate daily use |
 | **Claude Max** | $100-200/month | Heavy use, 5x or 20x limits |
 
-Windsurf is slightly cheaper at the entry level. Claude Code offers more at the higher tiers for power users.
+Windsurf is $5/month cheaper at the entry level. Frankly speaking, that's not the deciding factor unless your budget is extremely tight.
 
-## Where Each Wins
+## Where each wins
 
 **Windsurf is better when you:**
-- Want a polished visual IDE experience out of the box
+- Want a polished visual IDE experience without configuring anything
 - Prefer seeing AI changes in a graphical diff view
 - Are newer to coding and find terminals intimidating
-- Want to try agentic coding without leaving a familiar IDE layout
+- Want to try agentic coding without changing your mental model of what an IDE looks like
 
 **Claude Code is better when you:**
-- Already have an editor you love and do not want to switch
+- Have an editor you love and won't give up
 - Want to customize the agent deeply with `CLAUDE.md`
-- Need hooks, skills, and MCP integrations for advanced workflows
+- Need hooks, skills, and MCP integrations
 - Work in the terminal naturally
-- Want your AI configuration checked into version control
+- Want your AI configuration checked into version control alongside your code
 
 ## Recommendation
 
-If you want the easiest on-ramp to agentic coding and do not mind switching editors, Windsurf has a friendlier first experience. If you want depth, extensibility, and editor freedom, Claude Code is the stronger long-term choice. The terminal-native approach is less flashy, but the configuration system is where the real power lives.
+If you want the easiest on-ramp and don't mind switching editors, Windsurf is friendlier on day one. The visual experience is genuinely nice. But if you want depth, extensibility, and the freedom to keep using the tools you already know, Claude Code is the stronger long-term choice. The terminal-native approach is less flashy. The configuration system is where the real power lives, and it compounds over time in a way Windsurf's approach doesn't.

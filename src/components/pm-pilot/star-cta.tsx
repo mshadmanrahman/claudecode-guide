@@ -16,10 +16,10 @@ export function PmPilotStarCta() {
           04
         </span>
         <h2 className="mt-6 font-serif text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl">
-          Ready?
+          Try it.
         </h2>
         <p className="mt-6 text-lg text-fd-muted-foreground">
-          Free. Open source. No account needed.
+          Free, open source, no account. You can be up and running in under 5 minutes.
         </p>
 
         <div

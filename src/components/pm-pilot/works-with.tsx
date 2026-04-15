@@ -74,7 +74,7 @@ export function PmPilotWorksWith() {
         }`}
       >
         <p className="mb-10 text-sm text-fd-muted-foreground">
-          Works with the AI tools you already use
+          Works with whatever AI you&apos;re already using
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14">
           {brands.map(({ name, icon: Icon }) => (

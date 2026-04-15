@@ -1,13 +1,15 @@
 ---
 title: "Git Worktrees & Parallel Work"
-description: "Work on multiple branches simultaneously without stashing or switching. Git worktrees let Claude Code handle several tasks in parallel without stepping on itself."
+description: "Work on multiple branches at the same time without stashing anything. Git worktrees let Claude Code handle several tasks in parallel without stepping on itself."
 ---
 
-## The Problem: One Branch at a Time
+## The stash shuffle is costing you more than you think
 
-You're fixing a bug on `fix/auth-cookie`. Suddenly a P0 comes in. You need to switch to main, stash your work, create a new branch, fix the P0, push, switch back, pop your stash, and hope nothing broke.
+You're fixing a bug on `fix/auth-cookie`. A P0 comes in. Now you need to stash your work, switch to main, create a new branch, fix the P0, push, switch back, pop your stash, and hope nothing got weird.
 
-Git worktrees eliminate this.
+Every time this happens you lose context. Sometimes you lose work.
+
+Git worktrees eliminate this entirely.
 
 <DemoCard title="Parallel work with worktrees" steps={[
   { type: 'cmd', text: 'git worktree add ../hotfix -b fix/p0-crash' },
@@ -20,9 +22,9 @@ Git worktrees eliminate this.
   { type: 'warn', text: '→ Two branches. Two directories. Zero stashing.' },
 ]} />
 
-## What Are Git Worktrees?
+## What a worktree actually is
 
-A worktree is a **separate working directory** linked to the same Git repo. Each worktree has its own branch, its own file state, and its own Claude Code session. But they share the same Git history.
+A worktree is a separate working directory linked to the same Git repo. Each worktree has its own branch, its own file state, and its own Claude Code session. They share the same Git history.
 
 ```
 ~/projects/my-app/            ← main worktree (your feature branch)
@@ -30,9 +32,9 @@ A worktree is a **separate working directory** linked to the same Git repo. Each
 ~/projects/my-app-experiment/ ← third worktree (experimental idea)
 ```
 
-All three point to the same repo. Commits in one are visible in the others. No stashing, no branch switching, no lost work.
+All three point to the same repo. Commits in one are visible in the others. No stashing, no branch switching, no lost work. It's like having three copies of the repo without the disk overhead of actually copying it.
 
-## Basic Commands
+## Basic commands
 
 ```bash
 # Create a worktree on a new branch
@@ -48,17 +50,17 @@ git worktree list
 git worktree remove ../my-app-hotfix
 ```
 
-## Why This Matters for Claude Code
+## Why this matters for Claude Code
 
-Claude Code works best with **focused sessions**: one task, one context, one branch. Worktrees let you run multiple focused sessions in parallel:
+Claude Code works best with focused sessions: one task, one context, one branch. Worktrees let you run multiple focused sessions in parallel without any of them stepping on each other.
 
 **Session 1** (in `~/projects/my-app/`): "Build the new dashboard feature"
 **Session 2** (in `~/projects/my-app-hotfix/`): "Fix the auth bug"
 **Session 3** (in `~/projects/my-app-docs/`): "Update the API documentation"
 
-Each Claude session sees only its own branch. No confusion. No accidental edits to the wrong branch. No context bleed.
+Each Claude session sees only its own branch. No confusion, no accidental edits to the wrong branch, no context bleed between tasks.
 
-### With Sub-Agents
+### With sub-agents
 
 Claude Code's sub-agents can work in separate worktrees. The main agent coordinates while each sub-agent works on its own branch in its own directory:
 
@@ -69,7 +71,7 @@ Main agent: "Fix issues #42, #43, and #44 in parallel"
   └── Sub-agent 3: worktree ../fix-44, branch fix/issue-44
 ```
 
-Each sub-agent has a clean working directory, a focused context, and can commit independently.
+Each sub-agent has a clean working directory, a focused context, and commits independently. I've run this pattern on batches of 8 issues at a time.
 
 <DemoCard title="Three sub-agents, three worktrees, one command" steps={[
   { type: 'cmd', text: 'claude "Fix issues #42, #43, and #44 in parallel"' },
@@ -90,25 +92,25 @@ Each sub-agent has a clean working directory, a focused context, and can commit 
   { type: 'warn', text: '→ Parallel fixes. No branch conflicts. No stashing.' },
 ]} />
 
-## When to Use Worktrees vs Branches
+## When to use worktrees vs branches
 
 | Scenario | Use | Why |
 |---|---|---|
-| Quick context switch (< 5 min) | `git stash` + branch | Faster setup |
+| Quick context switch (under 5 min) | `git stash` + branch | Faster setup |
 | Working on two things simultaneously | **Worktree** | Both accessible at once |
 | P0 interrupt during a feature | **Worktree** | Don't lose your flow |
 | Parallel Claude Code sessions | **Worktree** | Clean separation |
 | Long-running experiment alongside main work | **Worktree** | No interference |
 | Simple branch for a PR | Branch | Worktree is overkill |
 
-## The Workflow
+## The workflow
 
 ```bash
 # 1. You're working on a feature
 cd ~/projects/my-app
 claude "continue working on the dashboard"
 
-# 2. P0 comes in : create a worktree
+# 2. P0 comes in: create a worktree
 git worktree add ../my-app-hotfix -b fix/p0-crash
 
 # 3. Open a new terminal, fix the P0
@@ -118,14 +120,14 @@ claude "fix the crash in checkout.ts, write a test, push"
 # 4. Clean up when done
 git worktree remove ../my-app-hotfix
 
-# 5. Back to your feature : nothing was interrupted
+# 5. Back to your feature: nothing was interrupted
 cd ~/projects/my-app
 claude --resume
 ```
 
 ## Tips
 
-- **Name worktree directories clearly.** `../my-app-hotfix` is better than `../worktree-1`.
+- **Name worktree directories clearly.** `../my-app-hotfix` is better than `../worktree-1`. You'll thank yourself when you have four of them open.
 - **Clean up when done.** Abandoned worktrees clutter your filesystem. `git worktree prune` removes stale ones.
 - **One branch per worktree.** You can't check out the same branch in two worktrees. Git enforces this.
 - **Worktrees share `.git`.** Commits, tags, and remote refs are shared. Untracked files and working directory state are not.

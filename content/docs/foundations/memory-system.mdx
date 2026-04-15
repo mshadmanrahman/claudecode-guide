@@ -1,6 +1,6 @@
 ---
 title: "The Memory System"
-description: "How to make Claude Code remember you across sessions. Four memory types, what to save, and the compound effect over time."
+description: "By default, Claude forgets everything when you close a session. The memory system fixes that. Here's how it works and how to set it up without overthinking it."
 ---
 
 ## Why Memory Matters
@@ -56,11 +56,11 @@ Auto memory is what makes Claude get better over time without you doing anything
 
 ### What About Config?
 
-Config files (`.claude/settings.json`) are separate from memory. They control technical settings: which tools are allowed, model preferences, permissions. Think of memory as *knowledge* and config as *plumbing*.
+Config files (`.claude/settings.json`) are separate from memory. They control technical settings: which tools are allowed, model preferences, permissions. Memory is knowledge. Config is plumbing.
 
 ## Organizing Your Memory (Recommended Pattern)
 
-Auto memory creates topic files organically. But if you want more structure: especially for teams or complex setups: here's a proven four-category pattern that works well:
+Auto memory creates topic files organically. But if you want more structure, especially for teams or complex setups, here's a four-category pattern that works well in practice:
 
 ### 1. User Memory
 
@@ -68,14 +68,14 @@ Who you are and what you care about.
 
 - Your role (frontend developer, PM, full-stack engineer)
 - Your goals ("I'm building a SaaS product", "I'm learning React")
-- Your preferences (coding style, communication style, tools you use)
-- Your team context (who you work with, what they own)
+- Your preferences: coding style, communication style, tools you use
+- Your team context: who you work with, what they own
 
-**Example:** `user_role.md` might contain: "Senior PM at an EdTech company. Manages 3 squads. Prefers bullet points over paragraphs. Hates em dashes."
+A `user_role.md` file might say: "Senior PM at an EdTech company. Manages 3 squads. Prefers bullet points over paragraphs. Hates em dashes."
 
 ### 2. Feedback Memory
 
-Corrections you have given Claude Code over time.
+Corrections you've given Claude Code over time.
 
 - "Don't suppress lint rules as a fix, rethink the solution"
 - "Always use relative paths, never absolute paths with usernames"
@@ -85,28 +85,28 @@ This is the most powerful category. Every correction you make gets saved, and Cl
 
 ### 3. Project Memory
 
-What you are actively working on.
+What you're actively working on.
 
 - Project names, tech stacks, and current status
 - Key decisions and their rationale
 - Architecture notes and patterns specific to each project
 - Links to relevant repos, boards, or documents
 
-**Example:** `project_heimdall.md` tracks an ad server replacement project: its version, test count, team members, and related design documents.
+A `project_heimdall.md` file, for example, tracks an ad server replacement project: its version, test count, team members, and related design documents.
 
 ### 4. Reference Memory
 
 Where to find things in external systems.
 
-- API endpoints and credentials locations (never the actual secrets)
+- API endpoints and credential locations (never the actual secrets)
 - Folder structures and file conventions
-- Tool configurations (CI/CD, deployment, monitoring)
+- Tool configurations: CI/CD, deployment, monitoring
 - Team ownership maps
 
-This type prevents Claude Code from guessing where things live. Instead of searching your codebase every time, it knows exactly where to look.
+This prevents Claude Code from guessing where things live. Instead of searching your codebase every time, it knows exactly where to look.
 
 <Callout type="info" title="This is a pattern, not a requirement">
-These four categories are a recommended organizational pattern, not built into Claude Code. Auto memory creates its own topic files organically. You can use this structure, auto memory alone, or combine both: whatever works for your workflow.
+These four categories are a recommended organizational pattern, not built into Claude Code. Auto memory creates its own topic files organically. You can use this structure, auto memory alone, or combine both. Whatever fits your workflow.
 </Callout>
 
 ## How Memory is Structured
@@ -118,9 +118,9 @@ Memory lives in `~/.claude/projects/<project>/memory/` for each git repo:
 | `MEMORY.md` | The index. Lists all topic files with one-line summaries. | **Automatically** at session start (first 200 lines) |
 | Topic files (`debugging.md`, `api-conventions.md`, etc.) | Detailed context on specific topics | **On demand** when relevant |
 
-Each topic file is a small Markdown file with frontmatter (name, description, type) and focused content. Keep them short: one topic per file.
+Each topic file is a small Markdown file with frontmatter (name, description, type) and focused content. Keep them short. One topic per file.
 
-`MEMORY.md` acts as a table of contents. Claude reads it at the start of every session, then loads individual topic files when they're relevant to the current conversation. If you use the four-category pattern above, you might have files like `user_role.md`, `feedback_no_em_dashes.md`, `project_heimdall.md`, or `reference_api_endpoints.md`.
+`MEMORY.md` acts as a table of contents. Claude reads it at the start of every session, then loads individual topic files when they're relevant. If you use the four-category pattern, you might have files like `user_role.md`, `feedback_no_em_dashes.md`, `project_heimdall.md`, or `reference_api_endpoints.md`.
 
 ## The /memory Command
 
@@ -145,15 +145,15 @@ The `/memory` command is your dashboard for everything memory-related. Run it to
   { type: 'warn', text: '→ One command. Full visibility into what Claude knows.' },
 ]} />
 
-You don't need to run `/memory` to use memory: it loads automatically. This command is for when you want to inspect, toggle, or edit what's there.
+You don't need to run `/memory` to use memory. It loads automatically. This command is for when you want to inspect, toggle, or edit what's there.
 
 ## What NOT to Save
 
-Not everything belongs in memory. Skip these:
+Not everything belongs in memory:
 
 - **Code patterns and syntax**: Claude Code already knows how to write code. Saving "how to write a React hook" is wasted space.
 - **Git history**: It can read your git log directly. No need to duplicate it.
-- **Debugging solutions**: These are one-off fixes that rarely repeat. Save the lesson, not the fix.
+- **Debugging solutions**: One-off fixes that rarely repeat. Save the lesson, not the fix.
 - **Temporary context**: If it won't matter next week, don't save it.
 
 The rule of thumb: save things that change how Claude Code behaves, not things it can look up on its own.
@@ -164,13 +164,13 @@ Memory builds over time, and the returns accelerate.
 
 **Week 1:** Sessions start faster. Claude Code knows your name, your projects, and your preferred coding style. You stop repeating "I'm working on Project X using Next.js."
 
-**Month 1:** Claude Code stops making mistakes you have corrected before. It remembers that your teammate's name is spelled a specific way, that you never want `any` types in TypeScript, that you prefer colons over em dashes.
+**Month 1:** Claude Code stops making mistakes you've corrected before. It remembers that your teammate's name is spelled a specific way, that you never want `any` types in TypeScript, that you prefer colons over em dashes.
 
-**Month 3:** Claude Code starts anticipating what you need. It knows which files to check first, which patterns your codebase uses, and which team members own which systems. It feels less like a tool and more like a colleague who has been on your team for a while.
+**Month 3:** Claude Code starts anticipating what you need. It knows which files to check first, which patterns your codebase uses, which team members own which systems. It feels less like a tool and more like a colleague who's been on your team for a while.
 
 ## Getting Started Checklist
 
-The simplest start? **Just use Claude Code.** Auto memory is on by default. After a few sessions, check `/memory` to see what it's captured.
+The simplest start: just use Claude Code. Auto memory is on by default. After a few sessions, run `/memory` to see what it's captured.
 
 Want to go further? Build on top of auto memory:
 
@@ -179,6 +179,6 @@ Want to go further? Build on top of auto memory:
 - [ ] Create a `CLAUDE.local.md` for personal preferences you don't want in Git
 - [ ] Add a `~/.claude/CLAUDE.md` with your role and global preferences
 - [ ] After a correction, ask Claude to save it as a feedback memory
-- [ ] Review your `MEMORY.md` index periodically: prune stale entries
+- [ ] Review your `MEMORY.md` index periodically and prune stale entries
 
-You do not need to build the whole system at once. Auto memory handles the basics. The structured approach adds precision on top. The best memory systems are grown, not designed upfront.
+You don't need to build the whole system at once. Auto memory handles the basics. The structured approach adds precision on top. The best memory systems are grown, not designed upfront.

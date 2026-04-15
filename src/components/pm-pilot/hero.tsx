@@ -64,7 +64,7 @@ export function PmPilotHero() {
         </h1>
 
         <p className="animate-slide-up-fade delay-100 mt-8 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
-          AI-powered meeting prep, PRDs, and status reports. Works with ChatGPT, Claude, Gemini - and gets even more powerful with Claude Code.
+          I built this because I was spending 60% of my day on status updates instead of actual product work. Works with ChatGPT, Claude, Gemini. Gets a lot more powerful with Claude Code.
         </p>
 
         <div className="animate-slide-up-fade delay-200 mt-10 flex items-center gap-4">
@@ -74,7 +74,7 @@ export function PmPilotHero() {
             rel="noopener noreferrer"
             className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground shadow-sm hover:opacity-90 transition-opacity"
           >
-            Get started
+            Try it free
           </a>
           <a
             href="https://github.com/mshadmanrahman/pm-pilot"
@@ -91,7 +91,7 @@ export function PmPilotHero() {
 
         <div className="animate-slide-up-fade delay-300 mt-20 relative">
           <p className="mb-3 text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-            See it work
+            Live example
           </p>
 
           {/* Floating accent cards, half outside the terminal */}

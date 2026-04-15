@@ -35,7 +35,7 @@ export function TutorialCompleteButton({ slug, title }: TutorialCompleteButtonPr
       {completed ? (
         <>
           <CheckCircle2 className="h-4 w-4" />
-          Tutorial complete : nice work!
+          Done. Nice work.
         </>
       ) : (
         <>

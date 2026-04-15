@@ -1,13 +1,13 @@
 ---
 title: "Template: Python Project"
-description: "CLAUDE.md for Python projects. Covers virtual environments, testing with pytest, type checking, and common pitfalls."
+description: "CLAUDE.md for Python projects. Modern tooling only: uv, pytest, mypy, no bare requirements.txt."
 ---
 
 > **Prerequisites:** Complete the [Interactive Guide](/guide) (steps 1-5) and read [The CLAUDE.md Guide](/docs/foundations/claude-md) first. You need Claude Code installed and understand how CLAUDE.md works before customizing a template.
 
-Use this template for Python applications and libraries that use modern tooling: `uv` or `poetry` for dependency management, `pytest` for testing, and `mypy` for type checking. It steers Claude away from legacy patterns like bare `requirements.txt` and global pip installs.
+Left to its own devices, Claude Code will default to whatever Python patterns it saw most during training. A lot of that is `pip install`, `requirements.txt`, `os.path`, and bare `except:`. None of that is what you want in 2025.
 
-If you use Django or FastAPI, add framework-specific conventions after the base template.
+This template steers it toward modern tooling: `uv` or `poetry` for dependency management, `pytest` for testing, `mypy` for type checking. If you use Django or FastAPI, add framework-specific conventions after the base template.
 
 <DemoCard title="Python template preventing legacy patterns" steps={[
   { type: 'cmd', text: 'claude "add a new data processing module"' },
@@ -119,6 +119,6 @@ When adding dependencies, run `uv add` instead of telling me to do it.
 ### How to Use
 
 1. Copy the code block above into a `CLAUDE.md` file at your project root
-2. Switch the `uv` commands to `poetry` commands if that is your package manager
-3. Update the directory layout if your project does not use a `src/` structure
-4. Add framework-specific sections for Django, FastAPI, Flask, or other frameworks you use
+2. Switch the `uv` commands to `poetry` commands if that's your package manager
+3. Update the directory layout if your project doesn't use a `src/` structure
+4. Add framework-specific sections for Django, FastAPI, Flask, or whatever you're building on

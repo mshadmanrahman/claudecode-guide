@@ -1,11 +1,11 @@
 ---
 title: MCP Servers
-description: "Give Claude Code eyes and hands beyond your filesystem. Slack, GitHub, Jira, databases: all in one conversation."
+description: "Claude Code can only see your filesystem by default. MCP servers fix that. Slack, GitHub, Jira, databases: all in one conversation."
 ---
 
-## Claude Code Is Trapped on Your Machine (Until You Fix That)
+## Claude Code is trapped on your machine until you fix it
 
-Out of the box, Claude Code can only see files on your disk. That's it. It can't check Slack, it can't read your PRs, it can't query your database.
+Out of the box, Claude Code sees files on your disk. That's it. It can't check Slack, it can't read your PRs, it can't query your database.
 
 MCP (Model Context Protocol) changes that. MCP servers are plugins that connect Claude Code to external services. Each one gives Claude Code the ability to read from or write to a tool you already use.
 
@@ -16,7 +16,7 @@ One conversation. Slack context, GitHub PRs, database queries, Figma specs. That
   { type: 'out', text: '[MCP: slack] Searching #engineering...' },
   { type: 'success', text: '✓ Found 23 messages today' },
   { type: 'out', text: 'Key threads:' },
-  { type: 'out', text: '  • Deploy blocked : DNS propagation (Sarah, 10:14am)' },
+  { type: 'out', text: '  • Deploy blocked: DNS propagation (Sarah, 10:14am)' },
   { type: 'out', text: '  • New hire onboarding checklist shared (Marcus, 11:30am)' },
   { type: 'out', text: '  • Hotfix merged for checkout bug (PR #891)' },
   { type: 'cmd', text: '"show me that PR"', delay: 1000 },
@@ -26,9 +26,9 @@ One conversation. Slack context, GitHub PRs, database queries, Figma specs. That
   { type: 'warn', text: '→ Slack + GitHub in one conversation. That\'s MCP.' },
 ]} />
 
-## How It Works
+## How it works
 
-An MCP server is a small program that translates between Claude Code and an external API. Simple as that.
+An MCP server is a small program that translates between Claude Code and an external API. Think of it like a USB hub: Claude Code is your laptop, and the MCP servers are the adapters for every service you already use.
 
 ```
 Claude Code  →  MCP Server  →  External Service
@@ -36,9 +36,9 @@ Claude Code  →  MCP Server  →  External Service
                    ←  PR diff, comments, status
 ```
 
-Each server exposes **tools** that Claude Code can call: things like `get_file_contents`, `list_pull_requests`, `create_pull_request`. Claude Code discovers them automatically and uses them when your prompt calls for it.
+Each server exposes **tools** that Claude Code can call: things like `get_file_contents`, `list_pull_requests`, `create_pull_request`. Claude Code discovers them automatically and uses them when your prompt calls for it. You don't have to do anything special.
 
-## Popular MCP Servers
+## Popular MCP servers
 
 | Server | What It Does | Example Use |
 |---|---|---|
@@ -51,9 +51,9 @@ Each server exposes **tools** that Claude Code can call: things like `get_file_c
 
 You don't need all of these. Most people start with one or two and add more as they feel the pull.
 
-## Setting One Up
+## Setting one up
 
-MCP servers live in a `.mcp.json` file at your project root. Here's GitHub: the easiest one to start with:
+MCP servers live in a `.mcp.json` file at your project root. GitHub is the easiest one to start with:
 
 ```json
 {
@@ -73,7 +73,7 @@ When Claude Code starts, it reads `.mcp.json`, launches the servers, discovers t
 
 For OAuth-based servers (Slack, Figma), there's an authorization flow instead of a static token. Each server's docs walk you through it.
 
-## A Real Setup: GitHub + Linear
+## A real setup: GitHub + Linear
 
 Here's what a two-service config actually looks like:
 
@@ -98,7 +98,7 @@ Here's what a two-service config actually looks like:
 }
 ```
 
-With both connected, you can say "Find the Linear ticket for the auth bug, then check if there's a related PR on GitHub." Claude Code coordinates across both in a single response. This is where it gets fun.
+With both connected, you can say "Find the Linear ticket for the auth bug, then check if there's a related PR on GitHub." Claude Code coordinates across both in a single response. This is where it gets genuinely fun.
 
 <DemoCard title="Cross-service workflow: ticket → code → PR" steps={[
   { type: 'cmd', text: 'claude "pick up the next ticket from my sprint"' },
@@ -116,11 +116,11 @@ With both connected, you can say "Find the Linear ticket for the auth bug, then 
   { type: 'warn', text: '→ Ticket → code → PR → notification. One prompt.' },
 ]} />
 
-## Security: Take This Seriously
+## Security: take this seriously
 
-MCP servers have real access to your tools. Treat them like any API integration.
+MCP servers have real access to your tools. They run as processes on your machine with the credentials you provide. Treat them like any API integration you'd wire into production.
 
-**Only connect servers you trust.** Each one runs as a process on your machine with the credentials you provide. Stick to official or well-maintained community servers.
+**Only connect servers you trust.** Stick to official or well-maintained community servers.
 
 **Use scoped tokens.** Don't hand over your admin token. Create a personal access token with minimum permissions. For GitHub, read-only repo and PR access covers most workflows.
 
@@ -142,11 +142,11 @@ MCP servers have real access to your tools. Treat them like any API integration.
 
 Using `$GITHUB_TOKEN` reads from your shell environment. The actual secret stays out of the file. Add `.mcp.json` to `.gitignore` and share a `.mcp.json.example` template with your team.
 
-## Getting Started
+## Getting started
 
 **Start with GitHub.** It's the easiest to set up and the most immediately useful. Get it working before adding more.
 
-**Test with a simple query.** "List my open PRs" or "Show me recent Slack messages." If that works, the connection is solid.
+**Test with a simple query first.** "List my open PRs" or "Show me recent Slack messages." If that works, the connection is solid.
 
 **Read the server docs.** Five minutes reading specific token scopes and supported tools saves an hour of debugging. Every time.
 
