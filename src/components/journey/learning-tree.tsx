@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ElementType } from 'react';
 
 /* ─────────────────────────────────────────────
@@ -172,11 +172,12 @@ function TreeNode({ node, stageId, isStartHere, animationDelay, inView }: TreeNo
     <Link
       href={node.href}
       className={[
-        'group/node relative flex flex-col gap-1.5 rounded-xl border p-3 transition-all duration-200',
+        'group/node relative flex flex-col items-center gap-1.5 rounded-xl border p-3 transition-all duration-200',
         'cursor-pointer no-underline',
+        'h-[88px] w-full',
         colors.node,
         colors.nodeBorder,
-        'hover:scale-[1.02] hover:shadow-md',
+        'hover:scale-[1.03] hover:shadow-md',
         colors.glow,
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
         'transition-all duration-500',
@@ -184,41 +185,38 @@ function TreeNode({ node, stageId, isStartHere, animationDelay, inView }: TreeNo
       ].join(' ')}
       style={{ transitionDelay: `${animationDelay}ms` }}
     >
-      {/* Header row */}
-      <div className="flex items-center gap-2">
-        <span className={[
-          'flex h-6 w-6 shrink-0 items-center justify-center rounded-md',
-          colors.labelBg,
-        ].join(' ')}>
-          <Icon className={`h-3.5 w-3.5 ${colors.label}`} />
-        </span>
+      {/* Icon */}
+      <span className={[
+        'flex h-7 w-7 shrink-0 items-center justify-center rounded-lg',
+        colors.labelBg,
+      ].join(' ')}>
+        <Icon className={`h-4 w-4 ${colors.label}`} />
+      </span>
 
-        <span className={`text-xs font-semibold leading-tight ${colors.label} line-clamp-2`}>
-          {node.title}
-        </span>
-      </div>
+      {/* Title */}
+      <span className={`text-[11px] font-semibold leading-tight text-center ${colors.label} line-clamp-2`}>
+        {node.title}
+      </span>
 
-      {/* Footer row: badges + duration */}
-      <div className="flex flex-wrap items-center gap-1 mt-auto">
-        {node.badge && (
+      {/* Badge or duration (pick one to keep it clean) */}
+      <div className="flex items-center gap-1 mt-auto">
+        {isStartHere ? (
+          <span className="rounded-full bg-green-500 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white animate-pulse">
+            start
+          </span>
+        ) : node.badge ? (
           <span className={[
-            'rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider',
+            'rounded-full px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-wider',
             colors.badge,
             colors.badgeText,
           ].join(' ')}>
             {node.badge}
           </span>
-        )}
-        {isStartHere && (
-          <span className="rounded-full bg-green-500 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white animate-pulse">
-            start here
-          </span>
-        )}
-        {node.duration && (
-          <span className="ml-auto text-[10px] text-fd-muted-foreground shrink-0">
+        ) : node.duration ? (
+          <span className="text-[9px] text-fd-muted-foreground">
             {node.duration}
           </span>
-        )}
+        ) : null}
       </div>
     </Link>
   );
@@ -292,155 +290,39 @@ function MobileTimeline({ stages }: { stages: Stage[] }) {
 
 /* ─────────────────────────────────────────────
    DesktopTree (shown on md+ screens)
+   Pure CSS connectors, no SVG measurement.
    ───────────────────────────────────────────── */
 
-interface CurlyBrace {
-  x1: number;
-  x2: number;
-  y: number;
-  color: string;
-  key: string;
-}
-
 function DesktopTree({ stages }: { stages: Stage[] }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [curlyBraces, setCurlyBraces] = useState<CurlyBrace[]>([]);
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-
-  const nodeRefs = useRef<Map<string, HTMLElement>>(new Map());
-
-  const setNodeRef = useCallback((id: string, el: HTMLElement | null) => {
-    if (el) {
-      nodeRefs.current.set(id, el);
-    } else {
-      nodeRefs.current.delete(id);
-    }
-  }, []);
-
-  useEffect(() => {
-    function recalculate() {
-      const container = containerRef.current;
-      if (!container) return;
-
-      const containerRect = container.getBoundingClientRect();
-      setContainerSize({ width: containerRect.width, height: containerRect.height });
-
-      const braces: CurlyBrace[] = [];
-
-      for (let si = 0; si < stages.length - 1; si++) {
-        const currentStage = stages[si];
-        const nextStage = stages[si + 1];
-
-        // Measure all nodes in the upper stage to find leftmost and rightmost extents
-        let minX = Infinity;
-        let maxX = -Infinity;
-        let stageBottomY = -Infinity;
-
-        for (const node of currentStage.nodes) {
-          const nodeId = `${currentStage.id}-${node.id}`;
-          const el = nodeRefs.current.get(nodeId);
-          if (!el) continue;
-          const rect = el.getBoundingClientRect();
-          const left = rect.left - containerRect.left;
-          const right = rect.right - containerRect.left;
-          const bottom = rect.bottom - containerRect.top;
-          if (left < minX) minX = left;
-          if (right > maxX) maxX = right;
-          if (bottom > stageBottomY) stageBottomY = bottom;
-        }
-
-        // Measure top of next stage row to find vertical midpoint for the brace
-        let nextStageTopY = Infinity;
-        for (const node of nextStage.nodes) {
-          const nodeId = `${nextStage.id}-${node.id}`;
-          const el = nodeRefs.current.get(nodeId);
-          if (!el) continue;
-          const rect = el.getBoundingClientRect();
-          const top = rect.top - containerRect.top;
-          if (top < nextStageTopY) nextStageTopY = top;
-        }
-
-        if (minX === Infinity || maxX === -Infinity || stageBottomY === -Infinity || nextStageTopY === Infinity) continue;
-
-        const braceY = (stageBottomY + nextStageTopY) / 2;
-        const nextColors = getStageColor(nextStage.id);
-
-        braces.push({
-          x1: minX,
-          x2: maxX,
-          y: braceY,
-          color: nextColors.line,
-          key: `brace-${si}`,
-        });
-      }
-
-      setCurlyBraces(braces);
-    }
-
-    const timer = setTimeout(recalculate, 100);
-    window.addEventListener('resize', recalculate);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', recalculate);
-    };
-  }, [stages]);
-
   return (
-    <div ref={containerRef} className="relative hidden md:block">
-      {/* SVG curly braces between stages */}
-      {containerSize.width > 0 && (
-        <svg
-          className="pointer-events-none absolute inset-0 z-0 overflow-visible"
-          width={containerSize.width}
-          height={containerSize.height}
-          aria-hidden="true"
-        >
-          {curlyBraces.map((brace) => {
-            const { x1, x2, y, color, key } = brace;
-            const tipDepth = 22;
-            const cx = (x1 + x2) / 2;
-            const cy = y + tipDepth;
-            const w = x2 - x1;
-            // Two cubic bezier curves meeting at the center tip:
-            // Left half: start at (x1, y), curve down to center tip (cx, cy)
-            // Right half: mirror from center tip back up to (x2, y)
-            const d = [
-              `M ${x1},${y}`,
-              `C ${x1 + w / 4},${y} ${cx - w / 8},${cy} ${cx},${cy}`,
-              `C ${cx + w / 8},${cy} ${x2 - w / 4},${y} ${x2},${y}`,
-            ].join(' ');
-
-            return (
-              <path
-                key={key}
-                d={d}
-                stroke={color}
-                strokeWidth={2}
-                strokeOpacity={0.45}
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            );
-          })}
-        </svg>
-      )}
-
-      {/* Stage rows stacked bottom to top visually, but top to bottom in DOM */}
-      <div className="relative z-10 flex flex-col gap-10">
+    <div className="relative hidden md:block">
+      <div className="flex flex-col gap-0">
         {stages.map((stage, stageIdx) => {
           const colors = getStageColor(stage.id);
           const { ref: stageRef, inView } = useInView(0.15);
 
           return (
-            <div key={stage.id} ref={stageRef} className="flex flex-col gap-3">
+            <div key={stage.id} ref={stageRef}>
+              {/* Vertical connector line between stages */}
+              {stageIdx > 0 && (
+                <div className="flex justify-center py-1">
+                  <div
+                    className="w-px h-8"
+                    style={{ backgroundColor: colors.line, opacity: 0.35 }}
+                  />
+                </div>
+              )}
+
               {/* Stage label row */}
               <div className={[
-                'flex items-center gap-3 transition-all duration-500',
+                'flex items-center gap-3 mb-3 transition-all duration-500',
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3',
               ].join(' ')}>
-                <span className={`font-mono text-lg font-bold ${colors.label}`}>
+                <span className={[
+                  'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold font-mono',
+                  colors.labelBg,
+                  colors.label,
+                ].join(' ')}>
                   {stage.number}
                 </span>
                 <div>
@@ -451,14 +333,13 @@ function DesktopTree({ stages }: { stages: Stage[] }) {
                     {stage.subtitle}
                   </span>
                 </div>
-                {/* Decorative line to the right */}
                 <div className="flex-1 h-px bg-fd-border/60" />
               </div>
 
-              {/* Node grid */}
+              {/* Node grid: fixed columns based on count, all same size */}
               <div
                 className={[
-                  'grid gap-3',
+                  'grid gap-2.5',
                   stage.nodes.length <= 3 ? 'grid-cols-3' :
                   stage.nodes.length === 4 ? 'grid-cols-4' :
                   stage.nodes.length === 5 ? 'grid-cols-5' :
@@ -466,18 +347,14 @@ function DesktopTree({ stages }: { stages: Stage[] }) {
                 ].join(' ')}
               >
                 {stage.nodes.map((node, nodeIdx) => (
-                  <div
+                  <TreeNode
                     key={node.id}
-                    ref={(el) => setNodeRef(`${stage.id}-${node.id}`, el)}
-                  >
-                    <TreeNode
-                      node={node}
-                      stageId={stage.id}
-                      isStartHere={node.badge === 'start here'}
-                      animationDelay={stageIdx * 80 + nodeIdx * 60}
-                      inView={inView}
-                    />
-                  </div>
+                    node={node}
+                    stageId={stage.id}
+                    isStartHere={node.badge === 'start here'}
+                    animationDelay={stageIdx * 80 + nodeIdx * 60}
+                    inView={inView}
+                  />
                 ))}
               </div>
             </div>
