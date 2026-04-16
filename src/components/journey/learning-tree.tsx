@@ -174,7 +174,7 @@ function TreeNode({ node, stageId, isStartHere, animationDelay, inView }: TreeNo
       className={[
         'group/node relative flex flex-col items-center gap-1.5 rounded-xl border p-3 transition-all duration-200',
         'cursor-pointer no-underline',
-        'h-[88px] w-full',
+        'h-[104px] w-full min-w-0',
         colors.node,
         colors.nodeBorder,
         'hover:scale-[1.03] hover:shadow-md',
@@ -194,7 +194,7 @@ function TreeNode({ node, stageId, isStartHere, animationDelay, inView }: TreeNo
       </span>
 
       {/* Title */}
-      <span className={`text-[11px] font-semibold leading-tight text-center ${colors.label} line-clamp-2`}>
+      <span className={`text-[11px] font-semibold leading-snug text-center ${colors.label} line-clamp-3`}>
         {node.title}
       </span>
 

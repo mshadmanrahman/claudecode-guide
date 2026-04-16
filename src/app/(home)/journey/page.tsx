@@ -555,7 +555,7 @@ export default function JourneyPage() {
       )}
 
       {/* ── Learning Tree ── */}
-      <section className="mx-auto w-full max-w-5xl px-6 pb-12">
+      <section className="mx-auto w-full max-w-6xl px-6 pb-12">
         <div className="mb-6 text-center">
           <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground sm:text-3xl">
             Your Learning Tree
