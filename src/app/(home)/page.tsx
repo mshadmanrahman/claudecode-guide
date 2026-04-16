@@ -135,8 +135,8 @@ export default function HomePage() {
           </h1>
 
           <p className="animate-slide-up-fade delay-100 mt-8 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
-            I built this because the official docs assumed you already knew things.
-            You don&apos;t need to. Plain English, start to finish.
+            I built this because I kept explaining the same things to people who&apos;d never touched a terminal.
+            The official docs are solid if you already know the territory. This guide is for everyone who doesn&apos;t.
           </p>
 
           {/* Interface badges */}
