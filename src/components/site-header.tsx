@@ -3,10 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Menu, X, BookOpen } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
-import { DocsDrawer } from './docs-drawer';
-import type { DocPageInfo } from '@/lib/docs-navigation';
 
 interface NavLink {
   href: string;
@@ -21,26 +19,12 @@ const NAV_LINKS: NavLink[] = [
   { href: '/blog', label: 'Blog' },
 ];
 
-interface DocSection {
-  name: string;
-  pages: DocPageInfo[];
-}
-
-interface SiteHeaderProps {
-  docsSections?: DocSection[];
-}
-
-export function SiteHeader({ docsSections }: SiteHeaderProps) {
+export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  const isDocsPage = pathname.startsWith('/docs');
-  const sections = docsSections ?? [];
-
   const closeMobile = useCallback(() => setMobileOpen(false), []);
-  const closeDrawer = useCallback(() => setDrawerOpen(false), []);
 
   // Close mobile menu on Escape
   useEffect(() => {
@@ -109,18 +93,6 @@ export function SiteHeader({ docsSections }: SiteHeaderProps) {
 
           {/* Right controls */}
           <div className="flex items-center gap-1">
-            {/* Docs drawer button, only on docs pages */}
-            {isDocsPage && sections.length > 0 && (
-              <button
-                onClick={() => setDrawerOpen(true)}
-                className="hidden md:flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-colors"
-                aria-label="Open documentation contents"
-              >
-                <BookOpen className="h-4 w-4" />
-                <span className="text-xs">Contents</span>
-              </button>
-            )}
-
             <ThemeToggle />
 
             {/* Mobile hamburger */}
@@ -156,33 +128,10 @@ export function SiteHeader({ docsSections }: SiteHeaderProps) {
                   {link.label}
                 </Link>
               ))}
-
-              {/* Browse docs link on mobile for docs pages */}
-              {isDocsPage && sections.length > 0 && (
-                <button
-                  onClick={() => {
-                    closeMobile();
-                    setDrawerOpen(true);
-                  }}
-                  className="flex items-center gap-2 rounded-md px-3 py-2 text-left text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-colors"
-                >
-                  <BookOpen className="h-4 w-4" />
-                  Browse docs
-                </button>
-              )}
             </nav>
           </div>
         )}
       </header>
-
-      {/* Docs drawer */}
-      {isDocsPage && sections.length > 0 && (
-        <DocsDrawer
-          open={drawerOpen}
-          onClose={closeDrawer}
-          sections={sections}
-        />
-      )}
     </>
   );
 }

@@ -28,6 +28,7 @@ import {
   Map,
 } from 'lucide-react';
 import { PathPicker } from '@/components/journey/path-picker';
+import { LearningTree } from '@/components/journey/learning-tree';
 import { DeprecationBanner } from '@/components/deprecation-banner';
 import { useJourneySelections } from '@/hooks/use-journey-selections';
 import type { JourneyOs, JourneyInterface } from '@/hooks/use-journey-selections';
@@ -552,6 +553,19 @@ export default function JourneyPage() {
           />
         </section>
       )}
+
+      {/* ── Learning Tree ── */}
+      <section className="mx-auto w-full max-w-5xl px-6 pb-12">
+        <div className="mb-6 text-center">
+          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground sm:text-3xl">
+            Your Learning Tree
+          </h2>
+          <p className="mt-2 text-sm text-fd-muted-foreground">
+            Six stages from zero to mastery. Click any node to dive in.
+          </p>
+        </div>
+        <LearningTree stages={stages} />
+      </section>
 
       {/* ── Stage Cards ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
