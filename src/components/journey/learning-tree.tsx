@@ -294,14 +294,19 @@ function MobileTimeline({ stages }: { stages: Stage[] }) {
    DesktopTree (shown on md+ screens)
    ───────────────────────────────────────────── */
 
+interface CurlyBrace {
+  x1: number;
+  x2: number;
+  y: number;
+  color: string;
+  key: string;
+}
+
 function DesktopTree({ stages }: { stages: Stage[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [svgLines, setSvgLines] = useState<
-    Array<{ x1: number; y1: number; x2: number; y2: number; color: string; key: string }>
-  >([]);
+  const [curlyBraces, setCurlyBraces] = useState<CurlyBrace[]>([]);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
-  // We'll measure node positions after render to draw SVG lines
   const nodeRefs = useRef<Map<string, HTMLElement>>(new Map());
 
   const setNodeRef = useCallback((id: string, el: HTMLElement | null) => {
@@ -320,72 +325,58 @@ function DesktopTree({ stages }: { stages: Stage[] }) {
       const containerRect = container.getBoundingClientRect();
       setContainerSize({ width: containerRect.width, height: containerRect.height });
 
-      const lines: typeof svgLines = [];
+      const braces: CurlyBrace[] = [];
 
-      // For each consecutive pair of stages, connect center of last stage to center of next stage
-      // using a trunk-style connection
       for (let si = 0; si < stages.length - 1; si++) {
         const currentStage = stages[si];
         const nextStage = stages[si + 1];
 
-        // Find center bottom of current stage row and center top of next stage row
-        // We'll connect the middle node of current to middle node of next
-        const currentNodes = currentStage.nodes;
-        const nextNodes = nextStage.nodes;
+        // Measure all nodes in the upper stage to find leftmost and rightmost extents
+        let minX = Infinity;
+        let maxX = -Infinity;
+        let stageBottomY = -Infinity;
 
-        const midCurrentIdx = Math.floor(currentNodes.length / 2);
-        const midNextIdx = Math.floor(nextNodes.length / 2);
+        for (const node of currentStage.nodes) {
+          const nodeId = `${currentStage.id}-${node.id}`;
+          const el = nodeRefs.current.get(nodeId);
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          const left = rect.left - containerRect.left;
+          const right = rect.right - containerRect.left;
+          const bottom = rect.bottom - containerRect.top;
+          if (left < minX) minX = left;
+          if (right > maxX) maxX = right;
+          if (bottom > stageBottomY) stageBottomY = bottom;
+        }
 
-        const currentNodeId = `${currentStage.id}-${currentNodes[midCurrentIdx]?.id}`;
-        const nextNodeId = `${nextStage.id}-${nextNodes[midNextIdx]?.id}`;
-
-        const fromEl = nodeRefs.current.get(currentNodeId);
-        const toEl = nodeRefs.current.get(nextNodeId);
-
-        if (!fromEl || !toEl) continue;
-
-        const fromRect = fromEl.getBoundingClientRect();
-        const toRect = toEl.getBoundingClientRect();
-
-        const x1 = fromRect.left + fromRect.width / 2 - containerRect.left;
-        const y1 = fromRect.top + fromRect.height - containerRect.top;
-        const x2 = toRect.left + toRect.width / 2 - containerRect.left;
-        const y2 = toRect.top - containerRect.top;
-
-        const nextColors = getStageColor(nextStage.id);
-
-        lines.push({
-          x1, y1, x2, y2,
-          color: nextColors.line,
-          key: `trunk-${si}`,
-        });
-
-        // Also draw branch lines from middle trunk to outer nodes in the next row
-        nextNodes.forEach((node, ni) => {
-          if (ni === midNextIdx) return;
+        // Measure top of next stage row to find vertical midpoint for the brace
+        let nextStageTopY = Infinity;
+        for (const node of nextStage.nodes) {
           const nodeId = `${nextStage.id}-${node.id}`;
           const el = nodeRefs.current.get(nodeId);
-          if (!el) return;
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          const top = rect.top - containerRect.top;
+          if (top < nextStageTopY) nextStageTopY = top;
+        }
 
-          const nodeRect = el.getBoundingClientRect();
-          const nx = nodeRect.left + nodeRect.width / 2 - containerRect.left;
-          const ny = nodeRect.top - containerRect.top;
+        if (minX === Infinity || maxX === -Infinity || stageBottomY === -Infinity || nextStageTopY === Infinity) continue;
 
-          lines.push({
-            x1: x2,
-            y1: y2,
-            x2: nx,
-            y2: ny,
-            color: nextColors.line,
-            key: `branch-${si}-${ni}`,
-          });
+        const braceY = (stageBottomY + nextStageTopY) / 2;
+        const nextColors = getStageColor(nextStage.id);
+
+        braces.push({
+          x1: minX,
+          x2: maxX,
+          y: braceY,
+          color: nextColors.line,
+          key: `brace-${si}`,
         });
       }
 
-      setSvgLines(lines);
+      setCurlyBraces(braces);
     }
 
-    // Small delay to allow layout to settle
     const timer = setTimeout(recalculate, 100);
     window.addEventListener('resize', recalculate);
 
@@ -397,7 +388,7 @@ function DesktopTree({ stages }: { stages: Stage[] }) {
 
   return (
     <div ref={containerRef} className="relative hidden md:block">
-      {/* SVG connection lines */}
+      {/* SVG curly braces between stages */}
       {containerSize.width > 0 && (
         <svg
           className="pointer-events-none absolute inset-0 z-0 overflow-visible"
@@ -405,19 +396,34 @@ function DesktopTree({ stages }: { stages: Stage[] }) {
           height={containerSize.height}
           aria-hidden="true"
         >
-          {svgLines.map((line) => (
-            <line
-              key={line.key}
-              x1={line.x1}
-              y1={line.y1}
-              x2={line.x2}
-              y2={line.y2}
-              stroke={line.color}
-              strokeWidth={line.key.startsWith('trunk') ? 2.5 : 1.5}
-              strokeOpacity={0.35}
-              strokeDasharray={line.key.startsWith('branch') ? '4 3' : undefined}
-            />
-          ))}
+          {curlyBraces.map((brace) => {
+            const { x1, x2, y, color, key } = brace;
+            const tipDepth = 22;
+            const cx = (x1 + x2) / 2;
+            const cy = y + tipDepth;
+            const w = x2 - x1;
+            // Two cubic bezier curves meeting at the center tip:
+            // Left half: start at (x1, y), curve down to center tip (cx, cy)
+            // Right half: mirror from center tip back up to (x2, y)
+            const d = [
+              `M ${x1},${y}`,
+              `C ${x1 + w / 4},${y} ${cx - w / 8},${cy} ${cx},${cy}`,
+              `C ${cx + w / 8},${cy} ${x2 - w / 4},${y} ${x2},${y}`,
+            ].join(' ');
+
+            return (
+              <path
+                key={key}
+                d={d}
+                stroke={color}
+                strokeWidth={2}
+                strokeOpacity={0.45}
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            );
+          })}
         </svg>
       )}
 
