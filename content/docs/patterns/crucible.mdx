@@ -1,0 +1,123 @@
+---
+title: The Crucible
+description: "Stress-test any decision with a council of 16 AI personas that argue, rebut, and vote. Turn one perspective into sixteen, on demand."
+---
+
+## You keep arguing with yourself
+
+You sit down with a hard decision. Should I ship this? Pivot that? Hire now or wait? After twenty minutes of brainstorming alone, you notice something uncomfortable: you are mostly arguing with your own blind spots. And you do not know which ones.
+
+This is the problem every product manager, founder, and builder hits. Hard decisions need many perspectives. Your brain only carries one.
+
+The Crucible fixes this. It is a Claude Code skill that convenes a council of sixteen specialized AI personas, runs them against your question in parallel, and hands you back a structured verdict with a mandatory dissenting voice. Different voices, different angles, one clean read.
+
+<DemoCard title="A quick Crucible run between meetings" steps={[
+  { type: 'cmd', text: '/crucible --quick should I split this feature into two releases?' },
+  { type: 'out', text: 'Convening 3 personas: Contrarian, Steelman, Reframer...' },
+  { type: 'out', text: '' },
+  { type: 'success', text: '✓ Contrarian: "You are asking a scope question. The real risk is in dependency A, not the split."' },
+  { type: 'success', text: '✓ Steelman: "Splitting buys faster feedback on the riskiest part. Worth it."' },
+  { type: 'success', text: '✓ Reframer: "What if the question is not whether to split, but what to delete?"' },
+  { type: 'out', text: '', delay: 400 },
+  { type: 'warn', text: '→ Chair call: REFRAME. Cut dependency A before deciding on the split.' },
+]} />
+
+## What a Crucible run looks like
+
+Every run has the same shape. Four phases, one chair, honest debate.
+
+**Phase 1: Intake.** The chair restates your question in one sentence and asks you to confirm. Mis-framed questions produce sharp answers to the wrong thing, so this step is cheap insurance.
+
+**Phase 2: Openings.** Selected personas write their take in parallel, blind to each other. Each one has a concrete rubric. The Contrarian must name a hidden assumption and attack it. The Steelman must name a non-obvious benefit. No vibes. Only deliverables.
+
+**Phase 3: Duels.** Pairs of personas rebut each other. Steelman against Contrarian. Ambition Stretcher against Pre-mortem Pessimist. Success Vision against Downside Floor. The friction is the point.
+
+**Phase 4: Verdict.** The chair reads everything, writes the full transcript to disk, and gives you a one-paragraph inline call: `PROCEED`, `REFRAME`, or `KILL`. Plus a mandatory minority report, because even when the council agrees, the strongest dissent has to surface by name.
+
+## The sixteen personas
+
+Each persona has a role, a rubric, and a model tier (Haiku, Sonnet, or Opus) matched to the weight of its job.
+
+| Bench | Personas |
+|---|---|
+| **Core 4 (always convened)** | Contrarian, Steelman, Pre-mortem Pessimist, Operator |
+| **Personal (career and moonlight)** | Archivist, Values Compass, Success Vision, Downside Floor |
+| **Strategic (business and market)** | Economist, Competitor, Second-Order Thinker, Historian |
+| **Creative (reframing and ambition)** | Ambition Stretcher, Reframer |
+| **Conditional (activated when relevant)** | Naive Outsider, Regulator |
+
+The chair picks six to ten for any given run, based on the kind of question you asked. Not all sixteen every time. A product launch question pulls in the Naive Outsider. A halal-finance or platform-policy question pulls in the Regulator. A career question pulls in the Archivist.
+
+## The four modes
+
+Not every question needs a ten-persona council. Crucible has four tiers so you can match the weight to the question.
+
+| Mode | Personas | Duels | Wall time | Use for |
+|---|---|---|---|---|
+| **Quick** | 3 | None | ~30 seconds | Daily sanity checks between meetings |
+| **PM Daily** | 4 | None | ~60-90 seconds | Feature direction, research design, bounded ideation |
+| **Decision** | 6-10 | Full | A few minutes | Real decisions with real money or time at stake |
+| **Existential** | 16 | Full | Longer | Life-scale decisions. Guardrailed: once-per-quarter warning |
+
+Start with Quick. Most days, that is the mode you need. Decision mode is for twice-a-month questions.
+
+## Install it
+
+Crucible is three markdown files. No build step. No dependencies.
+
+<DemoCard title="Installing Crucible" steps={[
+  { type: 'cmd', text: 'git clone https://github.com/mshadmanrahman/crucible ~/.claude/skills/crucible' },
+  { type: 'out', text: "Cloning into '/Users/you/.claude/skills/crucible'..." },
+  { type: 'success', text: '✓ Ready to use' },
+  { type: 'out', text: '', delay: 300 },
+  { type: 'cmd', text: '/crucible --quick is building this newsletter worth the effort?' },
+  { type: 'warn', text: '→ Three voices, thirty seconds, one clean call.' },
+]} />
+
+The skill hooks straight into Claude Code's slash-command system, which you already know from the [Building Skills](/docs/patterns/skills) pattern.
+
+If you do not use Claude Code yet, the persona rubrics in `personas.md` are portable. You can paste any single persona prompt into Claude.ai or ChatGPT and run that lens by hand. You lose the orchestration, you keep the rubric.
+
+## When to use it
+
+| Situation | Mode to use |
+|---|---|
+| "I just thought of X, is it dumb?" | Quick |
+| "What is the sharpest first experiment for this discovery?" | PM Daily |
+| "Should I keep building this side project?" | Decision |
+| "Should I leave my job to ship this full time?" | Existential |
+| One-off tactical question with a clear answer in five minutes | Skip Crucible. Just think. |
+
+Crucible is deliberately not an auto-trigger skill. It fires only when you invoke it. The reason: a ten-persona council is expensive, and the best guard against procrastination-via-ritual is making invocation explicit.
+
+## Guardrails worth knowing about
+
+Two built-in checks exist because the skill kept catching itself making errors, and the fixes became structural.
+
+**The motivated-convening check.** Before firing a Decision or Existential council, the chair asks three questions at intake: has a similar question been convened in the last thirty days? What decision does a verdict produce in the next fourteen days? What new information has arrived since the last time you thought about this? If the answers add up to "none, I just have renewed energy," the chair names that out loud. This is the single best defence against Crucible becoming an elaborate form of procrastination.
+
+**The Archivist ownership classification.** The Archivist persona reads your own files and cites patterns from your history. It is required to label every cited project as personal moonlight, client work, collaborative work, or day-job work before drawing any conclusion across them. This exists because one early run confused a piece of client work for a personal choice, and the correction is now built into the rubric.
+
+## The full story
+
+If you want the build narrative (why this came out of two retired side projects, how the persona rubrics were designed, what the first two runs actually killed, and why the minority report matters), read the origin story on Substack:
+
+> [The Crucible: A PM's Answer to Wicked Problems](https://shadmanrahman.substack.com/p/the-crucible-a-pms-answer-to-wicked)
+
+Repo is at [github.com/mshadmanrahman/crucible](https://github.com/mshadmanrahman/crucible). MIT licensed. Star it if it saves you an argument.
+
+## Questions worth running through it
+
+Pick one, run it today. You do not need a big decision to start.
+
+| Question | Mode |
+|---|---|
+| "Is this feature worth building?" | Quick |
+| "Should I hire this role now or wait a quarter?" | PM Daily |
+| "Which one of my side projects do I keep?" | Decision |
+| "Is the positioning of my product still right?" | PM Daily |
+| "What is the strongest case against my roadmap?" | Decision |
+| "What am I doing that looks like strategy but is actually just busywork?" | PM Daily |
+| "Should I take the new job?" | Existential |
+
+Start with Quick. Thirty seconds. Three voices. One question you actually have.

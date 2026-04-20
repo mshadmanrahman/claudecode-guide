@@ -2,5 +2,5 @@
   "title": "Patterns",
   "root": true,
   "defaultOpen": true,
-  "pages": ["skills", "hooks", "agents", "mcp-servers", "thinking-modes", "headless-mode", "git-worktrees", "autonomous-loops"]
+  "pages": ["skills", "hooks", "agents", "crucible", "mcp-servers", "thinking-modes", "headless-mode", "git-worktrees", "autonomous-loops"]
 }
