@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VibeCoding Workspace Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #fafafa;
+    --surface-3: #f5f5f5;
+    --ink: #212121;
+    --ink-2: #424242;
+    --ink-3: #757575;
+    --ink-4: #9e9e9e;
+    --border: #e0e0e0;
+    --border-strong: #bdbdbd;
+
+    --accent: #00695c;
+    --accent-2: #26a69a;
+    --accent-bg: #e0f2f1;
+    --accent-dark: #004d40;
+    --accent-glow: rgba(0, 105, 92, 0.12);
+
+    --burgundy: #ad1457;
+    --burgundy-dark: #880e4f;
+    --burgundy-bg: #fce4ec;
+
+    --work: #424242;
+    --hobby: #c2185b;
+    --hobby-bg: #fce4ec;
+    --oss: #00695c;
+    --oss-bg: #e0f2f1;
+    --cross: #6a1b9a;
+    --cross-bg: #f3e5f5;
+
+    --shadow-sm: 0 1px 2px rgba(10, 15, 30, 0.04);
+    --shadow: 0 1px 2px rgba(10, 15, 30, 0.04), 0 4px 16px rgba(10, 15, 30, 0.05);
+    --shadow-lg: 0 8px 32px rgba(10, 15, 30, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+    letter-spacing: -0.011em;
+  }
+
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 48px; }
+  @media (max-width: 768px) { .container { padding: 0 24px; } }
+
+  /* ============ MASTHEAD ============ */
+  .hero {
+    padding: 80px 0 72px;
+    border-bottom: 1px solid var(--border);
+    animation: fade 0.5s ease-out;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px; height: 1.5px;
+    background: var(--accent);
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 104px;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 28px;
+    max-width: 1120px;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+  h1 em {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  .dek {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 820px;
+  }
+  .dek code {
+    font-family: var(--mono);
+    font-size: 17px;
+    background: var(--surface-3);
+    color: var(--ink);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .byline {
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .byline span { display: flex; flex-direction: column; gap: 4px; }
+  .byline strong { color: var(--ink); font-weight: 600; }
+
+  /* ============ SECTION ============ */
+  section {
+    padding: 88px 0 24px;
+    border-bottom: 1px solid var(--border);
+    animation: fade 0.5s ease-out both;
+  }
+  section:last-of-type { border-bottom: none; }
+  section:nth-of-type(2) { animation-delay: 0.05s; }
+  section:nth-of-type(3) { animation-delay: 0.1s; }
+  section:nth-of-type(4) { animation-delay: 0.15s; }
+  section:nth-of-type(5) { animation-delay: 0.2s; }
+  section:nth-of-type(6) { animation-delay: 0.25s; }
+
+  .section-head { margin-bottom: 56px; }
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    padding: 6px 12px;
+    background: var(--accent-bg);
+    border-radius: 100px;
+  }
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 18px;
+    max-width: 1000px;
+    font-variation-settings: "opsz" 72;
+  }
+  h2 em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .lede {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 780px;
+  }
+
+  /* ============ REPOS ============ */
+  .repos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .repos { grid-template-columns: 1fr; } }
+  .repo {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px 30px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .repo:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .repo.brain {
+    background: linear-gradient(165deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
+    color: #ffffff;
+    border-color: var(--burgundy);
+    box-shadow: var(--shadow-lg);
+  }
+  .repo-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+  .repo.brain .repo-label { color: #f8bbd0; }
+  .repo-name {
+    font-family: var(--display);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .repo.brain .repo-name { color: #ffffff; }
+  .repo-path {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    margin-bottom: 10px;
+  }
+  .repo.brain .repo-path { color: #f8bbd0; }
+  .repo-github {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-4);
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .repo.brain .repo-github { color: rgba(255,255,255,0.5); border-bottom-color: rgba(255,255,255,0.15); }
+  .repo-role {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .repo.brain .repo-role { color: rgba(255,255,255,0.88); }
+  .repo-role strong { color: var(--ink); font-weight: 600; }
+  .repo.brain .repo-role strong { color: #ffffff; }
+
+  /* ============ BRAIN LAYERS ============ */
+  .brain-wrap {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+  }
+  .brain-head {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .brain-title {
+    font-family: var(--display);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .brain-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .brain-sub {
+    font-size: 14px;
+    color: var(--ink-3);
+    max-width: 600px;
+  }
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px) { .layers { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .layers { grid-template-columns: 1fr; } }
+  .layer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 22px;
+    transition: all 0.2s;
+  }
+  .layer:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+  }
+  .layer.new {
+    background: linear-gradient(165deg, var(--burgundy-bg) 0%, #f8bbd0 100%);
+    border-color: var(--burgundy);
+  }
+  .layer-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    background: var(--accent-bg);
+    padding: 3px 8px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+  }
+  .layer.new .layer-badge {
+    background: var(--burgundy);
+    color: #ffffff;
+  }
+  .layer-name {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .layer-role {
+    font-family: var(--display);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .layer-contents {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.65;
+    color: var(--ink-3);
+  }
+  .layer.new .layer-contents { color: var(--burgundy-dark); }
+
+  /* ============ ADAPTER LANES ============ */
+  .lanes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .lanes { grid-template-columns: 1fr; } }
+  .lane {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px 28px;
+    box-shadow: var(--shadow-sm);
+  }
+  .lane-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .lane-name {
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .lane-step {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .lane-step small { display: block; color: var(--ink-3); font-size: 10px; margin-top: 2px; font-weight: 400; }
+  .lane-step.dest {
+    background: var(--accent-bg);
+    border-color: var(--accent);
+    color: var(--accent-dark);
+    font-weight: 600;
+  }
+  .lane-arrow {
+    text-align: center;
+    color: var(--ink-4);
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+
+  /* ============ REMOTE FLOW ============ */
+  .remote-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) { .remote-flow { grid-template-columns: 1fr; } .remote-flow .flow-arrow { display: none; } }
+  .remote-stage {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 22px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .remote-stage.start { border-color: var(--accent); background: var(--accent-bg); }
+  .remote-stage.end {
+    background: linear-gradient(165deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
+    border-color: var(--burgundy);
+    color: #ffffff;
+    box-shadow: var(--shadow);
+  }
+  .remote-stage-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 10px;
+  }
+  .remote-stage.start .remote-stage-label { color: var(--accent); }
+  .remote-stage.end .remote-stage-label { color: #f8bbd0; }
+  .remote-stage-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .remote-stage.end .remote-stage-name { color: #ffffff; }
+  .remote-stage-path {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    word-break: break-word;
+  }
+  .remote-stage.end .remote-stage-path { color: #f8bbd0; }
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ============ LIFECYCLE ============ */
+  .lifecycle-block { margin-bottom: 36px; }
+  .lifecycle-block:last-child { margin-bottom: 0; }
+  .lifecycle-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .lifecycle-path {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .lifecycle-desc {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 100px;
+  }
+  .lifecycle-desc.work { color: var(--work); background: var(--surface-3); }
+  .lifecycle-desc.hobby { color: var(--hobby); background: var(--hobby-bg); }
+  .lifecycle-desc.oss { color: var(--oss); background: var(--oss-bg); }
+  .lifecycle-desc.cross { color: var(--cross); background: var(--cross-bg); }
+
+  .folders {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 900px) { .folders { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .folders { grid-template-columns: 1fr; } }
+  .folder {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: all 0.2s;
+  }
+  .folder:hover { transform: translateY(-1px); border-color: var(--accent); box-shadow: var(--shadow-sm); }
+  .folder-path {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .folder-role {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  /* ============ PRINCIPLES ============ */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 1100px) { .principles { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .principles { grid-template-columns: 1fr; } }
+  .principle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+  }
+  .principle:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--accent); }
+  .principle-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 16px;
+    letter-spacing: -0.04em;
+  }
+  .principle-title {
+    font-family: var(--display);
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .principle-body {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .principle-body code { font-family: var(--mono); font-size: 12px; background: var(--surface-3); padding: 1px 5px; border-radius: 4px; color: var(--accent); font-weight: 500; }
+
+  /* ============ AGREEMENT ============ */
+  .agreement-intro {
+    max-width: 820px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 40px;
+  }
+  .agreement {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+    margin-bottom: 56px;
+  }
+  @media (max-width: 900px) { .agreement { grid-template-columns: 1fr; } }
+  .agreement-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    box-shadow: var(--shadow-sm);
+  }
+  .agreement-group.wide { grid-column: 1 / -1; }
+  .agreement-label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .agreement-group-title {
+    font-family: var(--display);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .agreement-group-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .agreement-item {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+  }
+  .agreement-item:first-of-type { border-top: none; padding-top: 4px; }
+  .agreement-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .agreement-rule {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .agreement-body {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .agreement-body code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--surface-3);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .agreement-body strong { color: var(--ink); font-weight: 700; }
+
+  .modes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+  @media (max-width: 700px) { .modes { grid-template-columns: 1fr; } }
+  .mode {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .mode-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .mode-label {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .mode-where {
+    font-size: 11.5px;
+    color: var(--ink-3);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .mode-where code {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    background: var(--surface-3);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  .mode-when {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .exclude {
+    background: var(--burgundy-bg);
+    border: 1px solid var(--burgundy);
+    border-radius: 16px;
+    padding: 32px 32px 28px;
+  }
+  .exclude-label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--burgundy-dark);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .exclude-title {
+    font-family: var(--display);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--burgundy-dark);
+    margin-bottom: 16px;
+  }
+  .exclude-title em { font-style: italic; font-weight: 400; }
+  .exclude-lede {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+    max-width: 760px;
+  }
+  .exclude-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 24px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 700px) { .exclude-list { grid-template-columns: 1fr; } }
+  .exclude-item {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    padding-left: 18px;
+    position: relative;
+  }
+  .exclude-item::before {
+    content: "✕";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--burgundy);
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .exclude-item strong { color: var(--ink); font-weight: 600; }
+  .exclude-test {
+    background: var(--surface);
+    border: 1px solid var(--burgundy);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .exclude-test strong { color: var(--burgundy-dark); font-weight: 700; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 56px 0 40px;
+    margin-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .foot-brand {
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .foot-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    h1 { font-size: 56px; }
+    h2 { font-size: 36px; }
+    .hero { padding: 56px 0 48px; }
+    section { padding: 64px 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ============ MASTHEAD ============ -->
+<header class="hero">
+  <div class="eyebrow">Workspace Architecture</div>
+  <h1>Three repos.<br><em>One brain.</em></h1>
+  <p class="dek">
+    A portable context system I built to survive the CLI wars. <code>_context/</code> is the brain: canonical, tool-agnostic, version-controlled. Claude Code, Codex, Gemini, and whatever ships next all read from it through thin adapters. iPhone and web sessions get the same brain through a snapshot bridge.
+  </p>
+  <div class="byline">
+    <span>Designed by<strong>Shadman Rahman</strong></span>
+    <span>Premise<strong>LLM-agnostic brain</strong></span>
+    <span>Philosophy<strong>No lock-in. No drift.</strong></span>
+  </div>
+</header>
+
+<!-- ============ 01 THREE REPOS ============ -->
+<section>
+  <div class="section-head">
+    <div class="section-eyebrow">01 &middot; The Pieces</div>
+    <h2>Three repos, <em>three jobs.</em></h2>
+    <p class="lede">
+      The split is intentional, not accidental. Each repo has one responsibility, and that separation is what makes the architecture portable across CLIs and devices.
+    </p>
+  </div>
+
+  <div class="repos">
+    <div class="repo">
+      <div class="repo-label">Adapter &middot; Remote Bridge</div>
+      <div class="repo-name">claude-config</div>
+      <div class="repo-path">~/.claude/</div>
+      <div class="repo-github">github.com/&hellip;/claude-config</div>
+      <p class="repo-role"><strong>Boots Claude Code locally.</strong> Ships the snapshot bridge to remote (iPhone, web). After full adoption: symlinks into <code>_context/</code>.</p>
+    </div>
+
+    <div class="repo">
+      <div class="repo-label">Umbrella &middot; Work Surface</div>
+      <div class="repo-name">vibe-coding</div>
+      <div class="repo-path">~/Documents/VibeCoding/</div>
+      <div class="repo-github">github.com/&hellip;/vibe-coding</div>
+      <p class="repo-role"><strong>Projects, tools, scratch, resources.</strong> The surface where work happens. Nested <code>_context/</code> tracked as an independent repo.</p>
+    </div>
+
+    <div class="repo brain">
+      <div class="repo-label">Canonical &middot; The Brain</div>
+      <div class="repo-name">vibe-coding-context</div>
+      <div class="repo-path">_context/ (nested)</div>
+      <div class="repo-github">github.com/&hellip;/vibe-coding-context</div>
+      <p class="repo-role"><strong>Canonical home for all context.</strong> Skills, rules, protocols, memory, personas, handoffs. Portable across Claude, Codex, Gemini, and whatever ships next.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 INSIDE THE BRAIN ============ -->
+<section>
+  <div class="section-head">
+    <div class="section-eyebrow">02 &middot; Inside the Brain</div>
+    <h2>Nine layers, <em>one purpose each.</em></h2>
+    <p class="lede">
+      The <strong>protocols</strong> layer is the newest. Tool-agnostic, project-agnostic methods that project overlays inherit from. Every other layer has held steady.
+    </p>
+  </div>
+
+  <div class="brain-wrap">
+    <div class="brain-head">
+      <div>
+        <div class="brain-title"><em>_context/</em> &mdash; canonical</div>
+        <p class="brain-sub" style="margin-top: 6px;">Every layer has one job. Nothing authoritative lives outside this tree.</p>
+      </div>
+    </div>
+    <div class="layers">
+      <div class="layer">
+        <div class="layer-badge">Personas</div>
+        <div class="layer-name">identity/</div>
+        <div class="layer-role">Who I am.</div>
+        <div class="layer-contents">SOUL.md &middot; USER.md<br>AGENTS.md &middot; IDENTITY.md<br>TOOLS.md &middot; MEMORY.md<br>runtime-manifest.json</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Behavior</div>
+        <div class="layer-name">rules/</div>
+        <div class="layer-role">How I work.</div>
+        <div class="layer-contents">global/ em-dashes<br>code-quality &middot; workflow<br>workspace/ github-ops<br>pm-golden-rule</div>
+      </div>
+      <div class="layer new">
+        <div class="layer-badge">New Layer</div>
+        <div class="layer-name">protocols/</div>
+        <div class="layer-role">Universal methods.</div>
+        <div class="layer-contents">bug-triage.md<br>pr-review-loop.md<br>manifest-writer.md<br>presentations/</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Specialized</div>
+        <div class="layer-name">skills/</div>
+        <div class="layer-role">What I can do.</div>
+        <div class="layer-contents">57 skills + overlays<br>project-specific<br>debugging skills<br>per product area</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Sharded Store</div>
+        <div class="layer-name">memory/</div>
+        <div class="layer-role">What I've learned.</div>
+        <div class="layer-contents">MEMORY.md (router)<br>project_*.md<br>feedback_*.md<br>people_*.md &middot; user_*.md</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Continuity</div>
+        <div class="layer-name">handoffs/</div>
+        <div class="layer-role">Where I left off.</div>
+        <div class="layer-contents">YYYY-MM-DD-topic.md<br>sweep reports<br>session recaps</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Adapter</div>
+        <div class="layer-name">commands/<br>agents/ hooks/</div>
+        <div class="layer-role">How I'm invoked.</div>
+        <div class="layer-contents">15 slash commands<br>10 personal agents<br>15 hooks</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Governance</div>
+        <div class="layer-name">docs/</div>
+        <div class="layer-role">The rule book.</div>
+        <div class="layer-contents">workspace-governance<br>subprojects<br>career-vault<br>commit policies</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Ambient</div>
+        <div class="layer-name">contexts/</div>
+        <div class="layer-role">What I've seen.</div>
+        <div class="layer-contents">meeting-prep data<br>cross-project refs<br>ingested briefings</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 ADAPTER FLOW ============ -->
+<section>
+  <div class="section-head">
+    <div class="section-eyebrow">03 &middot; Adapter Flow</div>
+    <h2>Every CLI reads <em>the same brain.</em></h2>
+    <p class="lede">
+      Each CLI boots from its hardcoded home dotfolder. Those dotfolders hold only symlinks and generated files whose source lives in <code>_context/</code>. The brain is the single point of truth.
+    </p>
+  </div>
+
+  <div class="lanes">
+    <div class="lane">
+      <div class="lane-tag">Primary</div>
+      <div class="lane-name">Claude Code</div>
+      <div class="lane-step">~/.claude/settings.json<small>Generated from manifest</small></div>
+      <div class="lane-arrow">&darr;</div>
+      <div class="lane-step">~/.claude/{skills, rules, agents, commands, hooks}<small>Symlinks via setup-adapters.sh</small></div>
+      <div class="lane-arrow">&darr;</div>
+      <div class="lane-step dest">_context/{skills, rules, agents, commands, hooks, protocols}</div>
+    </div>
+    <div class="lane">
+      <div class="lane-tag">Secondary</div>
+      <div class="lane-name">Codex CLI</div>
+      <div class="lane-step">.codex/config.toml<small>Project override</small></div>
+      <div class="lane-arrow">&darr;</div>
+      <div class="lane-step">Reads _context/identity/AGENTS.md<small>Already live</small></div>
+      <div class="lane-arrow">&darr;</div>
+      <div class="lane-step dest">_context/identity/ personas</div>
+    </div>
+    <div class="lane">
+      <div class="lane-tag">Third</div>
+      <div class="lane-name">Gemini CLI</div>
+      <div class="lane-step">.gemini/settings.json<small>Generated</small></div>
+      <div class="lane-arrow">&darr;</div>
+      <div class="lane-step">Future: _context/gemini/ adapter</div>
+      <div class="lane-arrow">&darr;</div>
+      <div class="lane-step dest">_context/{identity, rules, skills}</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 REMOTE PATH ============ -->
+<section>
+  <div class="section-head">
+    <div class="section-eyebrow">04 &middot; Remote Path</div>
+    <h2>iPhone and web, <em>at parity.</em></h2>
+    <p class="lede">
+      Remote Claude cannot read <code>_context/</code> directly. The snapshot bridge is a regenerated read-only mirror shipped inside <code>claude-config</code>, giving iPhone and web sessions the same context as local ones.
+    </p>
+  </div>
+
+  <div class="remote-flow">
+    <div class="remote-stage start">
+      <div class="remote-stage-label">Canonical</div>
+      <div class="remote-stage-name">_context/</div>
+      <div class="remote-stage-path">nested repo</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="remote-stage">
+      <div class="remote-stage-label">Bridge</div>
+      <div class="remote-stage-name">Snapshot Script</div>
+      <div class="remote-stage-path">generate-context-snapshot.sh</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="remote-stage">
+      <div class="remote-stage-label">Projection</div>
+      <div class="remote-stage-name">context-snapshot/</div>
+      <div class="remote-stage-path">~/.claude/context-snapshot/</div>
+    </div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="remote-stage end">
+      <div class="remote-stage-label">Remote</div>
+      <div class="remote-stage-name">iPhone + Web</div>
+      <div class="remote-stage-path">reads claude-config repo</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 LIFECYCLE ============ -->
+<section>
+  <div class="section-head">
+    <div class="section-eyebrow">05 &middot; Workspace Layout</div>
+    <h2>Organized by lifecycle <em>and by concern.</em></h2>
+    <p class="lede">
+      Three lifecycle buckets at the root plus cross-cutting concerns. Cross-cutting never nests inside a lifecycle. That rule keeps the split clean.
+    </p>
+  </div>
+
+  <div class="lifecycle-block">
+    <div class="lifecycle-head">
+      <div class="lifecycle-path">_work/</div>
+      <div class="lifecycle-desc work">Day Job Projects</div>
+    </div>
+    <div class="folders">
+      <div class="folder"><div class="folder-path">product-a/</div><div class="folder-role">Primary customer-facing product.</div></div>
+      <div class="folder"><div class="folder-path">product-a-api/</div><div class="folder-role">API layer.</div></div>
+      <div class="folder"><div class="folder-path">product-b/</div><div class="folder-role">Internal infrastructure.</div></div>
+      <div class="folder"><div class="folder-path">internal-tool/</div><div class="folder-role">Team-facing tool.</div></div>
+      <div class="folder"><div class="folder-path">memos/</div><div class="folder-role">PM deliverables and memos.</div></div>
+      <div class="folder"><div class="folder-path">prototypes/</div><div class="folder-role">Work-scratch prototypes.</div></div>
+      <div class="folder"><div class="folder-path">actions/</div><div class="folder-role">Weekly action items.</div></div>
+      <div class="folder"><div class="folder-path">discovery/</div><div class="folder-role">Customer research and evals.</div></div>
+      <div class="folder"><div class="folder-path">simulators/</div><div class="folder-role">Decision simulators.</div></div>
+    </div>
+  </div>
+
+  <div class="lifecycle-block">
+    <div class="lifecycle-head">
+      <div class="lifecycle-path">_hobby/</div>
+      <div class="lifecycle-desc hobby">Pro-Bono / Goodwill</div>
+    </div>
+    <div class="folders">
+      <div class="folder"><div class="folder-path">pro-bono-build/</div><div class="folder-role">Pro-bono product build.</div></div>
+      <div class="folder"><div class="folder-path">community-workshop/</div><div class="folder-role">Community-led workshop.</div></div>
+      <div class="folder"><div class="folder-path">experiment-playground/</div><div class="folder-role">Experimental playground.</div></div>
+      <div class="folder"><div class="folder-path">personal-tools/</div><div class="folder-role">Personal productivity tools.</div></div>
+      <div class="folder"><div class="folder-path">writing-agent/</div><div class="folder-role">Writing automation.</div></div>
+    </div>
+  </div>
+
+  <div class="lifecycle-block">
+    <div class="lifecycle-head">
+      <div class="lifecycle-path">_opensource/</div>
+      <div class="lifecycle-desc oss">Open Source Projects</div>
+    </div>
+    <div class="folders">
+      <div class="folder"><div class="folder-path">_ops/</div><div class="folder-role">Shared ops and dashboards.</div></div>
+      <div class="folder"><div class="folder-path">printpick/</div><div class="folder-role">Published tool.</div></div>
+      <div class="folder"><div class="folder-path">ceremonies/</div><div class="folder-role">Micro-SaaS project.</div></div>
+      <div class="folder"><div class="folder-path">claudecode-guide/</div><div class="folder-role">Docs site.</div></div>
+      <div class="folder"><div class="folder-path">crucible/</div><div class="folder-role">Debate-council skill + repo.</div></div>
+      <div class="folder"><div class="folder-path">riff/</div><div class="folder-role">Browser extension.</div></div>
+      <div class="folder"><div class="folder-path">root/</div><div class="folder-role">Knowledge-graph server.</div></div>
+      <div class="folder"><div class="folder-path">discovery-copilot/</div><div class="folder-role">Discovery MVP.</div></div>
+      <div class="folder"><div class="folder-path">&hellip; + 8 more</div><div class="folder-role">See _index_opensource.md.</div></div>
+    </div>
+  </div>
+
+  <div class="lifecycle-block">
+    <div class="lifecycle-head">
+      <div class="lifecycle-path">Cross-cutting</div>
+      <div class="lifecycle-desc cross">At Root, Never Nested</div>
+    </div>
+    <div class="folders">
+      <div class="folder"><div class="folder-path">_product-brain/</div><div class="folder-role">Living one-pagers for every active product.</div></div>
+      <div class="folder"><div class="folder-path">_scratch/</div><div class="folder-role">Throwaway and generated content.</div></div>
+      <div class="folder"><div class="folder-path">_resources/</div><div class="folder-role">Gathered web research.</div></div>
+      <div class="folder"><div class="folder-path">_data/</div><div class="folder-role">Data assets.</div></div>
+      <div class="folder"><div class="folder-path">_learning/</div><div class="folder-role">Personal learning notes.</div></div>
+      <div class="folder"><div class="folder-path">_archive/</div><div class="folder-role">Finished and retired projects.</div></div>
+      <div class="folder"><div class="folder-path">_tools/</div><div class="folder-role">Operational scripts and syncs.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 EVALS + INFERENCE ============ -->
+<section>
+  <div class="section-head">
+    <div class="section-eyebrow">06 &middot; Evals + Inference</div>
+    <h2>The system <em>watches itself.</em></h2>
+    <p class="lede">
+      A portable brain is only useful if it stays coherent. A weekly pulse aggregates structural checks, skill usage, rule violations, and adapter integrity into a single report. Anomalies ping brrr. Silent drift has nowhere to hide.
+    </p>
+  </div>
+
+  <div class="repos" style="grid-template-columns: 1fr 1fr; margin-bottom: 24px;">
+    <div class="repo">
+      <div class="repo-label">Continuous</div>
+      <div class="repo-name" style="font-size: 26px;">Health probes</div>
+      <div class="repo-path">session-start + pre-commit</div>
+      <div class="repo-github">workspace_health.py &middot; generate_runtime_files.py</div>
+      <p class="repo-role">Structural checks fire on every session boot and every commit. File existence, manifest drift, gitignore sanity, adapter symlinks intact. Catches the drift-loop class of failures.</p>
+    </div>
+    <div class="repo">
+      <div class="repo-label">Weekly Pulse</div>
+      <div class="repo-name" style="font-size: 26px;">workspace-pulse</div>
+      <div class="repo-path">Sunday 8:15 am cron</div>
+      <div class="repo-github">_tools/evals/workspace-pulse.sh</div>
+      <p class="repo-role">Aggregates eight signals into a single report: structural health, runtime drift, skill usage (top 5 + dormant list), memory freshness, rule violations, adapter integrity, auto-sync health, commit cadence. Anomalies ping brrr.</p>
+    </div>
+  </div>
+
+  <div class="brain-wrap" style="background: #ffffff;">
+    <div class="brain-head">
+      <div>
+        <div class="brain-title">Eight signals. <em>One weekly report.</em></div>
+        <p class="brain-sub" style="margin-top: 6px;">Writes to <code>_context/handoffs/YYYY-MM-DD-workspace-pulse.md</code>. Pings brrr if anything crosses threshold.</p>
+      </div>
+    </div>
+    <div class="layers">
+      <div class="layer">
+        <div class="layer-badge">Check 01</div>
+        <div class="layer-role">Structural health.</div>
+        <div class="layer-contents">21 probes pass<br>missing-file warnings<br>mcp + plugin status</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Check 02</div>
+        <div class="layer-role">Runtime drift.</div>
+        <div class="layer-contents">generator --check<br>settings.json &middot; codex<br>gemini &middot; openclaw</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Check 03</div>
+        <div class="layer-role">Skill usage.</div>
+        <div class="layer-contents">top 5 this week<br>dormant (last 30d)<br>unused + retirement list</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Check 04</div>
+        <div class="layer-role">Memory freshness.</div>
+        <div class="layer-contents">total shards<br>touched &lt; 7d<br>stale &gt; 60d (archive?)</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Check 05</div>
+        <div class="layer-role">Rule violations.</div>
+        <div class="layer-contents">em-dashes in mine<br>hand-edited settings<br>markdown tables in ext</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Check 06</div>
+        <div class="layer-role">Adapter integrity.</div>
+        <div class="layer-contents">7 symlinks verified<br>no broken links<br>no materialized drift</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Check 07</div>
+        <div class="layer-role">Auto-sync health.</div>
+        <div class="layer-contents">recent push count<br>recent fail count<br>threshold &gt; 2 warns</div>
+      </div>
+      <div class="layer">
+        <div class="layer-badge">Check 08</div>
+        <div class="layer-role">Commit cadence.</div>
+        <div class="layer-contents">per-repo volume<br>vibe-coding<br>vibe-coding-context<br>claude-config</div>
+      </div>
+      <div class="layer new">
+        <div class="layer-badge">Inference Layer</div>
+        <div class="layer-role">Monthly reflection.</div>
+        <div class="layer-contents">reads 30d of pulses<br>suggests retirements<br>flags rule drift<br>cheap on Haiku</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 FIVE PRINCIPLES ============ -->
+<section>
+  <div class="section-head">
+    <div class="section-eyebrow">07 &middot; Five Principles</div>
+    <h2>Five rules <em>that override everything else.</em></h2>
+    <p class="lede">When a judgment call comes up, these win. They keep the system from drifting back into the chaos that inspired it.</p>
+  </div>
+
+  <div class="principles">
+    <div class="principle">
+      <div class="principle-num">I</div>
+      <div class="principle-title">The brain is canonical.</div>
+      <p class="principle-body"><code>_context/</code> is portable, tool-agnostic, the only source of truth. Nothing authoritative lives elsewhere.</p>
+    </div>
+    <div class="principle">
+      <div class="principle-num">II</div>
+      <div class="principle-title">Dotfolders are adapters.</div>
+      <p class="principle-body">Symlinks and generated files only. Edit the generator, never the output.</p>
+    </div>
+    <div class="principle">
+      <div class="principle-num">III</div>
+      <div class="principle-title">Snapshot projects outward.</div>
+      <p class="principle-body">Regenerated, never hand-edited. Full parity with <code>_context/</code>. iPhone and web see what the Mac sees.</p>
+    </div>
+    <div class="principle">
+      <div class="principle-num">IV</div>
+      <div class="principle-title">Lifecycle plus cross-cutting.</div>
+      <p class="principle-body">Work, hobby, open source are lifecycle buckets. Docs, data, scratch, tools are cross-cutting. Never nest one inside the other.</p>
+    </div>
+    <div class="principle">
+      <div class="principle-num">V</div>
+      <div class="principle-title">One script rebuilds everything.</div>
+      <p class="principle-body">Idempotent bootstrap. Any new machine runs it once and is fully wired. <code>_tools/bootstrap/</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 THE WORKING AGREEMENT ============ -->
+<section>
+  <div class="section-head">
+    <div class="section-eyebrow">08 &middot; The Working Agreement</div>
+    <h2>The contract <em>between Shadman and Claude.</em></h2>
+    <p class="lede">Architecture builds the stage. The working agreement is how Claude behaves on it.</p>
+  </div>
+  <p class="agreement-intro">
+    Fifteen pillars across five categories. Memory and continuity. Token discipline. Behavioral norms. Safety. Self-healing. When a lower-layer rule conflicts with the agreement, the agreement wins.
+  </p>
+
+  <div class="agreement">
+
+    <div class="agreement-group">
+      <div class="agreement-label">A &middot; Memory &amp; Continuity</div>
+      <div class="agreement-group-title">Nothing <em>gets lost</em> between sessions.</div>
+      <div class="agreement-item">
+        <div class="agreement-num">1</div>
+        <div>
+          <div class="agreement-rule">Auto-save memory.</div>
+          <div class="agreement-body">Catch context as it surfaces. Shadman never says "remember this." He only intervenes to correct or delete.</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">2</div>
+        <div>
+          <div class="agreement-rule">Auto-write handoffs.</div>
+          <div class="agreement-body">End of every non-trivial session. Handoffs are the save game between sessions.</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">3</div>
+        <div>
+          <div class="agreement-rule">Memory freshness check.</div>
+          <div class="agreement-body">Before acting on a memory older than 7 days, verify against current state. Stale memory is worse than no memory.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agreement-group">
+      <div class="agreement-label">B &middot; Token &amp; Context</div>
+      <div class="agreement-group-title">The main thread <em>stays lean.</em></div>
+      <div class="agreement-item">
+        <div class="agreement-num">4</div>
+        <div>
+          <div class="agreement-rule">Token optimization.</div>
+          <div class="agreement-body">3+ file reads = subagent. Subagents return summaries, not raw content. Haiku for mechanical, Sonnet for implementation, Opus for architecture only. Parallel over sequential.</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">5</div>
+        <div>
+          <div class="agreement-rule">Three-mode loading.</div>
+          <div class="agreement-body">Every rule declares how it loads. <strong>Mode 1 rules layer stays under 200 lines.</strong> MEMORY.md and CLAUDE.md have their own caps. Everything else loads on demand. On-demand is the default.</div>
+          <div class="modes">
+            <div class="mode">
+              <div class="mode-num">1</div>
+              <div class="mode-label">Always</div>
+              <div class="mode-where"><code>_context/rules/</code> (no frontmatter)</div>
+              <div class="mode-when">Every session. Universal behavioral norms only.</div>
+            </div>
+            <div class="mode">
+              <div class="mode-num">2</div>
+              <div class="mode-label">Path-scoped</div>
+              <div class="mode-where"><code>_context/rules/</code> with <code>paths:</code></div>
+              <div class="mode-when">When Claude touches matching files.</div>
+            </div>
+            <div class="mode">
+              <div class="mode-num">3</div>
+              <div class="mode-label">On-demand</div>
+              <div class="mode-where"><code>_context/playbooks/</code></div>
+              <div class="mode-when">Explicit reference from a command, skill, or conversation.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">6</div>
+        <div>
+          <div class="agreement-rule">Sharding is load-bearing.</div>
+          <div class="agreement-body"><code>MEMORY.md</code> is a table of contents. Pull the chapter you need, via subagent when possible. Never pre-load all shards "to be helpful."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agreement-group">
+      <div class="agreement-label">C &middot; Behavioral Norms</div>
+      <div class="agreement-group-title">Honest. <em>Not polite.</em></div>
+      <div class="agreement-item">
+        <div class="agreement-num">7</div>
+        <div>
+          <div class="agreement-rule">Challenge mode.</div>
+          <div class="agreement-body">Don't yes-man. Weak reasoning gets called out. "Think harder" is a valid response to Shadman. Disagreement is the feature, not the bug.</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">8</div>
+        <div>
+          <div class="agreement-rule">Confidence calibration.</div>
+          <div class="agreement-body">State confidence. Flag unknowns. Label inferences as inferences. "I don't know, here's how to find out" beats a plausible guess.</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">9</div>
+        <div>
+          <div class="agreement-rule">Honest work-status reporting.</div>
+          <div class="agreement-body">Say when work didn't happen. Say when something is half-done. No "mostly complete" or "should work."</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">10</div>
+        <div>
+          <div class="agreement-rule">Scope discipline.</div>
+          <div class="agreement-body">Do what was asked. Don't expand the diff. Flag related work, don't silently fold it in.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agreement-group">
+      <div class="agreement-label">D &middot; Safety</div>
+      <div class="agreement-group-title">Destructive actions <em>ask first.</em></div>
+      <div class="agreement-item">
+        <div class="agreement-num">11</div>
+        <div>
+          <div class="agreement-rule">Destructive-action protocol.</div>
+          <div class="agreement-body">Ask before <code>rm -rf</code>, force-push, mass deletes, history rewrites, or anything crossing a repo boundary. Exception: pure duplicates with zero behavior impact. When unsure, ask.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agreement-group wide">
+      <div class="agreement-label">E &middot; Meta &amp; Self-Healing</div>
+      <div class="agreement-group-title">The agreement <em>audits itself.</em></div>
+      <div class="agreement-item">
+        <div class="agreement-num">12</div>
+        <div>
+          <div class="agreement-rule">Self-healing system.</div>
+          <div class="agreement-body">Fix stale memories in-session. When a correction reveals a pattern, update the rule, not just the instance. Archive milestones before MEMORY.md hits 200 lines.</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">13</div>
+        <div>
+          <div class="agreement-rule">Lazy-prompting self-check (Teresa Torres).</div>
+          <div class="agreement-body">After any non-trivial explanation Shadman gives, ask: "Should this go to memory, a reference, or a rule?" Write it before continuing. No "I'll remember later."</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">14</div>
+        <div>
+          <div class="agreement-rule">Agreement compliance audit.</div>
+          <div class="agreement-body">Weekly <code>workspace-pulse.sh</code> checks: always-loaded line count (≤200), mode-declaration coverage, orphan playbooks, MEMORY.md archive pressure, handoff cadence. Every rule declares its mode or it's a bug.</div>
+        </div>
+      </div>
+      <div class="agreement-item">
+        <div class="agreement-num">15</div>
+        <div>
+          <div class="agreement-rule">Codex coexistence.</div>
+          <div class="agreement-body"><code>_context/codex/</code> is also read by Codex agents. Don't delete. Maintain separately if they need specific context.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="exclude">
+    <div class="exclude-label">Discipline &middot; The Anti-List</div>
+    <div class="exclude-title">What <em>NOT</em> to add.</div>
+    <p class="exclude-lede">
+      Every pillar earns its slot by being cross-cutting, non-obvious, or easily forgotten. Adding the wrong thing bloats the contract and splits the source of truth. These explicitly do not belong here.
+    </p>
+    <div class="exclude-list">
+      <div class="exclude-item"><strong>Commit rules.</strong> Live in <code>COMMIT-POLICY.md</code>.</div>
+      <div class="exclude-item"><strong>Skill-routing matrix.</strong> Skills self-describe via triggers.</div>
+      <div class="exclude-item"><strong>Platform voice rules.</strong> Belong in voice-specific memories.</div>
+      <div class="exclude-item"><strong>Per-project conventions.</strong> Each project has its own shard.</div>
+      <div class="exclude-item"><strong>Tool implementation details.</strong> Agreement names the behavior, not the plumbing.</div>
+      <div class="exclude-item"><strong>Tactical debugging playbooks.</strong> Belong in rules, not the contract.</div>
+    </div>
+    <div class="exclude-test">
+      <strong>The three-part test before adding anything new:</strong> Is this (a) cross-cutting across all work types, (b) easy to forget or override, and (c) not already codified in a shard? If any answer is no, it doesn't belong in the agreement.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-brand">VibeCoding Architecture</div>
+  <div class="foot-meta">_context/protocols/presentations/ &middot; one brain, many tools</div>
+</footer>
+
+</div>
+
+</body>
+</html>
