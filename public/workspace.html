@@ -87,6 +87,14 @@
     width: 28px; height: 1.5px;
     background: var(--accent);
   }
+  .eyebrow-home {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .eyebrow-home:hover { border-bottom-color: var(--accent); }
+  .eyebrow-sep { color: var(--ink-4); opacity: 0.5; }
   h1 {
     font-family: var(--display);
     font-weight: 800;
@@ -785,6 +793,66 @@
   }
   .exclude-test strong { color: var(--burgundy-dark); font-weight: 700; }
 
+  /* ============ CTA ============ */
+  .cta {
+    background: linear-gradient(165deg, var(--accent-bg) 0%, #e0f7fa 100%);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 56px 48px;
+    margin-top: 40px;
+    margin-bottom: 0;
+  }
+  @media (max-width: 768px) { .cta { padding: 40px 28px; } }
+  .cta-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .cta-title {
+    font-family: var(--display);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 14px;
+    max-width: 720px;
+  }
+  .cta-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-dark);
+  }
+  @media (max-width: 768px) { .cta-title { font-size: 28px; } }
+  .cta-body {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 680px;
+    margin-bottom: 28px;
+  }
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--accent-dark);
+    padding: 14px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .cta-link:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+  .cta-link .arrow { transition: transform 0.15s; }
+  .cta-link:hover .arrow { transform: translateX(3px); }
+
   /* ============ FOOTER ============ */
   footer {
     padding: 56px 0 40px;
@@ -822,7 +890,7 @@
 
 <!-- ============ MASTHEAD ============ -->
 <header class="hero">
-  <div class="eyebrow">Workspace Architecture</div>
+  <div class="eyebrow"><a href="/" class="eyebrow-home">Claude Code Guide</a> <span class="eyebrow-sep">/</span> Workspace Architecture</div>
   <h1>Three repos.<br><em>One brain.</em></h1>
   <p class="dek">
     A portable context system I built to survive the CLI wars. <code>_context/</code> is the brain: canonical, tool-agnostic, version-controlled. Claude Code, Codex, Gemini, and whatever ships next all read from it through thin adapters. iPhone and web sessions get the same brain through a snapshot bridge.
@@ -1408,9 +1476,16 @@
   </div>
 </section>
 
+<section class="cta">
+  <div class="cta-label">This is one page of Claude Code Guide</div>
+  <h2 class="cta-title">Keep going. <em>More patterns, workflows, and build-alongs.</em></h2>
+  <p class="cta-body">Claude Code Guide is a growing reference for people building serious setups on top of Claude Code. Docs, patterns, deep-dives, and opinionated takes on how to get the most out of it.</p>
+  <a class="cta-link" href="/">Explore Claude Code Guide <span class="arrow">→</span></a>
+</section>
+
 <footer>
-  <div class="foot-brand">VibeCoding Architecture</div>
-  <div class="foot-meta">_context/protocols/presentations/ &middot; one brain, many tools</div>
+  <div class="foot-brand">Workspace Architecture &middot; Claude Code Guide</div>
+  <div class="foot-meta">One brain, many tools &middot; <a href="/" style="color: inherit; text-decoration: none; border-bottom: 1px dotted var(--ink-3);">claudecodeguide.dev</a></div>
 </footer>
 
 </div>
