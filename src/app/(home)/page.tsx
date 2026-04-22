@@ -224,6 +224,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Email Capture (primary, above-fold once demo is seen) ── */}
+      <section className="mx-auto w-full max-w-2xl px-6 pb-20">
+        <EmailCapture placement="homepage-primary" />
+      </section>
+
       {/* ── Divider ── */}
       <div className="mx-auto w-full max-w-5xl border-t border-dashed border-fd-border" />
 
@@ -433,9 +438,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Email Capture ── */}
+      {/* ── Email Capture (footer backup) ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
-        <EmailCapture />
+        <EmailCapture placement="homepage-footer" />
       </section>
 
       {/* ── Final CTA ── */}

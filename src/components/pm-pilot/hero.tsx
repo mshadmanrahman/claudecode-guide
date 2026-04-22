@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from 'react';
 import { DemoCard } from '@/components/demo-card';
 import { FloatingCard } from '@/components/floating-card';
 import { Clock, FileText, BarChart3 } from 'lucide-react';
+import { EmailCapture } from '@/components/email-capture';
 
 const HERO_STEPS = [
   { type: 'cmd' as const, text: 'prep for my 1:1 with Sarah' },
@@ -87,6 +88,10 @@ export function PmPilotHero() {
             </svg>
             Star on GitHub
           </a>
+        </div>
+
+        <div className="animate-slide-up-fade delay-250 mt-10 max-w-md">
+          <EmailCapture placement="pm-pilot-hero" />
         </div>
 
         <div className="animate-slide-up-fade delay-300 mt-20 relative">
