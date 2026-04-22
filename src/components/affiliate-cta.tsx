@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
-import { track } from '@vercel/analytics';
+import { trackEvent } from '@/lib/analytics';
 import { ArrowRight } from 'lucide-react';
 
 export type AffiliateCTAPlacement = 'inline' | 'mid-banner' | 'end-card';
@@ -53,7 +53,7 @@ export function AffiliateCTA(props: AffiliateCTAProps) {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasTrackedView.current) {
             hasTrackedView.current = true;
-            track('affiliate_cta_view', payload);
+            trackEvent('affiliate_cta_view', payload);
           }
         });
       },
@@ -65,7 +65,7 @@ export function AffiliateCTA(props: AffiliateCTAProps) {
   }, [payload]);
 
   const onClick = () => {
-    track('affiliate_cta_click', payload);
+    trackEvent('affiliate_cta_click', payload);
   };
 
   const isExternal = /^https?:\/\//.test(props.destination);

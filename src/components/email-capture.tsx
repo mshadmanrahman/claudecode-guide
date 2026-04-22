@@ -2,10 +2,22 @@
 
 import { useState } from 'react';
 import { ArrowRight, Check, Mail, Loader2 } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
 
-export function EmailCapture() {
+interface EmailCaptureProps {
+  placement?: string;
+}
+
+export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [hasStarted, setHasStarted] = useState(false);
+
+  const handleFocus = () => {
+    if (hasStarted) return;
+    setHasStarted(true);
+    trackEvent('form_start', { form_name: 'newsletter', placement });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,7 +26,6 @@ export function EmailCapture() {
     setStatus('loading');
 
     try {
-      // POST directly to Substack's subscribe endpoint
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -24,11 +35,22 @@ export function EmailCapture() {
       if (res.ok) {
         setStatus('success');
         setEmail('');
+        trackEvent('form_submit', { form_name: 'newsletter', placement });
       } else {
         setStatus('error');
+        trackEvent('form_error', {
+          form_name: 'newsletter',
+          placement,
+          reason: 'api_error',
+        });
       }
     } catch {
       setStatus('error');
+      trackEvent('form_error', {
+        form_name: 'newsletter',
+        placement,
+        reason: 'network_error',
+      });
     }
   };
 
@@ -65,6 +87,7 @@ export function EmailCapture() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onFocus={handleFocus}
           placeholder="you@example.com"
           required
           className="min-w-0 flex-1 rounded-lg border border-fd-border bg-fd-background px-4 py-2.5 text-sm text-fd-foreground placeholder:text-fd-muted-foreground focus:outline-none focus:ring-2 focus:ring-fd-ring"
