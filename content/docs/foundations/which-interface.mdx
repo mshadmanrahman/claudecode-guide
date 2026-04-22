@@ -1,153 +1,308 @@
 ---
-title: "Terminal vs IDE vs Web vs Desktop"
-description: "Four ways to run Claude Code. One clear recommendation depending on where you are. Start on the web, graduate to the terminal when you're ready."
+title: "Which Claude Should You Use? A Non-Coder's Guide"
+description: "Twelve-plus Claude surfaces, one plain-English map. Excel, PowerPoint, Word, web, mobile, Cowork, Chrome, Code, and more. Which one to pick for which job, from someone who has used all of them."
 ---
 
-## Start with the web app at claude.ai. Seriously.
+import { DemoCard } from '@/components/demo-card';
+import { JobBlock } from '@/components/job-block';
+import { VocabBridge } from '@/components/vocab-bridge';
+import { SectionBreak } from '@/components/section-break';
+import { MentalShift, MentalShiftsGrid } from '@/components/mental-shift';
+import { CaveatCard, CaveatList } from '@/components/caveat-card';
+import {
+  MessageCircle,
+  FileSpreadsheet,
+  Presentation,
+  FileText,
+  Globe,
+  FolderSearch,
+  Workflow,
+  Smartphone,
+  Terminal,
+  Package,
+} from 'lucide-react';
 
-It's the fastest way to see what Claude Code can do without installing anything. No terminal, no setup, no risk of breaking something. Just open a browser and go.
+## Claude is no longer one thing
 
-If you're a developer and comfortable in a terminal, go straight there. That's where the full power lives. But you don't need to start there, and frankly most people shouldn't.
+I've used twelve of Claude's surfaces in the last month. Some of them on purpose. A couple by accident. Here's the thing nobody tells you when you're coming from ChatGPT: the *surface* you pick matters more than which model is running underneath.
 
-Here's what I actually recommend based on who you are and where you're starting from.
+Claude.ai in a browser is not the same experience as Claude in Excel. Claude in Excel is not the same as Cowork. Cowork is not the same as Claude Code. Each one is tuned for a different job. Pick the wrong one and the tool feels dumb. Pick the right one and the work disappears.
 
-<DemoCard title="Same Claude Code, different surfaces" steps={[
-  { type: 'out', text: '── Terminal (CLI) ──' },
-  { type: 'cmd', text: 'claude "add auth to this app"' },
-  { type: 'success', text: '✓ Full agent. Reads files, runs tests, writes code.' },
+This page is the map I wish someone had handed me three months ago. Not a ranking. Not a "best" anything. Just: *you want to do X, use Y*. Frankly speaking, that's the question most people are actually asking.
+
+If you're a developer, skip down to the Code section. Everyone else, start at the top.
+
+<DemoCard title="Same Claude, different surfaces" steps={[
+  { type: 'out', text: '── Claude for Excel ──' },
+  { type: 'cmd', text: '"explain this DCF model and flag risky assumptions"' },
+  { type: 'success', text: '✓ Model calculates 5 scenarios. Cells B12, B45, B67 hold key assumptions.' },
   { type: 'out', text: '' },
-  { type: 'out', text: '── VS Code / JetBrains Extension ──' },
-  { type: 'cmd', text: 'Cmd+Shift+P → Claude Code: Open', delay: 800 },
-  { type: 'success', text: '✓ Same agent, inside your editor.' },
+  { type: 'out', text: '── Claude for Word ──' },
+  { type: 'cmd', text: '"find inconsistencies between sections 2 and 7"', delay: 800 },
+  { type: 'success', text: '✓ 4 inconsistencies found. Section 7 uses "Free tier," Section 2 says "Starter."' },
   { type: 'out', text: '' },
-  { type: 'out', text: '── Web App (claude.ai/code) ──' },
-  { type: 'cmd', text: 'Open browser → claude.ai/code', delay: 800 },
-  { type: 'success', text: '✓ Same agent, no install needed.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── Desktop App ──' },
-  { type: 'cmd', text: 'Open Claude Code app (Mac/Windows)', delay: 800 },
-  { type: 'success', text: '✓ Native app, same agent under the hood.' },
-  { type: 'warn', text: '→ Four surfaces. One agent. Pick what fits your workflow.' },
+  { type: 'out', text: '── Cowork ──' },
+  { type: 'cmd', text: '"cross-reference last month\'s CPL export with the GA4 report"', delay: 800 },
+  { type: 'success', text: '✓ 32 campaigns matched. 4 flagged: CPL 2x higher vs baseline.' },
+  { type: 'warn', text: '→ One model family. Twelve surfaces. Different jobs.' },
 ]} />
 
-## The Quick Decision
+<SectionBreak number="01" kicker="Match the job" title="Pick the Claude that matches the job" />
 
-| You are... | Use this | Why |
-|---|---|---|
-| A developer comfortable in the terminal | **Terminal (<VocabBridge term="CLI" explanation="Command Line Interface: a way to use software by typing text commands instead of clicking buttons.">CLI</VocabBridge>)** | Maximum power, full extensibility |
-| A developer who lives in VS Code | **VS Code <VocabBridge term="Extension" explanation="An add-on that gives extra features to a program, like installing a new app on your phone.">Extension</VocabBridge>** | Same power, never leave your editor |
-| A developer who lives in JetBrains | **JetBrains Extension** | Same power, native <VocabBridge term="IDE" explanation="Integrated Development Environment: a fancy text editor designed for writing code, with built-in tools for testing and debugging.">IDE</VocabBridge> integration |
-| A PM or non-developer | **Desktop App** or **Web App** | No terminal knowledge needed |
-| Trying Claude Code for the first time | **Web App** | Zero install, instant start |
-| On a shared/company machine with restrictions | **Web App** | Nothing to install |
+Ten jobs. Ten answers. If you only read one section of this page, make it this one.
 
-## Terminal (CLI): The Power User's Choice
+<JobBlock
+  icon={MessageCircle}
+  question="I want to chat or do quick research"
+  pickLabel="Claude.ai in the browser"
+>
 
-This is where Claude Code started and where it's still most powerful. If you're comfortable in the terminal, this is probably where you should be.
+This is the ChatGPT-equivalent experience. Free tier works. Upload files, use Artifacts for building shareable tools, use Projects to keep a workspace scoped to one topic. Mobile app if you're away from your desk.
 
-**What you get:**
-- Full access to <VocabBridge term="hooks" explanation="Automatic triggers that run actions when something happens, like 'when I save a file, check it for errors'.">hooks</VocabBridge>, skills, <VocabBridge term="MCP servers" explanation="Plugins that connect Claude to tools like GitHub, Slack, or databases so it can work with them directly.">MCP servers</VocabBridge>, and <VocabBridge term="sub-agents" explanation="Independent AI helpers that work on separate tasks in parallel, like having multiple assistants.">sub-agents</VocabBridge>
-- Direct <VocabBridge term="filesystem" explanation="Your computer's file and folder system: everything stored on your hard drive.">filesystem</VocabBridge> access (Claude Code reads and writes your actual files)
-- Works alongside any editor: VS Code, Vim, Zed, Emacs, whatever you prefer
-- Configuration via `CLAUDE.md` files that live in your repo and version-control your AI behavior
-- Autonomous loops and background tasks
+Default here if you're not sure. It's also the surface you'll use most even after you've learned the others.
 
-**What you give up:**
-- You need to be comfortable typing commands in a terminal
-- No visual diff preview before edits happen (you see diffs after)
-- Steeper initial learning curve than the GUI surfaces
+</JobBlock>
 
-<DemoCard title="Terminal: the full experience" steps={[
-  { type: 'cmd', text: 'claude' },
-  { type: 'success', text: '✓ Reading CLAUDE.md... loaded 19 skills, 9 agents' },
-  { type: 'success', text: '✓ Memory: 3 projects, 12 preferences' },
-  { type: 'success', text: '✓ MCP: github, slack, linear connected' },
-  { type: 'cmd', text: '"refactor auth module and run all tests"', delay: 1000 },
-  { type: 'out', text: 'Spawning 2 sub-agents...' },
-  { type: 'success', text: '✓ Refactored 4 files' },
-  { type: 'success', text: '✓ All 87 tests passing' },
-  { type: 'warn', text: '→ Full agent power. Everything runs locally.' },
-]} />
+<JobBlock
+  icon={FileSpreadsheet}
+  question="I want to analyze or build a spreadsheet"
+  pickLabel="Claude for Excel"
+>
 
-**Best for:** Developers who want maximum control, teams with shared `CLAUDE.md` configs, anyone running advanced workflows.
+Installs as a Microsoft 365 add-in and sits in a side pane inside Excel itself. Formulas, pivots, financial models, "explain what this sheet is doing." It cites cells, so you can trace where a number came from.
 
-## IDE Extensions: Best of Both Worlds
+One honest caveat: **it does NOT require Microsoft 365 Copilot.** You just need a paid Claude plan (Pro or higher) and a compatible Office version. A lot of enterprise buyers get that wrong and scope a Copilot license they don't need.
 
-The VS Code and JetBrains extensions embed Claude Code directly inside your editor. Same agent, same capabilities, but you never switch windows.
+Also: Claude for Excel doesn't save your chat history, and it wipes data after 30 days. If you work in finance, legal, or anything regulated, know that before you open a sensitive model.
 
-**What you get:**
-- Claude Code in a panel inside your editor
-- Same filesystem access, same hooks, same skills as the CLI
-- Easier to track which files are changing as work happens
-- No context switching between terminal and editor
+</JobBlock>
 
-**What you give up:**
-- The panel takes up screen real estate
-- Extensions sometimes lag a version or two behind the CLI on new features
+<JobBlock
+  icon={Presentation}
+  question="I want to build a slide deck"
+  pickLabel="Claude for PowerPoint"
+>
 
-<DemoCard title="VS Code extension: code and agent side by side" steps={[
-  { type: 'cmd', text: 'Cmd+Shift+P → Claude Code: Open Panel' },
-  { type: 'success', text: '✓ Claude Code panel opens in sidebar' },
-  { type: 'cmd', text: '"explain this function and suggest improvements"', delay: 800 },
-  { type: 'out', text: 'Reading currently open file...' },
-  { type: 'out', text: 'This function handles payment processing.' },
-  { type: 'out', text: 'Issues found:' },
-  { type: 'error', text: '  1. No error handling on Stripe call (line 23)' },
-  { type: 'error', text: '  2. Amount calculated as float, should be integer cents' },
-  { type: 'cmd', text: '"fix both issues"', delay: 1000 },
-  { type: 'success', text: '✓ Added try-catch with Stripe error types' },
-  { type: 'success', text: '✓ Converted to integer cents (Math.round)' },
-  { type: 'warn', text: '→ Same agent. No terminal needed. Never left the editor.' },
-]} />
+Same idea as Excel. Installs as an add-in. Reads your template, respects brand colors, generates and edits slides in place. A messy outline turns into a first-draft deck in a few minutes.
 
-**Best for:** Developers who prefer staying in their IDE, teams where not everyone is comfortable in a terminal, visual learners who want to watch edits happen in context.
+It's not perfect at brand compliance. Expect to clean up spacing and occasional font issues. But the structural work, layout, headline writing, turning bullets into prose, is genuinely good.
 
-## Web App (claude.ai/code): Zero Friction
+</JobBlock>
 
-The web app gives you Claude Code in a browser tab. No installation, no terminal, no PATH configuration. Open the URL and start working.
+<JobBlock
+  icon={FileText}
+  question="I want to write or review a long document"
+  pickLabel="Claude for Word"
+>
 
-**What you get:**
-- Instant start: nothing to install or configure
-- Works from any computer, including Chromebooks and locked-down work machines
-- Same core agentic capabilities for code generation and analysis
+Newest of the Office add-ins. Launched April 13. Lives in a sidebar, supports redlining, tracked changes, comments. Long-document review is where it shines. Drop in a 40-page spec, ask for inconsistencies across sections, and it surfaces things you would have missed on your third read.
 
-**What you give up:**
-- No local filesystem access (works with remote repos or uploaded code)
-- Hooks, MCP servers, and advanced config aren't available
-- Less integrated with your local development environment overall
+Least mature of the three Office add-ins because it's the newest. A few rough edges. Still worth it if you live in Word.
 
-**Best for:** First-time users, PMs exploring what Claude Code can do, quick tasks when you're away from your dev machine, evaluating whether it's worth installing at all.
+</JobBlock>
 
-## Desktop App: The Native Experience
+<JobBlock
+  icon={Globe}
+  question="I want Claude to help me while I browse the web"
+  pickLabel="Claude for Chrome"
+>
 
-The Claude Code desktop app (Mac and Windows) is the terminal CLI wrapped in a polished native application. Same capabilities, different container.
+Browser extension. Opens as a side panel. Reads the page you're on, summarizes articles, runs scheduled tasks, moves across tabs. Think of it as "ChatGPT but it can see what you see."
 
-**What you get:**
-- Native app experience: Cmd+Tab to switch, system notifications, dedicated window
-- Full agent capabilities, same as the CLI
-- Cleaner interface than raw terminal
+Heads up: **it's in beta and requires a paid plan.** Not on the free tier.
 
-**What you give up:**
-- Functionally it's the same as the CLI. The differences are mostly aesthetic.
+</JobBlock>
 
-**Best for:** People who prefer apps over terminals, or anyone who wants Claude Code as a "first-class" application rather than a terminal command they type.
+<JobBlock
+  icon={FolderSearch}
+  question="I want to search my work email, Teams, OneDrive, and SharePoint"
+  pickLabel="Microsoft 365 Connector"
+>
 
-## The Real Answer: Start Anywhere, Graduate to Terminal
+Most people miss this one, including me until last month. Different from the Office add-ins. The Connector lets Claude *read* across your Microsoft work stack. You ask "what did Ana commit to in her last three messages," and it surfaces the answer from Teams plus the relevant Outlook thread.
 
-If you've never used Claude Code, start with the web app. Zero friction. You'll know within 10 minutes if this tool fits how you work.
+Two gotchas: **read-only** (Claude cannot send email or create calendar events through it), and **work tenants only** (personal `@outlook.com` accounts aren't supported). The Connector is available on all plans, including Free.
 
-If you like it and want more power, install the CLI or the IDE extension depending on where you spend your day. VS Code users should grab the extension. Terminal people should use the CLI. Both are the right answer for different people.
+</JobBlock>
 
-Frankly speaking, if you become a power user building skills, running hooks, using MCP servers, setting up autonomous loops, you'll end up in the terminal regardless. That's where the full configuration system lives. The other surfaces are on-ramps to the same destination, not competitors to it.
+<JobBlock
+  icon={Workflow}
+  question="I want Claude to run a multi-step task on its own"
+  pickLabel="Cowork"
+>
 
-Pick the one that matches where you are today. You can move up anytime.
+This is the one that breaks people's brains. Cowork is Claude with computer-use, connectors (Gmail, Drive, DocuSign, FactSet), and the ability to keep going across a long task without you babysitting it.
 
-## Quick Setup per Surface
+The honest version: Cowork is released as a product, but the *computer-use* piece, where Claude actually drives your desktop, is still research preview. Pro and Max plans only. Don't describe Cowork as "fully autonomous" to your colleagues yet. It's closer to "autonomous with training wheels."
 
-| Surface | How to start |
-|---|---|
-| **Terminal** | `npm install -g @anthropic-ai/claude-code && claude` |
-| **VS Code** | Install "Claude Code" from VS Code marketplace |
-| **JetBrains** | Install "Claude Code" from JetBrains plugin marketplace |
-| **Web App** | Go to [claude.ai/code](https://claude.ai/code) |
-| **Desktop** | Download from [claude.ai](https://claude.ai) under the Claude Code section |
+I use Cowork most weeks for unglamorous work. Running lead-performance analysis against a 24-month cost-per-lead (CPL) export. Cross-referencing an ad-delivery report with a GA4 query. Cleaning up my Mac when the browser and memory are out of hand and I can't figure out which tab is eating RAM. Nothing flashy. A patient intern with a longer attention span than I have.
+
+</JobBlock>
+
+<JobBlock
+  icon={Smartphone}
+  question="I want to hand a task off from my phone to my desktop"
+  pickLabel="Cowork Dispatch"
+>
+
+You're on your phone, you start something ("research these five vendors, draft a comparison doc"), and when you get back to your laptop the work is done and waiting. It persists across devices. Ethan Mollick wrote about this and called it "the first truly useful agent handoff I've used." He's not wrong.
+
+Research preview. Pro and Max only. Launched March 17. Small feature, big quality-of-life impact.
+
+</JobBlock>
+
+<JobBlock
+  icon={Terminal}
+  question="I want to build software or write code"
+  pickLabel="Claude Code"
+>
+
+This is the surface this guide was originally written for. If you're a developer, you already know. If you're not: Claude Code is a command-line tool (and increasingly a desktop app) that reads your entire repo, writes code, runs tests, debugs, and commits. It's the power-user surface.
+
+Start with the [CLI](/docs/foundations/installation) if you're comfortable in a terminal, or the [web version](https://claude.ai/code) if you want to try it without installing anything. If you live in VS Code or JetBrains, the IDE extension is probably what you want.
+
+</JobBlock>
+
+<JobBlock
+  icon={Package}
+  question="I want to build my own product with Claude inside"
+  pickLabel="Claude API + Agent SDK"
+>
+
+The <VocabBridge term="API" explanation="Application Programming Interface: a direct connection to the tool that lets developers build it into their own software.">API</VocabBridge> is for anyone integrating Claude into their own software. The Agent <VocabBridge term="SDK" explanation="Software Development Kit: a ready-made toolbox developers use to build apps faster, without reinventing the basics.">SDK</VocabBridge> (renamed from Claude Code SDK) gives you the same agent loop Claude Code uses, but programmable. Pay per token.
+
+This is the surface most readers of this page will never touch. But if you're a PM thinking about an AI feature for your product, this is where your engineers will live.
+
+</JobBlock>
+
+<SectionBreak number="02" kicker="The full map" title="Who pays, what ships, what's still beta" />
+
+I know the above is a lot. Here's the condensed grid.
+
+| Surface | Status | Who pays | What it's best at |
+|---|---|---|---|
+| Claude.ai (web) | Shipped | Free + all paid plans | Chat, Artifacts, Projects, quick research |
+| Claude mobile (iOS/Android) | Shipped | All plans | On the go, voice, Dispatch handoff |
+| Claude Desktop (Mac/Win) | Shipped | All plans (Cowork gated to Pro or higher) | Native host for Cowork and Code |
+| Claude for Chrome | Beta | Paid plans only | Side-panel agent while browsing |
+| Claude for Excel | Shipped | Pro or higher | Formulas, pivots, financial modeling |
+| Claude for PowerPoint | Shipped | Pro or higher | Template-aware slide generation |
+| Claude for Word | Shipped (Apr 13) | Pro or higher | Redlining, comments, long-doc review |
+| Microsoft 365 Connector | Shipped | All plans (incl. Free) | Read across Outlook/Teams/OneDrive/SharePoint |
+| Cowork | Shipped (computer-use still in preview) | Pro or higher | Multi-step autonomous work |
+| Cowork Dispatch | Research preview | Pro, Max | Phone-to-desktop task handoff |
+| Claude Code (CLI) | Shipped | Pro or higher or API | Agentic terminal coding |
+| Claude Code on the web | Research preview | Pro, Max | Cloud sandbox coding |
+| Claude Code Desktop app | Shipped (Apr 14 redesign) | Pro or higher | Parallel coding sessions |
+| Claude Agent SDK | Shipped | API | Build your own agent |
+| Claude API | Shipped | API | Anything custom |
+| Claude in Slack | Shipped | Paid Slack | Workspace bot, thread Q&A |
+
+Plans: Pro is $17/mo annual or $20/mo monthly. Team is $20/seat annual, $25/seat monthly. Max starts at $100/mo. Enterprise is $20/seat plus API usage. I'm not rounding. If you see someone round those numbers, verify before you quote them.
+
+<SectionBreak number="03" kicker="Coming from ChatGPT" title="Three mental shifts that make this easier" />
+
+Most people reading this page are ChatGPT users poking at Claude. That's who I was a year ago. Three things tripped me up more than anything else.
+
+<MentalShiftsGrid>
+
+<MentalShift number="1" headline="You don't pick a Claude, you pick a surface">
+
+ChatGPT is one thing with variations. Web app, mobile app, API. Claude is twelve things, each tuned for a different job. Don't look for "the" Claude. Ask "which one for this task."
+
+This took me two weeks to internalize. Once it clicked, every frustration melted. The tool wasn't bad. I was using it for the wrong job.
+
+</MentalShift>
+
+<MentalShift number="2" headline="Memory works differently">
+
+Claude Memory became available on the free tier on March 2. Unlike ChatGPT's Memory, which remembers facts about you across everything, Claude's Memory stays inside Claude.ai chats and does *not* cross into Projects. Projects are deliberately siloed.
+
+If you build Custom GPTs in ChatGPT, Projects is the closest equivalent. The architecture is different though: Projects are scoped workspaces with their own context, not custom-instruction wrappers.
+
+</MentalShift>
+
+<MentalShift number="3" headline="The import tool actually works">
+
+Anthropic launched `claude.com/import-memory` a few weeks ago. You export your ChatGPT memory, import it into Claude, it carries over. I tried it. Worked better than expected. If you're switching, do this first. Don't start from zero.
+
+</MentalShift>
+
+</MentalShiftsGrid>
+
+<SectionBreak number="04" kicker="Reader caveats" title="Things I wish someone had told me" />
+
+Six landmines I stepped on so you don't have to.
+
+<CaveatList>
+
+<CaveatCard headline="Office add-ins do NOT require Microsoft Copilot">
+Claude Pro is enough. A lot of IT teams get this wrong and scope a Copilot license that isn't needed.
+</CaveatCard>
+
+<CaveatCard headline="Cowork is released, but computer-use is research preview">
+If someone tells you Cowork is "fully autonomous and shipped," they're overstating it. It's autonomous with guardrails, Pro and Max only.
+</CaveatCard>
+
+<CaveatCard headline="Claude for Chrome is beta and paid-only">
+Not on the Free tier. This catches people.
+</CaveatCard>
+
+<CaveatCard headline="Claude for Excel deletes chat history after 30 days">
+Don't use it for regulated workflows without understanding this.
+</CaveatCard>
+
+<CaveatCard headline="The Microsoft 365 Connector is read-only">
+Claude cannot send email through it. Cannot create calendar events. Cannot edit Teams. It's a search layer, not a write layer.
+</CaveatCard>
+
+<CaveatCard headline="Microsoft Copilot Cowork is not the same as Anthropic Cowork">
+It's a Microsoft product built on Anthropic tech. Don't conflate them, especially in enterprise conversations.
+</CaveatCard>
+
+</CaveatList>
+
+<SectionBreak number="05" kicker="Go deeper" title="Tutorials on specific surfaces" />
+
+If you've picked your surface and want to actually get started, more tutorials are coming.
+
+- Claude for Word: redlining and long-doc review (coming soon)
+- Cowork Dispatch, explained for non-coders (coming soon)
+- Claude for PowerPoint: template-aware deck building (coming soon)
+- Cowork: when to use it and when not to (coming soon)
+- Coming from ChatGPT? A non-coder's migration guide (coming soon)
+- Claude for Excel: spreadsheets without spreadsheet trauma (coming soon)
+
+<SectionBreak number="06" kicker="FAQ" title="Questions I get asked a lot" />
+
+### If I only buy one plan, which one?
+
+Pro ($17/mo annual) covers every surface most people will touch: Excel, PowerPoint, Word, Cowork (with computer-use in preview), Chrome, Claude.ai, mobile, the Microsoft 365 Connector, and Claude Code. Max is worth it if you're running Claude Code daily or using Cowork for long agentic tasks, because the usage caps on Pro will bite. Team and Enterprise are about seats and admin, not features.
+
+### Does Claude in Excel work better than Microsoft Copilot?
+
+Different strengths. For formula generation and explaining existing sheets, Claude is sharper and cites cells better. For "turn this table into a chart," Microsoft Copilot is still a bit smoother. Most finance folks I've talked to run both side by side and use whichever answers faster. You're allowed to do that.
+
+### Can I use Cowork on my phone?
+
+Not for desktop control. The Dispatch handoff lets you *start* a Cowork task from mobile and come back to it on desktop, but the actual computer-use piece runs on your Mac or Windows machine. Phones don't host Cowork itself.
+
+### What's the difference between Cowork and Claude Code?
+
+Cowork is general-purpose agent work: research, document drafting, filling spreadsheets, driving your computer. Claude Code is specifically for software engineering: reading code repos, writing and running code, debugging. Same parent model, very different tuning. If you're not a developer, you don't need Claude Code. If you are a developer, Cowork and Claude Code handle different parts of your day.
+
+### Is there a Claude for Outlook?
+
+No standalone Outlook add-in exists. Outlook access ships through the Microsoft 365 Connector, which is read-only. You can ask Claude to find or summarize emails; it can't send them.
+
+### What about Gemini or ChatGPT for this kind of thing?
+
+I use Claude for work and personal knowledge. I use ChatGPT for image generation sometimes. Gemini I dropped a while ago. But the real answer: the surface map matters more than the brand. The tools that win are the ones tuned for a specific job. If Gemini adds a sharper PowerPoint flow tomorrow, I'd try it. Tools rotate. The work doesn't.
+
+### How do I stay current with new surfaces?
+
+Anthropic ships fast. Three new surfaces shipped in Q1 alone. I update this page monthly. If you subscribe to the newsletter below, you'll get updates when they land. That's the most reliable signal I know.
+
+---
+
+*Last updated April 22, 2026. If I missed a surface or got a detail wrong, tell me. This page lives by the reports from the people actually using these things.*
