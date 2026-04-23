@@ -1,0 +1,76 @@
+---
+title: "Keep Your Two Lives Apart: Work, Personal, and What Goes Where"
+description: "A hygiene-first separation pattern for Claude Code and Cowork users juggling corporate and personal projects. Three moves you can do in ten minutes."
+---
+
+> This page shares practical patterns from daily use, not legal advice. Verify your organization's DPA and AI usage policy before you apply any of this at work.
+
+## Why contexts get tangled
+
+Because it is easy. You open Claude Code, point it at whatever folder you happened to be in, and within a week your work CLAUDE.md has notes from your side project and your personal memory file has half a PRD from the day job. Nobody did anything wrong, but now the two contexts are tangled, and pulling them apart is painful.
+
+The fix is hygiene, not compliance. Treat your work and personal Claude setups like separate accounts on the same device. Two inboxes. Two browsers. Same idea. You do not need a legal framework to do this, you just need two folders and ten minutes.
+
+## The three moves
+
+### 1. Two folders, two CLAUDE.md files
+
+```
+~/work/                  # corporate projects only
+  CLAUDE.md              # work rules, work tools, work tone
+  acme-frontend/
+  acme-api/
+
+~/personal/              # side projects, learning, moonlight
+  CLAUDE.md              # your real voice, looser rules
+  my-saas/
+  blog/
+```
+
+Each root has its own CLAUDE.md. Work rules are about the work stack: what languages, what conventions, what your company expects. Personal rules are about you: how you talk, what you care about, what you are building after hours.
+
+Claude Code reads whichever CLAUDE.md is closest to the current directory. Point it at the right folder and you get the right context automatically, without having to remember to switch modes.
+
+### 2. Two memory systems
+
+If your workflow uses long-term memory (a MEMORY.md index, shard files, handoffs), keep two separate memory roots.
+
+The memory for your work Claude has colleagues, projects, and Jira tickets in it. The memory for your personal Claude has your writing voice, your moonlight strategy, and your kids' names. Crossing these is where trouble starts. A pasted customer email in your personal memory, or a reference to your household finances in your work memory, is the kind of leak nobody notices until it surfaces in an autocomplete at exactly the wrong moment.
+
+### 3. Two browser profiles (or two Claude.ai accounts)
+
+For Claude.ai and Cowork, use separate browser profiles, or sign out and back in between modes. Chat history lives in the account. If you are signed into your personal Claude account and you paste a corporate document to get a summary, that content now sits in a log your employer cannot see. That is the opposite of what most companies want.
+
+Cheaper than cleaning up a mistake: one Chrome profile for work, one for personal. Two dock icons. Done in ten minutes.
+
+## Quick decision: what goes where
+
+| Content | Work Claude | Personal Claude |
+|---|---|---|
+| Source code owned by your employer | Yes | No |
+| Customer notes, emails, transcripts | Yes | No |
+| Your own side project code | No | Yes |
+| Public writing drafts | No | Yes |
+| Internal strategy docs | Yes | No |
+| Resume, job-search content | No | Yes |
+
+If you are not sure which bucket something belongs in, default to work. Work policies are stricter, and being too careful rarely causes problems.
+
+## Red flags that your contexts are tangled
+
+- Your personal CLAUDE.md references coworker names or internal tools.
+- Your work Claude autocompletes your Substack name or side project.
+- You asked the same Claude instance about a customer bug and your vacation plans in the same afternoon.
+
+Any of these is a sign the contexts are bleeding into each other. Ten minutes of cleanup now beats a quarter of "how did this get in here."
+
+## What to do Monday morning
+
+1. Make `~/work/` and `~/personal/` if you do not already have them.
+2. Write two short CLAUDE.md files. One for each root. Start with twenty lines each, not two hundred.
+3. Open your browser's profile manager and create a "Work" profile. Move your work Claude.ai login there.
+4. Stop. Do not over-engineer this on day one. The pattern gets more refined as you use it.
+
+---
+
+*I run this pattern across six active projects and two memory roots. It compounds over time. Everyone starts with two folders and a browser profile. Start there.*

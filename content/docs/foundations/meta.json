@@ -2,5 +2,5 @@
   "title": "Foundations",
   "root": true,
   "defaultOpen": true,
-  "pages": ["what-is-claude-code", "basics-quick-reference", "which-interface", "model-selection", "claude-md", "installation", "session-lifecycle", "memory-system", "context-window", "plan-mode", "permissions", "prompting", "shortcuts", "cost-optimization", "glossary", "troubleshooting"]
+  "pages": ["what-is-claude-code", "basics-quick-reference", "which-interface", "model-selection", "claude-md", "installation", "session-lifecycle", "memory-system", "separate-contexts", "context-window", "plan-mode", "permissions", "prompting", "shortcuts", "cost-optimization", "glossary", "troubleshooting"]
 }
