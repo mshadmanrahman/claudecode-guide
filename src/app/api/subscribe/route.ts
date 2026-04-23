@@ -4,11 +4,10 @@ export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
-    if (!email || typeof email !== 'string') {
-      return NextResponse.json({ error: 'Email required' }, { status: 400 });
+    if (!email || typeof email !== 'string' || !email.includes('@')) {
+      return NextResponse.json({ error: 'Valid email required' }, { status: 400 });
     }
 
-    // POST to Substack's public subscribe API
     const res = await fetch('https://shadmanrahman.substack.com/api/v1/free', {
       method: 'POST',
       headers: {
@@ -27,10 +26,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     }
 
-    // Substack might return various statuses : treat all as success
-    // since the email is likely already subscribed or queued
-    return NextResponse.json({ success: true });
-  } catch {
+    const upstreamBody = await res.text().catch(() => '');
+    console.error('subscribe: substack non-ok', {
+      status: res.status,
+      body: upstreamBody.slice(0, 500),
+    });
+    return NextResponse.json(
+      { error: 'Subscription service returned an error', upstreamStatus: res.status },
+      { status: 502 },
+    );
+  } catch (error) {
+    console.error('subscribe: exception', error);
     return NextResponse.json({ error: 'Subscription failed' }, { status: 500 });
   }
 }

@@ -38,10 +38,12 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
         trackEvent('form_submit', { form_name: 'newsletter', placement });
       } else {
         setStatus('error');
+        const body = await res.json().catch(() => ({}));
         trackEvent('form_error', {
           form_name: 'newsletter',
           placement,
           reason: 'api_error',
+          upstream_status: body.upstreamStatus ?? res.status,
         });
       }
     } catch {
@@ -60,7 +62,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
         <Check className="mx-auto mb-2 h-6 w-6 text-green-500" />
         <p className="font-medium text-fd-foreground">You&apos;re in.</p>
         <p className="mt-1 text-sm text-fd-muted-foreground">
-          Check your inbox to confirm. Good to have you here.
+          Confirm in your inbox (check spam if it is slow). First issue lands next Sunday.
         </p>
         <button
           type="button"
@@ -80,7 +82,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
         <p className="text-sm font-medium text-fd-foreground">New guides, when they ship</p>
       </div>
       <p className="text-sm text-fd-muted-foreground mb-4">
-        Guides, templates, and real workflows. No fluff. Unsubscribe whenever.
+        One email, roughly weekly. CLAUDE.md templates, workflows I actually use, and the cut-for-length stuff that does not make the public guides. One-click unsubscribe.
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row">
         <input
@@ -108,7 +110,18 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
         </button>
       </form>
       {status === 'error' && (
-        <p className="mt-2 text-xs text-red-500">That didn&apos;t work. Try again?</p>
+        <p className="mt-2 text-xs text-red-500">
+          That didn&apos;t go through. Try again, or{' '}
+          <a
+            href="https://shadmanrahman.substack.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-red-400"
+          >
+            subscribe directly on Substack
+          </a>
+          .
+        </p>
       )}
       <p className="mt-3 text-center text-xs text-fd-muted-foreground">
         Or follow on{' '}
