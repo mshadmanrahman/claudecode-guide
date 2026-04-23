@@ -28,5 +28,5 @@ export function MentalShift({ number, headline, children }: MentalShiftProps) {
 }
 
 export function MentalShiftsGrid({ children }: { children: ReactNode }) {
-  return <div className="my-8 grid gap-4 sm:grid-cols-3">{children}</div>;
+  return <div className="my-8 grid gap-4 sm:grid-cols-2">{children}</div>;
 }
