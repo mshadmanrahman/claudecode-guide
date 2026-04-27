@@ -103,8 +103,8 @@ const TIER_1: SurfaceCardData[] = [
       branch: {
         left: 'Read / edit files',
         right: 'Cross-app tasks',
-        afterStep: 3,
-        mergeStep: 4,
+        afterStep: 2,
+        mergeStep: 3,
       },
       loop: true,
     },
@@ -392,24 +392,13 @@ function FlowDiagram({ flow, idPrefix }: { flow: FlowConfig; idPrefix: string })
 
       {/* Iterate loop on left margin */}
       {loop && (
-        <g>
-          <path
-            d={`M 100 ${lastY + branchExtra} H 50 Q 40 ${lastY + branchExtra} 40 ${lastY + branchExtra - 10} V 25 Q 40 15 50 15 H 100`}
-            className="stroke-fd-muted-foreground/60 fill-none"
-            strokeWidth={1}
-            strokeDasharray="4 3"
-            markerEnd={`url(#${loopMarkerId})`}
-          />
-          <text
-            x={40}
-            y={(lastY + branchExtra) / 2 + 10}
-            transform={`rotate(-90 40 ${(lastY + branchExtra) / 2 + 10})`}
-            textAnchor="middle"
-            className="fill-fd-muted-foreground/60 font-mono text-[9.5px] tracking-wider"
-          >
-            ↻ Iterate
-          </text>
-        </g>
+        <path
+          d={`M 100 ${lastY + branchExtra} H 50 Q 40 ${lastY + branchExtra} 40 ${lastY + branchExtra - 10} V 25 Q 40 15 50 15 H 100`}
+          className="stroke-fd-muted-foreground/60 fill-none"
+          strokeWidth={1}
+          strokeDasharray="4 3"
+          markerEnd={`url(#${loopMarkerId})`}
+        />
       )}
     </svg>
   );
