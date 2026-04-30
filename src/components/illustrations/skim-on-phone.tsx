@@ -1,26 +1,42 @@
+import { Eye } from 'lucide-react';
+
 export function SkimOnPhoneIllustration() {
   return (
-    <div className="relative h-[200px] w-[120px] overflow-hidden rounded-2xl border border-fd-border bg-fd-background shadow-sm">
-      <div className="border-b border-fd-border bg-fd-muted/40 px-2 py-1">
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-[8px] text-fd-muted-foreground">
-            8:55
-          </span>
-          <span className="font-mono text-[8px] text-fd-muted-foreground">
-            100%
-          </span>
-        </div>
+    <div className="w-full max-w-[260px] overflow-hidden rounded-xl border border-fd-border bg-fd-background shadow-sm">
+      <div className="flex items-center gap-2 border-b border-fd-border bg-fd-muted/40 px-3 py-1.5">
+        <Eye className="h-3.5 w-3.5 text-fd-muted-foreground" />
+        <span className="font-mono text-[10px] text-fd-foreground">
+          1:1 brief · 30s read
+        </span>
       </div>
-      <div className="space-y-1 px-2 py-2 text-[8px] text-fd-muted-foreground">
-        <div className="font-medium text-fd-foreground">1:1 brief: Sarah</div>
-        <div className="text-fd-foreground">Recent context</div>
-        <div className="ml-1.5">Took over dashboard...</div>
-        <div className="text-fd-foreground">Open items</div>
-        <div className="ml-1.5">One-pager owed</div>
-        <div className="text-fd-foreground">Ask</div>
-        <div className="ml-1.5">Q3 headcount?</div>
-        <div className="text-fd-foreground">Be ready for</div>
-        <div className="ml-1.5">Match Maker scope</div>
+      <div className="space-y-2 px-3 py-3 text-[10px] text-fd-muted-foreground">
+        <div>
+          <div className="font-medium text-fd-foreground">Recent context</div>
+          <div className="ml-2 mt-0.5">
+            Took over{' '}
+            <span className="rounded bg-amber-300/40 px-0.5 text-fd-foreground dark:bg-amber-500/20">
+              dashboard project
+            </span>{' '}
+            three weeks ago
+          </div>
+        </div>
+        <div>
+          <div className="font-medium text-fd-foreground">Ask today</div>
+          <div className="ml-2 mt-0.5">
+            <span className="rounded bg-amber-300/40 px-0.5 text-fd-foreground dark:bg-amber-500/20">
+              Q3 headcount status?
+            </span>
+          </div>
+        </div>
+        <div>
+          <div className="font-medium text-fd-foreground">Be ready for</div>
+          <div className="ml-2 mt-0.5">
+            <span className="rounded bg-amber-300/40 px-0.5 text-fd-foreground dark:bg-amber-500/20">
+              Match Maker scope
+            </span>{' '}
+            question
+          </div>
+        </div>
       </div>
     </div>
   );
