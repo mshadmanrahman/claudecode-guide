@@ -12,6 +12,15 @@ import { PromptCard } from '@/components/prompt-card';
 import { FromClaude } from '@/components/from-claude';
 import { UseCaseMeta } from '@/components/use-case-meta';
 import { AuthorBio } from '@/components/author-bio';
+import { UseCaseWalkthrough } from '@/components/use-case-walkthrough';
+import {
+  ProjectFolderIllustration,
+  PromptComposerIllustration,
+  ClaudeQuestionsIllustration,
+  FileWrittenIllustration,
+  FileEditingIllustration,
+  ClaudeKnowsIllustration,
+} from '@/components/walkthrough-illustrations';
 import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 import { getComparisonArticleMetadata } from '@/lib/comparison-article';
 import { getPageNavigation, getSections } from '@/lib/docs-navigation';
@@ -25,6 +34,13 @@ const mdxComponents = {
   FromClaude,
   UseCaseMeta,
   AuthorBio,
+  UseCaseWalkthrough,
+  ProjectFolderIllustration,
+  PromptComposerIllustration,
+  ClaudeQuestionsIllustration,
+  FileWrittenIllustration,
+  FileEditingIllustration,
+  ClaudeKnowsIllustration,
 };
 
 interface PageProps {

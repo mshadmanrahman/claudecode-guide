@@ -5,9 +5,50 @@ description: "You shouldn't have to introduce yourself to Claude every single ti
 
 <UseCaseMeta time="5 minutes" tools={["CLAUDE.md"]} />
 
-## Describe the task
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "You're in your project folder.",
+      caption: "Any folder with a package.json, pyproject.toml, or similar. Five minutes is all you need.",
+      illustration: <ProjectFolderIllustration />,
+      tone: "lavender",
+    },
+    {
+      headline: "You drop the prompt into Claude Code.",
+      caption: "One paste. No setup, no configuration files to write yourself.",
+      illustration: <PromptComposerIllustration />,
+      tone: "peach",
+    },
+    {
+      headline: "Claude reads your repo and asks two quick questions.",
+      caption: "About your testing approach, your style, the rules you want enforced. Two or three questions, not a survey.",
+      illustration: <ClaudeQuestionsIllustration />,
+      tone: "mint",
+    },
+    {
+      headline: "Claude writes the CLAUDE.md.",
+      caption: "Sections for Project, Stack, Conventions, How I work, and Things to never do.",
+      illustration: <FileWrittenIllustration />,
+      tone: "sky",
+    },
+    {
+      headline: "You tweak anything that's off.",
+      caption: "Just open it, fix what's wrong, save.",
+      illustration: <FileEditingIllustration />,
+      tone: "lavender",
+    },
+    {
+      headline: "Next session, Claude already knows.",
+      caption: "Loaded automatically every time you open Claude Code in this project. No more re-explaining.",
+      illustration: <ClaudeKnowsIllustration />,
+      tone: "peach",
+    },
+  ]}
+/>
 
-Open Claude Code from inside your project folder, then drop in this prompt. Claude reads what's there, asks you two or three quick questions, and writes a `CLAUDE.md` file that loads automatically every session from now on.
+## The prompt
+
+Copy this, paste it into Claude Code from inside your project folder, and answer the two or three questions Claude asks you.
 
 <PromptCard
   id="stop-reexplaining-primary"
@@ -21,24 +62,7 @@ Then ask me 2 or 3 quick questions about my preferences (like coding style, test
 When you have answers, write a CLAUDE.md with these sections: Project, Stack, Conventions, How I work, and Things to never do.`}
 />
 
-This is the file Claude Code reads first, every session. It's the difference between starting from zero every day and starting from "I know who you are and what you're working on."
-
-## What you'll need
-
-**Required**
-
-- Claude Code installed and pointed at your project folder
-- A `package.json`, `pyproject.toml`, or similar so Claude can sniff your stack
-- Five minutes to answer the follow-up questions
-
-**Optional**
-
-- A short list of rules you want enforced (we'll bake them into the file)
-- An existing README, since Claude will read it for context
-
-## What Claude gives you back
-
-After the questions, Claude writes a `CLAUDE.md` at the root of your project, opens it, and walks you through what it put in there. Something like this.
+## What you get back
 
 <FromClaude>
 
@@ -79,8 +103,6 @@ A couple of things I wasn't sure about, so I made guesses you can correct:
 - You mentioned "no Prisma here," so I added that as a hard rule. Want me to also rule out raw SQL queries, or is that fine ad hoc?
 
 </FromClaude>
-
-Open the file Claude wrote, fix anything that doesn't match how you actually work, and save. That's it. Next session, Claude opens already knowing all of this.
 
 ## Variations
 
@@ -128,8 +150,6 @@ Keep the file under 80 lines so it stays loadable forever without burning contex
 **Don't paste in your secrets.** API keys, tokens, environment variables, customer data. None of it goes in CLAUDE.md. The file ships with your repo and gets read into Claude's context every time. Treat it like a public README.
 
 ## Ready to try?
-
-Copy the prompt, paste it into Claude Code from your project folder, and answer the two or three questions Claude asks. You'll have a working CLAUDE.md in five minutes.
 
 <PromptCard
   id="stop-reexplaining-tryagain"
