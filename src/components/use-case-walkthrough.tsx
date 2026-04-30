@@ -26,8 +26,6 @@ const TONE_CLASSES: Record<Tone, string> = {
   neutral: 'bg-fd-card/60',
 };
 
-const DEFAULT_TONES: Tone[] = ['lavender', 'peach', 'mint', 'sky'];
-
 export function UseCaseWalkthrough({
   steps,
   title = 'How it works',
@@ -59,7 +57,7 @@ interface FrameProps {
 
 function WalkthroughFrame({ step, index, total }: FrameProps) {
   const [containerRef, isInView] = useInView(0.25);
-  const tone = step.tone ?? DEFAULT_TONES[index % DEFAULT_TONES.length];
+  const tone = step.tone ?? 'neutral';
   const groundClass = TONE_CLASSES[tone];
   const kicker = step.kicker ?? `Step ${index + 1} of ${total}`;
 
