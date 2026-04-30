@@ -20,7 +20,12 @@ import {
   FileWrittenIllustration,
   FileEditingIllustration,
   ClaudeKnowsIllustration,
-} from '@/components/walkthrough-illustrations';
+  CalendarEventIllustration,
+  MultiSourcePullIllustration,
+  BriefDocumentIllustration,
+  SkimOnPhoneIllustration,
+  PreparedReadyIllustration,
+} from '@/components/illustrations';
 import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 import { getComparisonArticleMetadata } from '@/lib/comparison-article';
 import { getPageNavigation, getSections } from '@/lib/docs-navigation';
@@ -41,6 +46,11 @@ const mdxComponents = {
   FileWrittenIllustration,
   FileEditingIllustration,
   ClaudeKnowsIllustration,
+  CalendarEventIllustration,
+  MultiSourcePullIllustration,
+  BriefDocumentIllustration,
+  SkimOnPhoneIllustration,
+  PreparedReadyIllustration,
 };
 
 interface PageProps {

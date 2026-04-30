@@ -1,0 +1,146 @@
+---
+title: Walk Into Your 1:1 Already Prepared
+description: "You shouldn't be opening Slack and Jira five minutes before a 1:1. One prompt and Claude pulls together a one-page brief: recent context, open items, three questions you should ask, two things you should be ready to answer."
+---
+
+<UseCaseMeta time="2 minutes" tools={["Meeting prep skill", "Calendar MCP"]} />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "Your 1:1 is in thirty minutes.",
+      caption: "You see it on your calendar. You haven't thought about the person all week.",
+      illustration: <CalendarEventIllustration />,
+    },
+    {
+      headline: "You drop the prompt into Claude.",
+      caption: "One paste. Two minutes of your time.",
+      illustration: <PromptComposerIllustration text="Prep me for my 1:1 with Sarah. Pull recent emails between us, the last 4 meeting notes I have on her, and any open project items where she's a stakeholder..." />,
+    },
+    {
+      headline: "Claude pulls from email, calendar, and project notes.",
+      caption: "Anything you've connected. Anything where this person shows up.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "Claude writes you a one-page brief.",
+      caption: "Recent context, open items, three questions to ask, two answers to have ready.",
+      illustration: <BriefDocumentIllustration />,
+    },
+    {
+      headline: "You skim it on the walk over.",
+      caption: "Phone or laptop. Whatever's open.",
+      illustration: <SkimOnPhoneIllustration />,
+    },
+    {
+      headline: "You walk in already knowing.",
+      caption: "Honest, calm, prepared. Like you'd been thinking about it all week.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Drop this into Claude with the person's name in the placeholder. Run it the morning of the meeting, not the day before.
+
+<PromptCard
+  id="walk-1on1-primary"
+  variant="primary"
+  prompt={`Prep me for my 1:1 with [name].
+
+Pull recent emails between us, the last 4 meeting notes I have on them, and any open project items where they're a stakeholder.
+
+Write a one-page brief with: Recent context (what's been happening with them), Open items (anything I owe them or they owe me), 3 questions I should ask them today, and 2 things I should be ready to answer.
+
+Keep it skimmable. I'm walking to the meeting in 5 minutes.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+**1:1 brief: Sarah Chen** · Friday 9:00 AM
+
+### Recent context
+- Sarah took over the dashboard project from Marcus three weeks ago.
+- Last sync (April 22): she flagged a Q3 headcount question for the Search team.
+- Two stakeholder threads since then mention scope creep on the data platform.
+
+### Open items
+- You owe her: a one-pager on the Match Maker roadmap (mentioned April 22)
+- She owes you: clarity on whether the dashboard handover scope is final
+- Both: the six-month roadmap Sarah asked for "early May"
+
+### Questions to ask
+1. Is the Q3 headcount conversation moving with leadership yet?
+2. What's the ceiling on what I can commit to in the dashboard handover before checking with you?
+3. Are you OK with me front-loading discovery work in the new scope, or should delivery commitments come first?
+
+### Be ready to answer
+- "What does the new scope mean for the Match Maker roadmap?"
+- "How are you thinking about Q3 OKRs given the recent reorg?"
+
+</FromClaude>
+
+## Variations
+
+Same shape, different relationships.
+
+<PromptCard
+  id="walk-1on1-new-person"
+  variant="variation"
+  kicker="For a first 1:1 with someone new"
+  prompt={`Prep me for my first 1:1 with [name]. I don't have any meeting history with them.
+
+Pull what you can find: any emails, any Slack or Teams threads, any documents they've authored or commented on.
+
+Help me build a profile: what they care about based on what they've written, who they collaborate with, where they sit in the org. Then suggest 5 open-ended questions I can use to get to know them.`}
+/>
+
+<PromptCard
+  id="walk-1on1-quarterly"
+  variant="variation"
+  kicker="For a quarterly check-in"
+  prompt={`Prep me for my quarterly check-in with [name]. It's been about 12 weeks since we last spoke.
+
+Pull our last 3 conversations and surface: what was outstanding then, what's changed in their org since, and what I committed to that I haven't followed up on.
+
+Don't sugarcoat the followups I missed. I'd rather walk in honest than blindsided.`}
+/>
+
+<PromptCard
+  id="walk-1on1-skip-level"
+  variant="variation"
+  kicker="For a skip-level meeting"
+  prompt={`Prep me for a skip-level with [name] (my manager's manager).
+
+Pull what you can on their priorities right now: recent emails or comms they've sent broadly, any docs they own, the projects they've been mentioned on.
+
+Then help me figure out: what does this person care about that's different from what my direct manager cares about, and what's worth raising with them that I haven't gotten traction on at the level below.`}
+/>
+
+## Tips and gotchas
+
+**Run it the morning of, not the day before.** State changes overnight. That email Sarah sent at 11pm or that PR Marcus merged at 7am won't be in yesterday's snapshot.
+
+**Don't paste secrets into the prompt.** Names, project names, meeting dates are fine. API keys, customer data, compensation numbers stay out.
+
+**If the person doesn't show up in the brief, give Claude a hint.** "Sarah Chen, my manager since the reorg in March." One sentence of context fixes most cases where Claude couldn't find them.
+
+## Ready to try?
+
+<PromptCard
+  id="walk-1on1-tryagain"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`Prep me for my 1:1 with [name].
+
+Pull recent emails between us, the last 4 meeting notes I have on them, and any open project items where they're a stakeholder.
+
+Write a one-page brief with: Recent context (what's been happening with them), Open items (anything I owe them or they owe me), 3 questions I should ask them today, and 2 things I should be ready to answer.
+
+Keep it skimmable. I'm walking to the meeting in 5 minutes.`}
+/>
+
+<AuthorBio />
