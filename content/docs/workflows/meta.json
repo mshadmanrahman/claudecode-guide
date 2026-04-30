@@ -2,5 +2,5 @@
   "title": "Workflows",
   "root": true,
   "defaultOpen": true,
-  "pages": ["daily-practice", "debugging", "ci-cd", "pm-workflow", "team-adoption"]
+  "pages": ["stop-reexplaining-your-project", "daily-practice", "debugging", "ci-cd", "pm-workflow", "team-adoption"]
 }

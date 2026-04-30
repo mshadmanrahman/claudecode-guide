@@ -8,6 +8,10 @@ import { AffiliateCTA } from '@/components/affiliate-cta';
 import { ComparisonRelatedLinks } from '@/components/comparison-related-links';
 import { ChapterNav } from '@/components/docs/chapter-nav';
 import { SectionIndex } from '@/components/docs/section-index';
+import { PromptCard } from '@/components/prompt-card';
+import { FromClaude } from '@/components/from-claude';
+import { UseCaseMeta } from '@/components/use-case-meta';
+import { AuthorBio } from '@/components/author-bio';
 import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 import { getComparisonArticleMetadata } from '@/lib/comparison-article';
 import { getPageNavigation, getSections } from '@/lib/docs-navigation';
@@ -17,6 +21,10 @@ const mdxComponents = {
   ...defaultMdxComponents,
   DemoCard,
   VocabBridge,
+  PromptCard,
+  FromClaude,
+  UseCaseMeta,
+  AuthorBio,
 };
 
 interface PageProps {

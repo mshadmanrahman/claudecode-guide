@@ -1,0 +1,147 @@
+---
+title: Stop Re-Explaining Your Project Every Session
+description: "You shouldn't have to introduce yourself to Claude every single time. Five minutes setting up a CLAUDE.md gets you a Claude Code that already knows your project, your stack, and your preferences before you type a word."
+---
+
+<UseCaseMeta time="5 minutes" tools={["CLAUDE.md"]} />
+
+## Describe the task
+
+Open Claude Code from inside your project folder, then drop in this prompt. Claude reads what's there, asks you two or three quick questions, and writes a `CLAUDE.md` file that loads automatically every session from now on.
+
+<PromptCard
+  id="stop-reexplaining-primary"
+  variant="primary"
+  prompt={`I want a CLAUDE.md file for this project.
+
+Read the package.json, the README, and the top three folders so you understand the stack.
+
+Then ask me 2 or 3 quick questions about my preferences (like coding style, testing approach, or rules I want enforced).
+
+When you have answers, write a CLAUDE.md with these sections: Project, Stack, Conventions, How I work, and Things to never do.`}
+/>
+
+This is the file Claude Code reads first, every session. It's the difference between starting from zero every day and starting from "I know who you are and what you're working on."
+
+## What you'll need
+
+**Required**
+
+- Claude Code installed and pointed at your project folder
+- A `package.json`, `pyproject.toml`, or similar so Claude can sniff your stack
+- Five minutes to answer the follow-up questions
+
+**Optional**
+
+- A short list of rules you want enforced (we'll bake them into the file)
+- An existing README, since Claude will read it for context
+
+## What Claude gives you back
+
+After the questions, Claude writes a `CLAUDE.md` at the root of your project, opens it, and walks you through what it put in there. Something like this.
+
+<FromClaude>
+
+I read your `package.json`, `README.md`, and the `src/` and `app/` folders. Here's the CLAUDE.md I drafted. Have a look:
+
+```markdown
+# CLAUDE.md
+
+## Project
+Acme Dashboard. Internal admin panel for the support team.
+Next.js 16 + Drizzle + Postgres on Vercel.
+
+## Stack
+- TypeScript strict mode
+- Tailwind v4
+- shadcn/ui for primitives
+- Drizzle ORM (no Prisma here)
+
+## Conventions
+- React Server Components by default; client components opt-in with 'use client'
+- Use cn() from lib/utils for class merging
+- Tests live next to the file, named *.test.ts
+- Conventional commits
+
+## How I work
+- Plan first for anything touching 3+ files
+- Verify the build passes before declaring done
+
+## Things to never do
+- Never log secrets or tokens
+- Never use `any` (use `unknown` and narrow)
+- Never rewrite a working migration; add a new one
+```
+
+A couple of things I wasn't sure about, so I made guesses you can correct:
+
+- I noticed both `vitest` and `playwright` in your devDependencies. I assumed unit tests use Vitest and end-to-end uses Playwright. Right call?
+- You mentioned "no Prisma here," so I added that as a hard rule. Want me to also rule out raw SQL queries, or is that fine ad hoc?
+
+</FromClaude>
+
+Open the file Claude wrote, fix anything that doesn't match how you actually work, and save. That's it. Next session, Claude opens already knowing all of this.
+
+## Variations
+
+Same shape, small twists.
+
+<PromptCard
+  id="stop-reexplaining-team"
+  variant="variation"
+  kicker="For a team, not just yourself"
+  prompt={`Write a CLAUDE.md for this project that the whole team will use.
+
+Read the .github/CONTRIBUTING.md and our PR template. Pull conventions from there.
+
+Mark any rule that's debatable so we can decide together, and any rule that's a hard line so nobody softens it later.`}
+/>
+
+<PromptCard
+  id="stop-reexplaining-refresh"
+  variant="variation"
+  kicker="For a CLAUDE.md that's gone stale"
+  prompt={`Read my existing CLAUDE.md and compare it against the current state of this codebase.
+
+Find anything stale: libraries we removed, patterns we no longer use, rules that were aspirational but never followed.
+
+Suggest deletions, suggest additions, and ask before changing anything.`}
+/>
+
+<PromptCard
+  id="stop-reexplaining-opinions"
+  variant="variation"
+  kicker="For a personal project where you want Claude to push back"
+  prompt={`Write a CLAUDE.md for this project.
+
+I want you to be opinionated, not deferential. Push back when I'm doing something wrong. Suggest the cleaner path even if I didn't ask.
+
+Keep the file under 80 lines so it stays loadable forever without burning context.`}
+/>
+
+## Tips and gotchas
+
+**Keep it short.** A CLAUDE.md over 200 lines burns context every single session. Aim for 80 to 150 lines. If yours grows past that, split it into shards and load only the relevant one for the task at hand.
+
+**Update it when Claude makes the same mistake twice.** If you correct the same thing in two different sessions, that correction belongs in CLAUDE.md as a permanent rule. The file is a memory, not a manifesto.
+
+**Don't paste in your secrets.** API keys, tokens, environment variables, customer data. None of it goes in CLAUDE.md. The file ships with your repo and gets read into Claude's context every time. Treat it like a public README.
+
+## Ready to try?
+
+Copy the prompt, paste it into Claude Code from your project folder, and answer the two or three questions Claude asks. You'll have a working CLAUDE.md in five minutes.
+
+<PromptCard
+  id="stop-reexplaining-tryagain"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`I want a CLAUDE.md file for this project.
+
+Read the package.json, the README, and the top three folders so you understand the stack.
+
+Then ask me 2 or 3 quick questions about my preferences (like coding style, testing approach, or rules I want enforced).
+
+When you have answers, write a CLAUDE.md with these sections: Project, Stack, Conventions, How I work, and Things to never do.`}
+/>
+
+<AuthorBio />
