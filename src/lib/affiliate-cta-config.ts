@@ -32,6 +32,7 @@ const AFFILIATE_LINKS = {
   digitalOcean: 'https://m.do.co/c/4710894edcd3',
   coursera: 'https://www.coursera.org/professional-certificates?utm_source=claudecodeguide',
   granola: 'https://www.granola.ai?via=shadman-rahman',
+  warpReferral: 'https://app.warp.dev/referral/RVVXRNY',
   proVsMax: '/docs/comparisons/pro-vs-max',
 } as const;
 
@@ -178,6 +179,23 @@ const GRANOLA_PAGES = new Set([
   'docs/templates/pm-workspace',
 ]);
 
+/**
+ * Pages where Warp (AI-native terminal) is contextually relevant.
+ * Warp referral: https://app.warp.dev/referral/RVVXRNY (credit-only, not cash).
+ * Single inline placement only; do not stack with other CTAs.
+ */
+const WARP_PAGES = new Set([
+  'docs/foundations/which-interface',
+]);
+
+const terminalDraft: CTAConfigDraft = {
+  title: 'Want a smarter terminal for Claude Code?',
+  description:
+    'Warp is an AI-native terminal that pairs well with the Claude Code CLI. Command blocks, inline AI suggestions, and a cleaner workflow than vanilla Terminal or iTerm. Heads up: this is a referral link.',
+  ctaLabel: 'Try Warp free',
+  destination: AFFILIATE_LINKS.warpReferral,
+};
+
 const workflowDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
   inline: {
     title: 'Capture meetings without lifting a finger',
@@ -219,6 +237,10 @@ export function getAffiliateCtasForPage(pageSlug: string): AffiliateCTAConfig[] 
     return CTA_PLACEMENTS.map((placement) =>
       createConfig(pageSlug, placement, workflowDrafts[placement]),
     );
+  }
+
+  if (WARP_PAGES.has(pageSlug)) {
+    return [createConfig(pageSlug, 'inline', terminalDraft)];
   }
 
   if (!pageSlug.startsWith('docs/comparisons/')) {
