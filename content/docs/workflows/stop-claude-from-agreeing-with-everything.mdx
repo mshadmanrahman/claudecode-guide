@@ -5,6 +5,8 @@ description: "Claude has a sycophancy problem. It will tell you a flawed idea is
 
 <UseCaseMeta time="2 minutes" tools={["Claude Code"]} model="Claude (any)" />
 
+<AntiSycophancyHero />
+
 You ask Claude if your idea is any good and it tells you it's brilliant. You ask if a refactor is worth doing and it says yes, looks great. You spot a hole in your own thinking and Claude reassures you the hole isn't really there. That's sycophancy, and it makes Claude useless as a thinking partner. Inspired by Scott Waddell's [Medium piece on sycophantic AI](https://medium.com/@scott_waddell/how-i-got-claude-and-chatgpt-to-stop-being-sycophantic-cheerleaders-7ab0b06f3111), this fix lives in a global rules file that loads at every single session start. No memory router needed.
 
 <UseCaseWalkthrough

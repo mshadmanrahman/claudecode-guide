@@ -16,3 +16,4 @@ export { MultiSourcePullIllustration } from './multi-source-pull';
 export { BriefDocumentIllustration } from './brief-document';
 export { SkimOnPhoneIllustration } from './skim-on-phone';
 export { PreparedReadyIllustration } from './prepared-ready';
+export { AntiSycophancyHero } from './anti-sycophancy-hero';

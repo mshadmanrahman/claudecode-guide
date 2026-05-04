@@ -25,6 +25,7 @@ import {
   BriefDocumentIllustration,
   SkimOnPhoneIllustration,
   PreparedReadyIllustration,
+  AntiSycophancyHero,
 } from '@/components/illustrations';
 import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 import { getComparisonArticleMetadata } from '@/lib/comparison-article';
@@ -51,6 +52,7 @@ const mdxComponents = {
   BriefDocumentIllustration,
   SkimOnPhoneIllustration,
   PreparedReadyIllustration,
+  AntiSycophancyHero,
 };
 
 interface PageProps {
