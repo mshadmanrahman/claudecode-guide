@@ -3,6 +3,7 @@ import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Globe, Monitor,
 import { RotatingDemo } from '@/components/rotating-demo';
 import { FloatingCard } from '@/components/floating-card';
 import { EmailCapture } from '@/components/email-capture';
+import { PathRouter } from '@/components/home/path-router';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -134,7 +135,11 @@ export default function HomePage() {
             <span className="text-fade">It builds it.</span>
           </h1>
 
-          <p className="animate-slide-up-fade delay-100 mt-8 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
+          <p className="animate-slide-up-fade delay-75 mt-6 max-w-2xl text-base font-medium text-fd-foreground sm:text-lg">
+            Claude Code is Anthropic&apos;s AI coding assistant. It writes, edits, and runs code from plain-English instructions. This guide is the on-ramp for everyone learning it from scratch.
+          </p>
+
+          <p className="animate-slide-up-fade delay-100 mt-4 max-w-xl text-base text-fd-muted-foreground leading-relaxed">
             I built this because I kept explaining the same things to people who&apos;d never touched a terminal.
             The official docs are solid if you already know the territory. This guide is for everyone who doesn&apos;t.
           </p>
@@ -196,6 +201,9 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* ── Path Router (data-driven, post-Crucible 2026-05-04) ── */}
+      <PathRouter />
 
       {/* ── Rotating Demo with Floating Cards ── */}
       <section className="relative mx-auto w-full max-w-5xl px-6 pb-24 overflow-visible">
