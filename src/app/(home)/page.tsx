@@ -7,9 +7,35 @@ import { PathRouter } from '@/components/home/path-router';
 import { SiteFooter } from '@/components/site-footer';
 import type { Metadata } from 'next';
 
+const heroTagline = 'Tell it what you need. It builds it.';
+const heroDescription =
+  "Claude Code is Anthropic's AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.";
+const ogImage = {
+  url: 'https://claudecodeguide.dev/og-home-v4.png',
+  width: 1200,
+  height: 630,
+  alt: 'Claude Code Guide homepage: Tell it what you need. It builds it.',
+};
+
 export const metadata: Metadata = {
-  title: 'Claude Code Guide: Tell It What You Need. It Builds It.',
-  description: 'A no-fluff guide to Claude Code. I built this so you can skip the confusion and get to the good stuff faster. Web, Desktop, Terminal, VS Code.',
+  title: {
+    absolute: 'Claude Code Guide: Tell It What You Need. It Builds It.',
+  },
+  description: heroDescription,
+  openGraph: {
+    title: heroTagline,
+    description: heroDescription,
+    type: 'website',
+    siteName: 'Claude Code Guide',
+    url: 'https://claudecodeguide.dev',
+    images: [ogImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: heroTagline,
+    description: heroDescription,
+    images: [ogImage],
+  },
 };
 
 const STATS = [
