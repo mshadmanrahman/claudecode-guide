@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Globe, Monitor, Terminal, Code2, Star, BookOpen, Layers, GitCompare, FileCode, Workflow, ChevronRight, MousePointerClick, Rocket, Sparkles } from 'lucide-react';
+import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Globe, Monitor, Terminal, Code2, Star, MousePointerClick, Rocket, Sparkles } from 'lucide-react';
 import { RotatingDemo } from '@/components/rotating-demo';
 import { FloatingCard } from '@/components/floating-card';
 import { EmailCapture } from '@/components/email-capture';
 import { PathRouter } from '@/components/home/path-router';
+import { SiteFooter } from '@/components/site-footer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -78,49 +79,6 @@ const OUTCOME_CARDS = [
   },
 ] as const;
 
-const CONTENT_SECTIONS = [
-  {
-    icon: BookOpen,
-    title: 'Foundations',
-    description: 'What Claude actually is, how it works under the hood, and which interface fits you.',
-    count: 15,
-    href: '/docs/foundations',
-    color: 'text-blue-600 dark:text-blue-400',
-  },
-  {
-    icon: Workflow,
-    title: 'Workflows',
-    description: 'Patterns I use daily: writing, research, code review, project management.',
-    count: 5,
-    href: '/docs/workflows',
-    color: 'text-green-600 dark:text-green-400',
-  },
-  {
-    icon: Layers,
-    title: 'Patterns',
-    description: 'How to prompt well, set up memory, and configure CLAUDE.md so it actually helps.',
-    count: 8,
-    href: '/docs/patterns',
-    color: 'text-purple-600 dark:text-purple-400',
-  },
-  {
-    icon: FileCode,
-    title: 'Templates',
-    description: 'Copy-paste starter configs for Python, React, Node.js, and more. Grab and go.',
-    count: 5,
-    href: '/docs/templates',
-    color: 'text-amber-600 dark:text-amber-400',
-  },
-  {
-    icon: GitCompare,
-    title: 'Comparisons',
-    description: 'Claude vs ChatGPT, Cursor, Copilot, and others. I tested them all. Honest takes.',
-    count: 10,
-    href: '/docs/comparisons',
-    color: 'text-rose-600 dark:text-rose-400',
-  },
-] as const;
-
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col bg-fd-background overflow-x-clip">
@@ -135,13 +93,8 @@ export default function HomePage() {
             <span className="text-fade">It builds it.</span>
           </h1>
 
-          <p className="animate-slide-up-fade delay-75 mt-6 max-w-2xl text-base font-medium text-fd-foreground sm:text-lg">
-            Claude Code is Anthropic&apos;s AI coding assistant. It writes, edits, and runs code from plain-English instructions. This guide is the on-ramp for everyone learning it from scratch.
-          </p>
-
-          <p className="animate-slide-up-fade delay-100 mt-4 max-w-xl text-base text-fd-muted-foreground leading-relaxed">
-            I built this because I kept explaining the same things to people who&apos;d never touched a terminal.
-            The official docs are solid if you already know the territory. This guide is for everyone who doesn&apos;t.
+          <p className="animate-slide-up-fade delay-100 mt-6 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
+            Claude Code is Anthropic&apos;s AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.
           </p>
 
           {/* Interface badges */}
@@ -202,9 +155,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Path Router (data-driven, post-Crucible 2026-05-04) ── */}
-      <PathRouter />
-
       {/* ── Rotating Demo with Floating Cards ── */}
       <section className="relative mx-auto w-full max-w-5xl px-6 pb-24 overflow-visible">
         <div className="relative overflow-visible">
@@ -231,6 +181,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Path Router (data-driven, post-Crucible 2026-05-04) ── */}
+      <PathRouter />
 
       {/* ── Email Capture (primary, above-fold once demo is seen) ── */}
       <section className="mx-auto w-full max-w-2xl px-6 pb-20">
@@ -302,8 +255,9 @@ export default function HomePage() {
           you can use Claude. That&apos;s genuinely it.
         </p>
         <p className="mt-8 text-fd-muted-foreground leading-relaxed">
-          I&apos;m a PM who&apos;s used AI tools with hundreds of people across different roles.
-          I know where people get stuck. This guide skips those parts.
+          I built this because I kept explaining the same things to people who&apos;d never touched a terminal.
+          The official docs are solid if you already know the territory. This guide is for everyone who doesn&apos;t.
+          I&apos;m a PM who&apos;s used AI tools with hundreds of people across different roles. I know where people get stuck. This guide skips those parts.
         </p>
       </section>
 
@@ -344,51 +298,6 @@ export default function HomePage() {
                   <span className="inline-flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity group-hover:opacity-100">
                     Let&apos;s go <ArrowRight className="h-3.5 w-3.5" />
                   </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── Divider ── */}
-      <div className="mx-auto w-full max-w-5xl border-t border-dashed border-fd-border" />
-
-      {/* ── What's Inside (Feature Grid) ── */}
-      <section className="mx-auto w-full max-w-5xl px-6 py-24">
-        <p className="mb-2 text-center text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-          What&apos;s in here
-        </p>
-        <h2 className="mb-4 text-center font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
-          What&apos;s inside the guide
-        </h2>
-        <p className="mb-14 text-center text-fd-muted-foreground max-w-lg mx-auto">
-          First-time setup to advanced workflows. I wrote everything for actual humans, not people who already know the answer.
-        </p>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {CONTENT_SECTIONS.map((section) => {
-            const Icon = section.icon;
-            return (
-              <Link
-                key={section.title}
-                href={section.href}
-                className="group flex flex-col rounded-xl border border-fd-border bg-fd-card p-6 transition-all duration-200 hover:shadow-md hover:border-fd-muted-foreground/30"
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <Icon className={`h-5 w-5 ${section.color}`} />
-                  <span className="rounded-full bg-fd-accent px-2.5 py-0.5 text-[11px] font-medium text-fd-muted-foreground">
-                    {section.count} pages
-                  </span>
-                </div>
-                <h3 className="mb-1.5 font-display text-lg font-normal tracking-tight text-fd-foreground">
-                  {section.title}
-                </h3>
-                <p className="text-sm text-fd-muted-foreground leading-relaxed">
-                  {section.description}
-                </p>
-                <div className="mt-4 flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                  Browse <ChevronRight className="h-3.5 w-3.5" />
                 </div>
               </Link>
             );
@@ -482,44 +391,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="mt-auto border-t border-fd-border px-6 py-8">
-        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-3">
-            <p className="font-mono text-sm text-fd-muted-foreground">
-              claudecodeguide<span className="font-bold text-fd-foreground">.dev</span>
-            </p>
-            <span className="text-fd-border">|</span>
-            <Link href="/bn" className="text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors">
-              বাংলায় পড়ুন
-            </Link>
-            <span className="text-fd-border">|</span>
-            <Link href="/pm-pilot" className="text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors">
-              PM Pilot
-            </Link>
-            <a
-              href="https://shadmanrahman.substack.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
-            >
-              Substack
-            </a>
-          </div>
-          <p className="text-sm text-fd-muted-foreground">
-            Built by{' '}
-            <a
-              href="https://github.com/mshadmanrahman"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-fd-foreground hover:underline"
-            >
-              Shadman Rahman
-            </a>
-            {' '}with lots of ♥️, ☕️ and Claude Code, naturally! 😉
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
