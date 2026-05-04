@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/og-home-v2.png`,
+        url: `${siteUrl}/api/og?v=3`,
         width: 1200,
         height: 630,
         alt: 'Claude Code Guide: Tell it what you need. It builds it.',
@@ -59,8 +59,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Claude Code Guide',
     description:
-      'Your calm, step-by-step guide to Claude Code. From "what is this?" to "I can\'t work without it."',
-    images: [`${siteUrl}/og-home-v2.png`],
+      'Claude Code is Anthropic\'s AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.',
+    images: [`${siteUrl}/api/og?v=3`],
   },
   keywords: [
     'claude code',

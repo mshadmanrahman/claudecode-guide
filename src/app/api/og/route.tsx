@@ -87,11 +87,11 @@ function HomeOG() {
           textAlign: 'center',
           marginTop: '24px',
           lineHeight: 1.5,
-          maxWidth: '700px',
+          maxWidth: '760px',
         }}
       >
-        Your calm, step-by-step guide to Claude.
-        Build apps, organize notes, analyze data. All in plain English.
+        Claude Code is Anthropic&apos;s AI coding assistant.
+        This guide is the calm on-ramp for everyone learning it from scratch.
       </div>
 
       {/* Stats bar */}
