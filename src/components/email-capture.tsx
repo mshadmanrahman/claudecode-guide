@@ -19,6 +19,32 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
     trackEvent('form_start', { form_name: 'newsletter', placement });
   };
 
+  const handleInvalid = (e: React.InvalidEvent<HTMLInputElement>) => {
+    const reason = e.currentTarget.validity.valueMissing
+      ? 'empty'
+      : e.currentTarget.validity.typeMismatch
+        ? 'malformed'
+        : 'other';
+    trackEvent('form_invalid_attempt', {
+      form_name: 'newsletter',
+      placement,
+      reason,
+    });
+  };
+
+  const handleBlur = () => {
+    if (!hasStarted || status !== 'idle') return;
+    if (!email) {
+      trackEvent('form_abandon_empty', { form_name: 'newsletter', placement });
+    } else if (!email.includes('@')) {
+      trackEvent('form_abandon_typed', {
+        form_name: 'newsletter',
+        placement,
+        reason: 'no_at_symbol',
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
@@ -90,6 +116,8 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           onFocus={handleFocus}
+          onBlur={handleBlur}
+          onInvalid={handleInvalid}
           placeholder="you@example.com"
           required
           className="min-w-0 flex-1 rounded-lg border border-fd-border bg-fd-background px-4 py-2.5 text-sm text-fd-foreground placeholder:text-fd-muted-foreground focus:outline-none focus:ring-2 focus:ring-fd-ring"
