@@ -1315,6 +1315,48 @@ export const blogPosts: BlogPost[] = [
 
 <p>Don't disable the intelligence. Direct it.</p>`,
   },
+  {
+    slug: "rules-that-follow-claude-everywhere",
+    title: "The Rules That Follow Claude Everywhere",
+    description: "CLAUDE.md is project-specific. But some behaviors should follow Claude into every repo you ever open. Here's the layer most people miss.",
+    date: "2026-05-06",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "claude-md", "productivity", "rules"],
+    content: `<p>Most people who get serious about Claude Code stop at <a href="/docs/foundations/claude-md">CLAUDE.md</a>. They write a good one for their main project, feel the lift, and call it done.</p>
+<p>That's a project-shaped solution to a Claude-shaped problem.</p>
+<p>Some of the things you correct Claude on aren't about your project. They're about how Claude writes, how Claude edits, how Claude reports back. Those corrections need to follow it into every repo you ever open. Otherwise you're rewriting the same rules in seven CLAUDE.md files and forgetting to update the eighth.</p>
+
+<h2>The Path Most People Don't Know</h2>
+<p>Drop a markdown file in <code>~/.claude/rules/common/</code>. Claude Code loads it on every session, regardless of which project you're in. No CLAUDE.md import, no MCP plumbing, no hook config. Just a file in a folder.</p>
+<p>I treat that folder as the rules layer that survives context switches. Project rules go in CLAUDE.md. Universal rules go here.</p>
+
+<h2>What's In Mine</h2>
+<p>Seven files. Each one is short. Each one was written after I caught Claude doing something I had to correct three times in a row.</p>
+<ol>
+<li><code>no-em-dashes.md</code>. Strict. Hook-enforced too, because LLMs love them and I don't.</li>
+<li><code>no-ai-slop-writing.md</code>. No clean parallelism, no rhetorical pivots, no "but here's the real thing." The voice has to sound like a person who's annoyed enough to write the thing, not a content marketer.</li>
+<li><code>no-hallucination.md</code>. Admit unknowns. Share confidence. Separate verified from inferred. If you're guessing, say so.</li>
+<li><code>anti-sycophancy.md</code>. The one I wrote about <a href="/docs/workflows/stop-claude-from-agreeing-with-everything">here</a>. Less cheerleader, more sparring partner. Push back. Bring an alternative when you criticize.</li>
+<li><code>ship-and-verify.md</code>. "Ship it" doesn't mean push to main. It means push, confirm the deploy is live, fetch the public URL, grep for the fingerprint of my change, then report back with proof. Until I have bytes from production matching intent, nothing is "shipped."</li>
+<li><code>subagent-first.md</code>. Three or more files? Spawn a subagent. Research task? Subagent. The main thread is for decisions, not for reading.</li>
+<li><code>surgical-changes.md</code>. The newest one. The reason I'm writing this post.</li>
+</ol>
+
+<h2>Why surgical-changes Earned a File of Its Own</h2>
+<p>Here's the pattern I kept burning on. I'd ask for a fix on line 42. Claude would fix line 42. It would also "tidy up" the function on line 38. Rename a variable on line 51 because it didn't match the new style. Delete a comment on line 47 it didn't understand.</p>
+<p>Each one of those edits was defensible. Together they were a 200-line drive-by refactor that broke two unrelated tests and forced me to spend half an hour with <code>git blame</code> figuring out which change actually mattered.</p>
+<p>Karpathy flagged this exact failure mode publicly: LLMs "still sometimes change/remove comments and code they don't sufficiently understand as side effects, even if orthogonal to the task." That's the whole problem in one sentence. The model isn't being malicious. It's pattern-matching on "good engineer cleans up adjacent code" without the context to know which adjacent code is intentional.</p>
+<p>The rule is short:</p>
+<blockquote>Touch only what you must. Clean up only your own mess. Every changed line must trace to the user's request. If you can't justify the diff line, revert it.</blockquote>
+<p>And then the test, which is the part that actually changes behavior:</p>
+<blockquote>Read the diff before declaring done. For each line: "does this trace directly to what was asked?" If no, revert it. If unsure, ask before keeping it.</blockquote>
+<p>Since I added it, the diffs are smaller. Reviews take less time. The drive-by refactors stopped. Worth the ten minutes it took to write.</p>
+
+<h2>How To Add Yours</h2>
+<p>Don't sit down and try to write seven rules from scratch. You'll write theory, not muscle memory. The good rules come from the third time you correct Claude on the same thing.</p>
+<p>When that happens, write it down. Drop it in <code>~/.claude/rules/common/</code>. Keep it short. Tell Claude what to do, not just what to avoid. Then watch the next session and see if it sticks.</p>
+<p>The CLAUDE.md layer makes Claude useful in your project. The universal rules layer makes Claude usable across every project. Most people only build the first one and wonder why they keep fighting the same fights.</p>`,
+  },
 ];
 
 // Sorted newest first for display
