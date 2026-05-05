@@ -1322,7 +1322,8 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-06",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "productivity", "rules"],
-    content: `<p>Most people who get serious about Claude Code stop at <a href="/docs/foundations/claude-md">CLAUDE.md</a>. They write a good one for their main project, feel the lift, and call it done.</p>
+    content: `<img src="/blog-hero-universal-rules.png" alt="A figure at a desk with floating ghost-line rule cards above, soft watercolor illustration" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+<p>Most people who get serious about Claude Code stop at <a href="/docs/foundations/claude-md">CLAUDE.md</a>. They write a good one for their main project, feel the lift, and call it done.</p>
 <p>That's a project-shaped solution to a Claude-shaped problem.</p>
 <p>Some of the things you correct Claude on aren't about your project. They're about how Claude writes, how Claude edits, how Claude reports back. Those corrections need to follow it into every repo you ever open. Otherwise you're rewriting the same rules in seven CLAUDE.md files and forgetting to update the eighth.</p>
 
