@@ -1,0 +1,156 @@
+---
+title: Catch Up on a Codebase After a Week Away
+description: "You were out for a week. The repo kept moving. Claude reads the git history, surfaces what changed and why, and flags anything that needs your attention before you touch a line."
+---
+
+<img src="/blog-hero-catchup-codebase.png" alt="Illustration: developer returning to desk, floating git log cards in the air" style={{width:"100%",borderRadius:"12px",marginBottom:"2rem"}} />
+
+<UseCaseMeta time="3 minutes" tools={["Claude Code"]} model="Claude (any)" />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "You open the repo cold.",
+      caption: "A week of vacation. Twenty-something commits you didn't see land.",
+      illustration: <ProjectFolderIllustration />,
+    },
+    {
+      headline: "You paste one prompt.",
+      caption: "No scrolling through Slack. No reading every PR description.",
+      illustration: <PromptComposerIllustration text="catch me up, I've been out for a week..." />,
+    },
+    {
+      headline: "Claude reads the git log and the changed files.",
+      caption: "Commits, diffs, the parts of the code that actually moved.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "You get a plain-language summary.",
+      caption: "What shipped, what's half-done, who touched what.",
+      illustration: <BriefDocumentIllustration />,
+    },
+    {
+      headline: "Claude flags the things that look risky.",
+      caption: "A migration that hasn't been run. A test that was disabled. A TODO with your name on it.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "You're back in context.",
+      caption: "Five minutes in. Ready to actually do the work.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Use this on the first morning back. Don't open Slack first.
+
+<PromptCard
+  id="catch-up-codebase-primary"
+  variant="primary"
+  prompt={`Catch me up on this repo. I've been out for the last 7 days.
+
+Read the git log for that window and the diffs of the most-changed files. Then write me a short summary that covers:
+
+- What shipped (features, fixes, refactors) and roughly why, in plain English
+- What's in-flight or half-done
+- Anything that looks risky or broken: failing tests, disabled tests, dropped error handling, migrations that haven't been run, TODOs left in hot paths
+
+Only flag things you're reasonably confident about. If something is ambiguous, ask me one clarifying question instead of guessing.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+Welcome back. Here's the week in plain English. I read 23 commits across 6 contributors, mostly on the `billing` and `auth` paths.
+
+**What shipped**
+- New invoice PDF export in `services/billing/pdf.ts`. Looks complete, has tests.
+- Auth refactor: session tokens now signed with the new key. Migration in `migrations/2026_05_03_session_keys.sql` was added but I don't see it in the deployed list. Worth checking before you touch auth code today.
+- Three small UI fixes on the dashboard. Boring, no surprises.
+
+**In-flight**
+- The `feat/team-invites` branch has 4 commits this week, no PR yet. Looks like Marcus is mid-flight.
+- A half-written rate limiter in `lib/rate-limit.ts`. Has TODOs and no callers.
+
+**Things I'd flag**
+- `tests/billing/refunds.test.ts` was marked `.skip` in commit `a4f2c1`. Commit message just says "flaky." I'd ask why before trusting the suite.
+- Error handling around the Stripe webhook (`api/webhooks/stripe.ts`) was simplified. I assumed this was intentional cleanup, correct me if wrong.
+
+One question before I dig deeper: do you want the same lens on the `infra/` directory, or skip it? It changed a lot but I don't know if that's your scope.
+
+</FromClaude>
+
+## Variations
+
+Same shape, small twists.
+
+<PromptCard
+  id="catch-up-codebase-v1"
+  variant="variation"
+  kicker="After a longer absence"
+  prompt={`I've been off this repo for about 4 weeks. Don't try to summarize every commit.
+
+Read the git log for the last 30 days, then group changes by area (auth, billing, frontend, infra, etc.). For each area, give me one paragraph: what changed, who owned it, and whether it looks finished.
+
+Then tell me the top 3 things I should read in full before I write any code.`}
+/>
+
+<PromptCard
+  id="catch-up-codebase-v2"
+  variant="variation"
+  kicker="Onboarding to a codebase you didn't write"
+  prompt={`I just joined this team. I didn't write any of this code.
+
+Read the top-level README, the package.json (or equivalent), and the most-touched files from the last 90 days. Then explain to me:
+
+- What this service actually does, in two sentences
+- The 5 directories I should know exist and what lives in each
+- The 3 files I'll probably end up reading first when I get a real ticket
+
+Be honest about parts of the codebase that look messy or under-documented.`}
+/>
+
+<PromptCard
+  id="catch-up-codebase-v3"
+  variant="variation"
+  kicker="Reviewing a feature branch you didn't write"
+  prompt={`I need to review the branch [branch-name]. I didn't write any of it.
+
+Diff it against main, read the changed files, and walk me through what this branch is doing in plain English. Then list:
+
+- The riskiest changes (anything touching auth, payments, data migrations, public APIs)
+- Anything that looks copy-pasted or duplicated
+- Anything you can't tell whether it's intentional
+
+Don't write a verdict. Just give me what I need to ask the author smart questions.`}
+/>
+
+## Tips and gotchas
+
+**Pick a time window.** "Catch me up on everything" produces a wall of text. One week, one month, one branch. Bound it.
+
+**Tell it to read the files, not just the log.** Commit messages lie. The diff is the source of truth, ask for both.
+
+**Cap the hedging.** Without guardrails Claude will flag every change as "potentially risky." Ask it to flag only what it's reasonably confident about.
+
+## Ready to try?
+
+<PromptCard
+  id="catch-up-codebase-try-now"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`Catch me up on this repo. I've been out for the last 7 days.
+
+Read the git log for that window and the diffs of the most-changed files. Then write me a short summary that covers:
+
+- What shipped (features, fixes, refactors) and roughly why, in plain English
+- What's in-flight or half-done
+- Anything that looks risky or broken: failing tests, disabled tests, dropped error handling, migrations that haven't been run, TODOs left in hot paths
+
+Only flag things you're reasonably confident about. If something is ambiguous, ask me one clarifying question instead of guessing.`}
+/>
+
+<AuthorBio />

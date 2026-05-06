@@ -1,0 +1,157 @@
+---
+title: Review Your Branch Before Pushing
+description: "You've been heads-down for two hours. Before you push, give Claude Code your diff and ask for a second opinion. It reads the whole branch and surfaces what you missed."
+---
+
+<img src="/blog-hero-review-branch.png" alt="Illustration: developer reviewing floating diff cards before pushing to remote" style={{width:"100%",borderRadius:"12px",marginBottom:"2rem"}} />
+
+<UseCaseMeta time="2 minutes" tools={["Claude Code"]} model="Claude (any)" />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "You think you're done.",
+      caption: "Two hours of focused work. Thirty lines of diff. It compiles.",
+      illustration: <FileEditingIllustration />,
+    },
+    {
+      headline: "You ask Claude to look at it before you push.",
+      caption: "Two minutes of someone else's eyes. Free.",
+      illustration: <PromptComposerIllustration text="review my branch before I push..." />,
+    },
+    {
+      headline: "Claude reads the full diff against main.",
+      caption: "Every changed file, every removed line, every signature change.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "Claude flags what you missed.",
+      caption: "A leftover console.log. An edge case you skipped. A function whose callers didn't get updated.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "You fix what's worth fixing.",
+      caption: "Some flags you accept. Some you push back on. Quick.",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "Clean push.",
+      caption: "No 'fix typo' commit five minutes after the PR opens.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Use this right before you push. Not after.
+
+<PromptCard
+  id="review-branch-primary"
+  variant="primary"
+  prompt={`Review my branch before I push. Diff against main and read the changed files.
+
+Look for:
+- Obvious bugs or missed edge cases (null/undefined paths, off-by-one, async race conditions)
+- Anything that changed signature or contract where the callers might not be updated
+- Debug statements, console.logs, commented-out code, or TODOs left in
+- Tests that are missing for new behavior
+
+Be specific. Cite line numbers, not vague concerns. If the branch looks clean, tell me that and stop. Don't invent problems.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+Read the branch (8 files, 142 lines added, 31 removed). Three things worth your attention, one nit.
+
+**Worth fixing**
+
+1. `services/order/checkout.ts:88` — you handle `payment.status === "succeeded"` but not `"requires_action"`. Stripe returns that for 3DS flows. Will silently fail for any EU card needing SCA.
+
+2. `services/order/checkout.ts:142` — you renamed `processRefund` to `issueRefund` but `api/webhooks/stripe.ts:67` still calls the old name. TypeScript caught it for me but only because I read both files. If callers are dynamic anywhere, this breaks at runtime.
+
+3. `lib/email/templates.ts:23` — leftover `console.log("EMAIL DEBUG", payload)`. I assume that's not meant to ship.
+
+**Nit, your call**
+
+`utils/format.ts:14` — new `formatCurrency` helper has no test. The logic looks right by inspection but currency formatting has nasty locale edge cases (CHF, JPY without decimals). Worth a one-line test.
+
+Nothing else jumped out. The Stripe webhook simplification looks intentional and clean. Push when you're ready.
+
+</FromClaude>
+
+## Variations
+
+Same shape, small twists.
+
+<PromptCard
+  id="review-branch-v1"
+  variant="variation"
+  kicker="Before requesting PR review"
+  prompt={`I'm about to request review on this PR. Here's the description I'm planning to use:
+
+[paste PR description]
+
+Diff against main, read the changed files, and tell me whether the PR description matches what the code actually does. Flag anything I claimed in the description that the diff doesn't back up, or anything the diff does that I forgot to mention.
+
+Then check for the usual stuff: missed edge cases, leftover debug code, callers not updated.`}
+/>
+
+<PromptCard
+  id="review-branch-v2"
+  variant="variation"
+  kicker="For a database migration"
+  prompt={`I'm about to run this migration on staging. Read the migration file and any code that references the affected tables.
+
+Tell me:
+- Is this reversible, and if not is that intentional
+- Will it lock a hot table for an unreasonable amount of time
+- Does any application code still reference columns or tables this drops or renames
+- Is the down migration actually correct
+
+Be paranoid. I'd rather you flag a non-issue than miss a real one for a migration.`}
+/>
+
+<PromptCard
+  id="review-branch-v3"
+  variant="variation"
+  kicker="Quick security check"
+  prompt={`Before I push, do a fast security pass on this diff against main.
+
+Check for:
+- Secrets, tokens, or API keys committed by mistake
+- User input that flows into a query, shell command, or file path without escaping
+- New endpoints that don't check auth
+- Logs that include sensitive data (passwords, tokens, full request bodies)
+
+If nothing pops, say so plainly. Don't manufacture a finding.`}
+/>
+
+## Tips and gotchas
+
+**Give it the PR description if you have one.** Context changes what counts as missing. A "fix typo" PR shouldn't get the full edge-case treatment.
+
+**Demand line numbers.** "There might be a race condition somewhere" is noise. "Race condition at `checkout.ts:88` because X" is signal.
+
+**Don't ask it to write the missing tests in this pass.** Review first, fix second. Mixing the two phases makes the review messier and the fixes sloppier.
+
+## Ready to try?
+
+<PromptCard
+  id="review-branch-try-now"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`Review my branch before I push. Diff against main and read the changed files.
+
+Look for:
+- Obvious bugs or missed edge cases (null/undefined paths, off-by-one, async race conditions)
+- Anything that changed signature or contract where the callers might not be updated
+- Debug statements, console.logs, commented-out code, or TODOs left in
+- Tests that are missing for new behavior
+
+Be specific. Cite line numbers, not vague concerns. If the branch looks clean, tell me that and stop. Don't invent problems.`}
+/>
+
+<AuthorBio />

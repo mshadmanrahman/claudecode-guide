@@ -1,0 +1,180 @@
+---
+title: Triage Bug Reports Without Losing Your Morning
+description: "Paste your bug list. Claude groups duplicates, flags false positives, and surfaces the ones that are actually P1s. Monday morning sorted in ten minutes."
+---
+
+<img src="/blog-hero-bug-triage.png" alt="Illustration: developer with floating bug report cards being sorted and grouped" style={{width:"100%",borderRadius:"12px",marginBottom:"2rem"}} />
+
+<UseCaseMeta time="10 minutes" tools={["Claude Code"]} model="Claude (any)" />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "It's Monday. There are 12 bug reports.",
+      caption: "Some duplicates. Some feature requests in disguise. Two probably matter.",
+      illustration: <SkimOnPhoneIllustration />,
+    },
+    {
+      headline: "You paste the whole list to Claude.",
+      caption: "Full text. Not just titles.",
+      illustration: <PromptComposerIllustration text="triage these 12 bug reports..." />,
+    },
+    {
+      headline: "Claude reads each one.",
+      caption: "Repro steps, screenshots if attached, the version field, the user notes.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "Claude groups duplicates and reframes the noise.",
+      caption: "Three reports about the same thing collapse to one. Two feature requests get pulled out of the bug pile.",
+      illustration: <BriefDocumentIllustration />,
+    },
+    {
+      headline: "The real P1s surface.",
+      caption: "Claude says which ones look urgent and why.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "You start the week with a clear list.",
+      caption: "Two things to fix. Three to send back for more info. The rest can wait.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Paste the full text of every bug report. Titles alone won't catch duplicates.
+
+<PromptCard
+  id="triage-bugs-primary"
+  variant="primary"
+  prompt={`Here are the bug reports that came in over the weekend. Triage them for me.
+
+[paste the full text of each report, with whatever fields you have: title, description, repro steps, version, reporter]
+
+For my context: I count something as a P1 if it's a regression in the last release OR it's blocking a paying customer's core flow. Anything else is P2 or below.
+
+Do this:
+1. Group obvious duplicates. Show me which IDs collapse together and why.
+2. Pull out anything that's actually a feature request, not a bug, and put it in a separate bucket.
+3. Identify the P1s by my definition above and say specifically why each one qualifies.
+4. Produce a final prioritized list: P1s first, then P2s, then "needs more info" (where the report doesn't have enough to act on).
+
+Don't assign owners. That's a separate pass.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+Triaged 12 reports. The pile is smaller than it looks.
+
+**Duplicates (collapsed to 4 distinct issues)**
+- BUG-401, BUG-407, BUG-411 are all the same thing: checkout fails on Safari iOS when Apple Pay is enabled. Three users, same browser, same flow.
+- BUG-403 and BUG-409 both describe the dashboard freezing on filter change. Different users, same symptom.
+
+**Not bugs (feature requests in disguise)**
+- BUG-405: "search should rank by relevance, not date." That's a product call, not a regression.
+- BUG-412: "I want to be able to bulk-delete invoices." Also a feature request.
+
+**P1s (2)**
+1. BUG-401/407/411 (Apple Pay checkout). Blocks a paying customer flow on a major mobile browser. Three reporters in 48 hours suggests it's not edge-case.
+2. BUG-408 (auth tokens rejected after password change). Reporter is on the Pro plan, says they were locked out for an hour. Regression risk: the auth refactor went out last Wednesday. I'd check that PR first.
+
+**P2s (3)**
+- BUG-403/409 (dashboard filter freeze). Annoying but not blocking, no plan-tier signal in the reports.
+- BUG-404 (invoice PDF missing logo). Cosmetic, low traffic path.
+- BUG-410 (timezone shows UTC in confirmation email). Cosmetic, but annoying for anyone east of London.
+
+**Needs more info (3)**
+- BUG-402: "the app is slow." No browser, no flow, no version. Send back.
+- BUG-406: screenshot attached but no description. Send back.
+- BUG-413: "doesn't work" with no detail. Send back.
+
+One thing I'd flag: BUG-408 might be linked to the auth changes. Worth pulling Marcus in before you fix it blind.
+
+</FromClaude>
+
+## Variations
+
+Same shape, small twists.
+
+<PromptCard
+  id="triage-bugs-v1"
+  variant="variation"
+  kicker="One complex bug, help me reproduce"
+  prompt={`Here's one bug report I can't reproduce locally.
+
+[paste the full report including environment, version, repro steps]
+
+Read it carefully. Tell me:
+- What you think is actually happening, based on the description
+- The most likely root cause given my codebase
+- Three things I should try to reproduce it (specific browser settings, data states, network conditions)
+- What additional info I should ask the reporter for if I still can't repro
+
+Don't propose a fix yet. Help me see the bug first.`}
+/>
+
+<PromptCard
+  id="triage-bugs-v2"
+  variant="variation"
+  kicker="Triaging customer feedback"
+  prompt={`Here's a batch of customer feedback from the last week. It's a mix of complaints, feature requests, praise, and questions.
+
+[paste the feedback]
+
+Sort it into:
+- Actual bugs (with enough detail to file a ticket)
+- Feature requests (group similar ones together)
+- Confusion or onboarding issues (suggests a docs/UX problem, not a code problem)
+- Praise (worth flagging to the team but no action needed)
+- Things I should respond to personally because they're high-touch
+
+For each bucket, tell me how many items and what the dominant theme is.`}
+/>
+
+<PromptCard
+  id="triage-bugs-v3"
+  variant="variation"
+  kicker="Weekly bug review with the team"
+  prompt={`Here's the bug list I want to walk through with the team this week.
+
+[paste the bugs]
+
+Triage them as you normally would, then draft a 30-minute meeting agenda based on the result. Time-box each section. Highlight the 2-3 items that genuinely need group discussion versus the ones I can decide alone before the meeting.
+
+The goal is to leave the meeting with owners and rough timelines, not deeper debate.`}
+/>
+
+## Tips and gotchas
+
+**Paste the full text, not titles.** Duplicates hide in the description, not the title. Two bugs called "checkout broken" are often two different problems.
+
+**Define P1 upfront.** Severity, customer impact, regression status. Without it, Claude defaults to whatever it picked up from training, and your priorities probably look different.
+
+**Don't ask it to assign owners in the same pass.** Triage and assignment are different decisions. Mixing them produces vague results on both.
+
+## Ready to try?
+
+<PromptCard
+  id="triage-bugs-try-now"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`Here are the bug reports that came in over the weekend. Triage them for me.
+
+[paste the full text of each report, with whatever fields you have: title, description, repro steps, version, reporter]
+
+For my context: I count something as a P1 if it's a regression in the last release OR it's blocking a paying customer's core flow. Anything else is P2 or below.
+
+Do this:
+1. Group obvious duplicates. Show me which IDs collapse together and why.
+2. Pull out anything that's actually a feature request, not a bug, and put it in a separate bucket.
+3. Identify the P1s by my definition above and say specifically why each one qualifies.
+4. Produce a final prioritized list: P1s first, then P2s, then "needs more info" (where the report doesn't have enough to act on).
+
+Don't assign owners. That's a separate pass.`}
+/>
+
+<AuthorBio />

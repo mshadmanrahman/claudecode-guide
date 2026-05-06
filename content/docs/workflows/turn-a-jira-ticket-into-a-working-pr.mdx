@@ -1,0 +1,164 @@
+---
+title: Turn a Jira Ticket Into a Working PR
+description: "Paste the ticket. Claude reads the codebase, asks two clarifying questions, proposes a plan, and writes the code. The gap between 'ticket assigned' and 'PR open' shrinks."
+---
+
+<img src="/blog-hero-jira-to-pr.png" alt="Illustration: developer at desk with floating Jira ticket and code diff cards" style={{width:"100%",borderRadius:"12px",marginBottom:"2rem"}} />
+
+<UseCaseMeta time="15 minutes" tools={["Claude Code"]} model="Claude (any)" />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "You have a ticket.",
+      caption: "Acceptance criteria, a few links, a screenshot. Standard fare.",
+      illustration: <SkimOnPhoneIllustration />,
+    },
+    {
+      headline: "You paste it to Claude with a pointer to the right folder.",
+      caption: "One ticket, one folder hint. That's the whole input.",
+      illustration: <PromptComposerIllustration text="here's the ticket, implement this..." />,
+    },
+    {
+      headline: "Claude reads the relevant code.",
+      caption: "The folder you pointed at, plus whatever it pulls in.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "Claude proposes a plan, asks two questions.",
+      caption: "Files it'll change, the approach, the assumptions. Then it stops and waits.",
+      illustration: <BriefDocumentIllustration />,
+    },
+    {
+      headline: "You say go. Claude writes the code.",
+      caption: "Implementation, tests, the boring parts.",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "You review, you push.",
+      caption: "The diff is small enough to actually read. PR open.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Paste the full ticket text. Don't summarize it.
+
+<PromptCard
+  id="ticket-to-pr-primary"
+  variant="primary"
+  prompt={`Here's a Jira ticket I need to implement. The relevant code lives in [folder/path].
+
+[paste the full ticket: title, description, acceptance criteria]
+
+Before you write any code, do this:
+
+1. Read the folder I pointed you at and any files that look directly related.
+2. Propose an implementation plan: which files you'd change, what the approach is, and what you're assuming.
+3. Ask me at most 2 clarifying questions about anything genuinely ambiguous in the ticket.
+
+Then stop. Wait for me to approve the plan before touching any code.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+Read the ticket and `services/notifications/`. Here's where I'd land.
+
+**Plan**
+
+The ticket asks for a "digest mode" toggle on email preferences so users get one daily summary instead of per-event emails. My read of the folder:
+
+- The toggle goes on `UserPreferences` (`models/user-preferences.ts`). New boolean, defaults to `false`. Migration needed.
+- The send path forks in `services/notifications/dispatch.ts:42`. If digest mode is on, instead of sending immediately, queue into a new `notification_queue` table. A daily worker drains the queue and sends one email per user.
+- UI toggle goes in `app/settings/notifications/page.tsx`. Existing pattern, straightforward.
+- Tests: unit on the dispatch fork, integration for the worker draining a sample queue.
+
+**Two assumptions I'd flag**
+
+1. The ticket says "daily" but doesn't say when. I'd default to the user's timezone at 8am local. Push back if that's wrong.
+2. I'm assuming we don't need to backfill: users who toggle on get the digest starting tomorrow, not for events that already happened. Acceptance criteria didn't mention backfill, so I'm calling it out of scope.
+
+**Two questions before I start**
+
+1. Is there an existing job runner I should plug the daily worker into, or do I scaffold a new cron? I see `lib/jobs/` but it looks unused.
+2. If a user has digest mode on and zero events that day, do we send an empty email, skip, or send "nothing happened today"? My instinct is skip but it's a product call.
+
+I won't touch code until you answer those.
+
+</FromClaude>
+
+## Variations
+
+Same shape, small twists.
+
+<PromptCard
+  id="ticket-to-pr-v1"
+  variant="variation"
+  kicker="For a bug ticket"
+  prompt={`Here's a bug ticket. The relevant code is probably in [folder/path].
+
+[paste the full ticket]
+
+Before you propose a fix, reproduce the bug. Read the code, trace the flow described in the ticket, and tell me what you think is actually happening. Show me the line where it goes wrong.
+
+Then propose a fix and ask any clarifying questions. Don't write the fix until I confirm your reproduction matches what users are seeing.`}
+/>
+
+<PromptCard
+  id="ticket-to-pr-v2"
+  variant="variation"
+  kicker="For a ticket with no acceptance criteria"
+  prompt={`Here's a ticket. It's vague: no acceptance criteria, just a description.
+
+[paste the ticket]
+
+Don't write code yet. Draft acceptance criteria yourself based on what you think the ticket is asking for. List your assumptions explicitly. Then ask me to confirm the criteria before you start.
+
+If the ticket is genuinely unbuildable as written, say that and tell me what's missing.`}
+/>
+
+<PromptCard
+  id="ticket-to-pr-v3"
+  variant="variation"
+  kicker="PM drafting a ticket from a Slack thread"
+  prompt={`Here's a Slack thread where someone described a problem. I need to turn it into a Jira ticket the engineering team can pick up.
+
+[paste the Slack thread]
+
+Draft the ticket. I want: a clear title, a problem statement (not a solution), acceptance criteria written from the user's perspective, and any open questions I should ask the requester before sending it to engineering.
+
+If anything in the thread is contradictory or missing, flag it instead of guessing.`}
+/>
+
+## Tips and gotchas
+
+**Point it at the right folder.** Claude is good at finding related files once it's started, less good at guessing which corner of a monorepo to start in.
+
+**Tell it to plan before coding.** Default behavior is to start writing immediately. The "stop and wait" instruction is what saves you from a 400-line diff that solved the wrong problem.
+
+**If the ticket is vague, ask Claude to list assumptions.** A list of assumptions is much easier to correct than a half-built feature based on the wrong ones.
+
+## Ready to try?
+
+<PromptCard
+  id="ticket-to-pr-try-now"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`Here's a Jira ticket I need to implement. The relevant code lives in [folder/path].
+
+[paste the full ticket: title, description, acceptance criteria]
+
+Before you write any code, do this:
+
+1. Read the folder I pointed you at and any files that look directly related.
+2. Propose an implementation plan: which files you'd change, what the approach is, and what you're assuming.
+3. Ask me at most 2 clarifying questions about anything genuinely ambiguous in the ticket.
+
+Then stop. Wait for me to approve the plan before touching any code.`}
+/>
+
+<AuthorBio />
