@@ -1,0 +1,174 @@
+---
+title: "Synthesize User Research Into Findings Your Team Will Act On"
+description: "You did the interviews. Now 8 hours of notes are sitting in a folder. Paste them into Claude and get structured insights with supporting evidence, design implications, and an executive summary your team will actually use."
+---
+
+<UseCaseMeta time="20 minutes" tools={["Claude.ai"]} />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "You ran the interviews. The notes are sitting untouched.",
+      caption: "Five sessions. Eight hours. A folder full of raw transcripts that nobody has looked at since the calls ended.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "You paste the notes into Claude.",
+      caption: "All of it. Transcripts, observation notes, survey responses, whatever you captured. Raw is fine.",
+      illustration: <PromptComposerIllustration text="Here are my research notes from 5 user interviews. Help me synthesize them into findings..." />,
+    },
+    {
+      headline: "Claude asks what question the research was meant to answer.",
+      caption: "Not everything you heard is equally relevant. The research question focuses the synthesis.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "Claude writes a structured findings report.",
+      caption: "3 to 5 themes, each with supporting quotes, an interpretation, and a design implication. Plus an executive summary.",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "You dispute, add nuance, cut the nonsense.",
+      caption: "Claude will sometimes over-generalize or miss context you have. Push back. The conversation is the editor.",
+      illustration: <FileEditingIllustration />,
+    },
+    {
+      headline: "You walk into design review knowing exactly what to say.",
+      caption: "Not 'users said a lot of things.' Real findings. Specific evidence. Clear implications.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Paste this into Claude.ai with your notes in the placeholder. The more raw your notes, the better; Claude handles messy input well.
+
+<PromptCard
+  id="research-synthesis-primary"
+  variant="primary"
+  prompt={`I need to synthesize user research into a findings report.
+
+The research question we were trying to answer: [one sentence]
+
+Here are my notes: [paste interview transcripts, session notes, survey responses, or a plain-English summary of what you observed and heard]
+
+Please:
+1. Group what you find into 3 to 5 major themes
+2. For each theme, write: what users said (with 1 to 2 direct quotes if they exist), what it means (your interpretation), and what we should consider doing about it
+3. Add an executive summary at the top (3 to 4 sentences: what we learned and what it means for our decisions)
+4. Flag anything where different users said contradictory things. Don't resolve those tensions; just surface them clearly.
+
+Keep it to one page per theme maximum. This needs to be shareable with a team that won't read long documents.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+## Executive summary
+
+Users can complete the core task, but not without anxiety. The friction isn't in the flow; it's in the feedback: they don't know if what they did worked until well after they expected confirmation. Three of five participants described feeling like they "weren't sure if it went through." The clearest design implication: earlier, more explicit confirmation at every consequential action.
+
+---
+
+## Theme 1: Confirmation anxiety is the dominant experience
+
+**What users said:**
+
+> "I submitted it and then just sat there waiting. I didn't know if I should refresh or if it was already done." (P2)
+
+> "There was a spinner, but it went away really fast and I still wasn't sure." (P4)
+
+**What it means:** Users aren't failing to complete the task. They're completing it and then second-guessing themselves. The problem isn't discoverability or flow; it's the gap between action and confirmed outcome.
+
+**Design implication:** Introduce a persistent success state that stays visible until the user navigates away. The spinner resolving is not enough.
+
+---
+
+## Theme 2: Users don't read the confirmation email
+
+**What users said:** All five participants ignored or forgot about the confirmation email. Two checked it later only when they wanted proof of completion.
+
+**What it means:** Email is a receipt, not a primary signal. Designing for email confirmation as the main source of truth sets up friction for users who act immediately.
+
+**Design implication:** In-product confirmation needs to be the primary signal. Email is secondary.
+
+---
+
+## Theme 3: Contradictory findings on error recovery
+
+**Tension to surface:** P1 and P3 said error messages were clear and they recovered easily. P4 said the error message on the same step "didn't tell me what to fix." This may be a prior-experience effect: P1 and P3 had used similar tools before; P4 had not. Worth a follow-up round with less experienced users before assuming error messages are working.
+
+</FromClaude>
+
+## Variations
+
+Same shape, different research types.
+
+<PromptCard
+  id="research-synthesis-usability"
+  variant="variation"
+  kicker="For a usability test, not interviews"
+  prompt={`I ran a usability test on [product or feature]. Here are my observation notes: [paste notes]
+
+The task participants were trying to complete: [describe the task]
+
+For each participant, note whether they succeeded, where they got stuck, and what they said while working through it. Then synthesize across participants: what were the 3 most common friction points, and what's the severity of each (did it block completion, slow them down, or just cause confusion)?`}
+/>
+
+<PromptCard
+  id="research-synthesis-competitive"
+  variant="variation"
+  kicker="For competitive research from public reviews"
+  prompt={`I've gathered public reviews and feedback about [competitor or product category]. Here's what I collected: [paste review excerpts, support forum posts, Reddit threads, app store reviews]
+
+Synthesize these into: the top 3 things users love about these products, the top 3 frustrations or gaps, and any patterns that suggest an unmet need our product could address.
+
+Be honest about the limitations: this is public review data, not a controlled study. Flag where you're inferring intent versus quoting directly.`}
+/>
+
+<PromptCard
+  id="research-synthesis-challenging"
+  variant="variation"
+  kicker="For research that contradicts what your team believes"
+  prompt={`My research findings contradict a strong team belief about [assumption or hypothesis].
+
+Here's what the team believes: [describe the assumption]
+Here's what I found: [describe what your research surfaced]
+
+Help me write a findings report that presents this honestly without triggering defensiveness. I want to lead with what we learned, not with "we were wrong." Suggest how to frame the implication section so it reads as an invitation to reconsider, not an indictment.`}
+/>
+
+## Tips and gotchas
+
+**Start with the contradictions, not the consensus.** The themes where all users agreed are rarely where the insight lives. The contradictions are where your research has something real to say.
+
+**Keep findings and recommendations separate.** "Users struggled to find the submit button" is a finding. "We should make the button larger" is a recommendation. Claude will sometimes blend these: push back and ask it to separate them. They belong in different sections because different people make those decisions.
+
+**Three interviews is not enough for "users feel."** If your sample is small, tell Claude and ask it to caveat accordingly. "Two of three participants said" is honest. "Users feel" from three people is not. The report will be more credible if it's accurate about its own limits.
+
+**Granola captures the raw material.** If you're running meetings or interviews and want automatic transcripts to paste into this workflow, [Granola](https://www.granola.ai?via=shadman-rahman) records and summarizes sessions in the background. The transcript is what you paste here.
+
+## Ready to try?
+
+<PromptCard
+  id="research-synthesis-tryagain"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`I need to synthesize user research into a findings report.
+
+The research question we were trying to answer: [one sentence]
+
+Here are my notes: [paste interview transcripts, session notes, survey responses, or a plain-English summary of what you observed and heard]
+
+Please:
+1. Group what you find into 3 to 5 major themes
+2. For each theme, write: what users said (with 1 to 2 direct quotes if they exist), what it means (your interpretation), and what we should consider doing about it
+3. Add an executive summary at the top (3 to 4 sentences: what we learned and what it means for our decisions)
+4. Flag anything where different users said contradictory things. Don't resolve those tensions; just surface them clearly.
+
+Keep it to one page per theme maximum. This needs to be shareable with a team that won't read long documents.`}
+/>
+
+<AuthorBio />

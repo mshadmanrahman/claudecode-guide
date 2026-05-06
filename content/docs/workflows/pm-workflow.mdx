@@ -1,128 +1,132 @@
 ---
 title: "Claude Code for Product Managers"
-description: "No code required. How PMs use Claude Code for meeting prep, decision tracking, and status reports that practically write themselves."
+description: "No codebase access required. How PMs use Claude to draft specs, synthesize research, write stakeholder updates, and prepare for every meeting in a fraction of the usual time."
 ---
 
-## You don't need to write a single line of code.
+## You don't need a terminal. You need a workflow.
 
-This is the most important thing to understand about Claude Code as a PM. It reads files, searches across systems, synthesizes information, and automates the repetitive knowledge work that eats your day. That's most of what product management actually is.
+Most PM guides for AI tools assume you have access to the codebase, a local dev environment, or at least some comfort with the command line. This one doesn't.
 
-<DemoCard title="A PM's Monday morning with Claude Code" steps={[
-  { type: 'cmd', text: 'claude /pulse' },
-  { type: 'out', text: 'Reading 4 active projects...' },
-  { type: 'success', text: '✓ Dashboard v2: on track, deploy Wednesday' },
-  { type: 'error', text: '⚠ Auth migration: blocked on legal review (3 days)' },
-  { type: 'success', text: '✓ Mobile app: sprint 4 started, 12 tickets' },
-  { type: 'warn', text: '⚠ Search redesign: no update in 5 days' },
+Claude.ai is enough to do most of what follows. You paste context, Claude asks clarifying questions, you get something useful back. The value isn't in the technical interface; it's in what you do with the output.
+
+Here are the five PM tasks where Claude saves the most time.
+
+---
+
+## 1. Writing specs and PRDs
+
+The hardest part of writing a PRD isn't the writing. It's making the decisions the document forces you to make: what's in scope, what success looks like, what you're explicitly leaving out.
+
+Paste your rough notes and half-formed thinking into Claude and ask it to clarify scope before it writes anything. The questions it asks are often more valuable than the draft it produces.
+
+<DemoCard title="PRD from rough notes" steps={[
+  { type: 'cmd', text: 'Paste this into Claude.ai' },
+  { type: 'out', text: 'Here are my rough notes on the notification redesign...' },
+  { type: 'out', text: '[paste everything: Slack threads, Figma comments, your notes]' },
+  { type: 'out', text: 'Ask me 3 questions to sharpen scope, then write a PRD.' },
   { type: 'out', text: '' },
-  { type: 'cmd', text: 'claude /meeting-prep Sarah', delay: 1000 },
-  { type: 'out', text: 'Pulling context for 1:1 with Sarah...' },
-  { type: 'success', text: '✓ 2 open action items from last week' },
-  { type: 'success', text: '✓ Her PTO next Thursday: handoff needed' },
-  { type: 'success', text: '✓ Talking points generated' },
-  { type: 'warn', text: '→ Monday context in 2 minutes. No tab-switching.' },
+  { type: 'success', text: '→ Claude asks about primary user, success metric, Zendesk hard constraint' },
+  { type: 'success', text: '→ Writes: problem statement, user stories, success metrics, out of scope, open questions' },
+  { type: 'warn', text: '→ 15 minutes. Not 3 hours.' },
 ]} />
 
-## Core PM Skills
+Full walkthrough with prompts: [Write a PRD from rough notes](/docs/workflows/write-a-prd-from-rough-notes).
 
-Claude Code extends through "skills": specialized workflows triggered by simple commands. Here are the ones I built specifically for PM work.
+---
 
-### Meeting Prep
+## 2. Synthesizing user research
 
-Before any meeting you need context: what happened last time, what's open, what decisions are pending. The meeting prep skill pulls all of this automatically.
+After interviews, you have transcripts. Before insights, you have hours of synthesis work. Claude compresses that.
 
-What it does:
-- Searches your notes and documents for recent interactions with the person or topic
-- Finds open action items from previous meetings
-- Surfaces relevant project updates
-- Generates suggested talking points
+Paste your raw notes and tell Claude the research question you were trying to answer. It groups findings into themes, pulls supporting quotes, writes design implications, and surfaces the contradictions your team needs to discuss.
 
-Instead of spending 15 minutes before each meeting scrambling through Slack and Jira, you run one command and get a briefing document.
-
-### Post-Meeting Processing
-
-After a meeting, you have decisions, action items, and context that needs to go somewhere. Most of it gets lost in a day. The post-meeting skill captures all of it while it's fresh.
-
-What it does:
-- Extracts decisions and action items from meeting notes
-- Updates your living project documents with new information
-- Creates follow-up tasks
-- Links decisions to the projects they affect
-
-This is where the real power is. Every meeting you process adds to your project's knowledge base. Over weeks, your project documents become comprehensive and current without you manually updating them.
-
-### Pulse Dashboard
-
-When you manage multiple projects, the hardest question is "what needs my attention right now?" The pulse skill answers it.
-
-What it does:
-- Reads all your active project documents
-- Identifies what is blocked, what is at risk, and what is on track
-- Highlights projects that haven't been updated recently
-- Generates a unified dashboard view
-
-I run this every Monday morning. Gives me the week in under two minutes.
-
-### Weekly Status Reports
-
-Nobody likes writing status reports. The weekly status skill generates them from your actual work artifacts.
-
-What it does:
-- Pulls completed work from your project management tools
-- Summarizes meeting outcomes and decisions made
-- Lists key metrics and their trends
-- Formats everything into a shareable report
-
-The output is a draft. You review it, add your narrative, and send. But 80% of the work is done before you open it.
-
-<DemoCard title="Post-meeting processing: decisions don't get lost" steps={[
-  { type: 'cmd', text: 'claude /post-meeting' },
-  { type: 'out', text: 'Paste your meeting notes (or point me to the doc):' },
-  { type: 'cmd', text: '"Sprint review with eng. Decided to cut scope on search..."', delay: 600 },
-  { type: 'out', text: 'Processing...' },
-  { type: 'success', text: '✓ Extracted:' },
-  { type: 'out', text: '  Decisions: Cut search filters to ship by Friday' },
-  { type: 'out', text: '  Actions: Sarah → update Jira, Marcus → notify design' },
-  { type: 'out', text: '  Risk: Client demo on Monday still shows full scope' },
+<DemoCard title="Research synthesis in 20 minutes" steps={[
+  { type: 'cmd', text: 'Paste this into Claude.ai' },
+  { type: 'out', text: 'Research question: why do users abandon during checkout?' },
+  { type: 'out', text: 'Notes: [paste your interview transcripts or summaries]' },
+  { type: 'out', text: 'Group into 3-5 themes. Quote users. Flag contradictions.' },
   { type: 'out', text: '' },
-  { type: 'out', text: 'Updating project doc...', delay: 400 },
-  { type: 'success', text: '✓ search-redesign.md updated with scope change' },
-  { type: 'success', text: '✓ 2 follow-up tasks created' },
-  { type: 'warn', text: '→ Meeting → actions → updated docs. 3 minutes.' },
+  { type: 'success', text: '→ Executive summary: 3-4 sentences on what you learned' },
+  { type: 'success', text: '→ Theme 1: Confirmation anxiety. Theme 2: Error recovery. Theme 3: Contradictory data on price sensitivity (surfaced, not resolved)' },
+  { type: 'warn', text: '→ Walk into design review knowing exactly what to say.' },
 ]} />
 
-## The Product Brain
+Full walkthrough with prompts: [Synthesize user research into findings](/docs/workflows/synthesize-user-research-into-findings).
 
-Beyond individual skills, there's a bigger concept: the Product Brain. A directory of living project documents that update after every meeting and every decision.
+---
 
-Each project gets a document tracking:
-- **Purpose:** Why this project exists
-- **Progress:** What has been done and what is next
-- **Problems:** What is blocked and what risks are emerging
+## 3. Preparing for meetings
 
-These documents aren't static. Every time you run the post-meeting skill, the relevant project document gets updated. Every time you run pulse, it reads all of them to generate your dashboard. Information flows between skills, building a connected picture of your work.
+The meeting prep problem is simple: you need context from four different places, ten minutes before the call, and you don't have it.
 
-## How This Differs From "Just Asking ChatGPT"
+Claude doesn't have calendar access by default, but you can give it the context. Paste the person's name, your last meeting notes, any open items, and the current project state. Ask for a one-page brief.
 
-You might be thinking: "I can ask ChatGPT to summarize my meeting notes too." Here's where it's different:
+<DemoCard title="1:1 brief in 2 minutes" steps={[
+  { type: 'cmd', text: 'Paste this into Claude.ai' },
+  { type: 'out', text: 'Prep me for my 1:1 with Sarah in 30 minutes.' },
+  { type: 'out', text: 'Last meeting (3 weeks ago): she took over dashboard project from Marcus.' },
+  { type: 'out', text: 'Open items: I owe her the roadmap one-pager. She owes me scope clarity.' },
+  { type: 'out', text: 'Generate: recent context, open items, 3 questions to ask, 2 things to be ready to answer.' },
+  { type: 'out', text: '' },
+  { type: 'success', text: '→ One-page brief, ready to skim on the walk over.' },
+  { type: 'warn', text: '→ No Slack tab-switching. No Jira scramble. 2 minutes.' },
+]} />
 
-- **Persistent context.** ChatGPT forgets everything between conversations. Claude Code has memory files that accumulate your project knowledge over time.
-- **Connected to your real tools.** Claude Code can read your actual files, search your codebase, and interact with your systems. It works with your data.
-- **Workflow automation.** Skills are repeatable processes, not one-off questions. You run the same skill every week and it gets better as your memory grows.
-- **It lives in your terminal.** No switching to a browser tab. It runs where your team works.
+Full walkthrough with prompts: [Walk into your 1:1 already prepared](/docs/workflows/walk-into-your-1on1-prepared).
 
-## Getting Started as a PM
+---
 
-Here's your first week:
+## 4. Writing stakeholder updates
 
-1. **Install Claude Code.** Follow the getting started guide. It takes 5 minutes.
-2. **Set up your memory.** Create a user memory with your role, your projects, and your team. One file, a few paragraphs.
-3. **Add one project.** Pick your most active project and create a project memory with its name, status, and key stakeholders.
-4. **Run your first pulse.** See what Claude Code surfaces from your project context.
-5. **Process one meeting.** After your next meeting, feed the notes to Claude Code and see what it extracts.
+Status updates take too long and get ignored anyway. The problem is usually that they're written for the writer, not the reader. Claude helps you flip that.
 
-You'll know it's working when your Monday morning prep takes 10 minutes instead of 45, and your status reports practically write themselves.
+Tell it what happened this week, who the audience is, and what they care about. Ask for a one-paragraph update that leads with the decision or blocker, not the activity.
 
-## Want to Build Prototypes Too?
+<DemoCard title="Status update that gets read" steps={[
+  { type: 'cmd', text: 'Paste this into Claude.ai' },
+  { type: 'out', text: 'Write a weekly status update for my exec audience.' },
+  { type: 'out', text: 'This week: shipped the notification redesign (2 weeks late).' },
+  { type: 'out', text: 'Next week: A/B test goes live. Blocker: legal review on copy.' },
+  { type: 'out', text: 'Audience: VP of Product. They care about delivery dates and blockers, not process.' },
+  { type: 'out', text: '' },
+  { type: 'success', text: '→ One paragraph. Leads with the late ship and why. Flags legal blocker. Gives the one date that matters.' },
+  { type: 'warn', text: '→ They actually read this one.' },
+]} />
 
-If you're a PM who also wants to ship quick prototypes without writing code, check out [Lovable](https://lovable.link/4IOZkKK). It's a visual AI builder that lets you go from idea to working app in minutes. Use Claude Code for your PM workflows and Lovable for rapid prototyping. (20% off your first month with that link.)
+---
+
+## 5. Turning decisions into records
+
+The most expensive PM failure mode isn't making bad decisions. It's not recording why decisions were made, so teams relitigate them six months later.
+
+After any meaningful decision, ask Claude to write a decision record: the context, the options considered, the choice made, and the reasoning. Paste it into Confluence or Notion. Future you will thank you.
+
+<DemoCard title="Decision record in 5 minutes" steps={[
+  { type: 'cmd', text: 'Paste this into Claude.ai' },
+  { type: 'out', text: 'Write a decision record for: we cut the search filter feature from V1.' },
+  { type: 'out', text: 'Context: team was 2 weeks behind. Filters affect <5% of users. We can add in V1.1.' },
+  { type: 'out', text: 'Options we considered: cut entirely, ship behind a flag, delay V1.' },
+  { type: 'out', text: '' },
+  { type: 'success', text: '→ Decision record with: context, options, rationale, what we\'ll do in V1.1' },
+  { type: 'warn', text: '→ Six months from now, nobody asks "why did we cut that?"' },
+]} />
+
+---
+
+## Starting point
+
+If you haven't used Claude for PM work before, start with the PRD workflow. It's the clearest demonstration of how much time the clarifying-questions step saves. After one session, you'll understand why PMs who do this don't go back.
+
+- [Write a PRD from rough notes](/docs/workflows/write-a-prd-from-rough-notes)
+- [Synthesize user research into findings](/docs/workflows/synthesize-user-research-into-findings)
+- [Walk into your 1:1 already prepared](/docs/workflows/walk-into-your-1on1-prepared)
+
+If you want the daily system that ties all of this together, with habits that compound over weeks: [The Daily Practice](/docs/workflows/daily-practice).
+
+## Capture your meetings automatically
+
+If you're running discovery interviews, stakeholder calls, or 1:1s and want the raw material for synthesis without manual transcription, [Granola](https://www.granola.ai?via=shadman-rahman) runs in the background and produces clean notes you can paste straight into any of these workflows.
+
+## Want to prototype your ideas too?
+
+If you're a PM who also wants to ship quick prototypes without writing code, [Lovable](https://lovable.link/4IOZkKK) lets you go from idea to working app in minutes. Use Claude for PM workflows and Lovable for rapid prototyping. (20% off your first month with that link.)

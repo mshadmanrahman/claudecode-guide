@@ -1,0 +1,186 @@
+---
+title: "Write a PRD Your Engineering Team Will Actually Read"
+description: "Most PMs spend three hours writing a document that gets ignored. Paste your rough thinking into Claude, answer three questions, and get a structured PRD with problem statement, user stories, and success metrics. No terminal required."
+---
+
+<UseCaseMeta time="15 minutes" tools={["Claude.ai"]} />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "Your thinking is scattered across three places.",
+      caption: "A Slack thread here, a Figma comment there, a voice note you forgot to transcribe. The PRD is blank. The planning meeting is tomorrow.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "You paste everything into Claude.",
+      caption: "All of it. Raw, messy, unordered. The transcription, the Slack thread, your half-formed notes from the stakeholder call.",
+      illustration: <PromptComposerIllustration text="Here's everything I know about this feature. It's messy. Help me write a PRD from it..." />,
+    },
+    {
+      headline: "Claude asks three focused questions.",
+      caption: "About scope, success, and what's out. Not a survey: three questions that force the decisions you've been avoiding.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "Claude writes a structured first draft.",
+      caption: "Problem statement, user stories, success metrics, open questions, and a hard out-of-scope list. The skeleton is done.",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "You push back. Claude rewrites.",
+      caption: "Change the tone, cut a section, add a constraint you forgot. The conversation is the editor.",
+      illustration: <FileEditingIllustration />,
+    },
+    {
+      headline: "Engineering opens it and reads the whole thing.",
+      caption: "Because it answers the question they always ask first: why does this exist?",
+      illustration: <BriefDocumentIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Paste this into Claude.ai with your raw notes in the placeholder. The messier your notes, the more useful the questions Claude will ask.
+
+<PromptCard
+  id="prd-from-notes-primary"
+  variant="primary"
+  prompt={`I need to write a PRD for [feature or project name].
+
+Here's everything I know so far (it's rough): [paste your notes, Slack threads, Figma comments, email threads, voice note transcription, whatever you have]
+
+Ask me 3 questions to sharpen the scope, then write a PRD with these sections:
+
+- Problem statement (one paragraph, no jargon, clear enough for a new hire)
+- Users affected and how
+- Proposed solution (what we're building, not how we'll build it)
+- Success metrics (what changes and how we'll know)
+- Out of scope (explicit, so we don't argue about it later)
+- Open questions (decisions we haven't made yet)
+
+Keep the language direct. If something is unclear in my notes, flag it instead of guessing.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+Before I draft, three questions:
+
+1. **Who's the primary user?** Your notes mention "support agents" and "customers" in different places. Are we solving for the agent doing the work, or the customer making the request?
+2. **What does "fast" mean in "faster resolution"?** 30% faster? Under 2 minutes? If you don't have a target yet, I'll write it as a hypothesis we'll validate.
+3. **Is the integration with Zendesk a hard constraint or a preference?** Affects how I frame the scope.
+
+---
+
+Assuming primary user = support agent, fast = under 3 minutes target, Zendesk = hard constraint. Correct any of these.
+
+---
+
+## Problem statement
+
+Support agents spend an average of 7 minutes on tickets that could be resolved with existing documentation. The context they need exists; it's just not surfaced when they need it. The result is longer handle times, inconsistent answers, and agent frustration on repeat questions.
+
+## Users affected
+
+**Primary:** Support agents handling tier-1 tickets. **Secondary:** customers waiting for resolution.
+
+## Proposed solution
+
+A contextual suggestion panel inside the Zendesk sidebar that surfaces relevant help articles and past ticket resolutions when an agent opens a new ticket. Triggered by ticket subject and first message; updated as the agent types.
+
+## Success metrics
+
+- Average handle time on tier-1 tickets: baseline 7 min, target under 3 min (validate in first 30 days)
+- First contact resolution rate: baseline 62%, target 75%
+- Agent satisfaction score on "do you have what you need to resolve this?": baseline 3.2, target 4.2
+
+## Out of scope
+
+- Auto-response or AI drafting for customer-facing messages (separate project)
+- Integration with Salesforce or any system other than Zendesk
+- Tier-2 or escalation ticket handling
+
+## Open questions
+
+- Do we surface suggestions automatically, or only when the agent clicks "find relevant content"? (UX decision: recommend user testing before committing)
+- Who owns the knowledge base quality? Stale articles will surface as suggestions. This is a content governance problem, not just a product one.
+- How do we handle the 30% of tickets that are entirely unique? We should not make agents feel the tool failed them.
+
+</FromClaude>
+
+## Variations
+
+Same shape, different situations.
+
+<PromptCard
+  id="prd-from-notes-exec"
+  variant="variation"
+  kicker="For a feature your CEO asked for in a meeting"
+  prompt={`My CEO asked for [feature] in our all-hands. I don't have much more context than that.
+
+Based on what I know about our product and typical business goals, help me draft a PRD that:
+1. States the most likely business problem this solves
+2. Identifies what we'd need to validate before committing to build
+3. Lists 3 alternative ways we could solve the same problem
+
+I need to go back to the CEO with a real answer, not just "we'll build it."`}
+/>
+
+<PromptCard
+  id="prd-from-notes-existing"
+  variant="variation"
+  kicker="For a feature already in development that has no spec"
+  prompt={`This feature is already being built, but nobody wrote a PRD. I need to write one now so we have a record of why decisions were made.
+
+Here's what I know about what's been built: [describe current state, decisions made, what's been cut]
+
+Write a PRD that captures: what problem this solves, what was decided and what was cut, and what success looks like. Frame it as a record of intent, not a future proposal.`}
+/>
+
+<PromptCard
+  id="prd-from-notes-deprecation"
+  variant="variation"
+  kicker="For sunsetting something, not building it"
+  prompt={`I need to write a PRD for deprecating [feature or system]. Yes, a deprecation PRD.
+
+Here's context on the feature: [what it is, how many users, why we're deprecating it]
+
+Write a structured document that includes: the case for deprecation, who is affected and how, the migration path we're offering, the communication plan (what we tell users, when, through which channels), and the success metric (what does "successfully deprecated" look like).`}
+/>
+
+## Tips and gotchas
+
+**The out-of-scope section is the most important one.** Every scope argument you'll have with engineering in the next three months is already hiding in your rough notes. Be ruthless. If you're not sure whether something is in or out, it's out until you make an active decision to include it.
+
+**Ask Claude to find the assumption you're not questioning.** Before sharing the PRD, run: *"What's the most important assumption in this document that I haven't validated yet?"* Claude will surface something uncomfortable. That's the point.
+
+**If Claude asks too many questions, tell it to decide.** Add "make a reasonable assumption and flag it" to the prompt. The goal is a draft to react to, not a perfect spec built from scratch.
+
+**PMs don't need the terminal for this.** Claude.ai is fine. The only reason to use Claude Code is if you want to store PRDs as markdown files in a project folder and query them later: useful, but a different workflow.
+
+## Ready to try?
+
+<PromptCard
+  id="prd-from-notes-tryagain"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`I need to write a PRD for [feature or project name].
+
+Here's everything I know so far (it's rough): [paste your notes, Slack threads, Figma comments, email threads, whatever you have]
+
+Ask me 3 questions to sharpen the scope, then write a PRD with these sections:
+
+- Problem statement (one paragraph, no jargon, clear enough for a new hire)
+- Users affected and how
+- Proposed solution (what we're building, not how we'll build it)
+- Success metrics (what changes and how we'll know)
+- Out of scope (explicit, so we don't argue about it later)
+- Open questions (decisions we haven't made yet)
+
+Keep the language direct. If something is unclear in my notes, flag it instead of guessing.`}
+/>
+
+<AuthorBio />

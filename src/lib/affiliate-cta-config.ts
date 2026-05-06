@@ -176,6 +176,9 @@ const GRANOLA_PAGES = new Set([
   'docs/patterns/mcp-servers',
   'docs/workflows/daily-practice',
   'docs/workflows/pm-workflow',
+  'docs/workflows/walk-into-your-1on1-prepared',
+  'docs/workflows/write-a-prd-from-rough-notes',
+  'docs/workflows/synthesize-user-research-into-findings',
   'docs/templates/pm-workspace',
 ]);
 
