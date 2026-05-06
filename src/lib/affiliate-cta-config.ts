@@ -179,8 +179,30 @@ const GRANOLA_PAGES = new Set([
   'docs/workflows/walk-into-your-1on1-prepared',
   'docs/workflows/write-a-prd-from-rough-notes',
   'docs/workflows/synthesize-user-research-into-findings',
+  'docs/workflows/write-a-design-brief',
+  'docs/workflows/prepare-for-a-design-review',
+  'docs/workflows/turn-retro-notes-into-commitments',
+  'docs/workflows/prepare-for-a-roadmap-review',
+  'docs/workflows/team-adoption',
   'docs/templates/pm-workspace',
 ]);
+
+/**
+ * Pages where Railway (deployment platform) is contextually relevant.
+ * Railway affiliate: https://railway.com?referralCode=shadman (15% recurring / 12 months)
+ */
+const RAILWAY_PAGES = new Set([
+  'docs/workflows/ci-cd',
+  'docs/workflows/debugging',
+]);
+
+const railwayDraft: CTAConfigDraft = {
+  title: 'Need somewhere to deploy what you just automated?',
+  description:
+    'Railway gives you one-click deploys from GitHub with a generous free tier. Pair it with the CI/CD workflows on this page to go from commit to production without touching a config file.',
+  ctaLabel: 'Try Railway free',
+  destination: AFFILIATE_LINKS.railway,
+};
 
 /**
  * Pages where Warp (AI-native terminal) is contextually relevant.
@@ -240,6 +262,10 @@ export function getAffiliateCtasForPage(pageSlug: string): AffiliateCTAConfig[] 
     return CTA_PLACEMENTS.map((placement) =>
       createConfig(pageSlug, placement, workflowDrafts[placement]),
     );
+  }
+
+  if (RAILWAY_PAGES.has(pageSlug)) {
+    return [createConfig(pageSlug, 'inline', railwayDraft)];
   }
 
   if (WARP_PAGES.has(pageSlug)) {

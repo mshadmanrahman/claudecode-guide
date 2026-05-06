@@ -1,0 +1,186 @@
+---
+title: "Write a Design Brief Before Discovery Runs Off the Rails"
+description: "Someone says 'redesign the checkout.' No constraints, no scope, no success criteria. Paste what you know into Claude and get a structured brief your whole team can align on before a single wireframe gets made."
+---
+
+<UseCaseMeta time="15 minutes" tools={["Claude.ai"]} />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "Someone says 'redesign the checkout.' Full stop.",
+      caption: "No constraints, no user context, no definition of done. Just a vague ask with implied urgency.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "You paste what you know into Claude.",
+      caption: "The Slack message, the exec ask, the feedback from the last user test, whatever context you have. Raw is fine.",
+      illustration: <PromptComposerIllustration text="I need to write a design brief for our checkout redesign. Here's what I know so far..." />,
+    },
+    {
+      headline: "Claude asks about users, constraints, and what success looks like.",
+      caption: "Three questions that surface the decisions you need to make before you start sketching.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "Claude writes a structured design brief.",
+      caption: "Problem context, user group, design goals, constraints, out of scope, and open questions. One document that captures the real ask.",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "You refine until it captures the real ask.",
+      caption: "Push back on anything that's wrong. Add the constraint you forgot. Remove the assumption Claude made.",
+      illustration: <FileEditingIllustration />,
+    },
+    {
+      headline: "You go into discovery with shared framing.",
+      caption: "Designer, PM, and engineering are looking at the same brief. No competing interpretations of what 'redesign the checkout' means.",
+      illustration: <BriefDocumentIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Paste this into Claude.ai with whatever context you have. A Slack message, a complaint from a user test, a note from a stakeholder meeting. It doesn't need to be polished.
+
+<PromptCard
+  id="design-brief-primary"
+  variant="primary"
+  prompt={`I need to write a design brief for [project or feature name].
+
+Here's the context I have so far: [paste the exec ask, Slack threads, user feedback, complaints, whatever you have]
+
+Ask me 3 questions to sharpen the brief, then write one with these sections:
+
+- Problem context (what's happening now that's making this a priority)
+- Users we're designing for (who and what they're trying to do)
+- Design goals (what a good solution should achieve — focus on outcomes, not solutions)
+- Constraints (technical, time, brand, accessibility, anything that limits the solution space)
+- Out of scope (explicitly ruled out, so we don't waste discovery time on it)
+- Open questions (things we need to learn before we can design confidently)
+
+Keep language concrete. If something in my context is vague, flag it instead of guessing.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+Before I write the brief, three questions:
+
+1. **Who's the primary user for checkout?** Your context mentions "users struggling with payment" but also "high drop-off from mobile." Are we prioritizing mobile users specifically, or is this for all channels?
+2. **What does "redesign" mean here — the full flow or a specific step?** Checkout has 4+ steps: cart, address, payment, confirmation. Or is this a full-flow rethink?
+3. **Is there a deadline tied to a business event?** Black Friday, a partnership launch, or a product milestone would change how much we can scope.
+
+---
+
+Assuming: all channels with mobile as primary constraint, full flow but address step has most drop-off, no hard deadline but Q3 is the target.
+
+---
+
+## Problem context
+
+Checkout drop-off is 63%, above the 45% industry benchmark. Exit data shows the highest abandonment on the address step (41% of total drop-off) and at payment entry (29%). Mobile users account for 58% of traffic but only 34% of completions. The gap between mobile traffic and conversion is the clearest signal.
+
+## Users we're designing for
+
+**Primary:** Mobile users completing a purchase for the first time. Secondary: returning users on any device.
+
+Key behaviors from last research round: users don't trust forms that feel like they were designed for desktop, and they abandon when required fields aren't obvious.
+
+## Design goals
+
+- Reduce time to complete checkout on mobile by at least 30%
+- Increase address step completion rate from 59% to 75%
+- Reduce payment step abandonment from 29% to under 15%
+- Users should be able to complete checkout in under 2 minutes on a phone with one thumb
+
+## Constraints
+
+- Existing payment provider (Stripe) stays. No new integrations in this scope.
+- Accessibility: WCAG 2.1 AA minimum
+- Brand system applies. No new custom components without design system sign-off.
+- Engineering: 6-week build window maximum
+
+## Out of scope
+
+- Guest checkout vs. account creation flow (separate project)
+- International address formats (phase 2)
+- Buy-now-pay-later integration (flagged but not this cycle)
+
+## Open questions
+
+- Do we have session recording of where exactly users pause or go back on mobile?
+- Is autofill working on address fields? 40% of mobile abandonment on address could be a technical issue, not a UX one.
+- What's the legal requirement for the confirmation email? It affects how much we can simplify the confirmation step.
+
+</FromClaude>
+
+## Variations
+
+Same shape, different starting points.
+
+<PromptCard
+  id="design-brief-request"
+  variant="variation"
+  kicker="For a brief that came from a support ticket, not a strategy"
+  prompt={`I need to write a design brief based on this pattern of user complaints: [paste support tickets, reviews, or user feedback]
+
+Help me turn this bottom-up signal into a brief that frames the design problem properly. Don't just list the complaints as requirements. Synthesize what the underlying problem is, write a brief around it, and flag what we'd still need to validate before designing.`}
+/>
+
+<PromptCard
+  id="design-brief-redesign"
+  variant="variation"
+  kicker="For redesigning something that already exists"
+  prompt={`I need to write a brief for redesigning [existing feature or flow].
+
+Current state: [describe what exists now and what's wrong with it]
+Business reason for redesigning now: [why this, why now]
+
+Write a brief that includes: what's not working with the current design (and why it was probably fine when it was built), what a successful redesign looks like from the user's perspective, and what we should explicitly preserve from the current version so we don't break what's working.`}
+/>
+
+<PromptCard
+  id="design-brief-zero"
+  variant="variation"
+  kicker="For a feature that doesn't exist yet"
+  prompt={`I need to write a design brief for a net-new feature: [feature name and one-sentence description].
+
+We have no existing design to reference. Here's what we know about the problem it solves: [describe the user problem and business context]
+
+Write a brief that identifies: what we know about user needs in this space, what we'd need to research before designing, and what the riskiest assumptions we're making are. Flag anything that looks like a solution disguised as a requirement.`}
+/>
+
+## Tips and gotchas
+
+**Open questions are more valuable than premature answers.** A design brief that says "we need to learn X before we can design confidently" is more useful than one that guesses. Claude will sometimes fill gaps with assumptions: check each one and replace with an open question if it's not actually decided.
+
+**Constraints are not the enemy.** A brief with no constraints leads to a discovery phase that never ends. Constraints force creative decisions. If you don't have real constraints, list the most likely ones and ask Claude to flag which ones need confirmation.
+
+**Watch for solutions disguised as requirements.** "The checkout button should be green" is a solution. "Users should see a clear primary action" is a requirement. If the brief is full of the former, ask Claude: "which of these requirements are actually pre-decided solutions? Rewrite them as outcomes instead."
+
+## Ready to try?
+
+<PromptCard
+  id="design-brief-tryagain"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`I need to write a design brief for [project or feature name].
+
+Here's the context I have so far: [paste the exec ask, Slack threads, user feedback, complaints, whatever you have]
+
+Ask me 3 questions to sharpen the brief, then write one with these sections:
+
+- Problem context (what's happening now that's making this a priority)
+- Users we're designing for (who and what they're trying to do)
+- Design goals (what a good solution should achieve)
+- Constraints (technical, time, brand, accessibility)
+- Out of scope (explicitly ruled out)
+- Open questions (things we need to learn before designing)
+
+Keep language concrete. If something in my context is vague, flag it instead of guessing.`}
+/>
+
+<AuthorBio />

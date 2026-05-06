@@ -1,0 +1,168 @@
+---
+title: "Walk Into Design Review With a Clear Ask, Not Just 'Feedback Please'"
+description: "Most design reviews drift because nobody defined what a useful outcome looks like. Paste your design context into Claude, get a structured review plan with your key decision framed, anticipated objections prepared, and clear criteria for moving forward."
+---
+
+<UseCaseMeta time="10 minutes" tools={["Claude.ai"]} />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "Design review is tomorrow. You're not sure what you're asking for.",
+      caption: "You have screens. You have a Figma link. You don't have a clear question. 'General feedback' is not an agenda.",
+      illustration: <CalendarEventIllustration />,
+    },
+    {
+      headline: "You paste your design context into Claude.",
+      caption: "The Figma description, the design brief, what you were trying to solve, what trade-offs you made, what you're still unsure about.",
+      illustration: <PromptComposerIllustration text="Prep me for design review tomorrow. Here's what I'm presenting and what I need from the room..." />,
+    },
+    {
+      headline: "Claude asks what decision you need from the room.",
+      caption: "Reviews that don't end in a decision are just a show. One question about what you need changes the whole structure.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "Claude builds a review structure with anticipated objections.",
+      caption: "The key decision framed clearly, the trade-offs you made and why, likely questions from each stakeholder type, and your response to each.",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "You skim it and add what Claude missed.",
+      caption: "The org context, the history, the one person who always asks about accessibility. Ten minutes, not an hour.",
+      illustration: <SkimOnPhoneIllustration />,
+    },
+    {
+      headline: "You walk in with one clear ask. You leave with a decision.",
+      caption: "Not 'let me know what you think.' An actual outcome.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Paste this into Claude.ai the morning before your review. The more specific you are about who's in the room and what you've already decided, the more useful the prep.
+
+<PromptCard
+  id="design-review-primary"
+  variant="primary"
+  prompt={`Prep me for a design review tomorrow.
+
+What I'm presenting: [describe the design, feature, or flow — a few sentences is fine]
+What problem it solves: [the user problem and business context]
+Trade-offs I made in the design: [what I chose and what I didn't choose, and why]
+What I'm still unsure about: [the parts that feel like open questions]
+Who will be in the room: [list roles, e.g. product lead, engineering lead, design lead, stakeholder from marketing]
+
+Help me prepare:
+1. Frame the one decision I need from this review (not "feedback" — an actual decision)
+2. Anticipate the 3 most likely objections or hard questions, one per stakeholder type
+3. Write a short response to each anticipated objection
+4. Suggest what "done" looks like for this review: what would a good outcome be?`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+**The decision you need from this review**
+
+You're not asking for feedback on the visual design. You're asking: do we proceed with the single-page checkout approach, or do we maintain the current multi-step flow for first-time users? That's a product and engineering decision that needs alignment before development starts. Frame it this way at the start: "I want to leave this review with a clear answer on the checkout structure before we move to prototyping."
+
+---
+
+**Anticipated objections by stakeholder**
+
+**Engineering lead:** "Does single-page checkout work with our existing form validation?" This is a legitimate technical question, not resistance. Come prepared with: single-page is achievable with progressive disclosure; the validation logic doesn't change, just the rendering. If they push back hard, offer: "what would we need to validate technically before committing?"
+
+**Product lead:** "Have we tested this with users?" Correct answer: no, this is a direction proposal, not a validated solution. What you've done: you've analyzed drop-off data that shows the address step is the biggest problem. The proposed direction addresses that. Testing comes after we align on direction. Don't let this objection delay the direction decision.
+
+**Marketing stakeholder:** "Can we add the promo code field more prominently?" This is out of scope for this review. Say so directly: "promo field placement is on the list, but it's not what we're deciding today. I'll flag it for the next design pass."
+
+---
+
+**What done looks like**
+
+A good outcome from this review: "We're aligned on single-page structure. Engineering will validate the form approach by Thursday. We schedule prototyping for next week." A bad outcome: "We'll think about it." Push for the first. If you're getting the second, ask directly: "What would we need to see to make this call today?"
+
+</FromClaude>
+
+## Variations
+
+Same shape, different review types.
+
+<PromptCard
+  id="design-review-concept"
+  variant="variation"
+  kicker="For an early concept review, not a final design"
+  prompt={`I'm presenting early concepts tomorrow, not a finished design. I have 3 directions and I need the room to help me pick one to develop.
+
+Here are the 3 concepts and the thinking behind each: [describe each direction briefly]
+
+Help me:
+1. Frame each concept so it's clearly differentiated (not just "here are three options")
+2. Anticipate which direction each stakeholder is likely to prefer, and why
+3. Prepare for the case where the room likes a bit of everything and wants a fourth direction that merges them all (the classic hedge — how do I push back on this without dismissing their input?)`}
+/>
+
+<PromptCard
+  id="design-review-pushback"
+  variant="variation"
+  kicker="For a review where you expect strong pushback"
+  prompt={`I'm presenting a design that I know will get pushback. The design is right, but it's a significant departure from what stakeholders are used to.
+
+What I'm presenting: [describe the design]
+Why I believe it's right: [your reasoning]
+The most likely objections: [list what you expect to hear]
+
+Help me:
+1. Build the evidence-based case for this direction without being defensive about it
+2. Anticipate the strongest version of each objection (steelman it, then respond)
+3. Identify the one question that, if I answer it well, makes the rest of the objections easier to address
+4. Suggest what concession I could offer that doesn't compromise the core of the design`}
+/>
+
+<PromptCard
+  id="design-review-post"
+  variant="variation"
+  kicker="For turning review notes into a clear next step"
+  prompt={`I just came out of design review. Here are my notes from the session: [paste your notes, the feedback you received, any decisions that were made]
+
+Help me turn this into:
+1. A one-paragraph summary of what was decided (not what was said — what was actually decided)
+2. A list of changes I need to make to the design, with the rationale for each
+3. Open questions that still need answers before I can move forward
+4. Any feedback I received that I'm planning to not act on, and a brief note on why so I have a record of the decision`}
+/>
+
+## Tips and gotchas
+
+**The single most useful thing you can do is define the decision before you walk in.** "I'd love your thoughts" leads to a 45-minute discussion that ends with no agreement. "Do we proceed with A or B?" leads to a 20-minute discussion that ends with an answer. Claude will help you find the real decision hiding inside your vague ask.
+
+**Prepare the strongest version of each objection, not the weakest.** It's tempting to prepare for objections you can easily dismiss. Claude tends toward steelmanning: take its anticipation of the hard objection seriously, because that's the one that will actually come up.
+
+**Know the difference between "I don't like it" and "this won't work."** Both are valid, but they require different responses. "I don't like it" is a taste conversation; get specific about what they'd prefer. "This won't work" is a constraint conversation; ask them to articulate the constraint clearly so you can design around it.
+
+## Ready to try?
+
+<PromptCard
+  id="design-review-tryagain"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`Prep me for a design review tomorrow.
+
+What I'm presenting: [describe the design or feature]
+What problem it solves: [user problem and business context]
+Trade-offs I made: [what I chose and what I didn't, and why]
+What I'm still unsure about: [open questions]
+Who will be in the room: [list roles]
+
+Help me:
+1. Frame the one decision I need from this review
+2. Anticipate the 3 most likely objections, one per stakeholder type
+3. Write a short response to each
+4. Suggest what a good outcome looks like for this review`}
+/>
+
+<AuthorBio />

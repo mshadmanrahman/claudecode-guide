@@ -1,0 +1,159 @@
+---
+title: "Turn Retro Notes Into Commitments Your Team Will Actually Keep"
+description: "Most retros end with a wall of observations and a vague feeling that something should change. Paste your notes into Claude and get a short list of specific commitments with owners and due dates — ready to put in front of the team."
+---
+
+<UseCaseMeta time="10 minutes" tools={["Claude.ai"]} />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "Retro is over. Three pages of observations. Nobody's sure what was agreed.",
+      caption: "You heard 'we should communicate better' and 'estimation needs work.' Forty minutes of discussion. Zero specific owners.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "You paste the notes into Claude.",
+      caption: "The raw sticky notes, the Miro board export, the doc you typed during the session. All of it.",
+      illustration: <PromptComposerIllustration text="Here are my retro notes from today's sprint. Help me turn these into actual commitments..." />,
+    },
+    {
+      headline: "Claude asks about ownership and what 'done' looks like.",
+      caption: "Two questions that surface whether the team was making commitments or just venting.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "Claude extracts specific commitments with owners and a timeframe.",
+      caption: "Not 'we should improve communication.' 'Sarah sends a mid-sprint status message to the product team every Wednesday by noon. Starting next sprint.'",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "Team confirms or adjusts in 5 minutes.",
+      caption: "Read it aloud in the retro close, or paste it into Slack. Easier to react to a specific proposal than to rebuild consensus from scratch.",
+      illustration: <FileEditingIllustration />,
+    },
+    {
+      headline: "Next sprint, people remember what they agreed to.",
+      caption: "Because it was written down, specific, and had a name on it.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Paste this into Claude.ai with your retro notes. Works with sticky-note exports, Miro board dumps, or rough typed notes from any format (Start/Stop/Continue, 4Ls, Mad/Sad/Glad, whatever you ran).
+
+<PromptCard
+  id="retro-commitments-primary"
+  variant="primary"
+  prompt={`I just ran a sprint retrospective. Here are the notes: [paste sticky notes, Miro export, or typed notes]
+
+Help me turn these into actionable commitments.
+
+For each theme or repeated complaint in the notes:
+1. Identify the underlying issue (not just what was said, but what the pattern points to)
+2. Write a specific commitment: what will change, who owns it, and by when
+3. Flag anything that came up multiple times as more urgent
+4. Separate complaints that can be turned into commitments from observations that are just frustrations without a clear owner or action
+
+Format the output as a short list I can paste into Slack or read aloud before the retro closes. Keep each commitment to one sentence.`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+**Pattern analysis**
+
+Three themes came up across multiple people: late PR reviews blocking others, unclear ticket acceptance criteria before sprint starts, and no shared understanding of sprint goals until halfway through.
+
+The first two have clear owners and actionable fixes. The third is a process gap that sits with the PM and lead.
+
+---
+
+**Commitments for this sprint**
+
+1. **PR reviews:** Anyone with an open PR waits no more than 24 hours before tagging a specific reviewer (not just the team channel). **Owner: everyone. Starting: immediately.**
+
+2. **Acceptance criteria:** No ticket enters the sprint without at least 2 acceptance criteria written. PM writes them; engineer assigned confirms before sprint starts. **Owner: Priya (PM) + assigned engineer. Starting: next sprint planning.**
+
+3. **Sprint goals:** Sprint goal is written and shared in Slack before the first standup of each sprint, not just in Jira. **Owner: Priya. Starting: next sprint.**
+
+---
+
+**Observations without a clear owner (flag for later)**
+
+- "Standups run too long" came up twice. No specific suggestion on what to cut or who's responsible for timekeeping. Worth a brief team discussion before committing to a format change.
+- "We need better tooling for X" — too vague to commit to. If this is real, needs a specific ask (evaluate tools, get budget approval, etc.) before it becomes a commitment.
+
+</FromClaude>
+
+## Variations
+
+<PromptCard
+  id="retro-commitments-async"
+  variant="variation"
+  kicker="For an async retro where feedback came in over a few days"
+  prompt={`We ran an async retrospective using [tool — e.g., Notion, Miro, a shared doc]. Here's all the feedback that came in: [paste the entries]
+
+The team is distributed and we don't have a synchronous close. Help me:
+1. Identify the 2 to 3 most consistent themes across the feedback
+2. Draft commitments for each theme that I can propose asynchronously
+3. Frame each commitment with a "proposed owner" and a "respond by" date so team members can confirm or suggest changes in the thread
+
+I want to close the loop without scheduling another meeting.`}
+/>
+
+<PromptCard
+  id="retro-commitments-review"
+  variant="variation"
+  kicker="For checking on commitments from a previous retro"
+  prompt={`In our last retro, we made these commitments: [paste the previous commitments]
+
+Here are our notes from this retro, including any mentions of whether those things actually happened: [paste current retro notes]
+
+Help me:
+1. Score each previous commitment: kept, partially kept, or not kept
+2. For ones that weren't kept, identify whether it was a bad commitment (too vague, no clear owner) or just not followed through
+3. Suggest whether to recommit, reframe, or drop each one before we add new commitments
+4. Extract new commitments from this retro's notes using the same format as before`}
+/>
+
+<PromptCard
+  id="retro-commitments-systemic"
+  variant="variation"
+  kicker="For a pattern that keeps coming up every sprint"
+  prompt={`This issue has come up in our last 3 retrospectives: [describe the recurring problem].
+
+We've made commitments about it before and they haven't stuck. Help me think differently about this: instead of writing another surface-level commitment, help me identify the structural cause. Why might individual commitments keep failing? What would need to change at a process or team level for this to actually get better? Give me a few hypotheses I can bring to the team.`}
+/>
+
+## Tips and gotchas
+
+**Distinguish between a commitment and a sentiment.** "We should communicate better" is a sentiment. "The PM sends a written sprint goal to Slack before the first standup" is a commitment. Claude will try to turn sentiments into commitments, but push back if it's reaching.
+
+**Each commitment needs exactly one owner.** "The team will do X" means nobody does X. Claude will sometimes default to shared ownership: ask it to name a single person or role for anything that needs to actually happen.
+
+**Don't commit to more than three things.** A retro that produces twelve commitments produces zero. If Claude extracts more than three, ask it to prioritize: "which three would have the biggest impact if we actually kept them?"
+
+**Paste the commitments into your project management tool before the retro closes.** Not as notes to yourself. As actual tickets or tasks. The friction between "we agreed to this" and "it's written in the backlog" is where most retro commitments die.
+
+## Ready to try?
+
+<PromptCard
+  id="retro-commitments-tryagain"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`I just ran a sprint retrospective. Here are the notes: [paste sticky notes, Miro export, or typed notes]
+
+For each theme or repeated complaint:
+1. Identify the underlying issue
+2. Write a specific commitment: what will change, who owns it, and by when
+3. Flag anything that came up multiple times as more urgent
+4. Separate actionable commitments from observations that don't have a clear owner
+
+Format as a short list I can paste into Slack. One sentence per commitment.`}
+/>
+
+<AuthorBio />

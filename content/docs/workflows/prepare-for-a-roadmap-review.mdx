@@ -1,0 +1,181 @@
+---
+title: "Frame Your Roadmap for the Room That's About to Review It"
+description: "The same roadmap lands differently with execs, engineering leads, and customers. Paste your draft and the audience into Claude and get the reframe, the hard questions anticipated, and the one slide that makes or breaks the conversation."
+---
+
+<UseCaseMeta time="15 minutes" tools={["Claude.ai"]} />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "Roadmap review with the exec team is in two days.",
+      caption: "You have a roadmap. You're not sure it's framed for the people in that room. Different audiences care about completely different things.",
+      illustration: <CalendarEventIllustration />,
+    },
+    {
+      headline: "You paste the roadmap and audience context into Claude.",
+      caption: "The items, the rough sequencing, the tradeoffs you made, and who'll be in the room. Claude doesn't need a formatted deck.",
+      illustration: <PromptComposerIllustration text="Here's my roadmap draft and who I'm presenting it to. Help me frame this for this specific audience..." />,
+    },
+    {
+      headline: "Claude asks what decision this review needs to produce.",
+      caption: "Approval, input, alignment, or awareness: each requires a different presentation structure.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "Claude rewrites the framing for that audience.",
+      caption: "Execs want outcomes and tradeoffs. Engineering wants sequencing rationale. Sales wants what they can promise. Same roadmap, completely different framing.",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "You prepare for the hard questions Claude anticipates.",
+      caption: "The 'why not X instead of Y' question. The 'what about the thing we agreed to in Q1' question. You know the answers. Claude helps you prepare them.",
+      illustration: <FileEditingIllustration />,
+    },
+    {
+      headline: "You walk in knowing what you need from the room.",
+      caption: "Not 'let me know if you have questions.' A specific ask, a clear structure, and no surprises.",
+      illustration: <PreparedReadyIllustration />,
+    },
+  ]}
+/>
+
+## The prompt
+
+Paste this into Claude.ai with your roadmap and the audience context. You don't need a polished deck. A bulleted list of planned work is enough.
+
+<PromptCard
+  id="roadmap-review-primary"
+  variant="primary"
+  prompt={`I have a roadmap review coming up and I need to frame it properly for the audience.
+
+My roadmap: [paste your planned work — items, rough quarter, and any known sequencing]
+
+Who will be in the room: [list roles and what each person cares about, e.g. "CEO — focused on revenue impact and competitive position," "CTO — concerned about tech debt and team capacity," "Head of Sales — wants to know what to promise customers"]
+
+What I need from this review: [approval to proceed / input on priorities / alignment across teams / executive awareness]
+
+Key tradeoffs I made: [what got deprioritized and why]
+
+Help me:
+1. Reframe the roadmap narrative for this specific audience (outcomes over features)
+2. Anticipate the 3 most likely hard questions, one per stakeholder
+3. Prepare a one-paragraph answer to each
+4. Identify the one item that's most likely to generate debate and help me pre-empt it`}
+/>
+
+## What you get back
+
+<FromClaude>
+
+**Narrative reframe for this audience**
+
+For an exec audience, lead with the business problem each item solves, not the feature itself. "Redesign checkout" becomes "close the 28-point gap between mobile traffic and mobile conversion, which represents approximately $2.4M ARR at current volumes." That's the sentence that gets attention.
+
+Structure the presentation as three strategic bets, not a feature list:
+- **Bet 1 (Q2):** Convert the existing mobile traffic we're not capturing
+- **Bet 2 (Q3):** Build the retention loop that makes acquired users return
+- **Bet 3 (Q4):** Expand into the enterprise segment Sales has been priming
+
+Everything else is execution detail. Don't lead with it.
+
+---
+
+**Anticipated hard questions**
+
+**CEO:** "Where's the AI feature we talked about in January?" This didn't make the roadmap. Prepare the answer now: "It's on the list and it's the right bet long-term. We pushed it to Q4 because it depends on the retention loop we're building in Q3. Doing it in Q2 would mean building on an unstable base and reworking it. That's the sequencing call." If you don't have a strong sequencing argument, this will be the toughest moment.
+
+**CTO:** "Q3 is aggressive given the migration that's already scheduled." They're right to flag this. Your answer: "The Q3 items are parallel workstreams — the retention loop is frontend-heavy and doesn't conflict with the backend migration. I've scoped them with [engineering lead] and we believe it's feasible. Happy to go deeper on the build plan if that's useful."
+
+**Head of Sales:** "Can I tell customers we'll have [enterprise feature] in Q3?" No, that's Q4. Prepare for this: "Q4 is when it ships. I'd suggest framing it as 'on the roadmap for second half' in customer conversations rather than a specific quarter, which gives us room if Q3 runs long."
+
+---
+
+**The item most likely to generate debate**
+
+The decision to deprioritize [specific item] will surface. Someone in the room asked for it, or it was on a previous roadmap version. Pre-empt it: acknowledge it early. "You'll notice X isn't on this roadmap. I want to address that directly before we dive in." Then give the one-sentence rationale. Letting it come up as a surprise objection is worse than naming it first.
+
+</FromClaude>
+
+## Variations
+
+<PromptCard
+  id="roadmap-review-engineering"
+  variant="variation"
+  kicker="For presenting to engineering leadership"
+  prompt={`I'm presenting my roadmap to engineering leadership. They care about technical feasibility, sequencing dependencies, and team capacity — not just business outcomes.
+
+Here's the roadmap: [paste items and rough sequencing]
+Known technical dependencies: [anything that needs to be built before something else can start]
+Areas where I've had pushback on estimates before: [if any]
+
+Help me:
+1. Frame each item in terms of what it requires from engineering (and in what order)
+2. Identify the sequencing dependencies I might have missed
+3. Anticipate concerns about capacity or tech debt I'm not accounting for
+4. Suggest what I should ask engineering to validate before I present this to broader leadership`}
+/>
+
+<PromptCard
+  id="roadmap-review-customer"
+  variant="variation"
+  kicker="For a customer advisory board or external audience"
+  prompt={`I'm presenting our roadmap to a customer advisory board. I want to be honest about what we're building without over-committing or revealing competitively sensitive information.
+
+Here's what we're planning: [paste roadmap]
+What I can share publicly: [items confirmed for development]
+What I should not commit to: [anything still uncertain or competitively sensitive]
+
+Help me:
+1. Write a version of the roadmap narrative that's honest without over-promising
+2. Frame items as "problems we're solving" rather than specific features
+3. Prepare for the question "when will X be available?" for each item I can't give a hard date on
+4. Identify what customers are likely to say they most want, and how to handle it if it's not on the roadmap`}
+/>
+
+<PromptCard
+  id="roadmap-review-quarterly"
+  variant="variation"
+  kicker="For a quarterly roadmap retrospective (what did we actually ship)"
+  prompt={`I need to present a roadmap retrospective: here's what we planned, here's what actually shipped.
+
+Planned: [paste original roadmap items for the quarter]
+Shipped: [paste what actually launched]
+What slipped and why: [brief explanation for each item that didn't make it]
+
+Help me:
+1. Frame the retrospective honestly without being defensive about what didn't ship
+2. Write a clear "why it slipped" for each item that didn't make it, avoiding vague language like "capacity issues" or "technical complexity"
+3. Identify what the slippage tells us about how we should plan next quarter differently
+4. Draft a one-paragraph summary I can send to stakeholders before the meeting so there are no surprises`}
+/>
+
+## Tips and gotchas
+
+**The audience reframe is the most underused part of this workflow.** Most roadmap reviews fail not because the strategy is wrong but because the framing is built for the PM, not the audience. "We're shipping a notification redesign" means nothing to a CEO. "We're closing the engagement gap that's costing us 18% of 30-day retention" means everything.
+
+**Prepare for the things you deprioritized, not just what you're building.** The hardest roadmap review questions are never "why are you building that?" They're "why aren't you building this other thing I care about?" Write down every significant deprioritization decision and have a one-sentence rationale ready for each.
+
+**Name the number.** If you're making a business case, put a number on it. Claude can help you do the back-of-napkin math: "at X users and Y conversion rate, closing this gap is worth approximately Z in ARR." Approximate is fine. Vague is not.
+
+## Ready to try?
+
+<PromptCard
+  id="roadmap-review-tryagain"
+  variant="try-now"
+  kicker="Copy and paste"
+  prompt={`I have a roadmap review coming up and I need to frame it for my audience.
+
+My roadmap: [paste planned work, rough timeline, sequencing]
+Who will be in the room: [list roles and what each person cares about]
+What I need from this review: [approval / input / alignment / awareness]
+Key tradeoffs I made: [what got deprioritized and why]
+
+Help me:
+1. Reframe the roadmap narrative for this specific audience (outcomes over features)
+2. Anticipate the 3 most likely hard questions, one per stakeholder
+3. Prepare a one-paragraph answer to each
+4. Identify the one item most likely to generate debate and help me pre-empt it`}
+/>
+
+<AuthorBio />
