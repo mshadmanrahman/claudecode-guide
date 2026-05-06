@@ -2,5 +2,5 @@
   "title": "Workflows",
   "root": true,
   "defaultOpen": true,
-  "pages": ["stop-reexplaining-your-project", "walk-into-your-1on1-prepared", "stop-claude-from-agreeing-with-everything", "catch-up-on-a-codebase-after-a-week-away", "review-your-branch-before-pushing", "turn-a-jira-ticket-into-a-working-pr", "triage-bug-reports-without-losing-your-morning", "write-a-prd-from-rough-notes", "synthesize-user-research-into-findings", "write-a-design-brief", "prepare-for-a-design-review", "turn-retro-notes-into-commitments", "prepare-for-a-roadmap-review", "daily-practice", "debugging", "ci-cd", "pm-workflow", "team-adoption"]
+  "pages": ["stop-reexplaining-your-project", "walk-into-your-1on1-prepared", "stop-claude-from-agreeing-with-everything", "catch-up-on-a-codebase-after-a-week-away", "review-your-branch-before-pushing", "turn-a-jira-ticket-into-a-working-pr", "triage-bug-reports-without-losing-your-morning", "run-a-product-discovery-sprint", "write-a-prd-from-rough-notes", "synthesize-user-research-into-findings", "write-a-design-brief", "prepare-for-a-design-review", "turn-retro-notes-into-commitments", "prepare-for-a-roadmap-review", "daily-practice", "debugging", "ci-cd", "pm-workflow", "team-adoption"]
 }

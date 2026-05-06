@@ -177,6 +177,7 @@ const GRANOLA_PAGES = new Set([
   'docs/workflows/daily-practice',
   'docs/workflows/pm-workflow',
   'docs/workflows/walk-into-your-1on1-prepared',
+  'docs/workflows/run-a-product-discovery-sprint',
   'docs/workflows/write-a-prd-from-rough-notes',
   'docs/workflows/synthesize-user-research-into-findings',
   'docs/workflows/write-a-design-brief',

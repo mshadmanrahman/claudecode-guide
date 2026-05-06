@@ -1,0 +1,235 @@
+---
+title: "Run a Product Discovery Sprint with Claude"
+description: "Before you write a PRD, you need to know the market gap, your riskiest assumptions, and what experiment would kill them first. Three prompts that compress two weeks of discovery work into an afternoon."
+---
+
+<UseCaseMeta time="2 to 4 hours" tools={["Claude.ai"]} />
+
+<UseCaseWalkthrough
+  steps={[
+    {
+      headline: "You have a product idea and a blank doc.",
+      caption: "No PRD yet. No wireframes. Just a belief that something is worth building — and the nagging feeling you should validate that before you commit six weeks to it.",
+      illustration: <MultiSourcePullIllustration />,
+    },
+    {
+      headline: "You paste your idea and what you know about the market into Claude.",
+      caption: "Raw thinking, competitor names, user complaints you've heard, anything. Claude structures what you give it.",
+      illustration: <PromptComposerIllustration text="I want to run a quick discovery sprint on this idea. Here's what I know so far..." />,
+    },
+    {
+      headline: "Claude maps the competitive landscape and surfaces the gap nobody owns.",
+      caption: "Not a list of features. A market map: who solves this, for whom, and where the underserved segment lives.",
+      illustration: <ClaudeQuestionsIllustration />,
+    },
+    {
+      headline: "You map your assumptions by risk and confidence.",
+      caption: "Claude uses Teresa Torres's 8 risk categories to organize what you believe and flag where you're guessing.",
+      illustration: <FileWrittenIllustration />,
+    },
+    {
+      headline: "You design the experiment that kills the riskiest assumption first.",
+      caption: "XYZ hypothesis format: specific belief, measurable outcome, clear kill criteria. The smallest test that produces a real decision.",
+      illustration: <FileEditingIllustration />,
+    },
+    {
+      headline: "You have a strategy-ready discovery package.",
+      caption: "Market context, ranked assumptions, and a test plan. Enough to decide whether to build, pivot, or stop before a single wireframe is made.",
+      illustration: <BriefDocumentIllustration />,
+    },
+  ]}
+/>
+
+## How this sprint works
+
+Three prompts. Run them in sequence. Each one builds on the output of the previous.
+
+Start with competitive analysis to understand the space. Then map your assumptions to find what you're most uncertain about. Then design an experiment to resolve the most dangerous uncertainty before you commit to building.
+
+You can stop after any step if you have what you need.
+
+---
+
+## Prompt 1: Competitive analysis
+
+Map the market before you design anything. The goal isn't a competitor list: it's understanding where the underserved segment lives and why current solutions don't own it.
+
+<PromptCard
+  id="discovery-competitive-primary"
+  variant="primary"
+  prompt={`I want to map the competitive landscape for [product idea or market space].
+
+My product solves: [one sentence — the job to be done, not the feature]
+Users I'm targeting: [describe who and what they're trying to accomplish]
+
+Map the market for me:
+1. Direct competitors: solving the same problem the same way
+2. Indirect competitors and substitutes: different solution, same job
+3. For each: what they do well, what users complain about in reviews or forums, and which user segment they seem to be ignoring
+4. The gap: where do user needs cluster that no current solution owns? Be specific — "underserved SMBs" is not a gap, "SMBs who need X but can't afford Y's minimum contract" is
+
+Label anything you're inferring rather than citing. I'd rather know the confidence level than get a clean-looking analysis that's partly fabricated.`}
+/>
+
+### What you get back
+
+<FromClaude>
+
+**Direct competitors**
+
+**Notion** dominates the knowledge management space for teams. Strengths: flexible, integrates with everything, strong community. What users complain about: "starts simple, becomes a mess," poor search across large workspaces, no structure enforcement. Segment they're ignoring: teams that need process compliance, not just storage.
+
+**Confluence** owns the enterprise segment. Strengths: Jira integration, permissions, audit trail. What users complain about: slow, hard to navigate, feels like filing a TPS report. Segment they're ignoring: mid-market teams who want Confluence-level reliability without the overhead.
+
+**Slab** sits between them. Clean, fast, good editor. Segment they're ignoring: teams with a lot of recurring process documentation (not one-off pages).
+
+**Indirect substitutes**
+
+Google Docs (for teams that never migrated), internal wikis, and Slack pinned messages. These persist because switching cost is high and "good enough" threshold is low for static documentation.
+
+**The gap I can identify with confidence**
+
+Teams generating high volumes of recurring documentation (sprint notes, customer call summaries, decision logs) have no tool that treats structured recurrence as a first-class feature. Everything assumes documentation is created once. The segment: operations-heavy teams at 20 to 200 people who run repeatable processes and currently maintain those docs manually.
+
+**Confidence note:** The competitor strengths/weaknesses above are based on patterns in public reviews (G2, Reddit, ProductHunt). The gap is my inference from those patterns, not cited directly. Worth validating with 3 to 5 user conversations before treating it as confirmed.
+
+</FromClaude>
+
+---
+
+## Prompt 2: Assumption mapping
+
+After the competitive analysis, you have a sharper idea of what you're building. Now map what you believe to be true — and rank the beliefs by how risky they are if you're wrong.
+
+<PromptCard
+  id="discovery-assumptions-primary"
+  variant="primary"
+  prompt={`I'm building [product/feature description]. Before I design anything, I want to map and rank my assumptions.
+
+Here's my current thinking: [describe the product concept and what you believe to be true about users, the market, and your solution]
+
+Use Teresa Torres's 8 risk categories to help me map my assumptions:
+- Desirability: do users actually want this?
+- Viability: can our business support this?
+- Feasibility: can we build this with our current team?
+- Usability: can users use it without training?
+- Ethical: should we build this?
+- Safety: could this cause harm?
+- Legal: are there compliance or IP concerns?
+- Data privacy: what data do we need and how are we protecting it?
+
+For each assumption I'm making (explicit or implied):
+1. Which risk category it falls in
+2. How confident I seem to be (high/medium/low, based on what I've told you)
+3. What evidence would move that confidence rating
+
+Organize the output as a priority list: high-risk assumptions with low confidence first. Those are the ones I need to test before I build anything.
+
+Also: flag any assumptions I seem to be making that I haven't stated explicitly.`}
+/>
+
+---
+
+## Prompt 3: Experiment design
+
+Take the highest-priority assumption from your mapping and design the smallest test that would give you a real answer.
+
+<PromptCard
+  id="discovery-experiment-primary"
+  variant="primary"
+  prompt={`I want to design an experiment to test my riskiest assumption.
+
+The assumption: [paste the #1 item from your assumption map]
+Why it's risky: [what happens to the product if this assumption is wrong?]
+
+Help me design a test using this structure:
+
+**Hypothesis:** "We believe [specific thing] will result in [outcome] for [user group]. We'll know we're right when [specific measurable signal]."
+
+**What we're testing:** The smallest version of the idea that would give us real signal. Not a prototype of the product. A test of the assumption.
+
+**How we'll run it:** Method (interview, smoke test, concierge, fake door, etc.), sample, and timeframe.
+
+**Success criteria:** What result would tell us to proceed? Be specific — percentages, counts, or quotes that would meet the bar.
+
+**Kill criteria:** What result would tell us to stop or change direction? Equally specific.
+
+**What we are NOT testing:** An explicit scope constraint so we don't over-build the test.
+
+Keep the test as small as possible. The goal is a decision, not a launch.`}
+/>
+
+---
+
+## Variations
+
+<PromptCard
+  id="discovery-existing-product"
+  variant="variation"
+  kicker="For discovery on an existing product, not a new idea"
+  prompt={`I'm doing discovery for a new feature in an existing product, not a greenfield idea.
+
+Product context: [describe your existing product, user base, and business model]
+The feature hypothesis: [what you're considering adding and why]
+What we know from existing users: [any signals from support, NPS, user research you already have]
+
+Instead of a full competitive analysis, help me:
+1. Identify which users in our existing base would benefit most from this feature
+2. Map the assumptions specific to adding this to an existing product (adoption, cannibalization, integration complexity)
+3. Identify what we already know from our user base that reduces our uncertainty on key assumptions
+4. Suggest the experiment that would resolve the biggest unknown we can't answer from existing data`}
+/>
+
+<PromptCard
+  id="discovery-timebox"
+  variant="variation"
+  kicker="For a 2-hour timebox (when you can't run a full sprint)"
+  prompt={`I have 2 hours to do as much discovery as possible before a decision meeting.
+
+The decision: [what needs to be decided and when]
+What I know so far: [current state of thinking]
+
+Given the time constraint, help me run a triage version of the three-part discovery sprint:
+1. Competitive analysis: skip depth, focus on — is there anyone doing this that we've missed, and what's the one gap most worth naming?
+2. Assumption mapping: skip the full 8-category breakdown, just identify the 2 to 3 assumptions that, if wrong, would make this not worth building
+3. Experiment design: design one lightweight test I could run in under a week that would resolve the most dangerous assumption
+
+At the end, tell me: based on what I've shared, what's the one question I most need to answer before this meeting?`}
+/>
+
+<PromptCard
+  id="discovery-pivot"
+  variant="variation"
+  kicker="For a pivot: you built something, users aren't responding"
+  prompt={`I built [product/feature description]. Here's what happened: [describe the response — usage data, user feedback, what's not working].
+
+I need to do a retrospective discovery sprint to understand what I got wrong.
+
+Help me:
+1. Map the assumptions I was making when I built this (reconstruct them from what I can tell you about the original decisions)
+2. Which ones turned out to be false, based on the evidence I've shared
+3. What user need actually exists that my product is close to but not quite hitting
+4. Whether I should pivot (change the solution), reframe (change the problem I'm solving), or stop
+
+Be honest about what the data suggests, even if it contradicts what I want to hear.`}
+/>
+
+## Tips and gotchas
+
+**The output is only as rigorous as your ability to judge it.** Claude will always find a market gap if you ask it to find one. It will confirm your assumptions if you don't push back. Treat every output as a first draft, not a verdict. Your job is to challenge it: "What would make this gap not real?" "What assumption are we making about user behavior that we haven't validated?"
+
+**Competitive analysis is the most dangerous prompt.** Claude infers from public signals: G2 reviews, Reddit threads, ProductHunt comments. It doesn't have access to private roadmaps, real churn data, or internal positioning documents. Always ask it to flag confidence levels, and follow up with: "Steelman the case that this gap doesn't actually exist."
+
+**Assumption mapping gets better when you add what Claude missed.** Claude can only surface assumptions from what you told it. After you get the output, read through it and ask: "What am I assuming that I didn't even think to mention?" Add those manually. The unstated assumptions are usually the most dangerous ones.
+
+**Experiment design is the hardest part to skip.** Most teams do the analysis, nod at the assumptions, and go straight to building. The experiment design step forces you to define what "right" looks like before you start. If you can't write a kill criterion, you don't actually have a hypothesis: you have a hope.
+
+**Run all three in one session.** Each prompt builds on the previous output. If you spread them across days, you lose the thread. Two to four hours in one sitting is the right scope.
+
+## Ready to try?
+
+Start with Prompt 1. Paste your idea and run the competitive analysis. You'll know within 30 minutes whether the sprint is worth continuing.
+
+[Write your PRD next](/docs/workflows/write-a-prd-from-rough-notes) once discovery is done.
+
+<AuthorBio />

@@ -1358,6 +1358,50 @@ export const blogPosts: BlogPost[] = [
 <p>When that happens, write it down. Drop it in <code>~/.claude/rules/common/</code>. Keep it short. Tell Claude what to do, not just what to avoid. Then watch the next session and see if it sticks.</p>
 <p>The CLAUDE.md layer makes Claude useful in your project. The universal rules layer makes Claude usable across every project. Most people only build the first one and wonder why they keep fighting the same fights.</p>`,
   },
+  {
+    slug: "product-discovery-in-two-days",
+    title: "Product Discovery in Two Days Instead of Two Weeks",
+    description: "AI compresses the structure of discovery dramatically. But the output is only as rigorous as your ability to judge it. Here's what that means in practice.",
+    date: "2026-05-07",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "product-management", "discovery", "productivity"],
+    content: `<!-- HERO IMAGE: replace this comment with <img src="/blog-hero-discovery-sprint.png" alt="..." style="width:100%;border-radius:12px;margin-bottom:2rem;" /> once generated -->
+<p>Two weeks used to be the minimum honest estimate for a product discovery sprint. Not because the research takes that long. Because structuring the thinking takes that long. You need a competitive analysis that finds the real gap, not just a list of features. You need an assumption map that surfaces what you're most wrong about, not just what you believe. You need an experiment design that would actually kill your riskiest assumption if the result came back bad.</p>
+<p>That structure is what eats the time. And it's exactly what Claude is good at.</p>
+<p>With the right prompts, I can run a full discovery sprint in an afternoon. Competitive analysis, assumption mapping, experiment design. Three hours of focused work, not two weeks of calendar negotiation.</p>
+<p>But there's a catch that nobody talks about honestly.</p>
+
+<h2>The Output Is Only as Rigorous as Your Ability to Judge It</h2>
+<p>Claude will always find a market gap if you ask it to find one. It will always produce an assumption map. It will write you a crisp XYZ hypothesis with kill criteria and everything. The structure will look right. The logic will be plausible.</p>
+<p>What it can't do is know whether the gap it found is real, whether the assumptions it surfaced are the dangerous ones, or whether the experiment it designed would actually produce a decision. That judgment is yours. And if you don't have it, the two-day sprint produces a document that looks like discovery but isn't.</p>
+<p>This is the distinction that matters: AI compresses the scaffolding. It doesn't replace the judgment that makes the scaffolding worth building.</p>
+<p>Which means the people who benefit most from this aren't people who've never done discovery. They're people who've done it the slow way enough times to recognize when the output is shallow. They use Claude to go faster because they already know what fast-and-wrong looks like.</p>
+
+<h2>What Rigorous Discovery Actually Requires</h2>
+<p>Teresa Torres's opportunity solution tree is the clearest framework I know for thinking about this. Before you design a solution, you need to understand the opportunity: what user need or pain exists, why it matters, and what you're betting on about the world.</p>
+<p>That bet has eight dimensions of risk. Desirability: do people actually want this? Viability: can the business support it? Feasibility: can you build it? Usability: can users actually use it? And four more that most teams never name explicitly: ethical, safety, legal, data privacy.</p>
+<p>Most discovery processes cover the first three. The rest get assumed away.</p>
+<p>Claude is genuinely useful for the assumption mapping step because it externalizes what you're taking for granted. When you describe your product idea and ask it to map your assumptions by risk category, it will surface things you didn't know you believed. The unstated assumptions are usually the most dangerous ones.</p>
+<p>But it can only surface what you gave it. What you didn't think to mention, it can't flag. That's why the output requires a second pass where you ask: "What am I assuming that I didn't even think to tell you?"</p>
+
+<h2>Where Claude Lies (and How to Catch It)</h2>
+<p>Competitive analysis is the most dangerous prompt in the discovery sprint. Ask Claude to find the market gap and it will find one, every time. Because that's what you asked for. It's pattern-matching on your framing, not independently discovering that an opportunity exists.</p>
+<p>The antidote is the follow-up: "Steelman the case that this gap doesn't actually exist." Ask it to argue against its own finding. Make it explain why a well-funded competitor might have deliberately left that segment unserved rather than overlooked it. The quality of its pushback tells you how solid the original finding was.</p>
+<p>Experiment design is the other place to be careful. Claude will produce clean hypotheses. "We believe X will result in Y for Z users. We'll know we're right when [metric]." Looks great. The problem is the kill criterion: most first-draft kill criteria are too vague to actually produce a decision. "Users don't engage" is not a kill criterion. "Fewer than 15% of users who see the onboarding email click through within 48 hours" is one.</p>
+<p>If you can't commit to stopping if the result comes back bad, you don't have an experiment. You have a hope with a timeline.</p>
+
+<h2>The Three-Prompt Workflow</h2>
+<p>The discovery sprint I run now has three stages in sequence. Each one builds on the output of the previous one.</p>
+<p>Start with <strong>competitive analysis</strong>: map who's in the space, what they're ignoring, and where the underserved segment lives. The key instruction: label everything inferred rather than cited. You want to know the confidence level before you treat it as fact.</p>
+<p>Then <strong>assumption mapping</strong> using the eight risk categories. Give Claude your product concept and ask it to surface every assumption you're making. Then manually add the ones it missed. The ones you forgot to mention are the ones most worth testing.</p>
+<p>Then <strong>experiment design</strong>: take your highest-priority assumption (high risk, low confidence) and design the smallest test that would give you a real answer. Write the kill criterion before you write the success criterion. If you can't name what would make you stop, you haven't finished the design.</p>
+<p>The full prompts and example outputs are in the <a href="/docs/workflows/run-a-product-discovery-sprint">discovery sprint workflow</a>. Start there.</p>
+
+<h2>When Two Days Is Actually Enough</h2>
+<p>Two days is enough when the sprint produces a decision, not a document. The question at the end isn't "do we have good discovery artifacts?" It's "do we know what we're testing and what would make us change direction?"</p>
+<p>If you can answer that with specifics, the sprint worked. If you have a competitive analysis and an assumption map but no clear experiment and no kill criteria, you have research theater, not discovery. It looks like the two-week version. It produces the same non-answer.</p>
+<p>The compression AI enables is real. Use it. But the judgment that makes it valuable has to come from you. That part doesn't get faster until you've done it wrong enough times to recognize what right looks like.</p>`,
+  },
 ];
 
 // Sorted newest first for display
