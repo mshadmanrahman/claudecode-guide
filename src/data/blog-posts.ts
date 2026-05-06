@@ -1365,7 +1365,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-07",
     author: "Shadman Rahman",
     tags: ["claude-code", "product-management", "discovery", "productivity"],
-    content: `<!-- HERO IMAGE: replace this comment with <img src="/blog-hero-discovery-sprint.png" alt="..." style="width:100%;border-radius:12px;margin-bottom:2rem;" /> once generated -->
+    content: `<img src="/blog-hero-discovery-sprint.png" alt="Watercolor illustration: bearded man at desk with floating cards labelled COMPETITORS, ASSUMPTIONS, EXPERIMENT" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
 <p>Two weeks used to be the minimum honest estimate for a product discovery sprint. Not because the research takes that long. Because structuring the thinking takes that long. You need a competitive analysis that finds the real gap, not just a list of features. You need an assumption map that surfaces what you're most wrong about, not just what you believe. You need an experiment design that would actually kill your riskiest assumption if the result came back bad.</p>
 <p>That structure is what eats the time. And it's exactly what Claude is good at.</p>
 <p>With the right prompts, I can run a full discovery sprint in an afternoon. Competitive analysis, assumption mapping, experiment design. Three hours of focused work, not two weeks of calendar negotiation.</p>
