@@ -74,7 +74,7 @@ export default function GuidePage() {
             <br />
             Not ready for any of that?{' '}
             <a href="https://lovable.link/4IOZkKK" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground transition-colors">
-              Try Lovable instead
+              Start without a terminal
             </a>{' '}
             (visual AI builder, no code needed, 20% off).
           </p>

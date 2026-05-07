@@ -414,6 +414,18 @@ export default function HomePage() {
               Star on GitHub
             </a>
           </div>
+          <p className="mt-5 text-sm text-fd-muted-foreground">
+            Need a Claude plan first?{' '}
+            <a
+              href="https://claude.ai/upgrade"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-fd-foreground underline underline-offset-2 hover:no-underline"
+            >
+              Get Claude Pro
+            </a>
+            {' '}to unlock Claude Code.
+          </p>
         </div>
       </section>
 

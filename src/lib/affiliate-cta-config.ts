@@ -48,7 +48,7 @@ const guideDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
     title: 'Need somewhere to deploy?',
     description:
       'Railway gives you one-click deploys from GitHub with generous free tier. Perfect for shipping what Claude Code builds.',
-    ctaLabel: 'Try Railway free',
+    ctaLabel: 'Deploy your first app on Railway',
     destination: AFFILIATE_LINKS.railway,
   },
   'end-card': {
@@ -72,7 +72,7 @@ const comparisonDefaultDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
     title: 'Ship your first project with v0',
     description:
       'Use Vercel v0 to turn your Claude Code output into a deployed app in minutes. AI-generated UI meets one-click deploy.',
-    ctaLabel: 'Try v0 free',
+    ctaLabel: 'Build UI fast with v0',
     destination: AFFILIATE_LINKS.vercelV0,
   },
   'end-card': {
@@ -156,7 +156,7 @@ const tutorialDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
     title: 'Deploy what you just built',
     description:
       'Railway gives you one-click deploys from GitHub with a generous free tier. Ship what Claude Code builds in minutes.',
-    ctaLabel: 'Try Railway free',
+    ctaLabel: 'Deploy your first app on Railway',
     destination: AFFILIATE_LINKS.railway,
   },
   'end-card': {
@@ -218,7 +218,7 @@ const terminalDraft: CTAConfigDraft = {
   title: 'Want a smarter terminal for Claude Code?',
   description:
     'Warp is an AI-native terminal that pairs well with the Claude Code CLI. Command blocks, inline AI suggestions, and a cleaner workflow than vanilla Terminal or iTerm. Heads up: this is a referral link.',
-  ctaLabel: 'Try Warp free',
+  ctaLabel: 'Get Warp, the AI-native terminal',
   destination: AFFILIATE_LINKS.warpReferral,
 };
 
@@ -234,7 +234,7 @@ const workflowDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
     title: 'Need somewhere to deploy?',
     description:
       'Railway gives you one-click deploys from GitHub with generous free tier. Perfect for shipping what Claude Code builds.',
-    ctaLabel: 'Try Railway free',
+    ctaLabel: 'Deploy your first app on Railway',
     destination: AFFILIATE_LINKS.railway,
   },
   'end-card': {

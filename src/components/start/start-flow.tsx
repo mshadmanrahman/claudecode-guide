@@ -443,7 +443,11 @@ export function StartFlow() {
               <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">
                 Create one at console.anthropic.com
               </a>
-              . You&apos;ll need Claude Pro ($20/month) or Max to use Claude Code.
+              . You&apos;ll need{' '}
+              <a href="https://claude.ai/upgrade" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">
+                Claude Pro ($20/month)
+              </a>
+              {' '}or Max to use Claude Code.
             </p>
           </div>
         </ProgressiveStep>

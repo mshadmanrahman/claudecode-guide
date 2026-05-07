@@ -718,8 +718,29 @@ export default function TutorialsPage() {
           </div>
         )}
 
+        {/* Railway deployment CTA */}
+        <div className="mt-16 rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-medium text-fd-foreground">Built something and want it live?</p>
+              <p className="mt-1 text-sm text-fd-muted-foreground">
+                Railway gives you one-click deploys from GitHub with a generous free tier. No config files.
+              </p>
+            </div>
+            <a
+              href="https://railway.com/?referralCode=shadman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-4 py-2 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
+            >
+              Deploy your first app on Railway
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        </div>
+
         {/* Email capture CTA */}
-        <div className="mt-16 space-y-6">
+        <div className="mt-8 space-y-6">
           <div className="rounded-xl border border-fd-border bg-fd-card p-10 text-center">
             <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
               Want more?
