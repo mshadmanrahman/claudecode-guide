@@ -6,7 +6,7 @@ import {
   ArrowRight, Play, Hammer, Sparkles, Briefcase, Rocket, Clock,
   TreePine, Network, Newspaper, Star, Lightbulb, BarChart2, BookOpen,
   Layout, Target, DollarSign, Monitor, Gamepad2, Image, Music,
-  MessageCircle, Code2, Layers, GitPullRequest, X,
+  MessageCircle, Code2, Layers, GitPullRequest, X, Mic,
 } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { EmailCapture } from '@/components/email-capture';
@@ -662,6 +662,32 @@ export default function TutorialsPage() {
           ]} />
         </div>
       </section>
+
+      {/* Wispr Flow workflow tip */}
+      <div className="mx-auto w-full max-w-3xl px-6 pb-4">
+        <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-5 py-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-3">
+              <Mic className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <div>
+                <p className="text-sm font-medium text-fd-foreground">Before you type your first prompt, consider speaking it</p>
+                <p className="mt-0.5 text-sm text-fd-muted-foreground">
+                  I use Wispr Flow to voice-dump context into Claude Code. Voice is faster for long context, and you end up giving Claude more signal. Free to try.
+                </p>
+              </div>
+            </div>
+            <a
+              href="https://ref.wisprflow.ai/shadman-rahman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-4 py-2 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
+            >
+              Try Wispr Flow free
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* Sticky filter bar */}
       <FilterBar

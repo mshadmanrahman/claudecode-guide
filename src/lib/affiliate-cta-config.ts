@@ -33,6 +33,7 @@ const AFFILIATE_LINKS = {
   coursera: 'https://www.coursera.org/professional-certificates?utm_source=claudecodeguide',
   granola: 'https://www.granola.ai?via=shadman-rahman',
   warpReferral: 'https://app.warp.dev/referral/RVVXRNY',
+  wisprFlow: 'https://ref.wisprflow.ai/shadman-rahman',
   proVsMax: '/docs/comparisons/pro-vs-max',
 } as const;
 
@@ -146,11 +147,11 @@ function resolveComparisonDraft(
 
 const tutorialDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
   inline: {
-    title: 'Want structured learning alongside this guide?',
+    title: 'One thing I do: speak my prompts instead of typing them',
     description:
-      'Coursera professional certificates pair well with hands-on practice. Learn the theory, then build it with Claude Code.',
-    ctaLabel: 'Browse certificates',
-    destination: AFFILIATE_LINKS.coursera,
+      'I use Wispr Flow to voice-dump context into Claude Code. You end up giving Claude more signal, faster, especially for long context. Free to try.',
+    ctaLabel: 'Try Wispr Flow free',
+    destination: AFFILIATE_LINKS.wisprFlow,
   },
   'mid-banner': {
     title: 'Deploy what you just built',
@@ -222,6 +223,26 @@ const terminalDraft: CTAConfigDraft = {
   destination: AFFILIATE_LINKS.warpReferral,
 };
 
+/**
+ * Pages where Wispr Flow (AI voice-to-text) is contextually relevant.
+ * Wispr Flow affiliate: https://ref.wisprflow.ai/shadman-rahman
+ * Best placement: pages about prompting, workflow, or getting started.
+ */
+const WISPR_FLOW_PAGES = new Set([
+  'docs/foundations/writing-effective-prompts',
+  'docs/workflows/daily-practice',
+  'docs/patterns/context-management',
+  'docs/foundations/getting-started',
+]);
+
+const wisprFlowDraft: CTAConfigDraft = {
+  title: 'One thing I do: speak my prompts instead of typing them',
+  description:
+    'I use Wispr Flow to voice-dump context into Claude Code. You end up giving Claude more signal, faster, especially for long context. Free to try.',
+  ctaLabel: 'Try Wispr Flow free',
+  destination: AFFILIATE_LINKS.wisprFlow,
+};
+
 const workflowDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
   inline: {
     title: 'Capture meetings without lifting a finger',
@@ -271,6 +292,10 @@ export function getAffiliateCtasForPage(pageSlug: string): AffiliateCTAConfig[] 
 
   if (WARP_PAGES.has(pageSlug)) {
     return [createConfig(pageSlug, 'inline', terminalDraft)];
+  }
+
+  if (WISPR_FLOW_PAGES.has(pageSlug)) {
+    return [createConfig(pageSlug, 'inline', wisprFlowDraft)];
   }
 
   if (!pageSlug.startsWith('docs/comparisons/')) {

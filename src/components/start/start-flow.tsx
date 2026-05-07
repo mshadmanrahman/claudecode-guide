@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
   Gamepad2, ClipboardList, BarChart3, ArrowRight, Check,
   Monitor, Laptop, Terminal as TerminalIcon, ChevronDown, ChevronRight,
-  Sparkles, Globe, Code2,
+  Sparkles, Globe, Code2, Mic,
 } from 'lucide-react';
 import { ProgressiveStep } from '@/components/start/progressive-step';
 import { CopyBlock } from '@/components/guide/copy-block';
@@ -449,6 +449,27 @@ export function StartFlow() {
               </a>
               {' '}or Max to use Claude Code.
             </p>
+          </div>
+
+          <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/8 p-5">
+            <div className="flex items-start gap-3">
+              <Mic className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <div>
+                <p className="text-sm font-medium text-fd-foreground mb-1">Workflow tip: speak your prompts instead of typing them</p>
+                <p className="text-sm text-fd-muted-foreground leading-relaxed">
+                  I use Wispr Flow to voice-dump context into Claude Code. Voice is faster for long context, and you end up giving Claude more signal.{' '}
+                  <a
+                    href="https://ref.wisprflow.ai/shadman-rahman"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-fd-foreground underline hover:no-underline"
+                  >
+                    Try it free
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
           </div>
         </ProgressiveStep>
       </main>
