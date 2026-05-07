@@ -497,10 +497,10 @@ function FilterBar({
     <div className="sticky top-14 z-20 border-b border-fd-border bg-fd-background/95 backdrop-blur-sm">
       <div className="mx-auto w-full max-w-3xl px-6 py-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-col gap-2">
             {/* Audience group */}
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-xs text-fd-muted-foreground mr-0.5">Audience:</span>
+              <span className="w-16 shrink-0 text-xs text-fd-muted-foreground">Audience:</span>
               {AUDIENCE_OPTIONS.map((opt) => (
                 <FilterPill
                   key={opt.value}
@@ -513,7 +513,7 @@ function FilterBar({
             </div>
             {/* Time group */}
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-xs text-fd-muted-foreground mr-0.5">Time:</span>
+              <span className="w-16 shrink-0 text-xs text-fd-muted-foreground">Time:</span>
               {TIME_OPTIONS.map((opt) => (
                 <FilterPill
                   key={opt.value}
