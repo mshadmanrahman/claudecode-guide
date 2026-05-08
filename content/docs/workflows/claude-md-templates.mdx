@@ -1,0 +1,266 @@
+---
+title: "CLAUDE.md Templates for Real Projects"
+description: "Copy-paste CLAUDE.md sections for five common setups: Node/Express, Next.js, Python FastAPI, monorepos, and solo builders. Add your specifics and you're done."
+---
+
+Every CLAUDE.md needs five sections. Here's what each section should contain, with real examples you can copy and adapt.
+
+## The five sections
+
+### 1. Project context
+
+One short block. Stack, entry point, deploy target. Claude can infer some of this from your files, but stating it explicitly means it never guesses wrong.
+
+```markdown
+## Project
+Next.js 14 e-commerce storefront using Postgres via Prisma.
+Entry: `npm run dev` (port 3001). Tests: `npm test`. Deploys: Vercel on push to `main`.
+```
+
+### 2. Coding standards
+
+Rules that would fail a code review. Be specific: vague rules do nothing.
+
+```markdown
+## Coding Standards
+- TypeScript strict mode. No `any` types.
+- All database queries go through `lib/db.ts`. Never raw Prisma calls in components.
+- Tailwind only. No inline styles.
+- No `console.log`. Use `lib/logger.ts`.
+```
+
+### 3. File structure
+
+Anything non-obvious about where things live. Claude can read a directory tree but can't infer your conventions.
+
+```markdown
+## Structure
+- API routes: `app/api/`
+- Shared types: `types/` (not inside `app/`)
+- Reusable components: `components/ui/` (shadcn) vs `components/app/` (project-specific)
+```
+
+### 4. Workflow rules
+
+How Claude should operate during a session: when to ask, when to run tests, what to avoid.
+
+```markdown
+## Workflow
+- Run `npm test` after any change to `lib/` or `app/api/`.
+- Ask before creating new files. Prefer editing existing ones.
+- One sub-agent per focused task. Keep the main chat clean.
+- Never push to `main` without asking.
+```
+
+A sub-agent is a separate Claude instance that handles a focused task in isolation, then hands a summary back. Use them for anything you'd otherwise spin up a second terminal for.
+
+### 5. Commands
+
+The commands Claude will reach for constantly. Put them here so it doesn't guess or construct them from scratch.
+
+```markdown
+## Commands
+- Dev: `npm run dev`
+- Test: `npm test`
+- Type check: `npm run typecheck`
+- Seed DB: `npx prisma db seed`
+- Migrate: `npx prisma migrate dev`
+```
+
+---
+
+## Complete templates by stack
+
+### Node.js / Express API
+
+```markdown
+# CLAUDE.md
+
+## Project
+REST API for invoice generation. Node 20, Express, PostgreSQL 15 via Prisma. Deployed on Railway.
+
+## Coding Standards
+- No raw SQL. All database access through `src/db/prisma.ts`.
+- No `console.log`. Use `src/lib/logger.ts`.
+- All monetary values stored as integers (cents). Never floats.
+- Controllers in `src/controllers/`, services in `src/services/`. Controllers handle HTTP. Services handle business logic.
+
+## Structure
+- Controllers: `src/controllers/`
+- Services: `src/services/`
+- DB models: `src/db/`
+- Middleware: `src/middleware/`
+
+## Workflow
+- Run `npm test` after changes to `src/services/` or `src/db/`.
+- The `invoices/generate` endpoint is rate-limited at the middleware layer. New endpoints: check if they need rate limiting too.
+- Ask before adding dependencies.
+
+## Commands
+- Dev: `npm run dev`
+- Test: `npm test`
+- Migrate: `npx prisma migrate dev`
+- Apply migration: `npx prisma migrate deploy`
+```
+
+---
+
+### Next.js (App Router)
+
+```markdown
+# CLAUDE.md
+
+## Project
+Multi-tenant SaaS dashboard. Next.js 14, App Router, TypeScript strict, Tailwind, Postgres via Drizzle. Auth: Clerk. Deploys: Vercel.
+
+## Coding Standards
+- No `any` types.
+- No raw `fetch` in components. Use the typed wrappers in `lib/api.ts`.
+- Tailwind only. No inline styles, no CSS modules.
+- `use client` only when the component genuinely needs browser APIs or state. Server components are the default.
+- No `console.log`. Use `lib/logger.ts`.
+
+## Structure
+- Server components: `app/` (default)
+- Client components: `components/` with `use client` directive
+- Types: `types/` (not inside `app/`)
+- API wrappers: `lib/api.ts`
+- Shared UI primitives: `components/ui/` (shadcn-based)
+- App-specific components: `components/app/`
+
+## Workflow
+- Run `npm run typecheck && npm test` after frontend changes.
+- Migrations: never auto-run. Show me the migration file first.
+- Ask before adding npm dependencies.
+
+## Commands
+- Dev: `npm run dev` (port 3000)
+- Test: `npm test`
+- Type check: `npm run typecheck`
+- Lint: `npm run lint`
+- Migrate: `npx drizzle-kit generate && npx drizzle-kit push`
+```
+
+---
+
+### Python / FastAPI
+
+```markdown
+# CLAUDE.md
+
+## Project
+Analytics API. Python 3.12, FastAPI, PostgreSQL via SQLAlchemy + Alembic. Deployed on Railway.
+
+## Coding Standards
+- Type hints required on all function signatures.
+- No `print()`. Use `logging.getLogger(__name__)`.
+- No raw SQL. Use SQLAlchemy models in `backend/models/`.
+- Black formatting. Run `black .` before committing.
+- Line length: 88 (Black default).
+
+## Structure
+- Routers: `backend/routers/`
+- Models: `backend/models/`
+- Schemas (Pydantic): `backend/schemas/`
+- Services: `backend/services/`
+- DB session: `backend/db.py`
+
+## Workflow
+- Run `pytest` after any change to `backend/services/` or `backend/models/`.
+- Migrations: never auto-apply. Show me the migration file before running it.
+- Ask before adding pip dependencies.
+
+## Commands
+- Dev: `uvicorn main:app --reload` (port 8000)
+- Test: `pytest -v`
+- Generate migration: `alembic revision --autogenerate -m "description"`
+- Apply migration: `alembic upgrade head`
+- Format: `black .`
+```
+
+---
+
+### Monorepo (Next.js + FastAPI)
+
+```markdown
+# CLAUDE.md
+
+## Project
+Multi-tenant analytics platform. Next.js 14 frontend + FastAPI backend. Shared Postgres database.
+Frontend: port 3000. Backend: port 8000. Deploys: Vercel (frontend), Railway (backend).
+
+## Coding Standards
+
+Frontend:
+- TypeScript strict, no `any`
+- No raw `fetch` in components. Use `lib/api.ts` typed wrappers.
+- Tailwind only
+
+Backend:
+- Python type hints on all signatures
+- No `print()`. Use `logging.getLogger(__name__)`
+- No raw SQL. Use SQLAlchemy models in `backend/models/`
+
+Shared types between frontend and backend: `types/api.ts` is the source of truth.
+
+## Structure
+- Frontend components: `components/ui/` (primitives) vs `components/dashboard/` (app-specific)
+- Next.js API routes: `app/api/`
+- FastAPI routers: `backend/routers/`
+- FastAPI models: `backend/models/`
+
+## Workflow
+- After frontend changes: `npm run typecheck && npm test`
+- After backend changes: `pytest`
+- Migrations: never auto-run. Show me the file first.
+- Ask before adding dependencies to either side.
+
+## Commands
+Frontend:
+- Dev: `npm run dev`
+- Test: `npm test`
+- Type check: `npm run typecheck`
+
+Backend:
+- Dev: `uvicorn main:app --reload`
+- Test: `pytest -v`
+- Migrate: `alembic revision --autogenerate -m "description"` then `alembic upgrade head`
+```
+
+---
+
+### Solo builder (personal projects)
+
+```markdown
+# CLAUDE.md
+
+## Project
+[What this does, in one sentence. Stack. Deploy target.]
+
+## How I work
+- Direct answers. No preamble.
+- Lead with a recommendation, not a list of options.
+- Code should be production-ready, not a starting point.
+- Never push to `main` without asking.
+
+## Coding Standards
+[Your actual rules here.]
+
+## Commands
+- Dev: [your dev command]
+- Test: [your test command]
+- Deploy: [your deploy command]
+
+## What not to touch
+[Anything intentionally left a certain way. Known tech debt you're living with. Libraries you've deliberately not upgraded.]
+```
+
+---
+
+## The three mistakes
+
+**Writing rules without teeth.** "Write readable code" means nothing. Claude interprets it and moves on. Write constraints with a clear pass/fail: "No function longer than 40 lines." "Every new API route needs a corresponding test." Rules that could be linted should sound like lint rules.
+
+**Treating it as a one-time setup.** Your CLAUDE.md should update when your project changes. New database, new library, new convention: add it. A stale CLAUDE.md gives Claude confident wrong answers, which is worse than no CLAUDE.md at all. Review it when you do sprint planning.
+
+**Repeating what's already enforced.** If your linter enforces import order, don't document the rule. If CI blocks on failing tests, don't say "tests must pass." Put things in CLAUDE.md only when tooling can't catch them. Everything else is noise that dilutes the signal.
