@@ -1211,7 +1211,7 @@ Flag any item that needs a design decision, not just a dev fix.
       {
         title: 'Start a new project repo',
         description:
-          'Before Claude Code can save your work, you need a Git repository. Open Terminal (Mac: press Command + Space, type Terminal, press Enter. Windows: press Windows key, type PowerShell, press Enter). Every command in this guide is typed there and run with Enter. You also need a free GitHub account at github.com and a new empty repo created there before running git remote add. If your project already has a repo (there is a .git folder in it), skip to Step 2.',
+          'Before Claude Code can save your work, you need a Git repository. Open Terminal (Mac: press Command + Space, type Terminal, press Enter. Windows: press Windows key, type PowerShell, press Enter). Every command in this guide is typed there and run with Enter. You also need a free GitHub account at github.com and a new empty repo created there before running git remote add (go to github.com/new, click New repository, leave it empty). The last command, claude, starts your Claude Code session. If it shows "command not found", install Claude Code at claude.ai/download first.',
         code: {
           snippet: `# 1. Create your project folder and enter it
 mkdir my-design-project
@@ -1220,10 +1220,10 @@ cd my-design-project
 # 2. Initialise Git (creates the .git folder)
 git init
 
-# 3. Go to github.com/new, create a repo, then paste its URL here
+# 3. Go to github.com/new, create an empty repo, then paste its URL below
 git remote add origin https://github.com/your-username/my-design-project.git
 
-# 4. Start Claude Code
+# 4. Start Claude Code (install at claude.ai/download if needed)
 claude`,
           language: 'bash',
         },
@@ -1242,9 +1242,10 @@ claude`,
       {
         title: 'What a commit is',
         description:
-          'A commit is a named save point. When Claude edits a file and commits the change, that save point exists permanently in your project history. Think of it like Google Docs version history, except permanent and navigable from any point. Run git log --oneline now to see your project\'s commit history. Each line is one commit: a short ID plus the message.',
+          'A commit is a named save point. When Claude edits a file and commits the change, that save point exists permanently in your project history. Think of it like Google Docs version history, except permanent and navigable from any point. If you have made any commits already, run git log --oneline to see them. On a brand-new project, this returns nothing yet and that is expected.',
         code: {
           snippet: `# See your commit history (one line per commit)
+# On a brand-new project this returns nothing -- that is normal
 git log --oneline`,
           language: 'bash',
         },
