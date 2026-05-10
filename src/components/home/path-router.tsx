@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { GitCompare, FileCode, Compass, GraduationCap, ArrowRight } from 'lucide-react';
+import { GitCompare, FileCode, Compass, GraduationCap, Paintbrush, ArrowRight } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
 interface RouterCard {
-  id: 'compare' | 'claude-md' | 'interface' | 'tutorials';
+  id: 'compare' | 'claude-md' | 'interface' | 'tutorials' | 'designers';
   icon: typeof GitCompare;
   title: string;
   blurb: string;
@@ -46,6 +46,14 @@ const CARDS: ReadonlyArray<RouterCard> = [
     href: '/tutorials',
     audience: 'Learning by doing',
   },
+  {
+    id: 'designers',
+    icon: Paintbrush,
+    title: 'Claude for UX and UI designers',
+    blurb: '10 task-oriented guides: decode briefs, run heuristic evaluations, synthesize research, hand off to code.',
+    href: '/for-designers',
+    audience: 'Designer',
+  },
 ];
 
 export function PathRouter() {
@@ -61,7 +69,7 @@ export function PathRouter() {
         Four shortcuts to the pages people actually open. Skip the homepage browse.
       </p>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {CARDS.map((card) => {
           const Icon = card.icon;
           return (

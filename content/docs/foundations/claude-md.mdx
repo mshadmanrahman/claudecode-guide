@@ -3,6 +3,8 @@ title: The Definitive CLAUDE.md Guide
 description: "Skip this file and Claude Code guesses its way through every session. Here's how to write one that actually works, and why most people do it wrong."
 ---
 
+This guide is for developers setting up Claude Code on an existing project. After reading it, you'll know what to put in a CLAUDE.md, what to leave out, and how to keep it accurate as the project evolves.
+
 ## Why Most People Get Bad Results
 
 Most people install Claude Code, type something, get a mediocre answer, and conclude "AI isn't that useful yet."
@@ -123,6 +125,17 @@ Commands: `.claude/commands/` (slash commands)
 
 If Claude Code doesn't know your skills and agents exist, it won't use them. This tells it what it has to work with.
 
+## What to Leave Out
+
+Not everything belongs in CLAUDE.md. These four categories actively hurt more than they help:
+
+- **Explanations of what the project does.** CLAUDE.md is for working instructions, not onboarding docs. Business context belongs in `docs/overview.md`.
+- **Information that changes constantly.** Version numbers, sprint goals, active tickets. These go stale within days, and an outdated instruction misleads more than blank space.
+- **Your full coding style guide.** Five pages of naming conventions buries the two lines Claude actually needs. Extract the rules that affect output and inline those; link to the rest.
+- **Anything Claude can already read in the codebase.** If it can open the file and infer it, don't repeat it here.
+
+**Do this instead:** Link to external files. `Read docs/architecture.md for system design.` keeps CLAUDE.md short and lets Claude pull context on demand rather than loading everything upfront. Your context window will thank you.
+
 ## The Three Mistakes Everyone Makes
 
 ### Mistake 1: Dumping everything inline
@@ -142,6 +155,33 @@ You don't define start/end protocols. Every session starts cold. You spend 10 mi
 "Write clean code" is not a rule. It's a wish. Claude Code reads that and goes "sure, clean code, got it" and then writes whatever it was going to write anyway.
 
 **Fix:** Be specific. "Functions under 50 lines. Files under 800 lines. No mutation. Handle errors explicitly. Use early returns." Now Claude Code has actual constraints to follow.
+
+## A Realistic Worked Example
+
+Here's a CLAUDE.md for a real backend service: a gRPC service managing warehouse inventory. gRPC is a framework for calling functions across services over a network; it uses proto files (short for Protocol Buffer files) to define the shape of the data being exchanged, instead of JSON. Error handling uses neverthrow, a TypeScript library that returns errors as values rather than throwing exceptions, making every error path visible in the type system.
+
+```markdown
+# CLAUDE.md
+
+## Stack
+- Node.js gRPC service. Proto files in /proto define all field names and types.
+- TypeScript with neverthrow for error handling. Use Result<T, E>, not try/catch.
+- Postgres via Drizzle ORM, migrations in /db/migrations.
+- Deploy target: Fly.io
+
+## Build & test
+npm run build     # Compiles TypeScript and generates types from proto files
+npm run test      # Runs Jest suite (must pass before any commit)
+npm run gen       # Regenerates TypeScript types from .proto schema files
+
+## Rules
+- Errors: use ok() and err() from neverthrow. No try/catch in service logic.
+- Never edit generated files under /proto/generated/. Change the .proto file, then run npm run gen.
+- Functions under 50 lines. Files under 400 lines.
+- Read docs/architecture.md before touching the inventory sync flow.
+```
+
+Notice what this covers: the stack (with each term explained inline), the commands needed to build and test, and the rules that affect day-to-day output. It doesn't explain what a warehouse is or paste in the full Drizzle ORM docs. That stays in `docs/`.
 
 ## A Real CLAUDE.md in Production
 

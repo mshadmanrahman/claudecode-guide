@@ -15,6 +15,7 @@ const NAV_LINKS: NavLink[] = [
   { href: '/start', label: 'Start Here' },
   { href: '/docs', label: 'Docs' },
   { href: '/tutorials', label: 'Tutorials' },
+  { href: '/for-designers', label: 'For Designers' },
   { href: '/pm-pilot', label: 'PM Pilot' },
   { href: '/blog', label: 'Blog' },
 ];

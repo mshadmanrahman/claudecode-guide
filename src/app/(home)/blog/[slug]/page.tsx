@@ -1,10 +1,24 @@
 import Link from 'next/link';
-import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, User, Tag, Paintbrush } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 import { BlogContent } from '@/components/blog-content';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getRelatedPosts, blogPosts } from '@/data/blog-posts';
 import type { Metadata } from 'next';
+
+const DESIGNER_RELEVANT_SLUGS = new Set([
+  'claude-code-for-non-engineers',
+  '8-ways-pms-use-claude-code-without-writing-code',
+  'claude-md-is-not-optional',
+  'context-beats-cleverness',
+  '5-claude-md-mistakes',
+  '7-claude-md-sections-every-project-needs',
+  'why-most-people-use-claude-code-wrong',
+  'the-cold-start-problem',
+  '3-prompts-that-changed-everything',
+  'rules-that-follow-claude-everywhere',
+  'your-first-hour-with-claude-code',
+]);
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -94,6 +108,27 @@ export default async function BlogPostPage(props: PageProps) {
         >
           <BlogContent html={post.content} />
         </div>
+
+        {DESIGNER_RELEVANT_SLUGS.has(params.slug) && (
+          <div className="mt-12 rounded-xl border border-fd-border bg-fd-card p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <Paintbrush className="h-4 w-4 text-fd-muted-foreground" />
+              <span className="text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+                For designers
+              </span>
+            </div>
+            <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
+              If you are a UX or UI designer, we have a guide series built specifically for your work: decoding briefs, running heuristic evaluations, synthesizing research, and handing off to code. No terminal required for most of it.
+            </p>
+            <Link
+              href="/for-designers"
+              className="inline-flex items-center gap-2 text-sm font-medium text-fd-foreground hover:underline"
+            >
+              Browse the designer guides
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        )}
 
         {relatedPosts.length > 0 && (
           <div className="mt-16 border-t border-fd-border pt-8">
