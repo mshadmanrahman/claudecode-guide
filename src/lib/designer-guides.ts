@@ -34,14 +34,19 @@ export const DESIGNER_GUIDES: Record<string, DesignerGuide> = {
     description:
       'Give Claude permanent context about your role, your users, and your output preferences. Every session starts already knowing your work.',
     intro:
-      'Claude does not know you are a designer until you tell it. Without context, every session starts from scratch: generic answers, generic feedback, generic output. The fix is a working agreement, a permanent context block you write once that shapes every conversation from that point on. This guide shows you how to set one up, whichever tool you use.',
+      'This guide is for UX and UI designers who want Claude to know their work without re-explaining it every session. By the end, you will have a working agreement that loads your role, users, and output preferences automatically. Claude does not know you are a designer until you tell it. Without context, every session starts from scratch: generic answers, generic feedback, generic output. You write the agreement once. Claude reads it every time.',
     steps: [
       {
         title: 'Create your workspace',
         description:
-          'Claude.ai users: create a Project in the left sidebar (follow the demo below, no terminal needed). Co-Work or Claude Code users: navigate to your design project folder and run the commands below.',
+          'Claude.ai users: create a Project in the left sidebar (follow the demo below, no commands needed). Co-Work users (Claude Code running in a local folder on your machine, without Git) or Claude Code users: open Terminal (Mac: press Command + Space, type Terminal, press Enter) and run the commands below. CLAUDE.md is a plain text file. The name tells Claude to read it automatically at the start of every session.',
         code: {
-          snippet: `# Terminal: navigate to your design project and create CLAUDE.md
+          snippet: `# First: confirm Claude Code is installed
+# (if you see "command not found", install it at claude.ai/download first)
+claude --version
+
+# Then: create your project folder and start Claude Code
+mkdir -p ~/my-design-project
 cd ~/my-design-project
 touch CLAUDE.md
 claude`,
@@ -164,7 +169,7 @@ What questions should I be asking before I open Figma?`,
       {
         title: 'Keep it under 300 words and update it when context changes',
         description:
-          'Longer agreements do not produce better results. Claude does not weight a 600-word agreement more heavily than a 200-word one. And stale context is worse than no context: when you change clients, platforms, or roles, update it.',
+          'Most designers find that shorter agreements work as well as longer ones. Beyond 300 words you are likely adding noise rather than signal. Stale context is worse than no context: when you change clients, platforms, or roles, update it. Review your USERS section right now: if it says "general audience" or nothing specific, rewrite it before moving to the next guide. Common mistakes: leaving USERS vague, copying someone else\'s template without adapting it to your actual users, and never revisiting it after the first session.',
         appDemo: {
           steps: [
             { role: 'user', text: 'What should I leave out of the working agreement to keep it lean?' },
@@ -1201,20 +1206,21 @@ Flag any item that needs a design decision, not just a dev fix.
     description:
       'Commits, branches, pull requests, and undo explained for designers working with Claude Code. Read this before Guide 07.',
     intro:
-      'Claude Code uses Git automatically when it edits your project. Every change gets saved to a commit. Every commit can be reversed. This guide covers the six Git concepts you need before working with Claude Code: setting up a repo, commits, push, pull, undoing mistakes, and pull requests. If you are starting from scratch, begin at Step 1. If your project already has a repo, skip to Step 2.',
+      'This guide is for UX and UI designers with no prior Git experience. After reading it, you will be able to start a new project repo, save and share your work, undo a commit, and open a pull request for a developer to review. You do not need to understand version control theory. You need to understand what each command does in plain English. Claude Code can commit changes as it works, but you control when that happens. Six concepts: setting up a repo, commits, push, pull, undoing mistakes, and pull requests. If you are starting from scratch, begin at Step 1. If your project already has a repo (a .git folder exists), skip to Step 2.',
     steps: [
       {
         title: 'Start a new project repo',
         description:
-          'Before Claude Code can save your work, you need a Git repository. Two commands set it up: git init creates the repo, git remote add connects it to GitHub. If your project already has a repo (there is a .git folder in it), skip to Step 2.',
+          'Before Claude Code can save your work, you need a Git repository. Open Terminal (Mac: press Command + Space, type Terminal, press Enter. Windows: press Windows key, type PowerShell, press Enter). Every command in this guide is typed there and run with Enter. You also need a free GitHub account at github.com and a new empty repo created there before running git remote add. If your project already has a repo (there is a .git folder in it), skip to Step 2.',
         code: {
           snippet: `# 1. Create your project folder and enter it
-mkdir my-design-project && cd my-design-project
+mkdir my-design-project
+cd my-design-project
 
 # 2. Initialise Git (creates the .git folder)
 git init
 
-# 3. Connect to GitHub (paste your repo URL from github.com/new)
+# 3. Go to github.com/new, create a repo, then paste its URL here
 git remote add origin https://github.com/your-username/my-design-project.git
 
 # 4. Start Claude Code
@@ -1236,7 +1242,12 @@ claude`,
       {
         title: 'What a commit is',
         description:
-          'A commit is a named save point. When Claude edits a file and commits the change, that save point exists permanently in your project history. Think of it like Google Docs version history, except permanent and navigable from any point.',
+          'A commit is a named save point. When Claude edits a file and commits the change, that save point exists permanently in your project history. Think of it like Google Docs version history, except permanent and navigable from any point. Run git log --oneline now to see your project\'s commit history. Each line is one commit: a short ID plus the message.',
+        code: {
+          snippet: `# See your commit history (one line per commit)
+git log --oneline`,
+          language: 'bash',
+        },
         demo: {
           title: 'git : what-is-a-commit',
           steps: [
@@ -1244,7 +1255,7 @@ claude`,
             { type: 'out', text: 'a3f92c1  Add mobile nav hover states' },
             { type: 'out', text: 'b19e44d  Fix checkout button spacing' },
             { type: 'out', text: 'c880f2a  Initial design system setup' },
-            { type: 'success', text: 'Each line is a commit. Message + unique ID.' },
+            { type: 'success', text: 'Each line is a commit. Short ID + message.' },
           ],
         },
       },
@@ -1301,13 +1312,13 @@ git pull`,
       {
         title: 'Undo a commit',
         description:
-          'If Claude made changes you want to reverse, git revert creates a new commit that undoes a previous one. It does not delete history. It adds an undo on top. Safer than git reset for anything already pushed to GitHub.',
+          'If Claude made changes you want to reverse, git revert creates a new commit that undoes a previous one. It does not delete history. It adds an undo on top. Safer than git reset for anything already pushed to GitHub. The --no-edit flag skips the commit message editor (otherwise Git opens vim, which requires typing :wq to exit).',
         code: {
           snippet: `# See recent commits and find the one to undo
 git log --oneline
 
-# Undo that commit (replace the ID with yours)
-git revert a3f92c1
+# Undo that commit (replace the ID with yours, --no-edit skips the editor)
+git revert a3f92c1 --no-edit
 
 # Push the undo to GitHub
 git push`,
@@ -1319,7 +1330,7 @@ git push`,
             { type: 'cmd', text: 'git log --oneline' },
             { type: 'out', text: 'a3f92c1  Add mobile nav hover states  ← want to undo this' },
             { type: 'out', text: 'b19e44d  Fix checkout button spacing' },
-            { type: 'cmd', text: 'git revert a3f92c1', delay: 300 },
+            { type: 'cmd', text: 'git revert a3f92c1 --no-edit', delay: 300 },
             { type: 'out', text: 'Revert "Add mobile nav hover states"', delay: 200 },
             { type: 'success', text: 'Reverted. Files restored. History preserved.' },
           ],
@@ -1328,7 +1339,17 @@ git push`,
       {
         title: 'What a pull request is',
         description:
-          'A pull request is a proposal to merge changes from one branch into another. When you work with Claude Code on a new feature, Claude creates a branch for the work. When it is ready, you open a PR. A developer reviews it, then merges it. The PR is how changes move from "Claude built this" to "this is in the product".',
+          'A branch is an isolated copy of your project where changes happen without affecting the main version. When you work with Claude Code on a new feature, Claude creates a branch. When the work is ready, you open a pull request: a proposal to merge the branch\'s changes into the main version. A developer reviews it, then merges it. That is how changes move from "Claude built this" to "this is in the product". The gh pr create command requires the GitHub CLI (install at cli.github.com).',
+        code: {
+          snippet: `# Create a branch for a new feature
+git checkout -b feature/new-checkout-flow
+
+# ... Claude Code works here and commits changes ...
+
+# Open a pull request (requires GitHub CLI: cli.github.com)
+gh pr create --title "New checkout flow" --body "Built with Claude Code"`,
+          language: 'bash',
+        },
         demo: {
           title: 'git : pull-request-flow',
           steps: [
