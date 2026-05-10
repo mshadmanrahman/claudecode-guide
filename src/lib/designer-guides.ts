@@ -39,7 +39,7 @@ export const DESIGNER_GUIDES: Record<string, DesignerGuide> = {
       {
         title: 'Create your workspace',
         description:
-          'The working agreement lives in a Claude Project (if you use the app) or a CLAUDE.md file (if you use Claude Code in the terminal or an IDE). Create that container first.',
+          'Claude.ai users: create a Project in the left sidebar (follow the demo below, no terminal needed). Co-Work or Claude Code users: navigate to your design project folder and run the commands below.',
         code: {
           snippet: `# Terminal: navigate to your design project and create CLAUDE.md
 cd ~/my-design-project
@@ -66,8 +66,8 @@ claude`,
         },
         ideDemo: {
           steps: [
-            { role: 'user', text: 'I want Claude to know my design context automatically. How do I set that up in VS Code?' },
-            { role: 'claude', text: 'Create a file called CLAUDE.md at the root of whatever project folder you have open, same level as your README.\n\nClaude Code reads it automatically at the start of every session in that folder. You do not reference it manually; it just loads. Once you have created it, we will write the working agreement together.' },
+            { role: 'user', text: 'I want to use Claude Co-Work. How do I set up a local folder so Claude reads my design files automatically?' },
+            { role: 'claude', text: 'Create a folder anywhere on your machine for your design project. Name it something specific: "banking-app-ux" is better than "design-work".\n\nInside that folder, create a file called CLAUDE.md at the top level, same level as any briefs or notes you put there. Claude Code reads it at the start of every session in that folder. You do not reference it manually; it just loads.\n\nOnce you have the folder and CLAUDE.md, we will write the working agreement together.' },
           ],
         },
       },
@@ -1195,14 +1195,44 @@ Flag any item that needs a design decision, not just a dev fix.
   'git-for-designers': {
     title: 'Git for Designers',
     slug: 'git-for-designers',
-    duration: '20 min',
+    duration: '25 min',
     difficulty: 'beginner',
     availableRoutes: ['claude-code'],
     description:
-      'Commits, branches, and pull requests explained for designers working with Claude Code. Read this before Guide 07.',
+      'Commits, branches, pull requests, and undo explained for designers working with Claude Code. Read this before Guide 07.',
     intro:
-      'Claude Code uses Git automatically when it makes changes to your project. Every file Claude edits gets saved to a commit. Every commit can be reversed. This sounds technical but the mental model is simple: Git is version control, and version control means you can always get back to a previous state. This guide covers the four Git concepts you need before working with Claude Code: commits, push, pull, and pull requests. You do not need to become a Git expert. You need enough to not be scared of it.',
+      'Claude Code uses Git automatically when it edits your project. Every change gets saved to a commit. Every commit can be reversed. This guide covers the six Git concepts you need before working with Claude Code: setting up a repo, commits, push, pull, undoing mistakes, and pull requests. If you are starting from scratch, begin at Step 1. If your project already has a repo, skip to Step 2.',
     steps: [
+      {
+        title: 'Start a new project repo',
+        description:
+          'Before Claude Code can save your work, you need a Git repository. Two commands set it up: git init creates the repo, git remote add connects it to GitHub. If your project already has a repo (there is a .git folder in it), skip to Step 2.',
+        code: {
+          snippet: `# 1. Create your project folder and enter it
+mkdir my-design-project && cd my-design-project
+
+# 2. Initialise Git (creates the .git folder)
+git init
+
+# 3. Connect to GitHub (paste your repo URL from github.com/new)
+git remote add origin https://github.com/your-username/my-design-project.git
+
+# 4. Start Claude Code
+claude`,
+          language: 'bash',
+        },
+        demo: {
+          title: 'git : init-and-connect',
+          steps: [
+            { type: 'cmd', text: 'git init' },
+            { type: 'out', text: 'Initialized empty Git repository in ./my-design-project/.git/' },
+            { type: 'cmd', text: 'git remote add origin https://github.com/you/my-design-project.git', delay: 300 },
+            { type: 'success', text: 'Remote connected. Commits will push here.' },
+            { type: 'cmd', text: 'claude', delay: 300 },
+            { type: 'success', text: 'Claude Code ready. Git is live.' },
+          ],
+        },
+      },
       {
         title: 'What a commit is',
         description:
@@ -1265,6 +1295,33 @@ git pull`,
             { type: 'success', text: 'Pushed. Your commits are on GitHub.' },
             { type: 'cmd', text: 'git pull origin main' },
             { type: 'success', text: 'Already up to date.' },
+          ],
+        },
+      },
+      {
+        title: 'Undo a commit',
+        description:
+          'If Claude made changes you want to reverse, git revert creates a new commit that undoes a previous one. It does not delete history. It adds an undo on top. Safer than git reset for anything already pushed to GitHub.',
+        code: {
+          snippet: `# See recent commits and find the one to undo
+git log --oneline
+
+# Undo that commit (replace the ID with yours)
+git revert a3f92c1
+
+# Push the undo to GitHub
+git push`,
+          language: 'bash',
+        },
+        demo: {
+          title: 'git : undo-a-commit',
+          steps: [
+            { type: 'cmd', text: 'git log --oneline' },
+            { type: 'out', text: 'a3f92c1  Add mobile nav hover states  ← want to undo this' },
+            { type: 'out', text: 'b19e44d  Fix checkout button spacing' },
+            { type: 'cmd', text: 'git revert a3f92c1', delay: 300 },
+            { type: 'out', text: 'Revert "Add mobile nav hover states"', delay: 200 },
+            { type: 'success', text: 'Reverted. Files restored. History preserved.' },
           ],
         },
       },
