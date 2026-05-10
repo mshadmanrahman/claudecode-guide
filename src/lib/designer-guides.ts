@@ -1289,9 +1289,12 @@ git commit -m "Update button component spacing"`,
       {
         title: 'Push and pull',
         description:
-          'Your local commits only exist on your machine until you push them. Push sends your commits to GitHub. Pull brings in commits from GitHub. Working solo: push after each session and pull when you start a new one.',
+          'Your local commits only exist on your machine until you push them. The first time you push a new project, use git push -u origin main. The -u links your local branch to GitHub so all future pushes in this project can use plain git push. Pull brings in commits from GitHub. Working solo: push after each session and pull when you start a new one.',
         code: {
-          snippet: `# Send your commits to GitHub
+          snippet: `# First push on a new project (use -u to link your branch to GitHub)
+git push -u origin main
+
+# All future pushes in the same project
 git push
 
 # Get the latest commits from GitHub
@@ -1301,10 +1304,10 @@ git pull`,
         demo: {
           title: 'git : push-and-pull',
           steps: [
-            { type: 'cmd', text: 'git push origin main' },
+            { type: 'cmd', text: 'git push -u origin main' },
             { type: 'out', text: 'Writing objects: 100% (5/5)' },
-            { type: 'success', text: 'Pushed. Your commits are on GitHub.' },
-            { type: 'cmd', text: 'git pull origin main' },
+            { type: 'success', text: 'Pushed. Branch linked to GitHub.' },
+            { type: 'cmd', text: 'git pull', delay: 300 },
             { type: 'success', text: 'Already up to date.' },
           ],
         },
