@@ -39,7 +39,7 @@ export const DESIGNER_GUIDES: Record<string, DesignerGuide> = {
       {
         title: 'Create your workspace',
         description:
-          'Claude.ai users: create a Project in the left sidebar (follow the demo below, no commands needed). Co-Work users (Claude Code running in a local folder on your machine, without Git) or Claude Code users: open Terminal (Mac: press Command + Space, type Terminal, press Enter) and run the commands below. CLAUDE.md is a plain text file. The name tells Claude to read it automatically at the start of every session.',
+          'Set up the folder or Project that will hold your working agreement. Follow the demo for your journey. CLAUDE.md is a plain text file Claude reads automatically at the start of every session.',
         code: {
           snippet: `# First: confirm Claude Code is installed
 # (if you see "command not found", install it at claude.ai/download first)

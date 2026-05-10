@@ -1,6 +1,6 @@
 import { DesignerHero } from '@/components/for-designers/hero';
-import { DesignerWorksWith } from '@/components/for-designers/works-with';
 import { DesignerBeforeAfter } from '@/components/for-designers/before-after';
+import { DesignerProcessMap } from '@/components/for-designers/design-process';
 import { DesignerGuideCards } from '@/components/for-designers/guide-cards';
 import { DesignerGettingStarted } from '@/components/for-designers/getting-started';
 import { DesignerWhyExists } from '@/components/for-designers/why-exists';
@@ -10,11 +10,14 @@ export default function ForDesignersPage() {
   return (
     <main className="overflow-x-clip">
       <DesignerHero />
-      <DesignerWorksWith />
       <div className="border-b border-fd-border" />
       <DesignerBeforeAfter />
       <div className="border-b border-fd-border" />
-      <DesignerGuideCards />
+      <DesignerProcessMap />
+      <div className="border-b border-fd-border" />
+      <div id="guides">
+        <DesignerGuideCards />
+      </div>
       <div className="border-b border-fd-border" />
       <DesignerGettingStarted />
       <div className="border-b border-fd-border" />
