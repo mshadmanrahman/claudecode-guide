@@ -213,16 +213,21 @@ What questions should I be asking before I open Figma?`,
     description:
       'A brief is never the real problem. Use Claude to interrogate it like a skeptical PM and surface what is actually being asked for.',
     intro:
-      'Clients hand you briefs that say "modern and clean" and "intuitive and user-friendly." These phrases mean nothing. Behind every vague brief is a real problem: a business pressure, a user frustration, a constraint nobody mentioned. This guide shows you how to use Claude to break open a brief before you touch Figma, so you are solving the right problem from the start.',
+      'This guide is for UX and UI designers who receive vague briefs and need to know what is actually being asked before opening Figma. After reading it, you will be able to interrogate any brief with Claude, surface the real problem behind the vague language, and send back a concise list of clarifying questions. Clients hand you briefs that say "modern and clean" and "intuitive and user-friendly." These phrases mean nothing. Behind every vague brief is a real problem: a business pressure, a user frustration, a constraint nobody mentioned. This guide shows you how to use Claude to break open a brief before you touch Figma, so you are solving the right problem from the start. Throughout this guide, PM means product manager: the person who defines requirements and speaks for the business.',
     steps: [
       {
         title: 'Paste the brief exactly as you received it',
         description:
-          'Do not clean it up or interpret it. Paste it raw. The vagueness is the point: that is what Claude is going to interrogate.',
+          'Do not clean it up or interpret it. Paste it raw. The vagueness is the point: that is what Claude is going to interrogate. Then use this prompt to start the interrogation.',
         code: {
           snippet: `# Example brief (paste yours instead):
 "We need a redesign of our onboarding flow. It should be more modern,
-cleaner, and friendlier. Users keep dropping off and we want to fix that."`,
+cleaner, and friendlier. Users keep dropping off and we want to fix that."
+
+# Then send this interrogation prompt:
+Interrogate this brief as a skeptical PM. List: undefined terms,
+missing data, unstated assumptions, and the three questions to send
+back before designing anything.`,
           language: 'text',
         },
         demo: {
@@ -251,7 +256,13 @@ cleaner, and friendlier. Users keep dropping off and we want to fix that."`,
       {
         title: 'Extract the real problem',
         description:
-          'After the interrogation, ask Claude to name what is actually being asked for. Often the real brief is hiding under one of the vague words.',
+          'After the interrogation, ask Claude to name what is actually being asked for. Often the real brief is hiding under one of the vague words. Use this prompt to pull it out.',
+        code: {
+          snippet: `# Use this prompt after the interrogation:
+Based on your interrogation, what is the real brief hiding under
+the vague language? State it in one sentence.`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'Given your analysis, what do you think the real problem actually is?' },
@@ -279,7 +290,7 @@ cleaner, and friendlier. Users keep dropping off and we want to fix that."`,
       {
         title: 'Generate your list of clarifying questions',
         description:
-          'Turn the analysis into a professional, concise list of questions you can send back to the client or PM. Specific questions land better than vague ones.',
+          'Turn the analysis into a professional, concise list of questions you can send back to the client or PM. Specific questions land better than vague ones. Sending these before designing prevents you from locking into one interpretation of a problem that may not exist.',
         code: {
           snippet: `# Ask Claude to format the questions for sending:
 "Write 5 clarifying questions I can send to the client.
@@ -310,6 +321,11 @@ Professional tone. Short. Each question has a one-line explanation of why it mat
           ],
         },
       },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes designers hit when using this process:\n\n1. Cleaning the brief before pasting it. When you paraphrase or tidy up the brief, you remove the vagueness that Claude needs to interrogate. Fix: paste it raw, exactly as received, including typos, because the imprecision is the signal.\n\n2. Skipping to solutions. Running the interrogation and then immediately opening Figma defeats the point. Fix: send the clarifying questions first and wait for answers before touching any design tool.\n\n3. Asking too many questions. If Claude gives you 12 questions and you send them all, the client stops responding. Fix: pick the 3 that would most change what you design. Everything else can wait.\n\n4. Treating the interrogation as the final brief. The interrogation output is a diagnosis, not a brief. Fix: once you have answers from the client, run Step 3 to rewrite the brief into something designable. An interrogation with no client response is just an unresolved list.',
+      },
     ],
     nextLink: {
       label: 'Write a sharper brief',
@@ -324,14 +340,14 @@ Professional tone. Short. Each question has a one-line explanation of why it mat
     difficulty: 'beginner',
     availableRoutes: ['claude-ai', 'co-work', 'claude-code'],
     description:
-      'Turn a vague creative brief into something you can actually design from. Get Claude to act as a skeptical PM and help you push back like a collaborator, not a critic.',
+      'Turn a vague creative brief into something you can actually design from. Get Claude to act as a skeptical product manager (PM) and help you push back like a collaborator, not a critic.',
     intro:
-      'The best designers think like PMs. They do not just receive briefs: they interrogate them, sharpen them, and push back when something is missing. The problem is that pushback feels risky, especially when the client outranks you. This guide shows you how to use Claude to generate a reframe that sounds like collaboration, not friction, and gives you a design brief you can actually work from.',
+      'This guide is for UX and UI designers who receive briefs that are too vague to design from and need to push back without creating friction. After reading it, you will be able to flag vague language, generate a professional pushback message, and rewrite the brief once you have answers. The best designers think like product managers (PMs). They do not just receive briefs: they interrogate them, sharpen them, and push back when something is missing. The problem is that pushback feels risky, especially when the client outranks you. This guide shows you how to use Claude to generate a reframe that sounds like collaboration, not friction, and gives you a design brief you can actually work from.',
     steps: [
       {
         title: 'Flag every vague or missing piece',
         description:
-          'Paste the brief you received and ask Claude to mark every phrase that is unmeasurable, undefined, or contradictory. Do not fix anything yet.',
+          'Paste the brief you received and ask Claude to mark every phrase that is unmeasurable, undefined, or contradictory. Do not fix anything yet. Separating flagging from fixing keeps the analysis honest. If you fix as you go, you stop seeing problems.',
         code: {
           snippet: `# Prompt to use:
 "Read this brief. Mark every word or phrase that is vague, unmeasurable,
@@ -365,7 +381,7 @@ or could mean different things to different people. Don't suggest fixes yet. Jus
       {
         title: 'Generate the pushback message',
         description:
-          'Now ask Claude to write the message you will send back. Frame it as "I want to get this right," not "your brief is wrong." The goal is to sound like a thoughtful collaborator.',
+          'Now ask Claude to write the message you will send back. Frame it as "I want to get this right," not "your brief is wrong." The goal is to sound like a thoughtful collaborator. Framing as collaboration rather than a list of questions reduces the chance the stakeholder gets defensive and stops responding.',
         code: {
           snippet: `# Prompt to use:
 "Write a short, professional message I can send to the client.
@@ -402,7 +418,16 @@ Tone: collaborative, not combative. Max 150 words."`,
       {
         title: 'Rewrite the brief with the answers',
         description:
-          'Once the client responds, paste their answers and ask Claude to write a tight, specific brief you can actually design from. This becomes your design north star.',
+          'Once the client responds, paste their answers and ask Claude to write a tight, specific brief you can actually design from. This becomes your design north star. Rewriting after you have answers prevents you from designing around assumptions: the revised brief is only as strong as the information it is built from.',
+        code: {
+          snippet: `# Paste the client answers, then use this prompt:
+"Here are the answers to my questions: [paste answers]
+
+Rewrite the original brief into a specific, actionable design brief.
+Include: the real problem, users and their constraints, what 'done'
+looks like in measurable terms, visual direction, and out of scope."`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'Client answers came back:\n\n- Metrics: closed deals, pipeline value, quota attainment. Priority set by sales lead. Reps see their own data; managers see team view.\n- Current tool: Excel. Reps hate scrolling and manual updates.\n- Visual reference: They sent screenshots of Linear and Notion.\n\nRewrite the brief based on these answers. Make it specific and actionable.' },
@@ -428,6 +453,11 @@ Tone: collaborative, not combative. Max 150 words."`,
           ],
         },
       },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes that derail this process:\n\n1. Fixing problems as you flag them. The flagging step should produce a list of issues, not a revised brief. If you start fixing in the same pass, you stop catching problems in the parts you have already touched.\n\n2. Sending too many questions. If the list runs to 8 or 10 items, the client sees an interrogation. Cut to the 3 that would most change what you design. A shorter list gets a faster, more useful reply.\n\n3. Starting the rewrite before you have answers. The revised brief is only as good as the answers it is built from. Writing it from assumptions defeats the purpose of the whole process.\n\n4. Using vague framing in the pushback message. "I want to make sure I understand" works. "Your brief is unclear" does not. Claude can generate the message, but you should read it before sending to confirm the tone matches your relationship with the client.',
+      },
     ],
     nextLink: {
       label: 'Evaluate your own designs',
@@ -444,7 +474,7 @@ Tone: collaborative, not combative. Max 150 words."`,
     description:
       'Run three forced-perspective critiques on any design: the confused user, the skeptical engineer, the impatient PM. Get specific problems, not encouragement.',
     intro:
-      'Claude flatters by default. Ask it to review your design and it will find things to praise before it finds things to fix. This guide shows you how to break that pattern using three forced-perspective prompts that make Claude take a specific viewpoint and stay in it. You will end up with a prioritised list of actual problems, not a list of "great job, but consider..."',
+      'This guide is for UX and UI designers who want honest critique of their work instead of generic praise. After reading it, you will be able to run three forced-perspective critiques on any screen and produce a prioritised list of real problems to fix. Claude flatters by default. Ask it to review your design and it will find things to praise before it finds things to fix. This guide shows you how to break that pattern using three forced-perspective prompts that make Claude take a specific viewpoint and stay in it. You will end up with a prioritised list of actual problems, not a list of "great job, but consider..."',
     steps: [
       {
         title: 'Set up the critique',
@@ -566,6 +596,13 @@ What friction would you cut? What would you move to later?"`,
         title: 'Synthesise into a prioritised action list',
         description:
           'Ask Claude to take everything across all three perspectives and produce a ranked list of fixes, ranked by user impact, not design effort.',
+        code: {
+          snippet: `Turn your three-perspective critique into a prioritised action list.
+Group by: must fix before sharing, should fix before handoff,
+consider for next iteration.
+Include the heuristic or principle each item violates.`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'Synthesise everything from all three critiques into a prioritised fix list. Rank by user impact. Top 5.' },
@@ -591,6 +628,11 @@ What friction would you cut? What would you move to later?"`,
           ],
         },
       },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes for this process:\n\n1. Asking for a general review instead of a forced perspective. "Review my design" produces hedged praise. "You are a confused first-time user: describe every point of confusion" produces usable findings. The perspective constraint is the mechanism.\n\n2. Letting Claude out of character. If Claude starts suggesting solutions mid-critique, bring it back: "Stay in character. Only describe the problem, not the fix." Solutions come in the synthesis step.\n\n3. Running all three perspectives in one prompt. If you ask for all three at once without separating them, the output blends perspectives and the engineer issues get mixed with the user issues. Run them separately, then synthesise.\n\n4. Skipping the synthesis step. Three separate critiques are hard to act on. The synthesis groups them by urgency and gives you something you can put in a sprint. Do not skip it even if the critiques feel complete on their own.',
+      },
     ],
     nextLink: {
       label: 'Do a heuristic evaluation',
@@ -607,7 +649,7 @@ What friction would you cut? What would you move to later?"`,
     description:
       'Run Nielsen\'s 10 usability heuristics against any interface using Claude as your evaluation partner. Get a prioritised findings report you can act on.',
     intro:
-      'A heuristic evaluation is one of the most powerful tools in a designer\'s kit, and one of the most tedious to do manually. Running all 10 of Nielsen\'s heuristics against an interface, documenting violations, and prioritising findings typically takes hours. This guide shows you how to do it in 25 minutes using Claude as an evaluation partner that stays consistent across all 10 heuristics.',
+      'This guide is for UX and UI designers who need to evaluate an interface for usability problems and produce a findings report they can act on or present to a team. After reading it, you will be able to run a full 10-heuristic evaluation using Claude as a consistent evaluation partner and generate a prioritised findings report grouped by severity. A heuristic evaluation is one of the most powerful tools in a designer\'s kit, and one of the most tedious to do manually. Running all 10 of Nielsen\'s heuristics against an interface, documenting violations, and prioritising findings typically takes hours. This guide shows you how to do it in 25 minutes. The 10 heuristics you will evaluate against: Visibility of system status, Match between system and real world, User control and freedom, Consistency and standards, Error prevention, Recognition rather than recall, Flexibility and efficiency of use, Aesthetic and minimalist design, Help users recognise and recover from errors, Help and documentation. Severity tiers: Critical (blocks task completion), Major (causes significant confusion or error), Minor (annoys or slows), Cosmetic (visual preference only).',
     steps: [
       {
         title: 'Describe the interface you are evaluating',
@@ -718,6 +760,11 @@ Group by severity."`,
           ],
         },
       },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes in heuristic evaluations:\n\n1. Describing the interface too vaguely. Claude evaluates what you describe. "A form with some fields" produces generic heuristic observations. "A 4-field payment form with amount, phone, PIN, and a confirm button on Android mobile" produces specific, actionable findings. Put the time in on the description.\n\n2. Conflating Minor with Cosmetic. Minor friction slows users down or causes recoverable errors. Cosmetic issues are visual preferences that have no functional impact. Labelling a Minor issue as Cosmetic means it gets deprioritised and never fixed.\n\n3. Skipping heuristics where the interface "obviously" complies. The most dangerous assumption in a heuristic evaluation is that a heuristic does not apply. Check all 10, including the ones that look fine. Violations in "passing" heuristics are easy to miss.\n\n4. Presenting the evaluation without the severity grouping. A list of 10 raw findings is hard to act on. The report step groups by Critical, Major, Minor so stakeholders know what to fix before the next release versus what to consider next quarter.',
+      },
     ],
     nextLink: {
       label: 'Prepare your Figma for AI handoff',
@@ -732,14 +779,28 @@ Group by severity."`,
     difficulty: 'intermediate',
     availableRoutes: ['co-work', 'claude-code'],
     description:
-      'Clean up your Figma file so Claude Code can read it accurately. Proper layer naming, annotations, and token exports cut handoff errors in half.',
+      'Clean up your Figma file so Claude Code can read it accurately. Proper layer naming, annotations, and token exports reduce ambiguity in handoff.',
     intro:
-      'When you hand a Figma file to a developer using Claude Code, the AI reads your layer names, component labels, and annotations as instructions. A file with layers named "Rectangle 42" and "Group 7" produces confused code. A file with descriptive names and semantic annotations produces code you can actually ship. This guide walks you through the three cleanup passes that matter most.',
+      'This guide is for UX and UI designers who use Figma and hand off to developers using Claude Code. After reading it, you will be able to rename layers for semantic clarity, add annotations for behaviour Claude cannot infer from pixels, and export design tokens (the named variables for your colors, spacing, and typography) to use as a source of truth in code generation. When you paste Figma layer names and annotations into a Claude Code session, Claude reads them as context for generating code. A file with layers named "Rectangle 42" and "Group 7" produces confused code. A file with descriptive names and semantic annotations produces code you can actually ship. This guide walks you through the three cleanup passes that matter most.',
     steps: [
       {
         title: 'Rename layers to describe intent, not shape',
         description:
-          'Claude Code reads layer names as semantic tokens. Generic names like "Frame 3" produce generic code. Rename every interactive element using the pattern: component/state/variant. For example: button/primary/default, input/error/filled, card/product/selected.',
+          'Claude reads your layer names and annotations as context when you paste them into a session. Generic names like "Frame 3" produce generic code. Rename every interactive element using the pattern: component/state/variant. For example: button/primary/default, input/error/filled, card/product/selected.',
+        code: {
+          snippet: `# Poorly named layers (what Claude has to guess from):
+Frame 14
+Group 7
+Rectangle 3
+Vector 2
+
+# Well-named layers (what Claude can use directly):
+button/primary/default
+form/amount-entry
+input/bkash-number
+icon/chevron-right`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'I have a payment screen in Figma. My layers are named things like "Frame 14", "Group 7", "Rectangle 3". When I hand this to a dev using Claude Code, what does Claude actually see?' },
@@ -757,6 +818,24 @@ Group by severity."`,
         title: 'Add annotations for behaviour Claude cannot infer from pixels',
         description:
           'Visual design shows states but not transitions, error conditions, or edge cases. Use Figma annotations (or a sticky note layer named "AI-NOTES") to document: what triggers state changes, what validation rules apply, what happens on error, and which fields are optional.',
+        code: {
+          snippet: `# Example AI-NOTES layer content (paste into Figma as a sticky note):
+
+button/primary/default
+- Disabled until: amount > 0 AND phone field passes validation
+- On tap: disable button, show spinner, call /api/send-money
+- Loading state: spinner replaces label for duration of API call
+
+input/amount/default
+- Min: 10 BDT, Max: 5000 BDT
+- Error state: show "Minimum is 10 BDT" inline below field
+- On blur: validate and show error immediately (do not wait for submit)
+
+input/bkash-number/default
+- Format: 11 digits, must start with 01
+- Error: "Enter a valid 11-digit bKash number"`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'What kinds of things should I annotate in my Figma that Claude cannot figure out from looking at the design?' },
@@ -807,6 +886,11 @@ Group by severity."`,
           ],
         },
       },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes in Figma-to-Claude handoffs:\n\n1. Renaming only the top-level frames. Layer naming matters most at the component and element level, not the page or frame level. "Payment Screen" as a frame name helps nothing. "button/primary/disabled" inside that frame is what changes the code.\n\n2. Skipping the AI-NOTES layer for simple components. Simple components still have non-obvious behaviour: hover states, disabled conditions, error triggers. If you do not annotate them, Claude infers from common patterns, which may not match your product.\n\n3. Exporting tokens without mapping them to the codebase. A token export that uses Figma variable names your codebase does not recognise adds a translation step for the developer. Check that the token names in the export match what the dev team uses before handing off.\n\n4. Handing off a file mid-design. Annotations and layer names added to a file that is still changing create confusion. Do the handoff prep pass once, when the design is stable.',
+      },
     ],
     nextLink: {
       label: 'Build your first flow with Claude Code',
@@ -823,7 +907,7 @@ Group by severity."`,
     description:
       'Turn a design into a working UI prototype using Claude Code. No frontend experience required. Just a Figma file, a description, and a terminal.',
     intro:
-      'You designed a flow. Now you want to see it work, not just as a static prototype, but as actual code in a browser. Claude Code can bridge that gap faster than handing off to a developer and waiting. This guide takes you from a finished Figma screen to a running React component, step by step, using only plain English and a terminal.',
+      'This guide is for UX and UI designers who want to turn a finished Figma screen into working, interactive code without handing it to a developer. After reading it, you will be able to scaffold a reusable React component (a self-contained piece of UI code) from a design description, add validation and interaction states, and iterate with plain English prompts. You designed a flow. Now you want to see it work, not just as a static prototype, but as actual code in a browser. Claude Code can bridge that gap faster than handing off to a developer and waiting. This guide takes you from a finished Figma screen to a running React component, step by step, using only plain English and a terminal.',
     steps: [
       {
         title: 'Describe your design in plain text',
@@ -872,6 +956,12 @@ States: default, field-error, loading, success`,
         title: 'Scaffold one component at a time',
         description:
           'Do not ask Claude to build the whole screen in one go. Start with the form fields, then add validation, then the button state, then the loading state. Small requests produce clean, reviewable output. Large requests produce code you cannot reason about.',
+        code: {
+          snippet: `Build a mobile checkout step indicator. Three steps: Cart, Payment, Confirm.
+Show active step highlighted, completed steps with a checkmark,
+upcoming steps dimmed. No framework preferences yet.`,
+          language: 'text',
+        },
         demo: {
           steps: [
             { type: 'cmd', text: 'claude "Scaffold SendMoneyForm.tsx with amount and phone fields. No validation yet. Use DESIGN.md for layout and token values."' },
@@ -891,7 +981,12 @@ States: default, field-error, loading, success`,
       {
         title: 'Add validation, loading states, and iterate',
         description:
-          'Now layer in behaviour. Ask Claude to add validation first, test it in the browser, then ask for the loading state. Each iteration should be small enough that you can manually verify it worked before moving on.',
+          'Now layer in behaviour. Ask Claude to add validation first, test it in the browser, then ask for the loading state. Each iteration should be small enough that you can manually verify it worked before moving on. You do not need to understand the code. Read it for structure: does it match what you described? Ask Claude to explain any part you want to verify.',
+        code: {
+          snippet: `The spacing on the active step indicator is too tight on mobile.
+Increase the padding and make the checkmark icon 4px larger.`,
+          language: 'text',
+        },
         demo: {
           steps: [
             { type: 'cmd', text: 'claude "Add validation to SendMoneyForm: amount min 10 max 5000, phone 11 digits starting 01. Show inline errors. Disable button until both valid."' },
@@ -906,6 +1001,11 @@ States: default, field-error, loading, success`,
             { role: 'claude', text: 'Added loading state:\n\n- `isLoading` state drives button disable + label swap\n- Spinner: CSS border-animation, 20px, white, centered in button\n- `setTimeout(2000)` simulates API call (replace with real fetch when ready)\n- Success message: green checkmark + "Money sent!" replaces form on resolve\n\nAll four states from DESIGN.md are now implemented: default, field-error, loading, success. The component is ready for real API wiring.' },
           ],
         },
+      },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes when building your first flow:\n\n1. Asking Claude to build the whole screen at once. Large requests produce large, unreadable output. Break the build into: shell first, then validation, then interaction states. Each step should produce something you can open in a browser and verify.\n\n2. Not writing DESIGN.md before starting. Without a written description, Claude has to infer your intent from the prompts in real time. Every ambiguity in your prompts costs a correction round. Write the description first; it takes 10 minutes and saves 30.\n\n3. Editing the code directly instead of prompting changes. If you open the generated file and edit it by hand, you break the feedback loop. Claude does not know what you changed, so the next prompt may undo your edit. Describe the change in plain English and let Claude make it.\n\n4. Treating the prototype as production code. The code Claude generates from a design description is a working prototype, not production-ready. Before shipping, ask Claude to add TypeScript types, replace placeholder API calls with real ones, and handle edge cases the prototype skips.',
       },
     ],
     nextLink: {
@@ -923,12 +1023,20 @@ States: default, field-error, loading, success`,
     description:
       'Claude Design is Anthropic\'s text-to-prototype tool. Describe a screen, get a working interactive prototype back. This guide shows you how to prompt it effectively.',
     intro:
-      'Claude Design (launched April 2026) lets you describe a UI and get back a running prototype, not a mockup, not a wireframe, but actual interactive code rendered in the browser. For designers, it is the fastest way to test an idea without opening Figma or writing a line of code. This guide covers the prompt patterns that produce useful output versus generic filler.',
+      'This guide is for UX and UI designers who want to use Claude Design to turn a screen description into a working interactive prototype. After reading it, you will be able to write prompts that produce useful, specific output, iterate on a prototype with targeted changes, and export the result as a written component specification (reference spec) for developers. Claude Design (launched April 2026) lets you describe a UI and get back a running prototype, not a mockup, not a wireframe, but actual interactive code rendered in the browser. For designers, it is the fastest way to test an idea without opening Figma or writing a line of code. This guide covers the prompt patterns that produce useful output versus generic filler.',
     steps: [
       {
         title: 'Write a brief that specifies context, not just appearance',
         description:
           'The most common mistake with Claude Design is describing how the screen should look instead of what it needs to do. A prompt that says "clean, modern, minimal" produces every other SaaS dashboard. A prompt that specifies audience, flow, and constraints produces something useful.',
+        code: {
+          snippet: `Design a mobile onboarding screen for a savings app.
+Target: first-time smartphone users in Bangladesh.
+Show a progress bar at the top (step 1 of 3), a friendly illustration
+placeholder, a headline ("Save a little every day"), a subtext line,
+and a large primary CTA button.`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'Design a mobile payment confirmation screen for bKash users in Bangladesh. The user has just entered an amount (500 BDT) and a recipient phone number. They need to confirm before the money moves. Primary action: Confirm. Secondary: Go back. Show the recipient number and amount clearly. The brand color is #E2136E. Users are on low-end Android, small screens, often outdoors.' },
@@ -940,6 +1048,12 @@ States: default, field-error, loading, success`,
         title: 'Iterate on one thing at a time',
         description:
           'Claude Design generates working code, which means you can iterate on it. Ask for one change at a time: adjust the layout, swap the color, add a state. Asking for five changes at once produces a rewrite that drifts from what was working.',
+        code: {
+          snippet: `The illustration is too large on small screens. Replace it with an icon
+(piggy bank or similar). Keep the progress bar and reduce overall padding
+so the CTA button is always above the fold on a 5-inch screen.`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'The layout is right. Now add a warning if the amount is over 2000 BDT: a yellow banner saying "Large transfer: verify the recipient number before confirming." Keep everything else the same.' },
@@ -950,13 +1064,24 @@ States: default, field-error, loading, success`,
       {
         title: 'Export the prototype and hand it off',
         description:
-          'Once the prototype does what you need, export the generated code or copy it directly. You can paste it into a Claude Code session for further development, share the live URL for stakeholder review, or use the code as a reference spec for the development team.',
+          'Once the prototype does what you need, export the generated code or copy it directly. You can paste it into a Claude Code session for further development, share the live URL for stakeholder review, or use the code as a written component specification (reference spec) for the development team.',
+        code: {
+          snippet: `Generate a written spec for the developer. Include: component list,
+exact copy for each text element, color tokens used (use my working
+agreement for the token names), and the mobile breakpoint assumptions.`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'The prototype is approved. How do I get the code out so I can give it to the developer?' },
             { role: 'claude', text: 'Two options:\n\n1. Copy the source code: click the code view icon in the top right of the prototype panel. Copy the full component.\n\n2. Share the live URL: the prototype runs at a shareable URL. Send it to stakeholders or developers as a live reference. It stays active as long as this conversation exists.\n\nIf the developer is using Claude Code, the most efficient handoff is to paste the component code into a new Claude Code session with this prompt: "This is a Claude Design prototype. Clean it up for production: replace inline styles with Tailwind, add proper TypeScript types, wire the Confirm button to [your API endpoint]." That gets you from prototype to production-ready in one more step.' },
           ],
         },
+      },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes when using Claude Design:\n\n1. Describing appearance instead of purpose. "Clean and modern with a blue header" gives Claude aesthetic direction but no functional constraints. Describe who uses it, what they are trying to do, and what constraints they are under. The aesthetic follows from that.\n\n2. Iterating in batches. Asking for five changes at once produces a rewrite. Each change you request touches different parts of the prototype. One at a time keeps each iteration reviewable and reversible.\n\n3. Treating the prototype as final. Claude Design prototypes are fast to generate and fast to throw away. They are for testing an idea, not shipping a product. Before the code goes to a developer, it needs a cleanup pass: proper types, real API calls, accessibility attributes.\n\n4. Not exporting the spec. A live prototype URL works for demos but not as a handoff document. The written component specification (reference spec) is what a developer can build from without needing to open the prototype. Generate it before closing the session.',
       },
     ],
     nextLink: {
@@ -974,7 +1099,7 @@ States: default, field-error, loading, success`,
     description:
       'Turn raw interview notes, session recordings, and survey responses into prioritised findings in one session. Claude handles the pattern-matching; you handle the judgment.',
     intro:
-      'You ran five user interviews. You have 40 pages of raw notes. You need a findings report by Friday. Without Claude, this is 8 hours of affinity mapping and theme extraction. With Claude, it is a 45-minute session where you paste the raw material, run the synthesis, and then review and challenge the output. The review step matters: Claude finds patterns, but you know which patterns are real and which are artifacts of who you recruited.',
+      'This guide is for UX and UI designers who have completed user interviews and need to turn raw notes into a structured findings report. After reading it, you will be able to format notes for synthesis, run a structured thematic analysis with Claude, and challenge the output before presenting it. You ran five user interviews. You have 40 pages of raw notes. You need a findings report by Friday. Without Claude, this is hours of manual affinity mapping (grouping related observations into themes) and theme extraction. With Claude, it is a focused session where you paste the raw material, run the synthesis, and then review and challenge the output. The review step matters: Claude finds patterns, but you know which patterns are real and which are artifacts of who you recruited.',
     steps: [
       {
         title: 'Prepare your raw notes for paste',
@@ -1018,6 +1143,14 @@ States: default, field-error, loading, success`,
         title: 'Run the synthesis prompt',
         description:
           'Give Claude a specific synthesis task, not a general "summarise these notes" request. Specify the output structure you need: themes, supporting quotes, participant counts, and a severity or frequency marker. A structured output is easier to review and easier to present.',
+        code: {
+          snippet: `Here are my raw interview notes. Identify the top 5 themes.
+For each theme: name it, write one sentence describing it,
+list the 2-3 quotes that support it, and rate confidence
+(high/medium/low based on how many participants mentioned it).
+Do not invent themes that are not in the notes.`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'Research question: Why do bKash users abandon the Send Money flow before confirming? Run a thematic synthesis. For each theme: name it, count which participants mentioned it, include one verbatim quote, and rate frequency (all/most/some/one). Then list the top 3 design implications.' },
@@ -1047,6 +1180,12 @@ States: default, field-error, loading, success`,
         title: 'Challenge the synthesis before presenting it',
         description:
           'Claude finds patterns in what you gave it. It cannot know if your participant sample was skewed, if a quote was taken out of context, or if a theme is real versus a product of your recruitment criteria. Before you present the findings, interrogate them.',
+        code: {
+          snippet: `Play devil\'s advocate on theme 2. What evidence in the notes
+contradicts it or suggests a different interpretation? What would
+a skeptic say about this finding?`,
+          language: 'text',
+        },
         appDemo: {
           steps: [
             { role: 'user', text: 'Devil\'s advocate: which of these 4 themes is most likely to be a sampling artifact rather than a real user problem? All 5 of my participants were urban Android users with prior bKash experience.' },
@@ -1069,6 +1208,11 @@ States: default, field-error, loading, success`,
           ],
         },
       },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes in research synthesis with Claude:\n\n1. Cleaning the notes before pasting them. Paraphrasing your own notes before synthesis removes the raw language participants used and replaces it with your interpretation. Paste verbatim. Messy is fine.\n\n2. Not specifying the research question. "Summarise these notes" produces a surface-level summary. "Identify themes related to why users abandon the checkout flow" produces findings you can act on. Always give Claude the research question before running the synthesis.\n\n3. Presenting the synthesis without the challenge step. Claude will find the most statistically prominent patterns in your notes. It cannot tell you which patterns are sample artifacts, which quotes are outliers, or which themes your recruitment criteria inflated. The challenge step is not optional if you are presenting to stakeholders.\n\n4. Using Claude to generate themes you then present as your own analysis. The synthesis is a starting point for your judgment, not the final analysis. If a theme Claude found does not ring true to you based on being in the room, flag it as tentative or drop it. Your presence in the sessions is data that Claude does not have.',
+      },
     ],
     nextLink: {
       label: 'Automate repetitive design tasks',
@@ -1085,12 +1229,12 @@ States: default, field-error, loading, success`,
     description:
       'Build a personal prompt library for the tasks you run every week: writing copy variants, formatting specs, generating accessibility checklists, and more.',
     intro:
-      'You probably do the same five things in every project: write microcopy variants, format design specs, check accessibility, write handoff notes, and generate placeholder content. These are not creative tasks. They are mechanical. Claude handles them in seconds if you give it a precise prompt. This guide shows you how to build a prompt library so you run each task once, save the prompt that worked, and reuse it next time.',
+      'This guide is for UX and UI designers who spend time each week on mechanical, repeatable tasks: writing microcopy variants, formatting specs, generating accessibility checklists. After reading it, you will be able to identify your highest-repeat tasks, build a personal prompt library, and run each task in seconds instead of minutes. You probably do the same five things in every project: write microcopy variants, format design specs, check accessibility, write handoff notes, and generate placeholder content. These are not creative tasks. They are mechanical. Claude handles them in seconds if you give it a precise prompt. Key terms used in accessibility prompts in this guide: WCAG AA (the accessibility standard for color contrast and interaction), ARIA label (a text label screen readers announce for interactive elements), CTA (call-to-action button or link), focus order (the sequence keyboard users navigate through interactive elements).',
     steps: [
       {
         title: 'Identify your most repeated tasks',
         description:
-          'Think about the last three projects. What tasks did you do more than twice that felt like wasted time? Common answers: writing 3 variants of a button label, reformatting a design spec for a dev ticket, generating placeholder text that fits the layout, writing an accessibility rationale for a component.',
+          'Think about the last three projects. What tasks did you do more than twice that felt like wasted time? Common answers: writing 3 variants of a button label, reformatting a design spec for a dev ticket, generating placeholder text that fits the layout, writing an accessibility rationale for a component. Create that file now and add one prompt for a task you do every week.',
         appDemo: {
           steps: [
             { role: 'user', text: 'I am a mid-level product designer working on mobile fintech apps. What are the 5 most common design tasks I probably do every week that Claude could handle in under 30 seconds each?' },
@@ -1144,7 +1288,7 @@ States: default, field-error, loading, success`,
       {
         title: 'Build and maintain your prompt library',
         description:
-          'Create a PROMPTS.md file in your project (or in a personal notes app). For each prompt: give it a name, record the exact text, and note what good output looks like. Review it every month and delete prompts you have not used.',
+          'Create a PROMPTS.md file in your project (or in a personal notes app). For each prompt: give it a name, record the exact text, and note what good output looks like. Review it every month. Remove prompts that have stopped working or that Claude now handles without instruction. Add prompts for any new task types you have started doing repeatedly. A stale prompt library is worse than no library: you waste time running prompts that produce output you have to edit, which defeats the purpose.',
         code: {
           snippet: `# PROMPTS.md -- Design Prompt Library
 
@@ -1189,6 +1333,11 @@ Flag any item that needs a design decision, not just a dev fix.
             { role: 'claude', text: 'Read PROMPTS.md. Two issues:\n\n1. `spec-writer` and `handoff-notes` produce nearly identical output. The difference is format (Markdown vs Jira). Merge them into one prompt with a `[format: markdown | jira]` parameter.\n\n2. `copy-review` has no success criteria: "improve the copy" produces inconsistent results because "improve" means different things each time. Add: "Flag: clarity, length, tone. Suggest one specific rewrite per flag."\n\nThe other 6 prompts are tight. Run them as-is.' },
           ],
         },
+      },
+      {
+        title: 'Common mistakes',
+        description:
+          'Four failure modes in building a prompt library:\n\n1. Saving prompts that need output editing. A prompt is not done until the output is usable without changes. If you save a prompt and then edit the result every time, the prompt has not solved the problem. Iterate on the prompt until it produces clean output, then save it.\n\n2. Building the library too fast. Adding all your tasks at once produces a library you never refine. Add one prompt at a time, run it on a real task, and only save it once it produces output you would use. Quality over completeness.\n\n3. Using vague task names. "Copy" and "spec" are not usable names when you are scanning a list of 8 prompts under deadline pressure. Use names that say what the prompt does: "error-message-variants" and "a11y-checklist-per-component" are findable. "Copy" and "Check" are not.\n\n4. Never running the monthly review. Prompts that worked six months ago may produce worse output now because Claude has improved and handles certain requests differently. Remove prompts Claude now handles well without instruction, and update prompts where the output quality has drifted.',
       },
     ],
     nextLink: {
