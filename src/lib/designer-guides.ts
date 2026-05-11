@@ -744,7 +744,7 @@ Include the heuristic or principle each item violates.`,
       {
         title: 'Describe the interface you are evaluating',
         description:
-          'Give Claude the context it needs: what the interface is, who uses it, what they are trying to do, and a description of the key screens. The more specific you are, the more useful the evaluation.',
+          'Paste the template below and fill in your interface. Claude will confirm it has enough context and ask whether to run all 10 heuristics at once or one by one. Answer "all 10 at once" — that is the prompt for step 2.',
         code: {
           snippet: `# Interface context template:
 "I am running a heuristic evaluation using Nielsen's 10 usability heuristics.
@@ -781,7 +781,7 @@ Description: [Describe the screens, layout, labels, interactions]"`,
       {
         title: 'Run the evaluation',
         description:
-          'Ask Claude to evaluate against all 10 heuristics. For each one, Claude will identify violations and rate their severity.',
+          'Paste the evaluation prompt. Claude works through all 10 heuristics and returns a verdict for each — comply, partial, or violation — with a specific example and a severity rating. At the end you will have a list of violations with counts: something like "1 Critical, 3 Major, 3 Minor." That list is what step 3 turns into a report.',
         code: {
           snippet: `# Prompt to run the evaluation:
 "Evaluate this interface against all 10 of Nielsen's usability heuristics.
@@ -818,7 +818,7 @@ and rate severity (Critical / Major / Minor / Cosmetic)."`,
       {
         title: 'Generate the prioritised findings report',
         description:
-          'Ask Claude to consolidate violations into a report you can hand to a PM or take into your next design sprint. Sorted by severity, with a recommended fix for each.',
+          'Paste the consolidation prompt. Claude groups all violations by severity — Critical down to Minor — and adds a one-line fix for each. What comes back is paste-ready: you can drop it directly into a Jira ticket, share it with your PM, or bring it to sprint planning.',
         code: {
           snippet: `# Prompt to generate the report:
 "Consolidate all findings into a prioritised report.
