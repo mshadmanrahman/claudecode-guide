@@ -50,7 +50,7 @@ const CARDS: ReadonlyArray<RouterCard> = [
     id: 'designers',
     icon: Paintbrush,
     title: 'Claude for UX and UI designers',
-    blurb: '10 task-oriented guides: decode briefs, run heuristic evaluations, synthesize research, hand off to code.',
+    blurb: '11 task-oriented guides: decode briefs, run heuristic evaluations, synthesize research, hand off to code.',
     href: '/for-designers',
     audience: 'Designer',
   },
