@@ -77,11 +77,11 @@ const comparisonDefaultDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
     destination: AFFILIATE_LINKS.vercelV0,
   },
   'end-card': {
-    title: 'Choose with confidence',
+    title: 'Plan sorted? Now deploy what you build',
     description:
-      'Open the final plan guide to match tool choice with budget, team size, and expected coding volume.',
-    ctaLabel: 'Open buyer guide',
-    destination: AFFILIATE_LINKS.proVsMax,
+      'Railway gives you one-click deploys from GitHub with a generous free tier. Ship your first Claude Code project in minutes.',
+    ctaLabel: 'Deploy your first app on Railway',
+    destination: AFFILIATE_LINKS.railway,
   },
 };
 
@@ -89,6 +89,15 @@ const comparisonOverrides: Record<
   string,
   Partial<Record<AffiliateCTAPlacement, Partial<CTAConfigDraft>>>
 > = {
+  'docs/comparisons/pro-vs-max': {
+    inline: {
+      title: 'Once you pick a plan, here is where to deploy',
+      description:
+        'Railway gives you one-click deploys from GitHub with a generous free tier. Pair it with Claude Code and you are shipping in minutes.',
+      ctaLabel: 'Try Railway free',
+      destination: AFFILIATE_LINKS.railway,
+    },
+  },
   'docs/comparisons/vs-cursor': {
     inline: {
       title: 'Cursor vs Claude settled?',

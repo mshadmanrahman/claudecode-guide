@@ -40,13 +40,13 @@ export function DesignerHero() {
       </nav>
 
       <h1 className="font-serif text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
-        A designer doesn&apos;t<br />
-        <em className="italic text-fd-muted-foreground">&apos;use Claude.&apos;</em><br />
-        They pick a journey.
+        You tried Claude.<br />
+        <em className="italic text-fd-muted-foreground">It felt generic.</em><br />
+        That&apos;s a setup problem.
       </h1>
 
       <p className="mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
-        Three journeys. Three different types of designer. Three different before/afters. What changes in your day depends entirely on which path you are on.
+        Claude doesn&apos;t know you design for first-time mobile users on low-end Android in a price-sensitive market. It knows you&apos;re a person with a question. These guides fix that. Pick the journey that matches how you work, and start with Guide 1 to tell Claude who you actually are.
       </p>
 
       <div className="mt-12 grid gap-4 sm:grid-cols-3">

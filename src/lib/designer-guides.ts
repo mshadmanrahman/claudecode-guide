@@ -3,6 +3,7 @@ import type { DesignerRoute } from '@/components/designer-route-switcher';
 export interface DesignerGuideStep {
   title: string;
   description: string;
+  list?: string[];
   code?: { snippet: string; language?: string };
   demo?: {
     title?: string;
@@ -12,6 +13,17 @@ export interface DesignerGuideStep {
   ideDemo?: { steps: Array<{ role: 'user' | 'claude'; text: string; delay?: number }> };
 }
 
+export interface DesignerGuideContrast {
+  bad: string;
+  good: string;
+  why: string;
+}
+
+export interface DesignerGuideSituation {
+  scene: string;
+  outcome: string;
+}
+
 export interface DesignerGuide {
   title: string;
   slug: string;
@@ -19,6 +31,9 @@ export interface DesignerGuide {
   difficulty: 'beginner' | 'intermediate';
   description: string;
   intro: string;
+  situation?: DesignerGuideSituation;
+  outcomes?: string[];
+  promptContrast?: DesignerGuideContrast;
   steps: DesignerGuideStep[];
   nextLink: { label: string; href: string };
   availableRoutes?: DesignerRoute[];
@@ -35,6 +50,15 @@ export const DESIGNER_GUIDES: Record<string, DesignerGuide> = {
       'Give Claude permanent context about your role, your users, and your output preferences. Every session starts already knowing your work.',
     intro:
       'This guide is for UX and UI designers who want Claude to know their work without re-explaining it every session. By the end, you will have a working agreement that loads your role, users, and output preferences automatically. Claude does not know you are a designer until you tell it. Without context, every session starts from scratch: generic answers, generic feedback, generic output. You write the agreement once. Claude reads it every time.',
+    situation: {
+      scene: 'You have been using Claude like a search engine. You ask a question, get a generic answer, and close the tab. It helps sometimes. But it does not know you are a designer, who you design for, or how you like to receive feedback.',
+      outcome: 'Every future Claude session will start already knowing your role, your users, and how you want output delivered. You write it once. It loads every time.',
+    },
+    outcomes: [
+      'A working agreement that tells Claude who you are, who you design for, and how you like to work',
+      'The exact template filled with your real context, not a generic placeholder',
+      'A test prompt that confirms your agreement is specific enough to produce useful output',
+    ],
     steps: [
       {
         title: 'Create your workspace',
@@ -214,6 +238,20 @@ What questions should I be asking before I open Figma?`,
       'A brief is never the real problem. Use Claude to interrogate it like a skeptical PM and surface what is actually being asked for.',
     intro:
       'This guide is for UX and UI designers who receive vague briefs and need to know what is actually being asked before opening Figma. After reading it, you will be able to interrogate any brief with Claude, surface the real problem behind the vague language, and send back a concise list of clarifying questions. Clients hand you briefs that say "modern and clean" and "intuitive and user-friendly." These phrases mean nothing. Behind every vague brief is a real problem: a business pressure, a user frustration, a constraint nobody mentioned. This guide shows you how to use Claude to break open a brief before you touch Figma, so you are solving the right problem from the start. Throughout this guide, PM means product manager: the person who defines requirements and speaks for the business.',
+    situation: {
+      scene: 'A brief just landed. Three sentences, no data, and the word "modern" used twice. The PM wants wireframes by Friday and has already moved on to the next thing.',
+      outcome: 'You\'ll send back a set of sharp clarifying questions before you open Figma, and you\'ll know exactly what problem you\'re actually solving.',
+    },
+    outcomes: [
+      'The vague words in your brief decoded — what each one is actually hiding',
+      'The real problem behind the ask, stated in one sentence',
+      'Five sharp clarifying questions ready to send before you open Figma',
+    ],
+    promptContrast: {
+      bad: 'Can you help me with this brief? "Redesign the onboarding flow. More modern, cleaner, friendlier."',
+      good: 'Interrogate this brief as a skeptical PM. List: undefined terms, missing data, unstated assumptions, and the three questions to send back before designing anything.\n\n"Redesign the onboarding flow. More modern, cleaner, friendlier."',
+      why: 'Claude defaults to agreement. "Help me with this" gets encouragement. Giving Claude a role ("skeptical PM") and an output format ("list: undefined terms...") eliminates the default and forces it to push back.',
+    },
     steps: [
       {
         title: 'Paste the brief exactly as you received it',
@@ -323,8 +361,13 @@ Professional tone. Short. Each question has a one-line explanation of why it mat
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes designers hit when using this process:\n\n1. Cleaning the brief before pasting it. When you paraphrase or tidy up the brief, you remove the vagueness that Claude needs to interrogate. Fix: paste it raw, exactly as received, including typos, because the imprecision is the signal.\n\n2. Skipping to solutions. Running the interrogation and then immediately opening Figma defeats the point. Fix: send the clarifying questions first and wait for answers before touching any design tool.\n\n3. Asking too many questions. If Claude gives you 12 questions and you send them all, the client stops responding. Fix: pick the 3 that would most change what you design. Everything else can wait.\n\n4. Treating the interrogation as the final brief. The interrogation output is a diagnosis, not a brief. Fix: once you have answers from the client, run Step 3 to rewrite the brief into something designable. An interrogation with no client response is just an unresolved list.',
+        description: 'Four failure modes designers hit when using this process.',
+        list: [
+          'Cleaning the brief before pasting it. When you paraphrase or tidy up the brief, you remove the vagueness Claude needs to interrogate. Paste it raw, exactly as received, including typos. The imprecision is the signal.',
+          'Skipping to solutions. Running the interrogation and then immediately opening Figma defeats the point. Send the clarifying questions first and wait for answers before touching any design tool.',
+          'Asking too many questions. If Claude gives you 12 questions and you send them all, the client stops responding. Pick the 3 that would most change what you design. Everything else can wait.',
+          'Treating the interrogation as the final brief. The interrogation output is a diagnosis, not a brief. Once you have answers from the client, run Step 3 to rewrite it into something designable.',
+        ],
       },
     ],
     nextLink: {
@@ -343,6 +386,15 @@ Professional tone. Short. Each question has a one-line explanation of why it mat
       'Turn a vague creative brief into something you can actually design from. Get Claude to act as a skeptical product manager (PM) and help you push back like a collaborator, not a critic.',
     intro:
       'This guide is for UX and UI designers who receive briefs that are too vague to design from and need to push back without creating friction. After reading it, you will be able to flag vague language, generate a professional pushback message, and rewrite the brief once you have answers. The best designers think like product managers (PMs). They do not just receive briefs: they interrogate them, sharpen them, and push back when something is missing. The problem is that pushback feels risky, especially when the client outranks you. This guide shows you how to use Claude to generate a reframe that sounds like collaboration, not friction, and gives you a design brief you can actually work from.',
+    situation: {
+      scene: 'A brief arrived. It uses the words "modern," "intuitive," and "user-friendly." There is no data, no user description, and no success metric. You have a design review in two weeks and nothing concrete to design from.',
+      outcome: 'You\'ll flag every undefined term, send a professional pushback message, and walk away with a brief specific enough to open Figma.',
+    },
+    outcomes: [
+      'Every vague word in the brief flagged and named, with what each one is hiding',
+      'A professional pushback message ready to send, framed as collaboration not criticism',
+      'A specific, designable brief built from client answers, not your assumptions',
+    ],
     steps: [
       {
         title: 'Flag every vague or missing piece',
@@ -475,6 +527,15 @@ looks like in measurable terms, visual direction, and out of scope."`,
       'Run three forced-perspective critiques on any design: the confused user, the skeptical engineer, the impatient PM. Get specific problems, not encouragement.',
     intro:
       'This guide is for UX and UI designers who want honest critique of their work instead of generic praise. After reading it, you will be able to run three forced-perspective critiques on any screen and produce a prioritised list of real problems to fix. Claude flatters by default. Ask it to review your design and it will find things to praise before it finds things to fix. This guide shows you how to break that pattern using three forced-perspective prompts that make Claude take a specific viewpoint and stay in it. You will end up with a prioritised list of actual problems, not a list of "great job, but consider..."',
+    situation: {
+      scene: 'You have finished a design and want honest feedback before sharing it. You know what happens when you ask Claude "what do you think?": positives first, two gentle suggestions buried at the end, nothing you can actually act on.',
+      outcome: 'You\'ll run three forced-perspective critiques and walk away with a prioritised list of real problems ranked by user impact, not a list of encouragement.',
+    },
+    outcomes: [
+      'Three forced-perspective critiques: the confused user, the skeptical engineer, the impatient PM',
+      'A ranked list of real problems sorted by user impact, not design effort',
+      'A synthesis you can present to a team without making the design sound broken',
+    ],
     steps: [
       {
         title: 'Set up the critique',
@@ -650,6 +711,15 @@ Include the heuristic or principle each item violates.`,
       'Run Nielsen\'s 10 usability heuristics against any interface using Claude as your evaluation partner. Get a prioritised findings report you can act on.',
     intro:
       'This guide is for UX and UI designers who need to evaluate an interface for usability problems and produce a findings report they can act on or present to a team. After reading it, you will be able to run a full 10-heuristic evaluation using Claude as a consistent evaluation partner and generate a prioritised findings report grouped by severity. A heuristic evaluation is one of the most powerful tools in a designer\'s kit, and one of the most tedious to do manually. Running all 10 of Nielsen\'s heuristics against an interface, documenting violations, and prioritising findings typically takes hours. This guide shows you how to do it in 25 minutes. The 10 heuristics you will evaluate against: Visibility of system status, Match between system and real world, User control and freedom, Consistency and standards, Error prevention, Recognition rather than recall, Flexibility and efficiency of use, Aesthetic and minimalist design, Help users recognise and recover from errors, Help and documentation. Severity tiers: Critical (blocks task completion), Major (causes significant confusion or error), Minor (annoys or slows), Cosmetic (visual preference only).',
+    situation: {
+      scene: 'An interface needs a usability review before it ships. Your gut says something is wrong. You need specific findings with severity ratings, not a list of impressions, and something a PM can actually prioritise.',
+      outcome: 'You\'ll produce a full heuristic report against all 10 Nielsen heuristics, grouped by severity, in about 25 minutes.',
+    },
+    outcomes: [
+      'A full evaluation against all 10 Nielsen usability heuristics with a specific violation example for each',
+      'Every finding rated: Critical, Major, Minor, or Cosmetic',
+      'A prioritised report grouped by severity tier, ready for sprint planning or a stakeholder review',
+    ],
     steps: [
       {
         title: 'Describe the interface you are evaluating',
@@ -782,6 +852,15 @@ Group by severity."`,
       'Clean up your Figma file so Claude Code can read it accurately. Proper layer naming, annotations, and token exports reduce ambiguity in handoff.',
     intro:
       'This guide is for UX and UI designers who use Figma and hand off to developers using Claude Code. After reading it, you will be able to rename layers for semantic clarity, add annotations for behaviour Claude cannot infer from pixels, and export design tokens (the named variables for your colors, spacing, and typography) to use as a source of truth in code generation. When you paste Figma layer names and annotations into a Claude Code session, Claude reads them as context for generating code. A file with layers named "Rectangle 42" and "Group 7" produces confused code. A file with descriptive names and semantic annotations produces code you can actually ship. This guide walks you through the three cleanup passes that matter most.',
+    situation: {
+      scene: 'You are handing a Figma file to a developer using Claude Code. Your layers are named "Frame 14" and "Group 7." The last handoff produced code that looked nothing like the design, and the back-and-forth took three days.',
+      outcome: 'You\'ll clean up your file so Claude Code reads it accurately and generates code you can recognise without a second round of corrections.',
+    },
+    outcomes: [
+      'Layer names that describe component intent, not shape, so Claude infers nothing by accident',
+      'Annotations for the behaviour pixels cannot show: validation rules, transitions, and error states',
+      'A token export and component spec ready to paste directly into a Claude Code session',
+    ],
     steps: [
       {
         title: 'Rename layers to describe intent, not shape',
@@ -908,6 +987,15 @@ input/bkash-number/default
       'Turn a design into a working UI prototype using Claude Code. No frontend experience required. Just a Figma file, a description, and a terminal.',
     intro:
       'This guide is for UX and UI designers who want to turn a finished Figma screen into working, interactive code without handing it to a developer. After reading it, you will be able to scaffold a reusable React component (a self-contained piece of UI code) from a design description, add validation and interaction states, and iterate with plain English prompts. You designed a flow. Now you want to see it work, not just as a static prototype, but as actual code in a browser. Claude Code can bridge that gap faster than handing off to a developer and waiting. This guide takes you from a finished Figma screen to a running React component, step by step, using only plain English and a terminal.',
+    situation: {
+      scene: 'You have a finished Figma screen and you want to see it work in a browser. Not a static prototype. Actual interactive code. But you have never opened a terminal and do not know where to start.',
+      outcome: 'You\'ll build a working React component from a plain English description of your design, with validation and loading states, without editing a single line of code yourself.',
+    },
+    outcomes: [
+      'A working React component scaffolded from a plain English description of your Figma design',
+      'Validation, interaction states, and loading behaviour added through prompts, not code edits',
+      'A prototype you can hand to a developer as a working starting point, not a static file',
+    ],
     steps: [
       {
         title: 'Describe your design in plain text',
@@ -1024,6 +1112,15 @@ Increase the padding and make the checkmark icon 4px larger.`,
       'Claude Design is Anthropic\'s text-to-prototype tool. Describe a screen, get a working interactive prototype back. This guide shows you how to prompt it effectively.',
     intro:
       'This guide is for UX and UI designers who want to use Claude Design to turn a screen description into a working interactive prototype. After reading it, you will be able to write prompts that produce useful, specific output, iterate on a prototype with targeted changes, and export the result as a written component specification (reference spec) for developers. Claude Design (launched April 2026) lets you describe a UI and get back a running prototype, not a mockup, not a wireframe, but actual interactive code rendered in the browser. For designers, it is the fastest way to test an idea without opening Figma or writing a line of code. This guide covers the prompt patterns that produce useful output versus generic filler.',
+    situation: {
+      scene: 'You have tried Claude Design. Every prototype came back looking like a generic SaaS dashboard with a blue header and a grid of cards. You know the tool can do better but your prompts are not working.',
+      outcome: 'You\'ll learn the prompt pattern that produces specific, context-aware output and how to iterate on one thing at a time without losing what was already working.',
+    },
+    outcomes: [
+      'The prompt structure that produces specific, context-aware prototypes instead of generic templates',
+      'How to iterate on one change at a time without triggering a full rewrite',
+      'A live prototype URL and a written component spec ready to hand to a developer',
+    ],
     steps: [
       {
         title: 'Write a brief that specifies context, not just appearance',
@@ -1100,6 +1197,15 @@ agreement for the token names), and the mobile breakpoint assumptions.`,
       'Turn raw interview notes, session recordings, and survey responses into prioritised findings in one session. Claude handles the pattern-matching; you handle the judgment.',
     intro:
       'This guide is for UX and UI designers who have completed user interviews and need to turn raw notes into a structured findings report. After reading it, you will be able to format notes for synthesis, run a structured thematic analysis with Claude, and challenge the output before presenting it. You ran five user interviews. You have 40 pages of raw notes. You need a findings report by Friday. Without Claude, this is hours of manual affinity mapping (grouping related observations into themes) and theme extraction. With Claude, it is a focused session where you paste the raw material, run the synthesis, and then review and challenge the output. The review step matters: Claude finds patterns, but you know which patterns are real and which are artifacts of who you recruited.',
+    situation: {
+      scene: 'You ran five user interviews. You have 40 pages of raw notes and a findings report due Friday. Manual affinity mapping takes hours you do not have.',
+      outcome: 'You\'ll turn raw notes into a structured findings report with themes, participant counts, and verbatim quotes, then challenge it before you present anything.',
+    },
+    outcomes: [
+      'A thematic synthesis of your raw notes with participant counts and verbatim quotes per theme',
+      'Three to five prioritised design implications ready to take into a sprint',
+      'A challenge pass that flags sampling artifacts before you present to stakeholders',
+    ],
     steps: [
       {
         title: 'Prepare your raw notes for paste',
@@ -1230,6 +1336,15 @@ a skeptic say about this finding?`,
       'Build a personal prompt library for the tasks you run every week: writing copy variants, formatting specs, generating accessibility checklists, and more.',
     intro:
       'This guide is for UX and UI designers who spend time each week on mechanical, repeatable tasks: writing microcopy variants, formatting specs, generating accessibility checklists. After reading it, you will be able to identify your highest-repeat tasks, build a personal prompt library, and run each task in seconds instead of minutes. You probably do the same five things in every project: write microcopy variants, format design specs, check accessibility, write handoff notes, and generate placeholder content. These are not creative tasks. They are mechanical. Claude handles them in seconds if you give it a precise prompt. Key terms used in accessibility prompts in this guide: WCAG AA (the accessibility standard for color contrast and interaction), ARIA label (a text label screen readers announce for interactive elements), CTA (call-to-action button or link), focus order (the sequence keyboard users navigate through interactive elements).',
+    situation: {
+      scene: 'You spend an hour every week writing the same types of content: error message variants, accessibility rationales, handoff notes. It is mechanical, it is repetitive, and it happens in every project.',
+      outcome: 'You\'ll build a personal prompt library for your five highest-repeat tasks and run each one in under 30 seconds.',
+    },
+    outcomes: [
+      'Your five highest-repeat design tasks turned into reusable prompt templates',
+      'Each prompt refined until the output needs zero editing before use',
+      'A maintenance routine so the library stays lean and does not get stale',
+    ],
     steps: [
       {
         title: 'Identify your most repeated tasks',
@@ -1356,6 +1471,15 @@ Flag any item that needs a design decision, not just a dev fix.
       'Commits, branches, pull requests, and undo explained for designers working with Claude Code. Read this before Guide 07.',
     intro:
       'This guide is for UX and UI designers with no prior Git experience. After reading it, you will be able to start a new project repo, save and share your work, undo a commit, and open a pull request for a developer to review. You do not need to understand version control theory. You need to understand what each command does in plain English. Claude Code can commit changes as it works, but you control when that happens. Six concepts: setting up a repo, commits, push, pull, undoing mistakes, and pull requests. If you are starting from scratch, begin at Step 1. If your project already has a repo (a .git folder exists), skip to Step 2.',
+    situation: {
+      scene: 'You are working with Claude Code and it keeps mentioning commits, branches, and pull requests. You do not know what those mean. You are worried about breaking something or losing your work.',
+      outcome: 'You\'ll understand enough Git to work confidently with Claude Code: save your work, undo mistakes, and share files with a developer without memorising commands.',
+    },
+    outcomes: [
+      'A working Git repo set up and connected to GitHub in under 5 minutes',
+      'The six Git concepts you actually need: repo, commit, push, pull, undo, and pull request',
+      'Enough vocabulary to follow what Claude Code is doing and tell it what you want',
+    ],
     steps: [
       {
         title: 'Start a new project repo',
