@@ -193,7 +193,12 @@ What questions should I be asking before I open Figma?`,
       {
         title: 'Keep it under 300 words and update it when context changes',
         description:
-          'Most designers find that shorter agreements work as well as longer ones. Beyond 300 words you are likely adding noise rather than signal. Stale context is worse than no context: when you change clients, platforms, or roles, update it. Review your USERS section right now: if it says "general audience" or nothing specific, rewrite it before moving to the next guide. Common mistakes: leaving USERS vague, copying someone else\'s template without adapting it to your actual users, and never revisiting it after the first session.',
+          'Most designers find that shorter agreements work as well as longer ones. Beyond 300 words you are likely adding noise rather than signal. Stale context is worse than no context: when you change clients, platforms, or roles, update it. Review your USERS section right now: if it says "general audience" or nothing specific, rewrite it before moving to the next guide.',
+        list: [
+          'Leaving USERS vague. "General audience" gives Claude no user constraints to apply. Name who they are and what they are trying to do.',
+          'Copying someone else\'s template without adapting it to your actual users. The agreement only works if it describes your context, not a generic designer.',
+          'Never revisiting it after the first session. When you change clients, platforms, or roles, update it. A stale agreement is worse than none.',
+        ],
         appDemo: {
           steps: [
             { role: 'user', text: 'What should I leave out of the working agreement to keep it lean?' },
@@ -507,8 +512,13 @@ looks like in measurable terms, visual direction, and out of scope."`,
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes that derail this process:\n\n1. Fixing problems as you flag them. The flagging step should produce a list of issues, not a revised brief. If you start fixing in the same pass, you stop catching problems in the parts you have already touched.\n\n2. Sending too many questions. If the list runs to 8 or 10 items, the client sees an interrogation. Cut to the 3 that would most change what you design. A shorter list gets a faster, more useful reply.\n\n3. Starting the rewrite before you have answers. The revised brief is only as good as the answers it is built from. Writing it from assumptions defeats the purpose of the whole process.\n\n4. Using vague framing in the pushback message. "I want to make sure I understand" works. "Your brief is unclear" does not. Claude can generate the message, but you should read it before sending to confirm the tone matches your relationship with the client.',
+        description: 'Four failure modes that derail this process.',
+        list: [
+          'Fixing problems as you flag them. The flagging step should produce a list of issues, not a revised brief. If you start fixing in the same pass, you stop catching problems in the parts you have already touched.',
+          'Sending too many questions. If the list runs to 8 or 10 items, the client sees an interrogation. Cut to the 3 that would most change what you design. A shorter list gets a faster, more useful reply.',
+          'Starting the rewrite before you have answers. The revised brief is only as good as the answers it is built from. Writing it from assumptions defeats the purpose of the whole process.',
+          'Using vague framing in the pushback message. "I want to make sure I understand" works. "Your brief is unclear" does not. Claude can generate the message, but you should read it before sending to confirm the tone matches your relationship with the client.',
+        ],
       },
     ],
     nextLink: {
@@ -691,8 +701,13 @@ Include the heuristic or principle each item violates.`,
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes for this process:\n\n1. Asking for a general review instead of a forced perspective. "Review my design" produces hedged praise. "You are a confused first-time user: describe every point of confusion" produces usable findings. The perspective constraint is the mechanism.\n\n2. Letting Claude out of character. If Claude starts suggesting solutions mid-critique, bring it back: "Stay in character. Only describe the problem, not the fix." Solutions come in the synthesis step.\n\n3. Running all three perspectives in one prompt. If you ask for all three at once without separating them, the output blends perspectives and the engineer issues get mixed with the user issues. Run them separately, then synthesise.\n\n4. Skipping the synthesis step. Three separate critiques are hard to act on. The synthesis groups them by urgency and gives you something you can put in a sprint. Do not skip it even if the critiques feel complete on their own.',
+        description: 'Four failure modes for this process.',
+        list: [
+          'Asking for a general review instead of a forced perspective. "Review my design" produces hedged praise. "You are a confused first-time user: describe every point of confusion" produces usable findings. The perspective constraint is the mechanism.',
+          'Letting Claude out of character. If Claude starts suggesting solutions mid-critique, bring it back: "Stay in character. Only describe the problem, not the fix." Solutions come in the synthesis step.',
+          'Running all three perspectives in one prompt. If you ask for all three at once without separating them, the output blends perspectives and the engineer issues get mixed with the user issues. Run them separately, then synthesise.',
+          'Skipping the synthesis step. Three separate critiques are hard to act on. The synthesis groups them by urgency and gives you something you can put in a sprint. Do not skip it even if the critiques feel complete on their own.',
+        ],
       },
     ],
     nextLink: {
@@ -720,6 +735,11 @@ Include the heuristic or principle each item violates.`,
       'Every finding rated: Critical, Major, Minor, or Cosmetic',
       'A prioritised report grouped by severity tier, ready for sprint planning or a stakeholder review',
     ],
+    promptContrast: {
+      bad: 'Review this design for usability problems.',
+      good: 'Evaluate this 4-field payment form against Nielsen\'s Error Prevention heuristic only. List each place where the user could make an irreversible mistake without a confirmation or undo option. Format: [screen element] + [risk] + [severity: Critical / Major / Minor].',
+      why: 'A role-scoped heuristic prompt forces Claude to apply a single lens instead of generating a generic usability checklist. One heuristic at a time produces specific, actionable findings.',
+    },
     steps: [
       {
         title: 'Describe the interface you are evaluating',
@@ -832,8 +852,13 @@ Group by severity."`,
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes in heuristic evaluations:\n\n1. Describing the interface too vaguely. Claude evaluates what you describe. "A form with some fields" produces generic heuristic observations. "A 4-field payment form with amount, phone, PIN, and a confirm button on Android mobile" produces specific, actionable findings. Put the time in on the description.\n\n2. Conflating Minor with Cosmetic. Minor friction slows users down or causes recoverable errors. Cosmetic issues are visual preferences that have no functional impact. Labelling a Minor issue as Cosmetic means it gets deprioritised and never fixed.\n\n3. Skipping heuristics where the interface "obviously" complies. The most dangerous assumption in a heuristic evaluation is that a heuristic does not apply. Check all 10, including the ones that look fine. Violations in "passing" heuristics are easy to miss.\n\n4. Presenting the evaluation without the severity grouping. A list of 10 raw findings is hard to act on. The report step groups by Critical, Major, Minor so stakeholders know what to fix before the next release versus what to consider next quarter.',
+        description: 'Four failure modes in heuristic evaluations.',
+        list: [
+          'Describing the interface too vaguely. Claude evaluates what you describe. "A form with some fields" produces generic heuristic observations. "A 4-field payment form with amount, phone, PIN, and a confirm button on Android mobile" produces specific, actionable findings. Put the time in on the description.',
+          'Conflating Minor with Cosmetic. Minor friction slows users down or causes recoverable errors. Cosmetic issues are visual preferences that have no functional impact. Labelling a Minor issue as Cosmetic means it gets deprioritised and never fixed.',
+          'Skipping heuristics where the interface "obviously" complies. The most dangerous assumption in a heuristic evaluation is that a heuristic does not apply. Check all 10, including the ones that look fine. Violations in "passing" heuristics are easy to miss.',
+          'Presenting the evaluation without the severity grouping. A list of 10 raw findings is hard to act on. The report step groups by Critical, Major, Minor so stakeholders know what to fix before the next release versus what to consider next quarter.',
+        ],
       },
     ],
     nextLink: {
@@ -967,8 +992,13 @@ input/bkash-number/default
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes in Figma-to-Claude handoffs:\n\n1. Renaming only the top-level frames. Layer naming matters most at the component and element level, not the page or frame level. "Payment Screen" as a frame name helps nothing. "button/primary/disabled" inside that frame is what changes the code.\n\n2. Skipping the AI-NOTES layer for simple components. Simple components still have non-obvious behaviour: hover states, disabled conditions, error triggers. If you do not annotate them, Claude infers from common patterns, which may not match your product.\n\n3. Exporting tokens without mapping them to the codebase. A token export that uses Figma variable names your codebase does not recognise adds a translation step for the developer. Check that the token names in the export match what the dev team uses before handing off.\n\n4. Handing off a file mid-design. Annotations and layer names added to a file that is still changing create confusion. Do the handoff prep pass once, when the design is stable.',
+        description: 'Four failure modes in Figma-to-Claude handoffs.',
+        list: [
+          'Renaming only the top-level frames. Layer naming matters most at the component and element level, not the page or frame level. "Payment Screen" as a frame name helps nothing. "button/primary/disabled" inside that frame is what changes the code.',
+          'Skipping the AI-NOTES layer for simple components. Simple components still have non-obvious behaviour: hover states, disabled conditions, error triggers. If you do not annotate them, Claude infers from common patterns, which may not match your product.',
+          'Exporting tokens without mapping them to the codebase. A token export that uses Figma variable names your codebase does not recognise adds a translation step for the developer. Check that the token names in the export match what the dev team uses before handing off.',
+          'Handing off a file mid-design. Annotations and layer names added to a file that is still changing create confusion. Do the handoff prep pass once, when the design is stable.',
+        ],
       },
     ],
     nextLink: {
@@ -1092,8 +1122,13 @@ Increase the padding and make the checkmark icon 4px larger.`,
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes when building your first flow:\n\n1. Asking Claude to build the whole screen at once. Large requests produce large, unreadable output. Break the build into: shell first, then validation, then interaction states. Each step should produce something you can open in a browser and verify.\n\n2. Not writing DESIGN.md before starting. Without a written description, Claude has to infer your intent from the prompts in real time. Every ambiguity in your prompts costs a correction round. Write the description first; it takes 10 minutes and saves 30.\n\n3. Editing the code directly instead of prompting changes. If you open the generated file and edit it by hand, you break the feedback loop. Claude does not know what you changed, so the next prompt may undo your edit. Describe the change in plain English and let Claude make it.\n\n4. Treating the prototype as production code. The code Claude generates from a design description is a working prototype, not production-ready. Before shipping, ask Claude to add TypeScript types, replace placeholder API calls with real ones, and handle edge cases the prototype skips.',
+        description: 'Four failure modes when building your first flow.',
+        list: [
+          'Asking Claude to build the whole screen at once. Large requests produce large, unreadable output. Break the build into: shell first, then validation, then interaction states. Each step should produce something you can open in a browser and verify.',
+          'Not writing DESIGN.md before starting. Without a written description, Claude has to infer your intent from the prompts in real time. Every ambiguity in your prompts costs a correction round. Write the description first; it takes 10 minutes and saves 30.',
+          'Editing the code directly instead of prompting changes. If you open the generated file and edit it by hand, you break the feedback loop. Claude does not know what you changed, so the next prompt may undo your edit. Describe the change in plain English and let Claude make it.',
+          'Treating the prototype as production code. The code Claude generates from a design description is a working prototype, not production-ready. Before shipping, ask Claude to add TypeScript types, replace placeholder API calls with real ones, and handle edge cases the prototype skips.',
+        ],
       },
     ],
     nextLink: {
@@ -1177,8 +1212,13 @@ agreement for the token names), and the mobile breakpoint assumptions.`,
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes when using Claude Design:\n\n1. Describing appearance instead of purpose. "Clean and modern with a blue header" gives Claude aesthetic direction but no functional constraints. Describe who uses it, what they are trying to do, and what constraints they are under. The aesthetic follows from that.\n\n2. Iterating in batches. Asking for five changes at once produces a rewrite. Each change you request touches different parts of the prototype. One at a time keeps each iteration reviewable and reversible.\n\n3. Treating the prototype as final. Claude Design prototypes are fast to generate and fast to throw away. They are for testing an idea, not shipping a product. Before the code goes to a developer, it needs a cleanup pass: proper types, real API calls, accessibility attributes.\n\n4. Not exporting the spec. A live prototype URL works for demos but not as a handoff document. The written component specification (reference spec) is what a developer can build from without needing to open the prototype. Generate it before closing the session.',
+        description: 'Four failure modes when using Claude Design.',
+        list: [
+          'Describing appearance instead of purpose. "Clean and modern with a blue header" gives Claude aesthetic direction but no functional constraints. Describe who uses it, what they are trying to do, and what constraints they are under. The aesthetic follows from that.',
+          'Iterating in batches. Asking for five changes at once produces a rewrite. Each change you request touches different parts of the prototype. One at a time keeps each iteration reviewable and reversible.',
+          'Treating the prototype as final. Claude Design prototypes are fast to generate and fast to throw away. They are for testing an idea, not shipping a product. Before the code goes to a developer, it needs a cleanup pass: proper types, real API calls, accessibility attributes.',
+          'Not exporting the spec. A live prototype URL works for demos but not as a handoff document. The written component specification (reference spec) is what a developer can build from without needing to open the prototype. Generate it before closing the session.',
+        ],
       },
     ],
     nextLink: {
@@ -1206,6 +1246,11 @@ agreement for the token names), and the mobile breakpoint assumptions.`,
       'Three to five prioritised design implications ready to take into a sprint',
       'A challenge pass that flags sampling artifacts before you present to stakeholders',
     ],
+    promptContrast: {
+      bad: 'Summarise these user research notes.',
+      good: 'Here are verbatim notes from 6 user interviews. Research question: why do users abandon the checkout flow? Identify the top 3 themes, include one verbatim quote per theme, and flag any theme raised by only one participant.',
+      why: 'The research question anchors synthesis to a decision, not a summary. Asking for quote counts surfaces thin themes before you present them as validated findings.',
+    },
     steps: [
       {
         title: 'Prepare your raw notes for paste',
@@ -1316,8 +1361,13 @@ a skeptic say about this finding?`,
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes in research synthesis with Claude:\n\n1. Cleaning the notes before pasting them. Paraphrasing your own notes before synthesis removes the raw language participants used and replaces it with your interpretation. Paste verbatim. Messy is fine.\n\n2. Not specifying the research question. "Summarise these notes" produces a surface-level summary. "Identify themes related to why users abandon the checkout flow" produces findings you can act on. Always give Claude the research question before running the synthesis.\n\n3. Presenting the synthesis without the challenge step. Claude will find the most statistically prominent patterns in your notes. It cannot tell you which patterns are sample artifacts, which quotes are outliers, or which themes your recruitment criteria inflated. The challenge step is not optional if you are presenting to stakeholders.\n\n4. Using Claude to generate themes you then present as your own analysis. The synthesis is a starting point for your judgment, not the final analysis. If a theme Claude found does not ring true to you based on being in the room, flag it as tentative or drop it. Your presence in the sessions is data that Claude does not have.',
+        description: 'Four failure modes in research synthesis with Claude.',
+        list: [
+          'Cleaning the notes before pasting them. Paraphrasing your own notes before synthesis removes the raw language participants used and replaces it with your interpretation. Paste verbatim. Messy is fine.',
+          'Not specifying the research question. "Summarise these notes" produces a surface-level summary. "Identify themes related to why users abandon the checkout flow" produces findings you can act on. Always give Claude the research question before running the synthesis.',
+          'Presenting the synthesis without the challenge step. Claude will find the most statistically prominent patterns in your notes. It cannot tell you which patterns are sample artifacts, which quotes are outliers, or which themes your recruitment criteria inflated. The challenge step is not optional if you are presenting to stakeholders.',
+          'Using Claude to generate themes you then present as your own analysis. The synthesis is a starting point for your judgment, not the final analysis. If a theme Claude found does not ring true to you based on being in the room, flag it as tentative or drop it. Your presence in the sessions is data that Claude does not have.',
+        ],
       },
     ],
     nextLink: {
@@ -1345,6 +1395,11 @@ a skeptic say about this finding?`,
       'Each prompt refined until the output needs zero editing before use',
       'A maintenance routine so the library stays lean and does not get stale',
     ],
+    promptContrast: {
+      bad: 'Write the error message for this form field.',
+      good: 'Write 3 variants of the inline error message for an invalid email field. Tone: direct, not apologetic. Max 12 words each. Do not start with "Oops" or "Sorry". Return as a numbered list.',
+      why: 'A reusable prompt template specifies tone, length, constraints, and format. Running it produces output you can use without editing. That is the difference between a task and a prompt library entry.',
+    },
     steps: [
       {
         title: 'Identify your most repeated tasks',
@@ -1451,8 +1506,13 @@ Flag any item that needs a design decision, not just a dev fix.
       },
       {
         title: 'Common mistakes',
-        description:
-          'Four failure modes in building a prompt library:\n\n1. Saving prompts that need output editing. A prompt is not done until the output is usable without changes. If you save a prompt and then edit the result every time, the prompt has not solved the problem. Iterate on the prompt until it produces clean output, then save it.\n\n2. Building the library too fast. Adding all your tasks at once produces a library you never refine. Add one prompt at a time, run it on a real task, and only save it once it produces output you would use. Quality over completeness.\n\n3. Using vague task names. "Copy" and "spec" are not usable names when you are scanning a list of 8 prompts under deadline pressure. Use names that say what the prompt does: "error-message-variants" and "a11y-checklist-per-component" are findable. "Copy" and "Check" are not.\n\n4. Never running the monthly review. Prompts that worked six months ago may produce worse output now because Claude has improved and handles certain requests differently. Remove prompts Claude now handles well without instruction, and update prompts where the output quality has drifted.',
+        description: 'Four failure modes in building a prompt library.',
+        list: [
+          'Saving prompts that need output editing. A prompt is not done until the output is usable without changes. If you save a prompt and then edit the result every time, the prompt has not solved the problem. Iterate on the prompt until it produces clean output, then save it.',
+          'Building the library too fast. Adding all your tasks at once produces a library you never refine. Add one prompt at a time, run it on a real task, and only save it once it produces output you would use. Quality over completeness.',
+          'Using vague task names. "Copy" and "spec" are not usable names when you are scanning a list of 8 prompts under deadline pressure. Use names that say what the prompt does: "error-message-variants" and "a11y-checklist-per-component" are findable. "Copy" and "Check" are not.',
+          'Never running the monthly review. Prompts that worked six months ago may produce worse output now because Claude has improved and handles certain requests differently. Remove prompts Claude now handles well without instruction, and update prompts where the output quality has drifted.',
+        ],
       },
     ],
     nextLink: {
