@@ -207,7 +207,7 @@ export default async function Page(props: PageProps) {
 
       {/* Email capture */}
       <div className="mt-16 border-t border-fd-border pt-8">
-        <EmailCapture />
+        <EmailCapture placement="docs-page" />
       </div>
 
       {/* Chapter Book navigation */}
@@ -234,19 +234,24 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     return {
       title: 'Documentation',
       description: 'Everything you need to know about Claude Code, organized by topic.',
+      alternates: { canonical: 'https://claudecodeguide.dev/docs' },
     };
   }
 
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
+  const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join('/')}`;
+
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: page.data.title,
       description: page.data.description,
       type: 'article',
+      url: canonicalUrl,
       images: [{ url: '/og-home.png', width: 1200, height: 630 }],
     },
     twitter: {

@@ -84,9 +84,6 @@ export const metadata: Metadata = {
     'claude code for beginners',
     'claude code templates',
   ],
-  alternates: {
-    canonical: siteUrl,
-  },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
