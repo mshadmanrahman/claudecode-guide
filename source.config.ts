@@ -5,6 +5,10 @@ export const docs = defineDocs({
   dir: 'content/docs',
 });
 
+export const pmPilot = defineDocs({
+  dir: 'content/pm-pilot',
+});
+
 export default defineConfig({
   mdxOptions: {
     rehypeCodeOptions: {

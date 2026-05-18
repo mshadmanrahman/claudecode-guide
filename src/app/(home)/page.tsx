@@ -4,12 +4,14 @@ import { RotatingDemo } from '@/components/rotating-demo';
 import { FloatingCard } from '@/components/floating-card';
 import { EmailCapture } from '@/components/email-capture';
 import { PathRouter } from '@/components/home/path-router';
+import { PersonaStrip } from '@/components/home/persona-strip';
+import { ClaudeInYourDay } from '@/components/home/claude-in-your-day';
 import { SiteFooter } from '@/components/site-footer';
 import type { Metadata } from 'next';
 
 const heroTagline = 'Tell it what you need. It builds it.';
 const heroDescription =
-  "Claude Code is Anthropic's AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.";
+  "The practical guide to Claude: Code, Chrome, Word, Excel, PowerPoint, and more. Calm, beginner-friendly, and free.";
 const ogImage = {
   url: 'https://claudecodeguide.dev/og-home-v4.png',
   width: 1200,
@@ -39,9 +41,9 @@ export const metadata: Metadata = {
 };
 
 const STATS = [
-  { value: '43+', label: 'Guides & Docs' },
-  { value: '4', label: 'Interfaces Covered' },
-  { value: '5', label: 'Learning Tracks' },
+  { value: '90+', label: 'Guides & Docs' },
+  { value: '8', label: 'Platforms Covered' },
+  { value: '9', label: 'Learning Tracks' },
   { value: '100%', label: 'Free & Open Source' },
 ] as const;
 
@@ -108,6 +110,7 @@ const OUTCOME_CARDS = [
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col bg-fd-background overflow-x-clip">
+      <PersonaStrip />
       {/* ── Hero ── */}
       <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-28 pb-12 text-center">
         <div className="absolute inset-0 bg-grid bg-grid-fade opacity-40 pointer-events-none" />
@@ -120,7 +123,7 @@ export default function HomePage() {
           </h1>
 
           <p className="animate-slide-up-fade delay-100 mt-6 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
-            Claude Code is Anthropic&apos;s AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.
+            The practical guide to Claude: Code, Chrome, Word, Excel, PowerPoint, and more. Calm, beginner-friendly, and free.
           </p>
 
           {/* Interface badges */}
@@ -130,6 +133,8 @@ export default function HomePage() {
               { icon: Monitor, label: 'Desktop App' },
               { icon: Terminal, label: 'Terminal' },
               { icon: Code2, label: 'VS Code' },
+              { icon: Globe, label: 'Chrome' },
+              { icon: Monitor, label: 'Office' },
             ].map((item) => (
               <span
                 key={item.label}
@@ -331,6 +336,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Claude In Your Day ── */}
+      <div className="mx-auto w-full max-w-5xl border-t border-dashed border-fd-border" />
+      <ClaudeInYourDay />
+
       {/* ── Not Just for Coding ── */}
       <section className="mx-auto w-full max-w-5xl px-6 pb-24">
         <div className="overflow-hidden rounded-xl border border-fd-border">
@@ -361,12 +370,14 @@ export default function HomePage() {
                 {[
                   'Build websites',
                   'Analyze data',
-                  'Write documents',
-                  'Automate tasks',
+                  'Write in Word',
+                  'Excel formulas',
+                  'Create PowerPoint decks',
+                  'Draft emails',
+                  'Summarize webpages',
+                  'Research any topic',
                   'Create apps',
-                  'Organize notes',
                   'Generate charts',
-                  'Debug code',
                 ].map((item) => (
                   <div
                     key={item}

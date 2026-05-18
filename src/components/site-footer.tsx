@@ -33,10 +33,20 @@ const COLUMNS: ReadonlyArray<FooterColumn> = [
     ],
   },
   {
+    heading: 'For your role',
+    links: [
+      { label: 'For Designers', href: '/for-designers' },
+      { label: 'For Chrome users', href: '/for-chrome' },
+      { label: 'For Office (Word, Excel, PowerPoint)', href: '/for-microsoft' },
+      { label: 'For Teachers', href: '/for-teachers' },
+      { label: 'For Marketers', href: '/for-marketers' },
+      { label: 'PM Pilot', href: '/pm-pilot' },
+    ],
+  },
+  {
     heading: 'More',
     links: [
       { label: 'Blog', href: '/blog' },
-      { label: 'PM Pilot', href: '/pm-pilot' },
       { label: 'Roadmap', href: '/roadmap' },
       { label: 'Journey', href: '/journey' },
       { label: 'বাংলায় পড়ুন', href: '/bn' },

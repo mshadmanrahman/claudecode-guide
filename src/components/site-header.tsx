@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
 
 interface NavLink {
@@ -11,56 +11,92 @@ interface NavLink {
   label: string;
 }
 
-const NAV_LINKS: NavLink[] = [
+interface DropdownLink {
+  href: string;
+  label: string;
+  description: string;
+}
+
+const PRIMARY_NAV: NavLink[] = [
   { href: '/start', label: 'Start Here' },
   { href: '/docs', label: 'Docs' },
   { href: '/tutorials', label: 'Tutorials' },
-  { href: '/for-designers', label: 'For Designers' },
-  { href: '/pm-pilot', label: 'PM Pilot' },
+  { href: '/workflow', label: 'Workflow' },
   { href: '/blog', label: 'Blog' },
+];
+
+const FOR_YOUR_ROLE: DropdownLink[] = [
+  { href: '/for-designers', label: 'For Designers', description: '11 guides: briefs, research, handoff' },
+  { href: '/for-chrome', label: 'For Chrome', description: '6 guides: browser, Gmail, Google Docs' },
+  { href: '/for-microsoft', label: 'For Office', description: '7 guides: Word, Excel, PowerPoint' },
+  { href: '/for-teachers', label: 'For Teachers', description: '6 guides: plans, rubrics, feedback' },
+  { href: '/for-marketers', label: 'For Marketers', description: '7 guides: copy, campaigns, research' },
+  { href: '/pm-pilot', label: 'PM Pilot', description: 'AI-assisted product management' },
+];
+
+const ALL_NAV_LINKS: NavLink[] = [
+  ...PRIMARY_NAV,
+  ...FOR_YOUR_ROLE.map(({ href, label }) => ({ href, label })),
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [roleOpen, setRoleOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
+  const closeRole = useCallback(() => setRoleOpen(false), []);
 
-  // Close mobile menu on Escape
+  // Close mobile on Escape
   useEffect(() => {
-    if (!mobileOpen) return;
-
+    if (!mobileOpen && !roleOpen) return;
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') closeMobile();
+      if (e.key === 'Escape') {
+        closeMobile();
+        closeRole();
+      }
     }
-
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [mobileOpen, closeMobile]);
+  }, [mobileOpen, roleOpen, closeMobile, closeRole]);
 
-  // Close mobile menu on outside click
+  // Close mobile on outside click
   useEffect(() => {
     if (!mobileOpen) return;
-
-    function handleClickOutside(e: MouseEvent) {
+    function handleClick(e: MouseEvent) {
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
         closeMobile();
       }
     }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
   }, [mobileOpen, closeMobile]);
 
-  // Close mobile menu when route changes
+  // Close role dropdown on outside click
+  useEffect(() => {
+    if (!roleOpen) return;
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        closeRole();
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [roleOpen, closeRole]);
+
+  // Close both on route change
   useEffect(() => {
     closeMobile();
-  }, [pathname, closeMobile]);
+    closeRole();
+  }, [pathname, closeMobile, closeRole]);
 
   function isActive(href: string): boolean {
     return pathname === href || pathname.startsWith(href + '/');
   }
+
+  const isRoleActive = FOR_YOUR_ROLE.some((link) => isActive(link.href));
 
   return (
     <>
@@ -77,7 +113,7 @@ export function SiteHeader() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
-            {NAV_LINKS.map((link) => (
+            {PRIMARY_NAV.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -90,6 +126,49 @@ export function SiteHeader() {
                 {link.label}
               </Link>
             ))}
+
+            {/* For Your Role dropdown */}
+            <div ref={dropdownRef} className="relative">
+              <button
+                onClick={() => setRoleOpen((prev) => !prev)}
+                aria-expanded={roleOpen}
+                className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm transition-colors ${
+                  isRoleActive
+                    ? 'bg-fd-primary/10 text-fd-primary font-medium'
+                    : 'text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent'
+                }`}
+              >
+                For Your Role
+                <ChevronDown
+                  className={`h-3.5 w-3.5 transition-transform duration-150 ${roleOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              {roleOpen && (
+                <div className="absolute right-0 top-full mt-1.5 w-72 rounded-xl border border-fd-border bg-fd-background shadow-lg animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="p-1.5 grid gap-0.5">
+                    {FOR_YOUR_ROLE.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className={`rounded-lg px-3 py-2.5 transition-colors ${
+                          isActive(link.href)
+                            ? 'bg-fd-primary/10 text-fd-primary'
+                            : 'hover:bg-fd-accent'
+                        }`}
+                      >
+                        <span className="block text-sm font-medium text-fd-foreground">
+                          {link.label}
+                        </span>
+                        <span className="block text-xs text-fd-muted-foreground mt-0.5">
+                          {link.description}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Right controls */}
@@ -115,7 +194,7 @@ export function SiteHeader() {
             className="absolute left-0 right-0 top-14 z-40 border-b border-fd-border bg-fd-background/95 backdrop-blur-lg shadow-lg animate-in slide-in-from-top-2 duration-150"
           >
             <nav className="mx-auto max-w-5xl flex flex-col gap-0.5 px-4 py-3" aria-label="Mobile navigation">
-              {NAV_LINKS.map((link) => (
+              {ALL_NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}

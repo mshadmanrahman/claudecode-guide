@@ -1,0 +1,31 @@
+---
+title: "Dogfood"
+command: "/dogfood"
+description: "Walks through your app systematically and produces structured bug reports."
+---
+
+## What it does
+
+/dogfood runs a systematic walkthrough of a web application and generates structured bug reports for everything it finds: broken flows, UI inconsistencies, missing states, confusing copy, accessibility gaps. Each report includes reproduction steps, severity, and suggested fix.
+
+The output is something you can hand directly to engineering without rewriting it first.
+
+## When to use it
+
+- Before a release when you want a fresh-eyes audit
+- When a feature has been in development long enough that the team has blind spots
+- When a stakeholder reports something feels off but can't describe it specifically
+
+## How to trigger it
+
+Say: `dogfood this app` and provide the URL
+
+Or specify scope: `dogfood the search flow on [URL]`
+
+## What you need
+
+Claude Code with browser access (Chrome DevTools MCP). The skill navigates the app, takes screenshots, inspects console logs and network requests, and uses all of that to surface issues a human tester might miss.
+
+Without Claude Code, describe the flow you want tested. The skill will generate a testing checklist and a template for the bug reports.
+
+<GitHubCta skill="dogfood" />

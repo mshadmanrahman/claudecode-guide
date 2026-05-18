@@ -1,0 +1,70 @@
+---
+title: "Integrations"
+description: "What PM Pilot connects to: Jira, Slack, Confluence, Granola, Calendar, and more."
+---
+
+## Works without integrations
+
+Every PM Pilot skill works without any integrations. You paste your content, the skill processes it, you get output. The integrations make the skills more powerful by pulling real data instead of relying on what you paste, but they're optional.
+
+Start with copy-paste. Add integrations when you hit the friction of pasting the same context repeatedly.
+
+## Jira
+
+**What it enables:** /weekly-status reads your real sprint board. /meeting-prep pulls open tickets for the project being discussed. /deep-context finds all tickets related to a topic automatically.
+
+**How to connect:** Install the Atlassian MCP server for Claude Code. Run `/configure-pm-pilot` and follow the Jira setup steps. You'll need a Jira API token from your Atlassian account settings.
+
+**Without it:** Paste your sprint board contents or a list of tickets. Every skill that reads Jira will process what you provide manually.
+
+## Slack
+
+**What it enables:** /meeting-prep reads recent Slack threads for the people in your meeting. /weekly-status captures decisions made in Slack that didn't make it to Jira. /deep-context searches Slack history on a topic.
+
+**How to connect:** Install the Slack MCP server for Claude Code. You'll need to create a Slack app in your workspace and generate the required tokens.
+
+**Without it:** Paste the relevant Slack threads. The skill reads what you give it.
+
+## Confluence
+
+**What it enables:** /deep-context finds documented decisions and meeting notes on a topic. /meeting-prep surfaces relevant spec documents for the meeting being prepped.
+
+**How to connect:** Confluence is part of the Atlassian MCP server. If you've connected Jira, Confluence access comes through the same setup.
+
+**Without it:** Paste the Confluence page content. Most Confluence pages have a "copy page" option that exports clean text.
+
+## Granola
+
+**What it enables:** /people-sync reads meeting transcripts automatically after a meeting ends. /meeting-prep can pull context from previous meetings with the same attendees. This is the integration that removes the most manual work — you walk out of a meeting and your stakeholder files update themselves.
+
+**How to connect:** Install the Granola MCP server for Claude Code. Granola is a macOS meeting recorder that captures and transcribes meetings automatically.
+
+**Without it:** Paste your meeting notes or transcript. /people-sync processes whatever text you give it.
+
+> **Recommended.** If you have back-to-back meetings and want /people-sync to run automatically, Granola is the missing piece. [Try Granola free](https://www.granola.ai?via=shadman-rahman)
+
+## Wispr Flow
+
+**What it enables:** Not a PM Pilot integration in the traditional sense — Wispr Flow is how you talk to PM Pilot hands-free. Instead of typing "prep for my meeting with Sarah", you say it. Wispr Flow transcribes your voice into the Claude Code terminal in real time.
+
+**Why it matters:** Context dumps are faster spoken than typed. "Tell me everything about the auth migration, what's blocked, who owns what, and what I need to decide by Friday" takes 3 seconds to say and 30 seconds to type.
+
+**How to connect:** Install Wispr Flow on macOS. Set Claude Code as your active app. Activate Wispr Flow with your hotkey and speak naturally.
+
+> **Recommended if you hate typing long prompts.** [Try Wispr Flow free](https://ref.wisprflow.ai/shadman-rahman)
+
+## Google Calendar
+
+**What it enables:** /meeting-prep identifies the correct meeting, reads the invite, and knows the attendees without you specifying them.
+
+**How to connect:** Install the Google Calendar MCP server for Claude Code. You'll need to authorize Claude Code to read your calendar through Google's OAuth flow.
+
+**Without it:** Paste the meeting invite text or describe who will be in the meeting. The skill asks for this information if it can't find it automatically.
+
+## What to prioritize
+
+If you're going to connect one integration: connect Jira. It has the biggest impact on weekly-status and meeting-prep.
+
+If you're going to connect two: add Slack. The combination of Jira and Slack covers most of what PM Pilot reads.
+
+Granola is valuable if you have a lot of 1:1s and want people-sync to work automatically. Calendar is low-effort and makes meeting-prep slightly more convenient.

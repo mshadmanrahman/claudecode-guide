@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Globe, FolderOpen, Terminal } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
 
 export type DesignerRoute = 'claude-ai' | 'co-work' | 'claude-code';
 
@@ -35,6 +36,7 @@ export function DesignerRouteSwitcher({ availableRoutes = ['claude-ai'] }: Desig
     setActive(id);
     localStorage.setItem(STORAGE_KEY, id);
     window.dispatchEvent(new CustomEvent(DESIGNER_ROUTE_CHANGE_EVENT, { detail: id }));
+    trackEvent('designer_route_switcher_select', { route: id });
   }
 
   return (

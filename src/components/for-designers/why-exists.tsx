@@ -15,7 +15,7 @@ export function DesignerWhyExists() {
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">04</span>
           <h2 className="mt-4 font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
-            Why these guides exist
+            Made for the work designers actually do
           </h2>
 
           <div className="mt-8 space-y-5 text-fd-muted-foreground leading-relaxed">

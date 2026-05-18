@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Copy, Check, Share2 } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
 
 const SITE_URL = 'https://claudecodeguide.dev';
 
@@ -27,6 +28,7 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
     await navigator.clipboard.writeText(`${shareText}\n${tutorialUrl}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+    trackEvent('share_card_copy_click', { tutorial_slug: tutorialSlug });
   }
 
   return (
@@ -69,6 +71,7 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
           href={linkedInUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent('share_card_linkedin_click', { tutorial_slug: tutorialSlug })}
           className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#0A66C2] px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
         >
           {/* LinkedIn logo : not in this lucide-react version */}

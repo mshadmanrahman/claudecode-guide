@@ -1,0 +1,102 @@
+---
+title: "PRD Writing"
+command: "/prd"
+description: "Turns rough notes into a structured PRD. Asks clarifying questions first, then writes. The blank-page problem is what this solves."
+---
+
+<SkillExample
+  before="Staring at an empty Confluence template for 40 minutes. You know what the feature should do but can not make the first sentence come out right."
+  after="You braindump in plain language. PM Pilot asks 2 clarifying questions, then writes a structured PRD with problem, users, metrics, and open questions."
+  prompt="write a PRD for notification preferences redesign"
+  output={[
+    "# PRD: Notification Preferences Redesign",
+    "",
+    "# Problem",
+    "Users receive too many irrelevant notifications and have no granular control.",
+    "Support tickets citing notification fatigue up 34% this quarter.",
+    "",
+    "# Target users",
+    "Power users managing 5+ projects (top 20% by DAU)",
+    "",
+    "# Success metrics",
+    "• Notification-related support tickets down 30% in 60 days",
+    "• Settings completion rate above 70%",
+    "",
+    "# Out of scope",
+    "• Email digest redesign (separate initiative)",
+    "• Mobile push notification channel",
+    "",
+    "# Open questions [need answer before build]",
+    "• Do we support per-project or only global preferences?"
+  ]}
+/>
+
+## What it does
+
+You paste your rough thinking: a Slack thread, a Jira ticket, your half-formed notes. The skill asks 2-3 clarifying questions to force scope decisions, then writes a PRD covering problem, users, success metrics, out-of-scope, and open questions.
+
+The output isn't a fill-in-the-template document. It's a PRD that reflects the actual decisions you made during the clarifying questions.
+
+## Why it asks questions first
+
+The hardest part of a PRD is deciding what's in scope. Most people skip this and write a PRD that sounds complete but has hidden assumptions. Ask a stakeholder what "all users" means and you'll get five different answers.
+
+/prd makes you answer the scope question before you touch formatting. The questions it asks are the ones your stakeholders will ask in review. Better to surface them now.
+
+## When to use it
+
+**Kicking off a new feature.** You have a vague idea and a Jira ticket. Run /prd to go from "we should do X" to a document that engineering can react to.
+
+**After a discovery sprint.** You've talked to users, you know the problem, you don't have the structure yet. Paste your research notes and let the skill find the shape.
+
+**Before an executive review.** You have two days and need a PRD that won't embarrass you. Start here, then refine.
+
+## How it works
+
+1. You run `/prd for [feature]`
+2. The skill asks 2-3 clarifying questions about scope, target users, and success metric
+3. You answer, even briefly
+4. The skill writes the PRD
+
+## Try it
+
+```
+/prd for a notification preferences redesign
+```
+
+Expected clarifying questions:
+
+```
+Before I write this, three things I need from you:
+
+1. Who is the primary user: the person receiving notifications, or an admin
+   configuring them for a team?
+
+2. What does "redesign" mean here: new UI only, or also a change to what
+   types of notifications are available?
+
+3. What does success look like in 90 days: adoption rate, support ticket
+   volume, something else?
+```
+
+Answer those and the PRD follows immediately.
+
+## Output structure
+
+- **Problem statement:** what's broken and why it matters
+- **Target users:** who specifically, not "all users"
+- **Success metrics:** what you'll measure at 30/60/90 days
+- **Out of scope:** explicit list of what you're not doing
+- **Open questions:** the decisions still pending
+
+## What you need
+
+Works with any setup, including zero install (copy-paste into claude.ai). No integrations required. The quality depends on how specific you are in the clarifying questions.
+
+## Pitfalls
+
+**Answering the clarifying questions vaguely.** "Target users: all users" means the PRD will be vague too. If you say "all users," the skill will write for all users and the PRD will be useless in review.
+
+**Treating the first output as final.** The PRD is a starting point. Share it with one engineer and one stakeholder before sending it to the room. Two rounds of feedback make it a real document.
+
+<GitHubCta skill="prd" />

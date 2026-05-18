@@ -1,0 +1,31 @@
+---
+title: "Synthesize Interviews"
+command: "/synthesize-interviews"
+description: "Pulls themes and actual recommendations from user research notes."
+---
+
+## What it does
+
+/synthesize-interviews reads a set of user interview notes or transcripts and produces two things: a theme analysis (what came up repeatedly, with frequency) and a recommendation section (what you should actually do based on what you heard). The recommendation is the part most research synthesis skips.
+
+Most research summaries describe what users said. This skill tells you what to do about it.
+
+## When to use it
+
+- After a discovery sprint where you have 8-12 interviews worth of notes
+- Before writing a PRD where you need to ground your decisions in user data
+- When stakeholders ask "what did users actually say about X"
+
+## How to trigger it
+
+Say: `synthesize these interviews` and paste your notes
+
+Or: `synthesize my research on [topic]` if you've stored research notes in memory
+
+## What you need
+
+Interview notes in any format: bullet points, transcripts, messy text. The skill handles unstructured input. For best results, include participant context (role, company size, how long they've been a customer) so it can break down themes by segment.
+
+Works without integrations. If you have notes stored in a Google Doc, paste the content into the prompt.
+
+<GitHubCta skill="synthesize-interviews" />

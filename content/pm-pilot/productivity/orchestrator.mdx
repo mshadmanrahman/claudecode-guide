@@ -1,0 +1,29 @@
+---
+title: "Orchestrator"
+command: "/orchestrator"
+description: "Runs multiple agents in parallel waves."
+---
+
+## What it does
+
+/orchestrator breaks a complex task into independent subtasks and runs them in parallel using multiple Claude Code agents. Instead of one agent doing everything sequentially, you get several agents working simultaneously, each on a focused piece, with the results synthesized at the end.
+
+The speed improvement on multi-part tasks is significant. A task that takes 30 minutes in sequence might take 8 minutes in parallel.
+
+## When to use it
+
+- When a task has multiple independent parts that don't need each other to complete
+- Research tasks where you need to gather information from several sources simultaneously
+- Review tasks where different agents can check different aspects (security, style, logic) at the same time
+
+## How to trigger it
+
+Describe the task and let the skill break it down: `orchestrate a review of this PR`
+
+Or specify the waves: `run these three research tasks in parallel: [list]`
+
+## What you need
+
+Claude Code CLI with enough API capacity for parallel agent runs. The orchestrator creates sub-agents in your Claude Code session. Works best for tasks where the subtasks are genuinely independent. If subtask B depends on the output of subtask A, sequential is the right approach.
+
+<GitHubCta skill="orchestrator" />

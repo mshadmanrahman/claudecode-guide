@@ -1,0 +1,29 @@
+---
+title: "Manifest Reader"
+command: "/manifest-reader"
+description: "Reads and summarises agent configuration files."
+---
+
+## What it does
+
+/manifest-reader reads agent configuration files (CLAUDE.md, skills files, rules files, settings.json) and gives you a plain-language summary of what an agent or workspace is configured to do. Useful when you inherit a Claude Code setup or return to one after a long gap.
+
+Agent configurations can get complex. This skill translates the technical config back into human terms: what does this agent do, what tools does it have access to, what rules govern its behavior.
+
+## When to use it
+
+- When you inherit a Claude Code workspace from someone else
+- When you return to a project after weeks away and want to reorient
+- When you're debugging unexpected behavior and want to understand what the agent is configured to do
+
+## How to trigger it
+
+Say: `read the manifest` or `summarize this agent config`
+
+Or point at a specific file: `explain what this CLAUDE.md does`
+
+## What you need
+
+A configuration file to read. Works without integrations. Works well alongside /session-init for a complete orientation at the start of a new session.
+
+<GitHubCta skill="manifest-reader" />

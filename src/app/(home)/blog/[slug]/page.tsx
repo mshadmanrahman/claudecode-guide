@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Calendar, User, Tag, Paintbrush } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, User, Tag, Paintbrush, Mic, NotebookPen } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 import { BlogContent } from '@/components/blog-content';
 import { notFound } from 'next/navigation';
@@ -18,6 +18,23 @@ const DESIGNER_RELEVANT_SLUGS = new Set([
   '3-prompts-that-changed-everything',
   'rules-that-follow-claude-everywhere',
   'your-first-hour-with-claude-code',
+]);
+
+const WISPR_RELEVANT_SLUGS = new Set([
+  'how-to-use-claude-in-chrome-browser',
+  'how-to-use-claude-to-write-excel-formulas',
+  'why-most-people-use-claude-code-wrong',
+  '3-prompts-that-changed-everything',
+  'context-beats-cleverness',
+  'your-first-hour-with-claude-code',
+]);
+
+const GRANOLA_RELEVANT_SLUGS = new Set([
+  'claude-for-teachers-reclaim-planning-time',
+  '8-ways-pms-use-claude-code-without-writing-code',
+  'weekly-status-writes-itself',
+  'top-5-claude-code-workflows-for-solo-founders',
+  'discovery-sprint',
 ]);
 
 interface PageProps {
@@ -130,6 +147,54 @@ export default async function BlogPostPage(props: PageProps) {
           </div>
         )}
 
+        {WISPR_RELEVANT_SLUGS.has(params.slug) && (
+          <div className="mt-6 rounded-xl border border-fd-border bg-fd-card p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <Mic className="h-4 w-4 text-fd-muted-foreground" />
+              <span className="text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+                What I use for this
+              </span>
+            </div>
+            <p className="text-sm font-medium text-fd-foreground mb-2">Wispr Flow</p>
+            <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
+              Instead of typing prompts, I speak them. Wispr Flow transcribes voice directly into any input field, including Claude. You end up giving Claude more context, faster. I use it constantly. Free to try.
+            </p>
+            <a
+              href="https://ref.wisprflow.ai/shadman-rahman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-fd-foreground hover:underline"
+            >
+              Try Wispr Flow free
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        )}
+
+        {GRANOLA_RELEVANT_SLUGS.has(params.slug) && (
+          <div className="mt-6 rounded-xl border border-fd-border bg-fd-card p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <NotebookPen className="h-4 w-4 text-fd-muted-foreground" />
+              <span className="text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+                What I use for this
+              </span>
+            </div>
+            <p className="text-sm font-medium text-fd-foreground mb-2">Granola</p>
+            <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
+              Granola transcribes and summarises meetings automatically in the background. I paste the notes straight into Claude. No manual capture, no missed context. It has saved hours of admin time every week.
+            </p>
+            <a
+              href="https://www.granola.ai?via=shadman-rahman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-fd-foreground hover:underline"
+            >
+              Try Granola free
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        )}
+
         {relatedPosts.length > 0 && (
           <div className="mt-16 border-t border-fd-border pt-8">
             <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground mb-6">
@@ -157,7 +222,7 @@ export default async function BlogPostPage(props: PageProps) {
         )}
 
         <div className="mt-16 border-t border-fd-border pt-8">
-          <EmailCapture />
+          <EmailCapture placement="blog-post" />
         </div>
       </article>
     </div>

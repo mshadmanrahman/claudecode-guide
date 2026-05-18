@@ -775,7 +775,7 @@ export default function TutorialsPage() {
               I add new tutorials regularly. Subscribe and I&apos;ll tell you when they land.
             </p>
             <div className="mt-6 mx-auto max-w-md">
-              <EmailCapture />
+              <EmailCapture placement="tutorials-listing" />
             </div>
           </div>
           <div className="text-center">

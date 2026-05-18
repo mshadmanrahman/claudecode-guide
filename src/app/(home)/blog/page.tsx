@@ -302,7 +302,7 @@ export default function BlogPage() {
 
       {/* Email capture */}
       <section className="mx-auto w-full max-w-2xl px-6 pb-24">
-        <EmailCapture />
+        <EmailCapture placement="blog-listing" />
       </section>
     </div>
   );

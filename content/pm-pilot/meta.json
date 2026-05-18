@@ -1,0 +1,18 @@
+{
+  "title": "PM Pilot",
+  "pages": [
+    "index",
+    "getting-started",
+    "---PM Core---",
+    "skills/...",
+    "---Productivity---",
+    "productivity/...",
+    "---Dev---",
+    "dev/...",
+    "---Content---",
+    "content-writing/...",
+    "---Reference---",
+    "memory-system",
+    "integrations"
+  ]
+}

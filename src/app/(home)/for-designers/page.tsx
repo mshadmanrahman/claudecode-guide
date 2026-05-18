@@ -4,6 +4,7 @@ import { DesignerProcessMap } from '@/components/for-designers/design-process';
 import { DesignerGuideCards } from '@/components/for-designers/guide-cards';
 import { DesignerGettingStarted } from '@/components/for-designers/getting-started';
 import { DesignerWhyExists } from '@/components/for-designers/why-exists';
+import { PersonaWorkflowStrip } from '@/components/persona-workflow-strip';
 import { EmailCapture } from '@/components/email-capture';
 
 export default function ForDesignersPage() {
@@ -14,6 +15,8 @@ export default function ForDesignersPage() {
       <DesignerBeforeAfter />
       <div className="border-b border-fd-border" />
       <DesignerProcessMap />
+      <div className="border-b border-fd-border" />
+      <PersonaWorkflowStrip persona="designers" />
       <div className="border-b border-fd-border" />
       <div id="guides">
         <DesignerGuideCards />

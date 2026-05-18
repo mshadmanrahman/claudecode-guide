@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { GitCompare, FileCode, Compass, GraduationCap, Paintbrush, ArrowRight } from 'lucide-react';
+import { GitCompare, FileCode, Compass, GraduationCap, Paintbrush, Globe, FileText, BookOpen, Megaphone, ArrowRight } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
 interface RouterCard {
-  id: 'compare' | 'claude-md' | 'interface' | 'tutorials' | 'designers';
+  id: 'compare' | 'claude-md' | 'interface' | 'tutorials' | 'designers' | 'chrome' | 'microsoft' | 'teachers' | 'marketers';
   icon: typeof GitCompare;
   title: string;
   blurb: string;
@@ -54,6 +54,38 @@ const CARDS: ReadonlyArray<RouterCard> = [
     href: '/for-designers',
     audience: 'Designer',
   },
+  {
+    id: 'chrome',
+    icon: Globe,
+    title: 'Claude for Chrome users',
+    blurb: '6 guides: browser basics, Chrome extension setup, Gmail, and Google Docs. No installs needed to start.',
+    href: '/for-chrome',
+    audience: 'Chrome user',
+  },
+  {
+    id: 'microsoft',
+    icon: FileText,
+    title: 'Claude for Word, Excel, and PowerPoint',
+    blurb: '7 practical guides covering document drafting, Excel formulas, data analysis, and slide decks.',
+    href: '/for-microsoft',
+    audience: 'Office user',
+  },
+  {
+    id: 'teachers',
+    icon: BookOpen,
+    title: 'Claude for Teachers',
+    blurb: '6 guides: lesson plans, quiz questions, grading rubrics, student feedback, and parent emails.',
+    href: '/for-teachers',
+    audience: 'Teacher',
+  },
+  {
+    id: 'marketers',
+    icon: Megaphone,
+    title: 'Claude for Marketers',
+    blurb: '7 guides: brand voice, social posts, blog drafts, email campaigns, ad copy, and market research.',
+    href: '/for-marketers',
+    audience: 'Marketer',
+  },
 ];
 
 export function PathRouter() {
@@ -66,7 +98,7 @@ export function PathRouter() {
         What brought you here?
       </h2>
       <p className="mb-12 text-center text-fd-muted-foreground max-w-lg mx-auto">
-        Four shortcuts to the pages people actually open. Skip the homepage browse.
+        Nine shortcuts to the guides that match where you are. Skip the homepage browse.
       </p>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

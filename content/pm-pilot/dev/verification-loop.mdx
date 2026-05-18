@@ -1,0 +1,27 @@
+---
+title: "Verification Loop"
+command: "/verification-loop"
+description: "Runs build, test, and lint in sequence."
+---
+
+## What it does
+
+/verification-loop runs your full verification chain: TypeScript check, build, test suite, lint. In sequence. It stops on the first failure and surfaces the output clearly. It doesn't declare success until all four pass.
+
+The point is preventing the pattern of making a change, running only the test for the thing you changed, and shipping something that breaks the build or fails lint. The loop runs everything.
+
+## When to use it
+
+- Before opening a PR
+- After a large refactor where you want confidence nothing broke
+- When you've been moving fast and want to check the state of things
+
+## How to trigger it
+
+Say: `verify` or `run the verification loop`
+
+## What you need
+
+Claude Code CLI. The skill reads your project's package.json or Makefile to find the right commands. If your project has a non-standard verification setup, you can configure the commands in your CLAUDE.md.
+
+<GitHubCta skill="verification-loop" />

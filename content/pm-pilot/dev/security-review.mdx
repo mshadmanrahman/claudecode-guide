@@ -1,0 +1,31 @@
+---
+title: "Security Review"
+command: "/security-review"
+description: "Audits code changes for security issues."
+---
+
+## What it does
+
+/security-review reads a diff or set of changed files and checks for common security issues: exposed secrets, injection vulnerabilities, unsafe dependencies, missing authentication checks, data validation gaps, and insecure direct object references.
+
+The output is a structured report: each issue found, its severity, and a specific fix.
+
+## When to use it
+
+- Before merging any PR that touches authentication, authorization, or data handling
+- When adding a new API endpoint or external integration
+- As a lightweight security gate before shipping a feature
+
+## How to trigger it
+
+Say: `security-review` on the current diff
+
+Or: `security-review this PR` with a link or pasted diff
+
+## What you need
+
+Claude Code CLI for the most accurate results (it reads the full context of changed files, not just the diff). Works with a pasted diff if you're not using Claude Code.
+
+The skill is not a replacement for a professional security audit on high-stakes code. It catches common issues fast. For authentication infrastructure, payment flows, or anything handling sensitive personal data, get a real review.
+
+<GitHubCta skill="security-review" />

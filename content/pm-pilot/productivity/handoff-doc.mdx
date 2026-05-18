@@ -1,0 +1,29 @@
+---
+title: "Handoff Doc"
+command: "/handoff-doc"
+description: "Writes a portable handoff doc so nothing gets lost between sessions."
+---
+
+## What it does
+
+/handoff-doc creates a structured document capturing everything relevant about the current state of your work: what's in progress, what decisions were made, what's still open, and what the next person (or your future self) needs to know to continue without starting over.
+
+Claude Code sessions have context limits. Projects have off days and context switches. The handoff doc is the bridge.
+
+## When to use it
+
+- Before ending a long session where you've made progress you don't want to lose
+- When handing a project to a colleague
+- When switching between multiple active projects and you need to context-switch cleanly
+
+## How to trigger it
+
+Say: `write a handoff doc for [topic]`
+
+Or at the end of any session: `create handoff`
+
+## What you need
+
+Works without integrations. The skill synthesizes from the current conversation and any memory files loaded in the session. The output is a plain markdown file you can share, store, or paste into a future session to resume where you left off.
+
+<GitHubCta skill="handoff-doc" />

@@ -1,0 +1,58 @@
+---
+title: "Memory System"
+description: "How PM Pilot remembers your stakeholders, projects, and context between sessions."
+---
+
+## What memory files are
+
+Memory files are plain markdown files that live in `~/.claude/memory/`. Claude Code reads them at the start of a session and treats them as persistent context. They don't require a database, a subscription, or any infrastructure. They're text files you can open in any editor.
+
+When you run /session-init, it reads these files and summarizes what's relevant. When you run /people-sync, it writes to them. When you run /meeting-prep, it reads from them to understand who the attendees are and what history you have with them.
+
+## The MEMORY.md file
+
+MEMORY.md is the router. It's a short file (under 200 lines) that acts as an index to everything else. It has sections for:
+
+- **Key decisions:** strategic choices you've made that should inform future work
+- **Active projects:** what you're working on right now
+- **People:** your stakeholders and what you know about them
+- **Reference:** links to longer files for specific topics
+
+When MEMORY.md gets too long, you move content to topic-specific files and add a one-line pointer in MEMORY.md. The router stays lean. The detail lives in the files it points to.
+
+## Stakeholder files
+
+Each key stakeholder gets their own file: `~/.claude/memory/person-[name].md`. It contains:
+
+- Their role and team
+- What they care about most right now
+- Your last conversation with them and what came out of it
+- What you owe them and what they owe you
+- How to communicate with them effectively
+
+These files are written and updated by /people-sync after meetings. You can also edit them directly.
+
+## Project files
+
+Active projects get their own files too: `~/.claude/memory/project-[name].md`. These contain the current state, open decisions, and the context you'd need to resume working on the project after a gap.
+
+## How to update memory
+
+**Automatically:** Run `/people-sync` after any meeting. It reads the transcript and updates the relevant stakeholder files.
+
+**Manually:** Open any memory file in your editor and edit it directly. There's no schema enforcement. Write what's true and useful.
+
+**On demand:** Ask Claude Code to update a specific memory file. "Add to my Sarah memory file: she's now the decision-maker on the API migration."
+
+## Where files live
+
+All memory files live in `~/.claude/memory/`. They are not committed to any repository by default. They stay on your machine. If you want to sync them across machines, you can put them in a private repo or use a sync tool, but that's your choice.
+
+## Editing manually
+
+Open any file in your editor. Change whatever needs changing. The format is flexible. The only convention is to keep MEMORY.md under 200 lines so it loads fast. Everything else can be as long as it needs to be.
+
+## Further reading
+
+- [The Memory System](/docs/foundations/memory-system) — how Claude Code's memory works under the hood, including CLAUDE.md and the `~/.claude/` directory structure
+- [Claude Code for Product Managers](/docs/workflows/pm-workflow) — how memory fits into a full PM workflow with Claude Code

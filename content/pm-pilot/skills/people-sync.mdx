@@ -1,0 +1,29 @@
+---
+title: "People Sync"
+command: "/people-sync"
+description: "Reads a Granola transcript, then updates your stakeholder files. No manual note-taking."
+---
+
+## What it does
+
+After a meeting, /people-sync reads the transcript from Granola, extracts what you learned about each person in the room (their priorities, their concerns, their current context), and writes it to your stakeholder files in memory. The next time you meet with someone, that context loads automatically.
+
+This is the skill that makes PM Pilot feel like it actually knows your organization.
+
+## When to use it
+
+- After a 1:1 where you learned something new about how a stakeholder is thinking
+- After a cross-functional review where you got context on another team's priorities
+- After an exec conversation where something shifted
+
+## How to trigger it
+
+Say: `sync people from this meeting`
+
+Or with a specific transcript: `sync people from my meeting with [name] on [date]`
+
+## What you need
+
+Granola connected for the transcript pull. Without it, paste the meeting notes or transcript manually and the skill will process them the same way. The stakeholder files live in `~/.claude/memory/` as plain markdown files you can read and edit directly.
+
+<GitHubCta skill="people-sync" />

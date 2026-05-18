@@ -1,0 +1,9 @@
+{
+  "title": "Dev Skills",
+  "pages": [
+    "tdd-workflow",
+    "verification-loop",
+    "search-first",
+    "security-review"
+  ]
+}

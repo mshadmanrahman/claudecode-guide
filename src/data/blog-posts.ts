@@ -1438,6 +1438,114 @@ export const blogPosts: BlogPost[] = [
 <p>If you can answer that with specifics, the sprint worked. If you have a competitive analysis and an assumption map but no clear experiment and no kill criteria, you have research theater, not discovery. It looks like the two-week version. It produces the same non-answer.</p>
 <p>The compression AI enables is real. Use it. But the judgment that makes it valuable has to come from you. That part doesn't get faster until you've done it wrong enough times to recognize what right looks like.</p>`,
   },
+  {
+    slug: "how-to-use-claude-to-write-excel-formulas",
+    title: "How to Use Claude to Write Excel Formulas (No Syntax Knowledge Required)",
+    description: "You describe what you want to calculate in plain English. Claude writes the formula. It works every time, including debugging errors you don't understand.",
+    date: "2026-05-16",
+    author: "Shadman Rahman",
+    tags: ["productivity", "workflow", "tutorial"],
+    content: `<img src="/blog-hero-how-to-use-claude-to-write-excel-formulas.png" alt="Watercolor illustration of a laptop with a spreadsheet open, formula visible in the formula bar, afternoon lamplight" style="width:100%;border-radius:12px;margin-bottom:2rem;" /><p>I used to spend 20 minutes on Stack Overflow every time I needed an Excel formula more complex than SUM. Search, find something close, adapt it, break it, search again. You know the loop.</p>
+<p>Then I tried asking Claude instead. That was it. I haven't opened a formula help page since.</p>
+
+<h2>Why This Works Better Than Googling</h2>
+<p>When you search for "Excel VLOOKUP with multiple conditions," you get generic answers. When you tell Claude "I have columns A (Date), B (Sales Rep), C (Region), D (Revenue) and I want to calculate the total revenue for each rep only in the North region," you get a formula written for your exact spreadsheet.</p>
+<p>The difference is context. Claude doesn't need you to know what the formula is called. You describe the outcome you want, and it figures out the formula.</p>
+
+<h2>The Prompt That Works</h2>
+<p>There is one format that produces a usable formula almost every time:</p>
+<blockquote>
+<p><strong>I have an Excel spreadsheet with these columns: [list your columns]. I want a formula in column [X] that [describe what you want to calculate]. [Include any conditions or rules that apply.]</strong></p>
+</blockquote>
+<p>Concrete example: "I have an Excel spreadsheet with these columns: A=Employee Name, B=Department, C=Monthly Sales, D=Target. I want a formula in column E that calculates each employee's performance percentage (actual vs target) and flags anyone below 80% with the word REVIEW and everyone else with MET."</p>
+<p>Claude will write the IF/IFS formula, explain how each part works, and usually offer a cleaner alternative if one exists.</p>
+
+<h2>When the Formula Breaks</h2>
+<p>Excel errors look terrifying. #REF!, #VALUE!, #N/A. They're not. Just copy the error and paste it back to Claude:</p>
+<blockquote>
+<p>"I used this formula and I'm getting a #VALUE! error. Here's the formula: [paste it]. My columns are [describe them]. What's wrong?"</p>
+</blockquote>
+<p>Claude debugs Excel errors faster than any forum. It knows that #VALUE! usually means a text cell in a range that expects numbers, for instance. It'll tell you exactly which cell is the problem and how to fix it.</p>
+
+<h2>Complex Formulas Claude Handles Well</h2>
+<ul>
+<li>VLOOKUP and XLOOKUP with multiple conditions</li>
+<li>SUMIF and SUMIFS across multiple criteria</li>
+<li>Nested IF statements with complex logic</li>
+<li>INDEX/MATCH combinations</li>
+<li>Date calculations and DATEDIF formulas</li>
+<li>Array formulas for cross-sheet lookups</li>
+<li>Commission calculators with tiered rates</li>
+</ul>
+
+<h2>The One Thing That Trips People Up</h2>
+<p>Not telling Claude your column names. "Give me a commission formula" is not enough. "Give me a commission formula where column D is the sale amount and commission is 8% under $5,000 and 12% for $5,000 or more, displayed in column E" produces something you can actually paste in.</p>
+<p>The more specific you are about your exact spreadsheet, the less editing the formula needs.</p>
+
+<h2>Where to Start</h2>
+<p>The step-by-step guide is at <a href="/for-microsoft/create-excel-formulas-with-claude">Claude for Excel: Write Formulas Without Knowing Excel Syntax</a>. It covers the full workflow from simple formulas to debugging, with the exact prompts to use at each step.</p>`,
+  },
+  {
+    slug: "how-to-use-claude-in-chrome-browser",
+    title: "I Run Claude in Chrome All Day. Here's My Exact Workflow.",
+    description: "You don't need an extension or a setup. Claude.ai runs in a browser tab. Here's how I use it throughout the day alongside Gmail, Google Docs, and everything else.",
+    date: "2026-05-16",
+    author: "Shadman Rahman",
+    tags: ["productivity", "workflow"],
+    content: `<img src="/blog-hero-how-to-use-claude-in-chrome-browser.png" alt="Watercolor illustration of a browser window with tabs, one showing a Claude chat panel, soft morning light" style="width:100%;border-radius:12px;margin-bottom:2rem;" /><p>I have Claude open in Chrome almost every hour I'm working. Not because I'm doing anything technical. Because it's faster than thinking alone for most things I write.</p>
+<p>The setup is genuinely nothing: claude.ai in a pinned tab. That's it. No extensions required to get started. Here's how it actually fits into a day.</p>
+
+<h2>The Tab Setup</h2>
+<p>I keep claude.ai pinned in Chrome so it's always one click away. When I'm working in Gmail, Google Docs, or any other browser tab, Claude is one click to the left. The workflow is: notice I need something written, click Claude, describe it, copy the output, come back.</p>
+<p>The context switch takes about 5 seconds. The draft takes about 10. Most things I'd have spent 15 minutes on take under 2 minutes now.</p>
+
+<h2>What I Actually Use It For in the Browser</h2>
+<p><strong>Emails I've been avoiding:</strong> The ones where I'm not sure how to phrase something. I open Claude, describe the situation, explain what I want the recipient to do, and get a draft. I edit it before sending. It's not the final word, it's the starting point that removes the blank-page problem.</p>
+<p><strong>Summarising long articles:</strong> When a report or article is longer than I have time for, I select all (Ctrl+A), copy, paste into Claude with a prompt asking for the 5 key points. Takes 30 seconds. I've started doing this for any article over 800 words.</p>
+<p><strong>Research prep:</strong> Before meetings with clients or in industries I don't know well, I give Claude the context and ask for a briefing. Who are the players, what's the jargon, what are the current problems, what questions should I be asking. It's not a substitute for real research, but it gets me from zero to credible in under 20 minutes.</p>
+<p><strong>Google Docs drafting:</strong> I keep Claude and Docs open side by side. Describe what I'm writing, get a draft, paste it in, edit from there. The edit is faster than the draft for me, so this has genuinely cut my document writing time in half.</p>
+
+<h2>When the Extension Makes Sense</h2>
+<p>The pinned tab workflow covers 90% of what I do. The Chrome extension adds value when you want Claude accessible on a page without switching tabs at all. If you're reading through a long report and want to highlight a section and immediately ask Claude to explain it, the extension makes that seamless.</p>
+<p>I use the extension for reading-heavy days. The tab for writing-heavy days.</p>
+
+<h2>The Prompt That Changes Everything</h2>
+<p>Most people use Claude like a search engine: they type a query and expect an answer. The better mental model is a colleague who's just walked into the room.</p>
+<p>Instead of: "write an email about the project delay"</p>
+<p>Try: "I need to email my team about a 2-week project delay. The reason is late feedback from a stakeholder. I want to acknowledge it directly, explain without making excuses, give the new timeline, and leave them feeling confident we'll deliver. Tone: direct and reassuring. Under 200 words."</p>
+<p>The second prompt takes 20 extra seconds to write and produces something you'd actually send.</p>
+
+<h2>Start Here</h2>
+<p>If you're new to using Claude in Chrome, the <a href="/for-chrome/get-started-with-claude-in-your-browser">getting started guide</a> covers the first 5 minutes from sign-up to first useful output. The <a href="/for-chrome">full Chrome section</a> has 6 guides covering everything from browser basics to running Claude alongside Gmail and Google Docs.</p>`,
+  },
+  {
+    slug: "claude-for-teachers-reclaim-planning-time",
+    title: "Claude for Teachers: Reclaim 5 Hours a Week",
+    description: "Lesson plans, quiz questions, rubrics, student feedback, parent emails. Teachers spend hours on work that isn't teaching. Claude handles the paperwork.",
+    date: "2026-05-16",
+    author: "Shadman Rahman",
+    tags: ["productivity", "tutorial"],
+    content: `<img src="/blog-hero-claude-for-teachers-reclaim-planning-time.png" alt="Watercolor illustration of a teacher's desk with lesson plan book, marking pen, essays, and coffee, warm classroom light" style="width:100%;border-radius:12px;margin-bottom:2rem;" /><p>I've talked to a lot of teachers about what their week looks like. The number that comes up over and over: 5 to 10 hours a week on tasks that aren't teaching. Lesson plans, quiz generation, rubrics, feedback comments, parent emails. Planning work that takes the same amount of time regardless of whether you've taught for 2 years or 20.</p>
+<p>Claude doesn't replace any of the actual teaching. It handles the paperwork so you can spend more time on the room.</p>
+
+<h2>The Five Things Teachers Use It For</h2>
+<p><strong>Lesson plans:</strong> Give Claude the topic, year group, prior knowledge, learning objective, and time breakdown. It writes a structured lesson plan you can actually use. The plan needs reviewing and adjusting for your specific class, but the structure is there. What used to take 45 minutes takes 5.</p>
+<p><strong>Quiz and test questions:</strong> Specify the topic, year group, question types (MCQ, short answer, extended), and difficulty distribution across Bloom's taxonomy. Claude generates a question bank in the format you ask for. Ask it to also write the marking guide and you'll have everything you need in one session.</p>
+<p><strong>Grading rubrics:</strong> Tell Claude the assignment, the year group, the assessment criteria and their weightings, and how many performance levels you need. It produces a rubric you can share with students before they submit. Clear, consistent, and defensible.</p>
+<p><strong>Student feedback:</strong> This is the biggest time saving. You don't need to write full feedback for every student. Write your shorthand notes as you read each piece, then paste them into Claude with a word count and tone instruction. It turns "strong intro, weak para 3, no evidence, conclusion doesn't close the loop" into 150 words of specific, actionable feedback. You still review it. But you're editing, not writing from scratch.</p>
+<p><strong>Parent emails:</strong> The ones where you're not sure how to word the concern without it coming across wrong. Describe the situation, what you want the parent to know, what outcome you're hoping for, and the tone. Claude drafts it. You review and personalise before sending.</p>
+
+<h2>The Prompt Difference</h2>
+<p>The thing that makes Claude useful for teaching tasks versus generic is specificity. "Write a lesson plan about fractions" produces a generic plan you'd have to rewrite. "Write a 45-minute Year 5 maths lesson introducing equivalent fractions for the first time, for students who can already add fractions with the same denominator, with a 5-minute warm-up, 15-minute direct instruction, 15-minute guided practice, and an exit ticket" produces something teachable.</p>
+<p>The more Claude knows about your students, your subject, and your context, the more useful the output.</p>
+
+<h2>What Claude Cannot Do</h2>
+<p>It doesn't know your students. You know that one student who needs the scaffold framed as a choice rather than a support because they'll refuse it otherwise. You know which parent needs a phone call before the email. You know which topic your class struggled with last term that this one builds on.</p>
+<p>The judgment about what this class needs is yours. Claude just removes the blank-page work so you have more capacity to apply that judgment.</p>
+
+<h2>The Guides</h2>
+<p>The <a href="/for-teachers">Claude for Teachers section</a> has 6 step-by-step guides covering each of these tasks with the exact prompts to use. Start with <a href="/for-teachers/write-lesson-plans-with-claude">lesson planning</a> and you'll have the first plan done before you finish reading it.</p>`,
+  },
 ];
 
 // Sorted newest first for display

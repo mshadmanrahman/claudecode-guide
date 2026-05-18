@@ -1,0 +1,96 @@
+---
+title: "Meeting Prep"
+command: "/meeting-prep"
+description: "Pulls a meeting brief from your connected systems, Jira tickets, Slack threads, calendar invite, so you walk in prepared without spending an hour reading."
+---
+
+<SkillExample
+  before="45 minutes reading Jira, Slack, and old notes before a cross-team sync. The meeting starts before you've figured out what actually matters."
+  after="30 seconds. A brief shows up covering open items, what you owe each other, and what's changed since you last spoke."
+  prompt="prep for my meeting with the design team"
+  output={[
+    "# Meeting: Design team sync",
+    "Date: Today 2pm · 45 min",
+    "",
+    "# Context",
+    "• FEAT-214: Notification redesign — design review feedback not yet addressed",
+    "• Sarah shared updated mockups in Slack on Tuesday, no response from PM yet",
+    "• Q3 roadmap presentation scheduled for next Thursday",
+    "",
+    "# What you owe them",
+    "• Confirm scope decision on notification types by EOD",
+    "• Share updated Figma link for the onboarding flow",
+    "",
+    "# Suggested talking points",
+    "• Walk through the notification preference approach",
+    "• Ask about timeline for the next design handoff",
+    "• Check if the onboarding flow needs any additional specs before dev"
+  ]}
+/>
+
+## What it does
+
+Before you walk into a meeting, /meeting-prep reads your calendar, Jira, and Slack. It finds the relevant context, identifies what's open or unresolved, surfaces the political landmines, and writes a 1-page brief. You read it in 2 minutes and walk in knowing what matters.
+
+The brief isn't a summary of everything that exists. It's what you specifically need to know before this specific meeting. Who's blocked on what. What decisions are pending. What you owe each other.
+
+## When to use it
+
+**Weekly syncs where you haven't tracked everything.** You've been in execution mode all week. You haven't read every Slack thread. Run /meeting-prep 15 minutes before and you'll know what's moved.
+
+**Cross-functional reviews where you need to know where everyone stands.** Engineering, design, data, and marketing all have context you don't have. The brief synthesizes it before you walk in.
+
+**1:1s with stakeholders where you need to know what they're tracking.** Especially useful before skip-levels or conversations with people you don't talk to daily.
+
+## How it works
+
+1. You say "prep for my meeting with [name or topic]"
+2. The skill reads your calendar for the meeting invite and attendees
+3. It pulls open Jira tickets tagged to the project or participants
+4. It searches recent Slack threads for the people in the meeting
+5. It writes a brief covering: agenda context, open items, what you owe each other, and things to watch for
+
+## Try it
+
+```
+/meeting-prep for my sync with the design team about the notification preferences feature
+```
+
+Expected output:
+
+```
+Meeting brief: Design team sync — notification preferences
+Attendees: Maya, Jordan, you
+
+Context: Notification preferences redesign shipped last week.
+User testing feedback came in yesterday — 3 friction points flagged on mobile.
+
+Open items:
+- Scope decision on notification types (you owe this to Maya by EOD)
+- Updated Figma link for onboarding flow — you said you'd share it Tuesday
+- Analytics events for new toggles: design needs your sign-off before dev adds them
+
+Watch for:
+- Maya flagged in Slack that the mobile layout breaks at 375px.
+  Have a position before you walk in: fix now or log as known issue.
+- First design sync since the scope cut on May 12.
+  Expect questions about what got dropped and why.
+
+Your ask: confirm the notification type list and unblock the mobile layout decision.
+```
+
+## What you need
+
+**With Claude Code:** Jira and Slack MCPs connected. The skill reads real data.
+
+**With claude.ai:** Paste the meeting invite text plus any Jira tickets or Slack threads you want it to read. You're feeding it context manually, but the brief quality is the same.
+
+## Pitfalls
+
+**Running it 30 seconds before the meeting.** Give yourself 15 minutes to read the brief and form a position on anything that comes up. A brief you don't read is a waste.
+
+**Not having Slack connected.** Jira has the formal record. Slack has the real conversation. The informal context is often where the actual issues live. Without it, the brief misses the subtext.
+
+**Asking for too broad a topic.** "Prep for my meeting with engineering" covers too much ground. "Prep for my sync with Jordan about the notification preferences PR" gives the skill enough scope to be specific.
+
+<GitHubCta skill="meeting-prep" />

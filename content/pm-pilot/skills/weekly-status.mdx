@@ -1,0 +1,102 @@
+---
+title: "Weekly Status"
+command: "/weekly-status"
+description: "Hits your connected systems, writes the weekly status update, formats it to send. You just review."
+---
+
+<SkillExample
+  before="Two hours on Friday chasing people for updates, piecing together sprint progress from 6 different Slack threads and a Jira board."
+  after="Run the skill. It reads your Jira sprint, checks what shipped, and writes the update in your format. You review and send."
+  prompt="weekly status"
+  output={[
+    "# Weekly Status · Week 21",
+    "",
+    "# Shipped",
+    "• FEAT-214: Notification preferences redesign — shipped to staging",
+    "• ONBRD-88: Onboarding flow step 3 fix — live in production",
+    "",
+    "# In progress",
+    "• FEAT-231: Search improvements — design review done, dev starting Monday",
+    "• PERF-19: Dashboard load time — profiling complete, fix in progress",
+    "",
+    "# Blocked",
+    "• FEAT-198: CSV export — waiting on legal review of data format",
+    "",
+    "# Next week",
+    "• FEAT-214: Notification preferences — move to production",
+    "• FEAT-231: Search — first dev build ready for QA"
+  ]}
+/>
+
+## What it does
+
+/weekly-status reads your Jira sprint, recent Slack activity, and calendar, then writes your status update in whatever format your team uses. You review it, adjust anything that's wrong, and send it. The part where you stare at a blank doc for 20 minutes trying to remember what you did this week: gone.
+
+The output covers: what shipped, what's in progress, what's blocked, and what's coming next week.
+
+## When to use it
+
+**End of Friday.** You have a standing status update due. You have been in meetings all day and you can't remember what you actually shipped. Run /weekly-status before you close your laptop.
+
+**Before a leadership review.** Leadership wants a status update on the project. You have three hours. Run /weekly-status, expand the key points with context, format for the audience.
+
+**Onboarding to a new team.** Status updates are how a new team learns your working style. Use /weekly-status to generate a solid baseline, then add your own voice to the final version.
+
+## How it works
+
+1. You run `/weekly-status` (or `/weekly-status for [project]` to scope it)
+2. The skill reads your Jira sprint: what moved to Done, what's still In Progress, what's blocked
+3. It reads recent Slack for context on anything significant
+4. It checks your calendar for meetings that produced decisions or outcomes
+5. It writes the update in your preferred format
+
+## Try it
+
+```
+/weekly-status for the notification feature project
+```
+
+Expected output:
+
+```
+Week of May 19
+
+Shipped:
+- Notification preferences redesign live in production (PR #312 merged).
+  Email + in-app toggles working. Top user complaint for two quarters, now closed.
+
+In progress:
+- Search improvements (PR #318). Design review done, dev started Monday.
+  On track for QA by end of week.
+- Dashboard load time (PERF-19). Profiling complete, fix 70% done.
+  Alex targeting Thursday merge.
+
+Blocked:
+- CSV export (FEAT-198). Waiting on legal review of data format.
+  Legal has had it 4 days. Need escalation path if no response by Wednesday.
+
+Next week:
+- PERF-19: get to production before sprint ends
+- FEAT-198: follow up with legal Monday, escalate if needed
+- Start onboarding flow A/B test setup
+```
+
+## Output format
+
+The default format: shipped, in progress, blocked, next week. If your team uses a different format (RICE, RAG status, weekly OKR format), paste an example of your format when you run the skill and it will match it.
+
+## What you need
+
+**With Claude Code:** Jira and Slack MCPs connected give you the most accurate output. The skill reads real sprint data.
+
+**With claude.ai:** Paste your Jira sprint board screenshot or a text dump of your open tickets. Add any relevant Slack threads. The skill synthesizes from what you give it.
+
+## Pitfalls
+
+**Running it without Jira connected.** The status update will be based on whatever you tell it, which means it's as good as your memory. Connect Jira for the real sprint state.
+
+**Not reviewing before sending.** The skill doesn't know everything. It might miss a verbal decision from a meeting that didn't produce a ticket. Always read before you send.
+
+**Too much detail on blocked items.** If something is blocked, your stakeholders need to know it's blocked and who owns unblocking it, not the full history of why. Keep blocked items to one sentence.
+
+<GitHubCta skill="weekly-status" />

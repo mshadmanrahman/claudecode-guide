@@ -4268,7 +4268,7 @@ export default async function TutorialPage({
           </div>
 
           {/* Email capture */}
-          <EmailCapture />
+          <EmailCapture placement="tutorial-post" />
         </div>
       </article>
     </div>

@@ -1,0 +1,29 @@
+---
+title: "TDD Workflow"
+command: "/tdd-workflow"
+description: "Enforces test-first development."
+---
+
+## What it does
+
+/tdd-workflow guides a test-driven development flow: write the failing test first, implement to pass it, then refactor. It enforces the sequence, catches attempts to write implementation before tests, and keeps the cycle tight.
+
+For PMs who write code, this prevents the common pattern of writing implementation that mostly works, then writing tests that confirm the implementation rather than specifying behavior.
+
+## When to use it
+
+- When starting any new feature implementation
+- When fixing a bug (write a test that reproduces it before touching the code)
+- When you want to build a habit around TDD and need the enforcement
+
+## How to trigger it
+
+Say: `tdd [feature description]`
+
+Example: `tdd the impression tracking hook for program banners`
+
+## What you need
+
+Claude Code CLI. The skill creates the test file, runs the failing test to confirm it fails for the right reason, then guides implementation. Works with any test framework your project uses (Jest, Vitest, Playwright, pytest).
+
+<GitHubCta skill="tdd-workflow" />

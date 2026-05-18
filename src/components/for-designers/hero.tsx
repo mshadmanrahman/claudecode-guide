@@ -1,87 +1,132 @@
 'use client';
 
 import Link from 'next/link';
-import { Globe, FolderOpen, Terminal } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
 const JOURNEYS = [
   {
     id: 'claude-ai',
-    label: 'Claude.ai',
-    icon: Globe,
-    tagline: 'The thinking partner',
-    note: 'Claude lives in a Project tab alongside Figma. No terminal. No code.',
+    num: '01',
+    label: 'Browser only',
+    tagline: 'No terminal. No setup.',
+    note: 'Claude lives in a Project tab alongside Figma. You stay in the browser. Start here.',
+    href: '#guides',
   },
   {
     id: 'co-work',
-    label: 'Claude Co-Work',
-    icon: FolderOpen,
-    tagline: 'The active collaborator',
-    note: 'Claude is in the session with you, pushing back in real-time.',
+    num: '02',
+    label: 'Thinking partner',
+    tagline: 'Claude in the session with you.',
+    note: 'Upload your briefs and Figma exports. Claude pushes back on decisions in real-time.',
+    href: '#guides',
   },
   {
     id: 'claude-code',
-    label: 'Claude Code',
-    icon: Terminal,
-    tagline: 'The prototype builder',
-    note: 'Claude touches files, generates code, and changes the handoff.',
+    num: '03',
+    label: 'Prototype builder',
+    tagline: 'Claude touches your files.',
+    note: 'Turns design into running code. Changes the handoff. Requires a terminal.',
+    href: '#guides',
   },
 ];
 
 export function DesignerHero() {
   return (
-    <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
-      <nav className="flex flex-wrap items-center gap-2 mb-10">
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">Structural overview</span>
-        <span className="text-fd-muted-foreground/30 text-xs">/</span>
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">For UX designers</span>
-        <span className="text-fd-muted-foreground/30 text-xs">/</span>
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">Claude Code guide</span>
-      </nav>
-
-      <h1 className="font-serif text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
-        You tried Claude.<br />
-        <em className="italic text-fd-muted-foreground">It felt generic.</em><br />
-        That&apos;s a setup problem.
-      </h1>
-
-      <p className="mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
-        Claude doesn&apos;t know you design for first-time mobile users on low-end Android in a price-sensitive market. It knows you&apos;re a person with a question. These guides fix that. Pick the journey that matches how you work, and start with Guide 1 to tell Claude who you actually are.
+    <section className="mx-auto max-w-5xl px-6 pt-28 pb-20">
+      {/* Category label */}
+      <p className="animate-slide-up-fade mb-8 text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground">
+        For UX Designers
       </p>
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-3">
-        {JOURNEYS.map((j) => {
-          const Icon = j.icon;
-          return (
-            <div key={j.id} className="rounded-xl border border-fd-border bg-fd-card p-5">
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
-                Powered by
+      {/* Headline — staggered line by line */}
+      <h1 className="font-serif tracking-tight leading-[1.05]">
+        <span
+          className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
+          style={{ animationDelay: '80ms' }}
+        >
+          You tried Claude.
+        </span>
+        <span
+          className="block animate-slide-up-fade text-5xl font-medium sm:text-6xl lg:text-[5.5rem]"
+          style={{ animationDelay: '180ms' }}
+        >
+          <em className="italic text-fd-muted-foreground">It felt generic.</em>
+        </span>
+        <span
+          className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
+          style={{ animationDelay: '280ms' }}
+        >
+          That&apos;s a setup problem.
+        </span>
+      </h1>
+
+      <p
+        className="animate-slide-up-fade mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed"
+        style={{ animationDelay: '400ms' }}
+      >
+        Claude doesn&apos;t know you design for first-time mobile users on low-end Android in a
+        price-sensitive market. It knows you&apos;re a person with a question. These guides fix
+        that.
+      </p>
+
+      {/* Journey cards */}
+      <div className="mt-14 grid gap-px bg-fd-border sm:grid-cols-3 rounded-xl overflow-hidden border border-fd-border">
+        {JOURNEYS.map((j, i) => (
+          <Link
+            key={j.id}
+            href={j.href}
+            onClick={() =>
+              trackEvent('designer_hero_journey_click', { journey: j.id, section: 'for-designers' })
+            }
+            className="group relative flex flex-col justify-between bg-fd-background p-6 transition-colors duration-200 hover:bg-fd-accent/40"
+            style={{ animationDelay: `${500 + i * 80}ms` }}
+          >
+            {/* Large background number */}
+            <span className="pointer-events-none absolute right-4 top-3 font-mono text-6xl font-light text-fd-muted-foreground/8 select-none leading-none">
+              {j.num}
+            </span>
+
+            <div>
+              <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground/50">
+                Path {j.num}
               </p>
-              <div className="flex items-center gap-2 mb-1.5">
-                <Icon className="h-4 w-4 text-fd-foreground/70" />
-                <span className="text-sm font-semibold text-fd-foreground">{j.label}</span>
-              </div>
-              <p className="text-xs font-medium text-fd-foreground/80 mb-1">{j.tagline}</p>
-              <p className="text-[11px] leading-relaxed text-fd-muted-foreground">{j.note}</p>
+              <p className="font-serif text-xl font-medium text-fd-foreground leading-snug group-hover:text-fd-foreground transition-colors">
+                {j.label}
+              </p>
+              <p className="mt-1 text-sm font-medium text-fd-muted-foreground">
+                {j.tagline}
+              </p>
             </div>
-          );
-        })}
+
+            <p className="mt-5 text-xs leading-relaxed text-fd-muted-foreground/70 border-t border-fd-border pt-4">
+              {j.note}
+            </p>
+          </Link>
+        ))}
       </div>
 
-      <div className="mt-10 flex flex-wrap items-center gap-4">
+      {/* CTAs */}
+      <div
+        className="animate-slide-up-fade mt-10 flex flex-wrap items-center gap-4"
+        style={{ animationDelay: '700ms' }}
+      >
         <Link
           href="/for-designers/set-up-claude"
-          onClick={() => trackEvent('designer_hero_cta_click', { cta: 'start_guide_1', section: 'for-designers' })}
-          className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground shadow-sm hover:opacity-90 transition-opacity"
+          onClick={() =>
+            trackEvent('designer_hero_cta_click', { cta: 'start_guide_1', section: 'for-designers' })
+          }
+          className="inline-flex items-center rounded-lg bg-fd-foreground px-6 py-3 text-sm font-semibold text-fd-background hover:opacity-80 transition-opacity"
         >
-          Set up your workspace
+          Start with Guide 1
         </Link>
         <Link
           href="#guides"
-          onClick={() => trackEvent('designer_hero_cta_click', { cta: 'browse_guides', section: 'for-designers' })}
-          className="inline-flex items-center gap-2 rounded-lg border border-fd-border px-6 py-3 text-sm font-medium text-fd-foreground hover:bg-fd-accent transition-colors"
+          onClick={() =>
+            trackEvent('designer_hero_cta_click', { cta: 'browse_guides', section: 'for-designers' })
+          }
+          className="inline-flex items-center gap-2 text-sm font-medium text-fd-muted-foreground hover:text-fd-foreground transition-colors"
         >
-          Browse guides by path
+          Browse all guides →
         </Link>
       </div>
     </section>

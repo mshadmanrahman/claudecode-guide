@@ -1,0 +1,31 @@
+---
+title: "Prioritize"
+command: "/prioritize"
+description: "RICE, ICE, WSJF, MoSCoW, Kano. Pick one or let it recommend the right fit."
+---
+
+## What it does
+
+/prioritize scores a list of features or initiatives using structured prioritization frameworks. You give it the items and your context. It applies the framework, shows its work, and outputs a ranked list with the reasoning for each score.
+
+The goal isn't to generate a number that makes one option win. It's to make the tradeoffs explicit so you can have an honest conversation about them with your team.
+
+## When to use it
+
+- Sprint planning where you need to justify what's in and what's out
+- Quarterly roadmap reviews where 20 things are competing for 5 slots
+- When a stakeholder asks "why isn't X higher priority" and you need to show your reasoning
+
+## How to trigger it
+
+Say: `rank these features` and paste the list
+
+Or specify the framework: `rank these features using RICE`
+
+If you don't specify a framework, the skill will ask a few questions about your situation (team size, decision-making context, whether you have confidence intervals for reach) and recommend the best fit.
+
+## What you need
+
+A list of items to prioritize and enough context to score them. The skill will ask for missing inputs (effort estimates, reach estimates) if you don't provide them. Works with zero integrations.
+
+<GitHubCta skill="prioritize" />

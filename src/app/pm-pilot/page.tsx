@@ -8,8 +8,7 @@ import { PmPilotGettingStarted } from '@/components/pm-pilot/getting-started';
 import { PmPilotIntegrations } from '@/components/pm-pilot/integrations';
 import { PmPilotMemorySystem } from '@/components/pm-pilot/memory-system';
 import { PmPilotWhyExists } from '@/components/pm-pilot/why-exists';
-import { PmPilotFullSkillRef } from '@/components/pm-pilot/full-skill-ref';
-import { PmPilotStarCta } from '@/components/pm-pilot/star-cta';
+import { PmPilotGuideCta } from '@/components/pm-pilot/guide-cta';
 import { PmPilotFooter } from '@/components/pm-pilot/footer';
 
 const siteUrl = 'https://claudecodeguide.dev';
@@ -68,9 +67,11 @@ export default function PmPilotPage() {
       <div className="border-b border-fd-border" />
       <PmPilotBeforeAfter />
       <div className="border-b border-fd-border" />
-      <PmPilotJourneyMap />
-      <div className="border-b border-fd-border" />
       <PmPilotTopSkills />
+      <div className="border-b border-fd-border" />
+      <PmPilotGuideCta />
+      <div className="border-b border-fd-border" />
+      <PmPilotJourneyMap />
       <div className="border-b border-fd-border" />
       <PmPilotGettingStarted />
       <div className="border-b border-fd-border" />
@@ -79,10 +80,6 @@ export default function PmPilotPage() {
       <PmPilotMemorySystem />
       <div className="border-b border-fd-border" />
       <PmPilotWhyExists />
-      <div className="border-b border-fd-border" />
-      <PmPilotFullSkillRef />
-      <div className="border-b border-fd-border" />
-      <PmPilotStarCta />
       <PmPilotFooter />
     </main>
   );

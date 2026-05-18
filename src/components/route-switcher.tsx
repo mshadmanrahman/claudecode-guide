@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { MessageSquare, Terminal, Code2 } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
 
 export type TutorialRoute = 'app' | 'terminal' | 'ide';
 
@@ -37,6 +38,7 @@ export function RouteSwitcher({ availableRoutes = ['app'] }: RouteSwitcherProps)
     setActive(id);
     localStorage.setItem(STORAGE_KEY, id);
     window.dispatchEvent(new CustomEvent(ROUTE_CHANGE_EVENT, { detail: id }));
+    trackEvent('route_switcher_select', { route: id });
   }
 
   return (

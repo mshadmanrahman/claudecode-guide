@@ -85,36 +85,45 @@ export default async function DesignerGuidePage({
         </Link>
 
         {/* Header */}
-        <header className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="flex items-center gap-1.5 rounded-full bg-fd-accent px-2.5 py-1 text-[11px] font-medium text-fd-muted-foreground">
+        <header className="mb-10">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground">
+            For Designers
+          </p>
+
+          <h1 className="font-serif text-3xl font-medium tracking-tight text-fd-foreground sm:text-4xl leading-snug">
+            {guide.title}
+          </h1>
+
+          <p className="mt-4 text-lg text-fd-muted-foreground leading-relaxed">
+            {guide.description}
+          </p>
+
+          <div className="mt-5 flex items-center gap-2">
+            <span className="flex items-center gap-1.5 rounded-md border border-fd-border px-2.5 py-1 text-[11px] font-medium text-fd-muted-foreground">
               <Clock className="h-3 w-3" />
               {guide.duration}
             </span>
             <DifficultyBadge level={guide.difficulty} />
           </div>
-
-          <h1 className="font-display text-3xl font-normal tracking-tight text-fd-foreground sm:text-4xl">
-            {guide.title}
-          </h1>
-
-          <p className="mt-4 text-lg text-fd-muted-foreground">
-            {guide.description}
-          </p>
         </header>
 
-        {/* Situation card */}
+        {/* Situation card — shown prominently like impeccable.style output box */}
         {guide.situation && (
-          <div className="mb-10 rounded-xl border-l-4 border-fd-primary/40 bg-fd-accent/50 px-6 py-5">
-            <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
-              The situation
-            </p>
-            <p className="text-base font-medium text-fd-foreground leading-relaxed">
-              {guide.situation.scene}
-            </p>
-            <p className="mt-3 text-sm text-fd-muted-foreground leading-relaxed">
-              {guide.situation.outcome}
-            </p>
+          <div className="mb-10 overflow-hidden rounded-xl border border-fd-border bg-fd-card">
+            <div className="flex items-center justify-between border-b border-fd-border bg-fd-muted px-5 py-3">
+              <span className="font-mono text-xs text-fd-muted-foreground">{guide.slug}</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground/60">
+                The situation
+              </span>
+            </div>
+            <div className="px-5 py-5">
+              <p className="text-base font-medium text-fd-foreground leading-relaxed">
+                {guide.situation.scene}
+              </p>
+              <p className="mt-3 text-sm text-fd-muted-foreground leading-relaxed border-t border-fd-border/60 pt-3">
+                {guide.situation.outcome}
+              </p>
+            </div>
           </div>
         )}
 
@@ -174,34 +183,32 @@ export default async function DesignerGuidePage({
         )}
 
         {/* Steps */}
-        <div className="space-y-16">
+        <div className="space-y-12">
           {guide.steps.map((step, index) => (
-            <section key={index}>
-              <div className="flex items-start gap-4 mb-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-fd-border bg-fd-muted text-sm font-medium text-fd-muted-foreground">
-                  {index + 1}
-                </div>
-                <div>
-                  <h2 className="text-lg font-medium text-fd-foreground">
-                    {step.title}
-                  </h2>
-                  <p className="mt-1 text-sm text-fd-muted-foreground">
-                    {step.description}
-                  </p>
-                  {step.list && (
-                    <ol className="mt-3 space-y-2 list-decimal list-outside pl-4">
-                      {step.list.map((item, i) => (
-                        <li key={i} className="text-sm text-fd-muted-foreground leading-relaxed">
-                          {item}
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                </div>
+            <section key={index} className="border-t border-fd-border pt-10 first:border-t-0 first:pt-0">
+              <div className="mb-5">
+                <span className="font-mono text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground/50">
+                  Step {String(index + 1).padStart(2, '0')}
+                </span>
+                <h2 className="mt-1 font-serif text-xl font-medium text-fd-foreground leading-snug">
+                  {step.title}
+                </h2>
+                <p className="mt-2 text-sm text-fd-muted-foreground leading-relaxed">
+                  {step.description}
+                </p>
+                {step.list && (
+                  <ol className="mt-4 space-y-2 list-decimal list-outside pl-4">
+                    {step.list.map((item, i) => (
+                      <li key={i} className="text-sm text-fd-muted-foreground leading-relaxed pl-1">
+                        {item}
+                      </li>
+                    ))}
+                  </ol>
+                )}
               </div>
 
               {step.code && (
-                <div className="ml-12 mt-4">
+                <div className="mt-4">
                   <CopyBlock
                     code={step.code.snippet}
                     language={step.code.language}
@@ -210,7 +217,7 @@ export default async function DesignerGuidePage({
               )}
 
               {(step.demo ?? step.appDemo ?? step.ideDemo) && (
-                <div className="ml-12 mt-4">
+                <div className="mt-4">
                   <DesignerStepDemo
                     demo={step.demo}
                     appDemo={step.appDemo}
@@ -238,7 +245,7 @@ export default async function DesignerGuidePage({
             </Link>
           </div>
 
-          <EmailCapture />
+          <EmailCapture placement="for-designers-guide" />
         </div>
       </article>
     </div>

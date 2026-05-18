@@ -1,9 +1,10 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
+import Link from 'next/link';
 import { DemoCard } from '@/components/demo-card';
 import { FloatingCard } from '@/components/floating-card';
-import { Clock, FileText, BarChart3 } from 'lucide-react';
+import { Clock, FileText, BarChart3, ArrowRight } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 
 const HERO_STEPS = [
@@ -88,6 +89,13 @@ export function PmPilotHero() {
             </svg>
             Star on GitHub
           </a>
+          <Link
+            href="/pm-pilot/guide"
+            className="inline-flex items-center gap-2 text-sm font-medium text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+          >
+            Browse the guide
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
 
         <div className="animate-slide-up-fade delay-250 mt-10 max-w-md">

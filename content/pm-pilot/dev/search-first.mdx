@@ -1,0 +1,29 @@
+---
+title: "Search First"
+command: "/search-first"
+description: "Checks existing solutions before writing new code."
+---
+
+## What it does
+
+/search-first checks your codebase, installed packages, and existing utilities before writing anything new. It answers: does this already exist? Is there a library for this? Is someone else on the team solving the same problem?
+
+The output is either "here's what already exists" (with a pointer to use it) or "nothing found, safe to implement" (with a suggested approach).
+
+## When to use it
+
+- Before implementing any utility function or component you think might already exist
+- When you're adding a new dependency and want to check if you already have something that does the same thing
+- When you're onboarding to a codebase and want to understand what's already there before writing new code
+
+## How to trigger it
+
+Say: `search first for [what you're about to build]`
+
+Example: `search first for a date formatting utility`
+
+## What you need
+
+Claude Code CLI with access to the project directory. The skill runs grep and file searches across the codebase. Works best when the codebase has consistent naming conventions.
+
+<GitHubCta skill="search-first" />

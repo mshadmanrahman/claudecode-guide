@@ -1,0 +1,52 @@
+---
+title: "Getting Started"
+description: "Three ways to install PM Pilot, from zero to full Claude Code power."
+---
+
+## Zero install (copy-paste)
+
+The simplest path. No setup, no terminal, no account beyond whatever AI tool you already use.
+
+1. Open [claude.ai](https://claude.ai), ChatGPT, or Gemini
+2. Find the skill file you want on [GitHub](https://github.com/mshadmanrahman/pm-pilot)
+3. Open it, copy the contents, paste it into your chat as context before your request
+
+That's it. You can use any PM Pilot skill this way. It works today.
+
+The limitation: you paste context every time. The skill doesn't persist between sessions. For occasional use, this is fine. For daily use, move to Claude Desktop.
+
+## Claude Desktop (5 minutes)
+
+Skills persist between sessions. No terminal needed.
+
+1. Download the [Claude Desktop app](https://claude.ai/download)
+2. Open Settings and go to Projects
+3. Create a project called "PM Pilot"
+4. Paste the skill file content into the project instructions
+
+Now the skill is available every time you open that project. You don't re-paste anything. This is the right setup if you want the skills available daily without touching a terminal.
+
+## Claude Code CLI (full power)
+
+This is what PM Pilot was built for. Live Jira, Slack threads, calendar, meeting transcripts. The skills don't just write text, they pull real data from your connected systems.
+
+```bash
+git clone https://github.com/mshadmanrahman/pm-pilot.git
+cd pm-pilot
+mkdir -p ~/.claude/skills ~/.claude/rules ~/.claude/agents ~/.claude/commands ~/.claude/memory
+cp -r skills/* ~/.claude/skills/
+cp -r rules/* ~/.claude/rules/
+cp -r agents/* ~/.claude/agents/
+cp -r commands/* ~/.claude/commands/
+cp memory/MEMORY-TEMPLATE.md ~/.claude/memory/MEMORY.md
+```
+
+Then run `/configure-pm-pilot` inside Claude Code and you're set.
+
+What you unlock with Claude Code: /meeting-prep reads your actual calendar. /weekly-status pulls your real Jira sprint. /people-sync writes to your stakeholder files. The copy-paste version generates plausible text; the Claude Code version uses your actual data.
+
+## What to do next
+
+Start with meeting-prep. It's the skill that shows results immediately.
+
+[Go to /meeting-prep](/pm-pilot/skills/meeting-prep)
