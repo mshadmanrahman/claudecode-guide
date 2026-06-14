@@ -1,0 +1,122 @@
+---
+title: "The Memory Router Pattern"
+description: "Your CLAUDE.md loads on every turn and quietly eats your context window. Here is the router pattern that keeps memory lean no matter how much you write."
+---
+
+Every session you start, Claude Code loads your CLAUDE.md into context. Every memory file you point it at loads too. They load once and stay there for the whole session.
+
+At fifty lines you do not notice. The file is small, the answers are sharp, everything is fine. So you add more. A coding convention here. A "remember to run the linter" there. A list of your services. Six months later the file is eight hundred lines and your agent feels slower, vaguer, quicker to forget the thing you actually asked.
+
+There is no error message. That is what makes it dangerous. Memory bloat does not crash. It quietly taxes every turn you take, forever.
+
+<DemoCard title="The same memory, loaded two different ways." steps={[
+  { type: 'cmd', text: 'claude "fix the auth bug"' },
+  { type: 'out', text: 'loaded CLAUDE.md (847 lines)' },
+  { type: 'error', text: '↑ every turn pays for all 847 lines, most of it irrelevant' },
+  { type: 'success', text: '✓ router pattern: loaded index + 1 shard (auth.md)' },
+  { type: 'warn', text: '→ context stays lean, model stays sharp' },
+]} />
+
+## The tax nobody bills you for
+
+Anything in your always-loaded memory is paid for on every turn. Not once. Every time the model thinks.
+
+A big CLAUDE.md costs more tokens per turn. It buries the real task further down the window, where attention is weaker. And the instructions that matter end up drowned in instructions that almost never apply.
+
+The instinct is to fix this by tidying. Trim a few lines, delete a stale note. That buys you a week. The file grows back, because the problem is structural, not cosmetic.
+
+## Why "just make more files" does not work
+
+The obvious next move is to split the memory into separate files. Right instinct. The usual execution does not work.
+
+If you split CLAUDE.md into ten files and say nothing, the agent never reads nine of them. It loads what it is told to load. Out of sight is out of context. You have not solved bloat, you have hidden your knowledge where the model cannot find it.
+
+The real requirement is sharper than "more files." You need everything available and almost nothing loaded. Available means the agent can find it the moment it is relevant. Loaded means it is in the context window costing you tokens right now. Those are different problems, and most memory setups confuse them.
+
+## Separate the index from the content
+
+Here is the move. The file that loads on every session should be a router. It points at the knowledge. It does not carry it.
+
+A router is a table of contents. It holds pointers, not content. One line per topic: what the topic is, and when to load it. The actual knowledge lives in shard files that the agent pulls in only when the task matches.
+
+It is a map you keep in your pocket versus carrying every book in the library. The map is tiny. It tells you which book to grab when you need it. You carry the map always and the books never, until one is useful.
+
+## The pattern, in five parts
+
+**1. A thin router.** Your always-loaded file is an index. One line per topic. It points, it does not explain. Put a hard cap on its length. When it grows past the cap, something graduates out.
+
+**2. Sharded topic files.** The real knowledge lives here, one topic per file, named so it is obvious what is inside. `auth-flow.md`, `deploy-process.md`. The agent reads these on demand.
+
+**3. A load-on-demand rule.** The router has to tell the agent how to use itself: load only the shard that matches the task. Without that instruction the agent either loads everything or nothing. You are teaching it to route.
+
+**4. An aging policy.** Active notes decay. Old ones get archived. Write the rule down: items idle past N days move to an archive, finished work graduates to its topic shard. This is what stops the router creeping back to eight hundred lines.
+
+**5. Cross-links between shards.** Each shard links to related shards. The agent traverses from one to the next on its own. The router does not have to hold every connection, because the shards hold them.
+
+<Callout type="info" title="Part 3 is the one people skip">
+Splitting files is easy. The instruction that says "load only the shard that matches the task" is what makes the split pay off. Leave it out and the agent defaults to loading nothing, so your shards may as well not exist.
+</Callout>
+
+## What this looks like in practice
+
+This is the system I run. My always-loaded router is a short index table: a row per knowledge area and a note on when to load it. Under it sits a small block of rules that genuinely apply every session, and a short active-this-week list capped at a handful of entries that decay after two weeks.
+
+Behind that router are more than two hundred topic files. The agent never loads them by default. It reads the router, sees which shard matches the task in front of it, and pulls in only that one. A question about deploys loads the deploy shard and nothing else.
+
+I prune the active list most weeks. When the router creeps past its line cap, something graduates out to a shard. The router has stayed roughly the same size for months while the shards behind it keep growing.
+
+The number that matters: the knowledge base grows without limit, because growth happens in the shards, not in the thing that loads every turn.
+
+## Steal this skeleton
+
+Router (`MEMORY.md`):
+
+```
+# Memory Router
+
+| Shard | When to load |
+|-------|--------------|
+| auth | Login, sessions, tokens |
+| deploy | Shipping, CI, releases |
+| data-model | Schema, migrations |
+
+## Universal rules (always apply)
+- (the few rules that truly apply every session)
+
+## Active this week (max ~10, decay after 14 days)
+- (current work, one line each)
+
+## Aging policy
+- Active item idle >14 days  ->  move to its shard
+- Shard item idle >30 days   ->  move to archive
+```
+
+Topic shard (`auth.md`):
+
+```
+---
+name: auth
+description: how login and sessions work
+---
+
+One fact per file. Link related shards with [[deploy]].
+```
+
+Four rules to keep it honest:
+
+- Keep the router under a fixed line count. Treat the cap as real.
+- One line per topic in the index. If you are explaining, you are in the wrong file.
+- Write the shard first, then add its one line to the router.
+- Fix stale entries the moment you see them. Stale memory is worse than none.
+
+## The reframe
+
+Stop treating memory as a place to dump things. Treat it as an index you route through.
+
+Once you make that switch, the question stops being "what do I need to remember" and becomes "what does the agent need loaded right now." The answer is almost always the router, and one shard. Everything else waits until it is relevant.
+
+Your context stays lean. Your model stays sharp. Your memory grows as large as you want, and you never pay for the parts you are not using.
+
+---
+
+Go deeper on the layer that loads every session: the [CLAUDE.md guide](/docs/foundations/claude-md), [how memory works](/docs/foundations/memory-system), and [the context window](/docs/foundations/context-window).
