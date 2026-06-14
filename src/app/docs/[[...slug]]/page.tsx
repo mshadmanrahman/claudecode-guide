@@ -1,18 +1,18 @@
-import { source } from '@/lib/source';
-import { notFound } from 'next/navigation';
-import defaultMdxComponents from 'fumadocs-ui/mdx';
-import { DemoCard } from '@/components/demo-card';
-import { VocabBridge } from '@/components/vocab-bridge';
-import { EmailCapture } from '@/components/email-capture';
-import { AffiliateCTA } from '@/components/affiliate-cta';
-import { ComparisonRelatedLinks } from '@/components/comparison-related-links';
-import { ChapterNav } from '@/components/docs/chapter-nav';
-import { SectionIndex } from '@/components/docs/section-index';
-import { PromptCard } from '@/components/prompt-card';
-import { FromClaude } from '@/components/from-claude';
-import { UseCaseMeta } from '@/components/use-case-meta';
-import { AuthorBio } from '@/components/author-bio';
-import { UseCaseWalkthrough } from '@/components/use-case-walkthrough';
+import { source } from "@/lib/source";
+import { notFound } from "next/navigation";
+import defaultMdxComponents from "fumadocs-ui/mdx";
+import { DemoCard } from "@/components/demo-card";
+import { VocabBridge } from "@/components/vocab-bridge";
+import { EmailCapture } from "@/components/email-capture";
+import { AffiliateCTA } from "@/components/affiliate-cta";
+import { ComparisonRelatedLinks } from "@/components/comparison-related-links";
+import { ChapterNav } from "@/components/docs/chapter-nav";
+import { SectionIndex } from "@/components/docs/section-index";
+import { PromptCard } from "@/components/prompt-card";
+import { FromClaude } from "@/components/from-claude";
+import { UseCaseMeta } from "@/components/use-case-meta";
+import { AuthorBio } from "@/components/author-bio";
+import { UseCaseWalkthrough } from "@/components/use-case-walkthrough";
 import {
   ProjectFolderIllustration,
   PromptComposerIllustration,
@@ -26,11 +26,11 @@ import {
   SkimOnPhoneIllustration,
   PreparedReadyIllustration,
   AntiSycophancyHero,
-} from '@/components/illustrations';
-import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
-import { getComparisonArticleMetadata } from '@/lib/comparison-article';
-import { getPageNavigation, getSections } from '@/lib/docs-navigation';
-import type { Metadata } from 'next';
+} from "@/components/illustrations";
+import { getAffiliateCtasForPage } from "@/lib/affiliate-cta-config";
+import { getComparisonArticleMetadata } from "@/lib/comparison-article";
+import { getPageNavigation, getSections } from "@/lib/docs-navigation";
+import type { Metadata } from "next";
 
 const mdxComponents = {
   ...defaultMdxComponents,
@@ -74,20 +74,22 @@ export default async function Page(props: PageProps) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any: fumadocs lazy-loads body/toc at runtime
   const data = page.data as any;
   const MDX = data.body;
-  const pageSlug = params.slug?.length ? `docs/${params.slug.join('/')}` : 'docs';
+  const pageSlug = params.slug?.length
+    ? `docs/${params.slug.join("/")}`
+    : "docs";
   const ctas = getAffiliateCtasForPage(pageSlug);
-  const inlineCta = ctas.find((cta) => cta.placement === 'inline');
-  const midBannerCta = ctas.find((cta) => cta.placement === 'mid-banner');
-  const endCardCta = ctas.find((cta) => cta.placement === 'end-card');
+  const inlineCta = ctas.find((cta) => cta.placement === "inline");
+  const midBannerCta = ctas.find((cta) => cta.placement === "mid-banner");
+  const endCardCta = ctas.find((cta) => cta.placement === "end-card");
   const comparisonMetadata = getComparisonArticleMetadata(data);
-  const isComparisonPage = pageSlug.startsWith('docs/comparisons/');
+  const isComparisonPage = pageSlug.startsWith("docs/comparisons/");
   const hasComparisonMetadata =
     Boolean(comparisonMetadata.targetKeyword) ||
     comparisonMetadata.comparisonEntities.length > 0;
   const hasRelatedLinks = comparisonMetadata.relatedLinks.length > 0;
 
   // Chapter Book navigation
-  const navSlug = params.slug?.join('/') ?? '';
+  const navSlug = params.slug?.join("/") ?? "";
   const { prev, next, current, sectionPages } = getPageNavigation(navSlug);
 
   // Table of contents for the floating TOC
@@ -98,13 +100,17 @@ export default async function Page(props: PageProps) {
       {/* Page header */}
       <header className="mb-8">
         {current?.section && (
-          <p className="text-sm font-medium text-fd-primary mb-2">{current.section}</p>
+          <p className="text-sm font-medium text-fd-primary mb-2">
+            {current.section}
+          </p>
         )}
         <h1 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
           {data.title}
         </h1>
         {data.description && (
-          <p className="mt-3 text-lg text-fd-muted-foreground">{data.description}</p>
+          <p className="mt-3 text-lg text-fd-muted-foreground">
+            {data.description}
+          </p>
         )}
       </header>
 
@@ -116,27 +122,29 @@ export default async function Page(props: PageProps) {
           </summary>
           <nav className="px-5 pb-4">
             <ul className="space-y-1">
-              {toc.map((item: { url: string; title: string; depth: number }) => (
-                <li key={item.url}>
-                  <a
-                    href={item.url}
-                    className={`block rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-fd-accent hover:text-fd-foreground ${
-                      item.depth > 2
-                        ? 'pl-6 text-fd-muted-foreground'
-                        : 'text-fd-muted-foreground'
-                    }`}
-                  >
-                    {item.title}
-                  </a>
-                </li>
-              ))}
+              {toc.map(
+                (item: { url: string; title: string; depth: number }) => (
+                  <li key={item.url}>
+                    <a
+                      href={item.url}
+                      className={`block rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-fd-accent hover:text-fd-foreground ${
+                        item.depth > 2
+                          ? "pl-6 text-fd-muted-foreground"
+                          : "text-fd-muted-foreground"
+                      }`}
+                    >
+                      {item.title}
+                    </a>
+                  </li>
+                ),
+              )}
             </ul>
           </nav>
         </details>
       )}
 
       {/* Dev-only comparison metadata */}
-      {process.env.NODE_ENV === 'development' &&
+      {process.env.NODE_ENV === "development" &&
       isComparisonPage &&
       hasComparisonMetadata ? (
         <section className="mb-6 rounded-xl border border-dashed border-fd-border bg-fd-card/50 px-4 py-4 sm:px-5">
@@ -144,7 +152,7 @@ export default async function Page(props: PageProps) {
             <p className="text-sm text-fd-muted-foreground">
               <span className="font-medium text-fd-foreground">
                 Target keyword:
-              </span>{' '}
+              </span>{" "}
               {comparisonMetadata.targetKeyword}
             </p>
           ) : null}
@@ -152,8 +160,8 @@ export default async function Page(props: PageProps) {
             <p className="mt-2 text-sm text-fd-muted-foreground">
               <span className="font-medium text-fd-foreground">
                 Comparison entities:
-              </span>{' '}
-              {comparisonMetadata.comparisonEntities.join(' vs ')}
+              </span>{" "}
+              {comparisonMetadata.comparisonEntities.join(" vs ")}
             </p>
           ) : null}
         </section>
@@ -232,16 +240,18 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
   if (!params.slug || params.slug.length === 0) {
     return {
-      title: 'Documentation',
-      description: 'Everything you need to know about Claude Code, organized by topic.',
-      alternates: { canonical: 'https://claudecodeguide.dev/docs' },
+      title: "Documentation",
+      description:
+        "Everything you need to know about Claude Code, organized by topic.",
+      alternates: { canonical: "https://claudecodeguide.dev/docs" },
     };
   }
 
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
-  const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join('/')}`;
+  const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
+  const ogImage = (page.data as { image?: string }).image ?? "/og-home.png";
 
   return {
     title: page.data.title,
@@ -250,15 +260,15 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     openGraph: {
       title: page.data.title,
       description: page.data.description,
-      type: 'article',
+      type: "article",
       url: canonicalUrl,
-      images: [{ url: '/og-home.png', width: 1200, height: 630 }],
+      images: [{ url: ogImage, width: 1200, height: 630 }],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: page.data.title,
       description: page.data.description,
-      images: ['/og-home.png'],
+      images: [ogImage],
     },
   };
 }

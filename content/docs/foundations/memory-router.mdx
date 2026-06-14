@@ -1,7 +1,10 @@
 ---
 title: "The Memory Router Pattern"
 description: "Your CLAUDE.md loads on every turn and quietly eats your context window. Here is the router pattern that keeps memory lean no matter how much you write."
+image: /memory-router/hero.png
 ---
+
+![A thin router index fanning out to topic shards with only one loaded, beside a bloated CLAUDE.md file crossed out](/memory-router/hero.png)
 
 Every session you start, Claude Code loads your CLAUDE.md into context. Every memory file you point it at loads too. They load once and stay there for the whole session.
 
@@ -9,17 +12,11 @@ At fifty lines you do not notice. The file is small, the answers are sharp, ever
 
 There is no error message. That is what makes it dangerous. Memory bloat does not crash. It quietly taxes every turn you take, forever.
 
-<DemoCard title="The same memory, loaded two different ways." steps={[
-  { type: 'cmd', text: 'claude "fix the auth bug"' },
-  { type: 'out', text: 'loaded CLAUDE.md (847 lines)' },
-  { type: 'error', text: '↑ every turn pays for all 847 lines, most of it irrelevant' },
-  { type: 'success', text: '✓ router pattern: loaded index + 1 shard (auth.md)' },
-  { type: 'warn', text: '→ context stays lean, model stays sharp' },
-]} />
-
 ## The tax nobody bills you for
 
 Anything in your always-loaded memory is paid for on every turn. Not once. Every time the model thinks.
+
+![A bloated CLAUDE.md file with every-turn loop arrows around it and a rising token-cost meter](/memory-router/problem-tax.png)
 
 A big CLAUDE.md costs more tokens per turn. It buries the real task further down the window, where attention is weaker. And the instructions that matter end up drowned in instructions that almost never apply.
 
@@ -28,6 +25,8 @@ The instinct is to fix this by tidying. Trim a few lines, delete a stale note. T
 ## Why "just make more files" does not work
 
 The obvious next move is to split the memory into separate files. Right instinct. The usual execution does not work.
+
+![An agent connected to one loaded file while nine other split files sit faded and not loaded](/memory-router/more-files-trap.png)
 
 If you split CLAUDE.md into ten files and say nothing, the agent never reads nine of them. It loads what it is told to load. Out of sight is out of context. You have not solved bloat, you have hidden your knowledge where the model cannot find it.
 
@@ -40,6 +39,8 @@ Here is the move. The file that loads on every session should be a router. It po
 A router is a table of contents. It holds pointers, not content. One line per topic: what the topic is, and when to load it. The actual knowledge lives in shard files that the agent pulls in only when the task matches.
 
 It is a map you keep in your pocket versus carrying every book in the library. The map is tiny. It tells you which book to grab when you need it. You carry the map always and the books never, until one is useful.
+
+![A small pocket map with one highlighted route beside a huge cluttered wall of library books](/memory-router/map-vs-library.png)
 
 ## The pattern, in five parts
 
@@ -60,6 +61,14 @@ Splitting files is easy. The instruction that says "load only the shard that mat
 ## What this looks like in practice
 
 This is the system I run. My always-loaded router is a short index table: a row per knowledge area and a note on when to load it. Under it sits a small block of rules that genuinely apply every session, and a short active-this-week list capped at a handful of entries that decay after two weeks.
+
+<DemoCard title="The same memory, loaded two different ways." steps={[
+  { type: 'cmd', text: 'claude "fix the auth bug"' },
+  { type: 'out', text: 'loaded CLAUDE.md (847 lines)' },
+  { type: 'error', text: '↑ every turn pays for all 847 lines, most of it irrelevant' },
+  { type: 'success', text: '✓ router pattern: loaded index + 1 shard (auth.md)' },
+  { type: 'warn', text: '→ context stays lean, model stays sharp' },
+]} />
 
 Behind that router are more than two hundred topic files. The agent never loads them by default. It reads the router, sees which shard matches the task in front of it, and pulls in only that one. A question about deploys loads the deploy shard and nothing else.
 
