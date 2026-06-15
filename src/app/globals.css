@@ -28,7 +28,7 @@
   --color-fd-overlay: rgba(0, 0, 0, 0.2);
 
   --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
+  --font-display: var(--font-spectral), "Spectral", Georgia, serif;
   --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
 }
 

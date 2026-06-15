@@ -2,14 +2,14 @@ import './globals.css';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import { Analytics } from '@vercel/analytics/next';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { Instrument_Serif, Inter, Geist_Mono } from 'next/font/google';
+import { Spectral, Inter, Geist_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-const instrumentSerif = Instrument_Serif({
-  variable: '--font-instrument-serif',
+const spectral = Spectral({
+  variable: '--font-spectral',
   subsets: ['latin'],
-  weight: '400',
+  weight: ['400', '600', '700', '800'],
   style: ['normal', 'italic'],
   display: 'swap',
 });
@@ -122,7 +122,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${inter.variable} ${geistMono.variable}`}
+      className={`${spectral.variable} ${inter.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>

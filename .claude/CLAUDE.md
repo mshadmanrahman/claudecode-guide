@@ -7,7 +7,7 @@ Live: https://claudecode-guide.vercel.app
 ## Design Direction (Dub.co inspired)
 
 Target aesthetic: **Dub.co's clean neutral palette + warm storytelling sections**
-Keep: Newsreader (display) + Space Grotesk (body) + Geist Mono (code)
+Fonts: Spectral (display) + Inter (body) + Geist Mono (code)
 Replace: Warm neobrutalism → clean neutral minimalism with soft shadows
 
 ### Color System (from Dub's themes.css)
@@ -31,9 +31,9 @@ Replace: Warm neobrutalism → clean neutral minimalism with soft shadows
 5. **Logo/trust bar**: "Built with" or "Works with" row
 
 ### Fonts
-- Newsreader: display headings (user's signature, NOT Dub's Satoshi)
-- Space Grotesk: body text (user's signature, NOT Dub's Inter)
-- Geist Mono: code, terminal, technical elements
+- Spectral (`--font-spectral`): display headings, weights 400/600/700/800
+- Inter (`--font-inter`): body text
+- Geist Mono (`--font-geist-mono`): code, terminal, technical elements
 
 ### Icons
 - Lucide React (outline style, matching Dub)
