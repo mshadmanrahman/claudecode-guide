@@ -521,13 +521,10 @@ function TierLabel({ num, title }: { num: string; title: string }) {
 export function ClaudeEcosystem() {
   return (
     <section
-      className="my-10 not-prose @container/eco"
-      style={{
-        width: 'min(1280px, calc(100vw - 32px))',
-        marginInline: 'calc((100% - min(1280px, 100vw - 32px)) / 2)',
-      }}
+      className="my-10 not-prose overflow-x-auto"
       aria-label="Claude ecosystem at a glance"
     >
+      <div className="@container/eco" style={{ minWidth: '900px' }}>
       {/* Tier 1: chassis */}
       <TierLabel num="01" title="The chassis" />
       <div className="overflow-hidden rounded-xl border border-fd-border shadow-md">
@@ -575,6 +572,7 @@ export function ClaudeEcosystem() {
             })}
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
