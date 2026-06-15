@@ -168,3 +168,15 @@
     opacity: 1;
   }
 }
+
+/* Tighten fumadocs sidebar tree padding (fumadocs renders p-4 = 16px by default) */
+#nd-docs-layout aside [data-radix-scroll-area-viewport] > div {
+  padding: 0.375rem 0.375rem !important;
+}
+
+/* Reduce folder section header vertical padding */
+#nd-docs-layout aside button[data-active],
+#nd-docs-layout aside [role="button"] {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
