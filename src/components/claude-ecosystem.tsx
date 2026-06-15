@@ -521,25 +521,17 @@ function TierLabel({ num, title }: { num: string; title: string }) {
 export function ClaudeEcosystem() {
   return (
     <section
-      className="my-10 not-prose overflow-x-auto"
+      className="my-10 not-prose"
       aria-label="Claude ecosystem at a glance"
     >
-      <div className="@container/eco" style={{ minWidth: '900px' }}>
       {/* Tier 1: chassis */}
       <TierLabel num="01" title="The chassis" />
       <div className="overflow-hidden rounded-xl border border-fd-border shadow-md">
-        <div className="grid grid-cols-1 @4xl/eco:grid-cols-3">
+        <div className="grid grid-cols-1">
           {TIER_1.map((card, i) => (
             <div
               key={card.name}
-              className={[
-                'border-fd-border',
-                'border-b @4xl/eco:border-b-0',
-                i < TIER_1.length - 1 ? '@4xl/eco:border-r' : '',
-                i === TIER_1.length - 1 ? 'border-b-0' : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
+              className={i < TIER_1.length - 1 ? 'border-b border-fd-border' : ''}
             >
               <SurfaceCard data={card} index={i} />
             </div>
@@ -551,28 +543,17 @@ export function ClaudeEcosystem() {
       <div className="mt-12">
         <TierLabel num="02" title="Claude inside your tools" />
         <div className="overflow-hidden rounded-xl border border-fd-border shadow-md">
-          <div className="grid grid-cols-1 @2xl/eco:grid-cols-2">
-            {TIER_2.map((card, i) => {
-              const isLastRow = i >= TIER_2.length - 2;
-              const isRightCol = i % 2 === 1;
-              return (
-                <div
-                  key={card.name}
-                  className={[
-                    'border-fd-border',
-                    !isLastRow ? 'border-b' : '',
-                    !isRightCol ? '@2xl/eco:border-r' : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  <SurfaceCard data={card} index={TIER_1.length + i} />
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-1">
+            {TIER_2.map((card, i) => (
+              <div
+                key={card.name}
+                className={i < TIER_2.length - 1 ? 'border-b border-fd-border' : ''}
+              >
+                <SurfaceCard data={card} index={TIER_1.length + i} />
+              </div>
+            ))}
           </div>
         </div>
-      </div>
       </div>
     </section>
   );

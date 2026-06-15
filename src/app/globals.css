@@ -174,12 +174,14 @@
   padding: 0.375rem 0.375rem !important;
 }
 
-/* Section headers: bold + full foreground color (not muted), remove excess padding */
+/* Section headers: static labels, bold, full foreground color, no collapse on click */
 #nd-docs-layout aside button[data-state] {
   font-weight: 600 !important;
   color: var(--color-fd-foreground) !important;
   padding-top: 0.375rem !important;
   padding-bottom: 0.125rem !important;
+  pointer-events: none !important;
+  cursor: default !important;
 }
 
 /* Hide chevron arrows on section folders */
