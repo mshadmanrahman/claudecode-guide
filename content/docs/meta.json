@@ -1,17 +1,11 @@
 {
   "title": "Claude Code Guide",
   "pages": [
-    "---Foundations---",
-    "foundations/...",
-    "---Frameworks---",
-    "frameworks/...",
-    "---Patterns---",
-    "patterns/...",
-    "---Workflows---",
-    "workflows/...",
-    "---Templates---",
-    "templates/...",
-    "---Comparisons---",
-    "comparisons/..."
+    "foundations",
+    "frameworks",
+    "patterns",
+    "workflows",
+    "templates",
+    "comparisons"
   ]
 }
