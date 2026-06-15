@@ -9,6 +9,7 @@ import { AffiliateCTA } from "@/components/affiliate-cta";
 import { ComparisonRelatedLinks } from "@/components/comparison-related-links";
 import { ChapterNav } from "@/components/docs/chapter-nav";
 import { SectionIndex } from "@/components/docs/section-index";
+import { SectionArt } from "@/components/docs/section-art";
 import { PromptCard } from "@/components/prompt-card";
 import { FromClaude } from "@/components/from-claude";
 import { UseCaseMeta } from "@/components/use-case-meta";
@@ -104,19 +105,27 @@ export default async function Page(props: PageProps) {
     >
       {/* Page header */}
       <header className="mb-8">
-        {current?.section && (
-          <p className="text-sm font-medium text-fd-primary mb-2">
-            {current.section}
-          </p>
-        )}
-        <h1 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
-          {data.title}
-        </h1>
-        {data.description && (
-          <p className="mt-3 text-lg text-fd-muted-foreground">
-            {data.description}
-          </p>
-        )}
+        <div className="flex items-start gap-4">
+          <div className="flex-1 min-w-0">
+            {current?.section && (
+              <p className="text-sm font-medium text-fd-primary mb-2">
+                {current.section}
+              </p>
+            )}
+            <h1 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
+              {data.title}
+            </h1>
+            {data.description && (
+              <p className="mt-3 text-lg text-fd-muted-foreground">
+                {data.description}
+              </p>
+            )}
+          </div>
+          <SectionArt
+            section={current?.section}
+            className="w-[96px] shrink-0 hidden sm:block text-fd-foreground/20 mt-1"
+          />
+        </div>
       </header>
 
       {/* Dev-only comparison metadata */}

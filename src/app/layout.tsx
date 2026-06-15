@@ -2,19 +2,20 @@ import './globals.css';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import { Analytics } from '@vercel/analytics/next';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { Newsreader, Space_Grotesk, Geist_Mono } from 'next/font/google';
+import { Instrument_Serif, Inter, Geist_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-const newsreader = Newsreader({
-  variable: '--font-newsreader',
+const instrumentSerif = Instrument_Serif({
+  variable: '--font-instrument-serif',
   subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
   display: 'swap',
-  style: ['normal'],
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
 });
@@ -121,7 +122,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
+      className={`${instrumentSerif.variable} ${inter.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>

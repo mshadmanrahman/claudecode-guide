@@ -27,9 +27,9 @@
   --color-fd-ring: #a3a3a3;
   --color-fd-overlay: rgba(0, 0, 0, 0.2);
 
-  --font-sans: "Space Grotesk", "Space Grotesk Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Newsreader", "Georgia", serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
 }
 
 @theme static {
