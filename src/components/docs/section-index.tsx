@@ -22,7 +22,7 @@ const SECTION_META: Record<string, SectionMeta> = {
   Frameworks: {
     description: "Structured operating systems for working with Claude Code consistently, every session.",
     Icon: Layers,
-    featuredCount: 2,
+    featuredCount: 4,
   },
   Patterns: {
     description: "Advanced techniques: hooks, skills, agents, and thinking modes that multiply your output.",
@@ -48,18 +48,21 @@ const SECTION_META: Record<string, SectionMeta> = {
 
 export function SectionIndex({ sections }: SectionIndexProps) {
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6">
-      <header className="mb-10">
-        <h1 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
+    <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
+      <header className="pt-10 pb-14 animate-slide-up-fade">
+        <p className="mb-4 text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
           Documentation
+        </p>
+        <h1 className="font-display text-4xl font-normal tracking-tight-display text-fd-foreground sm:text-5xl leading-[1.1]">
+          Everything you need to work with Claude Code.
         </h1>
-        <p className="mt-3 text-lg text-fd-muted-foreground">
-          Everything you need to work with Claude Code, organized by topic.
+        <p className="mt-5 text-lg text-fd-muted-foreground max-w-xl leading-relaxed">
+          Six sections. One mental model. Start wherever it makes sense for you.
         </p>
       </header>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 items-start">
-        {sections.map((section) => {
+      <div className="grid grid-cols-1 gap-px bg-fd-border border border-fd-border rounded-xl overflow-hidden sm:grid-cols-2">
+        {sections.map((section, i) => {
           const meta = SECTION_META[section.name];
           const Icon = meta?.Icon ?? BookOpen;
           const featuredCount = meta?.featuredCount ?? 4;
@@ -70,23 +73,29 @@ export function SectionIndex({ sections }: SectionIndexProps) {
           return (
             <div
               key={section.name}
-              className="rounded-xl border border-fd-border bg-fd-background p-5"
+              className="bg-fd-background p-6 animate-slide-up-fade"
+              style={{ animationDelay: `${80 + i * 60}ms` }}
             >
-              <div className="flex items-start gap-3 mb-1">
-                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-fd-border">
+              <div className="flex items-start justify-between mb-4">
+                <span
+                  className="font-display text-4xl font-normal leading-none select-none"
+                  style={{ color: 'var(--color-fd-border)' }}
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-fd-border">
                   <Icon className="h-4 w-4 text-fd-foreground" />
                 </div>
-                <div>
-                  <h2 className="text-base font-semibold text-fd-foreground leading-tight">
-                    {section.name}
-                  </h2>
-                  {meta?.description && (
-                    <p className="mt-1 text-sm text-fd-muted-foreground leading-snug">
-                      {meta.description}
-                    </p>
-                  )}
-                </div>
               </div>
+
+              <h2 className="text-base font-semibold text-fd-foreground leading-tight mb-1">
+                {section.name}
+              </h2>
+              {meta?.description && (
+                <p className="text-sm text-fd-muted-foreground leading-snug">
+                  {meta.description}
+                </p>
+              )}
 
               <ul className="mt-4 space-y-0.5 border-t border-fd-border pt-4">
                 {featured.map((page) => (

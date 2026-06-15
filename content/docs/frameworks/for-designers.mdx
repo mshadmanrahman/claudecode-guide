@@ -1,0 +1,84 @@
+---
+title: "Claude Code for Designers"
+description: "You think in flows, not functions. Here is how to use Claude Code to do your best design work without touching a terminal."
+image: /for-designers/hero.png
+---
+
+![A blueprint-style illustration of a designer at their workstation, surrounded by wireframes and design components, with a subtle grid background](/for-designers/hero.png)
+
+## Who this is for
+
+This page is for UX, product, and brand designers: the people who live in Figma, write specs, run research sessions, and somehow also end up writing half the microcopy. Whether you are crafting a user journey, reviewing interview notes, or trying to explain a component's behavior to a developer, Claude can take the parts that slow you down and draft them for you.
+
+## The mindset shift
+
+You are already the director on every project you touch. You decide what the problem is, what good looks like, and whether the output lands. Claude is your most capable assistant: part researcher, part copywriter, part accessibility reviewer. It does not replace your eye. It removes the friction between your thinking and the page.
+
+The trick is not learning to code. It is learning to brief. And you already know how to brief. You do it every time you hand something to a developer, a copywriter, or a stakeholder who needs context fast. This should feel familiar.
+
+The one shift worth making: give Claude more context than you think it needs. Your design system, your brand voice, your target user, your definition of "done." The more precisely you set the scene, the better the first draft lands.
+
+## Your 5C Loop as a designer
+
+The [5C Loop](/docs/frameworks/5c-loop) is the core framework this site teaches. Here is what each step looks like in your world.
+
+**Capture:** Jot down what you know. Client brief fragments, research notes, Figma sticky notes, whatever is currently living in three tabs and a sticky note on your monitor. You do not need it organized. You just need it in the prompt.
+
+**Context:** Tell Claude about your design system, brand guidelines, the user persona, and what "good" looks like on this project. The more specific you are here, the less editing you do in the next step.
+
+**Create:** Draft the brief, write the spec, synthesize the research notes, generate three microcopy options for that empty state. Let Claude produce a full first draft before you start editing. Your job is direction, not typing.
+
+**Check:** Ask Claude to find accessibility issues, spot edge cases, or review consistency against your brand guidelines. Treat Claude's check like a second set of eyes before you pass anything to a developer or stakeholder.
+
+**Compound:** Save the prompts that worked. Next time you write a handoff doc or design brief, you are starting from a template you already trust, not from zero. Your library builds itself over time.
+
+## Four workflows worth learning first
+
+### Write a design brief from rough notes
+
+You have a messy collection of client requirements, stakeholder feedback, and half-formed ideas from a whiteboard session. Claude turns that into a structured brief with a clear problem statement, design goals, and the decisions the brief needs to support. Key pattern: paste your rough notes, then specify what decisions the final brief needs to enable, who will read it, and what they need to walk away knowing.
+
+### Synthesize user research into findings
+
+You have ten interview transcripts, a survey export, and a wall of sticky notes from an affinity mapping session. Claude reads the raw material and surfaces patterns, themes, and direct quotes, organized by insight. Key pattern: paste your interview notes or survey data, then ask for themes, at least one direct quote per theme, and a one-sentence insight that a stakeholder could act on.
+
+### Create a handoff document from a Figma description
+
+You know exactly how a component works but writing the spec always takes twice as long as designing it. Claude turns your plain-language description into a structured handoff with interaction notes, state documentation, and edge case callouts. Key pattern: describe the component, list its states (default, hover, focus, error, empty, loading), and ask for a spec that flags anything a developer might miss.
+
+### Review your design for accessibility issues
+
+You want a WCAG sanity check before your design goes to dev, without needing to memorize the full guidelines yourself. Claude walks through your screen and flags likely failure points before they become bugs. Key pattern: describe the screen and its purpose, name the target user (including any known assistive technology needs), and ask for a WCAG checklist focused on the issues most likely to affect your specific layout and interaction patterns.
+
+## Your starter CLAUDE.md
+
+A `CLAUDE.md` file sits in your project folder and tells Claude who you are and how to help. Copy this, fill in the brackets, and drop it in your project root. You will never have to re-explain your context again.
+
+```markdown
+# CLAUDE.md
+
+## About me
+I'm a product designer. I don't write code. Please avoid jargon.
+
+## My context
+- Design system: [link or description]
+- Brand voice: [brief description]
+- Primary users: [description]
+- Current project: [description]
+
+## How to help me
+- First drafts of briefs, specs, and handoff docs
+- Synthesizing research notes into clear findings
+- Accessibility and edge case review
+- Generating microcopy options (give me 3 variations)
+
+## What I don't need
+- Code examples
+- Technical implementation details
+```
+
+## Go deeper
+
+The interactive guide at `/for-designers` walks through each of these workflows with real examples, copy-paste prompts, and sample outputs so you can see exactly what to type and what to expect back.
+
+[Explore the full Designer guide](/for-designers)
