@@ -206,7 +206,7 @@
 }
 
 /* Hide desktop sidebar collapse trigger (keep mobile drawer trigger intact) */
-#nd-docs-layout button[data-sidebar-collapsible],
-#nd-docs-layout aside > button {
+#nd-docs-layout button[aria-label="Collapse Sidebar"],
+#nd-docs-layout button[aria-label="Expand Sidebar"] {
   display: none !important;
 }

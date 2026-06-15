@@ -81,6 +81,12 @@ export function getFlatPageList(): DocPageInfo[] {
         if (folder && Array.isArray(folder.children)) {
           walkFolder(folder.children, sectionName);
         }
+      } else if (node.type === 'folder') {
+        // Root meta.json uses plain folder refs ("pages": ["foundations", ...])
+        const sectionName = nameToString(node.name);
+        if (Array.isArray(node.children)) {
+          walkFolder(node.children, sectionName);
+        }
       } else if (node.type === 'page' && node.url) {
         // Direct page in main tree (not in a folder)
         pages.push({
