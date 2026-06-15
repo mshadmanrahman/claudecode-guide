@@ -1,4 +1,5 @@
 import { source } from "@/lib/source";
+import { DocsPage } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { DemoCard } from "@/components/demo-card";
@@ -96,7 +97,11 @@ export default async function Page(props: PageProps) {
   const toc = data.toc ?? [];
 
   return (
-    <article className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+    <DocsPage
+      toc={toc}
+      breadcrumb={{ enabled: false }}
+      footer={{ enabled: false }}
+    >
       {/* Page header */}
       <header className="mb-8">
         {current?.section && (
@@ -113,35 +118,6 @@ export default async function Page(props: PageProps) {
           </p>
         )}
       </header>
-
-      {/* Table of contents (inline, collapsible) */}
-      {toc.length > 2 && (
-        <details className="mb-8 rounded-xl border border-fd-border bg-fd-card">
-          <summary className="cursor-pointer px-5 py-3 text-sm font-medium text-fd-foreground hover:bg-fd-accent rounded-xl transition-colors">
-            On this page ({toc.length} sections)
-          </summary>
-          <nav className="px-5 pb-4">
-            <ul className="space-y-1">
-              {toc.map(
-                (item: { url: string; title: string; depth: number }) => (
-                  <li key={item.url}>
-                    <a
-                      href={item.url}
-                      className={`block rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-fd-accent hover:text-fd-foreground ${
-                        item.depth > 2
-                          ? "pl-6 text-fd-muted-foreground"
-                          : "text-fd-muted-foreground"
-                      }`}
-                    >
-                      {item.title}
-                    </a>
-                  </li>
-                ),
-              )}
-            </ul>
-          </nav>
-        </details>
-      )}
 
       {/* Dev-only comparison metadata */}
       {process.env.NODE_ENV === "development" &&
@@ -227,7 +203,7 @@ export default async function Page(props: PageProps) {
           sectionPages={sectionPages}
         />
       )}
-    </article>
+    </DocsPage>
   );
 }
 

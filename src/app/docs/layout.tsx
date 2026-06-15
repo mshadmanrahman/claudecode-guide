@@ -1,16 +1,22 @@
 import type { ReactNode } from 'react';
+import type { CSSProperties } from 'react';
+import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { SiteHeader } from '@/components/site-header';
-import { DocsContentsFab } from '@/components/docs-contents-fab';
-import { getSections } from '@/lib/docs-navigation';
+import { source } from '@/lib/source';
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const sections = getSections();
-
   return (
     <>
       <SiteHeader />
-      <main className="min-h-[calc(100vh-3.5rem)]">{children}</main>
-      <DocsContentsFab sections={sections} />
+      <DocsLayout
+        tree={source.pageTree}
+        nav={{ enabled: false }}
+        containerProps={{
+          style: { '--fd-banner-height': '3.5rem' } as CSSProperties,
+        }}
+      >
+        {children}
+      </DocsLayout>
     </>
   );
 }

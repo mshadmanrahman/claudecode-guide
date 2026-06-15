@@ -3,6 +3,8 @@
   "pages": [
     "---Foundations---",
     "foundations/...",
+    "---Frameworks---",
+    "frameworks/...",
     "---Patterns---",
     "patterns/...",
     "---Workflows---",
