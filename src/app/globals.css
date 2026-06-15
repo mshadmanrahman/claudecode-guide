@@ -169,6 +169,11 @@
   }
 }
 
+/* Widen sidebar to reduce title wrapping */
+#nd-docs-layout {
+  --fd-sidebar-width: 300px !important;
+}
+
 /* Tighten fumadocs sidebar tree padding (fumadocs renders p-4 = 16px by default) */
 #nd-docs-layout aside [data-radix-scroll-area-viewport] > div {
   padding: 0.375rem 0.375rem !important;
