@@ -199,3 +199,15 @@
   padding-top: 0.2rem !important;
   padding-bottom: 0.2rem !important;
 }
+
+/* Sidebar background matches main content (white) */
+#nd-docs-layout aside {
+  background-color: var(--color-fd-background) !important;
+}
+
+/* Hide sidebar collapse/drawer toggle button */
+#nd-docs-layout > div > button[aria-label],
+#nd-docs-layout button[data-sidebar-collapsible],
+#nd-docs-layout aside button[aria-controls] {
+  display: none !important;
+}

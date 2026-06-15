@@ -1,134 +1,124 @@
-'use client';
-
 import Link from 'next/link';
-import { BookOpen, ArrowRight, Check, Circle } from 'lucide-react';
-import { useReadingProgress } from '@/hooks/use-reading-progress';
+import { ArrowRight, BookOpen, Layers, Zap, GitBranch, FileCode2, BarChart2 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import type { DocPageInfo } from '@/lib/docs-navigation';
 
 interface SectionIndexProps {
   sections: { name: string; pages: DocPageInfo[] }[];
 }
 
+interface SectionMeta {
+  description: string;
+  Icon: LucideIcon;
+  featuredCount: number;
+}
+
+const SECTION_META: Record<string, SectionMeta> = {
+  Foundations: {
+    description: "The vocabulary, mental models, and comparisons you need before anything else makes sense.",
+    Icon: BookOpen,
+    featuredCount: 5,
+  },
+  Frameworks: {
+    description: "Structured operating systems for working with Claude Code consistently, every session.",
+    Icon: Layers,
+    featuredCount: 2,
+  },
+  Patterns: {
+    description: "Advanced techniques: hooks, skills, agents, and thinking modes that multiply your output.",
+    Icon: Zap,
+    featuredCount: 4,
+  },
+  Workflows: {
+    description: "Step-by-step playbooks for developers, PMs, and designers. Real tasks, real outputs.",
+    Icon: GitBranch,
+    featuredCount: 4,
+  },
+  Templates: {
+    description: "Drop-in CLAUDE.md starters for any project type, ready to customize and commit.",
+    Icon: FileCode2,
+    featuredCount: 4,
+  },
+  Comparisons: {
+    description: "How Claude Code stacks up against every major AI coding tool, side by side.",
+    Icon: BarChart2,
+    featuredCount: 4,
+  },
+};
+
 export function SectionIndex({ sections }: SectionIndexProps) {
-  const { isVisited, loaded } = useReadingProgress();
-
-  const totalPages = sections.reduce((sum, s) => sum + s.pages.length, 0);
-  const visitedCount = loaded
-    ? sections.reduce(
-        (sum, s) => sum + s.pages.filter((p) => isVisited(p.slug)).length,
-        0,
-      )
-    : 0;
-
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
-      {/* Header */}
+    <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6">
       <header className="mb-10">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-fd-primary/10">
-            <BookOpen className="h-5 w-5 text-fd-primary" />
-          </div>
-          <h1 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
-            Documentation
-          </h1>
-        </div>
-        <p className="text-lg text-fd-muted-foreground">
-          Everything about Claude Code, organized by topic. Read straight through or jump to what matters right now.
+        <h1 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
+          Documentation
+        </h1>
+        <p className="mt-3 text-lg text-fd-muted-foreground">
+          Everything you need to work with Claude Code, organized by topic.
         </p>
-
-        {/* Overall progress */}
-        {loaded && visitedCount > 0 && (
-          <div className="mt-6 rounded-xl border border-fd-border bg-fd-card p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-fd-foreground">Progress</span>
-              <span className="text-sm text-fd-muted-foreground">
-                {visitedCount} of {totalPages} pages
-              </span>
-            </div>
-            <div className="h-2 w-full rounded-full bg-fd-muted overflow-hidden">
-              <div
-                className="h-full rounded-full bg-fd-primary transition-all duration-500 ease-out"
-                style={{ width: `${Math.round((visitedCount / totalPages) * 100)}%` }}
-              />
-            </div>
-          </div>
-        )}
       </header>
 
-      {/* Section cards */}
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 items-start">
         {sections.map((section) => {
-          const sectionVisited = loaded
-            ? section.pages.filter((p) => isVisited(p.slug)).length
-            : 0;
+          const meta = SECTION_META[section.name];
+          const Icon = meta?.Icon ?? BookOpen;
+          const featuredCount = meta?.featuredCount ?? 4;
+          const featured = section.pages.slice(0, featuredCount);
+          const remaining = section.pages.length - featured.length;
+          const firstPage = section.pages[0];
 
           return (
-            <section
+            <div
               key={section.name}
-              className="rounded-xl border border-fd-border bg-fd-card overflow-hidden"
+              className="rounded-xl border border-fd-border bg-fd-background p-5"
             >
-              {/* Section header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-fd-border bg-fd-card">
-                <h2 className="text-lg font-medium text-fd-foreground">{section.name}</h2>
-                {loaded && (
-                  <span className="text-xs text-fd-muted-foreground">
-                    {sectionVisited} / {section.pages.length}
-                  </span>
-                )}
+              <div className="flex items-start gap-3 mb-1">
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-fd-border">
+                  <Icon className="h-4 w-4 text-fd-foreground" />
+                </div>
+                <div>
+                  <h2 className="text-base font-semibold text-fd-foreground leading-tight">
+                    {section.name}
+                  </h2>
+                  {meta?.description && (
+                    <p className="mt-1 text-sm text-fd-muted-foreground leading-snug">
+                      {meta.description}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              {/* Page list */}
-              <div className="divide-y divide-fd-border">
-                {section.pages.map((page) => {
-                  const visited = loaded && isVisited(page.slug);
-
-                  return (
+              <ul className="mt-4 space-y-0.5 border-t border-fd-border pt-4">
+                {featured.map((page) => (
+                  <li key={page.slug}>
                     <Link
-                      key={page.slug}
                       href={page.url}
-                      className="group flex items-center gap-3 px-6 py-3.5 transition-colors hover:bg-fd-accent"
+                      className="group/link flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-foreground"
                     >
-                      {visited ? (
-                        <Check className="h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
-                      ) : (
-                        <Circle className="h-4 w-4 shrink-0 text-fd-border" />
-                      )}
-                      <span className="flex-1 text-sm text-fd-foreground truncate">
-                        {page.title}
-                      </span>
-                      <ArrowRight className="h-3.5 w-3.5 shrink-0 text-fd-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <span className="flex-1 truncate">{page.title}</span>
+                      <ArrowRight className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover/link:opacity-50" />
                     </Link>
-                  );
-                })}
-              </div>
-            </section>
+                  </li>
+                ))}
+              </ul>
+
+              {remaining > 0 && firstPage && (
+                <div className="mt-3 border-t border-fd-border pt-3">
+                  <Link
+                    href={firstPage.url}
+                    className="flex items-center gap-1.5 text-xs text-fd-muted-foreground transition-colors hover:text-fd-foreground"
+                  >
+                    <span>
+                      {remaining} more {remaining === 1 ? 'page' : 'pages'} in this section
+                    </span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              )}
+            </div>
           );
         })}
       </div>
-
-      {/* Start reading CTA */}
-      {sections.length > 0 && sections[0].pages.length > 0 && (
-        <div className="mt-10 text-center">
-          <Link
-            href={sections[0].pages[0].url}
-            className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
-          >
-            {visitedCount > 0 ? 'Keep reading' : 'Start at the beginning'}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <p className="mt-4 text-sm text-fd-muted-foreground">
-            Want updates?{' '}
-            <a
-              href="https://shadmanrahman.substack.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-fd-foreground transition-colors"
-            >
-              Follow on Substack
-            </a>
-          </p>
-        </div>
-      )}
     </div>
   );
 }
