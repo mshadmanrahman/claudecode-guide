@@ -1,6 +1,5 @@
 {
   "title": "Foundations",
-  "root": true,
   "defaultOpen": true,
   "pages": [
     "what-is-claude-code",
