@@ -11,8 +11,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <DocsLayout
         tree={source.pageTree}
         nav={{ enabled: false }}
-        sidebar={{ collapsible: false }}
-        containerProps={{
+containerProps={{
           style: { '--fd-banner-height': '3.5rem' } as CSSProperties,
         }}
       >

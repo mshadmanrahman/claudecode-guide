@@ -205,9 +205,8 @@
   background-color: var(--color-fd-background) !important;
 }
 
-/* Hide sidebar collapse/drawer toggle button */
-#nd-docs-layout > div > button[aria-label],
+/* Hide desktop sidebar collapse trigger (keep mobile drawer trigger intact) */
 #nd-docs-layout button[data-sidebar-collapsible],
-#nd-docs-layout aside button[aria-controls] {
+#nd-docs-layout aside > button {
   display: none !important;
 }
