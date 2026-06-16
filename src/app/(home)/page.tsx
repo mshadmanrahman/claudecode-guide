@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Star, MousePointerClick, Rocket, Sparkles } from 'lucide-react';
+import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Star, MousePointerClick, Rocket, Sparkles, Globe, FileText, FileSpreadsheet, Presentation, Mail, BookOpen, Search, Smartphone, TrendingUp } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 import { PathRouter } from '@/components/home/path-router';
-import { PersonaStrip } from '@/components/home/persona-strip';
 import { HeroVisual } from '@/components/home/hero-visual';
 import { ClaudeInYourDay } from '@/components/home/claude-in-your-day';
 import { SiteFooter } from '@/components/site-footer';
@@ -109,7 +108,6 @@ const OUTCOME_CARDS = [
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col bg-fd-background overflow-x-clip">
-      <PersonaStrip />
       {/* ── Hero ── */}
       <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-28 pb-12 text-center">
 
@@ -324,22 +322,23 @@ export default function HomePage() {
             <div className="border-t border-fd-border bg-fd-background p-8 lg:border-l lg:border-t-0">
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  'Build websites',
-                  'Analyze data',
-                  'Write in Word',
-                  'Excel formulas',
-                  'Create PowerPoint decks',
-                  'Draft emails',
-                  'Summarize webpages',
-                  'Research any topic',
-                  'Create apps',
-                  'Generate charts',
-                ].map((item) => (
+                  { label: 'Build websites',          Icon: Globe },
+                  { label: 'Analyze data',             Icon: BarChart3 },
+                  { label: 'Write in Word',             Icon: FileText },
+                  { label: 'Excel formulas',            Icon: FileSpreadsheet },
+                  { label: 'Create PowerPoint decks',  Icon: Presentation },
+                  { label: 'Draft emails',              Icon: Mail },
+                  { label: 'Summarize webpages',        Icon: BookOpen },
+                  { label: 'Research any topic',        Icon: Search },
+                  { label: 'Create apps',               Icon: Smartphone },
+                  { label: 'Generate charts',           Icon: TrendingUp },
+                ].map(({ label, Icon }) => (
                   <div
-                    key={item}
-                    className="rounded-lg border border-fd-border bg-fd-background px-3 py-2.5 text-sm text-fd-muted-foreground"
+                    key={label}
+                    className="flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-3 py-2.5 text-sm text-fd-muted-foreground"
                   >
-                    {item}
+                    <Icon className="h-3.5 w-3.5 shrink-0 opacity-60" />
+                    {label}
                   </div>
                 ))}
               </div>
