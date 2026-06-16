@@ -123,7 +123,7 @@ export default async function Page(props: PageProps) {
           </div>
           <SectionArt
             section={current?.section}
-            className="w-[96px] shrink-0 hidden sm:block text-fd-foreground/20 mt-1"
+            className="w-[96px] shrink-0 hidden sm:block text-fd-foreground/40 mt-1"
           />
         </div>
       </header>
