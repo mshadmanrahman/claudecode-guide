@@ -116,7 +116,7 @@ export default async function Page(props: PageProps) {
               {data.title}
             </h1>
             {data.description && (
-              <p className="mt-3 text-lg text-fd-muted-foreground">
+              <p className="mt-3 text-sm text-fd-muted-foreground">
                 {data.description}
               </p>
             )}
