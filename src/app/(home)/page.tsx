@@ -1,7 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Globe, Monitor, Terminal, Code2, Star, MousePointerClick, Rocket, Sparkles } from 'lucide-react';
-import { RotatingDemo } from '@/components/rotating-demo';
-import { FloatingCard } from '@/components/floating-card';
+import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Star, MousePointerClick, Rocket, Sparkles } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 import { PathRouter } from '@/components/home/path-router';
 import { PersonaStrip } from '@/components/home/persona-strip';
@@ -116,7 +114,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-grid bg-grid-fade opacity-40 pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center">
-          <h1 className="animate-slide-up-fade font-display tracking-tight-display max-w-3xl text-5xl font-normal text-fd-foreground sm:text-7xl leading-[1.08]">
+          <h1 className="animate-slide-up-fade font-display tracking-tight-display max-w-3xl text-5xl font-bold text-fd-foreground sm:text-7xl leading-[1.08]">
             Tell it what you need.
             <br />
             <span className="text-fade">It builds it.</span>
@@ -125,26 +123,6 @@ export default function HomePage() {
           <p className="animate-slide-up-fade delay-100 mt-6 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
             The practical guide to Claude: Code, Chrome, Word, Excel, PowerPoint, and more. Calm, beginner-friendly, and free.
           </p>
-
-          {/* Interface badges */}
-          <div className="animate-slide-up-fade delay-150 mt-5 flex flex-wrap justify-center gap-2">
-            {[
-              { icon: Globe, label: 'claude.ai' },
-              { icon: Monitor, label: 'Desktop App' },
-              { icon: Terminal, label: 'Terminal' },
-              { icon: Code2, label: 'VS Code' },
-              { icon: Globe, label: 'Chrome' },
-              { icon: Monitor, label: 'Office' },
-            ].map((item) => (
-              <span
-                key={item.label}
-                className="inline-flex items-center gap-1.5 rounded-full border border-fd-border bg-fd-card px-3 py-1 text-xs text-fd-muted-foreground"
-              >
-                <item.icon className="h-3 w-3" />
-                {item.label}
-              </span>
-            ))}
-          </div>
 
           <div className="animate-slide-up-fade delay-200 mt-10 flex flex-wrap justify-center gap-3">
             <Link
@@ -186,29 +164,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Rotating Demo with Floating Cards ── */}
-      <section className="relative mx-auto w-full max-w-5xl px-6 pb-24 overflow-visible">
-        <div className="relative overflow-visible">
-          {/* Floating cards in the gap beside the terminal */}
-          <FloatingCard className="animate-slide-up-fade delay-500 absolute left-0 top-10 hidden rotate-[-2deg] xl:block max-w-[160px] z-10">
-            <p className="text-xs font-medium text-fd-foreground">Session resumed</p>
-            <p className="mt-1 text-[11px] text-fd-muted-foreground">Help me prepare for my 1:1 with Sarah</p>
-          </FloatingCard>
-          <FloatingCard className="animate-slide-up-fade delay-700 absolute right-0 top-16 hidden rotate-[2deg] xl:block max-w-[160px] z-10">
-            <div className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-              <p className="text-xs font-medium text-fd-foreground">5 action items extracted</p>
+      {/* ── Static Terminal ── */}
+      <section className="mx-auto w-full max-w-3xl px-6 pb-24 animate-slide-up-fade delay-300">
+        <div className="overflow-hidden rounded-xl border border-fd-border shadow-lg bg-fd-card">
+          {/* Title bar */}
+          <div className="flex items-center gap-2 border-b border-fd-border bg-fd-muted px-4 py-2.5">
+            <div className="flex gap-1.5">
+              <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+              <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
             </div>
-            <p className="mt-1 text-[11px] text-fd-muted-foreground">Saved to meeting-summary.md</p>
-          </FloatingCard>
-          <FloatingCard className="animate-slide-up-fade delay-900 absolute left-2 bottom-16 hidden rotate-[1.5deg] xl:block max-w-[150px] z-10">
-            <p className="text-[11px] text-fd-foreground font-medium">Revenue up 23% since October</p>
-            <p className="mt-0.5 text-[11px] text-green-600 dark:text-green-400 font-medium">chart saved</p>
-          </FloatingCard>
+            <span className="ml-2 font-mono text-[11px] text-fd-muted-foreground">claude-code</span>
+          </div>
+          {/* Session */}
+          <div className="p-6 font-mono text-[13px] leading-loose sm:text-sm">
+            <div>
+              <span className="text-green-600 dark:text-green-400">~</span>
+              <span className="text-fd-muted-foreground"> $ </span>
+              <span className="text-fd-foreground font-medium">&ldquo;read sales.csv and chart revenue by month&rdquo;</span>
+            </div>
+            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Analyzing 2,847 rows across 14 months...</div>
+            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Generating interactive chart...</div>
+            <div className="mt-0.5 pl-4 text-xs text-green-600 dark:text-green-400">✓ Chart saved to revenue-by-month.html</div>
+            <div className="mt-0.5 pl-4 text-xs text-amber-600 dark:text-amber-400">→ Revenue up 23% since October</div>
 
-          {/* Terminal demo - centered with max-w constraint */}
-          <div className="mx-auto max-w-3xl animate-slide-up-fade delay-300">
-            <RotatingDemo />
+            <div className="mt-5">
+              <span className="text-green-600 dark:text-green-400">~</span>
+              <span className="text-fd-muted-foreground"> $ </span>
+              <span className="text-fd-foreground font-medium">&ldquo;summarize my meeting notes, list the action items&rdquo;</span>
+            </div>
+            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Reading meeting-notes-jun-11.md...</div>
+            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Extracting decisions and action items...</div>
+            <div className="mt-0.5 pl-4 text-xs text-green-600 dark:text-green-400">✓ 3 decisions captured, 5 action items extracted</div>
+            <div className="mt-0.5 pl-4 text-xs text-amber-600 dark:text-amber-400">→ Saved to action-items.md</div>
+
+            <div className="mt-5">
+              <span className="text-green-600 dark:text-green-400">~</span>
+              <span className="text-fd-muted-foreground"> $ </span>
+              <span className="text-fd-foreground font-medium">&ldquo;build me a quiz game about world history&rdquo;</span>
+            </div>
+            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Creating project structure...</div>
+            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Writing game logic and UI...</div>
+            <div className="mt-0.5 pl-4 text-xs text-green-600 dark:text-green-400">✓ Quiz game ready. Run npm start to play</div>
+
+            <div className="mt-5 flex items-center">
+              <span className="text-green-600 dark:text-green-400">~</span>
+              <span className="text-fd-muted-foreground"> $ </span>
+              <span className="inline-block h-4 w-1.5 bg-fd-foreground/50 align-middle" />
+            </div>
           </div>
         </div>
       </section>
