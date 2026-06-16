@@ -112,7 +112,7 @@ export default async function Page(props: PageProps) {
                 {current.section}
               </p>
             )}
-            <h1 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
+            <h1 className="font-display text-3xl font-bold tracking-tight-display text-fd-foreground sm:text-4xl">
               {data.title}
             </h1>
             {data.description && (

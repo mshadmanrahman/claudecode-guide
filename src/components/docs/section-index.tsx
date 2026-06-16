@@ -51,7 +51,7 @@ export function SectionIndex({ sections }: SectionIndexProps) {
         <p className="text-[10px] tracking-[0.22em] uppercase text-fd-muted-foreground dark:text-white/30 mb-7 font-medium">
           Claude Code Guide
         </p>
-        <h1 className="font-display text-5xl sm:text-6xl lg:text-[5rem] font-normal tracking-tight-display text-fd-foreground dark:text-white leading-[0.95] max-w-2xl mx-auto">
+        <h1 className="font-display text-5xl sm:text-6xl lg:text-[5rem] font-bold tracking-tight-display text-fd-foreground dark:text-white leading-[0.95] max-w-2xl mx-auto">
           A guide for every kind of builder.
         </h1>
         <p className="mt-8 text-sm text-fd-muted-foreground dark:text-white/40 max-w-[22rem] mx-auto leading-relaxed">
