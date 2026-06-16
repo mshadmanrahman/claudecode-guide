@@ -39,7 +39,7 @@ export function MarketerHero() {
         <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">Claude Code guide</span>
       </nav>
 
-      <h1 className="font-serif text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
+      <h1 className="font-display text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
         You have more to write<br />
         than hours to write it.<br />
         <em className="italic text-fd-muted-foreground">Claude doesn&apos;t replace your thinking. It removes the blank page.</em>

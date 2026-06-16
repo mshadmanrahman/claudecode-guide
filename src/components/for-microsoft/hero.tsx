@@ -45,7 +45,7 @@ export function MicrosoftHero() {
         </span>
       </nav>
 
-      <h1 className="font-serif text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
+      <h1 className="font-display text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
         Claude doesn&apos;t have a Word add-in.<br />
         <em className="italic text-fd-muted-foreground">It doesn&apos;t need one.</em><br />
         Here&apos;s the workflow.

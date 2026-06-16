@@ -108,7 +108,7 @@ export function MarketerGuideCards() {
           className={`mb-12 transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">02</span>
-          <h2 className="mt-4 font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
             Pick your focus
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">

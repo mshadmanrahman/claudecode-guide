@@ -39,7 +39,7 @@ export function DesignerHero() {
       </p>
 
       {/* Headline — staggered line by line */}
-      <h1 className="font-serif tracking-tight leading-[1.05]">
+      <h1 className="font-display tracking-tight leading-[1.05]">
         <span
           className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
           style={{ animationDelay: '80ms' }}
@@ -90,7 +90,7 @@ export function DesignerHero() {
               <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground/50">
                 Path {j.num}
               </p>
-              <p className="font-serif text-xl font-medium text-fd-foreground leading-snug group-hover:text-fd-foreground transition-colors">
+              <p className="font-display text-xl font-medium text-fd-foreground leading-snug group-hover:text-fd-foreground transition-colors">
                 {j.label}
               </p>
               <p className="mt-1 text-sm font-medium text-fd-muted-foreground">

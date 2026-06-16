@@ -4212,7 +4212,7 @@ export default async function TutorialPage({
                   {index + 1}
                 </div>
                 <div>
-                  <h2 className="text-lg font-medium text-fd-foreground">
+                  <h2 className="font-display text-lg font-medium text-fd-foreground">
                     {step.title}
                   </h2>
                   <p className="mt-1 text-sm text-fd-muted-foreground">
