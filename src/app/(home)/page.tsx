@@ -166,9 +166,7 @@ export default function HomePage() {
 
       {/* ── Hero Visual ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-24 animate-slide-up-fade delay-300">
-        <div className="rounded-xl border border-fd-border overflow-hidden text-fd-foreground/25">
-          <HeroVisual />
-        </div>
+        <HeroVisual />
       </section>
 
       {/* ── Path Router (data-driven, post-Crucible 2026-05-04) ── */}
