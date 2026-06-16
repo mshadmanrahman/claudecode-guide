@@ -236,7 +236,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   if (!page) notFound();
 
   const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
-  const ogImage = (page.data as { image?: string }).image ?? "/og-home.png";
+  const ogImage = (page.data as { image?: string }).image ?? "/api/og";
 
   return {
     title: page.data.title,

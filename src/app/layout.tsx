@@ -1,88 +1,88 @@
-import './globals.css';
-import { RootProvider } from 'fumadocs-ui/provider/next';
-import { Analytics } from '@vercel/analytics/next';
-import { GoogleAnalytics } from '@next/third-parties/google';
-import { Fraunces, Inter, Geist_Mono } from 'next/font/google';
-import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
+import "./globals.css";
+import { RootProvider } from "fumadocs-ui/provider/next";
+import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { Fraunces, Inter, Geist_Mono } from "next/font/google";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 const fraunces = Fraunces({
-  variable: '--font-fraunces',
-  subsets: ['latin'],
-  axes: ['opsz', 'WONK'],
-  display: 'swap',
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz", "WONK"],
+  display: "swap",
 });
 
 const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-  display: 'swap',
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
-const siteUrl = 'https://claudecodeguide.dev';
+const siteUrl = "https://claudecodeguide.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    template: '%s | Claude Code Guide',
-    default: 'Claude Code Guide : Your Step-by-Step AI Coding Companion',
+    template: "%s | Claude Code Guide",
+    default: "Claude Code Guide : Your Step-by-Step AI Coding Companion",
   },
   description:
-    'Learn Claude Code from zero. Step-by-step guide covering setup, daily workflows, CLAUDE.md templates, memory systems, and more. No jargon, no gatekeeping.',
+    "Learn Claude Code from zero. Step-by-step guide covering setup, daily workflows, CLAUDE.md templates, memory systems, and more. No jargon, no gatekeeping.",
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
   },
   openGraph: {
-    title: 'Claude Code Guide : Your Step-by-Step AI Coding Companion',
+    title: "Claude Code Guide : Your Step-by-Step AI Coding Companion",
     description:
-      'Learn Claude Code from zero. Setup guides, daily workflows, templates, and honest comparisons. Built by a PM who taught hundreds of people to use AI tools.',
-    type: 'website',
-    siteName: 'Claude Code Guide',
+      "Learn Claude Code from zero. Setup guides, daily workflows, templates, and honest comparisons. Built by a PM who taught hundreds of people to use AI tools.",
+    type: "website",
+    siteName: "Claude Code Guide",
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/og-home-v4.png`,
+        url: `${siteUrl}/api/og`,
         width: 1200,
         height: 630,
-        alt: 'Claude Code Guide: Tell it what you need. It builds it.',
+        alt: "Claude Code Guide: Tell it what you need. It builds it.",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Claude Code Guide',
+    card: "summary_large_image",
+    title: "Claude Code Guide",
     description:
-      'Claude Code is Anthropic\'s AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.',
-    images: [`${siteUrl}/og-home-v4.png`],
+      "Claude Code is Anthropic's AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.",
+    images: [`${siteUrl}/api/og`],
   },
   keywords: [
-    'claude code',
-    'claude code guide',
-    'claude code tutorial',
-    'claude code setup',
-    'claude code beginner',
-    'how to use claude code',
-    'claude code vs cursor',
-    'claude code vs copilot',
-    'claude code CLAUDE.md',
-    'claude code hooks',
-    'claude code skills',
-    'claude code agents',
-    'claude code workflow',
-    'claude code cost',
-    'claude pro vs max',
-    'ai coding tools',
-    'ai coding tutorial',
-    'anthropic claude code',
-    'claude code for beginners',
-    'claude code templates',
+    "claude code",
+    "claude code guide",
+    "claude code tutorial",
+    "claude code setup",
+    "claude code beginner",
+    "how to use claude code",
+    "claude code vs cursor",
+    "claude code vs copilot",
+    "claude code CLAUDE.md",
+    "claude code hooks",
+    "claude code skills",
+    "claude code agents",
+    "claude code workflow",
+    "claude code cost",
+    "claude pro vs max",
+    "ai coding tools",
+    "ai coding tutorial",
+    "anthropic claude code",
+    "claude code for beginners",
+    "claude code templates",
   ],
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
@@ -93,27 +93,28 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 };
 
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Claude Code Guide',
-  description: 'Your step-by-step guide to Claude Code. From setup to daily workflows.',
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Claude Code Guide",
+  description:
+    "Your step-by-step guide to Claude Code. From setup to daily workflows.",
   url: siteUrl,
   author: {
-    '@type': 'Person',
-    name: 'Shadman Rahman',
-    url: 'https://github.com/mshadmanrahman',
+    "@type": "Person",
+    name: "Shadman Rahman",
+    url: "https://github.com/mshadmanrahman",
   },
   publisher: {
-    '@type': 'Person',
-    name: 'Shadman Rahman',
+    "@type": "Person",
+    name: "Shadman Rahman",
   },
 };
 
@@ -133,8 +134,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="flex min-h-screen flex-col antialiased">
         <RootProvider
           theme={{
-            defaultTheme: 'light',
-            attribute: 'class',
+            defaultTheme: "light",
+            attribute: "class",
             enableSystem: true,
           }}
         >

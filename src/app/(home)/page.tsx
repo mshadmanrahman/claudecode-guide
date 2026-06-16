@@ -1,37 +1,56 @@
-import Link from 'next/link';
-import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Star, MousePointerClick, Rocket, Sparkles, Globe, FileText, FileSpreadsheet, Presentation, Mail, BookOpen, Search, Smartphone, TrendingUp } from 'lucide-react';
-import { EmailCapture } from '@/components/email-capture';
-import { PathRouter } from '@/components/home/path-router';
-import { HeroVisual } from '@/components/home/hero-visual';
-import { ClaudeInYourDay } from '@/components/home/claude-in-your-day';
-import { SiteFooter } from '@/components/site-footer';
-import type { Metadata } from 'next';
+import Link from "next/link";
+import {
+  ArrowRight,
+  Gamepad2,
+  ClipboardList,
+  BarChart3,
+  Shield,
+  Star,
+  MousePointerClick,
+  Rocket,
+  Sparkles,
+  Globe,
+  FileText,
+  FileSpreadsheet,
+  Presentation,
+  Mail,
+  BookOpen,
+  Search,
+  Smartphone,
+  TrendingUp,
+} from "lucide-react";
+import { EmailCapture } from "@/components/email-capture";
+import { PathRouter } from "@/components/home/path-router";
+import { HeroVisual } from "@/components/home/hero-visual";
+import { ClaudeInYourDay } from "@/components/home/claude-in-your-day";
+import { SiteFooter } from "@/components/site-footer";
+import type { Metadata } from "next";
 
-const heroTagline = 'Tell it what you need. It builds it.';
+const heroTagline = "Tell it what you need. It builds it.";
 const heroDescription =
   "The practical guide to Claude: Code, Chrome, Word, Excel, PowerPoint, and more. Calm, beginner-friendly, and free.";
 const ogImage = {
-  url: 'https://claudecodeguide.dev/og-home-v4.png',
+  url: "https://claudecodeguide.dev/api/og",
   width: 1200,
   height: 630,
-  alt: 'Claude Code Guide homepage: Tell it what you need. It builds it.',
+  alt: "Claude Code Guide homepage: Tell it what you need. It builds it.",
 };
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Claude Code Guide: Tell It What You Need. It Builds It.',
+    absolute: "Claude Code Guide: Tell It What You Need. It Builds It.",
   },
   description: heroDescription,
   openGraph: {
     title: heroTagline,
     description: heroDescription,
-    type: 'website',
-    siteName: 'Claude Code Guide',
-    url: 'https://claudecodeguide.dev',
+    type: "website",
+    siteName: "Claude Code Guide",
+    url: "https://claudecodeguide.dev",
     images: [ogImage],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: heroTagline,
     description: heroDescription,
     images: [ogImage],
@@ -39,69 +58,72 @@ export const metadata: Metadata = {
 };
 
 const STATS = [
-  { value: '90+', label: 'Guides & Docs' },
-  { value: '8', label: 'Platforms Covered' },
-  { value: '9', label: 'Learning Tracks' },
-  { value: '100%', label: 'Free & Open Source' },
+  { value: "90+", label: "Guides & Docs" },
+  { value: "8", label: "Platforms Covered" },
+  { value: "9", label: "Learning Tracks" },
+  { value: "100%", label: "Free & Open Source" },
 ] as const;
 
 const HOW_IT_WORKS = [
   {
     step: 1,
     icon: MousePointerClick,
-    title: 'Pick something you want',
-    description: 'A game, a document, a chart. No coding knowledge needed. Really.',
-    color: 'text-green-600 dark:text-green-400',
-    bg: 'bg-green-500/10',
+    title: "Pick something you want",
+    description:
+      "A game, a document, a chart. No coding knowledge needed. Really.",
+    color: "text-green-600 dark:text-green-400",
+    bg: "bg-green-500/10",
   },
   {
     step: 2,
     icon: Rocket,
-    title: 'Follow the setup',
-    description: 'I walk you through picking an interface and getting running. Under 3 minutes.',
-    color: 'text-blue-600 dark:text-blue-400',
-    bg: 'bg-blue-500/10',
+    title: "Follow the setup",
+    description:
+      "I walk you through picking an interface and getting running. Under 3 minutes.",
+    color: "text-blue-600 dark:text-blue-400",
+    bg: "bg-blue-500/10",
   },
   {
     step: 3,
     icon: Sparkles,
-    title: 'Paste a prompt, watch it go',
-    description: 'Plain English. Claude does the rest. You end up with something real.',
-    color: 'text-purple-600 dark:text-purple-400',
-    bg: 'bg-purple-500/10',
+    title: "Paste a prompt, watch it go",
+    description:
+      "Plain English. Claude does the rest. You end up with something real.",
+    color: "text-purple-600 dark:text-purple-400",
+    bg: "bg-purple-500/10",
   },
 ] as const;
 
 const OUTCOME_CARDS = [
   {
-    id: 'build',
+    id: "build",
     icon: Gamepad2,
-    verb: 'Build',
-    headline: 'Make a quiz game your friends can play',
-    time: '10 min',
-    href: '/start?track=build',
-    color: 'text-green-600 dark:text-green-400',
-    bgHover: 'hover:border-green-500/30',
+    verb: "Build",
+    headline: "Make a quiz game your friends can play",
+    time: "10 min",
+    href: "/start?track=build",
+    color: "text-green-600 dark:text-green-400",
+    bgHover: "hover:border-green-500/30",
   },
   {
-    id: 'organize',
+    id: "organize",
     icon: ClipboardList,
-    verb: 'Organize',
-    headline: 'Turn messy notes into a clear action plan',
-    time: '5 min',
-    href: '/start?track=organize',
-    color: 'text-blue-600 dark:text-blue-400',
-    bgHover: 'hover:border-blue-500/30',
+    verb: "Organize",
+    headline: "Turn messy notes into a clear action plan",
+    time: "5 min",
+    href: "/start?track=organize",
+    color: "text-blue-600 dark:text-blue-400",
+    bgHover: "hover:border-blue-500/30",
   },
   {
-    id: 'analyze',
+    id: "analyze",
     icon: BarChart3,
-    verb: 'Analyze',
-    headline: 'Give it a spreadsheet, get insights and charts',
-    time: '8 min',
-    href: '/start?track=analyze',
-    color: 'text-purple-600 dark:text-purple-400',
-    bgHover: 'hover:border-purple-500/30',
+    verb: "Analyze",
+    headline: "Give it a spreadsheet, get insights and charts",
+    time: "8 min",
+    href: "/start?track=analyze",
+    color: "text-purple-600 dark:text-purple-400",
+    bgHover: "hover:border-purple-500/30",
   },
 ] as const;
 
@@ -110,7 +132,6 @@ export default function HomePage() {
     <main className="flex min-h-screen flex-col bg-fd-background overflow-x-clip">
       {/* ── Hero ── */}
       <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-28 pb-12 text-center">
-
         <div className="relative z-10 flex flex-col items-center">
           <h1 className="animate-slide-up-fade font-display tracking-tight-display max-w-3xl text-5xl font-bold text-fd-foreground sm:text-7xl leading-[1.08]">
             Tell it what you need.
@@ -119,7 +140,8 @@ export default function HomePage() {
           </h1>
 
           <p className="animate-slide-up-fade delay-100 mt-6 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
-            The practical guide to Claude: Code, Chrome, Word, Excel, PowerPoint, and more. Calm, beginner-friendly, and free.
+            The practical guide to Claude: Code, Chrome, Word, Excel,
+            PowerPoint, and more. Calm, beginner-friendly, and free.
           </p>
 
           <div className="animate-slide-up-fade delay-200 mt-10 flex flex-wrap justify-center gap-3">
@@ -147,7 +169,10 @@ export default function HomePage() {
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
         <div className="animate-slide-up-fade delay-250 flex items-baseline justify-center gap-x-3 sm:gap-x-5">
           {STATS.map((stat, i) => (
-            <div key={stat.label} className="flex items-baseline gap-1.5 sm:gap-2">
+            <div
+              key={stat.label}
+              className="flex items-baseline gap-1.5 sm:gap-2"
+            >
               <span className="font-display text-2xl sm:text-4xl font-normal tracking-tight text-fd-foreground">
                 {stat.value}
               </span>
@@ -187,20 +212,26 @@ export default function HomePage() {
           How it works
         </h2>
         <p className="mb-14 text-center text-fd-muted-foreground max-w-lg mx-auto">
-          No coding bootcamp. No config files you don&apos;t understand. Just pick something, set it up, and go make it.
+          No coding bootcamp. No config files you don&apos;t understand. Just
+          pick something, set it up, and go make it.
         </p>
 
         <div className="grid gap-6 sm:grid-cols-3">
           {HOW_IT_WORKS.map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.step} className="flex flex-col items-center text-center">
+              <div
+                key={item.step}
+                className="flex flex-col items-center text-center"
+              >
                 {/* Step number */}
                 <span className="mb-3 font-display text-5xl font-normal tracking-tight text-fd-border">
                   {item.step}
                 </span>
                 {/* Icon */}
-                <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl ${item.bg}`}>
+                <div
+                  className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl ${item.bg}`}
+                >
                   <Icon className={`h-6 w-6 ${item.color}`} />
                 </div>
                 <h3 className="mb-2 font-display text-lg font-normal tracking-tight text-fd-foreground">
@@ -236,13 +267,16 @@ export default function HomePage() {
           You don&apos;t need to understand &ldquo;prompts.&rdquo;
         </p>
         <p className="mt-6 font-display text-3xl font-normal leading-snug tracking-tight-display text-fd-muted-foreground sm:text-4xl">
-          If you can describe what you want in plain English,
-          you can use Claude. That&apos;s genuinely it.
+          If you can describe what you want in plain English, you can use
+          Claude. That&apos;s genuinely it.
         </p>
         <p className="mt-8 text-fd-muted-foreground leading-relaxed">
-          I built this because I kept explaining the same things to people who&apos;d never touched a terminal.
-          The official docs are solid if you already know the territory. This guide is for everyone who doesn&apos;t.
-          I&apos;m a PM who&apos;s used AI tools with hundreds of people across different roles. I know where people get stuck. This guide skips those parts.
+          I built this because I kept explaining the same things to people
+          who&apos;d never touched a terminal. The official docs are solid if
+          you already know the territory. This guide is for everyone who
+          doesn&apos;t. I&apos;m a PM who&apos;s used AI tools with hundreds of
+          people across different roles. I know where people get stuck. This
+          guide skips those parts.
         </p>
       </section>
 
@@ -258,7 +292,8 @@ export default function HomePage() {
           What do you want to make?
         </h2>
         <p className="mb-12 text-center text-fd-muted-foreground max-w-lg mx-auto">
-          Pick one. I&apos;ll walk you through setup and you&apos;ll have something real in under 10 minutes.
+          Pick one. I&apos;ll walk you through setup and you&apos;ll have
+          something real in under 10 minutes.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-3">
@@ -279,7 +314,9 @@ export default function HomePage() {
                   {card.headline}
                 </h3>
                 <div className="mt-auto flex items-center justify-between pt-4">
-                  <span className="text-sm text-fd-muted-foreground">{card.time}</span>
+                  <span className="text-sm text-fd-muted-foreground">
+                    {card.time}
+                  </span>
                   <span className="inline-flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity group-hover:opacity-100">
                     Let&apos;s go <ArrowRight className="h-3.5 w-3.5" />
                   </span>
@@ -309,29 +346,31 @@ export default function HomePage() {
                 <span className="text-fd-muted-foreground">For doing.</span>
               </h3>
               <p className="mt-4 text-fd-muted-foreground leading-relaxed">
-                Claude builds apps, writes documents, analyzes spreadsheets, and automates the stuff that takes you forever.
-                It works on the web, desktop, terminal, or inside your editor. You pick.
+                Claude builds apps, writes documents, analyzes spreadsheets, and
+                automates the stuff that takes you forever. It works on the web,
+                desktop, terminal, or inside your editor. You pick.
               </p>
               <Link
                 href="/tutorials"
                 className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-fd-foreground hover:underline"
               >
-                See what people actually build <ArrowRight className="h-3.5 w-3.5" />
+                See what people actually build{" "}
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
             <div className="border-t border-fd-border bg-fd-background p-8 lg:border-l lg:border-t-0">
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: 'Build websites',          Icon: Globe },
-                  { label: 'Analyze data',             Icon: BarChart3 },
-                  { label: 'Write in Word',             Icon: FileText },
-                  { label: 'Excel formulas',            Icon: FileSpreadsheet },
-                  { label: 'Create PowerPoint decks',  Icon: Presentation },
-                  { label: 'Draft emails',              Icon: Mail },
-                  { label: 'Summarize webpages',        Icon: BookOpen },
-                  { label: 'Research any topic',        Icon: Search },
-                  { label: 'Create apps',               Icon: Smartphone },
-                  { label: 'Generate charts',           Icon: TrendingUp },
+                  { label: "Build websites", Icon: Globe },
+                  { label: "Analyze data", Icon: BarChart3 },
+                  { label: "Write in Word", Icon: FileText },
+                  { label: "Excel formulas", Icon: FileSpreadsheet },
+                  { label: "Create PowerPoint decks", Icon: Presentation },
+                  { label: "Draft emails", Icon: Mail },
+                  { label: "Summarize webpages", Icon: BookOpen },
+                  { label: "Research any topic", Icon: Search },
+                  { label: "Create apps", Icon: Smartphone },
+                  { label: "Generate charts", Icon: TrendingUp },
                 ].map(({ label, Icon }) => (
                   <div
                     key={label}
@@ -359,8 +398,8 @@ export default function HomePage() {
             Ready to try it?
           </h2>
           <p className="mt-4 text-fd-muted-foreground max-w-md mx-auto leading-relaxed">
-            Pick a project, choose your interface, follow the steps.
-            Ten minutes from now you&apos;ll have something that actually works.
+            Pick a project, choose your interface, follow the steps. Ten minutes
+            from now you&apos;ll have something that actually works.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
@@ -381,7 +420,7 @@ export default function HomePage() {
             </a>
           </div>
           <p className="mt-5 text-sm text-fd-muted-foreground">
-            Need a Claude plan first?{' '}
+            Need a Claude plan first?{" "}
             <a
               href="https://claude.ai/upgrade"
               target="_blank"
@@ -389,8 +428,8 @@ export default function HomePage() {
               className="font-medium text-fd-foreground underline underline-offset-2 hover:no-underline"
             >
               Get Claude Pro
-            </a>
-            {' '}to unlock Claude Code.
+            </a>{" "}
+            to unlock Claude Code.
           </p>
         </div>
       </section>

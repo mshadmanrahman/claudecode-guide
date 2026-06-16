@@ -1,86 +1,254 @@
 ---
-title: "Claude Code for Product Managers"
-description: "You own the roadmap. Claude Code handles the parts that slow you down: the docs, the briefs, the updates that eat your afternoons."
+title: "5C Loop for Product Managers"
+description: "The 5C Loop applied to product management work: PRDs, roadmap updates, discovery readouts, stakeholder briefs, sprint reviews, and the eight PM documents where the loop pays back the most."
 image: /for-pms/hero.png
 ---
 
-![Blueprint-style illustration for for-pms](/for-pms/hero.png)
+![Blueprint diagram showing a PM workflow: discovery inputs flowing into the 5C Loop, outputs including PRDs, briefs, stakeholder updates](/for-pms/hero.png)
 
+Product management is writing work. PRDs, one-pagers, stakeholder updates, discovery readouts, go-to-market briefs, OKR narratives, sprint reviews. The volume is relentless. The stakes are high: a vague PRD ships the wrong thing. A weak stakeholder update loses the room.
 
-## Who this is for
+The 5C Loop works especially well for PMs because PM documents have a common structure: context-setting, problem framing, options or analysis, recommendation, next steps. That structure repeats across document types. Once you run the loop on a PRD once, every subsequent PRD is faster.
 
-This page is for product managers, product owners, and APMs who spend more time wrangling documents than thinking about the product. If your job is turning ambiguity into clarity, Claude handles the next step: turning your clarity into documents.
+This page is the product management spoke of the [5C Loop framework](/docs/frameworks/5c-loop). If you have not read the pillar page, start there. This page assumes you know the five steps.
 
-## The mindset shift
+## The 5C Loop in PM language
 
-Good PMs think clearly. That is the hard part, and you already do it. The bottleneck is rarely the thinking itself. It is the translation layer: turning a messy conversation into a PRD, a sprint of research into a one-pager, a stakeholder email thread into an exec update.
+The same five steps, translated for how product work actually flows.
 
-Claude is fluent in that translation. You give it the thinking. It gives you the first draft. You make it yours.
+**Capture:** Pull the raw material. Meeting notes from user interviews, data from the analytics dashboard, the Slack thread where the problem was first surfaced, the competitive research doc, the Jira ticket backlog. The PRD you are about to write is only as good as the evidence you load in. Do not summarize the research — paste the research.
 
-The shift is small but it changes how your afternoons feel. Instead of opening a blank Notion page and staring at it, you start with something to react to. Editing is faster than writing from scratch. Your opinions sharpen when you have something to push against. That is the loop Claude fits into.
+**Context:** PM documents always have a known reader with a known question. Your engineering lead reads a PRD asking: "is this buildable and in what order?" Your VP reads a one-pager asking: "why does this matter and why now?" Your exec reads a roadmap brief asking: "what are we not building, and are we okay with that?" Name the reader. Name their question. Give Claude that lens before anything else.
 
-## Your 5C Loop as a PM
+**Create:** Let Claude produce the full draft before you start editing. For PM documents, Claude handles structure and completeness faster than you can type from scratch. Your comparative advantage is the judgment calls: which trade-off to make, what the right recommendation is, what the engineering team will actually push back on. Let Claude draft. You decide.
 
-The [5C Loop](/docs/frameworks/5c-loop) is the core framework this site teaches. Here is what each step looks like when your deliverable is a doc, not a design.
+**Check:** PM check priorities are specific. Recommendation clarity first — does a reader know exactly what you are recommending and why? Engineering feasibility assumptions second — Claude cannot know what is actually hard to build. Stakeholder sensitivity third — who in the room will object, and is the framing designed to preempt that? Those three questions are the ones only you can answer.
 
-**Capture:** Dump in everything raw. Slack messages, interview notes, customer feedback tickets, that Notion page you half-wrote at 11pm. Unpolished is fine. Incomplete is fine. Claude needs your raw material, not your finished thinking.
+**Compound:** PM work has the highest recurrence of any knowledge work. Q1 planning becomes Q2 planning. Sprint reviews happen every two weeks. OKR narratives repeat quarterly. After running the loop on any recurring document, save the Context block as a template. Your library builds quarter over quarter. By month six, most of your recurring documents start with C2 and C1 already half-done.
 
-**Context:** Tell Claude where you are in the roadmap, what the product strategy is, who the users are, and what a good outcome looks like for this quarter. A sentence or two per item is enough. The more specific you are here, the less editing you do in the next step.
+## Eight use cases, with prompts
 
-**Create:** PRDs, user stories, discovery briefs, exec summaries, weekly updates, OKR check-ins. Let Claude produce a full first draft before you start editing. Your job at this stage is direction, not typing.
+### 1. Product requirements document
 
-**Check:** Ask Claude to identify what is missing, surface unstated assumptions, or flag where the logic breaks down. Treat it like a sharp colleague who has read everything and has no agenda. They will tell you what the doc is not saying.
+A PRD that engineering actually reads and follows.
 
-**Compound:** Every doc you produce becomes a template. The next PRD starts from the last one. The best prompts get saved. Over a quarter, you build a library of starting points that get faster and better every time.
+```
+## CAPTURE
 
-## Four workflows worth learning first
+[paste: user research notes, analytics data, competitive context,
+problem statement, any prior tickets or explorations on this topic]
 
-### Write a PRD from rough notes
+## CONTEXT
 
-Paste your rough notes, decisions made, and open questions into Claude alongside your PRD template. Claude produces a first draft. You spend your time editing and sharpening, not staring at a blank page. Key pattern: include what the feature is trying to accomplish, what problem it solves for users, and what success looks like numerically. The more you front-load the strategy, the less you have to fix in revision.
+Reader: engineering lead and senior engineers. They need to understand
+what we are building and why, in enough detail to estimate and sequence.
+They will push back on anything underspecified. Format: problem statement,
+goals and non-goals, user stories, requirements (functional and non-functional),
+open questions, success metrics. Plain language, no marketing speak.
 
-### Synthesize user research into findings
+## CREATE
 
-Paste interview transcripts or survey responses and ask Claude for themes, a direct quote per theme, and a one-sentence insight per theme that a stakeholder could act on. This is especially useful before a product review or when writing a discovery brief. What used to take half a day of affinity mapping now takes twenty minutes of prompt-and-edit.
-
-### Prepare for a roadmap review
-
-Give Claude your current roadmap, the stakeholder priorities you are walking into, and the questions you expect to face. Claude helps you stress-test your reasoning and anticipates the hard questions before you walk in the room. No more getting caught flat-footed on a tradeoff you had not articulated out loud.
-
-### Write a weekly update or exec summary
-
-Paste your sprint notes or the week's Slack threads. Claude writes a clear, concise update with a one-line situation, key progress, blockers, and next steps. You review and send. The whole thing takes five minutes instead of forty-five.
-
-## Your starter CLAUDE.md
-
-A `CLAUDE.md` file sits in your project folder and tells Claude who you are and how to help. Copy this, fill in the brackets, and drop it in your project root. You will never have to re-explain your context again.
-
-```markdown
-# CLAUDE.md
-
-## About me
-I'm a product manager. I write docs, run discovery, and align stakeholders. I don't write code.
-
-## My context
-- Product area: [description]
-- Current quarter goals: [description]
-- Key stakeholders: [list]
-- Team setup: [description]
-
-## How to help me
-- First drafts of PRDs, discovery briefs, and user stories
-- Synthesizing user research and interview notes
-- Preparing for roadmap reviews and stakeholder meetings
-- Turning messy notes into clean exec summaries
-
-## Format preferences
-- Short paragraphs, not walls of text
-- Numbered lists for steps, bullet points for options
-- Flag assumptions and missing information clearly
+Write the PRD based on the above.
 ```
 
-## Go deeper
+### 2. Executive one-pager
 
-The PM Pilot at [/pm-pilot](/pm-pilot) contains 25 skill-specific playbooks, from writing a PRD to running a full product discovery sprint. Each one is a step-by-step prompt guide built for the exact situations PMs face every week.
+The one page that gets the meeting or secures the investment.
 
-[Explore PM Pilot](/pm-pilot)
+```
+## CAPTURE
+
+[paste: the problem you are solving, the solution you are proposing,
+the evidence that the problem is real, the cost of doing nothing,
+what you need from the exec (decision, resources, sponsorship)]
+
+## CONTEXT
+
+Reader: VP or C-suite. They read this Friday afternoon with 12 other
+things on their desk. They need to know: what is the bet, why now, what
+do you need from them. Format: one page maximum. Problem, proposed solution,
+evidence, ask. No bullet points in the body — write it as persuasive prose.
+End with a single clear ask.
+
+## CREATE
+
+Write the executive one-pager.
+```
+
+### 3. Discovery readout
+
+Turning a sprint of research into something that changes priorities.
+
+```
+## CAPTURE
+
+[paste: interview transcripts or notes, survey results, behavioral data,
+usability test observations, any quotes worth keeping verbatim]
+
+## CONTEXT
+
+Reader: product team and leadership. Goal: update their mental model of
+the user's problem, not just report what we heard. Format: key findings
+(3-5 themes, each supported by 2-3 quotes or data points), implications
+for our roadmap, recommended next steps, open questions we still need to
+answer. Concise. No more than two pages.
+
+## CREATE
+
+Write the discovery readout.
+```
+
+### 4. Roadmap narrative
+
+The story of what you are building and in what order, and why that order.
+
+```
+## CAPTURE
+
+[paste: the strategic context (where the company is going), the current
+backlog and rough priorities, the bets you are making this half, what
+you are explicitly not doing and why]
+
+## CONTEXT
+
+Reader: mixed audience — engineering, design, sales, marketing, leadership.
+Each group cares about different things. Format: one paragraph of strategic
+framing, then the roadmap by theme (not by sprint). Each theme has: what
+it is, why it is prioritized now, what success looks like. End with what
+is out of scope and why. Confident tone — this is a decision, not a wish list.
+
+## CREATE
+
+Write the roadmap narrative.
+```
+
+### 5. Go-to-market brief
+
+Aligning the commercial team before a launch.
+
+```
+## CAPTURE
+
+[paste: what the feature does, who it is for, what problem it solves,
+how it is differentiated, pricing or packaging details if relevant,
+launch timeline, any early customer feedback or beta results]
+
+## CONTEXT
+
+Reader: sales, marketing, and customer success. They need to know how to
+position this and what questions they will get. Format: what it is (one
+sentence), who benefits and how, what to say vs what to avoid saying,
+key questions with suggested answers, where to find more information.
+Punchy and scannable — this is a reference doc, not a read-once doc.
+
+## CREATE
+
+Write the go-to-market brief.
+```
+
+### 6. Sprint review summary
+
+The document that replaces the meeting nobody wanted to sit through.
+
+```
+## CAPTURE
+
+[paste: what we shipped, what we cut and why, metrics from the sprint
+if any, what we learned, what changed in our priorities as a result]
+
+## CONTEXT
+
+Reader: stakeholders who were not in the sprint. Goal: they understand
+what we shipped, why it matters, and what is next without needing a meeting.
+Format: brief context (what we were working on), what shipped (bulleted,
+plain language), what we learned, what is next. Maximum one page.
+Matter-of-fact tone — no spin, just clarity.
+
+## CREATE
+
+Write the sprint review summary.
+```
+
+### 7. Stakeholder update
+
+The async update that keeps leadership informed without requiring a meeting.
+
+```
+## CAPTURE
+
+[paste: the initiative, what has happened since the last update, what is
+on track vs at risk, any decisions that need to be made, blockers]
+
+## CONTEXT
+
+Reader: a VP or director sponsor who checks in monthly. They want to know:
+are we on track, is there anything I need to unblock. Format: one paragraph
+of status (green/yellow/red with one sentence of explanation), what happened
+since last update (3 bullet points max), what is next, what I need from you
+(if anything). Short. They will not read past the third paragraph.
+
+## CREATE
+
+Write the stakeholder update.
+```
+
+### 8. OKR narrative
+
+The quarterly document that explains what you are optimizing for and why.
+
+```
+## CAPTURE
+
+[paste: the objectives you are proposing, the key results attached to each,
+the rationale for each objective (why this, why now), any context from
+last quarter's performance]
+
+## CONTEXT
+
+Reader: leadership team in OKR planning. They will question whether these
+are the right bets, whether the key results are measurable enough, and
+whether this connects to company strategy. Format: for each objective —
+one sentence statement, two sentences of rationale, then the key results
+with targets and measurement method. Ends with what you are deliberately
+not prioritizing this quarter.
+
+## CREATE
+
+Write the OKR narrative.
+```
+
+<Callout type="warn" title="PRD check priority">
+Always verify the assumptions Claude makes about technical constraints. Claude cannot know that your auth system makes a particular user flow impossible, or that a specific API call has a 2-second latency that changes the UX approach. Check every technical implication before sharing with engineering.
+</Callout>
+
+## The compound value for PMs specifically
+
+Product managers have the most to gain from the Compound step because PM work is structurally recursive. OKR planning happens every quarter. Sprint reviews happen every two weeks. Discovery readouts follow the same structure every time.
+
+The investment is front-loaded: running the loop carefully the first time, then saving the Context block as a template. The payback is recurring: every subsequent run of that document type starts with C2 already done, and C1 is mostly copy-paste from whatever input you have that week.
+
+After six months of this, most of your recurring PM documents take 20 minutes instead of two hours. The time shifts from writing to reading: C4 gets more attention because you have more time for it. That is where PM quality actually lives — not in the first draft, but in the judgment call about what needs changing.
+
+<DemoCard title="Saving a PRD context block to CLAUDE.md." steps={[
+  { type: 'cmd', text: 'Add to CLAUDE.md:' },
+  { type: 'out', text: '## PRD context block' },
+  { type: 'out', text: 'Reader: eng lead. Needs: buildable spec, clear scope.' },
+  { type: 'out', text: 'Format: problem / goals+non-goals / stories / requirements / metrics.' },
+  { type: 'success', text: 'Next PRD: C2 is already done. Load research, go.' },
+]} />
+
+## What the Check step means for PM work
+
+**Recommendation clarity is first.** Every PM document should end with a reader knowing exactly what you are recommending and what you want them to do. Claude will often produce a document that is clear on the problem but soft on the recommendation. Check that the ask is explicit.
+
+**Feasibility assumptions are second.** Claude produces requirements based on what you gave it in Capture. It cannot know that your data model makes a particular feature architecturally expensive, or that the mobile team is already at capacity. Read every requirement through an engineering lens before it goes to the team.
+
+**Stakeholder sensitivity is third.** Some roadmap decisions have political history behind them. A feature that was previously killed by a different VP. A dependency on a team that has been unreliable. A trade-off that implicitly de-prioritizes someone's initiative. Claude cannot know any of this. You do. Check the framing before it lands.
+
+## Where to go next
+
+The pillar page has the full framework and the loop logic: [The 5C Loop](/docs/frameworks/5c-loop).
+
+If you are new to Claude Code and still setting up your workspace, the [Foundations](/docs/foundations/) section covers the basics before you get into task-specific use.
+
+PMs doing this at scale should also read the [Memory System](/docs/foundations/memory-system) guide — the Compound step depends on having a working memory setup where your Context blocks persist between sessions.

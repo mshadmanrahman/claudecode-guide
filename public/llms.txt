@@ -38,6 +38,43 @@
 - [Claude Code vs Windsurf](https://claudecodeguide.dev/docs/comparisons/vs-windsurf): Two different approaches to AI-assisted development.
 - [Pro vs Max vs API](https://claudecodeguide.dev/docs/comparisons/pro-vs-max): Which Claude plan for which workflow. Real numbers and recommendations.
 
+## Frameworks
+
+- [The 5C Loop](https://claudecodeguide.dev/docs/frameworks/5c-loop): The five-step repeatable workflow for using Claude on any task. Capture, Context, Create, Check, Compound.
+- [5C Loop for Operations](https://claudecodeguide.dev/docs/frameworks/for-operations): Exception reports, SOPs, vendor emails, onboarding docs, and eight other ops use cases.
+- [5C Loop for Product Managers](https://claudecodeguide.dev/docs/frameworks/for-pms): Discovery, PRDs, stakeholder updates, sprint planning, and competitive analysis.
+- [5C Loop for Teachers](https://claudecodeguide.dev/docs/frameworks/for-teachers): Lesson plans, rubrics, feedback, parent emails, and differentiated instruction.
+- [5C Loop for Marketers](https://claudecodeguide.dev/docs/frameworks/for-marketers): Brand voice, social media, blog posts, email campaigns, and ad copy.
+- [5C Loop for Designers](https://claudecodeguide.dev/docs/frameworks/for-designers): Briefs, evaluations, research synthesis, and Figma handoff.
+
+## Claude in Chrome
+
+- [Claude in Chrome](https://claudecodeguide.dev/for-chrome): Use Claude directly in your browser without switching tabs.
+- [Get Started with Claude in Chrome](https://claudecodeguide.dev/for-chrome/get-started-with-claude-in-your-browser): Set up Claude in Chrome in under five minutes.
+- [Summarize Any Webpage](https://claudecodeguide.dev/for-chrome/summarize-any-webpage-with-claude): Get the key points from any article or document.
+- [Research Any Topic](https://claudecodeguide.dev/for-chrome/research-any-topic-with-claude): Use Claude to research while you browse.
+
+## Claude for Teachers
+
+- [Claude for Teachers](https://claudecodeguide.dev/for-teachers): Save hours every week on planning, feedback, and communication.
+- [Write Lesson Plans](https://claudecodeguide.dev/for-teachers/write-lesson-plans-with-claude): Generate complete lesson plans from a brief.
+- [Create Quiz Questions](https://claudecodeguide.dev/for-teachers/create-quiz-questions-with-claude): Build assessments fast.
+- [Write Grading Rubrics](https://claudecodeguide.dev/for-teachers/write-grading-rubrics-with-claude): Consistent, clear rubrics in minutes.
+
+## Claude for Marketers
+
+- [Claude for Marketers](https://claudecodeguide.dev/for-marketers): Faster content, better briefs, sharper copy.
+- [Give Claude Your Brand Voice](https://claudecodeguide.dev/for-marketers/give-claude-your-brand-voice): Train Claude to write in your tone.
+- [Write Blog Posts](https://claudecodeguide.dev/for-marketers/write-blog-posts-with-claude): Research-backed posts, faster.
+- [Write Social Media Posts](https://claudecodeguide.dev/for-marketers/write-social-media-posts-with-claude): On-brand content for every channel.
+
+## Claude for Microsoft 365
+
+- [Claude for Microsoft 365](https://claudecodeguide.dev/for-microsoft): Word, Excel, PowerPoint, and Outlook — with Claude.
+- [Write Faster in Word](https://claudecodeguide.dev/for-microsoft/write-faster-in-word-with-claude): Drafts, edits, and formatting help.
+- [Create Excel Formulas](https://claudecodeguide.dev/for-microsoft/create-excel-formulas-with-claude): Complex formulas explained and written.
+- [Create Presentations](https://claudecodeguide.dev/for-microsoft/create-presentations-with-claude-for-powerpoint): Slide decks from an outline.
+
 ## PM Pilot
 
 - [PM Pilot](https://claudecodeguide.dev/pm-pilot): AI-powered meeting prep, PRDs, and status reports for product managers. Works with ChatGPT, Claude, Gemini, Cursor, and VS Code. 25 skills, 5 agents, persistent memory. Free and open source.

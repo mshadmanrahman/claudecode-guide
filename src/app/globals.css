@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'fumadocs-ui/css/preset.css';
+@import "tailwindcss";
+@import "fumadocs-ui/css/preset.css";
 
 /*
  * Claude Code Guide : Custom color system
@@ -87,26 +87,46 @@ h3.font-display {
 /* Prose (MDX article) headings: Fraunces with WONK 0, opsz + color step down with level */
 .prose h2 {
   font-family: var(--font-display);
-  font-variation-settings: 'opsz' 48, 'WONK' 0;
-  color: color-mix(in srgb, var(--color-fd-foreground) 82%, var(--color-fd-muted-foreground));
+  font-variation-settings:
+    "opsz" 48,
+    "WONK" 0;
+  color: color-mix(
+    in srgb,
+    var(--color-fd-foreground) 82%,
+    var(--color-fd-muted-foreground)
+  );
 }
 
 .prose h3 {
   font-family: var(--font-display);
-  font-variation-settings: 'opsz' 32, 'WONK' 0;
-  color: color-mix(in srgb, var(--color-fd-foreground) 68%, var(--color-fd-muted-foreground));
+  font-variation-settings:
+    "opsz" 32,
+    "WONK" 0;
+  color: color-mix(
+    in srgb,
+    var(--color-fd-foreground) 68%,
+    var(--color-fd-muted-foreground)
+  );
 }
 
 .prose h4 {
   font-family: var(--font-display);
-  font-variation-settings: 'opsz' 24, 'WONK' 0;
-  color: color-mix(in srgb, var(--color-fd-foreground) 55%, var(--color-fd-muted-foreground));
+  font-variation-settings:
+    "opsz" 24,
+    "WONK" 0;
+  color: color-mix(
+    in srgb,
+    var(--color-fd-foreground) 55%,
+    var(--color-fd-muted-foreground)
+  );
 }
 
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
-    font-variation-settings: 'opsz' 60, 'WONK' 0;
+    font-variation-settings:
+      "opsz" 60,
+      "WONK" 0;
   }
 
   .tracking-tight-display {
@@ -114,7 +134,11 @@ h3.font-display {
   }
 
   .text-fade {
-    background: linear-gradient(to bottom, var(--color-fd-foreground) 0%, var(--color-fd-muted-foreground) 100%);
+    background: linear-gradient(
+      to bottom,
+      var(--color-fd-foreground) 0%,
+      var(--color-fd-muted-foreground) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -124,18 +148,33 @@ h3.font-display {
 /* ── Animations ── */
 
 @keyframes slide-up-fade {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes float-gentle {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(2deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
 }
 
 .animate-slide-up-fade {
@@ -151,8 +190,13 @@ h3.font-display {
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .animate-blink {
@@ -160,19 +204,34 @@ h3.font-display {
 }
 
 @keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.005); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.005);
+  }
 }
 
 .animate-breathe {
   animation: breathe 4s ease-in-out infinite;
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
 
 /* Grid background */
 .bg-grid {
@@ -196,9 +255,11 @@ h3.font-display {
   }
 }
 
-/* Widen sidebar to reduce title wrapping */
-#nd-docs-layout {
-  --fd-sidebar-width: 300px !important;
+/* Widen sidebar to reduce title wrapping (desktop only; must not override the 0px mobile default) */
+@media (min-width: 768px) {
+  #nd-docs-layout {
+    --fd-sidebar-width: 300px !important;
+  }
 }
 
 /* Tighten fumadocs sidebar tree padding (fumadocs renders p-4 = 16px by default) */
@@ -236,4 +297,16 @@ h3.font-display {
 #nd-docs-layout button[aria-label="Collapse Sidebar"],
 #nd-docs-layout button[aria-label="Expand Sidebar"] {
   display: none !important;
+}
+
+/* Code block spacing: more breathing room and looser line-height for readability */
+.prose pre {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+  padding-left: 1.75rem !important;
+  padding-right: 1.75rem !important;
+}
+
+.prose pre code {
+  line-height: 1.8 !important;
 }

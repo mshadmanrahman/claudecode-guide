@@ -1,40 +1,49 @@
-import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Calendar, User, Tag, Paintbrush, Mic, NotebookPen } from 'lucide-react';
-import { EmailCapture } from '@/components/email-capture';
-import { BlogContent } from '@/components/blog-content';
-import { notFound } from 'next/navigation';
-import { getPostBySlug, getRelatedPosts, blogPosts } from '@/data/blog-posts';
-import type { Metadata } from 'next';
+import Link from "next/link";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Calendar,
+  User,
+  Tag,
+  Paintbrush,
+  Mic,
+  NotebookPen,
+} from "lucide-react";
+import { EmailCapture } from "@/components/email-capture";
+import { BlogContent } from "@/components/blog-content";
+import { notFound } from "next/navigation";
+import { getPostBySlug, getRelatedPosts, blogPosts } from "@/data/blog-posts";
+import type { Metadata } from "next";
 
 const DESIGNER_RELEVANT_SLUGS = new Set([
-  'claude-code-for-non-engineers',
-  '8-ways-pms-use-claude-code-without-writing-code',
-  'claude-md-is-not-optional',
-  'context-beats-cleverness',
-  '5-claude-md-mistakes',
-  '7-claude-md-sections-every-project-needs',
-  'why-most-people-use-claude-code-wrong',
-  'the-cold-start-problem',
-  '3-prompts-that-changed-everything',
-  'rules-that-follow-claude-everywhere',
-  'your-first-hour-with-claude-code',
+  "claude-code-for-non-engineers",
+  "8-ways-pms-use-claude-code-without-writing-code",
+  "claude-md-is-not-optional",
+  "context-beats-cleverness",
+  "5-claude-md-mistakes",
+  "7-claude-md-sections-every-project-needs",
+  "why-most-people-use-claude-code-wrong",
+  "the-cold-start-problem",
+  "3-prompts-that-changed-everything",
+  "rules-that-follow-claude-everywhere",
+  "your-first-hour-with-claude-code",
 ]);
 
 const WISPR_RELEVANT_SLUGS = new Set([
-  'how-to-use-claude-in-chrome-browser',
-  'how-to-use-claude-to-write-excel-formulas',
-  'why-most-people-use-claude-code-wrong',
-  '3-prompts-that-changed-everything',
-  'context-beats-cleverness',
-  'your-first-hour-with-claude-code',
+  "how-to-use-claude-in-chrome-browser",
+  "how-to-use-claude-to-write-excel-formulas",
+  "why-most-people-use-claude-code-wrong",
+  "3-prompts-that-changed-everything",
+  "context-beats-cleverness",
+  "your-first-hour-with-claude-code",
 ]);
 
 const GRANOLA_RELEVANT_SLUGS = new Set([
-  'claude-for-teachers-reclaim-planning-time',
-  '8-ways-pms-use-claude-code-without-writing-code',
-  'weekly-status-writes-itself',
-  'top-5-claude-code-workflows-for-solo-founders',
-  'discovery-sprint',
+  "claude-for-teachers-reclaim-planning-time",
+  "8-ways-pms-use-claude-code-without-writing-code",
+  "weekly-status-writes-itself",
+  "top-5-claude-code-workflows-for-solo-founders",
+  "discovery-sprint",
 ]);
 
 interface PageProps {
@@ -44,7 +53,7 @@ interface PageProps {
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const post = getPostBySlug(params.slug);
-  if (!post) return { title: 'Post Not Found' };
+  if (!post) return { title: "Post Not Found" };
 
   return {
     title: `${post.title} | Claude Code Guide Blog`,
@@ -52,17 +61,17 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.description,
-      type: 'article',
+      type: "article",
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
-      images: [{ url: '/og-home.png', width: 1200, height: 630 }],
+      images: [{ url: "/api/og", width: 1200, height: 630 }],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: ['/og-home.png'],
+      images: ["/api/og"],
     },
   };
 }
@@ -92,7 +101,11 @@ export default async function BlogPostPage(props: PageProps) {
         <div className="flex items-center gap-3 text-sm text-fd-muted-foreground mb-4">
           <span className="flex items-center gap-1.5">
             <Calendar className="h-3.5 w-3.5" />
-            {new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            {new Date(post.date).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
           </span>
           <span className="flex items-center gap-1.5">
             <User className="h-3.5 w-3.5" />
@@ -120,9 +133,7 @@ export default async function BlogPostPage(props: PageProps) {
           ))}
         </div>
 
-        <div
-          className="prose prose-neutral dark:prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-normal [&_h3]:tracking-tight [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:text-fd-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_code]:rounded [&_code]:bg-fd-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_.blog-code-block_code]:bg-transparent [&_.blog-code-block_code]:p-0 [&_.blog-code-block_code]:rounded-none [&_.blog-code-block_pre]:bg-transparent [&_.blog-code-block_pre]:p-0 [&_.blog-code-block_pre]:m-0 [&_.blog-code-block_pre]:border-0 [&_li]:text-fd-muted-foreground [&_table]:text-sm [&_th]:text-left [&_th]:p-3 [&_th]:border-b [&_th]:border-fd-border [&_td]:p-3 [&_td]:border-b [&_td]:border-fd-border [&_a]:text-fd-foreground [&_a]:underline [&_a]:hover:text-fd-muted-foreground [&_strong]:text-fd-foreground [&_em]:text-fd-foreground [&_blockquote]:border-l-2 [&_blockquote]:border-fd-border [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-fd-muted-foreground"
-        >
+        <div className="prose prose-neutral dark:prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-normal [&_h3]:tracking-tight [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:text-fd-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_code]:rounded [&_code]:bg-fd-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_.blog-code-block_code]:bg-transparent [&_.blog-code-block_code]:p-0 [&_.blog-code-block_code]:rounded-none [&_.blog-code-block_pre]:bg-transparent [&_.blog-code-block_pre]:p-0 [&_.blog-code-block_pre]:m-0 [&_.blog-code-block_pre]:border-0 [&_li]:text-fd-muted-foreground [&_table]:text-sm [&_th]:text-left [&_th]:p-3 [&_th]:border-b [&_th]:border-fd-border [&_td]:p-3 [&_td]:border-b [&_td]:border-fd-border [&_a]:text-fd-foreground [&_a]:underline [&_a]:hover:text-fd-muted-foreground [&_strong]:text-fd-foreground [&_em]:text-fd-foreground [&_blockquote]:border-l-2 [&_blockquote]:border-fd-border [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-fd-muted-foreground">
           <BlogContent html={post.content} />
         </div>
 
@@ -135,7 +146,10 @@ export default async function BlogPostPage(props: PageProps) {
               </span>
             </div>
             <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
-              If you are a UX or UI designer, we have a guide series built specifically for your work: decoding briefs, running heuristic evaluations, synthesizing research, and handing off to code. No terminal required for most of it.
+              If you are a UX or UI designer, we have a guide series built
+              specifically for your work: decoding briefs, running heuristic
+              evaluations, synthesizing research, and handing off to code. No
+              terminal required for most of it.
             </p>
             <Link
               href="/for-designers"
@@ -155,9 +169,14 @@ export default async function BlogPostPage(props: PageProps) {
                 What I use for this
               </span>
             </div>
-            <p className="text-sm font-medium text-fd-foreground mb-2">Wispr Flow</p>
+            <p className="text-sm font-medium text-fd-foreground mb-2">
+              Wispr Flow
+            </p>
             <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
-              Instead of typing prompts, I speak them. Wispr Flow transcribes voice directly into any input field, including Claude. You end up giving Claude more context, faster. I use it constantly. Free to try.
+              Instead of typing prompts, I speak them. Wispr Flow transcribes
+              voice directly into any input field, including Claude. You end up
+              giving Claude more context, faster. I use it constantly. Free to
+              try.
             </p>
             <a
               href="https://ref.wisprflow.ai/shadman-rahman"
@@ -179,9 +198,14 @@ export default async function BlogPostPage(props: PageProps) {
                 What I use for this
               </span>
             </div>
-            <p className="text-sm font-medium text-fd-foreground mb-2">Granola</p>
+            <p className="text-sm font-medium text-fd-foreground mb-2">
+              Granola
+            </p>
             <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
-              Granola transcribes and summarises meetings automatically in the background. I paste the notes straight into Claude. No manual capture, no missed context. It has saved hours of admin time every week.
+              Granola transcribes and summarises meetings automatically in the
+              background. I paste the notes straight into Claude. No manual
+              capture, no missed context. It has saved hours of admin time every
+              week.
             </p>
             <a
               href="https://www.granola.ai?via=shadman-rahman"
@@ -209,12 +233,18 @@ export default async function BlogPostPage(props: PageProps) {
                 >
                   <div className="flex items-center gap-2 text-xs text-fd-muted-foreground">
                     <Calendar className="h-3 w-3" />
-                    {new Date(related.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                    {new Date(related.date).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
                   </div>
                   <h3 className="font-display text-base font-normal tracking-tight text-fd-foreground group-hover:underline">
                     {related.title}
                   </h3>
-                  <p className="text-sm text-fd-muted-foreground line-clamp-2">{related.description}</p>
+                  <p className="text-sm text-fd-muted-foreground line-clamp-2">
+                    {related.description}
+                  </p>
                 </Link>
               ))}
             </div>

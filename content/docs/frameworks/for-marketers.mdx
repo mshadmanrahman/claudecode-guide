@@ -1,88 +1,271 @@
 ---
-title: "Claude Code for Marketers"
-description: "From brief to published in a fraction of the time. Here is the framework for marketers who want to move fast without losing their brand voice."
+title: "5C Loop for Marketers"
+description: "The 5C Loop applied to marketing work: campaign briefs, content strategy, performance reports, creative briefs, and the eight use cases where marketers reclaim the most time."
 image: /for-marketers/hero.png
 ---
 
-![Blueprint-style illustration for for-marketers](/for-marketers/hero.png)
+![Blueprint diagram showing a marketing workflow: research and data inputs into the 5C Loop, outputs including briefs, reports, and campaign content](/for-marketers/hero.png)
 
+Marketing is volume work. Campaign briefs, content calendars, performance reports, creative briefs, email sequences, social copy, competitive analyses, launch announcements. The output never stops and the channel never stays still.
 
-## Who this is for
+The 5C Loop works especially well for marketing because marketing documents have high structural consistency — a campaign brief always has the same bones, a performance report always has the same sections, a creative brief always asks the same questions — but the content changes every cycle. That combination is exactly where the loop creates the most leverage.
 
-Content marketers, growth marketers, brand managers, and anyone who publishes: this page is for you. If you manage a content calendar, run campaigns, or write copy, Claude can do the heavy drafting while you handle the strategy.
+This page is the marketing spoke of the [5C Loop framework](/docs/frameworks/5c-loop). If you have not read the pillar page, start there. This page assumes you know the five steps.
 
-## The mindset shift
+## The 5C Loop in marketing language
 
-You know your audience better than any AI. Claude does not. What it has is pattern: it knows how to structure a campaign brief, write a cold email sequence, repurpose a long-form post into five social variations, and analyze why a subject line might underperform. Your job is to give it your audience knowledge and brand voice. Its job is to produce at scale while you direct.
+The same five steps, translated for how marketing work actually flows.
 
-That split is where the time savings come from. You stop being the person typing the first draft. You become the editor, the strategist, the person with taste. Claude handles the blank page. You decide what stays.
+**Capture:** Pull the raw material. Campaign performance data, research notes, customer quotes, competitive positioning you have observed, the brief from your stakeholder, analytics exports, last quarter's post-mortem. Marketing suffers more from thin Capture than almost any other function — generic input produces generic output. Your audience knowledge, your brand voice, your past top performers: paste them. Claude cannot infer what you know about your customers.
 
-The one thing that trips most marketers up early on: they give Claude too little context and then wonder why the output sounds generic. Generic input, generic output. When you feed it your personas, your tone guide, your past top performers, and your campaign goal, the first draft actually sounds like you.
+**Context:** Every marketing output has a specific reader doing a specific thing with it. Your creative brief is read by a designer making something. Your performance report is read by a VP deciding whether to increase budget. Your email sequence is read by a prospect who is skeptical and in a hurry. Name the reader, name their state of mind, name what you want them to do after reading. The more precisely you specify the destination, the more likely Claude gets you there.
 
-## Your 5C Loop as a marketer
+**Create:** Let Claude produce the full draft before you edit. For marketing, Claude handles structure, coverage, and initial language faster than most writers can from a blank page. Your comparative advantage is what Claude cannot access: your brand voice, your audience's specific phrasing, the cultural reference that will land with your community, the tone that has performed before. Let Claude draft. You make it sound like you.
 
-The [5C Loop](/docs/frameworks/5c-loop) is the core framework this site teaches. Here is what each step looks like for marketing work.
+**Check:** Marketing check priorities are specific. Brand voice first — Claude defaults to competent but generic. Every draft needs a pass for brand alignment before it leaves your hands. Claims accuracy second — Claude can write a statistic that is directionally right but factually wrong. Check every number, every attribution, every product claim. Audience fit third — does this actually sound like something your specific audience reads and shares, or does it sound like marketing?
 
-**Capture:** Brand voice notes, campaign goals, audience persona, competitor examples, and any raw research or data you have. Dump it in before you ask for anything. The more you bring, the less you fix later.
+**Compound:** Marketing has extremely high document-type recurrence. Campaign briefs repeat every quarter. Email sequences share a structure across different offers. Social copy variations follow the same format across campaigns. After running the loop on any recurring document type, save the Context block — including your brand voice notes, your audience personas, and your tone guidelines. Within two months, most of your document types have a saved starting point. C2 costs you nothing, C1 is mostly copy-paste, and you spend your energy on C4: the edits that make it actually sound like your brand.
 
-**Context:** Current campaigns, existing content library, what has performed well, the channel you are targeting, and any constraints around legal review, tone, or length. Claude writes to what you give it. Channel context alone changes the output significantly.
+## Eight use cases, with prompts
 
-**Create:** Campaign briefs, content drafts, email sequences, social variations, SEO outlines, ad copy. This is where Claude earns its keep. Let it produce a full first draft before you start editing.
+### 1. Campaign brief
 
-**Check:** Brand alignment, tone consistency, compliance requirements, and whether the call to action is clear and right for the audience. This is your pass, not Claude's. You know when something sounds off. Trust that.
+The document that aligns creative, content, and paid before a campaign starts.
 
-**Compound:** Save your best prompts as templates. Build a prompt library for every content type you repeat monthly, quarterly, or per campaign. The second time you run a workflow, it should be faster than the first.
+```
+## CAPTURE
 
-## Four workflows worth learning first
+[paste: campaign objective, target audience (personas if you have them),
+key message or value proposition, budget range, timeline, channels,
+any constraints (brand guidelines, things to avoid), past campaign context]
 
-### Write a campaign brief from a goal
+## CONTEXT
 
-Give Claude the campaign goal, audience, channel, and any constraints. It produces a structured brief with positioning, messaging pillars, and success metrics. This is especially useful before handing work to a contractor or kicking off an internal sprint, because everyone is working from the same document instead of a scattered Slack thread.
+Reader: creative team, content team, and media buyer — reading this before
+kicking off their work. They need enough specificity to make independent
+decisions without coming back to you. Format: campaign objective (one
+sentence), target audience (2-3 sentences), key message (what we want
+the audience to feel or do), channels and formats, timeline with milestones,
+success metrics, do's and don'ts. Scannable, not prose-heavy.
 
-### Repurpose long-form content across channels
+## CREATE
 
-Paste your blog post, webinar transcript, or interview. Ask Claude for a LinkedIn post, three tweet variations, and an email summary. Each output starts from your words and your thinking, which means the ideas stay yours even as the format changes.
-
-### Generate A/B variations for email or ads
-
-Give Claude the original copy and tell it what variable you want to test. Subject line, CTA, opening sentence, tone. It produces variations with clear hypotheses about what each one optimizes for, so you are making an informed choice instead of guessing.
-
-### Analyze content performance and suggest adjustments
-
-Paste your performance data with context about the content. Claude helps you identify patterns, surface hypotheses about why something underperformed, and suggest specific adjustments for the next iteration. You still decide what to act on. But having a thinking partner that does not need background catch-up saves a lot of time.
-
-## Your starter CLAUDE.md
-
-A `CLAUDE.md` file is a plain text briefing document that lives in your project folder. It tells Claude who you are, what your context is, and how to help you. You write it once and update it as things change.
-
-```markdown
-# CLAUDE.md
-
-## About me
-I'm a marketer. I create content, run campaigns, and manage brand voice. I don't write code.
-
-## My context
-- Brand: [description]
-- Target audience: [description]
-- Channels I manage: [list]
-- Brand voice: [2-3 adjectives or a brief description]
-
-## How to help me
-- Campaign briefs from raw goals
-- Content drafts in our brand voice
-- Repurposing content across channels
-- Email and ad copy variations for A/B testing
-- Performance analysis and iteration suggestions
-
-## What matters
-- Always match the brand voice described above
-- Shorter is better for most copy
-- Suggest alternatives when something feels off
-- Flag when a claim needs a source
+Write the campaign brief.
 ```
 
-## Go deeper
+### 2. Creative brief for an asset
 
-The full guide at `/for-marketers` walks through real campaign workflows with copy-paste prompts you can use today. Whether you are starting with email sequences, social repurposing, or campaign briefing, there is a ready workflow waiting for you.
+The brief a designer or copywriter uses to make a specific piece.
 
-[Explore the Marketer guide](/for-marketers)
+```
+## CAPTURE
+
+[paste: what the asset is (ad, landing page, email, social post), the
+campaign it belongs to, the audience it targets, what it needs to
+communicate, any brand guidelines, examples of work you like, format
+and dimensions if relevant]
+
+## CONTEXT
+
+Reader: designer or copywriter building this specific asset. They need
+enough direction to start without asking five follow-up questions, but not
+so much prescription that they cannot make creative decisions. Format:
+objective (what the asset should make the viewer do), audience (who, in
+their words), key message (one sentence), tone (3-4 adjectives with
+examples), what to include (required elements), what to avoid, reference
+assets (if any).
+
+## CREATE
+
+Write the creative brief.
+```
+
+### 3. Performance report narrative
+
+The story behind the numbers, written for leadership.
+
+```
+## CAPTURE
+
+[paste: the metrics from this period (impressions, clicks, conversions,
+revenue, CPA, ROAS, or whatever applies), targets vs actuals, any major
+experiments run and their results, channel breakdown, what changed
+vs last period]
+
+## CONTEXT
+
+Reader: VP of Marketing or CMO reading this in a monthly or quarterly
+review. They are looking for: are we on track, what is working and why,
+what is not working and what we are doing about it, what we need from
+them. Format: brief executive summary (3 sentences), performance vs
+target by channel, key insights (what the data is telling us, not just
+what the data is), what we are changing based on this, what we need.
+Confident interpretation, not raw data narration.
+
+## CREATE
+
+Write the performance report narrative.
+```
+
+### 4. Email sequence
+
+A sequence that moves a prospect from cold to ready without being pushy.
+
+```
+## CAPTURE
+
+[paste: the offer or product being promoted, the audience (where they
+are in the funnel, what they care about, what objections they typically
+have), the goal of the sequence (trial, demo, purchase), any past email
+data on what subject lines or CTAs have worked]
+
+## CONTEXT
+
+Reader: a prospect who is skeptical and busy. They will delete the email
+if the first sentence does not earn their attention. Format: [N]-email
+sequence. Email 1: problem-first, no pitch. Email 2: insight or education.
+Email 3: social proof or case study. Email 4: offer. Email 5: last chance.
+Each email should be under 200 words. Subject lines included. One clear
+CTA per email. Conversational tone, not corporate.
+
+## CREATE
+
+Write the email sequence.
+```
+
+### 5. Social copy variations
+
+Multiple versions of a message, each tuned to a specific platform and format.
+
+```
+## CAPTURE
+
+[paste: the core message or announcement, the audience, the campaign or
+campaign goal it belongs to, any key assets (image, video, link), brand
+voice guidelines if you have them]
+
+## CONTEXT
+
+Reader: a person scrolling their feed, not looking for you. Format:
+three variations — LinkedIn (professional, insight-led, 150-200 words),
+Instagram (shorter, visual-first, with suggested hashtags), Twitter/X
+(punchy, under 240 characters, with a hook). Each variation should feel
+native to its platform. Do not make them sound like repurposed versions
+of each other.
+
+## CREATE
+
+Write the social copy variations.
+```
+
+### 6. Competitive positioning analysis
+
+The document that tells you how to talk about your category and your competitors.
+
+```
+## CAPTURE
+
+[paste: your product or service and what makes it different, the competitors
+you are being compared to most often, any sales call notes or customer
+feedback about how they compare you, your target audience's primary
+buying criteria]
+
+## CONTEXT
+
+Reader: sales team, content team, and product marketing — using this to
+sharpen how they talk about us. Format: one-paragraph summary of our
+position, competitor-by-competitor breakdown (what they are strong at,
+where they fall short, how we compare honestly), our differentiation
+statement, what to say vs what to avoid saying when competitors come up.
+Honest and useful — not a puff piece about why we win everything.
+
+## CREATE
+
+Write the competitive positioning analysis.
+```
+
+### 7. Launch announcement
+
+The content that makes a product release feel like a moment.
+
+```
+## CAPTURE
+
+[paste: what is launching, what problem it solves, who it is for, what
+is genuinely new or interesting about it, any customer quotes or beta
+feedback, the channels this will go to (blog, email, social, PR)]
+
+## CONTEXT
+
+Reader: [specify the primary channel audience — existing customers,
+prospects, press, or general public]. They care about whether this is
+relevant to them, not about your internal effort. Format: for each
+channel, write a version tuned to that reader. Blog: 400-600 words,
+story-led, customer benefit focused. Email to customers: concise, benefit
+first, clear CTA. Social: [see social copy prompt above]. Lead with what
+changed for the reader, not what we built.
+
+## CREATE
+
+Write the launch announcement.
+```
+
+### 8. Post-campaign analysis
+
+The document that makes sure this campaign makes the next one better.
+
+```
+## CAPTURE
+
+[paste: campaign goal, what we did (channels, assets, budget, timeline),
+the results against goal, what we observed during the campaign (what
+audiences responded to, what fell flat, any surprises), what we would
+do differently]
+
+## CONTEXT
+
+Reader: marketing team and leadership, using this to inform the next
+campaign. They need: what worked and why (not just what the numbers were),
+what did not work and the root cause (not just "performance was below
+target"), and specific recommendations for next time. Format: brief
+summary, results vs goal, key learnings (3-5 with specific evidence),
+recommendations for next campaign. Analytical and specific, not vague.
+
+## CREATE
+
+Write the post-campaign analysis.
+```
+
+<Callout type="warn" title="Always check claims and numbers">
+Claude will produce statistics, percentages, and industry claims that sound plausible but may be fabricated or outdated. Before any marketing content is published — especially anything with a number in it — verify the source independently. An unverified stat in a campaign brief becomes a published stat in an ad.
+</Callout>
+
+## The compound value for marketers specifically
+
+Marketing has very high structural recurrence: campaign briefs repeat every quarter, email sequences share formats across offers, performance reports follow the same sections cycle after cycle. The Compound step has an unusually high return in this environment.
+
+The first time you run the loop on a campaign brief, it takes time. The fifth time, you have a saved Context block with your audience personas, brand voice notes, and channel preferences already loaded. C2 is already done. C1 is whatever this campaign's specific data happens to be.
+
+The most valuable thing to compound in marketing is brand voice. Claude's default output is professional and generic. If you have saved examples of your best-performing copy alongside notes on what made them work — the phrases your audience actually uses, the tone that converts, the angles that land — Claude can approximate that voice. Not perfectly, but close enough that your editing pass is sharpening rather than rebuilding.
+
+<DemoCard title="Saving brand voice and audience to CLAUDE.md." steps={[
+  { type: 'cmd', text: 'Add to CLAUDE.md:' },
+  { type: 'out', text: '## Brand voice: direct, no jargon, problem-first.' },
+  { type: 'out', text: '## Audience: ops leads at 50-500 person companies.' },
+  { type: 'out', text: '## High-performing phrases: [paste 3-4 examples]' },
+  { type: 'success', text: 'Every brief starts with this. C2 costs nothing.' },
+]} />
+
+## What the Check step means for marketing work
+
+**Brand voice is first.** Claude defaults to marketing-speak. Phrases like "unlock your potential" and "seamlessly integrated" will appear in drafts. Your job in C4 is removing every word that sounds like it was written by a committee and replacing it with language that sounds like your brand actually talks. Read the draft out loud. If it sounds like an ad, rewrite it.
+
+**Claims accuracy is second.** Never publish a statistic Claude provided without independently verifying it. This is not a distrust of Claude specifically — it is the same rule you apply to any unverified source. Numbers travel fast in marketing. A wrong number in a brief becomes a wrong number in a published case study.
+
+**Audience fit is third.** Read the draft as your target customer, not as a marketer. Does this speak to what they actually care about? Does the opening sentence earn their attention? Would they share this? Most first drafts answer "what are we saying" but need work on "why would they care."
+
+## Where to go next
+
+The pillar page has the full framework and the loop logic: [The 5C Loop](/docs/frameworks/5c-loop).
+
+If you are new to Claude Code, start with [Foundations](/docs/foundations/) to get your workspace set up. The Compound step only works if your Context blocks and brand voice notes persist — the [Memory System](/docs/foundations/memory-system) guide explains how to set that up properly.
