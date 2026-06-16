@@ -77,6 +77,13 @@
 
 /* ── Typography ── */
 
+/* All display headings: force bold so font-medium/font-normal in component classNames never wins */
+h1.font-display,
+h2.font-display,
+h3.font-display {
+  font-weight: 700;
+}
+
 /* Prose (MDX article) headings: Fraunces with WONK 0, opsz + color step down with level */
 .prose h2 {
   font-family: var(--font-display);
