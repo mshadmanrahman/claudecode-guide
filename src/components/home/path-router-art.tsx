@@ -138,14 +138,25 @@ export function MicrosoftArt() {
 }
 
 export function TeachersArt() {
-  const cx = 120, cy = 42;
+  const sx = 120, sy0 = 12, sy1 = 68;
   return (
     <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
-      <path d={`M ${cx} ${cy - 24} C ${cx - 10} ${cy - 26}, ${cx - 50} ${cy - 18}, ${cx - 50} ${cy} S ${cx - 44} ${cy + 24}, ${cx} ${cy + 24}`} stroke="currentColor" strokeWidth={1.2} fill="none" opacity={0.45} />
-      <path d={`M ${cx} ${cy - 24} C ${cx + 10} ${cy - 26}, ${cx + 50} ${cy - 18}, ${cx + 50} ${cy} S ${cx + 44} ${cy + 24}, ${cx} ${cy + 24}`} stroke="currentColor" strokeWidth={1.2} fill="none" opacity={0.45} />
-      <line x1={cx} y1={cy - 24} x2={cx} y2={cy + 24} stroke="currentColor" strokeWidth={1.5} opacity={0.38} />
-      {[0, 10, 20].map((dy, i) => <line key={`l${i}`} x1={cx - 42} y1={cy - 8 + dy} x2={cx - 8} y2={cy - 10 + dy} stroke="currentColor" strokeWidth={0.9} opacity={0.2} />)}
-      {[0, 10, 20].map((dy, i) => <line key={`r${i}`} x1={cx + 8} y1={cy - 10 + dy} x2={cx + 42} y2={cy - 8 + dy} stroke="currentColor" strokeWidth={0.9} opacity={0.2} />)}
+      {/* Left page (trapezoid) */}
+      <polygon points={`${sx},${sy0} 68,16 66,70 ${sx},${sy1}`}
+        stroke="currentColor" strokeWidth={1.2} fill="none" opacity={0.42} />
+      {/* Right page (trapezoid) */}
+      <polygon points={`${sx},${sy0} 172,16 174,70 ${sx},${sy1}`}
+        stroke="currentColor" strokeWidth={1.2} fill="none" opacity={0.42} />
+      {/* Spine */}
+      <line x1={sx} y1={sy0} x2={sx} y2={sy1} stroke="currentColor" strokeWidth={1.5} opacity={0.36} />
+      {/* Text lines on left page */}
+      {[0, 12, 24].map((dy, i) => (
+        <line key={`l${i}`} x1={76} y1={26 + dy} x2={sx - 8} y2={25 + dy} stroke="currentColor" strokeWidth={0.9} opacity={0.2} />
+      ))}
+      {/* Text lines on right page */}
+      {[0, 12, 24].map((dy, i) => (
+        <line key={`r${i}`} x1={sx + 8} y1={25 + dy} x2={164} y2={26 + dy} stroke="currentColor" strokeWidth={0.9} opacity={0.2} />
+      ))}
     </svg>
   );
 }

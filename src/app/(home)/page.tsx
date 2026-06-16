@@ -111,7 +111,6 @@ export default function HomePage() {
       <PersonaStrip />
       {/* ── Hero ── */}
       <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-28 pb-12 text-center">
-        <div className="absolute inset-0 bg-grid bg-grid-fade opacity-40 pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center">
           <h1 className="animate-slide-up-fade font-display tracking-tight-display max-w-3xl text-5xl font-bold text-fd-foreground sm:text-7xl leading-[1.08]">
@@ -210,7 +209,7 @@ export default function HomePage() {
             <div className="mt-5 flex items-center">
               <span className="text-green-600 dark:text-green-400">~</span>
               <span className="text-fd-muted-foreground"> $ </span>
-              <span className="inline-block h-4 w-1.5 bg-fd-foreground/50 align-middle" />
+              <span className="inline-block h-4 w-1.5 bg-fd-foreground/50 align-middle animate-blink" />
             </div>
           </div>
         </div>
@@ -317,7 +316,7 @@ export default function HomePage() {
               <Link
                 key={card.id}
                 href={card.href}
-                className={`animate-slide-up-fade group flex flex-col rounded-xl border border-fd-border bg-fd-card p-8 transition-all duration-200 hover:shadow-md ${card.bgHover}`}
+                className={`animate-slide-up-fade group flex flex-col rounded-xl border border-fd-border bg-fd-background p-8 transition-all duration-200 hover:shadow-md ${card.bgHover}`}
                 style={{ animationDelay: `${i * 100 + 200}ms` }}
               >
                 <Icon className={`mb-4 h-6 w-6 ${card.color}`} />
@@ -368,7 +367,7 @@ export default function HomePage() {
                 See what people actually build <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
-            <div className="border-t border-fd-border bg-fd-accent/50 p-8 lg:border-l lg:border-t-0">
+            <div className="border-t border-fd-border bg-fd-background p-8 lg:border-l lg:border-t-0">
               <div className="grid grid-cols-2 gap-3">
                 {[
                   'Build websites',
@@ -402,7 +401,7 @@ export default function HomePage() {
 
       {/* ── Final CTA ── */}
       <section className="mx-auto w-full max-w-5xl px-6 pb-24">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-12 text-center">
+        <div className="rounded-xl border border-fd-border bg-fd-background p-12 text-center">
           <h2 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground">
             Ready to try it?
           </h2>
