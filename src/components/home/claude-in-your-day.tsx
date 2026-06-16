@@ -2,41 +2,30 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Sun, Search, PenLine, Moon, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
+import { DAY_ART } from './claude-in-your-day-art';
 
 const DAY_PREVIEW = [
   {
     time: '8am',
-    icon: Sun,
     title: 'Morning brief',
     description: 'Ask Claude what to focus on before email hijacks your day.',
-    color: 'text-orange-500 dark:text-orange-400',
-    bg: 'bg-orange-500/10',
   },
   {
     time: '10am',
-    icon: Search,
     title: 'Research & draft',
     description: 'Give it rough notes, get a working first draft back.',
-    color: 'text-blue-500 dark:text-blue-400',
-    bg: 'bg-blue-500/10',
   },
   {
     time: '2pm',
-    icon: PenLine,
     title: 'Review & refine',
     description: 'Share what you made. Claude makes it sharper.',
-    color: 'text-purple-500 dark:text-purple-400',
-    bg: 'bg-purple-500/10',
   },
   {
     time: '5pm',
-    icon: Moon,
     title: 'Day recap',
     description: 'Three bullets. Clean handoff. Tomorrow starts clear.',
-    color: 'text-slate-500 dark:text-slate-400',
-    bg: 'bg-slate-500/10',
   },
 ] as const;
 
@@ -75,24 +64,26 @@ export function ClaudeInYourDay() {
         One task is fine. A full workflow is better. Here&apos;s what a day with Claude actually looks like.
       </p>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-px bg-fd-border border border-fd-border rounded-xl overflow-hidden sm:grid-cols-2 lg:grid-cols-4">
         {DAY_PREVIEW.map((item) => {
-          const Icon = item.icon;
+          const Art = DAY_ART[item.time];
           return (
             <div
               key={item.time}
-              className="rounded-xl border border-fd-border bg-fd-card p-6"
+              className="flex flex-col bg-fd-background p-6"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${item.bg}`}>
-                  <Icon className={`h-5 w-5 ${item.color}`} />
+              {Art && (
+                <div className="mb-5 h-[72px] text-fd-foreground/35">
+                  <Art />
                 </div>
-                <span className="font-mono text-xs text-fd-muted-foreground">{item.time}</span>
-              </div>
-              <h3 className="mb-2 font-display text-base font-normal tracking-tight text-fd-foreground">
+              )}
+              <span className="mb-2 text-[10px] tracking-[0.18em] uppercase font-medium text-fd-muted-foreground">
+                {item.time}
+              </span>
+              <h3 className="mb-2 font-display text-base font-bold tracking-tight text-fd-foreground">
                 {item.title}
               </h3>
-              <p className="text-sm text-fd-muted-foreground leading-relaxed">
+              <p className="text-sm text-fd-muted-foreground leading-relaxed flex-1">
                 {item.description}
               </p>
             </div>

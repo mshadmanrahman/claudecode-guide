@@ -3,6 +3,7 @@ import { ArrowRight, Gamepad2, ClipboardList, BarChart3, Shield, Star, MousePoin
 import { EmailCapture } from '@/components/email-capture';
 import { PathRouter } from '@/components/home/path-router';
 import { PersonaStrip } from '@/components/home/persona-strip';
+import { HeroVisual } from '@/components/home/hero-visual';
 import { ClaudeInYourDay } from '@/components/home/claude-in-your-day';
 import { SiteFooter } from '@/components/site-footer';
 import type { Metadata } from 'next';
@@ -163,55 +164,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Static Terminal ── */}
-      <section className="mx-auto w-full max-w-3xl px-6 pb-24 animate-slide-up-fade delay-300">
-        <div className="overflow-hidden rounded-xl border border-fd-border shadow-lg bg-fd-card">
-          {/* Title bar */}
-          <div className="flex items-center gap-2 border-b border-fd-border bg-fd-muted px-4 py-2.5">
-            <div className="flex gap-1.5">
-              <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-              <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-              <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-            </div>
-            <span className="ml-2 font-mono text-[11px] text-fd-muted-foreground">claude-code</span>
-          </div>
-          {/* Session */}
-          <div className="p-6 font-mono text-[13px] leading-loose sm:text-sm">
-            <div>
-              <span className="text-green-600 dark:text-green-400">~</span>
-              <span className="text-fd-muted-foreground"> $ </span>
-              <span className="text-fd-foreground font-medium">&ldquo;read sales.csv and chart revenue by month&rdquo;</span>
-            </div>
-            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Analyzing 2,847 rows across 14 months...</div>
-            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Generating interactive chart...</div>
-            <div className="mt-0.5 pl-4 text-xs text-green-600 dark:text-green-400">✓ Chart saved to revenue-by-month.html</div>
-            <div className="mt-0.5 pl-4 text-xs text-amber-600 dark:text-amber-400">→ Revenue up 23% since October</div>
-
-            <div className="mt-5">
-              <span className="text-green-600 dark:text-green-400">~</span>
-              <span className="text-fd-muted-foreground"> $ </span>
-              <span className="text-fd-foreground font-medium">&ldquo;summarize my meeting notes, list the action items&rdquo;</span>
-            </div>
-            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Reading meeting-notes-jun-11.md...</div>
-            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Extracting decisions and action items...</div>
-            <div className="mt-0.5 pl-4 text-xs text-green-600 dark:text-green-400">✓ 3 decisions captured, 5 action items extracted</div>
-            <div className="mt-0.5 pl-4 text-xs text-amber-600 dark:text-amber-400">→ Saved to action-items.md</div>
-
-            <div className="mt-5">
-              <span className="text-green-600 dark:text-green-400">~</span>
-              <span className="text-fd-muted-foreground"> $ </span>
-              <span className="text-fd-foreground font-medium">&ldquo;build me a quiz game about world history&rdquo;</span>
-            </div>
-            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Creating project structure...</div>
-            <div className="mt-0.5 pl-4 text-xs text-fd-muted-foreground">Writing game logic and UI...</div>
-            <div className="mt-0.5 pl-4 text-xs text-green-600 dark:text-green-400">✓ Quiz game ready. Run npm start to play</div>
-
-            <div className="mt-5 flex items-center">
-              <span className="text-green-600 dark:text-green-400">~</span>
-              <span className="text-fd-muted-foreground"> $ </span>
-              <span className="inline-block h-4 w-1.5 bg-fd-foreground/50 align-middle animate-blink" />
-            </div>
-          </div>
+      {/* ── Hero Visual ── */}
+      <section className="mx-auto w-full max-w-4xl px-6 pb-24 animate-slide-up-fade delay-300">
+        <div className="rounded-xl border border-fd-border overflow-hidden text-fd-foreground/25">
+          <HeroVisual />
         </div>
       </section>
 
