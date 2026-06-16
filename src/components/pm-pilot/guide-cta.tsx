@@ -42,7 +42,7 @@ export function PmPilotGuideCta() {
         <div
           className={`transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
-          <h2 className="font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
             Pick the skill that matches your biggest time sink.
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">

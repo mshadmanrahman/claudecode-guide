@@ -77,20 +77,23 @@
 
 /* ── Typography ── */
 
-/* Prose (MDX article) headings: Fraunces with WONK 0, opsz scales down with heading level */
+/* Prose (MDX article) headings: Fraunces with WONK 0, opsz + color step down with level */
 .prose h2 {
   font-family: var(--font-display);
   font-variation-settings: 'opsz' 48, 'WONK' 0;
+  color: color-mix(in srgb, var(--color-fd-foreground) 82%, var(--color-fd-muted-foreground));
 }
 
 .prose h3 {
   font-family: var(--font-display);
   font-variation-settings: 'opsz' 32, 'WONK' 0;
+  color: color-mix(in srgb, var(--color-fd-foreground) 68%, var(--color-fd-muted-foreground));
 }
 
 .prose h4 {
   font-family: var(--font-display);
   font-variation-settings: 'opsz' 24, 'WONK' 0;
+  color: color-mix(in srgb, var(--color-fd-foreground) 55%, var(--color-fd-muted-foreground));
 }
 
 @layer utilities {

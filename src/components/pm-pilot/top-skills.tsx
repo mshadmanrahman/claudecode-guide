@@ -78,7 +78,7 @@ export function PmPilotTopSkills() {
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">
             03
           </span>
-          <h2 className="mt-4 font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
             Five skills worth trying first
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">

@@ -37,7 +37,7 @@ export function PmPilotWhyExists() {
           }`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">08</span>
-          <h2 className="mt-4 font-serif text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
             Why this exists
           </h2>
         </div>

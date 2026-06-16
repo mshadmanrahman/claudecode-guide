@@ -23,7 +23,7 @@ export default function BengaliGuidePage() {
             <Globe className="h-4 w-4" />
             বাংলায় পড়ুন
           </div>
-          <h1 className="font-newsreader text-4xl font-bold tracking-tight text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-4xl font-bold tracking-tight text-fd-foreground sm:text-5xl">
             Claude Code কী এবং কীভাবে শুরু করবেন
           </h1>
           <p className="mt-4 text-lg text-fd-muted-foreground">
@@ -46,7 +46,7 @@ export default function BengaliGuidePage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-fd-card border border-fd-border">
               <Terminal className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-newsreader text-2xl font-bold text-fd-foreground">
+            <h2 className="font-display text-2xl font-bold text-fd-foreground">
               Claude Code কী?
             </h2>
           </div>
@@ -120,7 +120,7 @@ export default function BengaliGuidePage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-fd-card border border-fd-border">
               <Zap className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-newsreader text-2xl font-bold text-fd-foreground">
+            <h2 className="font-display text-2xl font-bold text-fd-foreground">
               কীভাবে ইনস্টল করবেন
             </h2>
           </div>
@@ -187,7 +187,7 @@ export default function BengaliGuidePage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-fd-card border border-fd-border">
               <FileText className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-newsreader text-2xl font-bold text-fd-foreground">
+            <h2 className="font-display text-2xl font-bold text-fd-foreground">
               CLAUDE.md: সবচেয়ে গুরুত্বপূর্ণ ফাইল
             </h2>
           </div>
@@ -245,7 +245,7 @@ export default function BengaliGuidePage() {
       {/* Next Steps */}
       <section className="px-6 py-12">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-newsreader text-2xl font-bold text-fd-foreground">
+          <h2 className="font-display text-2xl font-bold text-fd-foreground">
             এরপর কী করবেন?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">

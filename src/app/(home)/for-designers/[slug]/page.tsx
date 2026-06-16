@@ -90,7 +90,7 @@ export default async function DesignerGuidePage({
             For Designers
           </p>
 
-          <h1 className="font-serif text-3xl font-medium tracking-tight text-fd-foreground sm:text-4xl leading-snug">
+          <h1 className="font-display text-3xl font-medium tracking-tight text-fd-foreground sm:text-4xl leading-snug">
             {guide.title}
           </h1>
 
@@ -190,7 +190,7 @@ export default async function DesignerGuidePage({
                 <span className="font-mono text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground/50">
                   Step {String(index + 1).padStart(2, '0')}
                 </span>
-                <h2 className="mt-1 font-serif text-xl font-medium text-fd-foreground leading-snug">
+                <h2 className="mt-1 font-display text-xl font-medium text-fd-foreground leading-snug">
                   {step.title}
                 </h2>
                 <p className="mt-2 text-sm text-fd-muted-foreground leading-relaxed">

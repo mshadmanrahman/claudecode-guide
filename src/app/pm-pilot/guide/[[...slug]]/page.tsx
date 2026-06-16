@@ -44,7 +44,7 @@ export default async function PmPilotGuidePage(props: PageProps) {
             </span>
           </div>
         )}
-        <h1 className="font-serif text-3xl font-semibold text-fd-foreground sm:text-4xl">
+        <h1 className="font-display text-3xl font-semibold text-fd-foreground sm:text-4xl">
           {data.title}
         </h1>
         {data.description && (

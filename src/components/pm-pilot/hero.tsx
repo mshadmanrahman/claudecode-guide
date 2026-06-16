@@ -59,7 +59,7 @@ export function PmPilotHero() {
       />
 
       <div className="relative z-10">
-        <h1 className="animate-slide-up-fade animate-breathe font-serif text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-7xl leading-[1.1] hover:scale-[1.01] transition-transform duration-500 cursor-default">
+        <h1 className="animate-slide-up-fade animate-breathe font-display text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-7xl leading-[1.1] hover:scale-[1.01] transition-transform duration-500 cursor-default">
           Stop drowning in
           <br />
           <span className="text-fade">meeting prep.</span>
