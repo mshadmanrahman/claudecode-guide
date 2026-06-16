@@ -77,6 +77,22 @@
 
 /* ── Typography ── */
 
+/* Prose (MDX article) headings: Fraunces with WONK 0, opsz scales down with heading level */
+.prose h2 {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 48, 'WONK' 0;
+}
+
+.prose h3 {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 32, 'WONK' 0;
+}
+
+.prose h4 {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 24, 'WONK' 0;
+}
+
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
