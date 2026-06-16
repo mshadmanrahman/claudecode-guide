@@ -2,15 +2,14 @@ import './globals.css';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import { Analytics } from '@vercel/analytics/next';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { Spectral, Inter, Geist_Mono } from 'next/font/google';
+import { Fraunces, Inter, Geist_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-const spectral = Spectral({
-  variable: '--font-spectral',
+const fraunces = Fraunces({
+  variable: '--font-fraunces',
   subsets: ['latin'],
-  weight: ['400', '600', '700', '800'],
-  style: ['normal', 'italic'],
+  axes: ['opsz', 'WONK'],
   display: 'swap',
 });
 
@@ -122,7 +121,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${spectral.variable} ${inter.variable} ${geistMono.variable}`}
+      className={`${fraunces.variable} ${inter.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>

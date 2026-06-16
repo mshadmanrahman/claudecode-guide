@@ -28,7 +28,7 @@
   --color-fd-overlay: rgba(0, 0, 0, 0.2);
 
   --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-spectral), "Spectral", Georgia, serif;
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
   --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
 }
 
@@ -80,6 +80,7 @@
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
+    font-variation-settings: 'opsz' 60, 'WONK' 0;
   }
 
   .tracking-tight-display {
