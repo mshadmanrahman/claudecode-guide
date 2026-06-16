@@ -5,22 +5,22 @@ description: "Sonnet handles 80% of what you'll ever do. Here's exactly when to 
 
 ## Start with Sonnet. That's the answer.
 
-Seriously. If you're new to Claude Code, just use Sonnet 4.6 for everything and stop reading here. You can come back to this page when Sonnet doesn't cut it.
+Seriously. If you're new to Claude Code, just use Sonnet for everything and stop reading here. You can come back to this page when Sonnet doesn't cut it.
 
-Still here? Good. There are three models, they're meaningfully different, and picking wrong costs you either money or quality.
+Still here? Good. There are three model classes, they're meaningfully different, and picking wrong costs you either money or quality.
 
 <DemoCard title="claude-code" steps={[
   { type: 'cmd', text: '/model' },
   { type: 'out', text: 'Available models:' },
-  { type: 'out', text: '  claude-opus-4-6      (most capable, slower)' },
-  { type: 'out', text: '  claude-sonnet-4-6    (fast and capable, recommended)' },
-  { type: 'out', text: '  claude-haiku-4-5     (fastest, cheapest)' },
+  { type: 'out', text: '  claude-opus-4-*      (most capable, slower)' },
+  { type: 'out', text: '  claude-sonnet-4-*    (fast and capable, recommended)' },
+  { type: 'out', text: '  claude-haiku-4-*     (fastest, cheapest)' },
   { type: 'out', text: '' },
-  { type: 'success', text: 'Current: claude-sonnet-4-6' },
+  { type: 'success', text: 'Current: claude-sonnet-4-* (latest)' },
   { type: 'warn', text: '→ Switch with /model opus, /model sonnet, or /model haiku' },
 ]} />
 
-## When to Use Opus 4.6
+## When to Use the Opus Class
 
 Use Opus when getting it wrong the first time is expensive.
 
@@ -30,11 +30,11 @@ Use Opus when getting it wrong the first time is expensive.
 - Writing PRDs, competitive analysis, strategy documents
 - Security reviews and code audits where you need to be thorough
 
-It generates at 20-30 tokens per second versus Sonnet's 40-60. You feel that. For a quick bug fix it's irritating. For a 2-hour architecture session it's worth every second of waiting.
+Opus generates noticeably slower than Sonnet. You feel it. For a quick bug fix it's irritating. For a 2-hour architecture session it's worth every second of waiting.
 
-**Pricing:** $5 input / $25 output per million tokens.
+**Pricing:** Most expensive of the three. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
 
-## When to Use Sonnet 4.6
+## When to Use the Sonnet Class
 
 This is your daily driver. 80% of tasks, Sonnet is the right call.
 
@@ -47,11 +47,11 @@ This is your daily driver. 80% of tasks, Sonnet is the right call.
 
 Here's the thing most people discover after a week: for most tasks, the quality difference between Sonnet and Opus is negligible. You're not leaving capability on the table. You're being efficient.
 
-**Pricing:** $3 input / $15 output per million tokens.
+**Pricing:** Mid-tier. Fast enough that it never feels slow. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
 
-## When to Use Haiku 4.5
+## When to Use the Haiku Class
 
-Haiku is for volume work where you don't need reasoning. Think of it like the intern who types really fast.
+Haiku is for volume work where you don't need deep reasoning. Think of it like the intern who types really fast.
 
 - Quick code formatting
 - Simple lookups ("what does this function do?")
@@ -59,9 +59,9 @@ Haiku is for volume work where you don't need reasoning. Think of it like the in
 - Basic text transformations
 - Syntax checks
 
-The real use case here is sub-agents. When you're running background code review or spinning up a test-execution agent, Haiku is fast and cheap enough that you can run several in parallel without watching your bill climb.
+The real use case is sub-agents. When you're running background code review or spinning up a test-execution agent, Haiku is fast and cheap enough that you can run several in parallel without watching your bill climb.
 
-**Pricing:** Cheapest of the three. Exact numbers fluctuate but it's a fraction of Sonnet.
+**Pricing:** Cheapest of the three by a wide margin. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
 
 ## How Claude Code Picks For You
 
@@ -85,7 +85,7 @@ You can do this mid-conversation, mid-task. The context carries over. Switch to 
 
 If you're just trying it out: start free, see if you like it.
 
-If you're using it regularly: Pro at $20/month handles most people's actual usage. I'd start here and upgrade only when you start hitting limits and it frustrates you. You'll know.
+If you're using it regularly: Pro at $20/month handles most people's actual usage. Start here and upgrade only when you start hitting limits and it frustrates you. You'll know.
 
 If you're a power user building things all day: Max at $100/month gives you the headroom. The Opus access is nice but honestly it's the 20x usage that makes Max worth it.
 
@@ -95,7 +95,7 @@ If you're building apps that call Claude: API, pay per token, pick your model pe
 
 Sonnet for everything. Opus when Sonnet's first pass wasn't good enough. Haiku for background agents and volume work.
 
-That's it. Start there and adjust based on what you actually experience, not what you imagine might be better.
+Start there and adjust based on what you actually experience, not what you imagine might be better.
 
 ## Pro Tips
 
