@@ -1,11 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import { trackEvent } from '@/lib/analytics';
+import { useEffect, useRef } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
-type PersonaKey = 'designers' | 'chrome' | 'teachers' | 'marketers' | 'microsoft';
+type PersonaKey =
+  | "designers"
+  | "chrome"
+  | "teachers"
+  | "marketers"
+  | "microsoft"
+  | "hr";
 
 type SlotData = {
   time: string;
@@ -13,55 +19,188 @@ type SlotData = {
   title: string;
 };
 
-const PERSONA_STRIPS: Record<PersonaKey, { heading: string; slots: SlotData[] }> = {
+const PERSONA_STRIPS: Record<
+  PersonaKey,
+  { heading: string; slots: SlotData[] }
+> = {
   designers: {
     heading: "A designer's day with Claude",
     slots: [
-      { time: '08:00', label: 'Brief', title: 'Interrogate the brief before touching Figma' },
-      { time: '10:00', label: 'Research', title: 'Synthesize competitors and user quotes into patterns' },
-      { time: '12:00', label: 'Critique', title: 'Get a second opinion on your wireframes' },
-      { time: '14:00', label: 'Handoff', title: 'Write the developer specs in minutes' },
-      { time: '17:00', label: 'Prep', title: "Anticipate tomorrow's client feedback" },
+      {
+        time: "08:00",
+        label: "Brief",
+        title: "Interrogate the brief before touching Figma",
+      },
+      {
+        time: "10:00",
+        label: "Research",
+        title: "Synthesize competitors and user quotes into patterns",
+      },
+      {
+        time: "12:00",
+        label: "Critique",
+        title: "Get a second opinion on your wireframes",
+      },
+      {
+        time: "14:00",
+        label: "Handoff",
+        title: "Write the developer specs in minutes",
+      },
+      {
+        time: "17:00",
+        label: "Prep",
+        title: "Anticipate tomorrow's client feedback",
+      },
     ],
   },
   chrome: {
     heading: "A browser user's day with Claude",
     slots: [
-      { time: '08:00', label: 'Morning', title: 'Summarize overnight news and emails at a glance' },
-      { time: '10:00', label: 'Research', title: 'Summarize any article or webpage in seconds' },
-      { time: '12:00', label: 'Writing', title: 'Draft emails and documents directly in your browser' },
-      { time: '14:00', label: 'Review', title: 'Check your writing before you send it' },
-      { time: '17:00', label: 'Wrap-up', title: 'Capture key ideas before closing your tabs' },
+      {
+        time: "08:00",
+        label: "Morning",
+        title: "Summarize overnight news and emails at a glance",
+      },
+      {
+        time: "10:00",
+        label: "Research",
+        title: "Summarize any article or webpage in seconds",
+      },
+      {
+        time: "12:00",
+        label: "Writing",
+        title: "Draft emails and documents directly in your browser",
+      },
+      {
+        time: "14:00",
+        label: "Review",
+        title: "Check your writing before you send it",
+      },
+      {
+        time: "17:00",
+        label: "Wrap-up",
+        title: "Capture key ideas before closing your tabs",
+      },
     ],
   },
   microsoft: {
     heading: "An Office user's day with Claude",
     slots: [
-      { time: '08:00', label: 'Morning', title: "Draft today's document outline in Word" },
-      { time: '10:00', label: 'Data', title: 'Get Excel formulas and analysis without the struggle' },
-      { time: '12:00', label: 'Comms', title: "Write the Outlook email you've been putting off" },
-      { time: '14:00', label: 'Slides', title: 'Build a PowerPoint structure from scratch' },
-      { time: '17:00', label: 'Polish', title: 'Clean up the document before it goes out' },
+      {
+        time: "08:00",
+        label: "Morning",
+        title: "Draft today's document outline in Word",
+      },
+      {
+        time: "10:00",
+        label: "Data",
+        title: "Get Excel formulas and analysis without the struggle",
+      },
+      {
+        time: "12:00",
+        label: "Comms",
+        title: "Write the Outlook email you've been putting off",
+      },
+      {
+        time: "14:00",
+        label: "Slides",
+        title: "Build a PowerPoint structure from scratch",
+      },
+      {
+        time: "17:00",
+        label: "Polish",
+        title: "Clean up the document before it goes out",
+      },
     ],
   },
   teachers: {
     heading: "A teacher's day with Claude",
     slots: [
-      { time: '08:00', label: 'Morning', title: 'Anticipate where students will get stuck today' },
-      { time: '10:00', label: 'Assessment', title: 'Create quiz questions and rubrics in minutes' },
-      { time: '12:00', label: 'Comms', title: 'Write compassionate, clear parent updates' },
-      { time: '14:00', label: 'Planning', title: 'Differentiate activities for every learner' },
-      { time: '17:00', label: 'Feedback', title: 'Give better essay feedback, faster' },
+      {
+        time: "08:00",
+        label: "Morning",
+        title: "Anticipate where students will get stuck today",
+      },
+      {
+        time: "10:00",
+        label: "Assessment",
+        title: "Create quiz questions and rubrics in minutes",
+      },
+      {
+        time: "12:00",
+        label: "Comms",
+        title: "Write compassionate, clear parent updates",
+      },
+      {
+        time: "14:00",
+        label: "Planning",
+        title: "Differentiate activities for every learner",
+      },
+      {
+        time: "17:00",
+        label: "Feedback",
+        title: "Give better essay feedback, faster",
+      },
     ],
   },
   marketers: {
     heading: "A marketer's day with Claude",
     slots: [
-      { time: '08:00', label: 'Strategy', title: "Decide what content is worth making this week" },
-      { time: '10:00', label: 'Creation', title: 'Generate 3 content angles and pick the best one' },
-      { time: '12:00', label: 'Analysis', title: "Make last week's data tell a clear story" },
-      { time: '14:00', label: 'Copy', title: 'Sharpen headlines, subject lines, and CTAs' },
-      { time: '17:00', label: 'Planning', title: "Build next week's content calendar in 5 minutes" },
+      {
+        time: "08:00",
+        label: "Strategy",
+        title: "Decide what content is worth making this week",
+      },
+      {
+        time: "10:00",
+        label: "Creation",
+        title: "Generate 3 content angles and pick the best one",
+      },
+      {
+        time: "12:00",
+        label: "Analysis",
+        title: "Make last week's data tell a clear story",
+      },
+      {
+        time: "14:00",
+        label: "Copy",
+        title: "Sharpen headlines, subject lines, and CTAs",
+      },
+      {
+        time: "17:00",
+        label: "Planning",
+        title: "Build next week's content calendar in 5 minutes",
+      },
+    ],
+  },
+  hr: {
+    heading: "An HR professional's day with Claude",
+    slots: [
+      {
+        time: "08:00",
+        label: "Recruiting",
+        title: "Write a job description that filters in the right candidates",
+      },
+      {
+        time: "10:00",
+        label: "Interviews",
+        title: "Build role-specific questions tied to real competencies",
+      },
+      {
+        time: "12:00",
+        label: "Onboarding",
+        title: "Draft a 30-60-90 plan for the new joiner starting Monday",
+      },
+      {
+        time: "14:00",
+        label: "Reviews",
+        title: "Turn your bullet-point notes into written feedback",
+      },
+      {
+        time: "17:00",
+        label: "Comms",
+        title: "Draft the all-staff email you've been putting off",
+      },
     ],
   },
 };
@@ -83,7 +222,7 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
       ([entry]) => {
         if (entry.isIntersecting && !viewFired.current) {
           viewFired.current = true;
-          trackEvent('workflow_strip_view', { persona });
+          trackEvent("workflow_strip_view", { persona });
           observer.disconnect();
         }
       },
@@ -111,7 +250,12 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
           <Link
             href="/workflow"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-fd-muted-foreground hover:text-fd-foreground transition-colors whitespace-nowrap"
-            onClick={() => trackEvent('workflow_strip_cta_click', { persona, position: 'header' })}
+            onClick={() =>
+              trackEvent("workflow_strip_cta_click", {
+                persona,
+                position: "header",
+              })
+            }
           >
             See prompts
             <ArrowRight className="h-3.5 w-3.5" />
@@ -136,11 +280,16 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
         </div>
 
         <p className="mt-4 text-center text-xs text-fd-muted-foreground">
-          One habit at a time.{' '}
+          One habit at a time.{" "}
           <Link
             href="/workflow"
             className="underline underline-offset-2 hover:text-fd-foreground"
-            onClick={() => trackEvent('workflow_strip_cta_click', { persona, position: 'footer' })}
+            onClick={() =>
+              trackEvent("workflow_strip_cta_click", {
+                persona,
+                position: "footer",
+              })
+            }
           >
             See the full workflow with prompts you can copy
           </Link>

@@ -15,7 +15,8 @@ interface RouterCard {
     | "chrome"
     | "microsoft"
     | "teachers"
-    | "marketers";
+    | "marketers"
+    | "hr";
   title: string;
   blurb: string;
   href: string;
@@ -94,6 +95,14 @@ const CARDS: ReadonlyArray<RouterCard> = [
       "7 guides: brand voice, social posts, blog drafts, email campaigns, ad copy, and market research.",
     href: "/for-marketers",
     audience: "Marketer",
+  },
+  {
+    id: "hr",
+    title: "Claude for HR Professionals",
+    blurb:
+      "6 guides: job descriptions, interview questions, onboarding plans, performance reviews, policies, and employee communications.",
+    href: "/for-hr",
+    audience: "HR professional",
   },
 ];
 

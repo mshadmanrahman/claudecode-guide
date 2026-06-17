@@ -581,6 +581,78 @@ export function MarketersArt() {
   );
 }
 
+export function HrArt() {
+  const rows = [
+    { label: "JD", w: 0.72 },
+    { label: "IQ", w: 0.55 },
+    { label: "30-60-90", w: 0.88 },
+    { label: "Review", w: 0.6 },
+  ];
+  const x0 = 28,
+    y0 = 10,
+    rw = 184,
+    rh = 14,
+    gap = 5;
+  return (
+    <svg
+      viewBox="0 0 240 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-full"
+      aria-hidden="true"
+    >
+      {/* Document rows */}
+      {rows.map(({ w }, i) => (
+        <g key={i}>
+          <rect
+            x={x0}
+            y={y0 + i * (rh + gap)}
+            width={rw}
+            height={rh}
+            rx={2}
+            stroke="currentColor"
+            strokeWidth={0.8}
+            opacity={0.22}
+          />
+          <rect
+            x={x0 + 8}
+            y={y0 + i * (rh + gap) + 5}
+            width={rw * w * 0.7}
+            height={4}
+            rx={2}
+            fill="currentColor"
+            opacity={0.18 + i * 0.06}
+          />
+        </g>
+      ))}
+      {/* People dots cluster */}
+      {[0, 1, 2].map((i) => (
+        <circle
+          key={i}
+          cx={194 + i * 12}
+          cy={58}
+          r={5}
+          stroke="currentColor"
+          strokeWidth={1}
+          fill="none"
+          opacity={0.3 + i * 0.1}
+        />
+      ))}
+      {/* Connector */}
+      <line
+        x1={x0 + rw}
+        y1={y0 + 3 * (rh + gap) + rh / 2}
+        x2={188}
+        y2={58}
+        stroke="currentColor"
+        strokeWidth={0.8}
+        strokeDasharray="2 2"
+        opacity={0.2}
+      />
+    </svg>
+  );
+}
+
 export const CARD_ART: Record<string, ArtFn> = {
   compare: CompareArt,
   "claude-md": ClaudeMdArt,
@@ -591,4 +663,5 @@ export const CARD_ART: Record<string, ArtFn> = {
   microsoft: MicrosoftArt,
   teachers: TeachersArt,
   marketers: MarketersArt,
+  hr: HrArt,
 };
