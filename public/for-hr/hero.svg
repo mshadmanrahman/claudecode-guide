@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1456" height="816" viewBox="0 0 1456 816">
+  <defs>
+    <style>
+      .bg { fill: #f2ede4; }
+      .ink { fill: none; stroke: #1a2f5a; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: #1a2f5a; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+      .bold { fill: none; stroke: #1a2f5a; stroke-width: 4.8; stroke-linecap: round; stroke-linejoin: round; }
+      .dash { fill: none; stroke: #1a2f5a; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 7; }
+      .dotdash { fill: none; stroke: #1a2f5a; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 2 8; }
+      .title { font: 700 25px "Menlo", "Consolas", monospace; fill: #1a2f5a; letter-spacing: 0; }
+      .label { font: 700 16px "Menlo", "Consolas", monospace; fill: #1a2f5a; letter-spacing: 0; }
+      .small { font: 500 13px "Menlo", "Consolas", monospace; fill: #1a2f5a; letter-spacing: 0; }
+      .tiny { font: 500 11px "Menlo", "Consolas", monospace; fill: #1a2f5a; letter-spacing: 0; }
+      .terminal { font: 500 15px "Menlo", "Consolas", monospace; fill: #1a2f5a; letter-spacing: 0; }
+      .micro { font: 500 9px "Menlo", "Consolas", monospace; fill: #1a2f5a; letter-spacing: 0; }
+      .fillink { fill: #1a2f5a; stroke: none; }
+      .paper { fill: #f2ede4; stroke: #1a2f5a; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+    <marker id="arrow" viewBox="0 0 16 16" refX="14" refY="8" markerWidth="14" markerHeight="14" orient="auto-start-reverse">
+      <path d="M2 2 L14 8 L2 14" class="bold"/>
+    </marker>
+    <marker id="arrowSmall" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M2 2 L10 6 L2 10" class="ink"/>
+    </marker>
+  </defs>
+
+  <rect width="1456" height="816" class="bg"/>
+
+  <!-- corner registration marks -->
+  <path d="M36 36 H108 M36 36 V108 M52 52 H92 M52 52 V92" class="ink"/>
+  <path d="M1420 36 H1348 M1420 36 V108 M1404 52 H1364 M1404 52 V92" class="ink"/>
+  <path d="M36 780 H108 M36 780 V708 M52 764 H92 M52 764 V724" class="ink"/>
+  <path d="M1420 780 H1348 M1420 780 V708 M1404 764 H1364 M1404 764 V724" class="ink"/>
+  <path d="M728 22 V70 M704 46 H752 M728 746 V794 M704 770 H752" class="thin"/>
+  <path d="M22 408 H70 M46 384 V432 M1386 408 H1434 M1410 384 V432" class="thin"/>
+
+  <!-- subtle construction grid and measurement marks -->
+  <path d="M92 108 H1364 M92 666 H1364 M92 108 V666 M1364 108 V666" class="dotdash"/>
+  <path d="M154 92 V108 M438 92 V108 M502 92 V108 M774 92 V108 M852 92 V108 M1144 92 V108 M1224 92 V108" class="thin"/>
+  <text x="92" y="84" class="micro">HR WORKFLOW / CLAUDE DOCUMENT GENERATION / TECHNICAL BLUEPRINT</text>
+  <text x="1096" y="84" class="micro">SCALE 1:1  |  1456 x 816</text>
+
+  <!-- Panel titles -->
+  <text x="146" y="143" class="title">1. ROLE BRIEF</text>
+  <text x="557" y="143" class="title">2. CLAUDE TERMINAL</text>
+  <text x="982" y="143" class="title">3. HR DOCUMENTS</text>
+
+  <!-- panel frames -->
+  <rect x="118" y="164" width="322" height="392" rx="0" class="ink"/>
+  <rect x="522" y="164" width="408" height="392" rx="0" class="ink"/>
+  <rect x="1014" y="164" width="326" height="392" rx="0" class="ink"/>
+  <path d="M118 188 H94 M118 532 H94 M440 188 H464 M440 532 H464" class="thin"/>
+  <path d="M522 188 H498 M522 532 H498 M930 188 H954 M930 532 H954" class="thin"/>
+  <path d="M1014 188 H990 M1014 532 H990 M1340 188 H1364 M1340 532 H1364" class="thin"/>
+
+  <!-- Panel 1 document card -->
+  <rect x="164" y="202" width="232" height="266" rx="0" class="ink"/>
+  <path d="M164 250 H396" class="ink"/>
+  <path d="M179 225 h18 v15 h-18 z M182 225 v-8 h12 v8" class="ink"/>
+  <text x="211" y="234" class="label">JOB BRIEF</text>
+  <path d="M178 284 a13 13 0 1 0 26 0 a13 13 0 1 0 -26 0 M172 319 c11 -22 39 -22 50 0" class="thin"/>
+  <text x="237" y="302" class="label">ROLE</text>
+  <path d="M294 291 H369 M294 312 H351" class="dash"/>
+  <path d="M181 352 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0 M208 352 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0 M171 386 c12 -20 34 -20 46 0 M199 386 c12 -20 34 -20 46 0" class="thin"/>
+  <text x="237" y="370" class="label">TEAM</text>
+  <path d="M294 359 H369 M294 380 H351" class="dash"/>
+  <path d="M176 413 l13 13 l30 -34" class="ink"/>
+  <text x="237" y="423" class="label">MUST-HAVE</text>
+  <path d="M330 412 H374 M330 433 H362" class="dash"/>
+  <path d="M194 439 L218 463 L194 487 L170 463 Z" class="thin"/>
+  <text x="237" y="457" class="label">NICE-TO-HAVE</text>
+  <path d="M352 446 H377 M352 461 H366" class="dash"/>
+  <path d="M138 488 H420 M138 489 V526 M420 489 V526" class="dash"/>
+  <text x="151" y="508" class="small">HIRING CONTEXT — Everything Claude</text>
+  <text x="151" y="528" class="small">needs to write the right documents.</text>
+  <path d="M130 176 l12 -12 M428 176 l-12 -12 M130 544 l12 12 M428 544 l-12 12" class="thin"/>
+
+  <!-- Panel 2 terminal -->
+  <rect x="561" y="204" width="330" height="260" rx="0" class="ink"/>
+  <path d="M561 246 H891" class="ink"/>
+  <circle cx="584" cy="225" r="6" class="ink"/>
+  <circle cx="604" cy="225" r="6" class="ink"/>
+  <circle cx="624" cy="225" r="6" class="ink"/>
+  <text x="651" y="231" class="label">&gt; claude</text>
+  <path d="M835 225 H849 M861 217 H875 V231 H861 Z M837 217 L849 229 M849 217 L837 229" class="thin"/>
+  <text x="588" y="279" class="terminal">&gt; analyze role brief</text>
+  <text x="588" y="313" class="terminal">&gt; write job description</text>
+  <text x="588" y="347" class="terminal">&gt; generate interview questions</text>
+  <text x="588" y="381" class="terminal">&gt; build 30-60-90 plan</text>
+  <text x="588" y="415" class="terminal">&gt; generating documents...</text>
+  <text x="588" y="443" class="terminal">[████████████████] 100%</text>
+  <text x="588" y="476" class="terminal">&gt; 3 documents ready ✓</text>
+  <path d="M557 495 H895 M557 496 V526 M895 496 V526" class="dash"/>
+  <path d="M590 507 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0 M602 490 V498 M602 516 V524 M585 507 H593 M611 507 H619 M590 495 L596 501 M608 513 L614 519 M614 495 L608 501 M596 513 L590 519" class="thin"/>
+  <text x="630" y="510" class="small">GENERATE — Role-specific documents</text>
+  <text x="630" y="530" class="small">in under 5 minutes.</text>
+  <path d="M536 176 l12 -12 M918 176 l-12 -12 M536 544 l12 12 M918 544 l-12 12" class="thin"/>
+
+  <!-- Panel 3 document fan -->
+  <g transform="translate(1008 0)">
+    <g transform="translate(82 410) rotate(-4)">
+      <rect x="0" y="0" width="224" height="82" rx="0" class="paper"/>
+      <path d="M192 0 V30 H222" class="thin"/>
+      <path d="M192 0 L222 30" class="thin"/>
+      <text x="16" y="31" class="small">30-60-90 PLAN</text>
+      <circle cx="25" cy="56" r="4" class="thin"/>
+      <path d="M44 56 H168" class="dash"/>
+      <circle cx="25" cy="72" r="4" class="thin"/>
+      <path d="M44 72 H182" class="dash"/>
+      <circle cx="25" cy="88" r="4" class="thin"/>
+      <path d="M44 88 H148" class="dash"/>
+    </g>
+    <g transform="translate(54 326) rotate(3)">
+      <rect x="0" y="0" width="238" height="106" rx="0" class="paper"/>
+      <path d="M206 0 V32 H238" class="thin"/>
+      <path d="M206 0 L238 32" class="thin"/>
+      <text x="16" y="34" class="small">INTERVIEW QUESTIONS</text>
+      <text x="18" y="64" class="small">1</text>
+      <path d="M42 61 H174" class="dash"/>
+      <text x="18" y="88" class="small">2</text>
+      <path d="M42 85 H194" class="dash"/>
+      <text x="18" y="108" class="small">3</text>
+      <path d="M42 105 H160" class="dash"/>
+      <path d="M192 75 q0 -20 16 -20 q16 0 16 15 q0 10 -10 16 q-8 5 -8 14 M206 122 h1" class="thin" transform="scale(.5) translate(184,28)"/>
+    </g>
+    <g transform="translate(18 198)">
+      <rect x="0" y="0" width="258" height="128" rx="0" class="paper"/>
+      <path d="M214 0 V38 H252" class="thin"/>
+      <path d="M214 0 L252 38" class="thin"/>
+      <text x="20" y="42" class="label">JOB DESCRIPTION</text>
+      <path d="M26 82 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0 M18 115 c12 -22 42 -22 54 0" class="thin"/>
+      <path d="M86 78 H205 M86 108 H224 M86 138 H188" class="dash"/>
+    </g>
+  </g>
+  <path d="M1028 493 H1344 M1028 494 V536 M1344 494 V536" class="dash"/>
+  <text x="1043" y="514" class="small">OUTPUTS — Tailored to the role.</text>
+  <text x="1043" y="532" class="small">Ready to use or edit.</text>
+  <path d="M1026 176 l12 -12 M1328 176 l-12 -12 M1026 544 l12 12 M1328 544 l-12 12" class="thin"/>
+
+  <!-- workflow arrows -->
+  <path d="M462 358 H501" class="bold" marker-end="url(#arrow)"/>
+  <path d="M953 358 H996" class="bold" marker-end="url(#arrow)"/>
+  <text x="462" y="333" class="micro">INPUT</text>
+  <text x="948" y="333" class="micro">OUTPUT</text>
+
+  <!-- bottom HR context card -->
+  <rect x="134" y="608" width="326" height="136" rx="0" class="ink"/>
+  <text x="156" y="638" class="label">HR CONTEXT</text>
+  <path d="M154 658 H438" class="thin"/>
+  <text x="158" y="683" class="small">COMPANY</text>
+  <path d="M244 679 H424" class="dash"/>
+  <text x="158" y="707" class="small">CULTURE</text>
+  <path d="M244 703 H408" class="dash"/>
+  <text x="158" y="731" class="small">TONE</text>
+  <path d="M244 727 H382" class="dash"/>
+  <path d="M292 608 C242 583 204 560 221 530" class="dash" marker-end="url(#arrowSmall)"/>
+
+  <!-- bottom-right key -->
+  <rect x="982" y="608" width="326" height="116" rx="0" class="ink"/>
+  <text x="1004" y="640" class="label">KEY</text>
+  <path d="M1056 634 H1116" class="ink"/>
+  <text x="1132" y="640" class="small">WORKFLOW</text>
+  <path d="M1056 670 H1116" class="dash"/>
+  <text x="1132" y="676" class="small">REFERENCE</text>
+  <rect x="1056" y="697" width="22" height="22" class="thin"/>
+  <text x="1132" y="714" class="small">DOCUMENT</text>
+
+  <!-- small technical callouts -->
+  <path d="M538 596 H920" class="dotdash"/>
+  <text x="548" y="620" class="micro">PROMPT INPUTS, CLAUDE COMMANDS, AND ROLE-SPECIFIC OUTPUTS ARE TRACEABLE LEFT TO RIGHT.</text>
+  <path d="M548 636 H876" class="thin"/>
+  <path d="M584 652 H840" class="dash"/>
+  <text x="568" y="688" class="micro">REGISTRATION GRID / NAVY INK / NO FILL / DOCUMENTATION HERO</text>
+</svg>

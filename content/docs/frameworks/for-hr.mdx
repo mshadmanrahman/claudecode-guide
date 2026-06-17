@@ -1,0 +1,239 @@
+---
+title: "5C Loop for HR Professionals"
+description: "The 5C Loop applied to HR work: job descriptions, interview questions, onboarding plans, performance reviews, policies, and the six documents where HR professionals see the biggest return."
+image: /for-hr/hero.png
+---
+
+![Blueprint diagram showing an HR workflow: role brief and people data feed into the 5C Loop, outputs including job descriptions, onboarding plans, and performance reviews](/for-hr/hero.png)
+
+HR work is documentation work. Job descriptions, interview question banks, onboarding plans, performance review write-ups, policy drafts, all-staff communications. The volume is relentless, the stakes are real, and most of it follows repeatable structures — the same document types, written again and again for different roles, different people, different situations.
+
+The 5C Loop works especially well for HR because that repeatability is a compounding advantage. Once you run the loop carefully on a job description template, every subsequent JD is faster. Once you have a strong Context block for a 30-60-90 plan, you reuse it across every new hire. The work shifts from construction to judgment — which is where your value actually sits.
+
+This page is the HR spoke of the [5C Loop framework](/docs/frameworks/5c-loop). If you have not read the pillar page, start there. This page assumes you know the five steps.
+
+## The 5C Loop in HR language
+
+The same five steps, translated for how HR work actually flows.
+
+**Capture:** Pull the raw material. The role's requirements, the hiring manager's notes from the intake call, the existing JD you are rewriting, the interview notes you are turning into feedback. Do not describe these things to Claude — paste the actual content. A hiring manager's verbatim notes about what the role needs are far more useful than your paraphrase of them.
+
+**Context:** HR documents always have a known reader with a known need. A job description is read by a candidate deciding whether to apply — and by a recruiter deciding whether to screen them in. A 30-60-90 plan is read by a new joiner who is nervous and wants to know what good looks like. Name the reader. Name their state of mind. Claude writes to that specific person rather than a generic audience.
+
+**Create:** Let Claude produce the full draft. For HR work, Claude handles structure, language, and completeness faster than most practitioners can type from scratch. Your comparative advantage is what Claude cannot access: the specific team dynamics this person will enter, the unwritten expectations the hiring manager holds, the cultural context that shapes what "good performance" actually means here. Let Claude build the scaffold. You decide what fits your organisation.
+
+**Check:** HR check priorities are specific. Legal and compliance first — Claude does not know your jurisdiction's requirements around job postings, protected characteristics, or policy language. Read every document for legal exposure before it goes external. Tone second — especially for sensitive communications like performance feedback or change announcements. Claude defaults to professional but can miss warmth or land harder than intended. Accuracy third — role requirements, compensation ranges, policy references need to reflect your actual organisation, not a generic version of it.
+
+**Compound:** HR has very high recurrence. You write job descriptions for the same function family every quarter. Onboarding plans for new joiners follow the same 30-60-90 structure. All-staff communications for recurring events (annual reviews, benefit enrolment, policy updates) repeat on a calendar. After running the loop on any recurring document type, save the Context block. By the end of a year, most of your standard document types have saved templates. You open Claude, paste the specifics, and spend your energy on the judgment calls.
+
+## Six use cases, with prompts
+
+### 1. Job description
+
+A JD that attracts the right candidates and quietly filters out the wrong ones.
+
+```
+## CAPTURE
+
+[paste: role title, team, level, reporting line, hiring manager's intake
+notes (verbatim if possible), must-have requirements, nice-to-have
+requirements, any existing JD you want to improve, compensation range
+if shareable, working arrangement (remote/hybrid/on-site)]
+
+## CONTEXT
+
+Reader: a strong candidate deciding whether to apply. They are scanning
+quickly and will exit if the role sounds like a bureaucratic checklist.
+They need to understand: what is the actual work, what does good look
+like in this role, and why is this a good place to do it.
+
+Format: opening paragraph (what the role is and why it matters), core
+responsibilities (6-8 bullets, outcome-oriented not task-oriented),
+requirements (split must-have from nice-to-have), about the team/org
+(1-2 sentences). Plain language, no jargon, no hollow phrases like
+"fast-paced environment" or "self-starter."
+
+## CREATE
+
+Write the job description.
+```
+
+### 2. Interview questions
+
+Role-specific questions tied to the competencies that actually predict performance.
+
+```
+## CAPTURE
+
+[paste: the job description or role summary, the 3-5 competencies you
+most need to assess in this hire, any context about the team or
+challenges the new person will face, interview format (screen call,
+panel, case study)]
+
+## CONTEXT
+
+Reader: the interviewer using these questions in a live conversation.
+They need questions that open up real evidence, not rehearsed answers.
+Format: for each competency, one primary behavioural question (past
+experience), one follow-up probe, and one signal to listen for (what a
+strong answer includes vs. a weak one). Practical, not textbook.
+
+## CREATE
+
+Write the interview question bank.
+```
+
+### 3. 30-60-90 onboarding plan
+
+A plan the new joiner can actually use to orient themselves and demonstrate early impact.
+
+```
+## CAPTURE
+
+[paste: role title and level, team context, the 2-3 priorities the
+hiring manager named for this person's first quarter, any existing
+onboarding materials or processes, key stakeholders the person needs
+to build relationships with, any known gaps the hire is meant to fill]
+
+## CONTEXT
+
+Reader: the new joiner, reading this on their first day or before they
+start. They are eager and slightly anxious. They want to know: what
+should I focus on, how will I know if I'm doing well, and who do I
+need to know.
+
+Format: three phases (first 30 days / 31-60 days / 61-90 days), each
+with: primary focus, 3-4 specific goals, key relationships to build,
+how success is measured. Concrete and specific — not generic advice
+about "learning the culture."
+
+## CREATE
+
+Write the 30-60-90 onboarding plan.
+```
+
+### 4. Performance review write-up
+
+Written feedback that is specific, fair, and useful to the person receiving it.
+
+```
+## CAPTURE
+
+[paste: the employee's role and level, your notes from the review
+period (what they did well, where they fell short, specific examples
+you want to reference), the performance rating if decided, any
+development goals for the next period]
+
+## CONTEXT
+
+Reader: the employee, reading this feedback privately. They will be
+either relieved or disappointed. Either way they need to understand
+specifically what they did, why it mattered, and what to do differently
+or more of.
+
+Format: opening summary (overall performance and rating), strengths
+section (2-3 with specific examples), development areas section (1-2
+with specific examples and a concrete suggestion), goals for next
+period (3-4 specific and measurable). Fair and direct tone — not
+softened to the point of being unactionable, not harsh to the point
+of being demoralising.
+
+## CREATE
+
+Write the performance review.
+```
+
+### 5. HR policy draft
+
+A policy that covers what it needs to cover without being longer than it has to be.
+
+```
+## CAPTURE
+
+[paste: what the policy needs to address, any regulatory or legal
+requirements that apply (jurisdiction, legislation references if you
+have them), the current behaviour or gap this policy is meant to fix,
+any existing policy language you want to update, who the policy applies
+to]
+
+## CONTEXT
+
+Reader: an employee encountering this policy for the first time, likely
+because they need to understand what they can or cannot do in a
+specific situation. They want to know: does this apply to me, what is
+the rule, and what happens if it is not followed.
+
+Format: purpose (1-2 sentences), scope (who it applies to), policy
+statement (the actual rules, plain language), process (what to do /
+who to contact), consequences of non-compliance. No legal boilerplate
+beyond what is required. Flag any sections where you need legal review.
+
+## CREATE
+
+Write the policy draft.
+```
+
+### 6. All-staff or team communication
+
+A message that lands clearly and does not create more questions than it answers.
+
+```
+## CAPTURE
+
+[paste: what you need to communicate (change, announcement, update,
+reminder), the key facts (what is changing, when, why, what it means
+for people), any context about how this decision was made, the tone
+you want (celebratory / neutral / sensitive), any questions you expect
+people to have]
+
+## CONTEXT
+
+Reader: employees reading this on their phone or in their inbox, in
+the middle of their day. They are immediately reading for: does this
+affect me, do I need to do anything, and should I be worried.
+
+Format: lead with the headline (what is changing), explain why,
+explain what it means practically for the reader, state any actions
+required and by when, end with a contact or next step. Clear, human,
+no corporate hedging.
+
+## CREATE
+
+Write the communication.
+```
+
+<Callout type="warn" title="Legal review is your responsibility">
+Claude does not know your jurisdiction's employment law, your organisation's specific policies, or the regulatory requirements for job postings, terminations, or benefit communications. Draft with Claude, then review for legal and compliance accuracy before anything goes external or into a personnel file.
+</Callout>
+
+## The compound value for HR specifically
+
+HR has one of the highest rates of document recurrence of any function. You write job descriptions for the same role families repeatedly. Onboarding plans follow the same structure for every new hire. Annual review cycles produce the same document types on a fixed calendar.
+
+The investment is once: run the loop carefully on a document type, save the Context block to your CLAUDE.md or a shared template. The return is every subsequent instance. A JD that took 45 minutes to write the first time takes 10 minutes the fifth time, and the tenth is faster still.
+
+The real shift is where your time goes. Instead of drafting from scratch, you are doing the thing that actually requires you: judging whether this description reflects how the role will really be experienced, whether this feedback is fair and will land well, whether this policy covers the edge cases your organisation actually faces. That judgment is the irreplaceable part. Let Claude handle the typing.
+
+<DemoCard title="Saving a JD context block to CLAUDE.md." steps={[
+  { type: 'cmd', text: 'Add to CLAUDE.md:' },
+  { type: 'out', text: '## JD context (Engineering roles)' },
+  { type: 'out', text: 'Reader: senior engineer scanning to decide if worth applying.' },
+  { type: 'out', text: 'Format: impact-first opening, outcome-oriented bullets, split requirements.' },
+  { type: 'success', text: 'Next JD: paste intake notes and requirements. Done in 8 minutes.' },
+]} />
+
+## What the Check step means for HR work
+
+**Legal and compliance is first.** This is non-negotiable. Jurisdiction requirements around equal opportunity language in job postings, protected characteristics, data handling in HR records, and policy enforceability vary enormously. Claude does not know your specific legal environment. Read every external-facing document and every formal HR document for legal exposure before it is distributed or filed.
+
+**Tone is second — especially for sensitive communications.** Performance feedback, change announcements, and communications about difficult situations are easily misread. Claude defaults to professional language that can feel cold or impersonal when the subject is sensitive. Read these documents out loud before sending. Does it sound like a human wrote it? Does it invite dialogue rather than create defensiveness?
+
+**Role specificity is third.** Claude will write a competent generic document unless you gave it specifics. A job description that could apply to any company in any industry will attract the wrong candidates. Read the draft through the lens of your actual organisation: does this reflect what this role really is, in this team, at this moment?
+
+## Where to go next
+
+The pillar page has the full framework and loop logic: [The 5C Loop](/docs/frameworks/5c-loop).
+
+If you are setting up Claude Code for the first time, the [Foundations](/docs/foundations/) section covers installation and basics.
+
+For the practical how-to guides, the [Claude for HR](/for-hr) section has step-by-step walkthroughs for each of these document types, with more worked examples and copy-paste prompts.

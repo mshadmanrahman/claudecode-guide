@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { Star, ExternalLink } from 'lucide-react';
+import Link from "next/link";
+import { Star, ExternalLink } from "lucide-react";
 
 interface FooterLink {
   label: string;
@@ -14,42 +14,46 @@ interface FooterColumn {
 
 const COLUMNS: ReadonlyArray<FooterColumn> = [
   {
-    heading: 'Get started',
+    heading: "Get started",
     links: [
-      { label: 'Compare to other tools', href: '/docs/comparisons' },
-      { label: 'Set up CLAUDE.md', href: '/docs/foundations/claude-md' },
-      { label: 'Pick the right interface', href: '/docs/foundations/which-interface' },
-      { label: 'Browse tutorials', href: '/tutorials' },
+      { label: "Compare to other tools", href: "/docs/comparisons" },
+      { label: "Set up CLAUDE.md", href: "/docs/foundations/claude-md" },
+      {
+        label: "Pick the right interface",
+        href: "/docs/foundations/which-interface",
+      },
+      { label: "Browse tutorials", href: "/tutorials" },
     ],
   },
   {
-    heading: 'Learn',
+    heading: "Learn",
     links: [
-      { label: 'Foundations', href: '/docs/foundations' },
-      { label: 'Patterns', href: '/docs/patterns' },
-      { label: 'Workflows', href: '/docs/workflows' },
-      { label: 'Templates', href: '/docs/templates' },
-      { label: 'Comparisons', href: '/docs/comparisons' },
+      { label: "Foundations", href: "/docs/foundations" },
+      { label: "Patterns", href: "/docs/patterns" },
+      { label: "Workflows", href: "/docs/workflows" },
+      { label: "Templates", href: "/docs/templates" },
+      { label: "Comparisons", href: "/docs/comparisons" },
     ],
   },
   {
-    heading: 'For your role',
+    heading: "For your role",
     links: [
-      { label: 'For Designers', href: '/for-designers' },
-      { label: 'For Chrome users', href: '/for-chrome' },
-      { label: 'For Office (Word, Excel, PowerPoint)', href: '/for-microsoft' },
-      { label: 'For Teachers', href: '/for-teachers' },
-      { label: 'For Marketers', href: '/for-marketers' },
-      { label: 'PM Pilot', href: '/pm-pilot' },
+      { label: "For Designers", href: "/for-designers" },
+      { label: "For Chrome users", href: "/for-chrome" },
+      { label: "For Office (Word, Excel, PowerPoint)", href: "/for-microsoft" },
+      { label: "For Teachers", href: "/for-teachers" },
+      { label: "For Marketers", href: "/for-marketers" },
+      { label: "For HR Professionals", href: "/for-hr" },
+      { label: "PM Pilot", href: "/pm-pilot" },
     ],
   },
   {
-    heading: 'More',
+    heading: "More",
     links: [
-      { label: 'Blog', href: '/blog' },
-      { label: 'Roadmap', href: '/roadmap' },
-      { label: 'Journey', href: '/journey' },
-      { label: 'বাংলায় পড়ুন', href: '/bn' },
+      { label: "Blog", href: "/blog" },
+      { label: "Roadmap", href: "/roadmap" },
+      { label: "Journey", href: "/journey" },
+      { label: "বাংলায় পড়ুন", href: "/bn" },
     ],
   },
 ];
@@ -65,8 +69,9 @@ export function SiteFooter() {
               claudecodeguide<span className="font-bold">.dev</span>
             </p>
             <p className="mt-4 max-w-sm text-sm text-fd-muted-foreground leading-relaxed">
-              The plain-English on-ramp to Claude Code. Built and updated by one person who kept
-              explaining the same things to people who&apos;d never touched a terminal.
+              The plain-English on-ramp to Claude Code. Built and updated by one
+              person who kept explaining the same things to people who&apos;d
+              never touched a terminal.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <a
@@ -128,7 +133,7 @@ export function SiteFooter() {
         {/* Bottom row */}
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-fd-border pt-8 sm:flex-row sm:items-center">
           <p className="text-xs text-fd-muted-foreground">
-            Built by{' '}
+            Built by{" "}
             <a
               href="https://github.com/mshadmanrahman"
               target="_blank"
@@ -140,11 +145,17 @@ export function SiteFooter() {
             . With ♥️, ☕️, and a lot of Claude Code.
           </p>
           <div className="flex items-center gap-4 text-xs text-fd-muted-foreground">
-            <Link href="/sitemap.xml" className="hover:text-fd-foreground transition-colors">
+            <Link
+              href="/sitemap.xml"
+              className="hover:text-fd-foreground transition-colors"
+            >
               Sitemap
             </Link>
             <span className="text-fd-border">·</span>
-            <Link href="/llms.txt" className="hover:text-fd-foreground transition-colors">
+            <Link
+              href="/llms.txt"
+              className="hover:text-fd-foreground transition-colors"
+            >
               llms.txt
             </Link>
             <span className="text-fd-border">·</span>

@@ -1,13 +1,22 @@
-import Link from 'next/link';
-import { Paintbrush, Globe, FileText, BookOpen, Megaphone, BriefcaseBusiness } from 'lucide-react';
+import Link from "next/link";
+import {
+  Paintbrush,
+  Globe,
+  FileText,
+  BookOpen,
+  Megaphone,
+  Users,
+  BriefcaseBusiness,
+} from "lucide-react";
 
 const PERSONAS = [
-  { label: 'For Designers', href: '/for-designers', icon: Paintbrush },
-  { label: 'For Chrome', href: '/for-chrome', icon: Globe },
-  { label: 'For Office', href: '/for-microsoft', icon: FileText },
-  { label: 'For Teachers', href: '/for-teachers', icon: BookOpen },
-  { label: 'For Marketers', href: '/for-marketers', icon: Megaphone },
-  { label: 'PM Pilot', href: '/pm-pilot', icon: BriefcaseBusiness },
+  { label: "For Designers", href: "/for-designers", icon: Paintbrush },
+  { label: "For Chrome", href: "/for-chrome", icon: Globe },
+  { label: "For Office", href: "/for-microsoft", icon: FileText },
+  { label: "For Teachers", href: "/for-teachers", icon: BookOpen },
+  { label: "For Marketers", href: "/for-marketers", icon: Megaphone },
+  { label: "For HR", href: "/for-hr", icon: Users },
+  { label: "PM Pilot", href: "/pm-pilot", icon: BriefcaseBusiness },
 ];
 
 export function PersonaStrip() {

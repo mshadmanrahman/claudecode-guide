@@ -155,6 +155,8 @@ export function PathRouter() {
             </Link>
           );
         })}
+        <div className="hidden lg:block bg-fd-background" />
+        <div className="hidden lg:block bg-fd-background" />
       </div>
     </section>
   );

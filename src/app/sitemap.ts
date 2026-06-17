@@ -42,6 +42,15 @@ const FOR_MICROSOFT_SLUGS = [
   "draft-outlook-emails-with-claude",
 ];
 
+const FOR_HR_SLUGS = [
+  "write-job-descriptions-with-claude",
+  "generate-interview-questions-with-claude",
+  "create-onboarding-plans-with-claude",
+  "draft-performance-reviews-with-claude",
+  "write-hr-policies-with-claude",
+  "write-employee-communications-with-claude",
+];
+
 const FOR_DESIGNERS_SLUGS = [
   "set-up-claude",
   "decode-a-brief",
@@ -194,6 +203,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...FOR_MICROSOFT_SLUGS.map((slug) => ({
       url: `${baseUrl}/for-microsoft/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
+    {
+      url: `${baseUrl}/for-hr`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
+    ...FOR_HR_SLUGS.map((slug) => ({
+      url: `${baseUrl}/for-hr/${slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.75,
