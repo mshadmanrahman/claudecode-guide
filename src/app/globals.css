@@ -285,8 +285,8 @@ h3.font-display {
 
 /* Page link vertical spacing + reduced left indent */
 #nd-docs-layout aside a[href] {
-  padding-top: 0.35rem !important;
-  padding-bottom: 0.35rem !important;
+  padding-top: 0.55rem !important;
+  padding-bottom: 0.55rem !important;
   padding-left: 0.625rem !important;
   padding-inline-start: 0.625rem !important;
 }
