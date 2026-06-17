@@ -283,11 +283,17 @@ h3.font-display {
   display: none !important;
 }
 
-/* Page link vertical spacing + reduced left indent (inline style override requires !important) */
+/* Page link vertical spacing + reduced left indent */
 #nd-docs-layout aside a[href] {
   padding-top: 0.35rem !important;
   padding-bottom: 0.35rem !important;
+  padding-left: 0.625rem !important;
   padding-inline-start: 0.625rem !important;
+}
+
+/* Hide the Fumadocs vertical indent line that appears on expanded folders */
+#nd-docs-layout aside [data-state="open"]::before {
+  display: none !important;
 }
 
 /* Sidebar background matches main content (white) */
