@@ -105,7 +105,7 @@ const jsonLd = {
   "@type": "WebSite",
   name: "Claude Code Guide",
   description:
-    "Your step-by-step guide to Claude Code. From setup to daily workflows.",
+    "The practitioner's guide to Claude Code CLI: CLAUDE.md configuration, persistent memory systems, agentic workflows, hooks, MCP servers, and real-world use cases across engineering, PM, and operations.",
   url: siteUrl,
   author: {
     "@type": "Person",

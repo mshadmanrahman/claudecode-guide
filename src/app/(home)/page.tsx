@@ -27,8 +27,8 @@ import { SiteFooter } from "@/components/site-footer";
 import type { Metadata } from "next";
 
 const heroTagline = "Tell it what you need. It builds it.";
-const heroDescription =
-  "The practical guide to Claude: Code, Chrome, Word, Excel, PowerPoint, and more. Calm, beginner-friendly, and free.";
+const heroMetaDescription =
+  "The practitioner's guide to Claude Code: CLAUDE.md patterns, persistent memory systems, agentic workflows, hooks, and real-world examples. Setup guides, honest comparisons, and daily workflows. Free.";
 const ogImage = {
   url: "https://claudecodeguide.dev/api/og",
   width: 1200,
@@ -40,10 +40,10 @@ export const metadata: Metadata = {
   title: {
     absolute: "Claude Code Guide: Tell It What You Need. It Builds It.",
   },
-  description: heroDescription,
+  description: heroMetaDescription,
   openGraph: {
     title: heroTagline,
-    description: heroDescription,
+    description: heroMetaDescription,
     type: "website",
     siteName: "Claude Code Guide",
     url: "https://claudecodeguide.dev",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: heroTagline,
-    description: heroDescription,
+    description: heroMetaDescription,
     images: [ogImage],
   },
 };
@@ -135,7 +135,7 @@ const jsonLd = {
       "@id": "https://claudecodeguide.dev/#website",
       url: "https://claudecodeguide.dev",
       name: "Claude Code Guide",
-      description: heroDescription,
+      description: heroMetaDescription,
       publisher: { "@id": "https://claudecodeguide.dev/#organization" },
     },
     {
