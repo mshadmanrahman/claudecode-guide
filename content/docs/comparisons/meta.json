@@ -1,5 +1,18 @@
 {
   "title": "Comparisons",
   "defaultOpen": true,
-  "pages": ["vs-chatgpt", "vs-claude-web", "vs-cursor", "vs-copilot", "vs-codex", "vs-devin", "vs-aider", "vs-windsurf", "vs-gemini-cli", "pro-vs-max"]
+  "pages": [
+    "vs-chatgpt",
+    "vs-claude-web",
+    "vs-cursor",
+    "vs-copilot",
+    "vs-codex",
+    "vs-devin",
+    "vs-aider",
+    "vs-windsurf",
+    "vs-gemini-cli",
+    "vs-glm",
+    "vs-deepseek",
+    "pro-vs-max"
+  ]
 }
