@@ -127,12 +127,43 @@ const OUTCOME_CARDS = [
   },
 ] as const;
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://claudecodeguide.dev/#website",
+      url: "https://claudecodeguide.dev",
+      name: "Claude Code Guide",
+      description: heroDescription,
+      publisher: { "@id": "https://claudecodeguide.dev/#organization" },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://claudecodeguide.dev/#organization",
+      name: "Claude Code Guide",
+      url: "https://claudecodeguide.dev",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://claudecodeguide.dev/logo.png",
+      },
+    },
+  ],
+};
+
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col bg-fd-background overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* ── Hero ── */}
       <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-28 pb-12 text-center">
         <div className="relative z-10 flex flex-col items-center">
+          <p className="mb-5 text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+            Claude Code Guide
+          </p>
           <h1 className="animate-slide-up-fade font-display tracking-tight-display max-w-3xl text-5xl font-bold text-fd-foreground sm:text-7xl leading-[1.08]">
             Tell it what you need.
             <br />
