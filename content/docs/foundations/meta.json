@@ -13,6 +13,7 @@
     "separate-contexts",
     "context-window",
     "memory-router",
+    "subagent-context-isolation",
     "plan-mode",
     "permissions",
     "prompting",

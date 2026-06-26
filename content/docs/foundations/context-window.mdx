@@ -82,7 +82,7 @@ Let Claude Code read files on demand. Don't paste file contents into the chat. W
 
 ### 4. Use sub-agents for research
 
-Sub-agents (via the Task tool) get their own context window. If you need Claude Code to explore a large codebase or research something, offload it to a sub-agent. The main conversation only gets the summary back.
+Sub-agents (via the Task tool) get their own context window. If you need Claude Code to explore a large codebase or research something, offload it to a sub-agent. The main conversation only gets the summary back. This is one wall in a broader approach: see [the subagent context-isolation pattern](/docs/foundations/subagent-context-isolation) for how isolation scales across memory, agents, and cron state.
 
 ### 5. Be specific in your prompts
 

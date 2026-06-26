@@ -1,0 +1,81 @@
+---
+title: "The Subagent Context-Isolation Pattern"
+description: "Once you have a few agents, a fat CLAUDE.md, and some cron jobs, the real problem stops being what to write and becomes what NOT to load. This is the isolation pattern that keeps a growing agent system from poisoning its own context."
+image: /subagent-context-isolation/hero.png
+---
+
+![A blueprint diagram of a context-isolation architecture: a thin router fanning out to faded shards, bounded subagent boxes returning thin summaries, and scoped per-persona state folders](/subagent-context-isolation/hero.png)
+
+There is a lot of advice on writing a better CLAUDE.md. There is almost none on the problem you hit right after: you now have five agents, three cron jobs, a memory directory with two hundred files, and every one of them wants to be in context. The file got better. The system got worse.
+
+This page is about the harder problem. Not "what do I put in memory," but "where do the walls go." Once a setup grows past one file and one chat, the thing that determines whether it stays sharp is not the quality of any single instruction. It is the boundaries between instructions.
+
+## The one rule
+
+**Nothing loads into a context window unless that specific task needs it.**
+
+That is the whole pattern. Everything else is mechanism. Availability and loading are two different things, and a healthy agent system keeps almost everything available while loading almost nothing.
+
+Available means the agent can reach it the moment it becomes relevant. A topic file on the disk, a specialized subagent it can spawn, a state folder it can read. Loaded means the tokens are sitting in the window right now, costing you on every turn, crowding the actual task. New builders conflate the two. They think "I have all this knowledge wired up" when what they have is all this knowledge wired up *and loaded*, which is a slower, vaguer agent that forgets the thing you just asked.
+
+## The shape
+
+Three kinds of wall, doing three different jobs.
+
+![The three isolation walls: routed memory keeping the always-loaded layer thin, subagents with their own context windows, and per-persona scoped state](/subagent-context-isolation/walls.png)
+
+**Wall one is between the index and the content.** The file that loads every session is a router, not a library. It holds pointers. The knowledge sits in shards behind it, pulled in only when a task matches. This is the [memory router pattern](/docs/foundations/memory-router) and it is the first wall because the always-loaded layer is the most expensive real estate you own.
+
+**Wall two is between agents.** A subagent runs in its own context window. It reads what it needs, does the work, and returns a short summary. The parent never sees the forty files the subagent opened. That is the point: you spend a fresh window on the messy part and pay only the summary back into the main thread. Research, log triage, a wide grep sweep, a code review. Anything that produces a lot of intermediate noise belongs behind this wall.
+
+**Wall three is between personas and their state.** If you run scheduled agents, each one accumulates state: caches, logs, outputs, last-run markers. That state has to be scoped to the agent that owns it, or every agent ends up reading every other agent's clutter. One namespace per persona. No shared dumping ground.
+
+<Callout type="info" title="Wall two is the one people skip">
+Splitting memory into shards is the famous move. Spawning subagents for noisy work is the one that gets left out, and it is doing more for your context budget than the shards are. A research task that reads thirty files in the main thread costs you those thirty files for the rest of the session. The same task in a subagent costs you one paragraph.
+</Callout>
+
+## A real system
+
+This is not a toy repo. It is the setup I run daily across a personal AIOS, and every wall above earns its place.
+
+### Routed memory
+
+The always-loaded file is a `MEMORY.md` router: a table with one row per knowledge area and a note on when to load it. Behind it sit more than two hundred topic shards, sharded by domain (work projects, infra, people, decisions, references). The agent reads the router, finds the one shard that matches the task in front of it, and loads only that. A question about a deploy pulls the infra shard and nothing else. The router has held roughly the same size for months while the shards behind it keep multiplying.
+
+<DemoCard title="The same memory, two ways to load it" steps={[
+  { type: 'cmd', text: 'claude "what is the state of the search epic"' },
+  { type: 'out', text: 'flat memory: loaded MEMORY.md (840 lines)' },
+  { type: 'error', text: '↑ every turn pays for 200 topics, one is relevant' },
+  { type: 'success', text: '✓ routed: loaded router index + 1 shard (search.md)' },
+  { type: 'warn', text: '→ same knowledge available, a fraction loaded' },
+]} />
+
+### Specialized subagents
+
+For anything that reads wide and reports narrow, the work goes to a subagent. A Scout-style agent runs a test suite or trawls a log and hands back only the verdict. An Explore agent fans out across the codebase and returns the three files that matter, not the forty it opened. The rule I hold: if a task touches three-plus files, or it is research, or it is a review, it does not happen in the main thread. The main thread keeps the conclusion. The subagent keeps the mess, then disappears with it.
+
+### Scoped cron state
+
+The scheduled agents each have a name and a folder. State lands at `_tools/agent-state/{persona}/` and nowhere else. The GitHub-pulse agent writes under its own namespace. The social agent writes under its own. The meeting-prep agent under its own. Shared caches that genuinely need sharing (calendar, queue) sit in one clearly-marked `.cache/` and everything else stays private to its owner. No agent reads another agent's working files by accident, because there is no common pile to reach into.
+
+### Operational boundaries
+
+The walls are not only about tokens. They are about blast radius. When the personas are scoped, a bug in one agent's state does not corrupt another's. When subagents are isolated, a research agent that goes down a rabbit hole does not drag the main session with it. When memory is routed, a stale shard misleads exactly one kind of task instead of poisoning every session globally. Isolation is what makes a growing system debuggable. A tangled one fails everywhere at once and tells you nothing about where.
+
+## The rules, condensed
+
+- **The always-loaded layer is sacred.** Put a hard cap on it and treat the cap as real. When it grows past the cap, something graduates out to a shard.
+- **Default to available, not loaded.** Wiring knowledge up is not the goal. Wiring it up so it loads only on the matching task is the goal.
+- **Noisy work goes behind an agent wall.** Three-plus files, research, or review: spawn it, take the summary, drop the rest.
+- **One namespace per owner.** Every persona's state lives under its own path. No shared dumping ground for outputs.
+- **Boundaries are for failure too, not just tokens.** Scope things so a problem in one zone cannot silently spread to the others.
+
+## The reframe
+
+The beginner question is "how do I write better instructions." The question that actually scales is "where do the walls go." Once you start drawing boundaries instead of stacking content, the system can grow without limit, because growth happens in the isolated parts and never in the part that loads every turn.
+
+Your context stays lean. Your agents stay sharp. The knowledge base, the agent roster, and the cron stack all get as large as you want, and none of it taxes the work in front of you.
+
+---
+
+The walls each have their own page. Start with [the context window](/docs/foundations/context-window) for why this matters, then [the memory router](/docs/foundations/memory-router) for wall one, [the memory system](/docs/foundations/memory-system) for what goes in the shards, and [keeping contexts separate](/docs/foundations/separate-contexts) for the work-versus-personal version of the same idea.
