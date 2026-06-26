@@ -291,7 +291,8 @@ h3.font-display {
   padding-inline-start: 0.625rem !important;
 }
 
-/* Hide the Fumadocs vertical indent line that appears on expanded folders */
+/* Hide the Fumadocs active-link ::before indicator (1px bg-fd-primary bar) and vertical indent line */
+#nd-docs-layout aside a[data-active="true"]::before,
 #nd-docs-layout aside [data-state="open"]::before {
   display: none !important;
 }
