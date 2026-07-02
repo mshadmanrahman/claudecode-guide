@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Star } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 
 interface NavLink {
@@ -211,6 +211,16 @@ export function SiteHeader() {
 
           {/* Right controls */}
           <div className="flex items-center gap-1">
+            <a
+              href="https://github.com/mshadmanrahman/claudecode-guide"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Star claudecode-guide on GitHub"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-colors"
+            >
+              <Star className="h-3.5 w-3.5" />
+              Star
+            </a>
             <ThemeToggle />
 
             {/* Mobile hamburger */}
@@ -253,6 +263,16 @@ export function SiteHeader() {
                   {link.label}
                 </Link>
               ))}
+              <a
+                href="https://github.com/mshadmanrahman/claudecode-guide"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMobile}
+                className="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-colors"
+              >
+                <Star className="h-3.5 w-3.5" />
+                Star on GitHub
+              </a>
             </nav>
           </div>
         )}

@@ -10,6 +10,7 @@ import {
   NotebookPen,
 } from "lucide-react";
 import { EmailCapture } from "@/components/email-capture";
+import { GithubStarCta } from "@/components/github-star-cta";
 import { BlogContent } from "@/components/blog-content";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getRelatedPosts, blogPosts } from "@/data/blog-posts";
@@ -218,6 +219,8 @@ export default async function BlogPostPage(props: PageProps) {
             </a>
           </div>
         )}
+
+        <GithubStarCta />
 
         {relatedPosts.length > 0 && (
           <div className="mt-16 border-t border-fd-border pt-8">

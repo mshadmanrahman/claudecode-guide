@@ -8,6 +8,7 @@ import { EmailCapture } from "@/components/email-capture";
 import { AffiliateCTA } from "@/components/affiliate-cta";
 import { ComparisonRelatedLinks } from "@/components/comparison-related-links";
 import { ChapterNav } from "@/components/docs/chapter-nav";
+import { GithubStarCta } from "@/components/github-star-cta";
 import { SectionIndex } from "@/components/docs/section-index";
 import { SectionArt } from "@/components/docs/section-art";
 import { PromptCard } from "@/components/prompt-card";
@@ -217,6 +218,8 @@ export default async function Page(props: PageProps) {
             />
           </div>
         ) : null}
+
+        <GithubStarCta />
 
         {/* Email capture */}
         <div className="mt-16 border-t border-fd-border pt-8">
