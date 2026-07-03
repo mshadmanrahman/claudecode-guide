@@ -125,6 +125,32 @@ Commands: `.claude/commands/` (slash commands)
 
 If Claude Code doesn't know your skills and agents exist, it won't use them. This tells it what it has to work with.
 
+## CLAUDE.md as a Router, Not Just an Index
+
+You just told CLAUDE.md what it routes to: memory, skills, agents, rules. That was the easy version, where you are the only reader.
+
+The picture changes the moment other agents start reading it too. A cron job fires at 6am with no human watching. A subagent spins up, does its job, and reports back. CLAUDE.md stops being a file you read and becomes the dispatcher for a system that runs without you. Its job is to route each request to the right place: the memory shard that has the context, the skill that owns the workflow, the specialist subagent that does the heavy lifting, the rules file that sets the constraints. Then it takes back a short, summarized answer instead of the full mess each agent waded through.
+
+![A fine-line blueprint sketch with CLAUDE.md at the center, a calm-blue line routing outward to four labeled nodes (memory shards, skills, specialist subagents, rules), and a returning arrow labeled "summarized return" flowing from the subagents back to the center](/claude-md/router-diagram.png)
+
+That is the whole point of a router. It keeps the expensive stuff (context, tokens, tool calls) out on the edges and pulls back only the conclusion. Get it right and the system compounds. Get it wrong and you have built an expensive way to lose track of what your agents are doing.
+
+Here is what actually breaks when you run this for real.
+
+### Anti-pattern A: Trusting an agent's "done" without checking the artifact
+
+A cron agent named Hermes surfaced a recommendation in a routine report that pointed at work already shipped weeks earlier. It read as an open task. Nobody caught it from the agent flagging its own staleness. A human caught it by re-checking the cited state before acting. The same agent later half-completed a 45-post reclassification job and reported it finished. The gap only showed up because the output was re-verified against the live site, twice. Treat a subagent's "COMPLETE" as a hypothesis. Open the artifact it claims to have produced and check it against ground truth before you build on it.
+
+### Anti-pattern B: Read-only agents that never write back
+
+Several specialist agents started with read-only access to the knowledge graph. They could look things up. They had no way to record what they learned. So the router never compounded. The same investigation got redone from scratch by a different agent a week later, because nothing closed the loop. The fix was deliberate: wire "read-first, write-back" into every agent so each run leaves a trace the next one can find. A router that only reads is a lookup table. A router that writes back is memory.
+
+### Anti-pattern C: Routing everything to the biggest model "just in case"
+
+The safe move feels like defaulting every task to the most capable model. It is also the exact failure a router exists to prevent. The working rule: default every task to the cheap, fast model. Escalate to the expensive one only for a short, explicit list (major strategic decisions, greenfield architecture calls). And watch for the tell. "I'm escalating because I'm anxious about this task, not because it matches the list" is the failure mode wearing a helpful face. A router that always picks the biggest option is not a router. It is a flat file with extra steps and a larger bill.
+
+The memory-shard layer has its own splitting rules, aging policy, and cross-link conventions. That gets its own guide: [the memory router pattern](/docs/foundations/memory-router).
+
 ## What to Leave Out
 
 Not everything belongs in CLAUDE.md. These four categories actively hurt more than they help:
