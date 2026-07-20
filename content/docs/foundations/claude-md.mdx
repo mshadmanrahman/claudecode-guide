@@ -8,6 +8,19 @@ image: /claude-md/hero.png
 
 This guide is for developers setting up Claude Code on an existing project. After reading it, you'll know what to put in a CLAUDE.md, what to leave out, and how to keep it accurate as the project evolves.
 
+<Callout type="info" title="The one decision this page keeps coming back to: where should context live?">
+
+| Action | Use it for | AIOS example |
+|---|---|---|
+| **Keep in CLAUDE.md** | Durable, project-wide rules that rarely change: conventions, architecture decisions, hard constraints | A router CLAUDE.md under 100 lines |
+| **Load from memory** | Facts, history, prior decisions: retrieved when a task needs them, not always in context | Sharded per-topic memory files, read and written by cron agents |
+| **Delegate to a subagent** | Isolated work that would bloat the main context: multi-file reads, research, test runs | A specialist agent burns its own context on the log dig |
+| **Summarize back** | Compressing a subagent's raw output to only what the main thread needs | Standing rule: subagents return a digest, never the full transcript |
+
+How retrieval works: [the memory system](/docs/foundations/memory-system). Why the always-loaded budget is scarce: [the context window](/docs/foundations/context-window).
+
+</Callout>
+
 ## Why Most People Get Bad Results
 
 Most people install Claude Code, type something, get a mediocre answer, and conclude "AI isn't that useful yet."
