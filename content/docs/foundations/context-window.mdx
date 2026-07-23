@@ -32,6 +32,7 @@ A rough sense of scale:
 | Reading 50 files in a session | ~50,000 (25% of your window) |
 | A long back-and-forth conversation (30+ exchanges) | 20,000-40,000 |
 | Command output from a failing test suite | 5,000-15,000 |
+| Delegating that 50-file read to a sub-agent instead | ~300-800 (a summary comes back, not the files) |
 
 A focused single task usually fits fine. A marathon session with multiple tasks, lots of file reading, and long debugging conversations will hit the wall.
 
@@ -82,7 +83,7 @@ Let Claude Code read files on demand. Don't paste file contents into the chat. W
 
 ### 4. Use sub-agents for research
 
-Sub-agents (via the Task tool) get their own context window. If you need Claude Code to explore a large codebase or research something, offload it to a sub-agent. The main conversation only gets the summary back. This is one wall in a broader approach: see [the subagent context-isolation pattern](/docs/foundations/subagent-context-isolation) for how isolation scales across memory, agents, and cron state.
+Sub-agents (via the Task tool) get their own context window. If you need Claude Code to explore a large codebase or research something, offload it to a sub-agent. The main conversation only gets the summary back. Concretely: the 50-file read in the table above costs ~50,000 tokens if it happens in the main thread; delegated to a sub-agent, the main thread only pays for the summary that comes back. This is one wall in a broader approach: see [the subagent context-isolation pattern](/docs/foundations/subagent-context-isolation) for how isolation scales across memory, agents, and cron state.
 
 ### 5. Be specific in your prompts
 
