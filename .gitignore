@@ -9,3 +9,11 @@ next-env.d.ts
 .vercel
 /videos/
 !public/videos/
+
+# Agent/tool local state and scratch
+.impeccable/
+_scratch/
+
+# Temporary hero-image preview route (7.4MB of generated PNGs, not shipped)
+public/tmp-hero-preview/
+src/app/(home)/tmp-hero-preview/
