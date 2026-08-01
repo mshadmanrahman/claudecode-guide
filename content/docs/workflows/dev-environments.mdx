@@ -1,0 +1,126 @@
+---
+title: Running Claude Code Without a Full Laptop
+description: "Claude Code runs anywhere Node runs: GitHub Codespaces, Raspberry Pi, Docker containers, your phone via DeX. Here's the setup for each."
+---
+
+## The constraint most guides assume away
+
+Every Claude Code tutorial assumes you have a MacBook in front of you. A lot of people don't. You might be on a budget machine that can't run a local Node server smoothly. You might want to code from your phone on the go. You might want a persistent session that stays alive even when your laptop is closed.
+
+All of these are solved. Claude Code runs wherever Node runs, and the agent behavior is identical whether you're local or remote. The setup is different; the output is the same.
+
+## GitHub Codespaces (most practical for most people)
+
+Codespaces gives you a full cloud dev environment tied to any GitHub repo. Specs go up to 32 CPU / 64GB RAM. Your environment persists between sessions. You access it from any browser or the VS Code extension.
+
+Setting up Claude Code in Codespaces:
+
+```bash
+# In your Codespaces terminal
+npm install -g @anthropic-ai/claude-code
+export ANTHROPIC_API_KEY=your-key
+
+# Persist across sessions by adding to .bashrc
+echo 'export ANTHROPIC_API_KEY=your-key' >> ~/.bashrc
+echo 'alias cc=claude' >> ~/.bashrc
+```
+
+<DemoCard title="Claude Code from your phone via Codespaces" steps={[
+  { type: 'out', text: 'Device: iPhone / Android (any browser)' },
+  { type: 'cmd', text: 'github.com → Codespaces → your repo' },
+  { type: 'out', text: 'VS Code in browser loads with full terminal' },
+  { type: 'cmd', text: 'claude "review the auth flow and flag anything risky"' },
+  { type: 'out', text: 'Reading: src/auth/*.ts...' },
+  { type: 'success', text: '✓ Full Claude Code session, running in the cloud' },
+  { type: 'warn', text: 'Session persists even after you close the browser tab.' },
+]} />
+
+The major advantage over running locally: the Codespace keeps running after you close your browser. You can start a long agent task on your lunch break and check the results hours later from a different device.
+
+**Cost:** Codespaces charges by compute-hours. The free tier (60 hours/month for GitHub Free accounts) covers moderate use. If you are running Claude Code agents for hours at a time, a 4-core instance costs roughly $0.18/hour — substantially cheaper than a new MacBook.
+
+**Pro tip:** Use the VS Code `claude-code` extension in the browser-based Codespace. It integrates the file tree and terminal so you're not tab-switching between browser windows.
+
+## Raspberry Pi (for persistent, always-on sessions)
+
+The Pi is unusual as a dev machine, but it makes sense as a persistent Claude Code server: it runs 24/7 on your home network, draws ~5W of power, and costs nothing after the initial hardware purchase. You SSH in from anywhere.
+
+This has actually been tested and documented by the community. The minimum viable setup is a Raspberry Pi 4 (4GB RAM), Debian 13 (aarch64), Node v20.
+
+```bash
+# On your Pi
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+npm install -g @anthropic-ai/claude-code
+
+# Set your key and start a session
+export ANTHROPIC_API_KEY=your-key
+claude
+```
+
+<DemoCard title="SSH into your Pi, run Claude Code" steps={[
+  { type: 'cmd', text: 'ssh pi@192.168.1.42' },
+  { type: 'out', text: 'Connected to Raspberry Pi 4 (4GB)' },
+  { type: 'cmd', text: 'cd ~/projects/my-app' },
+  { type: 'cmd', text: 'claude "catch me up on what changed since last Tuesday"' },
+  { type: 'out', text: 'Reading git log...' },
+  { type: 'out', text: '5 commits. Auth refactor, 2 bug fixes, 1 new endpoint.' },
+  { type: 'success', text: '✓ Running on a $60 computer. That\'s not a limitation.' },
+]} />
+
+What works well: code review, reading large codebases, writing documentation, analyzing git history. What to avoid: tasks that require many parallel file writes (Pi's SD card I/O is slow) and sub-agent heavy workloads (RAM gets tight).
+
+The install takes 15-30 minutes and you may hit a Node permissions issue that requires a manual npm prefix fix. The community guide (linked in the repo referenced at the end of this page) walks through it.
+
+## Docker container (cleanest isolation)
+
+If you want a repeatable, portable environment with no dependency bleed, Docker is the right answer. The `claude-in-box` project (MIT licensed) packages Claude Code into a Docker container with multi-session support, hook management, and a web UI for managing sessions — and it runs on a Raspberry Pi.
+
+```dockerfile
+# Minimal Dockerfile for Claude Code
+FROM node:20-alpine
+RUN npm install -g @anthropic-ai/claude-code
+WORKDIR /workspace
+ENV ANTHROPIC_API_KEY=""
+CMD ["claude"]
+```
+
+```bash
+# Run with your local directory mounted
+docker run -it \
+  -e ANTHROPIC_API_KEY=your-key \
+  -v $(pwd):/workspace \
+  claude-in-box
+```
+
+The Docker approach is also the right choice for CI/CD integration. You can run Claude Code as a step in your GitHub Actions workflow — reviewing a PR, generating test cases for new code, or checking for security issues before merge.
+
+## Phone + DeX + Codespaces (no laptop at all)
+
+Samsung DeX turns a Galaxy phone into a desktop. Connect it to a monitor and keyboard, open the browser, and you have a full Codespace running Claude Code from your pocket.
+
+This is not a hack — people are doing it for full-time development. The constraint is that you're working in a browser-based VS Code, so anything that needs native OS access (like running a local dev server) needs to happen inside the Codespace itself. For Claude Code specifically, everything works: file reads, edits, terminal commands, sub-agents.
+
+The session stays alive on the Codespace server. You can step away, switch to your phone's native apps, come back hours later, and the Claude Code session is exactly where you left it.
+
+## Keeping your API key safe across environments
+
+One consistent issue across all of these setups: the API key. A few rules:
+
+Never hardcode it in a Dockerfile, `.env` committed to git, or a shell script you push anywhere. Use environment variables injected at runtime.
+
+For Codespaces: set it as a [Codespaces secret](https://github.com/settings/codespaces) in GitHub settings. It auto-injects into every Codespace as `$ANTHROPIC_API_KEY`.
+
+For Pi and Docker: use a `.env` file that is in your `.gitignore`, or inject from your password manager. The 1Password CLI (`op run -- claude`) is a clean option that resolves the key from your vault without ever exposing it in plaintext.
+
+## Which setup for which situation
+
+**GitHub Codespaces:** best all-around. Works from any device, persistent sessions, scales compute to match the task, integrates with your GitHub repos directly.
+
+**Raspberry Pi:** best for always-on home server usage. Cheap to run permanently, good for long-running read-heavy tasks, accessible via SSH from anywhere on your network or via Tailscale globally.
+
+**Docker:** best for reproducibility and CI/CD. Clean environment, easy to version and share, runs everywhere Docker runs.
+
+**Phone + DeX:** best for travel or when you only have your phone. Not a compromise if your main dev work is through Codespaces anyway.
+
+The underlying point: Claude Code is a CLI tool that runs wherever Node runs. The environment does not change what it can do. It just changes how you get there.

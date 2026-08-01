@@ -1,0 +1,103 @@
+---
+title: Claude Code vs GLM-5.2
+description: "GLM-5.2 has a 1M-token context window, MIT open weights, and a viral benchmark that beat GPT-5.5. Here's what it actually means for your coding workflow."
+targetKeyword: "claude code vs glm 5.2"
+comparisonEntities:
+  - "Claude Code"
+  - "GLM-5.2"
+relatedLinks:
+  - title: "Claude Code vs Gemini CLI"
+    href: "/docs/comparisons/vs-gemini-cli"
+    description: "Another strong free-tier challenger. Different trade-offs."
+  - title: "Claude Code vs OpenAI Codex"
+    href: "/docs/comparisons/vs-codex"
+    description: "GPT-5.5's terminal agent vs Claude Code."
+  - title: "Claude Pro vs Max vs API"
+    href: "/docs/comparisons/pro-vs-max"
+    description: "Pick the right Claude plan before switching away."
+---
+
+## The benchmark was real. The conclusion needs context.
+
+In June 2026, a viral tweet showed GLM-5.2 outperforming GPT-5.5 xHigh and matching Opus 4.8 xHigh on a coding task. 30,000 people saw it. The reaction was immediate: "China just won AI."
+
+The benchmark was genuine. The task was building a castle siege scene in a voxel engine from scratch, testing terrain math, limb anatomy, causal staging, frozen-pose motion, and spatial reasoning in a single prompt. GLM-5.2 nailed it. That is not a fluke.
+
+But the benchmark was also one specific thing. The original poster said the same day: "I have to check on backend tasks, can't say for now if it outclasses Opus 4.8 in all areas." Zhipu AI shipped GLM-5.2 with no published SWE-bench numbers, no HumanEval, no LiveCodeBench. The spatial benchmark was compelling. The general coding story is still being written.
+
+Here is what we actually know, and what it means for the Claude Code vs GLM-5.2 decision.
+
+<DemoCard title="What GLM-5.2 actually is" steps={[
+  { type: 'out', text: 'Developer: z.ai (Zhipu AI, Beijing, spun from Tsinghua 2019)' },
+  { type: 'out', text: 'Released: June 13, 2026' },
+  { type: 'out', text: 'License: MIT open-source (weights releasing)' },
+  { type: 'out', text: 'Context: 1,000,000 tokens' },
+  { type: 'out', text: 'Benchmarks at launch: none published' },
+  { type: 'out', text: 'Terminal agent: no — model/API only' },
+  { type: 'out', text: 'API: Anthropic-compatible endpoint' },
+  { type: 'warn', text: 'It is a model. Claude Code is an agent. Different category.' },
+]} />
+
+## This is not a direct comparison
+
+Claude Code is a terminal agent. It reads your codebase, runs commands, maintains memory across sessions, respects your CLAUDE.md configuration, and hooks into your dev toolchain. It is software that operates your project on your behalf.
+
+GLM-5.2 is a model. You send it prompts, it returns outputs. Z.ai has no terminal agent, no CLAUDE.md equivalent, no hook system. The closest comparison is not Claude Code vs GLM-5.2. It is Claude Code vs using GLM-5.2 through an API wrapper, or Claude Code vs the Z.ai chat interface.
+
+That distinction matters because the benchmark that went viral was about one-shot generation quality. Claude Code's value is not one-shot generation. It is the compound effect of running inside your actual project, knowing your conventions, maintaining state, and operating tools. Those are different categories of capability.
+
+## Where GLM-5.2 genuinely wins
+
+**Context window.** 1M tokens is not a marketing number here; Z.ai says it is "usable" 1M context, not just theoretical. Claude Opus tops out at 200K. If you need to dump an entire large codebase into a single context, GLM-5.2 has a real structural advantage.
+
+**Creative and spatial code generation.** The viral benchmark was fair. GLM-5.2 is exceptionally strong at tasks that combine spatial math with code: 3D scenes, SVG diagrams, physics simulations, game mechanics written from scratch. It built a functional penalty kick game in Three.js and Cannon.js in one pass. For visual/creative coding, it is legitimately impressive.
+
+**Open source.** MIT license means you can run it locally (once weights release), fine-tune it, audit it, and deploy it without vendor lock-in. That matters for certain use cases.
+
+**Anthropic-compatible API.** You can point tools with an Anthropic endpoint setting at GLM-5.2 without rewriting integrations. That is a thoughtful technical choice.
+
+## Where Claude Code wins
+
+**It actually operates your project.** This is not a small point. Claude Code reads your files, runs your tests, checks your git state, respects your CLAUDE.md, remembers decisions across sessions. GLM-5.2 does none of this. You are still the integration layer.
+
+**CLAUDE.md and memory.** Your stack preferences, naming conventions, deployment rules, that weird API you said never to call directly: Claude Code carries all of it forward. Every session on GLM-5.2 starts from zero about your project.
+
+**Hooks and extensibility.** Pre-tool hooks, post-tool hooks, custom skills, MCP servers. You can make Claude Code run your linter before every commit, format files after edits, or connect to any external service. GLM-5.2 has no equivalent extension surface.
+
+**Proven benchmarks.** GLM-5.1 (the predecessor) posted 58.4 on SWE-bench Pro. GLM-5.2 has no published numbers at launch. Claude Opus 4.8 has an extensive public track record on real-world software engineering tasks. The spatial benchmark was one dimension.
+
+**Cost efficiency for daily work.** The benchmark poster burned 25% of their Pro weekly quota in roughly 10 prompts. That is approximately 500 prompts per week on Pro ($30/month). For sustained daily coding, the per-session cost of GLM-5.2 is higher than it looks.
+
+<DemoCard title="Head-to-head at a glance" steps={[
+  { type: 'out', text: 'Terminal agent      GLM: No               Claude Code: Yes' },
+  { type: 'out', text: 'Project config      GLM: None             Claude: CLAUDE.md' },
+  { type: 'out', text: 'Cross-session mem   GLM: None             Claude: Full' },
+  { type: 'out', text: 'Hooks / skills      GLM: No               Claude: Deep' },
+  { type: 'out', text: 'MCP ecosystem       GLM: No               Claude: Full' },
+  { type: 'out', text: 'Context window      GLM: 1M tokens        Claude: 200K' },
+  { type: 'out', text: 'Open source         GLM: MIT              Claude: Source-available' },
+  { type: 'out', text: 'Vision              GLM: No (at launch)   Claude: Yes (Opus)' },
+  { type: 'out', text: 'Pricing             GLM: $10-$80/mo       Claude: $20-$200/mo' },
+  { type: 'out', text: 'SWE-bench (5.2)     GLM: Unpublished      Claude: Verified' },
+  { type: 'warn', text: 'Pricing looks cheaper until you model prompts-per-week.' },
+]} />
+
+## My actual take
+
+GLM-5.2 is real. The spatial coding benchmark was not cherry-picked — building a voxel castle siege from scratch with terrain math, limb anatomy, and causal staging in one pass is genuinely hard. Zhipu AI is a serious lab shipping fast (four flagship releases in four months).
+
+But I am not switching my daily workflow to it, for a concrete reason: there is no agent. Every time I use Claude Code on a real project, the value is not the single response quality. It is that Claude Code knows I use next-auth v5, that it will not touch the payment module without confirmation, that it runs my tests after every edit, that it remembers a decision I made three weeks ago. GLM-5.2 cannot do any of that. It is an impressive model accessed through a chat interface.
+
+The 1M context is the most genuinely interesting capability. If your bottleneck is context size — you are working with a massive legacy codebase and need to reason over all of it simultaneously — GLM-5.2 is worth testing. That is a real structural advantage.
+
+The open-source angle matters for a specific audience: teams who need to self-host, fine-tune for proprietary codebases, or operate in environments where vendor-hosted AI is restricted.
+
+For everyone else, the choice is simpler than the benchmark made it look. You are not comparing a model to Claude Code. You are comparing a model to an agent. That is not a close race for daily professional coding work.
+
+## When to use which
+
+**Try GLM-5.2** when you need 1M context for a genuinely massive codebase, when you are building creative/visual/spatial code (3D, games, generative SVG), when open-source weights are a requirement, or when you want to experiment with a strong alternative model at lower entry cost.
+
+**Use Claude Code** when you are doing daily professional development on a real project. When you want the AI to know your codebase, respect your conventions, run your tools, and get smarter about your project over time. When you need a proven track record on real-world software engineering tasks, not one benchmark.
+
+The tweet was right that GLM-5.2 is impressive. It was overstating things to call it a Claude Code replacement.

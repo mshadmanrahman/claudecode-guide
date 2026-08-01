@@ -1,0 +1,98 @@
+---
+title: Claude Code vs DeepSeek
+description: "DeepSeek V4 costs roughly 15x less than Claude via API and runs open-weight on your own hardware. Here's what you actually trade away, and when the trade is worth it."
+targetKeyword: "claude code vs deepseek"
+comparisonEntities:
+  - "Claude Code"
+  - "DeepSeek"
+relatedLinks:
+  - title: "Claude Code vs GLM-5.2"
+    href: "/docs/comparisons/vs-glm"
+    description: "Another strong open-source challenger. 1M context, spatial coding."
+  - title: "Using Claude Code with Open-Source Models"
+    href: "/docs/foundations/alternative-models"
+    description: "How to actually run DeepSeek inside Claude Code via ANTHROPIC_BASE_URL."
+  - title: "Claude Pro vs Max vs API"
+    href: "/docs/comparisons/pro-vs-max"
+    description: "Before switching away, understand what plan you are on."
+---
+
+## DeepSeek is not a Claude Code competitor. It is an alternative model.
+
+DeepSeek does not have a terminal agent. There is no DeepSeek equivalent to Claude Code — no CLI that reads your files, respects a project config, runs your tests, and maintains memory across sessions. When people say "Claude Code vs DeepSeek," what they usually mean is: should I use Claude Code powered by Claude, or should I configure my tools to run DeepSeek as the underlying model instead?
+
+That is the real question, and it has a real answer depending on what you care about.
+
+<DemoCard title="What DeepSeek actually is in 2026" steps={[
+  { type: 'out', text: 'DeepSeek V4 Pro — released April 24, 2026' },
+  { type: 'out', text: 'Architecture: 1T param MoE, MIT open-weight' },
+  { type: 'out', text: 'Context: 1,000,000 tokens' },
+  { type: 'out', text: 'Price: $0.44/M input, $0.87/M output (API)' },
+  { type: 'out', text: 'DeepSeek V4 Flash: $0.14/M input, $0.28/M output' },
+  { type: 'out', text: 'API format: OpenAI AND Anthropic compatible' },
+  { type: 'out', text: 'Platforms: AWS Bedrock, Azure, Vertex AI' },
+  { type: 'out', text: 'Terminal agent: none' },
+  { type: 'warn', text: 'You can run it inside Claude Code via ANTHROPIC_BASE_URL.' },
+]} />
+
+## The price gap is real and large
+
+Claude Opus 4.8 via API costs $5/M input, $25/M output. DeepSeek V4 Pro costs $0.44/M input, $0.87/M output. That is approximately 11x cheaper on input and 29x cheaper on output for a model that matches Opus on most coding benchmarks.
+
+DeepSeek V4 Flash cuts that further to $0.14/$0.28 — closer to Haiku pricing with V4 Pro capability for a large class of tasks.
+
+If you are building on top of Claude Code's API surface and your primary bottleneck is cost, DeepSeek V4 is a serious option to evaluate. Many teams use DeepSeek for high-volume automated tasks (CI pipelines, code review bots, documentation generation) and reserve Claude for interactive developer sessions where the agent behavior matters.
+
+## Where Claude Code wins
+
+**The agent layer.** Claude Code is not just a model. It is an agent that operates your project: reads your files, runs your linter, understands your CLAUDE.md configuration, remembers your conventions across sessions, uses hooks to automate pre and post-tool behavior, and connects to your toolchain via MCP servers. DeepSeek has none of this unless you build it yourself.
+
+**Training alignment with agentic use.** Claude's models are specifically fine-tuned for the kind of multi-step reasoning, tool use, and careful file editing that Claude Code demands. DeepSeek V4 performs very well on coding benchmarks, but those benchmarks test generation quality, not agent behavior across a 200-step session on a real codebase.
+
+**Memory and conventions.** Your CLAUDE.md tells Claude Code your stack, your rules, your preferences. Claude carries that forward. With DeepSeek as the model, you are either injecting that context manually on every prompt or running an abstraction layer that does it for you — and now you are maintaining that layer.
+
+**Ecosystem.** Claude Code's hooks, skills, MCP servers, and sub-agent system are built for Claude's tool-use interface. Some of these break or behave unpredictably with alternative models, because they depend on specific tool-calling formats and response structures.
+
+## Where DeepSeek wins
+
+**API cost.** This is the main one. At $0.44/M input, DeepSeek V4 Pro is dramatically cheaper for volume use. If you are making thousands of API calls per day in automated workflows, this difference pays for engineering time.
+
+**Open weights.** MIT license. You can self-host DeepSeek V4 on your own infrastructure, fine-tune it on proprietary code, and deploy it in environments where vendor-hosted AI is not allowed. On dual RTX 4090s or a single RTX 5090, you can run quantized versions locally.
+
+**Context window.** 1M tokens vs Claude Opus's 200K. For tasks where you need to load an entire large codebase into context simultaneously, DeepSeek has structural headroom that Claude does not.
+
+**Reasoning.** DeepSeek R1 (the reasoning variant) is competitive with the best frontier reasoning models on math and logic tasks. For structured reasoning over code — architecture decisions, debugging chains, complex refactors — R1 is worth knowing about.
+
+**Privacy and self-hosting.** Running open weights on your own infrastructure means your code never leaves your network. For legal, regulated, or sensitive codebases, this matters.
+
+<DemoCard title="Cost comparison: 100K tokens per day" steps={[
+  { type: 'out', text: 'Claude Opus 4.8 (API):   ~$3.00/day input + output' },
+  { type: 'out', text: 'Claude Sonnet 4.6 (API):  ~$0.90/day input + output' },
+  { type: 'out', text: 'DeepSeek V4 Pro (API):    ~$0.13/day input + output' },
+  { type: 'out', text: 'DeepSeek V4 Flash (API):  ~$0.04/day input + output' },
+  { type: 'warn', text: 'For volume automation, the DeepSeek numbers are hard to ignore.' },
+]} />
+
+## The hybrid approach most teams actually use
+
+Few teams go all-in on one model for everything. The pattern that works:
+
+**DeepSeek V4 Pro for:** high-volume automated tasks (CI/CD code review, test generation, documentation), background agents, tasks where you are paying per token and latency matters less.
+
+**Claude Code (Sonnet/Opus) for:** interactive developer sessions, anything touching production code that requires careful judgment, sessions where your CLAUDE.md conventions and memory are doing real work.
+
+You can configure this split by running DeepSeek via the Anthropic-compatible endpoint behind a proxy like LiteLLM or Bifrost, and routing specific task types to it. [Full setup guide here.](/docs/foundations/alternative-models)
+
+## My actual take
+
+DeepSeek is not a Claude Code replacement. But it is a legitimate answer to a real question: how do I bring down the API cost for volume tasks without sacrificing too much capability?
+
+If you are paying Anthropic's API rates for automated pipelines that run thousands of prompts per day, testing DeepSeek V4 Pro for those specific workflows is a sensible experiment. The model is genuinely capable, the price difference is not marginal, and the MIT license means you have options if your situation changes.
+
+For daily interactive coding — the sessions where Claude Code reads your codebase, learns your conventions, and operates your dev toolchain — the agent behavior is doing most of the work. And that behavior is built for Claude. That is where the comparison gets complicated and where switching costs are real.
+
+## When to use which
+
+**Use DeepSeek** when API cost is the primary constraint for high-volume automated workflows, when you need to self-host or fine-tune on proprietary data, when 1M context is a genuine requirement, or when you want the reasoning model (R1) for structured logic tasks.
+
+**Use Claude Code** when you are doing daily interactive development on a real project. When you want the agent layer — CLAUDE.md, memory, hooks, sub-agents, MCP — to handle the session complexity. When consistency and reliability over a long coding session matter more than per-token cost.

@@ -1,0 +1,125 @@
+---
+title: Using Claude Code with Open-Source Models
+description: "Claude Code was built for Claude, but you can point it at DeepSeek, GLM, Kimi, or Qwen via ANTHROPIC_BASE_URL. Here's how to do it and what breaks when you do."
+---
+
+## Why people do this
+
+The short answer: cost and control.
+
+Claude Code uses Anthropic's API by default. That pricing is fine for interactive development sessions. It gets expensive for automated, high-volume workflows — CI pipelines, background agents, test generation, documentation sweeps — where you might be burning through tens of thousands of tokens per run.
+
+Open-source models like DeepSeek V4 Pro ($0.44/M tokens), GLM-5.2, Kimi K2.7-Code, and Qwen 3.6 are now competitive on coding benchmarks at a fraction of the API cost. Some teams self-host on their own GPUs and pay only inference compute. For those cases, routing Claude Code at an alternative model backend makes economic sense.
+
+A second reason: data privacy. Running open weights on your own infrastructure means your code never leaves your network. For legal, regulated, or proprietary codebases, that matters.
+
+The caveat is real and worth reading before you start.
+
+## How it works
+
+Claude Code reads your `ANTHROPIC_API_KEY` and sends requests to `https://api.anthropic.com` by default. One environment variable overrides the endpoint:
+
+```bash
+export ANTHROPIC_BASE_URL=http://localhost:4000  # or your proxy URL
+export ANTHROPIC_API_KEY=your-key-for-the-proxy
+```
+
+That's it. Claude Code will send the same Anthropic-format requests to your custom endpoint instead of Anthropic's servers.
+
+<DemoCard title="Routing Claude Code at DeepSeek V4 via LiteLLM" steps={[
+  { type: 'cmd', text: 'pip install litellm' },
+  { type: 'cmd', text: 'litellm --model deepseek/deepseek-chat --port 4000' },
+  { type: 'out', text: 'LiteLLM proxy running at http://localhost:4000' },
+  { type: 'out', text: 'Translating: Anthropic format → DeepSeek API' },
+  { type: 'out', text: '' },
+  { type: 'cmd', text: 'export ANTHROPIC_BASE_URL=http://localhost:4000' },
+  { type: 'cmd', text: 'export ANTHROPIC_API_KEY=your-deepseek-key' },
+  { type: 'cmd', text: 'claude "explain this function"' },
+  { type: 'success', text: 'Claude Code running, model: deepseek/deepseek-v4-pro' },
+  { type: 'warn', text: 'Some Claude-specific features may behave differently.' },
+]} />
+
+## The proxy options
+
+**LiteLLM** is the most widely used. Open-source Python proxy that supports 100+ model providers, translates between OpenAI and Anthropic API formats, and handles routing logic. You can configure it to route different task types to different models.
+
+**Bifrost** is a Go-based gateway built specifically for the Claude Code use case. Lighter weight than LiteLLM, purpose-built for Anthropic-compatible translation, supports 20+ providers. Good if you want a production-grade single-binary solution.
+
+**Direct endpoints.** Some models provide an Anthropic-compatible endpoint without a proxy layer. DeepSeek V4 and GLM-5.2 both support the Anthropic API format natively — you can set `ANTHROPIC_BASE_URL` to point directly at their API and skip the local proxy entirely.
+
+```bash
+# DeepSeek direct (Anthropic-compatible)
+export ANTHROPIC_BASE_URL=https://api.deepseek.com
+export ANTHROPIC_API_KEY=your-deepseek-api-key
+
+# GLM-5.2 direct (Anthropic-compatible)
+export ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/paas/v4
+export ANTHROPIC_API_KEY=your-zhipu-api-key
+```
+
+## The open-source model landscape (June 2026)
+
+These are the models getting serious traction for Claude Code usage, by use case:
+
+**For general coding (best overall replacement):**
+DeepSeek V4 Pro. Strong on SWE-bench and daily coding tasks. MIT open-weight. Dramatically cheaper API than Claude. Anthropic-compatible endpoint. The most commonly used alternative.
+
+**For reasoning-heavy work:**
+DeepSeek R1. The dedicated reasoning variant. Competes with the best frontier reasoning models on math and logic chains. Use it when you're doing architecture decisions, complex debugging chains, or structured analysis rather than file editing.
+
+**For large codebase context:**
+GLM-5.2 (1M tokens) or DeepSeek V4 (1M tokens). Both beat Claude Opus's 200K limit by 5x. If your main bottleneck is fitting an entire codebase into context, these have structural headroom Claude doesn't.
+
+**For visual and spatial code:**
+GLM-5.2 from Zhipu AI. Benchmarks showed it outperforming GPT-5.5 on 3D/voxel scene generation, physics simulations, and complex SVG work. If you write a lot of creative/generative code, it's worth testing.
+
+**For agentic coding specifically:**
+Kimi K2.7-Code (Moonshot AI). A 1T/32B-active MoE with 256K context, specifically optimized for agentic tasks. MiniMax M3 was topping SWE-bench Pro as of June 2026 (59.0%). Qwen 3.6 27B runs well locally on consumer hardware.
+
+**For self-hosting locally:**
+Qwen 3.6 27B and Devstral Small 2 run on a single consumer GPU. DeepSeek V4 Flash can run on dual RTX 4090s quantized. These are the practical choices if you want zero network egress.
+
+<DemoCard title="Model selection cheat sheet" steps={[
+  { type: 'out', text: 'Daily coding          → DeepSeek V4 Pro (cheap, capable)' },
+  { type: 'out', text: 'Reasoning tasks       → DeepSeek R1 (best open reasoning)' },
+  { type: 'out', text: 'Huge codebases        → GLM-5.2 or DS V4 (1M context)' },
+  { type: 'out', text: 'Visual/3D/SVG code    → GLM-5.2 (won the viral benchmark)' },
+  { type: 'out', text: 'Agentic workflows     → Kimi K2.7-Code / MiniMax M3' },
+  { type: 'out', text: 'Local / no egress     → Qwen 3.6 27B / Devstral Small 2' },
+  { type: 'warn', text: 'None of these have Claude Code\'s agent layer natively.' },
+]} />
+
+## What breaks when you switch models
+
+This is important and most guides skip it.
+
+Claude Code was designed around Claude's specific tool-calling interface, response formats, and behavior. When you swap the underlying model, some things stop working or behave unpredictably:
+
+**Extended thinking.** Claude's `/think` or extended thinking modes are Claude-specific. They will not work with alternative models. The proxy will either error out or silently drop the thinking request.
+
+**Tool use reliability.** Claude's tool-use patterns were fine-tuned for multi-step agentic tasks. Alternative models may call tools with incorrect argument formats, fail to chain tool calls properly, or lose track of tool state mid-session. The more complex the agentic task, the more likely this is to surface.
+
+**Memory and handoffs.** Claude Code's memory system writes and reads files in a specific format that assumes Claude's instruction-following behavior. Alternative models may interpret memory files differently, add unwanted formatting, or fail to follow the write-once convention.
+
+**Hooks and skills.** Pre-tool and post-tool hooks that depend on specific tool-call signatures may break. Custom skills written to expect Claude's response format may get garbage back.
+
+**Long sessions.** A 200-step session on a real codebase with file edits, test runs, and tool calls is harder than a single code generation benchmark. Models that score well on benchmarks can degrade on session coherence in ways that only appear after 20+ turns.
+
+## The practical split most teams use
+
+Interactive developer sessions (where the agent behavior matters) stay on Claude. Automated, high-volume tasks (where cost matters) move to an alternative model behind a proxy.
+
+Specifically:
+- **Claude Code interactive:** daily development, CLAUDE.md-aware sessions, anything touching production code
+- **DeepSeek V4 Pro via proxy:** CI code review, test generation, documentation sweeps, background refactor agents
+- **Qwen/Devstral local:** offline analysis, sensitive codebases that cannot egress
+
+You can set different `ANTHROPIC_BASE_URL` values per shell profile, per project, or via a `.env` file, so the switch is not a configuration nightmare — it is an environment variable.
+
+## Should you do this?
+
+Yes, if: you have high-volume automated workflows where API cost is the real constraint, or you need to self-host for compliance or data privacy reasons.
+
+Not yet, if: you rely on Claude Code's full agent stack (hooks, complex tool chains, memory, extended thinking) for the tasks you're trying to delegate. The savings are not worth the reliability drop in those cases.
+
+The best path is to start with the automated tasks where session coherence doesn't matter as much, measure the quality difference empirically on your actual codebase, and expand from there.
