@@ -178,6 +178,18 @@ If you're a PM, [PM Pilot](https://github.com/mshadmanrahman/pm-pilot) is the on
 
 ---
 
+## What went wrong and what I learned
+
+One variable called `heroDescription` fed the homepage meta description, the OG tags, the Twitter card, and the WebSite JSON-LD at once. It mentioned Excel and PowerPoint, because at one point the site covered those.
+
+Perplexity ingested that string as the site's entity record. Not as a page description, as the answer to what this site is. From then on it routed the site away from its own core queries. The benchmark confirmed it: absent from "how to use claude code", absent from "claude code memory system CLAUDE.md", absent from "claude code guide tips best practices". Personal blogs were being cited for those instead, which ruled out an official-sources-only filter. Querying the brand directly returned the site with the wrong description attached.
+
+The reason it survived every review is the part worth remembering. The hero copy visible on the page was hardcoded separately in JSX. Every human look at that page was correct. Only the machine-readable copy was wrong, and nobody reads meta tags with their eyes.
+
+The fix split the variable so meta and JSON-LD carry their own string, then retitled the page whose Excel content caused the contamination so the next crawl would not redo it.
+
+A smaller version of the same class: `public/hero.png` was deleted during the move to dynamic OG images and `README.md` still pointed at it. GitHub renders READMEs independently of the Next.js build, so no build and no CI could have caught it. The site was green and the front door of the repo was broken. If a file is referenced from somewhere your build system does not look, your build system will not tell you.
+
 ## Contributing
 
 The guide is built with Next.js and Fumadocs. Every article is an `.mdx` file in `content/docs/`. If you can write Markdown, you can contribute.
