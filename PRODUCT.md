@@ -15,9 +15,10 @@ The reader is a technical practitioner on a desktop, reading the docs, arriving 
 | Device | 85% desktop (4,740 vs 822 mobile); GSC agrees at 85% of impressions | Not a phone-browsing casual audience |
 | Section | `/docs/*` 42.1% of sessions, `/tutorials/*` 12.7%, `/blog/*` 5.7% | The docs are the product |
 | Top page | `/docs/foundations/claude-md`, 403 sessions | Operational-memory content is the franchise |
-| Acquisition | Direct 62.2% + Organic Social 19.2% = 81%; Organic Search 8.4% | They clicked a link Shadman posted |
+| Acquisition | Direct 49%, Organic Social 26%, Organic Search 11% (crawler excluded) | Mostly a link click, not a search |
+| Largest single source | **Reddit, 1,009 sessions. LinkedIn, 53.** | See the correction below |
 | Search intent | Real queries: `.claude/settings.json`, `CLAUDE_CODE_DISABLE_1M_CONTEXT`, `claude.md for developers`, `mcp claudecode` | Nobody arrives on beginner phrasing |
-| Geo | Singapore 27.3%, US 20.6%, China 6.5%, Bangladesh 5.7%, India 4.3% | International and developer-heavy |
+| Geo | US 28%, Bangladesh 8%, India 6%, Germany, UK, South Korea (crawler excluded) | International and developer-heavy |
 
 **The `/for-*` persona tracks are a rounding error, not a pillar.** All six combined are 8.1% of sessions (643). Breakdown: designers 261, microsoft 115, chrome 112, marketers 76, teachers 67, HR 12. Only `/for-designers` clears 3%, and that is Shadman's own specialty. Do not structure the site, or weight editorial decisions, as though the vertical tracks carry the audience. They do not.
 
@@ -25,7 +26,11 @@ The reader is a technical practitioner on a desktop, reading the docs, arriving 
 
 What survives from the old framing: the site still refuses false accessibility (see Anti-references), still explains a term the first time it appears, and still serves absolute beginners who do arrive. Beginners are a real segment to serve well. They are not the segment to optimise tone for.
 
-**Caveat, unverified.** Singapore at 27.3% outranks the US and is out of line with every other signal. It may be datacenter or VPN traffic rather than readers. Nobody has checked. If it is junk, every percentage in this section shifts and the geo row should be thrown out first.
+**Second correction, same day: Reddit is the audience, not LinkedIn.** The credibility strategy names LinkedIn as the distribution channel, on the reasoning that one sharp post to the professional network beats anonymous traffic. Measured: LinkedIn 53 sessions in 90 days, Reddit 1,009. Reddit is roughly a quarter of real traffic and the largest identifiable source; LinkedIn is under 1.5%. Whether that means the strategy should change or the channel should actually get used is an open decision, recorded in `PERSONAS.md`.
+
+**Crawler excluded from all figures above.** Raw GA4 reports 5,610 sessions; 1,530 of those are a sitemap walk and are excluded, giving a corrected base of roughly 4,080. The crawler presents as Singapore, 1,479 of 1,530 sessions from "(direct)", about 30 sessions per page evenly across the whole site, 88 to 100% bounce, 2.6 to 6.9 second durations. An earlier version of this section reported Singapore as the top country at 27.3% and flagged it as unverified. It is now verified as junk. Any number quoted straight from the GA4 dashboard will be inflated by it.
+
+**Reader segments and the open strategic question live in [`PERSONAS.md`](./PERSONAS.md).** That document keeps "who reads the site" and "who the site is written for" separate, because on current evidence they are different people.
 
 ## Product Purpose
 
