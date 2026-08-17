@@ -36,6 +36,8 @@ What survives from the old framing: the site still refuses false accessibility (
 
 **Reader segments and the open strategic question live in [`PERSONAS.md`](./PERSONAS.md).** That document keeps "who reads the site" and "who the site is written for" separate, because on current evidence they are different people.
 
+**What to do about it lives in [`GROWTH.md`](./GROWTH.md).** Short version: the site's own success metric was never traffic, Domain Rating is 1.2 so the head terms are unreachable, and the work worth doing is 10 to 14 hours of one-off technical hygiene rather than a content programme.
+
 ## Product Purpose
 
 The practitioner's guide to Claude Code: 34+ doc pages across foundations/patterns/workflows/comparisons/templates, 15+ hands-on tutorials, interactive terminal demos on every page, a 9-step interactive setup guide, and role-specific verticals. Built and maintained by one person (Shadman Rahman) who kept explaining the same things to people who'd never touched a terminal, and turned that into a site instead of repeating himself. It's part of a broader "PM Toolkit Family" (pm-pilot, bug-shepherd, ceremonies, morning-digest, root-kg), so it's authored from a PM/builder perspective, not a pure dev-tool vendor's.
