@@ -3,13 +3,23 @@ import Link from 'next/link';
 import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 
+/**
+ * Search sends this page 564 impressions a month at position 8.7, its best
+ * position on the site, against 9 clicks. The queries arrive in both scripts:
+ * `claude bangla` and `claude code` alongside `ক্লদ` and `claude কি`. The
+ * title carried no Latin-script "Bangla", so half the demand saw nothing it
+ * recognised. Canonical added at the same time; the page had none.
+ */
 export const metadata: Metadata = {
-  title: 'Claude Code গাইড : বাংলায়',
+  title: { absolute: 'Claude Code in Bangla | Claude Code গাইড : বাংলায়' },
   description:
-    'Claude Code শিখুন বাংলায়। ইনস্টলেশন, সেটআপ, এবং প্রথম প্রজেক্ট তৈরি করুন। কোনো পূর্ব অভিজ্ঞতা লাগবে না।',
+    'Claude Code শিখুন বাংলায়। ইনস্টলেশন, সেটআপ, এবং প্রথম প্রজেক্ট তৈরি করুন। কোনো পূর্ব অভিজ্ঞতা লাগবে না। A complete Claude Code guide in Bangla.',
+  alternates: { canonical: 'https://claudecodeguide.dev/bn' },
   openGraph: {
-    title: 'Claude Code গাইড : বাংলায়',
+    title: 'Claude Code in Bangla | Claude Code গাইড : বাংলায়',
     description: 'Claude Code শিখুন বাংলায়। ইনস্টলেশন থেকে প্রথম প্রজেক্ট পর্যন্ত।',
+    type: 'article',
+    url: 'https://claudecodeguide.dev/bn',
   },
 };
 

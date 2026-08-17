@@ -58,10 +58,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   if (!post) return { title: "Post Not Found" };
 
   const canonicalUrl = `https://claudecodeguide.dev/blog/${post.slug}`;
+  const seoTitle = post.seoTitle ?? post.title;
+  const seoDescription = post.seoDescription ?? post.description;
 
   return {
-    title: { absolute: `${post.title} | Claude Code Guide Blog` },
-    description: post.description,
+    title: { absolute: `${seoTitle} | Claude Code Guide Blog` },
+    description: seoDescription,
     alternates: { canonical: canonicalUrl },
     openGraph: {
       title: post.title,

@@ -6,6 +6,15 @@ export interface BlogPost {
   author: string;
   tags: string[];
   content: string;
+  /**
+   * Optional search-result title, used only in <title> and never on the page.
+   * Set it when the authored headline is the right thing for a reader who is
+   * already here but the wrong thing for someone scanning a search result.
+   * Falls back to `title`.
+   */
+  seoTitle?: string;
+  /** Optional search-result description. Falls back to `description`. */
+  seoDescription?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -1222,6 +1231,12 @@ export const blogPosts: BlogPost[] = [
     slug: "you-dont-need-settings-json-hacks",
     title: "You Don't Need settings.json Hacks to Fix Claude Code",
     description: "A viral tweet says 4 environment variables fix 'nerfed' Claude Code. Here's what actually fixes it: governance, not flags.",
+    // Search sends this page ~116 impressions a month for the literal env var
+    // CLAUDE_CODE_DISABLE_1M_CONTEXT at position 7.7, and it converted zero
+    // clicks, because the authored headline names none of what was searched.
+    seoTitle: "CLAUDE_CODE_DISABLE_1M_CONTEXT and 3 Other settings.json Flags",
+    seoDescription:
+      "What CLAUDE_CODE_DISABLE_1M_CONTEXT, CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING and the other viral settings.json flags actually do, which of them change anything, and what to fix instead.",
     date: "2026-04-14",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "productivity", "settings", "tutorial"],

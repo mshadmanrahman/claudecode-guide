@@ -1,6 +1,6 @@
 ---
-title: "Which Claude Should You Use? A Non-Coder's Guide"
-description: "Twelve-plus Claude surfaces, one plain-English map. Excel, PowerPoint, Word, web, mobile, Cowork, Chrome, Code, and more. Which one to pick for which job, from someone who has used all of them."
+title: "Which Claude Should You Use? All 16 Surfaces Compared"
+description: "Sixteen Claude surfaces, mapped to the job each one is best at. Claude Code for navigating an unfamiliar codebase, Cowork for multi-step tasks, plus Excel, Word, PowerPoint and Chrome."
 full: true
 ---
 
@@ -11,6 +11,7 @@ import { SectionBreak } from '@/components/section-break';
 import { MentalShift, MentalShiftsGrid } from '@/components/mental-shift';
 import { CaveatCard, CaveatList } from '@/components/caveat-card';
 import { ClaudeEcosystem } from '@/components/claude-ecosystem';
+import { FaqSchema } from '@/components/faq-schema';
 import {
   MessageCircle,
   FileSpreadsheet,
@@ -289,6 +290,46 @@ If you've picked your surface and want to actually get started, more tutorials a
 - Claude for Excel: spreadsheets without spreadsheet trauma (coming soon)
 
 <SectionBreak number="06" kicker="FAQ" title="Questions I get asked a lot" />
+
+<FaqSchema
+  items={[
+    {
+      question: 'If I only buy one Claude plan, which one?',
+      answer:
+        'Pro at $17 a month billed annually covers every surface most people will touch: Excel, PowerPoint, Word, Cowork with computer-use in preview, Chrome, Claude.ai, mobile, the Microsoft 365 Connector, and Claude Code. Max is worth it if you run Claude Code daily or use Cowork for long agentic tasks, because the usage caps on Pro will bite. Team and Enterprise are about seats and admin, not features.',
+    },
+    {
+      question: 'Does Claude in Excel work better than Microsoft Copilot?',
+      answer:
+        'Different strengths. For formula generation and explaining existing sheets, Claude is sharper and cites cells better. For turning a table into a chart, Microsoft Copilot is still smoother. Many finance teams run both side by side and use whichever answers faster.',
+    },
+    {
+      question: 'Can I use Cowork on my phone?',
+      answer:
+        'Not for desktop control. The Dispatch handoff lets you start a Cowork task from mobile and pick it up on desktop, but the computer-use piece runs on your Mac or Windows machine. Phones do not host Cowork itself.',
+    },
+    {
+      question: 'What is the difference between Cowork and Claude Code?',
+      answer:
+        'Cowork is general-purpose agent work: research, document drafting, filling spreadsheets, driving your computer. Claude Code is specifically for software engineering: reading code repositories, navigating an unfamiliar codebase, writing and running code, debugging. Same parent model, very different tuning.',
+    },
+    {
+      question: 'Is there a Claude for Outlook?',
+      answer:
+        'No standalone Outlook add-in exists. Outlook access ships through the Microsoft 365 Connector, which is read-only. You can ask Claude to find or summarize emails, but it cannot send them.',
+    },
+    {
+      question: 'Should I use Gemini or ChatGPT for this instead?',
+      answer:
+        'The surface map matters more than the brand. Tools that win are the ones tuned for a specific job, so compare the surface you need rather than the vendor. If a competitor ships a sharper PowerPoint flow, it is worth trying.',
+    },
+    {
+      question: 'How do I stay current with new Claude surfaces?',
+      answer:
+        'Anthropic ships fast, with three new surfaces in Q1 2026 alone. This page is updated monthly, and the newsletter sends an update when a new surface lands.',
+    },
+  ]}
+/>
 
 ### If I only buy one plan, which one?
 
