@@ -1546,6 +1546,114 @@ export const blogPosts: BlogPost[] = [
 <h2>The Guides</h2>
 <p>The <a href="/for-teachers">Claude for Teachers section</a> has 6 step-by-step guides covering each of these tasks with the exact prompts to use. Start with <a href="/for-teachers/write-lesson-plans-with-claude">lesson planning</a> and you'll have the first plan done before you finish reading it.</p>`,
   },
+  {
+    slug: "stating-a-rule-twice-does-not-help",
+    title: "Stating a Rule Twice Does Not Make Claude Follow It",
+    description: "I counted rule violations across 745 of my own Claude Code sessions. Repetition changed nothing. Conflict between rules explained almost everything. Here is the script so you can count your own.",
+    date: "2026-08-17",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "claude-md", "hooks", "productivity"],
+    content: `<img src="/blog-hero-stating-a-rule-twice-does-not-help.png" alt="Watercolor illustration for: stating a rule twice does not help" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+<p>When a rule in your <code>CLAUDE.md</code> keeps getting ignored, the reflex is to say it again. Put it in bold. Add it to a second file. Write "CRITICAL" in front of it.</p>
+
+<p>I did all three, for months. Then I counted, and repetition turned out to have no measurable effect at all. What did predict whether a rule got followed was whether another rule contradicted it.</p>
+
+<p>Here is the counting, and the script so you can run it against your own sessions.</p>
+
+<h2>If you are new here, this is what a rule file is</h2>
+<p><code>CLAUDE.md</code> is a plain text file Claude Code reads at the start of every session. You write your project conventions and preferences in it. There is a project one in your repo and a personal one at <code>~/.claude/CLAUDE.md</code>, and both get loaded automatically every time. The <a href="/docs/foundations/claude-md">CLAUDE.md guide</a> covers the full five-layer setup.</p>
+
+<p>Mine had grown to twelve files and 927 lines. If yours is thirty lines, most of this post is a warning about a problem you do not have yet, and you can skip to the last section.</p>
+
+<h2>The method, so you can repeat it</h2>
+<p>Claude Code already writes every session to disk as JSONL, one file per session, under <code>~/.claude/projects/</code>. You almost certainly have hundreds sitting there right now. Nothing to export or install.</p>
+
+<p>Pick a rule with a literal string test. Mine was "never use an em dash." Then count how often it was broken:</p>
+<pre><code>import glob, json, os
+
+files = glob.glob(os.path.expanduser("~/.claude/projects/*/*.jsonl"))
+hits = total = 0
+BANNED = chr(0x2014)      # the character this rule forbids: an em dash
+
+for f in files:
+    with open(f, errors="ignore") as fh:
+        for line in fh:
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            m = d.get("message") or {}
+            if m.get("role") != "assistant":
+                continue
+            c = m.get("content")
+            txt = c if isinstance(c, str) else "".join(
+                b.get("text", "") for b in c if isinstance(b, dict))
+            if not txt.strip():
+                continue
+            total += 1
+            if BANNED in txt:
+                hits += 1
+
+print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
+
+<p>Swap <code>BANNED</code> for whatever string your rule forbids. That is the whole technique. Everything below came out of running variations of it over 745 sessions.</p>
+
+<h2>Repetition bought nothing</h2>
+<p>I picked nine rules I could count mechanically: banned words, banned openers, answer length, em dashes. For each one I counted how many times it was stated across my always-loaded files, and how often it was broken.</p>
+
+<p>Five of the nine sat at exactly zero violations. Four of those five were stated once.</p>
+
+<p>The rules I had repeated most were not the best-behaved ones. They were roughly average. (The correlation came out at +0.167 across nine rules, which is far too small a sample to publish as a result. I am not claiming a measured relationship. I am saying the strong effect I expected to find was not there, and nine rules was enough to see that much.)</p>
+
+<p>Saying it twice mostly produced a second copy that drifted from the first.</p>
+
+<h2>Conflict was the variable</h2>
+<p>Twelve files, 21 cross-references between them, only 2 of which pointed both ways. Lined up against the violation counts, one pattern was clean enough that I stopped looking for others.</p>
+
+<p>Every rule at zero violations had no conflicting sibling. Every badly-broken rule had one.</p>
+
+<p>My clearest case had been sitting there for months. One rule said no sentence over 20 words. A separate hook flagged flat sentence rhythm below a variation floor. Obeying the first guarantees failing the second. I simulated it using the hook's own code against its own population: splitting every sentence at 20 words dropped median rhythm variation from 0.566 to 0.312, and put 98.9% of replies under the floor the hook enforces.</p>
+
+<p>One rule was manufacturing the exact defect the other rule existed to catch.</p>
+
+<h2>Moving a rule into an on-demand file kills it</h2>
+<p>Two days before all this I had done the sensible-sounding thing. Pulled a rule out of the always-loaded layer into a separate file, to be read when relevant.</p>
+
+<p>That file had been read 0 times in 746 sessions.</p>
+
+<p>Same story with skills. Two invocations against 264 writes to the file types they cover.</p>
+
+<p>Extraction does not make a rule lighter. It moves it from weakly followed to never read. Either a rule is worth always-loading or it is worth deleting.</p>
+
+<h2>The part that generalises past Claude Code</h2>
+<p>Three places in my setup claimed a control that did not exist.</p>
+
+<p>My notes said em dashes were hook-enforced, conversation included. The hook was <code>PreToolUse</code> on Write and Edit. It had never seen a chat reply in its life. Files on disk sat at 4 to 7%. Chat replies sat at 14.3%. The write hook worked perfectly, nothing watched the other surface, and my own config told me it was covered, so I never looked.</p>
+
+<p>That hook is still running. It blocked the draft of this post three times before I worked out that the code sample above contains the exact character it bans, which is why the sample builds it with <code>chr()</code>.</p>
+
+<p>The one worth checking on your own setup: a verification hook was catching real problems and exiting 0. Its log held 30 findings. Exit 0 sends nothing back to the model, so all 30 were caught and none delivered. Blocking hooks need to exit 2. The <a href="/docs/patterns/hooks">hooks guide</a> covers the exit codes.</p>
+
+<p>Bloat costs tokens. A control you believe in that does not exist stops you looking.</p>
+
+<h2>What to actually do</h2>
+<p>If your rule stack is small, under about a hundred lines, you do not have a duplication problem yet. One thing still applies: check that any hook you rely on is wired to the surface you think it covers. That is a five-minute read of your <code>settings.json</code>, and it is where my worst findings were.</p>
+
+<p>If your stack is large:</p>
+<ul>
+<li>State each rule once. Delete every duplicate, including the ones written in different words.</li>
+<li>Before adding a rule, look for the sibling it will fight.</li>
+<li>If a hook can check it, write the hook and delete the prose. Rules naming a literal string got near-perfect compliance. Rules describing an abstract pattern showed no measurable effect.</li>
+<li>No new rule in the same session as the failure that motivated it. One bad session is a sample of one.</li>
+</ul>
+
+<p>Three rule files have ever been retired from my stack, the last on 16 June. That is the real problem with instruction stacks. Everyone has a test for adding a rule and nobody has one for removing it.</p>
+
+<h2>Caveats</h2>
+<p>One person's machine, one person's usage, which skews to long agentic sessions and writing rather than pure coding. Half those rule files were two days old when I measured them, so their numbers are thin. The nine-rule sample is too small for the correlation to mean anything on its own, which is why the section above leads with the counts instead.</p>
+
+<p>What holds regardless is that the counting was cheap. The script above runs in seconds against sessions you already have. Before you trim your <code>CLAUDE.md</code> by feel, spend ten minutes finding out which rules are actually being broken. In my case the file was not too big. It was arguing with itself.</p>`,
+  },
 ];
 
 // Sorted newest first for display
