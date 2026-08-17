@@ -15,6 +15,7 @@ import { BlogContent } from "@/components/blog-content";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getRelatedPosts, blogPosts } from "@/data/blog-posts";
 import type { Metadata } from "next";
+import { ArticleSchema } from "@/components/article-schema";
 
 const DESIGNER_RELEVANT_SLUGS = new Set([
   "claude-code-for-non-engineers",
@@ -56,13 +57,17 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const post = getPostBySlug(params.slug);
   if (!post) return { title: "Post Not Found" };
 
+  const canonicalUrl = `https://claudecodeguide.dev/blog/${post.slug}`;
+
   return {
-    title: `${post.title} | Claude Code Guide Blog`,
+    title: { absolute: `${post.title} | Claude Code Guide Blog` },
     description: post.description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
+      url: canonicalUrl,
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
@@ -90,6 +95,12 @@ export default async function BlogPostPage(props: PageProps) {
 
   return (
     <div className="flex flex-col bg-fd-background">
+      <ArticleSchema
+        headline={post.title}
+        description={post.description}
+        url={`https://claudecodeguide.dev/blog/${post.slug}`}
+        datePublished={post.date}
+      />
       <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-16">
         <Link
           href="/blog"

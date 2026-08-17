@@ -8,6 +8,7 @@ import { CopyBlock } from '@/components/guide/copy-block';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { DesignerRouteSwitcher } from '@/components/designer-route-switcher';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
+import { ArticleSchema } from '@/components/article-schema';
 
 /* ------------------------------------------------------------------ */
 /*  Metadata                                                           */
@@ -23,13 +24,24 @@ export async function generateMetadata({
 
   if (!guide) return {};
 
+  const canonicalUrl = `https://claudecodeguide.dev/for-designers/${slug}`;
+
   return {
-    title: `${guide.title} | Claude for Designers`,
+    title: { absolute: `${guide.title} | Claude for Designers` },
     description: guide.description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: guide.title,
       description: guide.description,
       type: 'article',
+      url: canonicalUrl,
+      images: [{ url: '/api/og', width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: guide.title,
+      description: guide.description,
+      images: ['/api/og'],
     },
   };
 }
@@ -73,6 +85,11 @@ export default async function DesignerGuidePage({
 
   return (
     <div className="flex flex-col bg-fd-background">
+      <ArticleSchema
+        headline={guide.title}
+        description={guide.description}
+        url={`https://claudecodeguide.dev/for-designers/${slug}`}
+      />
       <PersonaGuideTracker slug={guide.slug} title={guide.title} section="for-designers" />
       <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-24">
         {/* Back link */}

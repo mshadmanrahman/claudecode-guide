@@ -1,239 +1,131 @@
 import type { MetadataRoute } from "next";
 import { source } from "@/lib/source";
+import { pmPilotSource } from "@/lib/source-pm-pilot";
 import { blogPosts } from "@/data/blog-posts";
+import { CHROME_GUIDES } from "@/lib/chrome-guides";
+import { DESIGNER_GUIDES } from "@/lib/designer-guides";
+import { HR_GUIDES } from "@/lib/hr-guides";
+import { MARKETER_GUIDES } from "@/lib/marketer-guides";
+import { MICROSOFT_GUIDES } from "@/lib/microsoft-guides";
+import { TEACHER_GUIDES } from "@/lib/teacher-guides";
+import { TUTORIALS } from "@/lib/tutorials";
 
-export const dynamic = "force-dynamic";
+const baseUrl = "https://claudecodeguide.dev";
 
-const FOR_CHROME_SLUGS = [
-  "get-started-with-claude-in-your-browser",
-  "install-a-claude-chrome-extension",
-  "summarize-any-webpage-with-claude",
-  "write-better-emails-in-gmail-with-claude",
-  "use-claude-with-google-docs",
-  "research-any-topic-with-claude",
+type Entry = MetadataRoute.Sitemap[number];
+
+/**
+ * Slugs come from the same records the route handlers use, so a new guide or
+ * tutorial reaches the sitemap the moment it reaches the site. The previous
+ * version kept hardcoded copies of every slug list here and they drifted:
+ * one HR guide, all 29 PM Pilot pages, and seven standalone routes were
+ * missing by 2026-08-17.
+ */
+const VERTICALS: ReadonlyArray<{ path: string; guides: Record<string, unknown> }> = [
+  { path: "for-chrome", guides: CHROME_GUIDES },
+  { path: "for-designers", guides: DESIGNER_GUIDES },
+  { path: "for-hr", guides: HR_GUIDES },
+  { path: "for-marketers", guides: MARKETER_GUIDES },
+  { path: "for-microsoft", guides: MICROSOFT_GUIDES },
+  { path: "for-teachers", guides: TEACHER_GUIDES },
 ];
 
-const FOR_TEACHERS_SLUGS = [
-  "write-lesson-plans-with-claude",
-  "create-quiz-questions-with-claude",
-  "write-grading-rubrics-with-claude",
-  "give-student-feedback-with-claude",
-  "write-parent-emails-with-claude",
-  "differentiate-instruction-with-claude",
+/**
+ * Standalone marketing and landing routes, each confirmed against a real
+ * page.tsx under src/app.
+ */
+const STANDALONE: ReadonlyArray<{ path: string; priority: number }> = [
+  { path: "", priority: 1 },
+  { path: "start", priority: 0.95 },
+  { path: "guide", priority: 0.95 },
+  { path: "docs", priority: 0.9 },
+  { path: "workflow", priority: 0.85 },
+  { path: "journey", priority: 0.8 },
+  { path: "primitives", priority: 0.8 },
+  { path: "capabilities", priority: 0.8 },
+  { path: "pm-pilot", priority: 0.8 },
+  { path: "bn", priority: 0.8 },
+  { path: "roadmap", priority: 0.6 },
 ];
 
-const FOR_MARKETERS_SLUGS = [
-  "give-claude-your-brand-voice",
-  "write-social-media-posts-with-claude",
-  "write-blog-posts-with-claude",
-  "write-email-campaigns-with-claude",
-  "write-ad-copy-with-claude",
-  "repurpose-content-with-claude",
-  "do-market-research-with-claude",
-];
+function docPriority(url: string): number {
+  if (url.includes("comparisons")) return 0.95;
+  if (url.includes("foundations")) return 0.9;
+  return 0.8;
+}
 
-const FOR_MICROSOFT_SLUGS = [
-  "write-faster-in-word-with-claude",
-  "edit-and-improve-word-documents-with-claude",
-  "create-excel-formulas-with-claude",
-  "analyze-data-in-excel-with-claude",
-  "create-presentations-with-claude-for-powerpoint",
-  "improve-powerpoint-slides-with-claude",
-  "draft-outlook-emails-with-claude",
-];
-
-const FOR_HR_SLUGS = [
-  "write-job-descriptions-with-claude",
-  "generate-interview-questions-with-claude",
-  "create-onboarding-plans-with-claude",
-  "draft-performance-reviews-with-claude",
-  "write-hr-policies-with-claude",
-  "write-employee-communications-with-claude",
-];
-
-const FOR_DESIGNERS_SLUGS = [
-  "set-up-claude",
-  "decode-a-brief",
-  "write-a-sharper-brief",
-  "evaluate-your-designs",
-  "heuristic-evaluation",
-  "figma-for-ai-handoff",
-  "build-your-first-flow",
-  "get-started-with-claude-design",
-  "research-synthesis",
-  "automate-design-tasks",
-  "git-for-designers",
-];
-
-const TUTORIAL_SLUGS = [
-  "your-first-claude-md",
-  "ship-a-landing-page",
-  "your-first-skill",
-  "meeting-to-jira",
-  "product-discovery-ost",
-  "stakeholder-map",
-  "newsletter-automator",
-  "weekly-status",
-  "performance-review",
-  "decision-memo",
-  "competitive-analysis",
-  "research-briefing",
-  "slide-deck-outline",
-  "job-application-assistant",
-  "personal-finance-manager",
-  "computer-use",
-  "coming-from-chatgpt",
-  "debug-and-refactor",
-  "nextjs-with-claude",
-  "pr-review-workflow",
-  "meme-generator",
-  "playlist-analyzer",
-  "quiz-game",
-];
-
+/**
+ * `lastModified` is deliberately omitted wherever there is no real
+ * modification date to report. It used to be `new Date()` on every entry,
+ * so all 193 URLs claimed to have changed today, every day, which teaches
+ * Google to ignore the field entirely. Blog posts are the one place a real
+ * date exists.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://claudecodeguide.dev";
-
-  const docPages = source.getPages().map((page) => ({
-    url: `${baseUrl}${page.url}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: page.url.includes("comparisons")
-      ? 0.95
-      : page.url.includes("foundations")
-        ? 0.9
-        : 0.8,
+  const standalonePages: Entry[] = STANDALONE.map(({ path, priority }) => ({
+    url: path ? `${baseUrl}/${path}` : baseUrl,
+    changeFrequency: "weekly",
+    priority,
   }));
 
-  const blogListingPage = {
-    url: `${baseUrl}/blog`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  };
+  const docPages: Entry[] = source.getPages().map((page) => ({
+    url: `${baseUrl}${page.url}`,
+    changeFrequency: "weekly",
+    priority: docPriority(page.url),
+  }));
 
-  const blogPages = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
+  const pmPilotPages: Entry[] = pmPilotSource.getPages().map((page) => ({
+    url: `${baseUrl}${page.url}`,
+    changeFrequency: "monthly",
     priority: 0.6,
   }));
 
-  const tutorialListingPage = {
-    url: `${baseUrl}/tutorials`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  };
+  const verticalPages: Entry[] = VERTICALS.flatMap(({ path, guides }) => [
+    {
+      url: `${baseUrl}/${path}`,
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
+    ...Object.keys(guides).map((slug) => ({
+      url: `${baseUrl}/${path}/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
+  ]);
 
-  const tutorialPages = TUTORIAL_SLUGS.map((slug) => ({
-    url: `${baseUrl}/tutorials/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const tutorialPages: Entry[] = [
+    {
+      url: `${baseUrl}/tutorials`,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    ...Object.keys(TUTORIALS).map((slug) => ({
+      url: `${baseUrl}/tutorials/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+
+  const blogPages: Entry[] = [
+    {
+      url: `${baseUrl}/blog`,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    ...blogPosts.map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
 
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/guide`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/pm-pilot`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/roadmap`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+    ...standalonePages,
     ...docPages,
-    {
-      url: `${baseUrl}/for-chrome`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.85,
-    },
-    ...FOR_CHROME_SLUGS.map((slug) => ({
-      url: `${baseUrl}/for-chrome/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    })),
-    {
-      url: `${baseUrl}/for-teachers`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.85,
-    },
-    ...FOR_TEACHERS_SLUGS.map((slug) => ({
-      url: `${baseUrl}/for-teachers/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    })),
-    {
-      url: `${baseUrl}/for-marketers`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.85,
-    },
-    ...FOR_MARKETERS_SLUGS.map((slug) => ({
-      url: `${baseUrl}/for-marketers/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    })),
-    {
-      url: `${baseUrl}/for-microsoft`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.85,
-    },
-    ...FOR_MICROSOFT_SLUGS.map((slug) => ({
-      url: `${baseUrl}/for-microsoft/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    })),
-    {
-      url: `${baseUrl}/for-hr`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.85,
-    },
-    ...FOR_HR_SLUGS.map((slug) => ({
-      url: `${baseUrl}/for-hr/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    })),
-    {
-      url: `${baseUrl}/for-designers`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.85,
-    },
-    ...FOR_DESIGNERS_SLUGS.map((slug) => ({
-      url: `${baseUrl}/for-designers/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
-    })),
-    blogListingPage,
-    ...blogPages,
-    tutorialListingPage,
+    ...verticalPages,
     ...tutorialPages,
+    ...blogPages,
+    ...pmPilotPages,
   ];
 }
