@@ -4,6 +4,23 @@ What to do with claudecodeguide.dev over the next two quarters. Written 2026-08-
 
 Read [`PERSONAS.md`](./PERSONAS.md) first for who actually reads the site. This document assumes those numbers.
 
+## The ranking, set by Shadman on 2026-08-17
+
+This section supersedes the open strategic question the rest of the document was written around.
+
+**Credibility is the job.** The site exists so the right person updates their view of him: "I can point to this and say, this is what I build to contribute to the agentic world." Traffic does not measure that.
+
+**Audience is a welcome side effect, not a target.** It is an information site, so organic traffic is worth having if it arrives. Nothing gets built to chase volume; nothing gets refused for showing up.
+
+**Distribution: organic search, plus his own writing on LinkedIn and Substack. Nothing else.**
+
+**Reddit is out until the site earns a post.** This is a readiness gate, not a verdict on the channel. The condition is more material that is genuinely useful, and the eventual post is about that material rather than about the site.
+
+Two consequences worth stating plainly:
+
+- **Where the two jobs disagree, credibility wins.** So the CLAUDE.md cluster gets the hours, because it is simultaneously the best search asset and the thing worth being judged on. Work that would only move volume does not get hours.
+- **Organic search is now the whole audience engine.** With Reddit out and LinkedIn at 6 sessions a month, there is nothing else. At Domain Rating 1.2 that compounds slowly and mostly on long-tail queries, which is exactly why treating audience as a bonus is the right ranking rather than a modest one.
+
 ## The reframe, which changes what gets built
 
 The obvious plan was "grow organic traffic." That plan does not survive contact with two facts.
@@ -105,8 +122,8 @@ Each of these is defensible in isolation and each fails the hour budget or the r
 - **A content treadmill.** 239 routes already exist and only 152 earn an impression. Coverage is not the gap. Writing page 240 before fixing the 87 dead ones is motion, not progress.
 - **Chasing the install and "free" clusters.** "claude code install" at 80,000 volume is owned by DR 91 to 99. "is claude code free" at 15,000 and "claude code changelog" at 14,000 are winnable on difficulty but need permanent maintenance and demonstrate nothing about his judgment.
 - **A backlink campaign.** It is the only thing that moves position at DR 1.2, and there is no version of it that fits 12 hours. This is the strongest unresolved objection to the whole plan and it is being accepted knowingly, not overlooked.
-- **Restarting Reddit.** It would work; the April spike proves it. It also restarts a decay curve rather than building anything, makes every trend line unreadable for two months, and costs writing time that Wisebox needs more.
-- **More LinkedIn.** Measured at 10% Director-plus reach, now 6 sessions a month. It is not a channel.
+- **Restarting Reddit.** Ruled out by Shadman on 2026-08-17 as a readiness gate: not until the site carries more genuinely useful material, and the post is about the material rather than the site. Note for the record that the channel itself works. CCG's r/ClaudeAI post did 165 to 192 upvotes and 62K views and produced the entire April spike. The hostile receptions on file belong to other projects and other subreddits, including a permanent r/learnprogramming ban. When this restarts, study the r/ClaudeAI post and read `feedback_reddit_rules_check` first.
+- **LinkedIn as a traffic channel.** Measured at 10% Director-plus reach, now 6 sessions a month. It does not deliver traffic and is not treated as a traffic play. It stays in scope only as one of the two places he writes about the work, alongside Substack, which serves the credibility job rather than the volume one.
 - **Retiring the `/for-*` verticals.** Deferred, not decided. The search data contradicts the session data and the cheap fix has not been tried yet.
 
 ## What to watch, and when to abandon this
@@ -121,6 +138,8 @@ Four numbers, checked monthly, ten minutes each time.
 | Inbound contacts | unmeasured | The actual metric. Everything above is a proxy. |
 
 That last row is the point and it has never been measured. The council's Archivist found the site's success criterion has gone untracked for over a year while three separate proxies were watched instead. Track it, even crudely: a note every time someone mentions the site unprompted.
+
+**Under the credibility-first ranking set on 2026-08-17, that row is the only one that measures the actual goal.** The other three are diagnostics for whether the machinery works. Do not let a good click-through number stand in for the thing it is a proxy for.
 
 **Abandon condition.** If Tier 1 and Tier 3 are done and click-through has not moved by mid-October, stop. Freeze the site as a portfolio artifact, keep it deployed, and put the hours into Wisebox and the job search. That is a legitimate outcome, not a failure.
 

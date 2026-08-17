@@ -26,19 +26,23 @@ Three things are happening at once.
 
 Total traffic is down about 8% per window. The site is not growing. It is swapping one engine for another, and the new engine is smaller than the old one was at its peak.
 
-## Read this first: the unresolved tension
+## Read this first: the decision, made 2026-08-17
 
-CCG has two jobs and they point at different readers.
+Shadman settled this directly. Both jobs are real, and they are ranked rather than balanced.
 
-**Job A, credibility.** The site exists so the right person updates their view of Shadman. A Director or VP who is hiring, or a peer in his professional network. Traffic is not the metric; a small number of correct readers beats a large number of anonymous ones.
+**Credibility is the job. Primary, and the reason the site exists.** In his words: "I can point to this and say, this is what I build to contribute to the agentic world." The reader who matters is a hiring Director or VP, or a peer who takes him seriously afterwards. Traffic is not the measure of that.
 
-**Job B, owned audience.** The site exists to compound a readership that belongs to Shadman rather than to an employer. Volume and return rate are the metric, and the reader's job title is irrelevant.
+**Audience is welcome, and secondary.** His reasoning: it is an information site, so if organic traffic arrives, take it. Nothing is built specifically to chase volume, but nothing is refused for arriving. Growth here is opportunistic.
 
-The measurement forces the conflict open. LinkedIn sent 6 sessions in the last 30 days, down from 24 and 23 in the two windows before. The strategy documents name LinkedIn as the distribution channel; it is delivering half a percent of traffic and falling.
+**Distribution is organic search, plus his own writing on LinkedIn and Substack. Nothing else.**
 
-**This is Shadman's call and it is not made yet.** The personas below are ordered by measured volume, which implicitly assumes Job B. If Job A is the real goal, the honest conclusion is that CCG is not reaching the people it was built to reach, and that is a distribution problem rather than a content problem.
+**Reddit is out, deliberately, and it is a readiness gate rather than a channel judgement.** He will post again once the site carries more material that is genuinely useful, and the post will be about the material rather than the site. Until then it is not part of the strategy.
 
-An earlier version of this file framed the contest as Reddit against LinkedIn and concluded that Reddit is the audience. That framing was wrong twice over: Reddit is leaving, and the live contest is Reddit against search.
+Worth keeping straight, because the earlier framing in this file got it wrong: Reddit is not out because Reddit failed. CCG's r/ClaudeAI post did 165 to 192 upvotes and 62K views with 45+ comments, and that single post is what produced the April spike of 3,632 sessions. The hostile receptions on record belong to other projects and other subreddits: a permanent r/learnprogramming ban on a self-promo plus AI-content rule, r/3Dprinting on PrintPick, and a r/ProductManagement post removed within hours as AI-flagged. Detail in `feedback_reddit_rules_check`, `feedback_reddit_skeptic_playbook` and `feedback_no_reddit_3dprinting_for_printpick`.
+
+**What this ranking changes.** The personas below stay ordered by measured volume, because that is what the data says, but volume is now a description rather than a target. Where the two jobs disagree, credibility wins. The practical consequence: work that serves both, like the CLAUDE.md cluster, gets the hours, and work that only serves volume does not.
+
+**The honest limit of it.** With Reddit out and LinkedIn delivering 6 sessions a month, organic search is now the entire audience engine. At Domain Rating 1.2 that compounds slowly and mostly on long-tail queries. Treating audience as a bonus is the right call precisely because the machinery cannot deliver more than a bonus for now.
 
 ## Traffic base, corrected
 
@@ -83,7 +87,9 @@ Last 30 days, 127 of 216 land on `/`. Over 90 days the pattern was `/` then `/st
 
 **What this persona is not:** a beginner who has never opened a terminal. Finding the site on a Claude subreddit is already a filter.
 
-**The honest read.** This traffic is residual. Shadman posted a few times around March and April, and everything since is people finding those threads or relinking them. It is real, it converts to reading, and it is going away. Two options exist: post again and restart the decay curve from a higher point, or accept the floor and build the search engine instead. Doing neither means the site shrinks.
+**The honest read.** This traffic is residual. Shadman posted a few times around March and April, and everything since is people finding those threads or relinking them. It is real, it converts to reading, and it is going away.
+
+**Decided 2026-08-17: let it go, for now.** Reddit is not part of the strategy until the site carries more material worth posting about, so expect P2 to keep decaying toward zero over the next two quarters and do not read that as a failure. When it is restarted, the r/ClaudeAI precedent is the one to study, since that post produced 62K views and the entire April spike.
 
 GA4 reports the source as `reddit.com` and nothing deeper, so which subreddit and which threads are unknown without a custom dimension.
 
@@ -127,11 +133,18 @@ Naming these matters more than naming the personas, because each has been shapin
 
 **The `/for-*` verticals need a separate ruling from the one this file gave before.** On GA4 sessions they look dead. On search they do not: `/for-microsoft/draft-outlook-emails-with-claude` holds position 7.7 with 433 impressions, and three `/for-chrome` pages rank between 8 and 17. They rank and they earn impressions; they simply get almost no clicks. That is a title and description problem, not an audience problem, and retiring them on session counts alone would throw away the site's best-positioned pages.
 
-## Open decisions, for Shadman
+## Decisions, and what is left
 
-1. **Job A or Job B.** Everything above is ordered by volume, which is a choice currently being made by default.
-2. **Restart Reddit or let it go.** Posting again would lift the curve; not posting means P2 approaches zero over the next two quarters.
-3. **Whether the `/for-*` verticals get retired, kept, or fixed.** The search evidence says fix. The session evidence said retire. The search evidence is newer and better.
+**Settled 2026-08-17.**
+
+1. **Credibility first, audience second.** See the opening section. Both real, ranked rather than balanced.
+2. **Reddit is out until the site earns a post.** Not a channel judgement. The gate is more genuinely useful material, and the post talks about the material.
+3. **Distribution is organic search plus his own LinkedIn and Substack writing.** Nothing else is in scope.
+
+**Still open.**
+
+4. **Whether the `/for-*` verticals get retired, kept, or fixed.** The search evidence says fix: they hold the best positions on the site and simply are not clicked. The session evidence said retire. The search evidence is newer and better, and the cheap fix landed on 2026-08-17, so this should be re-read rather than re-argued in September.
+5. **Inbound contacts are still not tracked**, and under a credibility-first ranking that is now the only metric that measures the actual goal. Everything in this document is a proxy for it.
 
 ## What would change this document
 
