@@ -6,9 +6,26 @@ brand
 
 ## Users
 
-Claudecodeguide.dev serves a wide spread of people trying to actually use Claude Code, ranging from absolute beginners who've never touched a terminal to daily-use developers, plus dedicated PM, founder, team-lead, designer, marketer, HR, and teacher tracks (each with its own `/for-*` entry point). The unifying job to be done is going from "what even is this?" to "I can't work without it" — the README's own framing. Skeptics giving Claude Code a second look are an explicit segment too.
+**Measured 2026-08-17 (GA4 property 531041965, 90 days, 5,610 sessions; Google Search Console, 2026-07-05 to 2026-08-01). Everything in this section is counted, not assumed. Re-measure before rewriting it.**
 
-The non-technical segment matters most for tone and copy: many arrive as "ChatGPT switchers" who've never opened a terminal, and the site has to earn their trust without either dumbing down or performing a fake simplicity it can't deliver (see Anti-references).
+The reader is a technical practitioner on a desktop, reading the docs, arriving from a link rather than from search:
+
+| Signal | Measured | What it means |
+|---|---|---|
+| Device | 85% desktop (4,740 vs 822 mobile); GSC agrees at 85% of impressions | Not a phone-browsing casual audience |
+| Section | `/docs/*` 42.1% of sessions, `/tutorials/*` 12.7%, `/blog/*` 5.7% | The docs are the product |
+| Top page | `/docs/foundations/claude-md`, 403 sessions | Operational-memory content is the franchise |
+| Acquisition | Direct 62.2% + Organic Social 19.2% = 81%; Organic Search 8.4% | They clicked a link Shadman posted |
+| Search intent | Real queries: `.claude/settings.json`, `CLAUDE_CODE_DISABLE_1M_CONTEXT`, `claude.md for developers`, `mcp claudecode` | Nobody arrives on beginner phrasing |
+| Geo | Singapore 27.3%, US 20.6%, China 6.5%, Bangladesh 5.7%, India 4.3% | International and developer-heavy |
+
+**The `/for-*` persona tracks are a rounding error, not a pillar.** All six combined are 8.1% of sessions (643). Breakdown: designers 261, microsoft 115, chrome 112, marketers 76, teachers 67, HR 12. Only `/for-designers` clears 3%, and that is Shadman's own specialty. Do not structure the site, or weight editorial decisions, as though the vertical tracks carry the audience. They do not.
+
+**Correction, 2026-08-17.** This section previously claimed the non-technical segment "matters most for tone and copy," and that ChatGPT switchers who have never opened a terminal were a primary consideration. No measurement supported that, and the data above contradicts it. The claim had been influencing real editorial calls: a technical post was hedged toward beginners on the strength of it. Meanwhile the site's best-performing blog post by search impressions, in both of the last two GSC periods, is `/blog/you-dont-need-settings-json-hacks`, the longest and most technical post on the site. Write for the practitioner and stop apologising for the register.
+
+What survives from the old framing: the site still refuses false accessibility (see Anti-references), still explains a term the first time it appears, and still serves absolute beginners who do arrive. Beginners are a real segment to serve well. They are not the segment to optimise tone for.
+
+**Caveat, unverified.** Singapore at 27.3% outranks the US and is out of line with every other signal. It may be datacenter or VPN traffic rather than readers. Nobody has checked. If it is junk, every percentage in this section shifts and the geo row should be thrown out first.
 
 ## Product Purpose
 

@@ -198,6 +198,57 @@ You don't define start/end protocols. Every session starts cold. You spend 10 mi
 
 **Fix:** Be specific. "Functions under 50 lines. Files under 800 lines. No mutation. Handle errors explicitly. Use early returns." Now Claude Code has actual constraints to follow.
 
+## How to Tell Which Rules Are Actually Working
+
+Everything above is advice. This section is how you check it against your own sessions, because the answer is often not what you would guess.
+
+Claude Code already writes every session to disk as JSONL, one file per session, under `~/.claude/projects/`. You probably have hundreds sitting there. Pick a rule with a literal string test, then count how often it was broken:
+
+```python
+import glob, json, os
+
+files = glob.glob(os.path.expanduser("~/.claude/projects/*/*.jsonl"))
+hits = total = 0
+BANNED = chr(0x2014)      # the character this rule forbids: an em dash
+
+for f in files:
+    with open(f, errors="ignore") as fh:
+        for line in fh:
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            m = d.get("message") or {}
+            if m.get("role") != "assistant":
+                continue
+            c = m.get("content")
+            txt = c if isinstance(c, str) else "".join(
+                b.get("text", "") for b in c if isinstance(b, dict))
+            if not txt.strip():
+                continue
+            total += 1
+            if BANNED in txt:
+                hits += 1
+
+print(f"{hits} of {total} assistant replies ({hits/total:.1%})")
+```
+
+Swap `BANNED` for whatever string your rule forbids. Three things tend to fall out of this.
+
+**Saying a rule twice does not help.** The obvious fix for an ignored rule is to repeat it: bold it, add it to a second file, write CRITICAL in front. Counted across nine rules on one heavily-instructed setup, the most-repeated rules were not the best-behaved ones. The rules at zero violations were mostly the ones stated exactly once. A duplicate mainly gives you a second copy that drifts from the first.
+
+**A contradicting rule is the thing that actually breaks compliance.** On that same setup, every rule sitting at zero violations had no conflicting sibling, and every badly-broken rule had one. The clearest case: a rule capping sentences at 20 words, and a separate check flagging flat sentence rhythm. Obeying the first guaranteed failing the second, and it had been sitting there for months. Before you add a rule, look for the rule it will fight.
+
+**Not every pointer gets followed.** Mistake 1 above tells you to point at other files instead of inlining them, and that holds for task-triggered reads. "Read `docs/architecture.md` before touching the sync flow" works, because the task itself is the trigger. Moving a *behavioural* rule into an on-demand file is a different move and it usually fails: nothing fires, so nothing reads it. One rule extracted that way went unread across 746 sessions. If a rule has no natural trigger, it either earns its place in the always-loaded file or it gets deleted.
+
+<Callout type="warn" title="Check that your hooks watch the surface you think they do">
+
+The highest-value five minutes here is reading your `settings.json` and confirming each hook is wired to the surface it claims to cover. A `PreToolUse` hook on Write and Edit never sees a chat reply, so a rule enforced that way is enforced on files only. Also check exit codes: a hook that finds a problem and exits 0 sends nothing back to the model, so its findings land in a log nobody reads. Blocking hooks need to exit 2. Full detail in [the hooks guide](/docs/patterns/hooks).
+
+A control you believe in that does not exist is worse than no control, because it stops you looking.
+
+</Callout>
+
 ## A Realistic Worked Example
 
 Here's a CLAUDE.md for a real backend service: a gRPC service managing warehouse inventory. gRPC is a framework for calling functions across services over a network; it uses proto files (short for Protocol Buffer files) to define the shape of the data being exchanged, instead of JSON. Error handling uses neverthrow, a TypeScript library that returns errors as values rather than throwing exceptions, making every error path visible in the type system.
