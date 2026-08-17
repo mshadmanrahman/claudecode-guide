@@ -26,6 +26,14 @@ This distinction is the whole plan. At 78 hours the arithmetic is negative: it c
 
 If a task below cannot fit the budget, it is not in the plan. Anything that becomes recurring weekly work has failed the test.
 
+## Status
+
+**Tier 1 and Tier 3 shipped 2026-08-17.** Commits `68dee41` and `4579bf6`, both live and verified against the public URL. Tier 2 is deliberately unstarted; it is gated on evidence that the cheap work paid, and that evidence needs Google to recrawl.
+
+Two items in the tiers below were dropped after checking the data rather than executing them, and both are recorded in place: the `/docs/frameworks/for-*` route collision, and the position 20 to 40 pages. One claim in an earlier draft of this document was also wrong: `which-interface` has 7 H2s and 21 H3s, not one, and its structure was never the problem. Its title was.
+
+Next checkpoint: mid-September, reading click-through rate in Search Console. Abandon condition unchanged.
+
 ## Tier 1: Stop the rot (about 4 hours, do this first)
 
 Mechanical, no judgment required, and every item is currently costing something measurable.
@@ -68,17 +76,25 @@ This is the only place in the plan where writing new words is worth the hours, b
 
 Google is already sending 13,364 impressions a month and converting 127 clicks. That is a 0.95% click-through rate at an average position where 2 to 3% is normal. The demand has already been won and is being dropped at the title.
 
-**1. Retitle `/docs/foundations/which-interface`. (1 hour, biggest single item)**
-It takes 2,452 impressions and returns two clicks. Nearly all of those impressions come from one Anthropic certification exam question, "which claude product is best suited for navigating an unfamiliar codebase", where the page ranks 7th or 8th. Its title reads "Which Claude Should You Use? A Non-Coder's Guide", which actively repels the person searching a question about codebases.
+**1. Retitle `/docs/foundations/which-interface`. (done, biggest single item)**
+It took 2,452 impressions and returned two clicks. Nearly all of those impressions come from one Anthropic certification exam question, "which claude product is best suited for navigating an unfamiliar codebase", where the page ranks 7th or 8th. Its title read "Which Claude Should You Use? A Non-Coder's Guide", which actively repels the person searching a question about codebases.
 
-Retitle to match that intent. Give the page real H2 headings while you are in there: it runs 2,800 words with exactly one H2, because its structure is carried by JSX components (`SectionBreak`, `JobBlock`, `MentalShiftsGrid`) that Google reads as styled divs. Mark its seven FAQ H3s as `FAQPage`.
+Now titled "Which Claude Should You Use? All 16 Surfaces Compared", with a description that names Claude Code as the answer for a codebase, which the page's own comparison table already said. Surface count corrected from "twelve-plus" to 16, counted off the table. The seven FAQ questions now carry `FAQPage` JSON-LD, the first on the site.
+
+**The heading claim in the first draft of this document was wrong.** It said the page runs 2,800 words with one H2 because `SectionBreak` and friends render as styled divs. Checked against the rendered HTML: `SectionBreak` emits a real `<h2>`, the page has 7 H2s and 21 H3s, and the structure was never the problem. The error came from reading the MDX source instead of the output.
 
 **Instrument it, and be willing to kill it.** These are exam-takers verifying a memorized answer. A better title might lift two clicks to forty, and none of those forty hires anyone. Tag the page. If ninety days produce zero inbound contact, the traffic is confirmed worthless, and no further exam-intent page ever gets written. This is the one item in the plan that carries an explicit kill condition.
 
-**2. Sweep titles and descriptions on the pages that already rank. (2 hours)**
-Work only the pages with impressions and no clicks. In priority order: `/docs/patterns/mcp-servers` (549 impressions, position 40), `/docs/foundations/context-window` (523, position 33), `/docs/foundations/what-is-claude-code` (352, position 34), `/docs/foundations/troubleshooting` (279, position 21), `/docs/templates` (362, position 20).
+**2. Sweep titles and descriptions on the pages that already rank. (done, and narrowed)**
 
-Also `/bn`. It holds position 8.7 with 564 impressions and 9 clicks, one of the best positions on the site, and Bangla search demand exceeds what a single page captures.
+The original list here was wrong about which pages to work. It mixed a click-through problem with a ranking problem. **Below roughly position 20 nobody sees the title, so rewriting it recovers nothing.** That rules out `/docs/patterns/mcp-servers` (549 impressions, position 40), `/docs/foundations/what-is-claude-code` (352, position 34), `/docs/foundations/context-window` (523, position 33) and `/docs/foundations/troubleshooting` (279, position 21). Those need links and topical authority, which this plan explicitly does not buy. They were left alone rather than given busywork.
+
+What shipped instead, chosen by impressions at position 20 or better:
+
+- **`/blog/you-dont-need-settings-json-hacks`**: 1,320 impressions, 5 clicks, position 14.5. About 116 of those impressions are the literal string `CLAUDE_CODE_DISABLE_1M_CONTEXT` at position 7.7, and the authored headline names none of what was searched. Rather than rewrite a published headline, `BlogPost` gained optional `seoTitle` and `seoDescription`, used only in `<title>` and the meta description. The visible H1 is untouched. Reach for this pattern whenever the right headline for a reader who has arrived is the wrong one for someone scanning a search result.
+- **`/bn`**: 564 impressions at position 8.7, its best position on the site, against 9 clicks. Queries arrive in both scripts, `claude bangla` and `claude code` alongside `ক্লদ` and `claude কি`, and the title carried no Latin-script "Bangla". It does now. The page also had no canonical.
+
+Still unworked, and worth a look next time: `/docs/patterns/thinking-modes` takes 553 impressions at position 16.2 and converts zero. Its per-query data is anonymised by Search Console, so there is no evidence for what to retitle it to. Guessing was not worth it.
 
 The vertical pages are the surprise here. `/for-microsoft/draft-outlook-emails-with-claude` sits at position 7.7 with 433 impressions, and three `/for-chrome` pages rank between 8 and 17. On session counts these tracks look dead and an earlier draft of `PERSONAS.md` recommended retiring them. On search they are the best-positioned pages on the site and simply are not being clicked. Fix the titles before deciding anything about them.
 
