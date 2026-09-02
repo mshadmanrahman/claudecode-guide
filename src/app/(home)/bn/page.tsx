@@ -11,12 +11,12 @@ import { DemoCard } from '@/components/demo-card';
  * recognised. Canonical added at the same time; the page had none.
  */
 export const metadata: Metadata = {
-  title: { absolute: 'Claude Code in Bangla | Claude Code গাইড : বাংলায়' },
+  title: { absolute: 'Claude Code গাইড : বাংলায় | Claude Code in Bangla' },
   description:
     'Claude Code শিখুন বাংলায়। ইনস্টলেশন, সেটআপ, এবং প্রথম প্রজেক্ট তৈরি করুন। কোনো পূর্ব অভিজ্ঞতা লাগবে না। A complete Claude Code guide in Bangla.',
   alternates: { canonical: 'https://claudecodeguide.dev/bn' },
   openGraph: {
-    title: 'Claude Code in Bangla | Claude Code গাইড : বাংলায়',
+    title: 'Claude Code গাইড : বাংলায় | Claude Code in Bangla',
     description: 'Claude Code শিখুন বাংলায়। ইনস্টলেশন থেকে প্রথম প্রজেক্ট পর্যন্ত।',
     type: 'article',
     url: 'https://claudecodeguide.dev/bn',
