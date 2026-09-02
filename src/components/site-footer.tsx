@@ -50,6 +50,7 @@ const COLUMNS: ReadonlyArray<FooterColumn> = [
   {
     heading: "More",
     links: [
+      { label: "Claude certification", href: "/certification" },
       { label: "Blog", href: "/blog" },
       { label: "Roadmap", href: "/roadmap" },
       { label: "Journey", href: "/journey" },
