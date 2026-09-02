@@ -61,6 +61,11 @@ const FOR_YOUR_ROLE: DropdownLink[] = [
     label: "PM Pilot",
     description: "AI-assisted product management",
   },
+  {
+    href: "/certification",
+    label: "Certification",
+    description: "The 4 Claude credentials: prices, format, eligibility",
+  },
 ];
 
 const ALL_NAV_LINKS: NavLink[] = [

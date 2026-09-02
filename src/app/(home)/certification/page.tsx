@@ -4,71 +4,142 @@ import { Award, ShieldCheck, Building2, BookOpen, ExternalLink } from 'lucide-re
 import { FaqSchema } from '@/components/faq-schema';
 import { EmailCapture } from '@/components/email-capture';
 
-const SOURCE_URL = 'https://claude.com/blog/four-role-based-claude-certifications';
-const SOURCE_DATE = '23 July 2026';
+const ANNOUNCEMENT_URL = 'https://claude.com/blog/four-role-based-claude-certifications';
+const ANNOUNCEMENT_DATE = '23 July 2026';
+const CATALOGUE_URL = 'https://anthropic-partners.skilljar.com/page/partner-certifications';
+const FAQ_URL = 'https://anthropic-partners.skilljar.com/page/faq-certifications';
+const POLICIES_URL = 'https://anthropic-partners.skilljar.com/page/policies-certifications';
+const PEARSON_URL = 'https://pearsonvue.com/us/en/anthropic';
+const PARTNERS_URL = 'https://claude.com/partners';
+const VERIFIED_DATE = '2 September 2026';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Claude Certification: The Four Credentials, and Who Can Actually Sit Them' },
+  title: { absolute: 'Claude Certification: Four Credentials, Prices, and Who Can Sit Them' },
   description:
-    'Anthropic runs four Claude certifications, all proctored through Pearson. Here is what each one covers, how the exams work, and why there is no public sign-up page.',
+    'The four Claude certifications cost $99 to $175, run 120 minutes through Pearson, and need a passing score of 720. Registration requires a partner email address.',
   alternates: { canonical: 'https://claudecodeguide.dev/certification' },
   openGraph: {
-    title: 'Claude Certification: The Four Credentials, and Who Can Actually Sit Them',
+    title: 'Claude Certification: Four Credentials, Prices, and Who Can Sit Them',
     description:
-      'The four Claude credentials, how the proctored Pearson exams work, and what to do if you are not at a partner firm.',
+      'Prices, exam length, passing score, retake rules, and the partner email requirement that stops most people registering.',
     type: 'article',
     url: 'https://claudecodeguide.dev/certification',
   },
 };
 
-const CREDENTIALS = [
+interface Credential {
+  name: string;
+  price: string;
+  level: string;
+  covers: string;
+  who: string;
+  registerUrl: string;
+  prepUrl: string;
+  countsToward: boolean;
+}
+
+const CREDENTIALS: Credential[] = [
   {
     name: 'Claude Certified Associate: Foundations',
-    who: 'Consultants, project leads, and anyone working on a Claude project, technical or not.',
-    covers: 'Practical everyday use of Claude.',
+    price: '$99 USD',
+    level: 'Foundations',
+    covers: 'Guiding customers to the right Claude use cases, and setting engagements up to succeed.',
+    who: 'Consultants, sellers, and delivery leads.',
+    registerUrl:
+      'https://anthropic-partners.skilljar.com/claude-certified-associate-foundations-certification',
+    prepUrl: 'https://anthropic-partners.skilljar.com/path/claude-certified-associate-foundations',
+    countsToward: false,
   },
   {
     name: 'Claude Certified Developer: Foundations',
-    who: 'Engineers building applications with Claude.',
-    covers: 'The Claude API, tool use, and agent development.',
+    price: '$125 USD',
+    level: 'Foundations',
+    covers: 'The Claude API, Claude Code, and Model Context Protocol, from first integration to production agents.',
+    who: 'Engineers building with Claude.',
+    registerUrl:
+      'https://anthropic-partners.skilljar.com/claude-certified-developer-foundations-certification',
+    prepUrl: 'https://anthropic-partners.skilljar.com/path/claude-certified-developer-foundations',
+    countsToward: true,
   },
   {
     name: 'Claude Certified Architect: Foundations',
-    who: 'Solution architects who design and build agent systems with Claude.',
-    covers: 'Designing and building agent systems.',
+    price: '$125 USD',
+    level: 'Foundations',
+    covers: 'Designing Claude solutions end to end: deployment platforms, agentic architecture, evaluation, cost, and safety.',
+    who: 'Solution architects.',
+    registerUrl:
+      'https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification',
+    prepUrl:
+      'https://anthropic-partners.skilljar.com/page/claude-certified-architect-foundations-prep-courses',
+    countsToward: true,
   },
   {
     name: 'Claude Certified Architect: Professional',
-    who: 'Architects working at large-enterprise scale. The advanced credential.',
-    covers: 'Integration architecture, governance, and evaluation.',
+    price: '$175 USD',
+    level: 'Professional',
+    covers: 'Designing and governing Claude solutions at enterprise scale.',
+    who: 'Architects working at large-enterprise scale.',
+    registerUrl:
+      'https://anthropic-partners.skilljar.com/claude-certified-architect-professional-certification',
+    prepUrl: 'https://anthropic-partners.skilljar.com/path/claude-certified-architect-professional',
+    countsToward: true,
   },
+];
+
+const EXAM_FACTS: { label: string; value: string }[] = [
+  { label: 'Format', value: 'Multiple choice and scenario-based multiple response' },
+  { label: 'Time limit', value: '120 minutes, around 135 minutes of total seat time' },
+  { label: 'Scoring', value: 'Scaled score from 100 to 1,000' },
+  { label: 'Passing score', value: '720, the same bar for all four exams' },
+  { label: 'Delivery', value: 'Pearson, online proctored or at a test centre' },
+  { label: 'Open book', value: 'No. Notes, documentation, translation tools and AI assistants are all barred' },
+  { label: 'Minimum age', value: '18, verified against government-issued ID at check-in' },
+  { label: 'Certification validity', value: '12 months from the date you earn it' },
+  { label: 'Registration validity', value: '5 years, so you can register now and sit it later' },
+  { label: 'Retake waits', value: '14 days after a first fail, 30 after a second, 90 after a third' },
+  { label: 'Retake limit', value: '4 attempts per exam per rolling 12 months' },
 ];
 
 const FAQ = [
   {
     question: 'Is there an official Claude certification?',
     answer:
-      'Yes. Anthropic runs the Claude Certification Program with four role-based credentials: Claude Certified Associate: Foundations, Claude Certified Developer: Foundations, Claude Certified Architect: Foundations, and Claude Certified Architect: Professional. The program launched in March 2026 and expanded to four credentials on 23 July 2026.',
+      'Yes. Anthropic runs the Claude Certification Program with four role-based credentials: Claude Certified Associate: Foundations, Claude Certified Developer: Foundations, Claude Certified Architect: Foundations, and Claude Certified Architect: Professional. The programme launched in March 2026 and expanded to four credentials on 23 July 2026.',
   },
   {
     question: 'How much does the Claude certification exam cost?',
     answer:
-      'Anthropic has not published a price. The announcement describes the credentials, the exam format, and the delivery partner, but states no fee for any of the four exams.',
+      'Claude Certified Associate: Foundations costs $99 USD. Developer: Foundations and Architect: Foundations cost $125 USD each. Architect: Professional costs $175 USD. Those are list prices before any partner-tier discount. Select, Preferred and Global Premier partners get 50% off automatically at checkout, and Global Premier partners pay nothing at all until 31 December 2026.',
+  },
+  {
+    question: 'How long is the Claude certification exam and what score do I need to pass?',
+    answer:
+      'You get 120 minutes, and should plan for around 135 minutes of seat time including check-in and a post-exam survey. Results come back as a scaled score from 100 to 1,000. The minimum passing score is 720, and it is the same for all four certifications.',
   },
   {
     question: 'Can anyone take the Claude Certified Architect exam?',
     answer:
-      'Anthropic describes the program entirely through the Claude Partner Network. Completed certifications are recognised with partner badges, and the free training platform named in the announcement is Anthropic Partner Academy, described as a platform for partners. There is no public self-enrolment page. If you do not work at a partner firm, the free courses at Claude Academy cover much of the same material without the credential.',
+      'No. Certification is available only to people at Claude Partner Network organisations, and registration requires a partner email address on a recognised company domain. Personal email addresses will not work. If you do not work at a partner firm, the free courses at Claude Academy cover much of the same material without the credential.',
   },
   {
     question: 'How are the Claude certification exams delivered?',
     answer:
-      'Through Pearson Professional Assessments. Every exam is proctored, meaning it is taken under supervision, and test takers must validate their identity before starting. People who pass receive a digital badge through Credly by Pearson.',
+      'Through Pearson, either online proctored or at a Pearson test centre. Every exam is supervised, closed book, and identity-verified against government-issued ID before you start. People who pass receive a digital badge through Credly.',
   },
   {
     question: 'Do I need the Foundations exam before the Professional one?',
     answer:
-      'Yes. Anthropic states that every path to getting credentialed starts with a foundation-level certification and advances to the professional level.',
+      'No. Architect: Foundations and Architect: Professional are separate certifications with separate exams, and there is no formal prerequisite, so you can sit Professional without holding Foundations. Anthropic recommends starting at Foundations. Passing Foundations does not upgrade to Professional automatically.',
+  },
+  {
+    question: 'What happens if I fail a Claude certification exam?',
+    answer:
+      'Your score report shows the overall scaled score, the pass or fail result, and the percentage you answered correctly in each section, so you can see what to review. You wait 14 days before a first retake, 30 days after a second fail, and 90 days after a third. You can attempt any one exam up to four times per rolling 12 months, and a retake costs the full fee.',
+  },
+  {
+    question: 'How long does a Claude certification last?',
+    answer:
+      'Twelve months from the date you earn it. Renewing on time is free and involves a non-proctored assessment covering what has changed. If the certification lapses, you retake the full exam at full price.',
   },
   {
     question: 'How many people hold a Claude certification?',
@@ -86,16 +157,15 @@ export default function CertificationPage() {
         <div className="mx-auto max-w-3xl">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm text-fd-muted-foreground">
             <Award className="h-4 w-4" />
-            Verified against Anthropic&rsquo;s announcement of {SOURCE_DATE}
+            Checked against Anthropic&rsquo;s own pages on {VERIFIED_DATE}
           </div>
           <h1 className="font-display text-4xl font-bold tracking-tight text-fd-foreground sm:text-5xl">
             Claude certification, and who can actually sit one
           </h1>
           <p className="mt-5 text-lg text-fd-muted-foreground leading-relaxed">
-            Anthropic runs four Claude credentials. Every exam is proctored, delivered through
-            Pearson, and identity-verified before you start. The part most write-ups skip: the
-            whole programme is built around the Claude Partner Network, and there is no public
-            page where you sign up and pay.
+            Four credentials, $99 to $175, 120 minutes each, pass at 720 out of 1,000. The catch
+            sits in the registration form rather than the exam: you need a partner email address on
+            a recognised company domain, and a personal address will not work.
           </p>
         </div>
       </section>
@@ -109,32 +179,71 @@ export default function CertificationPage() {
             <h2 className="font-display text-2xl font-bold text-fd-foreground">The four credentials</h2>
           </div>
           <p className="mb-6 text-fd-muted-foreground leading-relaxed">
-            Three of these were announced on {SOURCE_DATE}. Claude Certified Architect: Foundations
-            already existed. Each maps to one of the four roles Anthropic says put Claude into
-            production.
+            Three roles, four exams. Each links straight to its own registration page and its free
+            prep track on Anthropic Partner Academy.
           </p>
 
           <div className="space-y-3">
             {CREDENTIALS.map((c) => (
               <div key={c.name} className="rounded-xl border border-fd-border bg-fd-card p-5">
-                <h3 className="font-display text-base font-semibold text-fd-foreground">{c.name}</h3>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="font-display text-base font-semibold text-fd-foreground">
+                    {c.name}
+                  </h3>
+                  <span className="font-mono text-sm text-fd-foreground">{c.price}</span>
+                </div>
                 <dl className="mt-3 space-y-1.5 text-sm">
                   <div className="flex gap-2">
-                    <dt className="shrink-0 font-medium text-fd-foreground">Covers</dt>
+                    <dt className="w-24 shrink-0 font-medium text-fd-foreground">Covers</dt>
                     <dd className="text-fd-muted-foreground">{c.covers}</dd>
                   </div>
                   <div className="flex gap-2">
-                    <dt className="shrink-0 font-medium text-fd-foreground">Built for</dt>
+                    <dt className="w-24 shrink-0 font-medium text-fd-foreground">Built for</dt>
                     <dd className="text-fd-muted-foreground">{c.who}</dd>
                   </div>
+                  <div className="flex gap-2">
+                    <dt className="w-24 shrink-0 font-medium text-fd-foreground">Partner tier</dt>
+                    <dd className="text-fd-muted-foreground">
+                      {c.countsToward
+                        ? 'Counts toward Claude Partner Network tier eligibility.'
+                        : 'Does not count toward Claude Partner Network tier eligibility.'}
+                    </dd>
+                  </div>
                 </dl>
+                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                  <a
+                    href={c.registerUrl}
+                    className="inline-flex items-center gap-1 font-medium text-fd-foreground underline underline-offset-4 hover:text-fd-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Register <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                  </a>
+                  <a
+                    href={c.prepUrl}
+                    className="inline-flex items-center gap-1 text-fd-muted-foreground underline underline-offset-4 hover:text-fd-foreground"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Free prep courses <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
 
           <p className="mt-6 text-sm text-fd-muted-foreground">
-            Every path starts at foundation level and advances to professional. You cannot begin at
-            the Professional tier.
+            Both registration and prep links sit behind a partner sign-in. The official exam guide
+            for each credential is a PDF linked from the{' '}
+            <a
+              href={CATALOGUE_URL}
+              className="underline underline-offset-4 hover:text-fd-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              certification catalogue
+            </a>
+            ; those file links change, so go through the catalogue rather than bookmarking one.
           </p>
         </div>
       </section>
@@ -145,35 +254,36 @@ export default function CertificationPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-fd-card">
               <ShieldCheck className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-bold text-fd-foreground">How the exams work</h2>
+            <h2 className="font-display text-2xl font-bold text-fd-foreground">What the exam is like</h2>
           </div>
-          <ul className="space-y-3 text-fd-muted-foreground leading-relaxed">
-            <li>
-              Exams run through <strong className="text-fd-foreground">Pearson Professional
-              Assessments</strong>, the same infrastructure Pearson uses for professional licensure.
-            </li>
-            <li>
-              Every exam is <strong className="text-fd-foreground">proctored</strong>. You sit it
-              under supervision.
-            </li>
-            <li>
-              You <strong className="text-fd-foreground">validate your identity</strong> before the
-              exam begins.
-            </li>
-            <li>
-              Pass and you get a digital badge through{' '}
-              <strong className="text-fd-foreground">Credly by Pearson</strong>.
-            </li>
-          </ul>
+
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[34rem] border-collapse text-sm">
+              <tbody>
+                {EXAM_FACTS.map((f) => (
+                  <tr key={f.label} className="border-b border-fd-border last:border-0">
+                    <th
+                      scope="row"
+                      className="w-48 py-2.5 pr-4 text-left align-top font-medium text-fd-foreground"
+                    >
+                      {f.label}
+                    </th>
+                    <td className="py-2.5 align-top text-fd-muted-foreground">{f.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-6 text-fd-muted-foreground leading-relaxed">
+            Scaled scoring exists so that two people sitting slightly different versions of the same
+            exam face the same bar. A fail report breaks your result down by section, which is the
+            part worth reading before you pay for a retake.
+          </p>
           <p className="mt-5 text-fd-muted-foreground leading-relaxed">
             Anthropic&rsquo;s framing is that certification represents validated capability rather
             than course attendance. That is the reason for the proctoring, and it is what separates
-            these from the free course quizzes on Claude Academy.
-          </p>
-          <p className="mt-5 rounded-lg border border-fd-border bg-fd-muted/30 p-4 text-sm text-fd-muted-foreground">
-            Anthropic has published no exam fee, no question count, no time limit, and no passing
-            score for any of the four exams. If you read a specific number for those anywhere, it did
-            not come from Anthropic.
+            these exams from the free course quizzes on Claude Academy.
           </p>
         </div>
       </section>
@@ -190,25 +300,42 @@ export default function CertificationPage() {
           </div>
           <div className="space-y-4 text-fd-muted-foreground leading-relaxed">
             <p>
-              Anthropic describes this programme entirely through the Claude Partner Network. Passing
-              earns a <em>partner badge</em>. The free training platform named in the announcement is
-              Anthropic Partner Academy, described as a platform for partners. Partner tier standing
-              is calculated partly from how many certified practitioners a firm has.
+              Certification is open only to people at Claude Partner Network organisations.
+              Registration checks your email domain against your firm&rsquo;s partner record, and a
+              personal address is rejected. If your company is a partner but your domain is not on
+              the record yet, adding it takes 7 to 10 working days, so start that before you book a
+              date.
             </p>
             <p>
-              The demand is coming from firms, not individuals. Accenture has committed to 50,000
-              certified professionals, PwC to 30,000, Capgemini, DXC and UST to 20,000 each, Deloitte
-              and KPMG to 15,000 each. Ascendion plans to certify its entire 8,000-person engineering
-              team before 2027.
+              Price follows the same record. Registered-tier partners pay list price. Select,
+              Preferred and Global Premier partners get 50% off automatically, and Global Premier
+              partners pay nothing on any exam until 31 December 2026. A discount that fails to show
+              at checkout usually means the domain is not linked.
             </p>
             <p>
-              So if you searched for a price and a sign-up button and found neither, nothing is wrong
-              with your search. As of this writing there is no public self-enrolment route, and
-              Anthropic has not said whether one is planned.
+              The demand is coming from firms rather than individuals. Accenture has committed to
+              50,000 certified professionals, PwC to 30,000, Capgemini, DXC and UST to 20,000 each,
+              Deloitte and KPMG to 15,000 each. Ascendion plans to certify its entire 8,000-person
+              engineering team before 2027.
+            </p>
+            <p>
+              So if you went looking for a sign-up button as an individual and could not find one,
+              nothing is wrong with your search. There is no public self-enrolment route, and
+              Anthropic has not said whether one is planned. Bulk voucher purchasing for partner
+              teams is described as in progress with no date.
             </p>
             <p className="text-fd-foreground">
               If you work at a partner firm, your enablement or practice lead owns the enrolment
-              path. Ask them, not Anthropic support.
+              path. Ask them before you email support. If your firm is not a partner,{' '}
+              <a
+                href={PARTNERS_URL}
+                className="underline underline-offset-4 hover:text-fd-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                applications are open
+              </a>
+              .
             </p>
           </div>
         </div>
@@ -229,41 +356,54 @@ export default function CertificationPage() {
             sit at{' '}
             <a
               href="https://academy.claude.com"
-              className="inline-flex items-center gap-1 underline hover:text-fd-foreground"
+              className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Claude Academy <ExternalLink className="h-3 w-3" />
+              Claude Academy <ExternalLink className="h-3 w-3" aria-hidden="true" />
             </a>
             , and cover AI fluency, the Claude API, and each product surface. For the areas the
             Developer and Architect tracks name, these pages go deeper:
           </p>
           <ul className="space-y-2 text-fd-muted-foreground">
             <li>
-              <Link href="/docs/foundations/which-interface" className="underline hover:text-fd-foreground">
+              <Link
+                href="/docs/foundations/which-interface"
+                className="underline underline-offset-4 hover:text-fd-foreground"
+              >
                 Which Claude surface for which job
               </Link>{' '}
-              covers the ground the Associate credential calls everyday practical use.
+              covers the ground the Associate credential calls guiding customers to the right use
+              case.
             </li>
             <li>
-              <Link href="/docs/patterns/mcp-servers" className="underline hover:text-fd-foreground">
+              <Link
+                href="/docs/patterns/mcp-servers"
+                className="underline underline-offset-4 hover:text-fd-foreground"
+              >
                 MCP servers
               </Link>{' '}
               and{' '}
-              <Link href="/docs/foundations/claude-md" className="underline hover:text-fd-foreground">
+              <Link
+                href="/docs/foundations/claude-md"
+                className="underline underline-offset-4 hover:text-fd-foreground"
+              >
                 CLAUDE.md
               </Link>{' '}
-              cover tool use and agent context, named under the Developer track.
+              cover Model Context Protocol and agent context, both named under the Developer track.
             </li>
             <li>
-              <Link href="/docs/patterns/skills" className="underline hover:text-fd-foreground">
+              <Link
+                href="/docs/patterns/skills"
+                className="underline underline-offset-4 hover:text-fd-foreground"
+              >
                 Skills
               </Link>{' '}
               and{' '}
-              <Link href="/workflow" className="underline hover:text-fd-foreground">
+              <Link href="/workflow" className="underline underline-offset-4 hover:text-fd-foreground">
                 agent workflows
               </Link>{' '}
-              cover agent system design, named under the Architect track.
+              cover agentic architecture, named under the Architect track.
             </li>
           </ul>
         </div>
@@ -286,20 +426,67 @@ export default function CertificationPage() {
       </section>
 
       <section className="border-b border-fd-border px-6 py-10">
-        <div className="mx-auto max-w-3xl text-sm text-fd-muted-foreground">
+        <div className="mx-auto max-w-3xl space-y-3 text-sm text-fd-muted-foreground">
+          <p>Every figure on this page comes from one of Anthropic&rsquo;s own pages:</p>
+          <ul className="space-y-1.5">
+            <li>
+              <a
+                href={ANNOUNCEMENT_URL}
+                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The programme announcement <ExternalLink className="h-3 w-3" aria-hidden="true" />
+              </a>{' '}
+              of {ANNOUNCEMENT_DATE}, for the roles and the adoption numbers.
+            </li>
+            <li>
+              <a
+                href={CATALOGUE_URL}
+                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The certification catalogue <ExternalLink className="h-3 w-3" aria-hidden="true" />
+              </a>{' '}
+              for prices and tier eligibility.
+            </li>
+            <li>
+              <a
+                href={FAQ_URL}
+                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The certification FAQ <ExternalLink className="h-3 w-3" aria-hidden="true" />
+              </a>{' '}
+              and{' '}
+              <a
+                href={POLICIES_URL}
+                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                policies <ExternalLink className="h-3 w-3" aria-hidden="true" />
+              </a>{' '}
+              for exam length, scoring, retakes, and eligibility.
+            </li>
+            <li>
+              <a
+                href={PEARSON_URL}
+                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Pearson&rsquo;s Anthropic page <ExternalLink className="h-3 w-3" aria-hidden="true" />
+              </a>{' '}
+              for scheduling, ID requirements, and system checks.
+            </li>
+          </ul>
           <p>
-            Every fact on this page comes from Anthropic&rsquo;s announcement,{' '}
-            <a
-              href={SOURCE_URL}
-              className="inline-flex items-center gap-1 underline hover:text-fd-foreground"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Four role-based certifications for the people who put Claude to work for customers
-              <ExternalLink className="h-3 w-3" />
-            </a>
-            , published {SOURCE_DATE}, read in full. Where Anthropic has not stated something, this
-            page says so rather than filling the gap.
+            Checked {VERIFIED_DATE}. Prices and rules have changed once already: Architect:
+            Foundations went from $99 to $125 on 30 June 2026, the same day delivery moved to
+            Pearson. Confirm against the catalogue before you pay.
           </p>
         </div>
       </section>
