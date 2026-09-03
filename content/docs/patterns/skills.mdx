@@ -1,7 +1,9 @@
 ---
-title: Claude Code Skills
-description: "You can build your own commands in 5 minutes. Write the workflow once as a markdown file, then run it forever with a single word."
+title: "Claude Code Skills: SKILL.md Structure and Management"
+description: "A skill is a folder with a SKILL.md inside, and the description field is what triggers it. The structure, why skills silently fail to fire, and how to manage a growing set."
 ---
+
+import { FaqSchema } from '@/components/faq-schema';
 
 ## You keep explaining the same thing
 
@@ -26,17 +28,28 @@ Skills turn scattered tribal knowledge into repeatable, composable workflows. Th
 
 ## What a skill looks like
 
-Every skill is a markdown file with a description, trigger keywords, and step-by-step instructions.
+A skill is a folder, not a loose file. The folder is named after the skill, and it must contain a
+file called `SKILL.md`. That file opens with YAML frontmatter carrying two required fields, `name`
+and `description`.
+
+```
+.claude/skills/
+└── meeting-prep/
+    └── SKILL.md
+```
+
+The frontmatter is the part people get wrong, and getting it wrong is silent: the file sits there
+and never activates.
 
 ```markdown
+---
+name: meeting-prep
+description: Pre-meeting context gathering across connected systems. Pulls recent
+  interactions, open items and talking points for any person or topic. Use when the
+  user says "meeting prep", "prep for my meeting", "meeting with X", or "prep for 1:1".
+---
+
 # Meeting Prep
-
-Pre-meeting context gathering across all connected systems.
-Pulls recent interactions, open items, and talking points
-for any person or topic.
-
-Triggers: "meeting prep", "prep for my meeting",
-"meeting with X", "prep for 1:1", "before my meeting"
 
 ## Steps
 
@@ -57,7 +70,14 @@ Lead with the most actionable items. Skip anything
 older than 2 weeks unless it's unresolved.
 ```
 
-The trigger keywords tell Claude Code when to activate the skill. When your prompt contains "meeting prep" or "prep for 1:1," the skill loads automatically.
+There is no separate `triggers:` field. **The `description` is the trigger.** Claude reads every
+installed skill's `name` and `description`, and nothing else, when deciding what to load. So the
+description has to do two jobs at once: say what the skill does, and say when to use it. Write the
+phrases you actually say out loud into the description itself, the way the example above does.
+
+That is also why a vague description fails silently. "Helps with meetings" matches nothing, the
+skill never fires, and Claude Code gives no error, because as far as it is concerned nothing went
+wrong.
 
 ## How to build your first one
 
@@ -69,14 +89,50 @@ The trigger keywords tell Claude Code when to activate the skill. When your prom
 
 **Step 4: Test and iterate.** Run it a few times. When Claude Code misses a step or gets the format wrong, update the skill file. Skills get better through use.
 
-## Where skills live
+## Where skills live, and how to manage a growing set
 
 | Location | Scope | Example |
 |---|---|---|
-| `.claude/skills/` | Project-level. Only active in this repo. | A deploy checklist specific to one service. |
-| `~/.claude/skills/` | User-level. Active in every project. | A weekly status report that works across all repos. |
+| `.claude/skills/<name>/SKILL.md` | Project-level. Only active in this repo. | A deploy checklist specific to one service. |
+| `~/.claude/skills/<name>/SKILL.md` | User-level. Active in every project. | A weekly status report that works across all repos. |
 
-Project-level skills are specific to a codebase. User-level skills follow you everywhere.
+Project-level skills are specific to a codebase and can be committed, so the whole team gets them.
+User-level skills follow you everywhere and stay private to your machine.
+
+### Splitting a skill across files
+
+A skill folder can hold more than `SKILL.md`. Once a skill grows past a screen or two, move the
+detail into sibling files and reference them from `SKILL.md` by relative path:
+
+```
+~/.claude/skills/
+└── skill-creator/
+    ├── SKILL.md
+    └── references/
+        ├── workflows.md
+        └── output-patterns.md
+```
+
+This matters more than it looks. Claude reads `SKILL.md` when the skill fires, so everything in it
+costs context every single time. A reference file is read only when the workflow actually reaches
+the step that needs it. Keep `SKILL.md` to the decision path and push the long tables, templates and
+worked examples into references.
+
+### Keeping the set under control
+
+Once you pass roughly a dozen skills, the problems change shape. Three that show up reliably:
+
+- **Two skills claim the same trigger.** Both descriptions mention "status report" and you get
+  whichever Claude picks. Fix the descriptions so each one names the case the other excludes.
+- **Skills that never fire.** Usually a description written as a title rather than as a trigger.
+  Rewrite it to include the words you actually type.
+- **Skills that went stale.** A skill encoding last quarter's deploy process is worse than no
+  skill, because it looks authoritative. Delete aggressively; a skill you do not trust is a skill
+  you have to double-check, which costs more than doing it by hand.
+
+There is no registry and no install step. A skill exists because its folder exists, so managing them
+is ordinary file and folder work: move a folder to move a skill, delete a folder to remove it, and
+commit `.claude/skills/` to share it.
 
 ## Built-in vs custom: the real power is custom
 
@@ -227,3 +283,68 @@ Skills are just Markdown files. Share them like any other file.
 | `/onboarding` | Generates new hire onboarding checklist | Managers |
 
 Start with one. The one you'll actually use tomorrow morning. That's your first skill.
+
+## Common questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'What is the folder structure for a Claude Code skill?',
+      answer:
+        'A skill is a folder named after the skill, containing a file called SKILL.md. Project skills go in .claude/skills/<name>/SKILL.md and user skills in ~/.claude/skills/<name>/SKILL.md. The folder can hold supporting files, commonly a references/ subfolder, which SKILL.md points to by relative path.',
+    },
+    {
+      question: 'What goes in the SKILL.md frontmatter?',
+      answer:
+        'YAML frontmatter with two required fields: name and description. The name matches the folder. The description is what Claude reads when deciding whether to load the skill, so it has to say both what the skill does and when to use it, including the phrases you would actually type.',
+    },
+    {
+      question: 'How do I add trigger keywords to a skill?',
+      answer:
+        'There is no triggers field. The description is the trigger. Write the phrases you say out loud into the description itself, for example: Use when the user says "prep for my meeting" or "prep for 1:1". A description that reads like a title will never match anything, and the failure is silent.',
+    },
+    {
+      question: 'Why is my Claude Code skill not activating?',
+      answer:
+        'Almost always the description. Claude only sees each skill name and description when choosing what to load, so a vague description matches nothing and no error is raised. Check also that the file is named SKILL.md exactly, that it sits inside a folder rather than loose in the skills directory, and that the frontmatter is valid YAML between two --- lines.',
+    },
+    {
+      question: 'How do I manage a large set of skills?',
+      answer:
+        'Treat it as file management, because that is all it is: a skill exists because its folder exists. Past roughly a dozen skills, watch for two skills claiming the same trigger phrase, skills whose descriptions are too vague to ever fire, and skills encoding a process that has since changed. Delete stale ones rather than keeping them, since a skill you do not trust costs more to work around than to remove.',
+    },
+    {
+      question: 'What is the difference between project skills and user skills?',
+      answer:
+        'Project skills live in .claude/skills/ inside a repo, only work in that repo, and can be committed so the team shares them. User skills live in ~/.claude/skills/, work in every project on your machine, and stay private to you.',
+    },
+    {
+      question: 'How do I keep a skill from eating my context window?',
+      answer:
+        'Keep SKILL.md to the decision path and move long templates, tables and worked examples into separate files in the same folder. SKILL.md is read every time the skill fires, so its whole length is a recurring cost. A referenced file is only read when the workflow reaches the step that needs it.',
+    },
+  ]}
+/>
+
+### What is the folder structure for a skill?
+
+A folder named after the skill, containing `SKILL.md`. Supporting files sit alongside it, usually in
+`references/`.
+
+### What goes in the frontmatter?
+
+`name` and `description`, as YAML between two `---` lines. Both are required.
+
+### How do I add trigger keywords?
+
+You do not. The `description` is the trigger, so put the phrases you actually say into it.
+
+### Why is my skill not activating?
+
+Nine times out of ten the description is too vague to match anything, and nothing warns you. Check
+the filename is exactly `SKILL.md` and that it sits inside a folder, not loose.
+
+### What is the difference between project and user skills?
+
+Project skills live in the repo and can be committed for the team. User skills live in your home
+directory and follow you everywhere.
