@@ -1669,6 +1669,44 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
 
 <p>What holds regardless is that the counting was cheap. The script above runs in seconds against sessions you already have. Before you trim your <code>CLAUDE.md</code> by feel, spend ten minutes finding out which rules are actually being broken. In my case the file was not too big. It was arguing with itself.</p>`,
   },
+  {
+    slug: "claude-5-prompting-rules-fact-check",
+    title: "I Fact-Checked the Viral Claude 5 Prompting Video Against Anthropic's Docs",
+    description: "A video called these \"the secret rules Anthropic's team uses\" for Opus 5 and Fable 5. I read the actual docs. Five rules held up word for word. Two didn't.",
+    date: "2026-09-03",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "claude-md", "opus-5", "fable-5", "prompting"],
+    content: `<img src="/blog-hero-claude-5-prompting-rules-fact-check.png" alt="Watercolor illustration for: claude 5 prompting rules fact check" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+<p>A video showed up in my feed this week titled something like "7 rules for prompting Claude 5 models, the ones Anthropic's own team actually uses." Bold claim. Ninety seconds later I had it open next to Anthropic's actual prompting docs, because "the team actually uses" is a specific claim, and specific claims are checkable.</p>
+
+<p>Five of the seven held up almost word for word. Two didn't. Here's the receipts, and the two things worth fixing in your own <code>CLAUDE.md</code> today.</p>
+
+<h2>What actually checks out</h2>
+<p>Anthropic's own docs for Opus 5 say the model "performs best when given the complete task specification up front and left to run." That's the video's rule one, and it's real. Stop breaking a task into five prompts if you can write the whole brief once.</p>
+
+<p>Rule three, state the intent behind a request, is a direct lift. Anthropic's Fable 5 doc gives this exact template:</p>
+<blockquote>"I'm working on [the larger task] for [who it's for]. They need [what the output enables]. With that in mind: [request]."</blockquote>
+
+<p>Rule five, swap "don't do X" for a positive instruction, is in the general prompting guide, not even a Claude 5-specific tip: "Tell Claude what to do instead of what not to do." That one predates the current model generation. It's just still true.</p>
+
+<p>Rule seven, fixing a verbose or jargon-heavy voice with a short system prompt, is close to a copy of Anthropic's own Opus 5 sample: "Keep responses focused, brief, and concise... give a high-level summary unless an in-depth explanation is specifically requested." If your Claude sounds like a consultant, that's the line to add.</p>
+
+<h2>What didn't check out</h2>
+<p>Rule six, never ask Claude to double-check itself, is presented as a Claude 5 rule. It's actually an Opus 5 rule, and the docs are specific about why: Opus 5 verifies its own work without being told to, so a leftover "double-check your answer" instruction from an old prompt just adds tokens for a pass the model was already going to run. The general prompting guide still recommends asking for self-checks by default. Opus 5 is named as the one documented exception, not the new rule for every model.</p>
+
+<p>The "interview me" and "rule rewriter" skills the video credits to Anthropic aren't Anthropic artifacts. They're the creator's own tooling, built on a real idea: the Fable 5 docs do say let the model scope a hard task and ask clarifying questions before it runs. Useful pattern, but not an official skill under that name.</p>
+
+<h2>Why this is worth ten minutes</h2>
+<p>The real news here isn't the video. It's that a chunk of prompting advice circulating right now describes real, documented behavior changes in the current model generation, and a <code>CLAUDE.md</code> tuned for Opus 4.8 is quietly fighting the model it's talking to. I checked my own rule files against the same docs while I was at it. Most of it already matched, not because I'd read this particular guide before, but because the underlying habits (explain the why, use reasons instead of bans, don't pad the model with dead instructions) were already in there for other reasons.</p>
+
+<p>Two concrete things worth checking in your own setup:</p>
+<ul>
+<li>If you're on Opus 5 and any prompt or skill says "verify your answer before responding," pull it. The docs are explicit: it adds cost with no quality gain on this model.</li>
+<li>If your system prompt or <code>CLAUDE.md</code> has a "never do X" rule with no reason attached, add one sentence saying why. Anthropic's own guidance treats the reason as part of the instruction, not optional color.</li>
+</ul>
+
+<p>Neither of those needs a rewrite. Both are a five-minute edit, and both are things a video telling you "everyone is prompting wrong" got right, even while it got two things wrong along the way.</p>`,
+  },
 ];
 
 // Sorted newest first for display
