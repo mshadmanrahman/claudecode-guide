@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { DayFlow } from '@/components/workflow/day-flow';
 import { WorkflowTracker } from '@/components/workflow/workflow-tracker';
 import { OsMapLink } from '@/components/workflow/os-map-link';
-import { SiteFooter } from '@/components/site-footer';
 import { MessageSquare, Cpu, FileText } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -97,7 +96,6 @@ export default function WorkflowPage() {
           <OsMapLink />
         </div>
       </main>
-      <SiteFooter />
     </>
   );
 }

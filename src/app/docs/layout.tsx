@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import type { CSSProperties } from 'react';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { SiteHeader } from '@/components/site-header';
+import { SiteFooter } from '@/components/site-footer';
 import { source } from '@/lib/source';
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -17,6 +18,7 @@ containerProps={{
       >
         {children}
       </DocsLayout>
+      <SiteFooter />
     </>
   );
 }

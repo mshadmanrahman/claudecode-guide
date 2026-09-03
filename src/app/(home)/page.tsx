@@ -23,7 +23,6 @@ import { EmailCapture } from "@/components/email-capture";
 import { PathRouter } from "@/components/home/path-router";
 import { HeroVisual } from "@/components/home/hero-visual";
 import { ClaudeInYourDay } from "@/components/home/claude-in-your-day";
-import { SiteFooter } from "@/components/site-footer";
 import type { Metadata } from "next";
 
 const heroTagline = "Tell it what you need. It builds it.";
@@ -465,7 +464,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <SiteFooter />
     </main>
   );
 }
