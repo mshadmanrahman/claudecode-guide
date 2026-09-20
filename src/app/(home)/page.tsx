@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
+  ChevronDown,
   Gamepad2,
   ClipboardList,
   BarChart3,
@@ -157,23 +159,33 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* ── Hero ── */}
-      <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-28 pb-12 text-center">
+      {/* ── Hero (full-viewport, first screen) ── */}
+      <section className="relative flex min-h-[calc(100dvh-3.5rem)] w-full flex-col items-center justify-center overflow-hidden px-6 py-16 text-center">
+        <Image
+          src="/hero-valley.png"
+          alt="A misty alpine valley, forested hills rolling toward pale mountains"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/35 to-black/55" />
+
         <div className="relative z-10 flex flex-col items-center">
-          <h1 className="font-display tracking-tight-display max-w-3xl text-5xl font-medium text-fd-foreground sm:text-7xl leading-[1.08]">
+          <h1 className="font-display tracking-tight-display max-w-3xl text-5xl font-medium text-white sm:text-7xl leading-[1.08]">
             Tell it what you need.
             <br />
             <span className="italic text-brand">It builds it.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
+          <p className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
             The practical guide to Claude: Code, Chrome, Word, Excel,
             PowerPoint, and more. Calm, beginner-friendly, and free.
           </p>
 
-          <p className="mt-3 text-sm text-fd-muted-foreground">
+          <p className="mt-3 text-sm text-white/70">
             Written by{" "}
-            <Link href="/about" className="font-medium text-fd-foreground hover:underline">
+            <Link href="/about" className="font-medium text-white hover:underline">
               Shadman Rahman
             </Link>
             , Principal Product Manager in Stockholm ·{" "}
@@ -181,7 +193,7 @@ export default function HomePage() {
               href="https://www.linkedin.com/in/shadmanrahman"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-fd-foreground hover:underline"
+              className="hover:text-white hover:underline"
             >
               LinkedIn
             </a>{" "}
@@ -190,7 +202,7 @@ export default function HomePage() {
               href="https://shadmanrahman.substack.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-fd-foreground hover:underline"
+              className="hover:text-white hover:underline"
             >
               Substack
             </a>{" "}
@@ -199,7 +211,7 @@ export default function HomePage() {
               href="https://github.com/mshadmanrahman"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-fd-foreground hover:underline"
+              className="hover:text-white hover:underline"
             >
               GitHub
             </a>
@@ -217,17 +229,25 @@ export default function HomePage() {
               href="https://github.com/mshadmanrahman/claudecode-guide"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-colors hover:bg-fd-accent"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] bg-white px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-white/90"
             >
               <Star className="h-4 w-4" />
               Star on GitHub
             </a>
           </div>
         </div>
+
+        <a
+          href="#stats-bar"
+          aria-label="Scroll to see what's covered"
+          className="absolute bottom-6 z-10 animate-bounce text-white/70 transition-colors hover:text-white"
+        >
+          <ChevronDown className="h-6 w-6" />
+        </a>
       </section>
 
       {/* ── Stats Bar ── */}
-      <section className="mx-auto w-full max-w-4xl px-6 pb-16">
+      <section id="stats-bar" className="mx-auto w-full max-w-4xl px-6 pt-16 pb-16">
         <div className="flex items-baseline justify-center gap-x-3 sm:gap-x-5">
           {STATS.map((stat, i) => (
             <div
