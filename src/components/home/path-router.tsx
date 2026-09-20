@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
-import { CARD_ART } from "./path-router-art";
 
 interface RouterCard {
   id:
@@ -107,55 +106,62 @@ const CARDS: ReadonlyArray<RouterCard> = [
 ];
 
 export function PathRouter() {
-  return (
-    <section className="mx-auto w-full max-w-5xl px-6 pb-24">
-      <p className="mb-2 text-center text-xs font-medium text-fd-muted-foreground">
-        Find what you need
-      </p>
-      <h2 className="mb-4 text-center font-display text-3xl font-bold tracking-tight-display text-fd-foreground sm:text-4xl">
-        What brought you here?
-      </h2>
-      <p className="mb-12 text-center text-fd-muted-foreground max-w-lg mx-auto text-sm">
-        Nine shortcuts to the guides that match where you are.
-      </p>
+  const foundations = CARDS.slice(0, 4);
+  const roleGuides = CARDS.slice(4);
 
-      <div className="grid grid-cols-1 gap-px bg-fd-border border border-fd-border rounded-xl overflow-hidden sm:grid-cols-2 lg:grid-cols-3">
-        {CARDS.map((card) => {
-          const Art = CARD_ART[card.id];
-          return (
-            <Link
-              key={card.id}
-              href={card.href}
-              onClick={() => {
-                trackEvent("router_card_click", {
-                  card_id: card.id,
-                  card_audience: card.audience,
-                });
-              }}
-              className="group flex flex-col bg-fd-background p-6 transition-colors duration-200 hover:bg-fd-accent/40"
-            >
-              {Art && (
-                <div className="mb-5 h-[72px] text-fd-foreground/55">
-                  <Art />
-                </div>
-              )}
-              <span className="mb-2 text-xs font-medium text-fd-muted-foreground">
-                {card.audience}
-              </span>
-              <h3 className="mb-2 font-display text-base font-bold tracking-tight-display text-fd-foreground leading-snug">
-                {card.title}
+  return (
+    <section className="mx-auto w-full max-w-6xl px-6 py-24 lg:px-10 lg:py-32">
+      <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
+        <div>
+          <h2 className="max-w-[12ch] text-balance font-display text-4xl font-medium leading-[0.98] tracking-tight-display text-fd-foreground sm:text-6xl">
+            Find the part that is slowing you down.
+          </h2>
+          <p className="mt-6 max-w-sm leading-relaxed text-fd-muted-foreground">
+            Start with the system, then go as deep as the work requires. Every
+            guide is free and written to be used, not admired.
+          </p>
+        </div>
+
+        <div className="grid gap-10 sm:grid-cols-2">
+          {[
+            { label: "Core field guide", cards: foundations },
+            { label: "Guides by role", cards: roleGuides },
+          ].map((group) => (
+            <div key={group.label}>
+              <h3 className="border-b border-fd-foreground pb-3 font-mono text-[11px] uppercase tracking-[0.16em] text-fd-muted-foreground">
+                {group.label}
               </h3>
-              <p className="text-sm text-fd-muted-foreground leading-relaxed flex-1">
-                {card.blurb}
-              </p>
-              <div className="mt-4 flex items-center gap-1 text-xs font-medium text-fd-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                Open <ArrowRight className="h-3 w-3" />
+              <div>
+                {group.cards.map((card) => (
+                  <Link
+                    key={card.id}
+                    href={card.href}
+                    onClick={() => {
+                      trackEvent("router_card_click", {
+                        card_id: card.id,
+                        card_audience: card.audience,
+                      });
+                    }}
+                    className="group flex items-center justify-between gap-5 border-b border-fd-border py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fd-ring focus-visible:ring-offset-4"
+                  >
+                    <div>
+                      <span className="text-xs text-fd-muted-foreground">
+                        {card.audience}
+                      </span>
+                      <p className="mt-1 text-sm font-medium leading-snug text-fd-foreground sm:text-base">
+                        {card.title}
+                      </p>
+                    </div>
+                    <ArrowRight
+                      className="h-4 w-4 shrink-0 text-fd-muted-foreground transition-[transform,color] duration-200 group-hover:translate-x-1 group-hover:text-fd-foreground"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                ))}
               </div>
-            </Link>
-          );
-        })}
-        <div className="hidden lg:block bg-fd-background" />
-        <div className="hidden lg:block bg-fd-background" />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -132,23 +132,43 @@ export function SiteHeader() {
     closeRole();
   }, [pathname, closeMobile, closeRole]);
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 20);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   function isActive(href: string): boolean {
     return pathname === href || pathname.startsWith(href + "/");
   }
+
+  const isHome = pathname === "/";
+  
+  
+  const headerClasses = (!scrolled && !mobileOpen && isHome)
+    ? "sticky top-0 z-50 h-14 border-b border-transparent bg-transparent transition-all duration-300"
+    : "sticky top-0 z-50 h-14 border-b border-fd-border bg-fd-background/80 backdrop-blur-lg transition-all duration-300";
 
   const isRoleActive = FOR_YOUR_ROLE.some((link) => isActive(link.href));
 
   return (
     <>
-      <header className="sticky top-0 z-50 h-14 border-b border-fd-border bg-fd-background/80 backdrop-blur-lg">
+      <header className={headerClasses}>
         <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-4">
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center font-mono text-sm font-semibold text-fd-foreground hover:text-fd-foreground transition-colors"
+            className={`flex items-center font-mono text-sm font-semibold transition-colors ${
+              "text-fd-foreground hover:text-fd-foreground"
+            }`}
           >
             claudecodeguide
-            <span className="text-fd-muted-foreground">.dev</span>
+            <span className={"text-fd-muted-foreground"}>.dev</span>
           </Link>
 
           {/* Desktop nav */}
@@ -162,8 +182,8 @@ export function SiteHeader() {
                 href={link.href}
                 className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                   isActive(link.href)
-                    ? "bg-fd-primary/10 text-fd-primary font-medium"
-                    : "text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent"
+                    ? ("bg-fd-primary/10 text-fd-primary font-medium")
+                    : ("text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent")
                 }`}
               >
                 {link.label}
@@ -177,8 +197,8 @@ export function SiteHeader() {
                 aria-expanded={roleOpen}
                 className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm transition-colors ${
                   isRoleActive
-                    ? "bg-fd-primary/10 text-fd-primary font-medium"
-                    : "text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent"
+                    ? ("bg-fd-primary/10 text-fd-primary font-medium")
+                    : ("text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent")
                 }`}
               >
                 For Your Role
@@ -221,17 +241,21 @@ export function SiteHeader() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Star claudecode-guide on GitHub"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-colors"
+              className={`hidden sm:inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm transition-colors ${
+                "text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent"
+              }`}
             >
               <Star className="h-3.5 w-3.5" />
               Star
             </a>
-            <ThemeToggle />
+            <ThemeToggle  />
 
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="md:hidden rounded-lg p-2 text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-colors"
+              className={`md:hidden rounded-lg p-2 transition-colors ${
+                "text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent"
+              }`}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
             >

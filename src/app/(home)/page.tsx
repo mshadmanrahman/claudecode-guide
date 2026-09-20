@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AsciiWaves } from "@/components/ui/ascii-waves";
 import Image from "next/image";
 import {
   ArrowRight,
@@ -160,32 +161,25 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* ── Hero (full-viewport, first screen) ── */}
-      <section className="relative flex min-h-[calc(100dvh-3.5rem)] w-full flex-col items-center justify-center overflow-hidden px-6 py-16 text-center">
-        <Image
-          src="/hero-valley.png"
-          alt="A misty alpine valley, forested hills rolling toward pale mountains"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/35 to-black/55" />
+      <section className="relative -mt-14 flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden px-6 pt-14 pb-16 text-center">
+        <AsciiWaves />
+        
 
-        <div className="relative z-10 flex flex-col items-center">
-          <h1 className="font-display tracking-tight-display max-w-3xl text-5xl font-medium text-white sm:text-7xl leading-[1.08]">
+        <div className="relative z-10 flex flex-col items-center mt-12">
+          <h1 className="font-sans tracking-tighter max-w-4xl text-6xl font-medium text-fd-foreground sm:text-7xl lg:text-[5rem] leading-[1.05]">
             Tell it what you need.
             <br />
-            <span className="italic text-brand">It builds it.</span>
+            <span className="text-fd-foreground/80 font-normal">It builds it.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
+          <p className="mt-8 max-w-xl text-lg text-fd-foreground/80 leading-relaxed">
             The practical guide to Claude: Code, Chrome, Word, Excel,
             PowerPoint, and more. Calm, beginner-friendly, and free.
           </p>
 
-          <p className="mt-3 text-sm text-white/70">
+          <p className="mt-4 text-sm text-fd-foreground/60">
             Written by{" "}
-            <Link href="/about" className="font-medium text-white hover:underline">
+            <Link href="/about" className="font-medium text-fd-foreground hover:underline">
               Shadman Rahman
             </Link>
             , Principal Product Manager in Stockholm ·{" "}
@@ -193,7 +187,7 @@ export default function HomePage() {
               href="https://www.linkedin.com/in/shadmanrahman"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white hover:underline"
+              className="hover:text-fd-foreground hover:underline"
             >
               LinkedIn
             </a>{" "}
@@ -202,7 +196,7 @@ export default function HomePage() {
               href="https://shadmanrahman.substack.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white hover:underline"
+              className="hover:text-fd-foreground hover:underline"
             >
               Substack
             </a>{" "}
@@ -211,7 +205,7 @@ export default function HomePage() {
               href="https://github.com/mshadmanrahman"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white hover:underline"
+              className="hover:text-fd-foreground hover:underline"
             >
               GitHub
             </a>
@@ -220,7 +214,7 @@ export default function HomePage() {
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link
               href="/start"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] bg-brand px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-brand-hover"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-fd-foreground bg-transparent px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-foreground hover:text-fd-background"
             >
               Start building
               <ArrowRight className="h-4 w-4" />
@@ -229,7 +223,7 @@ export default function HomePage() {
               href="https://github.com/mshadmanrahman/claudecode-guide"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] bg-white px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-white/90"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-fd-secondary px-6 py-3 text-sm font-medium text-fd-secondary-foreground transition-all hover:bg-fd-secondary/80 border border-fd-border"
             >
               <Star className="h-4 w-4" />
               Star on GitHub
@@ -240,7 +234,7 @@ export default function HomePage() {
         <a
           href="#stats-bar"
           aria-label="Scroll to see what's covered"
-          className="absolute bottom-6 z-10 animate-float text-white/70 transition-colors hover:text-white"
+          className="absolute bottom-6 z-10 animate-float text-fd-foreground/50 transition-colors hover:text-fd-foreground"
         >
           <ChevronDown className="h-6 w-6" />
         </a>
@@ -326,7 +320,7 @@ export default function HomePage() {
         <div className="mt-12 flex justify-center">
           <Link
             href="/start"
-            className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] bg-brand px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-brand-hover"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-fd-foreground bg-transparent px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-foreground hover:text-fd-background"
           >
             Try it now
             <ArrowRight className="h-4 w-4" />
@@ -478,7 +472,7 @@ export default function HomePage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/start"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] bg-brand px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-brand-hover"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-fd-foreground bg-transparent px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-foreground hover:text-fd-background"
             >
               Start building
               <ArrowRight className="h-4 w-4" />
@@ -487,7 +481,7 @@ export default function HomePage() {
               href="https://github.com/mshadmanrahman/claudecode-guide"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-colors hover:bg-fd-accent"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-fd-secondary px-6 py-3 text-sm font-medium text-fd-secondary-foreground transition-all hover:bg-fd-secondary/80 border border-fd-border"
             >
               <Star className="h-4 w-4" />
               Star on GitHub

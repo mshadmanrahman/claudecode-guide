@@ -193,125 +193,95 @@ export function HeroVisual(): JSX.Element {
 
         {/* TOP INPUT CARD */}
         <rect x={12} y={30} width={160} height={96} rx={8}
-          fill="#fafafa" stroke="#e5e7eb" strokeWidth={1.5}
-          className="dark:fill-neutral-800 dark:stroke-neutral-700"
+          fill="var(--color-fd-card)" stroke="var(--color-fd-border)" strokeWidth={1}
         />
-        <text id="b-tl" x={24} y={50} fill="#9ca3af" fontSize={8} fontWeight={500}
-          letterSpacing="0.09em" fontFamily="-apple-system,sans-serif"
-          className="dark:fill-neutral-500"
+        <text id="b-tl" x={24} y={50} fill="var(--color-fd-muted-foreground)" fontSize={8} fontWeight={600}
+          letterSpacing="0.1em" fontFamily="var(--font-sans)"
         >EMAIL</text>
         <line x1={12} y1={58} x2={172} y2={58}
-          stroke="#f0f0f0" strokeWidth={1} className="dark:stroke-neutral-700"
+          stroke="var(--color-fd-border)" strokeWidth={1}
         />
-        <text id="b-t1" x={24} y={76} fill="#111" fontSize={10}
-          fontFamily="-apple-system,sans-serif" opacity={0}
-          className="dark:fill-neutral-100"
+        <text id="b-t1" x={24} y={76} fill="var(--color-fd-foreground)" fontSize={10}
+          fontFamily="var(--font-mono)" opacity={0}
         />
-        <text id="b-t2" x={24} y={91} fill="#6b7280" fontSize={10}
-          fontFamily="-apple-system,sans-serif" opacity={0}
-          className="dark:fill-neutral-400"
+        <text id="b-t2" x={24} y={91} fill="var(--color-fd-muted-foreground)" fontSize={10}
+          fontFamily="var(--font-mono)" opacity={0}
         />
 
         {/* BOTTOM INPUT CARD */}
         <rect x={12} y={164} width={160} height={96} rx={8}
-          fill="#fafafa" stroke="#e5e7eb" strokeWidth={1.5}
-          className="dark:fill-neutral-800 dark:stroke-neutral-700"
+          fill="var(--color-fd-card)" stroke="var(--color-fd-border)" strokeWidth={1}
         />
-        <text id="b-bl" x={24} y={184} fill="#9ca3af" fontSize={8} fontWeight={500}
-          letterSpacing="0.09em" fontFamily="-apple-system,sans-serif"
-          className="dark:fill-neutral-500"
+        <text id="b-bl" x={24} y={184} fill="var(--color-fd-muted-foreground)" fontSize={8} fontWeight={600}
+          letterSpacing="0.1em" fontFamily="var(--font-sans)"
         >TRANSCRIPT</text>
         <line x1={12} y1={192} x2={172} y2={192}
-          stroke="#f0f0f0" strokeWidth={1} className="dark:stroke-neutral-700"
+          stroke="var(--color-fd-border)" strokeWidth={1}
         />
-        <text id="b-b1" x={24} y={210} fill="#111" fontSize={10}
-          fontFamily="-apple-system,sans-serif" opacity={0}
-          className="dark:fill-neutral-100"
+        <text id="b-b1" x={24} y={210} fill="var(--color-fd-foreground)" fontSize={10}
+          fontFamily="var(--font-mono)" opacity={0}
         />
-        <text id="b-b2" x={24} y={225} fill="#6b7280" fontSize={10}
-          fontFamily="-apple-system,sans-serif" opacity={0}
-          className="dark:fill-neutral-400"
+        <text id="b-b2" x={24} y={225} fill="var(--color-fd-muted-foreground)" fontSize={10}
+          fontFamily="var(--font-mono)" opacity={0}
         />
 
         {/* ARC 1: top card to Claude (S-curve) */}
         <path id="b-arc1" d="M 172 78 C 231 78 231 145 290 145"
-          fill="none" stroke="#d1d5db" strokeWidth={1.5} opacity={0}
-          className="dark:stroke-neutral-600"
+          fill="none" stroke="var(--color-fd-border)" strokeWidth={1} opacity={0}
         />
-        <circle id="b-dot1" r={4} fill="#111" opacity={0}
-          className="dark:fill-neutral-100"
-        />
+        <circle id="b-dot1" r={4} fill="var(--color-brand)" opacity={0} />
 
         {/* ARC 2: bottom card to Claude (mirror S-curve) */}
         <path id="b-arc2" d="M 172 212 C 231 212 231 145 290 145"
-          fill="none" stroke="#d1d5db" strokeWidth={1.5} opacity={0}
-          className="dark:stroke-neutral-600"
+          fill="none" stroke="var(--color-fd-border)" strokeWidth={1} opacity={0}
         />
-        <circle id="b-dot2" r={4} fill="#111" opacity={0}
-          className="dark:fill-neutral-100"
-        />
+        <circle id="b-dot2" r={4} fill="var(--color-brand)" opacity={0} />
 
         {/* CLAUDE CENTER */}
         <circle id="b-ring" cx={324} cy={145} r={40}
-          fill="none" stroke="#111" strokeWidth={1} opacity={0}
-          className="dark:stroke-neutral-100"
+          fill="none" stroke="var(--color-brand)" strokeWidth={1} opacity={0}
         />
-        <circle cx={324} cy={145} r={34} fill="#111"
-          className="dark:fill-neutral-100"
-        />
+        <circle cx={324} cy={145} r={34} fill="var(--color-fd-foreground)" />
         <g transform="translate(303,123) scale(0.33)">
           <path
             fillRule="evenodd" clipRule="evenodd"
             d="M111.989 58.3947H128V74.9387H112V91.088H104.069V106.667H96V91.088H88.0693V106.667H80V91.088H48V106.667H39.936V91.088H32V106.667H23.9307V91.088H16V74.9333H0V58.4H16V26.6667H111.989V58.3947ZM32 58.3947H39.936V43.2107H32V58.3947ZM88.0533 58.3947H96V43.2107H88.0533V58.3947Z"
-            fill="white" className="dark:fill-neutral-900"
+            fill="var(--color-fd-background)"
           />
-          <rect x={32} y={43} width={8} height={16} fill="#111"
-            className="dark:fill-neutral-100"
-          />
-          <rect x={88} y={43} width={8} height={16} fill="#111"
-            className="dark:fill-neutral-100"
-          />
+          <rect x={32} y={43} width={8} height={16} fill="var(--color-fd-foreground)" />
+          <rect x={88} y={43} width={8} height={16} fill="var(--color-fd-foreground)" />
         </g>
-        <text x={324} y={194} textAnchor="middle" fill="#9ca3af" fontSize={9}
-          fontFamily="-apple-system,sans-serif" className="dark:fill-neutral-500"
+        <text x={324} y={196} textAnchor="middle" fill="var(--color-fd-muted-foreground)" fontSize={9}
+          fontFamily="var(--font-sans)" fontStyle="italic"
         >Claude</text>
 
         {/* ARC 3: Claude to output (gentle wave) */}
         <path id="b-arc3" d="M 358 145 C 395 128 425 162 462 145"
-          fill="none" stroke="#d1d5db" strokeWidth={1.5} opacity={0}
-          className="dark:stroke-neutral-600"
+          fill="none" stroke="var(--color-fd-border)" strokeWidth={1} opacity={0}
         />
-        <circle id="b-dot3" r={4} fill="#111" opacity={0}
-          className="dark:fill-neutral-100"
-        />
+        <circle id="b-dot3" r={4} fill="var(--color-brand)" opacity={0} />
 
         {/* OUTPUT FRAME */}
         <rect x={462} y={83} width={174} height={124} rx={8}
-          fill="#fafafa" stroke="#e5e7eb" strokeWidth={1.5}
-          className="dark:fill-neutral-800 dark:stroke-neutral-700"
+          fill="var(--color-fd-card)" stroke="var(--color-fd-border)" strokeWidth={1}
         />
-        <text x={474} y={103} fill="#9ca3af" fontSize={8} fontWeight={500}
-          letterSpacing="0.09em" fontFamily="-apple-system,sans-serif"
-          className="dark:fill-neutral-500"
+        <text x={474} y={103} fill="var(--color-fd-muted-foreground)" fontSize={8} fontWeight={600}
+          letterSpacing="0.1em" fontFamily="var(--font-sans)"
         >CLAUDE</text>
         <line x1={462} y1={111} x2={636} y2={111}
-          stroke="#f0f0f0" strokeWidth={1} className="dark:stroke-neutral-700"
+          stroke="var(--color-fd-border)" strokeWidth={1}
         />
-        <text id="b-o1" x={474} y={128} fill="#374151" fontSize={10}
-          fontFamily="-apple-system,sans-serif" opacity={0}
-          className="dark:fill-neutral-300"
+        <text id="b-o1" x={474} y={128} fill="var(--color-fd-foreground)" fontSize={10}
+          fontFamily="var(--font-mono)" opacity={0}
         />
-        <text id="b-o2" x={474} y={142} fill="#374151" fontSize={10}
-          fontFamily="-apple-system,sans-serif" opacity={0}
-          className="dark:fill-neutral-300"
+        <text id="b-o2" x={474} y={142} fill="var(--color-fd-foreground)" fontSize={10}
+          fontFamily="var(--font-mono)" opacity={0}
         />
-        <text id="b-o3" x={474} y={156} fill="#374151" fontSize={10}
-          fontFamily="-apple-system,sans-serif" opacity={0}
-          className="dark:fill-neutral-300"
+        <text id="b-o3" x={474} y={156} fill="var(--color-fd-muted-foreground)" fontSize={10}
+          fontFamily="var(--font-mono)" opacity={0}
         />
-        <text id="b-o4" x={474} y={170} fill="#374151" fontSize={10}
-          fontFamily="-apple-system,sans-serif" opacity={0}
-          className="dark:fill-neutral-300"
+        <text id="b-o4" x={474} y={170} fill="var(--color-fd-muted-foreground)" fontSize={10}
+          fontFamily="var(--font-mono)" opacity={0}
         />
       </svg>
     </div>

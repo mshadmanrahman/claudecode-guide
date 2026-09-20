@@ -2,9 +2,13 @@ import "./globals.css";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { Fraunces, Inter, Geist_Mono } from "next/font/google";
+import { Fraunces, Inter, Geist_Mono, Geist } from "next/font/google";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Preloader } from "@/components/ui/preloader";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -123,7 +127,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${geistMono.variable}`}
+      className={cn(fraunces.variable, inter.variable, geistMono.variable, "font-sans", geist.variable)}
       suppressHydrationWarning
     >
       <head>
@@ -132,7 +136,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="flex min-h-screen flex-col antialiased">
+      <body className="flex min-h-screen flex-col antialiased bg-fd-background text-fd-foreground">
+        <Preloader />
         <RootProvider
           theme={{
             defaultTheme: "light",
