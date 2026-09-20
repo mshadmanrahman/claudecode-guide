@@ -109,7 +109,7 @@ const CARDS: ReadonlyArray<RouterCard> = [
 export function PathRouter() {
   return (
     <section className="mx-auto w-full max-w-5xl px-6 pb-24">
-      <p className="mb-2 text-center text-[10px] tracking-[0.22em] uppercase font-medium text-fd-muted-foreground">
+      <p className="mb-2 text-center text-xs font-medium text-fd-muted-foreground">
         Find what you need
       </p>
       <h2 className="mb-4 text-center font-display text-3xl font-bold tracking-tight-display text-fd-foreground sm:text-4xl">
@@ -120,7 +120,7 @@ export function PathRouter() {
       </p>
 
       <div className="grid grid-cols-1 gap-px bg-fd-border border border-fd-border rounded-xl overflow-hidden sm:grid-cols-2 lg:grid-cols-3">
-        {CARDS.map((card, i) => {
+        {CARDS.map((card) => {
           const Art = CARD_ART[card.id];
           return (
             <Link
@@ -132,15 +132,14 @@ export function PathRouter() {
                   card_audience: card.audience,
                 });
               }}
-              className="group flex flex-col bg-fd-background p-6 transition-colors duration-200 hover:bg-fd-accent/40 animate-slide-up-fade"
-              style={{ animationDelay: `${80 + i * 50}ms` }}
+              className="group flex flex-col bg-fd-background p-6 transition-colors duration-200 hover:bg-fd-accent/40"
             >
               {Art && (
                 <div className="mb-5 h-[72px] text-fd-foreground/55">
                   <Art />
                 </div>
               )}
-              <span className="mb-2 text-[10px] tracking-[0.18em] uppercase font-medium text-fd-muted-foreground">
+              <span className="mb-2 text-xs font-medium text-fd-muted-foreground">
                 {card.audience}
               </span>
               <h3 className="mb-2 font-display text-base font-bold tracking-tight-display text-fd-foreground leading-snug">

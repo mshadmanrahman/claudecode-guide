@@ -122,7 +122,7 @@ export default async function MarketerGuidePage({
 
         {/* Situation card */}
         {guide.situation && (
-          <div className="mb-10 rounded-xl border-l-4 border-fd-primary/40 bg-fd-accent/50 px-6 py-5">
+          <div className="mb-10 rounded-xl border border-fd-border bg-fd-accent/50 px-6 py-5">
             <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
               The situation
             </p>

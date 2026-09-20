@@ -160,21 +160,18 @@ export default function HomePage() {
       {/* ── Hero ── */}
       <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-28 pb-12 text-center">
         <div className="relative z-10 flex flex-col items-center">
-          <p className="mb-5 text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-            Claude Code Guide
-          </p>
-          <h1 className="animate-slide-up-fade font-display tracking-tight-display max-w-3xl text-5xl font-bold text-fd-foreground sm:text-7xl leading-[1.08]">
+          <h1 className="font-display tracking-tight-display max-w-3xl text-5xl font-medium text-fd-foreground sm:text-7xl leading-[1.08]">
             Tell it what you need.
             <br />
-            <span className="text-fade">It builds it.</span>
+            <span className="italic text-brand">It builds it.</span>
           </h1>
 
-          <p className="animate-slide-up-fade delay-100 mt-6 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
+          <p className="mt-6 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
             The practical guide to Claude: Code, Chrome, Word, Excel,
             PowerPoint, and more. Calm, beginner-friendly, and free.
           </p>
 
-          <p className="animate-slide-up-fade delay-200 mt-3 text-sm text-fd-muted-foreground">
+          <p className="mt-3 text-sm text-fd-muted-foreground">
             Written by{" "}
             <Link href="/about" className="font-medium text-fd-foreground hover:underline">
               Shadman Rahman
@@ -208,10 +205,10 @@ export default function HomePage() {
             </a>
           </p>
 
-          <div className="animate-slide-up-fade delay-200 mt-10 flex flex-wrap justify-center gap-3">
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link
               href="/start"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] bg-brand px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-brand-hover"
             >
               Start building
               <ArrowRight className="h-4 w-4" />
@@ -220,7 +217,7 @@ export default function HomePage() {
               href="https://github.com/mshadmanrahman/claudecode-guide"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-colors hover:bg-fd-accent"
             >
               <Star className="h-4 w-4" />
               Star on GitHub
@@ -231,7 +228,7 @@ export default function HomePage() {
 
       {/* ── Stats Bar ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
-        <div className="animate-slide-up-fade delay-250 flex items-baseline justify-center gap-x-3 sm:gap-x-5">
+        <div className="flex items-baseline justify-center gap-x-3 sm:gap-x-5">
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
@@ -252,7 +249,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Hero Visual ── */}
-      <section className="mx-auto w-full max-w-4xl px-6 pb-24 animate-slide-up-fade delay-300">
+      <section className="mx-auto w-full max-w-4xl px-6 pb-24">
         <HeroVisual />
       </section>
 
@@ -269,9 +266,6 @@ export default function HomePage() {
 
       {/* ── How It Works ── */}
       <section className="mx-auto w-full max-w-5xl px-6 py-24">
-        <p className="mb-2 text-center text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-          Three steps. That&apos;s it.
-        </p>
         <h2 className="mb-4 text-center font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
           How it works
         </h2>
@@ -312,7 +306,7 @@ export default function HomePage() {
         <div className="mt-12 flex justify-center">
           <Link
             href="/start"
-            className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] bg-brand px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-brand-hover"
           >
             Try it now
             <ArrowRight className="h-4 w-4" />
@@ -349,9 +343,6 @@ export default function HomePage() {
 
       {/* ── Three Outcome Cards ── */}
       <section className="mx-auto w-full max-w-5xl px-6 py-24">
-        <p className="mb-2 text-center text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-          Pick your first project
-        </p>
         <h2 className="mb-4 text-center font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
           What do you want to make?
         </h2>
@@ -367,11 +358,10 @@ export default function HomePage() {
               <Link
                 key={card.id}
                 href={card.href}
-                className={`animate-slide-up-fade group flex flex-col rounded-xl border border-fd-border bg-fd-background p-8 transition-all duration-200 hover:shadow-md ${card.bgHover}`}
-                style={{ animationDelay: `${i * 100 + 200}ms` }}
+                className={`group flex flex-col rounded-xl border border-fd-border bg-fd-background p-8 transition-all duration-200 hover:shadow-md ${card.bgHover}`}
               >
                 <Icon className={`mb-4 h-6 w-6 ${card.color}`} />
-                <span className="mb-1 text-xs font-medium uppercase tracking-wider text-fd-muted-foreground">
+                <span className="mb-1 text-xs font-medium text-fd-muted-foreground">
                   {card.verb}
                 </span>
                 <h3 className="mb-3 font-display text-xl font-normal text-fd-foreground tracking-tight-display leading-snug">
@@ -468,7 +458,7 @@ export default function HomePage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/start"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] bg-brand px-6 py-3 text-sm font-medium text-neutral-900 transition-colors hover:bg-brand-hover"
             >
               Start building
               <ArrowRight className="h-4 w-4" />
@@ -477,7 +467,7 @@ export default function HomePage() {
               href="https://github.com/mshadmanrahman/claudecode-guide"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[3px] border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-colors hover:bg-fd-accent"
             >
               <Star className="h-4 w-4" />
               Star on GitHub

@@ -27,6 +27,10 @@
   --color-fd-ring: #a3a3a3;
   --color-fd-overlay: rgba(0, 0, 0, 0.2);
 
+  /* The one accent: primary CTA fill and the italic h1 word. Ink text on it reads 5.8:1. */
+  --color-brand: #4ca372;
+  --color-brand-hover: #3f8f63;
+
   --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
   --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
@@ -77,8 +81,10 @@
 
 /* ── Typography ── */
 
-/* All display headings: force bold so font-medium/font-normal in component classNames never wins */
-h1.font-display,
+/* h1: serif at 500 with one italic accent word. h2/h3: force bold so font-medium/font-normal in component classNames never wins */
+h1.font-display {
+  font-weight: 500;
+}
 h2.font-display,
 h3.font-display {
   font-weight: 700;
