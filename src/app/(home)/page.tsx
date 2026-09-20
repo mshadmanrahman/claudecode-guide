@@ -240,7 +240,7 @@ export default function HomePage() {
         <a
           href="#stats-bar"
           aria-label="Scroll to see what's covered"
-          className="absolute bottom-6 z-10 animate-bounce text-white/70 transition-colors hover:text-white"
+          className="absolute bottom-6 z-10 animate-float text-white/70 transition-colors hover:text-white"
         >
           <ChevronDown className="h-6 w-6" />
         </a>
