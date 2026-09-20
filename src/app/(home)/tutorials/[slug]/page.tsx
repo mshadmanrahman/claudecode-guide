@@ -10,6 +10,7 @@ import { TutorialCompleteButton } from "@/components/tutorial-complete-button";
 import { TutorialStepDemo } from "@/components/tutorial-step-demo";
 import { RouteSwitcher, type TutorialRoute } from "@/components/route-switcher";
 import { ShareCard } from "@/components/share-card";
+import { AuthorBio } from "@/components/author-bio";
 
 import { TUTORIALS, type Tutorial } from "@/lib/tutorials";
 import { ArticleSchema } from "@/components/article-schema";
@@ -221,6 +222,8 @@ export default async function TutorialPage({
           {/* Email capture */}
           <EmailCapture placement="tutorial-post" />
         </div>
+
+        <AuthorBio />
       </article>
     </div>
   );

@@ -12,6 +12,7 @@ import {
 import { EmailCapture } from "@/components/email-capture";
 import { GithubStarCta } from "@/components/github-star-cta";
 import { BlogContent } from "@/components/blog-content";
+import { AuthorBio } from "@/components/author-bio";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getRelatedPosts, blogPosts } from "@/data/blog-posts";
 import type { Metadata } from "next";
@@ -270,6 +271,8 @@ export default async function BlogPostPage(props: PageProps) {
         <div className="mt-16 border-t border-fd-border pt-8">
           <EmailCapture placement="blog-post" />
         </div>
+
+        <AuthorBio />
       </article>
     </div>
   );

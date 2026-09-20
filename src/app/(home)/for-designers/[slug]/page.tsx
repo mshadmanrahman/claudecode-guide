@@ -9,6 +9,7 @@ import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { DesignerRouteSwitcher } from '@/components/designer-route-switcher';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
+import { AuthorBio } from '@/components/author-bio';
 
 /* ------------------------------------------------------------------ */
 /*  Metadata                                                           */
@@ -264,6 +265,8 @@ export default async function DesignerGuidePage({
 
           <EmailCapture placement="for-designers-guide" />
         </div>
+
+        <AuthorBio />
       </article>
     </div>
   );

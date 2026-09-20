@@ -8,6 +8,7 @@ import { CopyBlock } from '@/components/guide/copy-block';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
+import { AuthorBio } from '@/components/author-bio';
 
 export async function generateMetadata({
   params,
@@ -227,6 +228,8 @@ export default async function MicrosoftGuidePage({
 
           <EmailCapture placement="for-microsoft-guide" />
         </div>
+
+        <AuthorBio />
       </article>
     </div>
   );

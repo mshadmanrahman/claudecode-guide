@@ -174,6 +174,40 @@ export default function HomePage() {
             PowerPoint, and more. Calm, beginner-friendly, and free.
           </p>
 
+          <p className="animate-slide-up-fade delay-200 mt-3 text-sm text-fd-muted-foreground">
+            Written by{" "}
+            <Link href="/about" className="font-medium text-fd-foreground hover:underline">
+              Shadman Rahman
+            </Link>
+            , Principal Product Manager in Stockholm ·{" "}
+            <a
+              href="https://www.linkedin.com/in/shadmanrahman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-fd-foreground hover:underline"
+            >
+              LinkedIn
+            </a>{" "}
+            ·{" "}
+            <a
+              href="https://shadmanrahman.substack.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-fd-foreground hover:underline"
+            >
+              Substack
+            </a>{" "}
+            ·{" "}
+            <a
+              href="https://github.com/mshadmanrahman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-fd-foreground hover:underline"
+            >
+              GitHub
+            </a>
+          </p>
+
           <div className="animate-slide-up-fade delay-200 mt-10 flex flex-wrap justify-center gap-3">
             <Link
               href="/start"

@@ -7,6 +7,7 @@ import { EmailCapture } from "@/components/email-capture";
 import { CopyBlock } from "@/components/guide/copy-block";
 import { PersonaGuideTracker } from "@/components/persona-guide-tracker";
 import { ArticleSchema } from "@/components/article-schema";
+import { AuthorBio } from "@/components/author-bio";
 
 export async function generateMetadata({
   params,
@@ -235,6 +236,8 @@ export default async function HrGuidePage({
           </div>
           <EmailCapture placement="for-hr-guide" />
         </div>
+
+        <AuthorBio />
       </article>
     </div>
   );

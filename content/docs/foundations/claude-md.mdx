@@ -130,6 +130,10 @@ Without orchestration rules, Claude Code starts writing code the moment you ask.
 
 ### 5. Register your tools
 
+Claude Code already discovers some of this on its own, no registration needed: `.claude/rules/` for coding standards, `.claude/agents/` for specialist sub-agents, `.claude/skills/` for keyword-triggered workflows, plus CLAUDE.md itself at your project root and every directory above it. Put files in those folders and Claude Code finds them without you doing anything else.
+
+The `_context/` layout below is a different thing: one project's own convention for organizing that content, not a path Claude Code reads by itself. CLAUDE.md has to spell it out, the same way it would point to any other folder name you chose.
+
 ```markdown
 ## Available Tools
 
@@ -139,7 +143,11 @@ Rules: `_context/rules/` (coding standards)
 Commands: `.claude/commands/` (slash commands)
 ```
 
-If Claude Code doesn't know your skills and agents exist, it won't use them. This tells it what it has to work with.
+If CLAUDE.md doesn't point to a custom layout like this, Claude Code has no way to know it exists. Skip the pointer and those skills and agents just sit there unused.
+
+### What else Claude Code reads on its own
+
+Beyond CLAUDE.md itself, Claude Code reads a few more files without being told to. `.claude/rules/` holds one topic per markdown file: a rule with no `paths` frontmatter loads at launch like CLAUDE.md, and a rule with `paths: [glob, ...]` loads only when Claude opens a file matching that glob. `CLAUDE.local.md` sits in the same directory as CLAUDE.md, stays out of git, and gets appended right after it. CLAUDE.md can also import other files with `@path/to/file`, resolved relative to the importing file rather than your working directory, nested up to four hops deep. Separate from all of this, Claude Code keeps an auto-memory folder at `~/.claude/projects/<project>/memory/`: a `MEMORY.md` index (up to its first 200 lines or 25KB) loads at session start, and a topic file per memory loads only when a task needs it. Run `/context` to see which of these actually loaded into your current session, and `/memory` to list every CLAUDE.md and memory location across scopes or turn auto memory off. Full reference: [Claude Code memory docs](https://code.claude.com/docs/en/memory).
 
 ## CLAUDE.md as a Router, Not Just an Index
 

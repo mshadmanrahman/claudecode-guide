@@ -7,7 +7,7 @@ description: "Sonnet handles 80% of what you'll ever do. Here's exactly when to 
 
 Seriously. If you're new to Claude Code, just use Sonnet for everything and stop reading here. You can come back to this page when Sonnet doesn't cut it.
 
-Still here? Good. There are three model classes, they're meaningfully different, and picking wrong costs you either money or quality.
+Still here? Good. There are four model classes, they're meaningfully different, and picking wrong costs you either money or quality.
 
 <DemoCard title="claude-code" steps={[
   { type: 'cmd', text: '/model' },
@@ -19,6 +19,12 @@ Still here? Good. There are three model classes, they're meaningfully different,
   { type: 'success', text: 'Current: claude-sonnet-4-* (latest)' },
   { type: 'warn', text: '→ Switch with /model opus, /model sonnet, or /model haiku' },
 ]} />
+
+## When to Use the Fable Class
+
+Fable 5.1 sits above Opus in Anthropic's lineup, in what they call the Mythos class. Reach for it on the hardest long-horizon work: a multi-hour agentic run, a refactor across a codebase you don't fully understand, a problem where Opus has already stalled twice. For everyday coding it is overkill, and it ships with extra safety measures on dual-use tasks, so a small share of edge-case requests come back refused. Anthropic's own page: [anthropic.com/claude/fable](https://www.anthropic.com/claude/fable).
+
+**Pricing:** Most expensive of the four. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
 
 ## When to Use the Opus Class
 
@@ -32,7 +38,7 @@ Use Opus when getting it wrong the first time is expensive.
 
 Opus generates noticeably slower than Sonnet. You feel it. For a quick bug fix it's irritating. For a 2-hour architecture session it's worth every second of waiting.
 
-**Pricing:** Most expensive of the three. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
+**Pricing:** Second most expensive of the four. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
 
 ## When to Use the Sonnet Class
 
@@ -61,7 +67,7 @@ Haiku is for volume work where you don't need deep reasoning. Think of it like t
 
 The real use case is sub-agents. When you're running background code review or spinning up a test-execution agent, Haiku is fast and cheap enough that you can run several in parallel without watching your bill climb.
 
-**Pricing:** Cheapest of the three by a wide margin. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
+**Pricing:** Cheapest of the four by a wide margin. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
 
 ## How Claude Code Picks For You
 

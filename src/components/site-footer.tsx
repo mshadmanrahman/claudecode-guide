@@ -50,6 +50,7 @@ const COLUMNS: ReadonlyArray<FooterColumn> = [
   {
     heading: "More",
     links: [
+      { label: "About", href: "/about" },
       { label: "Claude certification", href: "/certification" },
       { label: "Blog", href: "/blog" },
       { label: "Roadmap", href: "/roadmap" },
@@ -84,6 +85,15 @@ export function SiteFooter() {
               >
                 <Star className="h-3.5 w-3.5" />
                 GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/shadmanrahman"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-fd-border bg-fd-background px-3 py-1.5 text-xs font-medium text-fd-foreground transition-colors hover:bg-fd-accent"
+              >
+                LinkedIn
+                <ExternalLink className="h-3 w-3" />
               </a>
               <a
                 href="https://shadmanrahman.substack.com/"
@@ -135,14 +145,12 @@ export function SiteFooter() {
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-fd-border pt-8 sm:flex-row sm:items-center">
           <p className="text-xs text-fd-muted-foreground">
             Built by{" "}
-            <a
-              href="https://github.com/mshadmanrahman"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/about"
               className="font-medium text-fd-foreground hover:underline"
             >
               Shadman Rahman
-            </a>
+            </Link>
             . With ♥️, ☕️, and a lot of Claude Code.
           </p>
           <div className="flex items-center gap-4 text-xs text-fd-muted-foreground">

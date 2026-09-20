@@ -8,6 +8,7 @@ import { CopyBlock } from '@/components/guide/copy-block';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
+import { AuthorBio } from '@/components/author-bio';
 
 /* ------------------------------------------------------------------ */
 /*  Metadata                                                           */
@@ -254,6 +255,8 @@ export default async function MarketerGuidePage({
 
           <EmailCapture placement="for-marketers-guide" />
         </div>
+
+        <AuthorBio />
       </article>
     </div>
   );
