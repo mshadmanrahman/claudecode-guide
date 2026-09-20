@@ -1707,6 +1707,68 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
 
 <p>Neither of those needs a rewrite. Both are a five-minute edit, and both are things a video telling you "everyone is prompting wrong" got right, even while it got two things wrong along the way.</p>`,
   },
+  {
+    slug: "claude-code-memory-at-scale-966-files",
+    title: "966 Memory Files: What It Took to Keep Claude Code Reading the Right One",
+    description: "Anthropic's docs explain CLAUDE.md and auto memory well, and they stop at about the point where the folder gets big. This is what broke in mine after that point, with the numbers.",
+    seoTitle: "Claude Code Memory at Scale: 966 Topic Files, a Sharded Router and a Decay Rule",
+    date: "2026-09-20",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "memory", "claude-md", "hooks", "productivity"],
+    content: `<img src="/blog-hero-claude-code-memory-at-scale-966-files.png" alt="Watercolor illustration for: claude code memory at scale 966 files" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+<p><em>Anthropic's docs explain <code>CLAUDE.md</code> and auto memory well, and they stop at about the point where the folder gets big. This is what broke in mine after that point, with the numbers.</em></p>
+<p>Claude Code keeps a memory folder per project. Mine holds 978 markdown files today. Take away the router, the eight shard indexes and three archived routers, and 966 of them are topic files, one fact each: 978 - 12 = 966.</p>
+<p>The official memory docs cover how the folder works, and so do <a href="/docs/foundations/memory-system">this site's memory guide</a> and <a href="/docs/foundations/memory-router">the router pattern</a>. A <code>MEMORY.md</code> index loads at session start, up to its first 200 lines or 25KB, and topic files load when a task needs them. That is correct, and it is enough for the first fifty files. Nobody writes about file 500, because most people have not got there yet. This is the log of what broke in mine and the rule that came out of each break, in order.</p>
+
+<h2>April: the wiring pointed at dead notes</h2>
+<p>On 12 April the startup instructions in my CLAUDE.md told every new session to read a set of daily notes that had last been written on 4 April. The real memory, 150 topic files and 155 handoffs at the time, sat one folder over, and no session opened it. The knowledge was on disk and every session started blind anyway.</p>
+<p>The fix was a startup order, written into CLAUDE.md as numbered steps. The router is already loaded; scan its active list for the current topic, follow that entry's last handoff link, and read it before answering. Load only the shard that matches the task, never all of them. If the topic has no active entry, check the two most recent handoffs, then stop looking.</p>
+<p>Memory only exists if the startup instructions name it. That was the first rule, and it is still the one I would write first.</p>
+
+<h2>Two weeks later, the router hit the cap</h2>
+<p>By 26 April the router, the file that loads on every turn, had grown to 25.6KB across 177 lines, with 115 project entries written inline. Claude Code had started warning me about the size at session start, and since it only loads the first 25KB, the bottom of the file was being cut off silently. I was paying for 115 entries on every turn when maybe five were relevant.</p>
+<p>I cut it to 70 lines and 6,077 bytes in one sitting. The 115 inline entries went to an archive file, verbatim, so nothing was lost and everything stayed searchable. The router became a table with eight rows, one per shard, each carrying a "when to load" note. Under the table sit the rules that apply to every task, a short profile, and a list called Active This Week.</p>
+<p>Two rules came out of that day.</p>
+<p>The first is decay. An active entry idle for 14 days moves to its shard. A shard entry idle for 30 days moves to a monthly archive. The target for the active list is 15 entries. Today it holds 19, so I am four over, and a daily drift script tells me so. While writing this I noticed the script still tests against 12, the target from an earlier version of the policy, so the script and the rule file disagree by three. I have not fixed it yet.</p>
+<p>The second rule I learned by catching the model in the act. The instruction that saves the most tokens in the whole system, delegate reading to subagents so the main context stays small, had been living in a shard that only loaded when a task looked relevant. So it went missing in exactly the long multi-file sessions where it mattered. During the restructure itself the model read seven shard files into the main context, while restructuring the system that says not to. Rules that fire on every kind of work belong in the always-loaded layer. Everything else gets routed.</p>
+<p>Today the router is 108 lines and 22,350 bytes. The bytes grew back and the lines did not: 108 / 200 = 54% of the line cap, 22,350 / 25,000 = 89% of the byte cap. The eight shards behind it total 475 lines, and the 966 topic files behind those load one at a time.</p>
+
+<h2>The handoff hook that lied</h2>
+<p>A handoff is a file written at the end of a session: what was done, what is next, what is blocked. Mine open with frontmatter (type, date, status, topic) and close with two footer lines: the memory files the session touched, and the wiki pages. Those footers are wikilinks, and they are what makes any of this searchable three months later.</p>
+<p>On 23 May I automated it. A Stop hook fired at session end, parsed the transcript, called a model, and wrote the handoff without asking. On 9 June I turned it off. It had overwritten a handoff I wrote by hand with a generic one in an old format, and it had introduced a factual error. The next session read the error and trusted it, because that is what the next session is told to do.</p>
+<p>The replacement is one skill, invoked by a word. "Wrap up", "ship it", "handoff" and "let's close this out" all mean the same thing: update the topic memory file, write the handoff, commit. The contract I keep with the model says it runs at the end of every non-trivial session without being asked, and I read what it wrote before the tree gets committed.</p>
+<p>The folder now holds 720 handoffs dated 8 June to 20 September. That is 105 days, so 720 / 105 = 6.9 a day. Not all of them are mine. Cron jobs write handoffs too, a workspace pulse among them, and they follow the same frontmatter so the same scripts can read them. By month: June 253, July 115, August 203, September 149 so far.</p>
+<p>The rule that pairs with it: one session per topic. A meeting write-up, a bug and a side-project build are three sessions. A six-hour thread starts every turn at maximum cache read, and the handoff is what makes the fresh session cheap to open.</p>
+
+<h2>Compaction stopped being scary</h2>
+<p>When a session runs long, Claude Code compacts: it summarises the conversation and continues from the summary. A summariser decides what survives, so for months I treated compaction as something to postpone.</p>
+<p>Then I wrote a PreCompact hook. Before every compaction, manual or automatic, a script reads the session transcript from disk and writes a checkpoint file. The checkpoint holds every prompt I typed, verbatim and in order, every file edited through Edit or Write, the last six things the model concluded, and the git branch, status and diff stat. A PostCompact hook then re-injects the path to that file. If anything is missing after the compaction, the instruction is to read the checkpoint, about a thousand tokens, instead of asking me to repeat myself or re-reading the repo.</p>
+<p>There are 127 checkpoint files in that folder right now. Once the hook existed, the compaction rule flipped: compact early. At the end of a bug fix, before the next one. When research ends and implementation starts. When the topic changes. The reason is where the money goes. Cache reads are 60% of my spend, cache writes 32%, output tokens 10%, and both cache numbers scale with context length times turn count. Every turn you carry a dead conversation, you pay for it again.</p>
+
+<h2>The header said 894, the disk said 885</h2>
+<p>On 31 August I noticed the router's header claimed 894 topic files. The folder held 885. Nine files of drift, hand-typed, unchecked for weeks.</p>
+<p>So a script counts now. It walks the folder, counts topic files, pulls every wikilink out of every file and tests whether each one resolves. It writes the result to a JSON file and rewrites the router's header count itself. Running it today: 966 topic files, and 2,896 wikilinks in the memory store pointing at 1,163 distinct targets. Of those targets, 561 are memory files, 570 are handoffs, 5 are wiki pages and 27 do not resolve. Across memory, handoffs and wiki together, 5,677 links.</p>
+<p>The 27 are classified rather than fixed. Eight point at rule files that live outside the store, three are Obsidian pages for named people, one is a Jira ticket, four are URLs or filenames, and eight the script cannot classify, so those are the ones it warns about. The lesson from that fortnight: never hand-write a count a script can produce. The hand-written one is wrong by the time anyone reads it.</p>
+
+<h2>Two reading rules</h2>
+<p>Two rules govern how the model reads memory back.</p>
+<p>Verify anything older than 7 days before acting on it. A memory file that says a colleague owns a system, written in June, is a claim about June. Check it in the session that needs it and fix the file there, not next time.</p>
+<p>Search memory before investigating. On 21 June I said a morning brief had been deleted, and the model went straight to git forensics (log with a deletion filter, show, the works). The answer was in the router's active list, where a session two days earlier had recorded retiring that persona on purpose. One grep of the memory folder would have found it in two seconds. Any "what happened to X" question now opens with a memory search, and git is the fallback.</p>
+
+<h2>The graph on top</h2>
+<p>The memory store is one of several folders that describe my work. Meeting transcripts, an Obsidian vault, product documents and the memory folder all get indexed into a local knowledge graph I built, called ROOT, which Claude Code reaches through an MCP server. Today it holds 3,948 notes in 5,978 chunks. Of the notes, 978 are the memory folder, 2,848 are the vault and 59 are meeting transcripts.</p>
+<p>The memory folder answers "what did I decide" and the graph answers "what else touched this". The two are joined by the same wikilinks the handoff footers carry, which is why the footers are mandatory and a script checks for them. A quarterly job runs a consolidation pass over the memory folder, merging duplicates and checking stale facts; its first scheduled run is 2 October, so I cannot tell you yet what it finds.</p>
+
+<h2>What I would copy first</h2>
+<p>Under a hundred files, the official docs are enough. Past that, in the order the breaks arrived:</p>
+<ol>
+<li>Write the startup order into CLAUDE.md. Which file first, which second, and the instruction to load only the matching shard.</li>
+<li>Cap the router and write the decay rule next to it. Fourteen days idle moves out. Then let a script count your entries, so you find out when you are over instead of guessing.</li>
+<li>Give the handoff a trigger word and keep a human reading it. The fully automatic version cost me a wrong fact.</li>
+<li>Write the PreCompact hook. Mine is 155 lines of shell and Python, and it turned compaction from a risk into something I do on purpose.</li>
+</ol>
+<p>The folder keeps growing. Between 12 April and 20 September it added 816 topic files: 966 - 150 = 816, over 161 days, which is about five a day. The router is still 108 lines.</p>`,
+  },
 ];
 
 // Sorted newest first for display
