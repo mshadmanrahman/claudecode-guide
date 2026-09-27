@@ -1,3 +1,4 @@
+import { SceneBackdrop } from '@/components/scene-backdrop';
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -113,6 +114,7 @@ export default async function TutorialPage({
 
   return (
     <div className="flex flex-col text-[var(--ink)]">
+      <SceneBackdrop variant="faded" scene="workshop" className="scene--reading" />
       <ArticleSchema
         headline={tutorial.title}
         description={tutorial.description}

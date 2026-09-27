@@ -547,6 +547,10 @@ h3.font-display {
     );
   }
 }
+/* Long-read pages (tutorial detail) sit about 15% lighter so the text stays easy to read. */
+.scene--faded.scene--reading .scene-drift {
+  opacity: calc(var(--fade-landing) * 0.8);
+}
 @keyframes scene-drift {
   from {
     transform: scale(1);
