@@ -542,17 +542,15 @@ export default function JourneyPage() {
       </section>
 
       {/* ── Path Picker ── */}
-      {journey.loaded && (
-        <section className="mx-auto w-full max-w-4xl px-6 pb-8 animate-slide-up-fade delay-300">
-          <PathPicker
-            os={journey.os}
-            iface={journey.iface}
-            onOsChange={journey.setOs}
-            onInterfaceChange={journey.setInterface}
-            onReset={journey.reset}
-          />
-        </section>
-      )}
+      <section className="mx-auto w-full max-w-4xl px-6 pb-8 animate-slide-up-fade delay-300">
+        <PathPicker
+          os={journey.os}
+          iface={journey.iface}
+          onOsChange={journey.setOs}
+          onInterfaceChange={journey.setInterface}
+          onReset={journey.reset}
+        />
+      </section>
 
       {/* ── Learning Tree ── */}
       <section className="mx-auto w-full max-w-6xl px-6 pb-12">
