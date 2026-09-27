@@ -510,16 +510,16 @@ h3.font-display {
     #000 0,
     rgba(0, 0, 0, 0.35) 30%,
     rgba(0, 0, 0, 0.15) 55%,
-    rgba(0, 0, 0, 0.6) 85%,
-    #000 100%
+    rgba(0, 0, 0, 0.35) 80%,
+    transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     #000 0,
     rgba(0, 0, 0, 0.35) 30%,
     rgba(0, 0, 0, 0.15) 55%,
-    rgba(0, 0, 0, 0.6) 85%,
-    #000 100%
+    rgba(0, 0, 0, 0.35) 80%,
+    transparent 100%
   );
 }
 .scene-grid {
