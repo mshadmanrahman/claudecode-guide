@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { FieldNotes } from "@/components/home/field-notes";
@@ -327,22 +328,31 @@ export default async function HomePage() {
 
       {/* 6. Essay as proof */}
       <section className="mx-auto mt-16 max-w-[1440px] px-4 md:px-16">
-        <div className="glass flex flex-col items-start gap-6 rounded-xl px-6 py-8 md:min-h-[170px] md:flex-row md:items-center md:justify-between md:px-9 md:py-0">
-          <div className="flex flex-col gap-2.5">
+        <Link
+          href={ESSAY_HREF}
+          className={`glass hm-card flex flex-col overflow-hidden rounded-xl md:flex-row ${focusRing}`}
+        >
+          <span className="relative block aspect-[16/9] w-full md:aspect-auto md:min-h-[320px] md:w-1/2">
+            <Image
+              src="/blog-hero-claude-code-memory-at-scale-966-files.png"
+              alt=""
+              fill
+              sizes="(min-width: 1440px) 656px, (min-width: 768px) 50vw, 100vw"
+              className="object-cover object-[50%_40%] md:object-[35%_55%]"
+            />
+          </span>
+          <span className="flex flex-col items-start gap-2.5 px-6 py-8 md:w-1/2 md:justify-center md:px-9">
             <h2 className="m-0 text-headline font-semibold leading-tight tracking-[-0.03em]">
               966 memory files later, here is what stuck.
             </h2>
             <p className="m-0 max-w-[560px] text-ui leading-normal text-[var(--muted)]">
               The long read on running Claude Code with a memory that size: what held up, and what I threw away.
             </p>
-          </div>
-          <Link
-            href={ESSAY_HREF}
-            className={`flex h-12 shrink-0 items-center rounded-lg border border-[var(--line)] px-5 text-ui font-medium transition-colors hover:bg-[var(--chip)] ${focusRing}`}
-          >
-            Read the essay
-          </Link>
-        </div>
+            <span className="mt-3.5 flex h-12 items-center rounded-lg border border-[var(--line)] px-5 text-ui font-medium">
+              Read the essay
+            </span>
+          </span>
+        </Link>
       </section>
 
       {/* 7. Substack */}
