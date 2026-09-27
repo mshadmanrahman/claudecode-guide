@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Clock, Globe, FolderOpen, Terminal } from 'lucide-react';
+import { ArrowRight, Clock, Globe, Monitor } from 'lucide-react';
 import { useInView } from '@/hooks/use-in-view';
 import { trackEvent } from '@/lib/analytics';
 
-type Journey = 'claude-ai' | 'co-work' | 'claude-code';
+type Journey = 'web' | 'desktop';
 
 interface GuideEntry {
   slug: string;
@@ -65,7 +65,7 @@ const ALL_GUIDES: Record<string, GuideEntry> = {
     title: 'Build Your First Flow with Claude Code',
     duration: '30 min',
     difficulty: 'intermediate',
-    description: 'Turn a design into a running React component using only plain English and a terminal.',
+    description: 'Turn a design into a running React component using plain English in the Code tab.',
   },
   'get-started-with-claude-design': {
     slug: 'get-started-with-claude-design',
@@ -79,7 +79,7 @@ const ALL_GUIDES: Record<string, GuideEntry> = {
     title: 'Synthesize User Research with Claude',
     duration: '20 min',
     difficulty: 'beginner',
-    description: 'Turn raw interview notes into prioritised findings in one session.',
+    description: 'Turn raw interview notes into prioritized findings in one session.',
   },
   'automate-design-tasks': {
     slug: 'automate-design-tasks',
@@ -110,12 +110,12 @@ const JOURNEY_DATA: Array<{
   clusters: JourneyCluster[];
 }> = [
   {
-    id: 'claude-ai',
-    label: 'Claude.ai',
+    id: 'web',
+    label: 'On the web',
     icon: <Globe className="h-4 w-4" />,
-    env: 'Online only',
-    tagline: 'Chat in your browser. No setup. No local files.',
-    note: 'Everything lives in the cloud. Claude.ai Projects let you share context across sessions. Great starting point for any designer.',
+    env: 'claude.ai',
+    tagline: 'Open claude.ai in any browser. Nothing to install.',
+    note: 'Paste or upload what you are working on. A Project keeps your working agreement and files together across conversations.',
     clusters: [
       { label: 'Foundation', slugs: ['set-up-claude'] },
       { label: 'Brief work', slugs: ['decode-a-brief', 'write-a-sharper-brief'] },
@@ -124,12 +124,12 @@ const JOURNEY_DATA: Array<{
     ],
   },
   {
-    id: 'co-work',
-    label: 'Claude Co-Work',
-    icon: <FolderOpen className="h-4 w-4" />,
-    env: 'Local workspace',
-    tagline: 'Claude Code in a local folder. Reads your files directly.',
-    note: 'You create a folder on your machine. Claude can read your briefs, interview notes, and Figma exports from it. More context, better answers than chat alone.',
+    id: 'desktop',
+    label: 'In the desktop app',
+    icon: <Monitor className="h-4 w-4" />,
+    env: 'Mac or Windows',
+    tagline: 'The Claude desktop app. It can read a folder of your files.',
+    note: 'Point Claude at a folder of briefs, interview notes and Figma exports, and it reads them directly instead of waiting for you to paste.',
     clusters: [
       { label: 'Foundation', slugs: ['set-up-claude'] },
       { label: 'Brief work', slugs: ['decode-a-brief', 'write-a-sharper-brief'] },
@@ -138,33 +138,18 @@ const JOURNEY_DATA: Array<{
       { label: 'Research and automation', slugs: ['research-synthesis', 'automate-design-tasks'] },
     ],
   },
-  {
-    id: 'claude-code',
-    label: 'Claude Code',
-    icon: <Terminal className="h-4 w-4" />,
-    env: 'Local + terminal',
-    tagline: 'Full environment. Claude builds and runs code.',
-    note: 'Git knowledge required. Start with Guide 11 before Guide 07 if you have not used Git before.',
-    clusters: [
-      { label: 'Foundation', slugs: ['set-up-claude', 'git-for-designers'] },
-      { label: 'Brief work', slugs: ['decode-a-brief', 'write-a-sharper-brief'] },
-      { label: 'Evaluation', slugs: ['evaluate-your-designs', 'heuristic-evaluation'] },
-      { label: 'Production', slugs: ['figma-for-ai-handoff', 'build-your-first-flow', 'get-started-with-claude-design'] },
-      { label: 'Research and automation', slugs: ['research-synthesis', 'automate-design-tasks'] },
-    ],
-  },
 ];
 
+const CODE_TAB_SLUGS = ['git-for-designers', 'build-your-first-flow'];
+
 const ENV_BADGE_STYLES: Record<Journey, string> = {
-  'claude-ai': 'bg-[var(--code)] text-[var(--ink)]',
-  'co-work': 'bg-[var(--chip)] text-[var(--acc)]  ',
-  'claude-code': 'bg-[var(--chip)] text-[var(--acc)]  ',
+  web: 'bg-[var(--code)] text-[var(--ink)]',
+  desktop: 'bg-[var(--chip)] text-[var(--acc)]',
 };
 
 const TAB_ACTIVE_BORDER: Record<Journey, string> = {
-  'claude-ai': 'border-[var(--line)]',
-  'co-work': 'border-[var(--acc)]',
-  'claude-code': 'border-[var(--acc)]',
+  web: 'border-[var(--acc)]',
+  desktop: 'border-[var(--acc)]',
 };
 
 function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
@@ -179,7 +164,7 @@ function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
 
 export function DesignerGuideCards() {
   const [ref, inView] = useInView(0.05);
-  const [journey, setJourney] = useState<Journey>('claude-ai');
+  const [journey, setJourney] = useState<Journey>('web');
 
   const activeJourney = JOURNEY_DATA.find((j) => j.id === journey)!;
   const journeyGuideCount = activeJourney.clusters.reduce((sum, c) => sum + c.slugs.length, 0);
@@ -195,9 +180,9 @@ export function DesignerGuideCards() {
             Pick your path
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Three ways to work with Claude. Select your path below to see the{' '}
+            Two places to work with Claude. Pick yours to see the{' '}
             <span className="font-medium text-fd-foreground">{journeyGuideCount} guides</span>{' '}
-            for that journey.
+            that work there.
           </p>
         </div>
 
@@ -312,6 +297,51 @@ export function DesignerGuideCards() {
               </div>
             );
           })}
+        </div>
+
+        {/* Code tab group */}
+        <div className="mt-16 border-t border-fd-border pt-10">
+          <h3 className="font-display text-xl font-semibold text-fd-foreground">
+            When you want to ship code
+          </h3>
+          <p className="mt-2 max-w-xl text-sm text-fd-muted-foreground">
+            These two build real code, so they run in the Code tab of the Claude desktop app
+            (Claude Code), not in a regular conversation. Start with Git if you have not used it.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {CODE_TAB_SLUGS.map((slug) => ALL_GUIDES[slug])
+              .filter(Boolean)
+              .map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={`/for-designers/${guide.slug}`}
+                  onClick={() =>
+                    trackEvent('designer_guide_card_click', {
+                      guide_slug: guide.slug,
+                      guide_title: guide.title,
+                      cluster: 'code-tab',
+                      journey: 'code-tab',
+                      section: 'for-designers',
+                    })
+                  }
+                  className="group flex flex-col glass rounded-xl p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] transition-colors motion-reduce:transition-none hover:border-fd-muted-foreground/30"
+                >
+                  <div className="mb-3 flex items-center justify-end gap-1.5">
+                    <span className="flex items-center gap-1 text-xs text-fd-muted-foreground">
+                      <Clock className="h-3 w-3" />
+                      {guide.duration}
+                    </span>
+                    <DifficultyBadge level={guide.difficulty} />
+                  </div>
+                  <h4 className="mb-2 font-display text-base font-semibold leading-snug text-fd-foreground transition-colors group-hover:text-fd-primary">
+                    {guide.title}
+                  </h4>
+                  <p className="flex-1 text-sm leading-relaxed text-fd-muted-foreground">
+                    {guide.description}
+                  </p>
+                </Link>
+              ))}
+          </div>
         </div>
       </div>
     </section>

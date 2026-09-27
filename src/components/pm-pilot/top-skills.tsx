@@ -1,6 +1,6 @@
 'use client';
 
-import { DemoCard } from '@/components/demo-card';
+import { AppChatDemo, type ChatStep } from '@/components/app-chat-demo';
 import { useInView } from '@/hooks/use-in-view';
 
 const GRANOLA_AFFILIATE = 'https://www.granola.ai?via=shadman-rahman';
@@ -50,17 +50,12 @@ const skills = [
   },
 ];
 
-const WEEKLY_STATUS_STEPS = [
-  { type: 'cmd' as const, text: 'weekly-status' },
-  { type: 'out' as const, text: 'Fetching sprint data from Jira...' },
-  { type: 'out' as const, text: 'Sprint 42 - 18 issues, 14 closed, 4 in progress' },
-  { type: 'out' as const, text: 'Checking for blockers...' },
-  { type: 'warn' as const, text: '2 issues blocked: INS-1204, INS-1311' },
-  { type: 'success' as const, text: '── Weekly Status Draft ──' },
-  { type: 'out' as const, text: 'This week: Shipped auth refactor, closed 14 issues in Sprint 42.' },
-  { type: 'out' as const, text: 'Blocked: DevOps dependency on INS-1204 (auth migration).' },
-  { type: 'out' as const, text: 'Next week: INS-1311 resolution, Q2 planning kickoff Thursday.' },
-  { type: 'success' as const, text: 'Ready to copy into Slack / Confluence.' },
+const WEEKLY_STATUS_STEPS: ChatStep[] = [
+  { role: 'user', text: 'Draft my weekly status.' },
+  {
+    role: 'claude',
+    text: "Sprint 42 has 18 issues: 14 closed, 4 in progress. Two are blocked, INS-1204 and INS-1311.\n\n**This week:** shipped the auth refactor and closed 14 issues in Sprint 42.\n**Blocked:** INS-1204 (auth migration) is waiting on DevOps.\n**Next week:** resolve INS-1311, then Q2 planning kicks off Thursday.\n\nReady to paste into Slack or Confluence.",
+  },
 ];
 
 export function PmPilotTopSkills() {
@@ -113,7 +108,7 @@ export function PmPilotTopSkills() {
             demoInView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <DemoCard title="pm-pilot : weekly status" steps={WEEKLY_STATUS_STEPS} loop loopDelay={4000} />
+          <AppChatDemo steps={WEEKLY_STATUS_STEPS} loop loopDelay={4000} />
         </div>
       </div>
     </section>

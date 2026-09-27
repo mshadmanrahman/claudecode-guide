@@ -7,8 +7,8 @@ import { trackEvent } from '@/lib/analytics';
 const STEPS = [
   {
     num: '01',
-    title: 'Pick your tool',
-    body: 'Claude.ai for 8 guides with no setup. Claude Co-Work if you want Claude reading your local files. Claude Code if you want to build and run real components.',
+    title: 'Pick where you work',
+    body: 'claude.ai in any browser, with nothing to install. Or the Claude desktop app for Mac or Windows, if you want Claude reading a folder of your files. Both follow the same guides.',
   },
   {
     num: '02',

@@ -6,27 +6,17 @@ import { trackEvent } from '@/lib/analytics';
 import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
-    id: 'claude-ai',
-    num: '01',
-    label: 'Browser only',
-    tagline: 'No terminal. No setup.',
-    note: 'Claude lives in a Project tab alongside Figma. You stay in the browser. Start here.',
+    id: 'web',
+    label: 'On the web',
+    tagline: 'Nothing to install.',
+    note: 'Open claude.ai in any browser. A Project keeps your working agreement next to Figma. Start here.',
     href: '#guides',
   },
   {
-    id: 'co-work',
-    num: '02',
-    label: 'Thinking partner',
-    tagline: 'Claude in the session with you.',
-    note: 'Upload your briefs and Figma exports. Claude pushes back on decisions in real-time.',
-    href: '#guides',
-  },
-  {
-    id: 'claude-code',
-    num: '03',
-    label: 'Prototype builder',
-    tagline: 'Claude touches your files.',
-    note: 'Turns design into running code. Changes the handoff. Requires a terminal.',
+    id: 'desktop',
+    label: 'In the desktop app',
+    tagline: 'Claude reads your files.',
+    note: 'The Claude app for Mac or Windows. Point it at a folder of briefs and Figma exports so you stop pasting.',
     href: '#guides',
   },
 ];
@@ -67,7 +57,7 @@ export function DesignerHero() {
       </p>
 
       {/* Journey cards */}
-      <div className="mt-14 grid gap-4 sm:grid-cols-3">
+      <div className="mt-14 grid gap-4 sm:grid-cols-2">
         {JOURNEYS.map((j, i) => (
           <Link
             key={j.id}
@@ -95,6 +85,12 @@ export function DesignerHero() {
           </Link>
         ))}
       </div>
+      <p className="mt-4 text-sm text-fd-muted-foreground">
+        Want Claude to build working prototypes? Two guides use the Code tab of the desktop app.{' '}
+        <Link href="#guides" className="font-medium text-fd-foreground underline underline-offset-4 hover:no-underline">
+          See them
+        </Link>
+      </p>
 
       {/* CTAs */}
       <div

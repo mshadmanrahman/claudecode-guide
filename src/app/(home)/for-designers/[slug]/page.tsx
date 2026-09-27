@@ -6,6 +6,7 @@ import { DESIGNER_GUIDES } from '@/lib/designer-guides';
 import { EmailCapture } from '@/components/email-capture';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
+import { DemoCard } from '@/components/demo-card';
 import { DesignerRouteSwitcher } from '@/components/designer-route-switcher';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
@@ -146,7 +147,15 @@ export default async function DesignerGuidePage({
         )}
 
         {/* Route switcher */}
-        <DesignerRouteSwitcher availableRoutes={guide.availableRoutes ?? ['claude-ai']} />
+        {guide.usesCodeTab ? (
+          <p className="mb-8 rounded-xl border border-fd-border bg-[var(--code)] p-4 text-sm leading-relaxed text-fd-muted-foreground">
+            <span className="font-medium text-fd-foreground">This one uses Claude Code. </span>
+            It builds real code, so it runs in the Code tab of the Claude desktop app, not in a regular conversation.
+            Every other designer guide works on the web or in the desktop app.
+          </p>
+        ) : (
+          <DesignerRouteSwitcher availableRoutes={guide.availableRoutes ?? ['web', 'desktop']} />
+        )}
 
         {/* Outcomes grid (replaces intro when present) */}
         {guide.outcomes ? (
@@ -234,15 +243,15 @@ export default async function DesignerGuidePage({
                 </div>
               )}
 
-              {(step.demo ?? step.appDemo ?? step.ideDemo) && (
+              {guide.usesCodeTab && step.demo ? (
                 <div className="mt-4">
-                  <DesignerStepDemo
-                    demo={step.demo}
-                    appDemo={step.appDemo}
-                    ideDemo={step.ideDemo}
-                  />
+                  <DemoCard title={step.demo.title} steps={step.demo.steps} loop={false} />
                 </div>
-              )}
+              ) : (step.appDemo ?? step.desktopDemo) ? (
+                <div className="mt-4">
+                  <DesignerStepDemo appDemo={step.appDemo} desktopDemo={step.desktopDemo} />
+                </div>
+              ) : null}
             </section>
           ))}
         </div>

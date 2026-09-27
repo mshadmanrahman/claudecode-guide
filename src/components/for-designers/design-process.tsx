@@ -6,9 +6,9 @@ const STAGES = ['Brief', 'Research', 'Direction', 'Frames', 'Critique', 'Handoff
 
 const LAYERS = [
   {
-    id: 'claude-ai',
-    label: '[AI]',
-    sublabel: 'Claude.ai',
+    id: 'web',
+    label: 'Web',
+    sublabel: 'claude.ai',
     addedLabel: 'Baseline',
     addedBadgeStyle: 'bg-[var(--code)] text-[var(--ink)]',
     addedStages: ['Brief', 'Research', 'Critique'],
@@ -16,33 +16,20 @@ const LAYERS = [
     newDotStyle: 'bg-[var(--muted)]',
     inheritedDotStyle: 'bg-[var(--code)]',
     description:
-      'Everything in conversation. Interrogates briefs, synthesizes research, critiques designs. No files, no code, no terminal.',
+      'Everything in conversation. Interrogates briefs, synthesizes research, critiques designs. Claude sees what you paste or upload.',
   },
   {
-    id: 'co-work',
-    label: '[CW]',
-    sublabel: 'Co-Work',
+    id: 'desktop',
+    label: 'Desktop app',
+    sublabel: 'Mac or Windows',
     addedLabel: '+ Direction, Handoff',
-    addedBadgeStyle: 'bg-[var(--chip)] text-[var(--acc)]  ',
+    addedBadgeStyle: 'bg-[var(--chip)] text-[var(--acc)]',
     addedStages: ['Direction', 'Handoff'],
     allCoveredStages: ['Brief', 'Research', 'Direction', 'Critique', 'Handoff'],
-    newDotStyle: 'bg-[var(--acc)] ',
+    newDotStyle: 'bg-[var(--acc)]',
     inheritedDotStyle: 'bg-[var(--code)]',
     description:
-      'Reads files from your local folder. Challenges direction before you commit to frames. Reads Figma exports for handoff prep.',
-  },
-  {
-    id: 'claude-code',
-    label: '[CC]',
-    sublabel: 'Claude Code',
-    addedLabel: '+ Frames, Build, Ship',
-    addedBadgeStyle: 'bg-[var(--chip)] text-[var(--acc)]  ',
-    addedStages: ['Frames', 'Build', 'Ship'],
-    allCoveredStages: ['Brief', 'Research', 'Direction', 'Frames', 'Critique', 'Handoff', 'Build', 'Ship'],
-    newDotStyle: 'bg-[var(--acc)] ',
-    inheritedDotStyle: 'bg-[var(--code)]',
-    description:
-      'Full coverage. Every stage from brief to ship. Adds prototype generation, working code from Figma prep, and Git-based version control.',
+      'Reads files from a folder on your computer. Challenges direction before you commit to frames. Reads Figma exports for handoff prep.',
   },
 ];
 
@@ -56,10 +43,10 @@ export function DesignerProcessMap() {
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
-            What each journey unlocks
+            What each one covers
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Each journey covers everything the previous one does, and adds new stages on top. Pick your level and see what you gain.
+            The desktop app covers everything the web does, and adds Direction and Handoff because it can read your files. Build and Ship need Claude Code, which runs in the Code tab of the desktop app.
           </p>
         </div>
 
@@ -71,11 +58,11 @@ export function DesignerProcessMap() {
           <div className="flex flex-wrap items-center gap-5 mb-6">
             <div className="flex items-center gap-1.5">
               <div className="h-3 w-3 rounded-full bg-[var(--acc)]" />
-              <span className="text-xs text-fd-muted-foreground">New at this tier</span>
+              <span className="text-xs text-fd-muted-foreground">New in the desktop app</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="h-3 w-3 rounded-full bg-[var(--code)] border border-fd-border" />
-              <span className="text-xs text-fd-muted-foreground">Inherited from previous</span>
+              <span className="text-xs text-fd-muted-foreground">Also on the web</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="h-1.5 w-1.5 rounded-full bg-fd-border" />
@@ -150,7 +137,7 @@ export function DesignerProcessMap() {
         </div>
 
         {/* Descriptions */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {LAYERS.map((layer, ji) => (
             <div
               key={layer.id}

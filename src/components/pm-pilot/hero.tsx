@@ -1,24 +1,16 @@
 import Link from 'next/link';
-import { DemoCard } from '@/components/demo-card';
+import { AppChatDemo, type ChatStep } from '@/components/app-chat-demo';
 import { FloatingCard } from '@/components/floating-card';
 import { Clock, FileText, BarChart3, ArrowRight } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 
 import { KineticText } from '@/components/kinetic-text';
-const HERO_STEPS = [
-  { type: 'cmd' as const, text: 'prep for my 1:1 with Sarah' },
-  { type: 'out' as const, text: 'Checking Jira, Slack, Calendar...' },
-  { type: 'out' as const, text: 'Found: 3 open tickets assigned to Sarah' },
-  { type: 'out' as const, text: 'Found: 2 unresolved threads in #product' },
-  { type: 'out' as const, text: 'Found: Last 1:1 was March 28 - 2 action items still open' },
-  { type: 'success' as const, text: '── Meeting Brief ──' },
-  { type: 'out' as const, text: "Sarah's focus: migrating auth service (blocked on DevOps)" },
-  { type: 'out' as const, text: 'You owe her: API spec review (promised Mar 28)' },
-  { type: 'out' as const, text: 'She owes you: Updated timeline for Q2 roadmap' },
-  { type: 'success' as const, text: 'Suggested talking points:' },
-  { type: 'out' as const, text: '1. Unblock auth migration - offer to escalate with DevOps' },
-  { type: 'out' as const, text: '2. API spec review - share status or ask for extension' },
-  { type: 'out' as const, text: '3. Q2 roadmap timeline - get her latest estimate' },
+const HERO_STEPS: ChatStep[] = [
+  { role: 'user', text: 'Prep me for my 1:1 with Sarah.' },
+  {
+    role: 'claude',
+    text: "I checked Jira, Slack and your calendar. Sarah has 3 open tickets, 2 unresolved threads in #product, and your last 1:1 on March 28 left 2 action items open.\n\n**Her focus:** migrating the auth service, blocked on DevOps.\n**You owe her:** the API spec review you promised on March 28.\n**She owes you:** an updated timeline for the Q2 roadmap.\n\n**Talking points**\n1. Unblock the auth migration. Offer to escalate with DevOps.\n2. API spec review. Share status or ask for more time.\n3. Q2 roadmap. Get her latest estimate.",
+  },
 ];
 
 export function PmPilotHero() {
@@ -93,7 +85,7 @@ export function PmPilotHero() {
             </div>
           </FloatingCard>
 
-          <DemoCard title="pm-pilot : meeting prep" steps={HERO_STEPS} loop loopDelay={4000} maxHeight={380} />
+          <AppChatDemo steps={HERO_STEPS} loop loopDelay={4000} />
         </div>
       </div>
     </section>

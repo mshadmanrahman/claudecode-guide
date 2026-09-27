@@ -133,12 +133,15 @@ const JOURNEY_STEPS = [
   { title: "Paste a prompt, watch it go", text: "Start with a prompt that already works and change it once you see the result." },
 ] as const;
 
-const PERSONAS: ReadonlyArray<{ href: string; label: string; title: string }> = [
-  { href: "/for-teachers", label: "Teachers", title: "Plan a week of lessons in one sitting" },
-  { href: "/for-designers", label: "Designers", title: "Stop getting the generic look" },
-  { href: "/for-marketers", label: "Marketers", title: "Sound like you, at volume" },
-  { href: "/for-hr", label: "HR teams", title: "Read every exit interview this quarter" },
-  { href: "/pm-pilot", label: "Product managers", title: "Braindump first, PRD second" },
+const PATHS: ReadonlyArray<{ href: string; label: string }> = [
+  { href: "/for-teachers", label: "Teachers" },
+  { href: "/for-designers", label: "Designers" },
+  { href: "/for-marketers", label: "Marketers" },
+  { href: "/for-hr", label: "HR teams" },
+  { href: "/pm-pilot", label: "Product managers" },
+  { href: "/for-chrome", label: "Claude in Chrome" },
+  { href: "/for-microsoft", label: "Claude in Office" },
+  { href: "/certification", label: "Certification" },
 ];
 
 const focusRing =
@@ -185,8 +188,8 @@ export default async function HomePage() {
         </h1>
 
         <p className="hm-rise m-0 max-w-[600px] text-body leading-[1.55] text-[var(--ink)] md:text-lead">
-          I use Claude Code every day at work as a principal PM, backed by <CountUp to={966} delay={700} duration={1300} /> memory files. This guide is that
-          setup, page by page, and it is written so non-engineers can follow it too.
+          I&apos;m a principal PM and I use Claude Code every day at work, backed by <CountUp to={966} delay={700} duration={1300} /> memory files. This guide is
+          that setup, page by page, written for teachers, designers, marketers and HR teams as much as for engineers.
         </p>
 
         <Link
@@ -214,6 +217,22 @@ export default async function HomePage() {
             New to Claude? Start here
           </Link>
         </div>
+
+        <nav aria-label="Pick your path" className="hm-rise [--d:0.95s] flex max-w-[640px] flex-col items-center gap-2.5">
+          <span className="text-caption text-[var(--muted)]">Or pick your path</span>
+          <ul className="m-0 flex list-none flex-wrap justify-center gap-2 p-0">
+            {PATHS.map((path) => (
+              <li key={path.href}>
+                <Link
+                  href={path.href}
+                  className={`glass inline-flex min-h-9 items-center rounded-full px-3.5 py-1.5 text-ui font-medium transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
+                >
+                  {path.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         {latest ? (
           <a
@@ -303,26 +322,6 @@ export default async function HomePage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* 5. Persona row */}
-      <section
-        aria-labelledby="home-desks"
-        className="mx-auto mt-16 flex max-w-[1440px] flex-col gap-[22px] px-4 md:px-16"
-      >
-        <SectionHead id="home-desks" title="Not a developer? Pick your desk" />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {PERSONAS.map((path) => (
-            <Link
-              key={path.href}
-              href={path.href}
-              className={`glass hm-card flex flex-col gap-1.5 rounded-xl px-5 py-4 ${focusRing}`}
-            >
-              <span className="font-mono text-xs text-[var(--acc)]">{path.label}</span>
-              <span className="text-body font-semibold leading-snug tracking-[-0.015em]">{path.title}</span>
-            </Link>
-          ))}
         </div>
       </section>
 

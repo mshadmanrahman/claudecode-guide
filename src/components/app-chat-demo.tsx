@@ -45,16 +45,32 @@ interface AppChatDemoProps {
   steps: ChatStep[];
   loop?: boolean;
   loopDelay?: number;
-  /** 'app' = claude.ai interface. 'ide' = VS Code / Cursor chat panel. */
-  variant?: 'app' | 'ide';
+  /** 'app' = claude.ai in a browser. 'desktop' = the Claude desktop app. 'ide' = VS Code / Cursor chat panel. */
+  variant?: 'app' | 'desktop' | 'ide';
+  /** Desktop only: the folder Claude has been given, shown in the header. */
+  folder?: string;
 }
 
-export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'app' }: AppChatDemoProps) {
+export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'app', folder }: AppChatDemoProps) {
   const [visibleCount, setVisibleCount] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const [containerRef, isInView] = useInView(0.3);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    // Reduced motion: show the whole conversation at once, no typing or looping.
+    if (reducedMotion) {
+      setVisibleCount(steps.length);
+      return;
+    }
     if (!isInView) return;
 
     if (visibleCount >= steps.length) {
@@ -67,7 +83,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
     const delay = step?.delay ?? (step?.role === 'user' ? 600 : 1200);
     const t = setTimeout(() => setVisibleCount((c) => c + 1), delay);
     return () => clearTimeout(t);
-  }, [visibleCount, steps, loop, loopDelay, isInView]);
+  }, [visibleCount, steps, loop, loopDelay, isInView, reducedMotion]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -76,7 +92,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
 
   const nextIsClaudeMessage =
     visibleCount < steps.length && steps[visibleCount]?.role === 'claude';
-  const showTyping = isInView && nextIsClaudeMessage;
+  const showTyping = isInView && nextIsClaudeMessage && !reducedMotion;
 
   return (
     <div
@@ -94,11 +110,19 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
         </div>
       ) : (
         <div className="flex items-center gap-2.5 border-b border-fd-border bg-[var(--code)] px-4 py-3">
-          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#cc785c] text-label font-bold text-white">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#cc785c] text-label font-bold text-[#141413]" aria-hidden="true">
             C
           </div>
           <span className="text-sm font-medium text-fd-foreground">Claude</span>
-          <span className="ml-auto font-mono text-label text-fd-muted-foreground">claude.ai</span>
+          {variant === 'desktop' && folder ? (
+            <span className="ml-auto truncate rounded-md border border-fd-border px-2 py-0.5 font-mono text-label text-fd-muted-foreground">
+              Folder: {folder}
+            </span>
+          ) : (
+            <span className="ml-auto font-mono text-label text-fd-muted-foreground">
+              {variant === 'desktop' ? 'Desktop app' : 'claude.ai'}
+            </span>
+          )}
         </div>
       )}
 
@@ -114,7 +138,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
             className={`flex items-end gap-2 animate-fade-in ${step.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {step.role === 'claude' && (
-              <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-label font-bold text-[var(--accInk)] ${variant === 'ide' ? 'bg-[var(--acc)]' : 'bg-[#cc785c]'}`}>
+              <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-label font-bold ${variant === 'ide' ? 'bg-[var(--acc)] text-[var(--accInk)]' : 'bg-[#cc785c] text-[#141413]'}`} aria-hidden="true">
                 {variant === 'ide' ? 'AI' : 'C'}
               </div>
             )}
@@ -133,7 +157,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
         {/* Typing indicator */}
         {showTyping && (
           <div className="flex items-end gap-2 justify-start animate-fade-in">
-            <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-label font-bold text-[var(--accInk)] ${variant === 'ide' ? 'bg-[var(--acc)]' : 'bg-[#cc785c]'}`}>
+            <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-label font-bold ${variant === 'ide' ? 'bg-[var(--acc)] text-[var(--accInk)]' : 'bg-[#cc785c] text-[#141413]'}`} aria-hidden="true">
               {variant === 'ide' ? 'AI' : 'C'}
             </div>
             <div className="flex items-center gap-1 rounded-xl rounded-bl-sm border border-fd-border bg-fd-background px-4 py-3">

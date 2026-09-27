@@ -1,26 +1,26 @@
 'use client';
 
 import Link from 'next/link';
-import { Globe, FolderOpen, Terminal, ArrowRight } from 'lucide-react';
+import { Globe, Monitor, ArrowRight } from 'lucide-react';
 import { useInView } from '@/hooks/use-in-view';
 
 const JOURNEYS = [
   {
-    id: 'claude-ai',
-    label: 'Claude.ai',
+    id: 'web',
+    label: 'On the web',
     icon: Globe,
     nickname: 'The Thinking Partner',
-    tagline: 'Designer who never leaves the browser. Claude lives in a Project tab alongside Figma. No terminal, no code.',
-    env: 'Online only',
+    tagline: 'Designer who never leaves the browser. Claude lives in a Project on claude.ai, open next to Figma. Nothing to install.',
+    env: 'claude.ai',
     envStyle: 'bg-[var(--code)] text-[var(--ink)]',
     borderStyle: 'border-[var(--line)] ',
     headerStyle: 'bg-[var(--code)]',
-    entryPath: ['claude.ai', 'Create a Project', 'Write your working agreement', 'Start interrogating briefs'],
+    entryPath: ['Open claude.ai', 'Create a Project', 'Write your working agreement', 'Start interrogating briefs'],
     shifts: [
       {
         area: 'Brief work',
         before: 'Re-explain your users, constraints, and preferences at the start of every session.',
-        after: 'Claude.ai Projects hold your working context. Every session starts already knowing your work.',
+        after: 'A Project holds your working context. Every session starts already knowing your work.',
       },
       {
         area: 'Evaluation',
@@ -34,7 +34,7 @@ const JOURNEYS = [
       },
     ],
     structuralShift:
-      "Claude doesn't touch files. Can't build. Everything happens in conversation. Getting challenged in dialogue is a different experience from getting challenged in a review meeting.",
+      "Claude sees only what you paste or upload, and everything happens in conversation. Getting challenged in dialogue is a different experience from getting challenged in a review meeting.",
     appliesTo: [
       { slug: 'set-up-claude', short: 'Set Up' },
       { slug: 'decode-a-brief', short: 'Decode a Brief' },
@@ -45,17 +45,17 @@ const JOURNEYS = [
     ],
   },
   {
-    id: 'co-work',
-    label: 'Claude Co-Work',
-    icon: FolderOpen,
+    id: 'desktop',
+    label: 'In the desktop app',
+    icon: Monitor,
     nickname: 'The Active Collaborator',
     tagline:
-      "Designer using Claude's co-working mode in the desktop app. Claude is in the session with them, actively challenging and building alongside.",
-    env: 'Local workspace',
+      'Designer using the Claude app on Mac or Windows. Claude reads a folder of their briefs, notes and exports, and pushes back while the work is still in progress.',
+    env: 'Mac or Windows',
     envStyle: 'bg-[var(--chip)] text-[var(--acc)]  ',
     borderStyle: 'border-[var(--line)] ',
     headerStyle: 'bg-[var(--chip)] ',
-    entryPath: ['Claude desktop app', 'Local project folder', 'CLAUDE.md working agreement', 'Active collaborative session'],
+    entryPath: ['Open the Claude desktop app', 'Create a Project', 'Give it a folder of your files', 'Paste your working agreement'],
     shifts: [
       {
         area: 'Research',
@@ -74,53 +74,15 @@ const JOURNEYS = [
       },
     ],
     structuralShift:
-      'The critique loop moves from post-design (review meetings) to in-design (co-work sessions). You stop defending decisions you already made.',
+      'The critique loop moves from post-design (review meetings) to in-design (working sessions). You stop defending decisions you already made.',
     appliesTo: [
       { slug: 'set-up-claude', short: 'Set Up' },
       { slug: 'decode-a-brief', short: 'Decode a Brief' },
       { slug: 'write-a-sharper-brief', short: 'Write a Brief' },
       { slug: 'evaluate-your-designs', short: 'Evaluate Designs' },
       { slug: 'heuristic-evaluation', short: 'Heuristic Eval' },
-    ],
-  },
-  {
-    id: 'claude-code',
-    label: 'Claude Code',
-    icon: Terminal,
-    nickname: 'The Prototype Builder',
-    tagline:
-      'Designer who has crossed into the terminal. Uses Claude Code in VS Code or Cursor. Builds working HTML prototypes, not just static specs.',
-    env: 'Local + terminal',
-    envStyle: 'bg-[var(--chip)] text-[var(--acc)]  ',
-    borderStyle: 'border-[var(--line)] ',
-    headerStyle: 'bg-[var(--chip)] ',
-    entryPath: ['Install Claude Code', 'VS Code / Cursor / Terminal', 'CLAUDE.md working agreement', 'Point Claude at files'],
-    shifts: [
-      {
-        area: 'Everything Co-Work can do',
-        before: 'Brief work, evaluation, and research synthesis still take manual setup each session.',
-        after: 'All guides apply. Claude reads your files and runs every workflow Co-Work supports.',
-      },
-      {
-        area: 'Prototyping',
-        before: 'Write a brief, hand it to a dev, wait two days to see if the interaction feels right.',
-        after: 'Describe the component in plain English. Claude builds and runs it in the same session.',
-      },
-      {
-        area: 'Design handoff',
-        before: 'Static screens plus annotations. Dev interprets spacing, states, and edge cases.',
-        after: 'Working React component from your Figma prep. Devs review code, not specs.',
-      },
-    ],
-    structuralShift:
-      "The handoff artifact changes. Designer arrives at review with a working prototype. The lost-in-translation moment between design and code shrinks dramatically.",
-    appliesTo: [
-      { slug: 'set-up-claude', short: 'Set Up' },
-      { slug: 'evaluate-your-designs', short: 'Evaluate Designs' },
       { slug: 'figma-for-ai-handoff', short: 'Figma for AI Handoff' },
-      { slug: 'build-your-first-flow', short: 'Build First Flow' },
-      { slug: 'get-started-with-claude-design', short: 'Claude Design' },
-      { slug: 'automate-design-tasks', short: 'Automate Tasks' },
+      { slug: 'research-synthesis', short: 'Research' },
     ],
   },
 ];
@@ -135,14 +97,14 @@ export function DesignerBeforeAfter() {
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
-            Same tool. Three completely different jobs.
+            Same Claude. Two places to use it.
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Each journey reflects a different mode of adoption and a different structural shift in how you work. Pick where you are today.
+            The difference is where your files live. On the web you paste them in. In the desktop app Claude reads them from a folder.
           </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-6 lg:grid-cols-2">
           {JOURNEYS.map((journey, ji) => {
             const Icon = journey.icon;
             return (
