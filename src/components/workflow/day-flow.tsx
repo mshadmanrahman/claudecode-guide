@@ -24,7 +24,7 @@ interface Persona {
 }
 
 const PERSONAS: ReadonlyArray<Persona> = [
-  { id: 'everyone', label: 'Everyone', pathHref: '/start', pathLabel: 'Which Claude should I open?' },
+  { id: 'everyone', label: 'Everyone', pathHref: '/docs/foundations/which-interface', pathLabel: 'Which Claude should I open?' },
   { id: 'designers', label: 'Designers', pathHref: '/for-designers', pathLabel: 'The designers path' },
   { id: 'teachers', label: 'Teachers', pathHref: '/for-teachers', pathLabel: 'The teachers path' },
   { id: 'marketers', label: 'Marketers', pathHref: '/for-marketers', pathLabel: 'The marketers path' },
