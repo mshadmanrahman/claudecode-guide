@@ -30,10 +30,19 @@ interface TutorialStepBodyProps {
   ideDemo?: ChatDemoData;
   /** One scripted session, shown as the real CLI or the desktop Code tab. */
   cliDemo?: { steps: CliStep[] };
-  /** 'product' swaps the generic cards for the product-faithful mocks. */
-  mockStyle?: 'product';
   /** Used as the desktop mock's session title. */
   title?: string;
+}
+
+/**
+ * A chat script replayed as a Claude Code session: each user turn is typed and
+ * sent, each reply arrives after a short think. Steps with a hand-written
+ * cliDemo get tool rows too; this keeps every other step on the same mock.
+ */
+function chatToSession(steps: ChatStep[]): CliStep[] {
+  return steps.flatMap((s): CliStep[] =>
+    s.role === 'user' ? [{ kind: 'prompt', text: s.text }] : [{ kind: 'thinking', ms: 900 }, { kind: 'say', text: s.text }],
+  );
 }
 
 function PromptBlock({ text, label }: { text: string; label: string }) {
@@ -86,7 +95,6 @@ export function TutorialStepBody({
   appDemo,
   ideDemo,
   cliDemo,
-  mockStyle,
   title,
 }: TutorialStepBodyProps) {
   const route = useTutorialRoute(availableRoutes);
@@ -100,15 +108,14 @@ export function TutorialStepBody({
   const showPrompts = route !== 'terminal' && prompts.length > 0 && !(code && codeIsPrompt);
   const showCode = Boolean(code) && (route === 'terminal' || !codeIsShell || !showPrompts);
 
-  const product = mockStyle === 'product' && cliDemo;
+  const session = cliDemo?.steps ?? (appDemo ? chatToSession(appDemo.steps) : undefined);
 
   let preview: React.ReactNode = null;
-  if (product && route === 'app') preview = <ClaudeDesktopCodeMock steps={cliDemo.steps} title={title} />;
-  else if (product && route === 'terminal') preview = <ClaudeCodeMock steps={cliDemo.steps} />;
-  else if (route === 'app' && appDemo) preview = <AppChatDemo steps={appDemo.steps} loop={false} variant="app" />;
+  if (route === 'app' && session) preview = <ClaudeDesktopCodeMock steps={session} title={title} />;
   else if (route === 'ide' && ideDemo) preview = <AppChatDemo steps={ideDemo.steps} loop={false} variant="ide" />;
+  else if (route === 'terminal' && cliDemo) preview = <ClaudeCodeMock steps={cliDemo.steps} />;
   else if (route === 'terminal' && demo) preview = <DemoCard title={demo.title} steps={demo.steps} loop={false} />;
-  else if (appDemo) preview = <AppChatDemo steps={appDemo.steps} loop={false} variant="app" />;
+  else if (session) preview = <ClaudeDesktopCodeMock steps={session} title={title} />;
   else if (ideDemo) preview = <AppChatDemo steps={ideDemo.steps} loop={false} variant="ide" />;
   else if (demo) preview = <DemoCard title={demo.title} steps={demo.steps} loop={false} />;
 

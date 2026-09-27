@@ -203,7 +203,6 @@ export default async function TutorialPage({
                 appDemo={step.appDemo}
                 ideDemo={step.ideDemo}
                 cliDemo={step.cliDemo}
-                mockStyle={tutorial.mockStyle}
                 title={step.title}
               />
             </li>

@@ -39,7 +39,7 @@ export interface TutorialStep {
       delay?: number;
     }>;
   };
-  /** One Claude Code session, shown as the CLI (terminal route) or the desktop Code tab (app route). Only read when the tutorial sets mockStyle: "product". */
+  /** One Claude Code session, shown as the CLI (terminal route) or the desktop Code tab (app route). Without one, the app route replays appDemo as a session. */
   cliDemo?: { steps: CliStep[] };
 }
 
@@ -54,8 +54,6 @@ export interface Tutorial {
   nextLink: { label: string; href: string };
   /** Routes with authored content. Defaults to ['terminal'] for old tutorials, ['app'] for new. */
   availableRoutes?: TutorialRoute[];
-  /** "product" renders the faithful Claude app and Claude Code mocks. Pilot on one page before rolling out. */
-  mockStyle?: "product";
 }
 
 /* ------------------------------------------------------------------ */
@@ -3946,7 +3944,6 @@ When asked for "email format":
     duration: "10 min",
     difficulty: "beginner",
     availableRoutes: ["app", "terminal"],
-    mockStyle: "product",
     description:
       "Claude feels different from ChatGPT. Here is why that happens, and how to set it up so it works the way you expect.",
     intro:
