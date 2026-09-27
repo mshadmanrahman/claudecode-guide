@@ -1,96 +1,77 @@
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import { DayFlow } from '@/components/workflow/day-flow';
 import { WorkflowTracker } from '@/components/workflow/workflow-tracker';
 import { OsMapLink } from '@/components/workflow/os-map-link';
-import { MessageSquare, Cpu, FileText } from 'lucide-react';
-import type { Metadata } from 'next';
+import { LoopDiagram } from '@/components/workflow/loop-diagram';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
+const description =
+  'Five moments in a workday where Claude saves you time, with a prompt to copy for each. For designers, teachers, marketers, HR teams and PMs.';
+
 export const metadata: Metadata = {
-  title: 'Claude in Your Day | Claude Code Guide',
-  description:
-    'How to wire Claude into your whole day, not just one task. Real workflows for designers, teachers, marketers, and PMs.',
+  title: 'Claude in Your Day',
+  description,
   openGraph: {
     title: 'Claude in Your Day',
-    description:
-      'How to wire Claude into your whole day, not just one task. Real workflows for designers, teachers, marketers, and PMs.',
+    description,
     type: 'website',
   },
 };
 
+/*
+ * Connector motion for this route only: a 1px dashed line whose dashes drift in the
+ * direction of the flow. Scoped wf-* names, turned off for reduced motion.
+ */
+const connectorCss = `
+.wf-dash-y, .wf-dash-x { --wf-dash: color-mix(in srgb, var(--muted) 55%, transparent); }
+.wf-dash-y {
+  background-image: linear-gradient(to bottom, var(--wf-dash) 50%, transparent 0);
+  background-size: 1px 8px;
+  background-repeat: repeat-y;
+  animation: wf-flow-y 1.4s linear infinite;
+}
+.wf-dash-x {
+  background-image: linear-gradient(to right, var(--wf-dash) 50%, transparent 0);
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+  animation: wf-flow-x 1.4s linear infinite;
+}
+@keyframes wf-flow-y { to { background-position: 0 8px; } }
+@keyframes wf-flow-x { to { background-position: 8px 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .wf-dash-y, .wf-dash-x { animation: none; }
+}
+`;
+
 export default function WorkflowPage() {
   return (
     <>
+      <style>{connectorCss}</style>
       <SceneBackdrop variant="faded" />
       <WorkflowTracker />
-      <main className="mx-auto max-w-4xl px-6 py-20">
-        <div className="mb-16" data-workflow-intro>
-          <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground">
-            Your Claude Workflow
-          </p>
-          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl mb-6">
+      <main className="mx-auto max-w-4xl overflow-x-clip px-4 py-16 text-[var(--ink)] sm:px-6 sm:py-20">
+        <div className="mb-12" data-workflow-intro>
+          <h1 className="font-display mb-5 text-4xl font-semibold tracking-[-0.035em] sm:text-5xl">
             Claude, quietly working through your day.
           </h1>
-          <p className="max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
-            Most people use Claude for one task. Here&apos;s what it looks like when you wire
-            it into your whole workflow, morning to wind down.
-          </p>
-          <p className="mt-3 text-sm text-fd-muted-foreground">
-            Pick your role below. Five moments. One day. Start wherever feels easy.
+          <p className="m-0 max-w-xl text-lg leading-relaxed text-[var(--muted)]">
+            Five moments in a normal workday where Claude saves you time. Pick your role, copy a
+            prompt, and try one today.
           </p>
         </div>
 
-        {/* How it works */}
-        <div className="mb-16 grid gap-3 sm:grid-cols-3">
-          {[
-            {
-              icon: MessageSquare,
-              step: '01',
-              title: 'You describe what you need',
-              description:
-                'One sentence. Plain English. No special syntax. Just tell Claude what you want to get done.',
-            },
-            {
-              icon: Cpu,
-              step: '02',
-              title: 'Claude does the thinking',
-              description:
-                'It reads what you gave it, pulls it together, and produces something — a draft, a plan, a set of questions, a summary.',
-            },
-            {
-              icon: FileText,
-              step: '03',
-              title: 'You get something to work with',
-              description:
-                "Not a search result. Not a link. An actual output you can edit, send, or act on.",
-            },
-          ].map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.step} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
-                <div className="mb-4 flex items-center justify-between">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--glass2)] border border-fd-border">
-                    <Icon className="h-4 w-4 text-fd-muted-foreground" />
-                  </div>
-                  <span className="font-mono text-xs text-fd-muted-foreground/40">{item.step}</span>
-                </div>
-                <h3 className="mb-2 font-display text-base font-semibold tracking-[-0.035em] text-fd-foreground">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-fd-muted-foreground leading-relaxed">{item.description}</p>
-              </div>
-            );
-          })}
-        </div>
+        <LoopDiagram />
 
         <DayFlow />
 
-        {/* Origin note */}
-        <div className="mt-16 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-8" data-workflow-complete>
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground mb-3">
-            Where this came from
-          </p>
-          <p className="text-sm text-fd-muted-foreground leading-relaxed max-w-2xl">
+        <div
+          className="glass mt-16 rounded-xl p-6 sm:p-8"
+          data-workflow-complete
+        >
+          <h2 className="mb-3 mt-0 font-mono text-xs font-normal text-[var(--muted)]">
+            where this came from
+          </h2>
+          <p className="m-0 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
             This page is a simplified version of an AI operating system I actually run. Four agents, 25+
             automated workflows, morning brief to evening recap. The prompts above are drawn from what
             I use daily as a PM and builder.

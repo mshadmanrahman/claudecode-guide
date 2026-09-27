@@ -20,7 +20,7 @@ const SITE_LINKS: ReadonlyArray<FooterLink> = [
 
 const SOCIAL_LINKS: ReadonlyArray<FooterLink> = [
   { label: "linkedin", href: "https://www.linkedin.com/in/shadmanrahman" },
-  { label: "substack", href: "https://shadmanrahman.substack.com/" },
+  { label: "product field notes", href: "https://shadmanrahman.substack.com/" },
   { label: "github", href: "https://github.com/mshadmanrahman/claudecode-guide" },
 ];
 

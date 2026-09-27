@@ -1,19 +1,18 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
-import { DemoCard } from "@/components/demo-card";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { EmailCapture } from "@/components/email-capture";
-import { CopyBlock } from "@/components/guide/copy-block";
 import { TutorialTracker } from "@/components/tutorial-tracker";
 import { TutorialCompleteButton } from "@/components/tutorial-complete-button";
-import { TutorialStepDemo } from "@/components/tutorial-step-demo";
-import { RouteSwitcher, type TutorialRoute } from "@/components/route-switcher";
+import { TutorialStepBody } from "@/components/tutorial-step-demo";
+import { RouteSwitcher } from "@/components/route-switcher";
 import { ShareCard } from "@/components/share-card";
 import { AuthorBio } from "@/components/author-bio";
 
-import { TUTORIALS, type Tutorial } from "@/lib/tutorials";
+import { TUTORIALS } from "@/lib/tutorials";
 import { ArticleSchema } from "@/components/article-schema";
+import { findTrackPosition, pad2, type CatalogEntry } from "../catalog";
 
 const ALL_SLUGS = Object.keys(TUTORIALS);
 
@@ -67,24 +66,30 @@ export async function generateMetadata({
 /*  Difficulty badge component                                         */
 /* ------------------------------------------------------------------ */
 
-function DifficultyBadge({ level }: { level: "beginner" | "intermediate" }) {
-  const styles =
-    level === "beginner"
-      ? "bg-[var(--chip)] text-[var(--acc)] "
-      : "bg-[var(--chip)] text-[var(--acc)] ";
+const focusRing =
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
 
+function PagerLink({ entry, dir }: { entry: CatalogEntry; dir: "prev" | "next" }) {
+  const t = TUTORIALS[entry.slug];
   return (
-    <span
-      className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${styles}`}
+    <Link
+      href={`/tutorials/${entry.slug}`}
+      rel={dir}
+      className={`glass group flex min-w-0 flex-1 flex-col gap-1.5 rounded-xl p-5 transition-colors hover:border-[var(--acc)] ${
+        dir === "next" ? "sm:items-end sm:text-right" : ""
+      } ${focusRing}`}
     >
-      {level}
-    </span>
+      <span className="flex items-center gap-1.5 font-mono text-xs text-[var(--muted)]">
+        {dir === "prev" && <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />}
+        {dir === "prev" ? "previous" : "next"} / {t.duration}
+        {dir === "next" && <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />}
+      </span>
+      <span className="font-semibold leading-snug tracking-[-0.02em] group-hover:text-[var(--acc)]">
+        {entry.title}
+      </span>
+    </Link>
   );
 }
-
-/* ------------------------------------------------------------------ */
-/*  Page component                                                     */
-/* ------------------------------------------------------------------ */
 
 export default async function TutorialPage({
   params,
@@ -98,128 +103,162 @@ export default async function TutorialPage({
     notFound();
   }
 
+  const routes = tutorial.availableRoutes ?? ["terminal"];
+  const position = findTrackPosition(slug);
+  const total = tutorial.steps.length;
+  const nextHref = position?.next ? `/tutorials/${position.next.slug}` : undefined;
+  const showDeeper =
+    tutorial.nextLink.href !== nextHref && tutorial.nextLink.href !== "/tutorials";
+  const deeperIsExternal = tutorial.nextLink.href.startsWith("http");
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-[var(--ink)]">
       <ArticleSchema
         headline={tutorial.title}
         description={tutorial.description}
         url={`https://claudecodeguide.dev/tutorials/${slug}`}
       />
-      <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-24">
+      <article className="mx-auto w-full max-w-3xl px-4 pt-10 pb-24 sm:px-6 md:pt-12">
         <TutorialTracker slug={tutorial.slug} title={tutorial.title} />
-        {/* Back link */}
-        <Link
-          href="/tutorials"
-          className="mb-8 inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          All tutorials
-        </Link>
 
-        {/* Header */}
-        <header className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="flex items-center gap-1.5 rounded-full bg-fd-accent px-2.5 py-1 text-[11px] font-medium text-fd-muted-foreground">
-              <Clock className="h-3 w-3" />
-              {tutorial.duration}
-            </span>
-            <DifficultyBadge level={tutorial.difficulty} />
-          </div>
+        <nav aria-label="Breadcrumb" className="mb-8 font-mono text-xs text-[var(--muted)]">
+          <Link href="/tutorials" className={`rounded-sm hover:text-[var(--ink)] ${focusRing}`}>
+            tutorials
+          </Link>
+          {position && (
+            <>
+              <span aria-hidden="true"> / </span>
+              <Link
+                href={`/tutorials#${position.track.id}`}
+                className={`rounded-sm hover:text-[var(--ink)] ${focusRing}`}
+              >
+                {position.track.title.toLowerCase()}
+              </Link>
+              <span aria-hidden="true"> / </span>
+              <span>
+                {position.index + 1} of {position.track.entries.length}
+              </span>
+            </>
+          )}
+        </nav>
 
-          <h1 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
+        <header className="mb-8">
+          <p className="m-0 font-mono text-xs text-[var(--acc)]">
+            {tutorial.duration} / {tutorial.difficulty} / {total} steps
+          </p>
+          <h1 className="mt-3 text-[clamp(30px,7vw,44px)] font-semibold leading-[1.08] tracking-[-0.035em]">
             {tutorial.title}
           </h1>
-
-          <p className="mt-4 text-lg text-fd-muted-foreground">
+          <p className="mt-4 text-[17px] leading-[1.55] text-[var(--muted)] md:text-lg">
             {tutorial.description}
           </p>
         </header>
 
-        {/* Route switcher */}
-        <RouteSwitcher
-          availableRoutes={tutorial.availableRoutes ?? ["terminal"]}
-        />
-
-        {/* Intro */}
-        <div
+        <section
           data-tutorial-intro
-          className="mb-12 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6"
+          aria-label="Before you start"
+          className="glass mb-8 flex flex-col gap-5 rounded-xl p-5 sm:p-6"
         >
-          <p className="text-sm leading-relaxed text-fd-muted-foreground">
-            {tutorial.intro}
-          </p>
-        </div>
+          <p className="m-0 text-[15px] leading-relaxed">{tutorial.intro}</p>
+          <div className="border-t border-[var(--line)] pt-5">
+            <RouteSwitcher availableRoutes={routes} />
+          </div>
+        </section>
 
-        {/* Steps */}
-        <div className="space-y-16">
+        <nav aria-label="Steps in this tutorial" className="mb-14">
+          <p className="m-0 mb-2 font-mono text-xs text-[var(--muted)]">in this tutorial</p>
+          <ol className="m-0 flex list-none flex-col gap-1 p-0">
+            {tutorial.steps.map((step, index) => (
+              <li key={index}>
+                <a
+                  href={`#step-${index + 1}`}
+                  className={`flex gap-3 rounded-md py-1 text-[15px] text-[var(--muted)] transition-colors hover:text-[var(--ink)] ${focusRing}`}
+                >
+                  <span className="font-mono text-[13px] text-[var(--acc)]">{pad2(index + 1)}</span>
+                  {step.title}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+
+        <ol className="m-0 flex list-none flex-col gap-16 p-0">
           {tutorial.steps.map((step, index) => (
-            <section key={index}>
-              {/* Step header */}
-              <div className="flex items-start gap-4 mb-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--code)] text-sm font-medium text-fd-muted-foreground">
-                  {index + 1}
-                </div>
-                <div>
-                  <h2 className="font-display text-lg font-semibold text-fd-foreground tracking-[-0.035em]">
-                    {step.title}
-                  </h2>
-                  <p className="mt-1 text-sm text-fd-muted-foreground">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Code block */}
-              {step.code && (
-                <div className="ml-12 mt-4">
-                  <CopyBlock
-                    code={step.code.snippet}
-                    language={step.code.language}
-                  />
-                </div>
-              )}
-
-              {/* Demo : renders appropriate variant based on selected route */}
-              {(step.demo ?? step.appDemo ?? step.ideDemo) && (
-                <div className="ml-12 mt-4">
-                  <TutorialStepDemo
-                    demo={step.demo}
-                    appDemo={step.appDemo}
-                    ideDemo={step.ideDemo}
-                  />
-                </div>
-              )}
-            </section>
+            <li
+              key={index}
+              id={`step-${index + 1}`}
+              className="min-w-0 scroll-mt-[calc(var(--site-header-h)+1rem)]"
+            >
+              <p className="m-0 font-mono text-xs text-[var(--acc)]">
+                step {pad2(index + 1)} / {pad2(total)}
+              </p>
+              <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] md:text-2xl">{step.title}</h2>
+              <p className="mt-2 mb-5 text-[15px] leading-relaxed text-[var(--muted)]">{step.description}</p>
+              <TutorialStepBody
+                availableRoutes={routes}
+                code={step.code}
+                demo={step.demo}
+                appDemo={step.appDemo}
+                ideDemo={step.ideDemo}
+              />
+            </li>
           ))}
-        </div>
+        </ol>
 
-        {/* Footer */}
         <div data-tutorial-complete-sentinel className="mt-20 space-y-8">
-          {/* Mark as complete */}
           <TutorialCompleteButton slug={tutorial.slug} title={tutorial.title} />
 
-          {/* Share card */}
+          {position && (position.prev || position.next) && (
+            <nav aria-label={`More in ${position.track.title}`}>
+              <p className="m-0 mb-3 font-mono text-xs text-[var(--muted)]">
+                {position.track.title.toLowerCase()} / {position.index + 1} of {position.track.entries.length}
+              </p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                {position.prev && <PagerLink entry={position.prev} dir="prev" />}
+                {position.next && <PagerLink entry={position.next} dir="next" />}
+              </div>
+            </nav>
+          )}
+
+          {position && !position.next && (
+            <Link
+              href="/tutorials"
+              className={`glass flex flex-col gap-1.5 rounded-xl p-5 transition-colors hover:border-[var(--acc)] ${focusRing}`}
+            >
+              <span className="font-mono text-xs text-[var(--muted)]">end of this track</span>
+              <span className="font-semibold">Pick another track</span>
+            </Link>
+          )}
+
+          {showDeeper &&
+            (deeperIsExternal ? (
+              <a
+                href={tutorial.nextLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center gap-2 rounded-sm text-[15px] font-medium hover:text-[var(--acc)] ${focusRing}`}
+              >
+                <span className="font-mono text-xs text-[var(--muted)]">go deeper</span>
+                {tutorial.nextLink.label}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+            ) : (
+              <Link
+                href={tutorial.nextLink.href}
+                className={`flex items-center gap-2 rounded-sm text-[15px] font-medium hover:text-[var(--acc)] ${focusRing}`}
+              >
+                <span className="font-mono text-xs text-[var(--muted)]">go deeper</span>
+                {tutorial.nextLink.label}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            ))}
+
           <ShareCard
             tutorialTitle={tutorial.title}
             tutorialSlug={tutorial.slug}
             duration={tutorial.duration}
           />
 
-          {/* What's next */}
-          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
-            <p className="text-sm font-medium text-fd-muted-foreground mb-2">
-              What&apos;s next?
-            </p>
-            <Link
-              href={tutorial.nextLink.href}
-              className="inline-flex items-center gap-2 text-fd-foreground font-medium hover:underline"
-            >
-              {tutorial.nextLink.label}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          {/* Email capture */}
           <EmailCapture placement="tutorial-post" />
         </div>
 

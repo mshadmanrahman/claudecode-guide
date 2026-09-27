@@ -58,9 +58,9 @@ export function SectionIndex({ sections }: SectionIndexProps) {
         </p>
       </section>
 
-      {/* Section grid */}
+      {/* Section grid: glass cards over the faded scene, same card as the homepage personas */}
       <div className="mx-auto max-w-4xl px-4 sm:px-6 py-10">
-        <div className="grid grid-cols-1 gap-px bg-fd-border border border-fd-border rounded-xl overflow-hidden sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {sections.map((section, i) => {
             const Illustration = ILLUSTRATIONS[section.name];
             const description  = DESCRIPTIONS[section.name];
@@ -68,63 +68,61 @@ export function SectionIndex({ sections }: SectionIndexProps) {
             const featured  = section.pages.slice(0, featuredCount);
             const remaining = section.pages.length - featured.length;
             const firstPage = section.pages[0];
+            const slug = section.name.toLowerCase();
 
             return (
-              <div
+              <section
                 key={section.name}
-                className="bg-fd-background p-6 animate-slide-up-fade"
+                aria-labelledby={`section-${slug}`}
+                className="glass hm-card ccg-section-card animate-slide-up-fade"
                 style={{ animationDelay: `${80 + i * 55}ms` }}
               >
-                {/* Generative SVG art */}
-                <div className="mb-5 h-[110px] text-fd-foreground/40">
+                <div className="mb-5 h-[96px] text-fd-foreground">
                   {Illustration && <Illustration />}
                 </div>
 
-                {/* Ordinal + section name */}
-                <div className="flex items-baseline gap-3 mb-1">
-                  <span
-                    className="font-display text-3xl font-normal leading-none select-none shrink-0"
-                    style={{ color: 'var(--color-fd-border)' }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h2 className="text-base font-semibold text-fd-foreground leading-tight">
-                    {section.name}
-                  </h2>
-                </div>
+                <span className="font-mono text-xs text-[var(--acc)]">
+                  {String(i + 1).padStart(2, '0')} / {slug}
+                </span>
+                <h2
+                  id={`section-${slug}`}
+                  className="mt-2 text-lg font-semibold text-fd-foreground leading-tight"
+                >
+                  {section.name}
+                </h2>
 
                 {description && (
-                  <p className="mt-1 text-sm text-fd-muted-foreground leading-snug pl-[2.6rem]">
+                  <p className="mt-1.5 text-sm text-fd-muted-foreground leading-snug">
                     {description}
                   </p>
                 )}
 
-                <ul className="mt-4 space-y-0.5 border-t border-fd-border pt-4">
+                <ul className="mt-4 mb-3 space-y-0.5 border-t border-[var(--line)] pt-3">
                   {featured.map((page) => (
                     <li key={page.slug}>
                       <Link
                         href={page.url}
-                        className="group/link flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-foreground"
+                        className="group/link -mx-2 flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-fd-muted-foreground transition-colors hover:bg-[var(--chip)] hover:text-fd-foreground"
                       >
                         <span className="flex-1 truncate">{page.title}</span>
-                        <ArrowRight className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover/link:opacity-50" />
+                        <ArrowRight className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover/link:opacity-60" aria-hidden />
                       </Link>
                     </li>
                   ))}
                 </ul>
 
                 {remaining > 0 && firstPage && (
-                  <div className="mt-3 border-t border-fd-border pt-3">
+                  <div className="mt-auto border-t border-[var(--line)] pt-3">
                     <Link
                       href={firstPage.url}
-                      className="flex items-center gap-1.5 text-xs text-fd-muted-foreground transition-colors hover:text-fd-foreground"
+                      className="flex items-center gap-1.5 font-mono text-xs text-fd-muted-foreground transition-colors hover:text-[var(--acc)]"
                     >
                       <span>{remaining} more {remaining === 1 ? 'page' : 'pages'} in this section</span>
-                      <ArrowRight className="h-3 w-3" />
+                      <ArrowRight className="h-3 w-3" aria-hidden />
                     </Link>
                   </div>
                 )}
-              </div>
+              </section>
             );
           })}
         </div>

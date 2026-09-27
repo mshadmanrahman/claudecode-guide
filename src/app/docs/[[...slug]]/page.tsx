@@ -32,6 +32,16 @@ import {
   PreparedReadyIllustration,
   AntiSycophancyHero,
 } from "@/components/illustrations";
+import {
+  MemoryRouterDiagram,
+  EveryTurnTaxDiagram,
+  MoreFilesTrapDiagram,
+  ClaudeMdRouterDiagram,
+  IsolationWallsDiagram,
+  FiveCLoopDiagram,
+  CheckPanelDiagram,
+  PersonaFlowDiagram,
+} from "@/components/docs/doc-diagrams";
 import { getAffiliateCtasForPage } from "@/lib/affiliate-cta-config";
 import { getComparisonArticleMetadata } from "@/lib/comparison-article";
 import { getPageNavigation, getSections } from "@/lib/docs-navigation";
@@ -60,6 +70,14 @@ const mdxComponents = {
   SkimOnPhoneIllustration,
   PreparedReadyIllustration,
   AntiSycophancyHero,
+  MemoryRouterDiagram,
+  EveryTurnTaxDiagram,
+  MoreFilesTrapDiagram,
+  ClaudeMdRouterDiagram,
+  IsolationWallsDiagram,
+  FiveCLoopDiagram,
+  CheckPanelDiagram,
+  PersonaFlowDiagram,
 };
 
 interface PageProps {

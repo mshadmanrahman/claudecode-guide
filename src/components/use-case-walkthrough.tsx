@@ -3,6 +3,8 @@
 import type { ReactNode } from 'react';
 import { useInView } from '@/hooks/use-in-view';
 
+// `tone` is kept for the MDX that still passes it; every frame now renders
+// the same glass panel so the steps read as one sequence.
 type Tone = 'lavender' | 'peach' | 'mint' | 'sky' | 'neutral';
 
 interface WalkthroughStep {
@@ -18,24 +20,16 @@ interface UseCaseWalkthroughProps {
   title?: string;
 }
 
-const TONE_CLASSES: Record<Tone, string> = {
-  lavender: 'bg-violet-500/[0.06]',
-  peach: 'bg-orange-500/[0.06]',
-  mint: 'bg-emerald-500/[0.06]',
-  sky: 'bg-sky-500/[0.06]',
-  neutral: 'bg-fd-card/60',
-};
-
 export function UseCaseWalkthrough({
   steps,
   title = 'How it works',
 }: UseCaseWalkthroughProps) {
   return (
     <section aria-label={title} className="not-prose my-10">
-      <p className="mb-5 text-xs font-medium uppercase tracking-wide text-fd-muted-foreground">
-        {title}
+      <p className="mb-4 font-mono text-xs text-fd-muted-foreground">
+        {title.toLowerCase()}
       </p>
-      <ol className="space-y-5">
+      <ol className="space-y-4">
         {steps.map((step, i) => (
           <WalkthroughFrame
             key={i}
@@ -57,24 +51,21 @@ interface FrameProps {
 
 function WalkthroughFrame({ step, index, total }: FrameProps) {
   const [containerRef, isInView] = useInView(0.25);
-  const tone = step.tone ?? 'neutral';
-  const groundClass = TONE_CLASSES[tone];
-  const kicker = step.kicker ?? `Step ${index + 1} of ${total}`;
+  const n = String(index + 1).padStart(2, '0');
+  const kicker = step.kicker ?? `${n} / ${String(total).padStart(2, '0')}`;
 
   return (
     <li>
       <div
         ref={containerRef}
-        className={`overflow-hidden rounded-2xl border border-fd-border ${groundClass} transition-opacity duration-700 motion-reduce:transition-none ${
+        className={`glass rounded-xl transition-opacity duration-700 motion-reduce:transition-none ${
           isInView ? 'opacity-100' : 'opacity-60'
         }`}
       >
-        <div className="grid items-center gap-6 p-6 sm:grid-cols-2 sm:p-8">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-fd-muted-foreground">
-              {kicker}
-            </p>
-            <h3 className="mt-2 font-display text-2xl font-normal text-fd-foreground sm:text-[28px] sm:leading-tight">
+        <div className="grid items-center gap-6 p-5 sm:grid-cols-2 sm:p-7">
+          <div className="min-w-0">
+            <p className="font-mono text-xs text-[var(--acc)]">{kicker}</p>
+            <h3 className="mt-2 text-xl font-semibold leading-snug text-fd-foreground sm:text-2xl">
               {step.headline}
             </h3>
             {step.caption ? (
@@ -84,7 +75,7 @@ function WalkthroughFrame({ step, index, total }: FrameProps) {
             ) : null}
           </div>
           <div
-            className={`flex min-h-[180px] items-center justify-center rounded-xl bg-fd-background/70 p-5 transition-all duration-700 motion-reduce:transition-none ${
+            className={`il-stage transition-[transform,opacity] duration-700 motion-reduce:transition-none ${
               isInView ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-80'
             }`}
             aria-hidden

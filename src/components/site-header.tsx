@@ -11,6 +11,8 @@ interface NavLink {
   label: string;
   /** Hidden between 768px and 1024px to keep the bar on one line */
   wideOnly?: boolean;
+  /** Off-site link: opens in a new tab */
+  external?: boolean;
 }
 
 interface DropdownLink {
@@ -25,6 +27,7 @@ const PRIMARY_NAV: NavLink[] = [
   { href: "/workflow", label: "Workflow", wideOnly: true },
   { href: "/blog", label: "Essays" },
   { href: "/about", label: "About", wideOnly: true },
+  { href: "https://shadmanrahman.substack.com/", label: "Field Notes", external: true },
 ];
 
 const PATHS: DropdownLink[] = [
@@ -157,7 +160,8 @@ export function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`${link.wideOnly ? "hidden lg:block" : ""} ${navItem(isActive(link.href))}`}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className={`${link.wideOnly ? "hidden lg:block" : ""} whitespace-nowrap ${navItem(isActive(link.href))}`}
               >
                 {link.label}
               </Link>
@@ -192,7 +196,12 @@ export function SiteHeader() {
           >
             <nav aria-label="Mobile navigation" className="flex flex-col gap-0.5">
               {PRIMARY_NAV.map((link) => (
-                <Link key={link.href} href={link.href} className={navItem(isActive(link.href))}>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className={navItem(isActive(link.href))}
+                >
                   {link.label}
                 </Link>
               ))}

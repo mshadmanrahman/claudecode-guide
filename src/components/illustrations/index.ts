@@ -1,7 +1,7 @@
 // Walkthrough illustrations.
 //
 // Faceless mini-scenes for use-case page walkthroughs. Each illustration is a
-// small composition of Lucide icons + Tailwind primitives, designed to read at
+// small composition of the Win and Status primitives in kit.tsx, designed to read at
 // roughly 200 to 280px wide. Add a new illustration by creating a file in this
 // directory and adding its export below.
 

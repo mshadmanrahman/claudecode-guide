@@ -1,196 +1,306 @@
-import type { JSX } from 'react';
+import type { JSX, ReactNode } from 'react';
+
+// Line art for the /docs section cards. 1px non-scaling strokes in
+// currentColor, one element per drawing in var(--acc). The `.dv-flow` class
+// (globals.css, docs visuals) animates a dash along the accent path and turns
+// off under prefers-reduced-motion.
 
 type ArtFn = () => JSX.Element;
 
-export function FoundationsArt() {
-  const rows = [
-    { y: 102, count: 12, w: 14, gap: 5 },
-    { y:  82, count:  9, w: 14, gap: 7 },
-    { y:  62, count:  6, w: 14, gap: 10 },
-    { y:  42, count:  3, w: 14, gap: 16 },
-    { y:  22, count:  1, w: 14, gap: 0 },
-  ];
+const ACC = 'var(--acc)';
+
+function Frame({ children }: { children: ReactNode }) {
   return (
-    <svg viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
-      {rows.map((row, ri) => {
-        const total = row.count * row.w + Math.max(0, row.count - 1) * row.gap;
-        const x0 = (280 - total) / 2;
-        return Array.from({ length: row.count }, (_, si) => (
-          <rect
-            key={`${ri}-${si}`}
-            x={x0 + si * (row.w + row.gap)}
-            y={row.y}
-            width={row.w}
-            height={2}
-            fill="currentColor"
-            opacity={0.3 + ri * 0.13}
-          />
-        ));
-      })}
+    <svg
+      viewBox="0 0 280 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-full w-full"
+      aria-hidden="true"
+    >
+      <g stroke="currentColor" strokeWidth={1} vectorEffect="non-scaling-stroke">
+        {children}
+      </g>
     </svg>
   );
 }
 
-export function FrameworksArt() {
-  const cx = 140, cy = 60, r = 44;
-  const nodes = Array.from({ length: 5 }, (_, i) => {
-    const angle = (i * 72 - 90) * (Math.PI / 180);
-    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
-  });
+/** Stacked layers, the base one in accent: everything else builds on it. */
+export function FoundationsArt() {
+  const layers = [0, 1, 2, 3];
   return (
-    <svg viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
+    <Frame>
+      {layers.map((i) => {
+        const w = 120 + i * 28;
+        const x = (280 - w) / 2;
+        const y = 14 + i * 24;
+        const base = i === layers.length - 1;
+        return (
+          <rect
+            key={i}
+            x={x}
+            y={y}
+            width={w}
+            height={16}
+            rx={4}
+            stroke={base ? ACC : 'currentColor'}
+            fill={base ? 'var(--chip)' : 'none'}
+            opacity={base ? 1 : 0.35 + i * 0.12}
+            vectorEffect="non-scaling-stroke"
+          />
+        );
+      })}
+    </Frame>
+  );
+}
+
+/** Five steps on a ring, one step lit and the edge into it flowing. */
+export function FrameworksArt() {
+  const cx = 140;
+  const cy = 60;
+  const r = 42;
+  const nodes = Array.from({ length: 5 }, (_, i) => {
+    const a = ((i * 72 - 90) * Math.PI) / 180;
+    return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+  });
+  const lit = 4;
+  return (
+    <Frame>
       {nodes.map((n, i) => {
         const next = nodes[(i + 1) % 5];
-        const dx = next.x - n.x, dy = next.y - n.y;
-        const len = Math.sqrt(dx * dx + dy * dy);
-        const ux = dx / len, uy = dy / len;
+        const into = (i + 1) % 5 === lit;
         return (
           <line
-            key={`e-${i}`}
-            x1={n.x + ux * 9} y1={n.y + uy * 9}
-            x2={next.x - ux * 9} y2={next.y - uy * 9}
-            stroke="currentColor" strokeWidth={1} opacity={0.25}
+            key={`e${i}`}
+            x1={n.x}
+            y1={n.y}
+            x2={next.x}
+            y2={next.y}
+            stroke={into ? ACC : 'currentColor'}
+            opacity={into ? 1 : 0.3}
+            className={into ? 'dv-flow' : undefined}
+            vectorEffect="non-scaling-stroke"
           />
         );
       })}
       {nodes.map((n, i) => (
-        <circle key={`n-${i}`} cx={n.x} cy={n.y} r={8}
-          stroke="currentColor" strokeWidth={1.5} fill="none" opacity={0.7} />
-      ))}
-      {nodes.map((n, i) => (
-        <text key={`t-${i}`} x={n.x} y={n.y + 3.5}
-          textAnchor="middle" fontSize={6.5} fill="currentColor" opacity={0.5} fontFamily="monospace">
-          C
-        </text>
-      ))}
-      <circle cx={cx} cy={cy} r={2.5} fill="currentColor" opacity={0.22} />
-    </svg>
-  );
-}
-
-export function PatternsArt() {
-  const cols = 10, rows = 4, sp = 24, r = 5;
-  const x0 = (280 - (cols - 1) * sp) / 2;
-  const y0 = (120 - (rows - 1) * sp) / 2;
-  return (
-    <svg viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
-      {Array.from({ length: rows }, (_, row) =>
-        Array.from({ length: cols }, (_, col) => {
-          const filled = (row * 3 + col * 2) % 5 === 0;
-          const small  = (row + col) % 7 === 3;
-          return (
-            <circle
-              key={`${row}-${col}`}
-              cx={x0 + col * sp}
-              cy={y0 + row * sp}
-              r={small ? r * 0.45 : r}
-              fill={filled ? "currentColor" : "none"}
-              stroke="currentColor"
-              strokeWidth={1.2}
-              opacity={filled ? 0.65 : small ? 0.18 : 0.32}
-            />
-          );
-        })
-      )}
-    </svg>
-  );
-}
-
-export function WorkflowsArt() {
-  const inputs  = [{ x: 44, y: 36 }, { x: 44, y: 60 }, { x: 44, y: 84 }];
-  const hub     = { x: 140, y: 60 };
-  const outputs = [{ x: 236, y: 44 }, { x: 236, y: 76 }];
-
-  function arrow(x1: number, y1: number, x2: number, y2: number, k: string) {
-    const dx = x2 - x1, dy = y2 - y1;
-    const len = Math.sqrt(dx * dx + dy * dy);
-    const ux = dx / len, uy = dy / len;
-    const ex = x2 - ux * 10, ey = y2 - uy * 10;
-    return (
-      <g key={k} opacity={0.33} stroke="currentColor" fill="none">
-        <line x1={x1 + ux * 10} y1={y1 + uy * 10} x2={ex} y2={ey} strokeWidth={1} />
-        <polyline
-          points={`${ex - ux * 5 + uy * 4},${ey - uy * 5 - ux * 4} ${ex},${ey} ${ex - ux * 5 - uy * 4},${ey - uy * 5 + ux * 4}`}
-          strokeWidth={1}
+        <rect
+          key={`n${i}`}
+          x={n.x - 9}
+          y={n.y - 9}
+          width={18}
+          height={18}
+          rx={4}
+          fill="var(--bg)"
+          stroke={i === lit ? ACC : 'currentColor'}
+          opacity={i === lit ? 1 : 0.6}
+          vectorEffect="non-scaling-stroke"
         />
-      </g>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
-      {inputs.map((n, i) => arrow(n.x, n.y, hub.x, hub.y, `i${i}`))}
-      {outputs.map((n, i) => arrow(hub.x, hub.y, n.x, n.y, `o${i}`))}
-      {inputs.map((n, i) => (
-        <circle key={`in-${i}`} cx={n.x} cy={n.y} r={8}
-          stroke="currentColor" strokeWidth={1.5} fill="none" opacity={0.55} />
       ))}
-      <circle cx={hub.x} cy={hub.y} r={11}
-        stroke="currentColor" strokeWidth={1.5} fill="none" opacity={0.88} />
-      <circle cx={hub.x} cy={hub.y} r={3.5} fill="currentColor" opacity={0.45} />
-      {outputs.map((n, i) => (
-        <circle key={`out-${i}`} cx={n.x} cy={n.y} r={8}
-          stroke="currentColor" strokeWidth={1.5} fill="none" opacity={0.55} />
-      ))}
-    </svg>
+    </Frame>
   );
 }
 
+/** An event timeline with three hooks tapping off it, one of them firing. */
+export function PatternsArt() {
+  const taps = [70, 140, 210];
+  return (
+    <Frame>
+      <line x1={24} y1={40} x2={256} y2={40} opacity={0.45} vectorEffect="non-scaling-stroke" />
+      {Array.from({ length: 12 }, (_, i) => (
+        <line
+          key={`t${i}`}
+          x1={24 + i * 21}
+          y1={37}
+          x2={24 + i * 21}
+          y2={43}
+          opacity={0.3}
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      {taps.map((x, i) => {
+        const acc = i === 1;
+        return (
+          <g key={x}>
+            <line
+              x1={x}
+              y1={40}
+              x2={x}
+              y2={78}
+              stroke={acc ? ACC : 'currentColor'}
+              opacity={acc ? 1 : 0.35}
+              className={acc ? 'dv-flow' : undefined}
+              vectorEffect="non-scaling-stroke"
+            />
+            <rect
+              x={x - 26}
+              y={78}
+              width={52}
+              height={24}
+              rx={4}
+              stroke={acc ? ACC : 'currentColor'}
+              fill={acc ? 'var(--chip)' : 'none'}
+              opacity={acc ? 1 : 0.45}
+              vectorEffect="non-scaling-stroke"
+            />
+          </g>
+        );
+      })}
+    </Frame>
+  );
+}
+
+/** Three inputs into one hub, two outputs out, one route traced in accent. */
+export function WorkflowsArt() {
+  const inputs = [30, 60, 90];
+  const outputs = [44, 76];
+  return (
+    <Frame>
+      {inputs.map((y, i) => (
+        <path
+          key={`i${i}`}
+          d={`M62 ${y} C 96 ${y}, 100 60, 122 60`}
+          stroke={i === 0 ? ACC : 'currentColor'}
+          opacity={i === 0 ? 1 : 0.3}
+          className={i === 0 ? 'dv-flow' : undefined}
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      {outputs.map((y, i) => (
+        <path
+          key={`o${i}`}
+          d={`M158 60 C 180 60, 184 ${y}, 218 ${y}`}
+          stroke={i === 1 ? ACC : 'currentColor'}
+          opacity={i === 1 ? 1 : 0.3}
+          className={i === 1 ? 'dv-flow' : undefined}
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      {inputs.map((y, i) => (
+        <rect
+          key={`in${i}`}
+          x={22}
+          y={y - 8}
+          width={40}
+          height={16}
+          rx={4}
+          stroke={i === 0 ? ACC : 'currentColor'}
+          opacity={i === 0 ? 1 : 0.5}
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+      <rect x={122} y={44} width={36} height={32} rx={6} stroke="currentColor" opacity={0.85} vectorEffect="non-scaling-stroke" />
+      {outputs.map((y, i) => (
+        <rect
+          key={`out${i}`}
+          x={218}
+          y={y - 8}
+          width={40}
+          height={16}
+          rx={4}
+          stroke={i === 1 ? ACC : 'currentColor'}
+          fill={i === 1 ? 'var(--chip)' : 'none'}
+          opacity={i === 1 ? 1 : 0.5}
+          vectorEffect="non-scaling-stroke"
+        />
+      ))}
+    </Frame>
+  );
+}
+
+/** A stack of files with the front one, the one you copy, in accent. */
 export function TemplatesArt() {
   const layers = [
-    { dx: 12, dy: 12, op: 0.2 },
-    { dx:  6, dy:  6, op: 0.38 },
-    { dx:  0, dy:  0, op: 0.68 },
+    { d: 16, op: 0.25 },
+    { d: 8, op: 0.45 },
+    { d: 0, op: 1 },
   ];
-  const bx = 60, by = 14, bw = 160, bh = 88;
+  const bx = 76;
+  const by = 12;
+  const bw = 128;
+  const bh = 84;
   return (
-    <svg viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
-      {layers.map(({ dx, dy, op }, i) => (
-        <g key={i} opacity={op} stroke="currentColor">
-          <rect x={bx - dx} y={by + dy} width={bw} height={bh} strokeWidth={1.5} rx={3} />
-          <rect x={bx - dx + 14} y={by + dy + 18} width={bw * 0.55} height={2} fill="currentColor" stroke="none" />
-          <rect x={bx - dx + 14} y={by + dy + 30} width={bw * 0.75} height={2} fill="currentColor" stroke="none" />
-          <rect x={bx - dx + 14} y={by + dy + 42} width={bw * 0.45} height={2} fill="currentColor" stroke="none" />
-        </g>
-      ))}
-    </svg>
+    <Frame>
+      {layers.map(({ d, op }, i) => {
+        const front = i === layers.length - 1;
+        const x = bx + d;
+        const y = by + (16 - d);
+        return (
+          <g key={i} opacity={op} stroke={front ? ACC : 'currentColor'}>
+            <rect x={x} y={y} width={bw} height={bh} rx={6} fill="var(--bg)" vectorEffect="non-scaling-stroke" />
+            {front
+              ? [0.5, 0.78, 0.62, 0.4].map((w, j) => (
+                  <line
+                    key={j}
+                    x1={x + 14}
+                    y1={y + 20 + j * 14}
+                    x2={x + 14 + (bw - 28) * w}
+                    y2={y + 20 + j * 14}
+                    opacity={j === 0 ? 1 : 0.55}
+                    vectorEffect="non-scaling-stroke"
+                  />
+                ))
+              : null}
+          </g>
+        );
+      })}
+    </Frame>
   );
 }
 
+/** Two columns of rows side by side, one row highlighted across both. */
 export function ComparisonsArt() {
-  const leftH  = [70, 44, 82, 36];
-  const rightH = [52, 88, 38, 72];
-  const bw = 16, gap = 9, base = 104;
-  const leftW  = leftH.length  * bw + (leftH.length  - 1) * gap;
-  const rightW = rightH.length * bw + (rightH.length - 1) * gap;
-  const totalW = leftW + 28 + rightW;
-  const lx = (280 - totalW) / 2;
-  const rx = lx + leftW + 28;
-
+  const rows = [0, 1, 2, 3, 4];
+  const cols = [60, 150];
+  const w = 72;
+  const hl = 2;
   return (
-    <svg viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" aria-hidden="true">
-      {leftH.map((h, i) => (
-        <rect key={`l${i}`} x={lx + i * (bw + gap)} y={base - h} width={bw} height={h}
-          stroke="currentColor" strokeWidth={1.5} fill="none" opacity={0.58} />
+    <Frame>
+      {cols.map((x) => (
+        <rect key={`c${x}`} x={x} y={10} width={w} height={100} rx={6} opacity={0.4} vectorEffect="non-scaling-stroke" />
       ))}
-      {rightH.map((h, i) => (
-        <rect key={`r${i}`} x={rx + i * (bw + gap)} y={base - h} width={bw} height={h}
-          stroke="currentColor" strokeWidth={1.5} fill="none" opacity={0.58} />
-      ))}
-      <line x1={lx + leftW + 14} y1={12} x2={lx + leftW + 14} y2={base}
-        stroke="currentColor" strokeWidth={1} strokeDasharray="3 3" opacity={0.28} />
-      <line x1={lx - 4} y1={base} x2={rx + rightW + 4} y2={base}
-        stroke="currentColor" strokeWidth={1} opacity={0.28} />
-    </svg>
+      {rows.map((r) =>
+        cols.map((x) => (
+          <line
+            key={`${r}-${x}`}
+            x1={x + 12}
+            y1={28 + r * 17}
+            x2={x + w - 12 - ((r + x) % 3) * 10}
+            y2={28 + r * 17}
+            opacity={r === hl ? 0 : 0.35}
+            vectorEffect="non-scaling-stroke"
+          />
+        )),
+      )}
+      <rect
+        x={54}
+        y={28 + hl * 17 - 7}
+        width={174}
+        height={14}
+        rx={4}
+        stroke={ACC}
+        fill="var(--chip)"
+        vectorEffect="non-scaling-stroke"
+      />
+      <line
+        x1={132}
+        y1={28 + hl * 17}
+        x2={150}
+        y2={28 + hl * 17}
+        stroke={ACC}
+        className="dv-flow"
+        vectorEffect="non-scaling-stroke"
+      />
+    </Frame>
   );
 }
 
 const SECTION_ART: Record<string, ArtFn> = {
   Foundations: FoundationsArt,
-  Frameworks:  FrameworksArt,
-  Patterns:    PatternsArt,
-  Workflows:   WorkflowsArt,
-  Templates:   TemplatesArt,
+  Frameworks: FrameworksArt,
+  Patterns: PatternsArt,
+  Workflows: WorkflowsArt,
+  Templates: TemplatesArt,
   Comparisons: ComparisonsArt,
 };
 
@@ -198,5 +308,9 @@ export function SectionArt({ section, className }: { section?: string; className
   if (!section) return null;
   const Art = SECTION_ART[section];
   if (!Art) return null;
-  return <div className={className}><Art /></div>;
+  return (
+    <div className={className}>
+      <Art />
+    </div>
+  );
 }

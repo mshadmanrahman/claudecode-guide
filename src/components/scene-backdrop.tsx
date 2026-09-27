@@ -42,6 +42,7 @@ export function SceneBackdrop({
           alt=""
           fill
           sizes="100vw"
+          quality={90}
           className="scene-img scene-day"
         />
         <Image
@@ -49,6 +50,7 @@ export function SceneBackdrop({
           alt=""
           fill
           sizes="100vw"
+          quality={90}
           className="scene-img scene-night"
         />
       </div>

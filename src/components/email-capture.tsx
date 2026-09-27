@@ -146,21 +146,22 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
             rel="noopener noreferrer"
             className="underline hover:text-red-700"
           >
-            subscribe directly on Substack
+            subscribe on Product Field Notes
           </a>
           .
         </p>
       )}
       <p className="mt-3 text-center text-xs text-fd-muted-foreground">
-        Or follow on{' '}
+        Or read{' '}
         <a
           href="https://shadmanrahman.substack.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="underline hover:text-fd-foreground transition-colors"
         >
-          Substack
+          Product Field Notes
         </a>
+        , the Substack
       </p>
     </div>
   );

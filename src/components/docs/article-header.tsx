@@ -1,3 +1,4 @@
+import { AuthorPhoto } from "@/components/author-photo";
 import type { ReactNode } from 'react';
 
 interface ArticleHeaderProps {
@@ -30,9 +31,7 @@ export function ArticleHeader({ crumbs, meta, title, lead, children }: ArticleHe
       <h1 className="ccg-title">{title}</h1>
       {lead ? <p className="ccg-lead">{lead}</p> : null}
       <div className="ccg-byline">
-        <span className="ccg-avatar" aria-hidden="true">
-          SR
-        </span>
+        <AuthorPhoto size={28} className="shrink-0" />
         <span className="font-medium text-fd-foreground">Shadman Rahman</span>
         <span className="text-fd-muted-foreground">Principal PM</span>
       </div>

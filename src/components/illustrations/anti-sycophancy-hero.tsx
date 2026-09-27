@@ -1,7 +1,8 @@
-// Hero illustration for the "Stop Claude From Agreeing With Everything" page.
-// Two stacked Before/After charts (hand-drawn feel) plus a numbered checklist.
-// Inspired by how-to-ai.guide infographics: serif framing, marker-highlight
-// labels, dashed/solid line pairs, rough but readable.
+import { Fig } from '@/components/docs/diagram-kit';
+
+// Figure for the "Stop Claude From Agreeing With Everything" page: two
+// before/after trend charts and the nine-step checklist. 1px strokes, the
+// pushback line in accent (the thing the page is about), agreement dashed.
 
 interface AntiSycophancyHeroProps {
   className?: string;
@@ -19,230 +20,88 @@ const STEPS: ReadonlyArray<string> = [
   'Bad ideas die in chat, not prod',
 ];
 
-interface ChartProps {
-  label: 'Before' | 'After';
-  labelTone: 'rose' | 'emerald';
-  // The two trajectories. `risingId` decides which one climbs.
-  risingId: 'agreement' | 'pushback';
-}
+const BEFORE_COUNT = 5;
 
-function MarkerLabel({
-  text,
-  tone,
-}: {
-  text: string;
-  tone: 'rose' | 'emerald';
-}) {
-  const bg =
-    tone === 'rose'
-      ? 'bg-rose-200/70 dark:bg-rose-400/30'
-      : 'bg-emerald-200/70 dark:bg-emerald-400/30';
+const RISING = 'M 24 132 C 90 130, 150 122, 190 86 S 240 26, 260 18';
+const FLAT = 'M 24 128 C 80 126, 140 132, 190 128 S 240 130, 260 129';
+const DECLINING = 'M 24 60 C 80 78, 140 112, 190 126 S 240 132, 260 134';
+
+function Chart({ phase }: { phase: 'before' | 'after' }) {
+  const before = phase === 'before';
+  const agreement = before ? RISING : DECLINING;
+  const pushback = before ? FLAT : RISING;
+  const summary = before
+    ? 'Before: agreement climbs while pushback stays flat.'
+    : 'After: pushback climbs while agreement falls away.';
   return (
-    <span className="relative inline-block font-display text-base sm:text-lg">
-      <span
-        aria-hidden
-        className={`absolute inset-x-[-6px] inset-y-[2px] -rotate-2 rounded-sm ${bg}`}
-      />
-      <span className="relative px-1 italic">{text}</span>
-    </span>
-  );
-}
-
-function Chart({ label, labelTone, risingId }: ChartProps) {
-  // Two trajectories. The "rising" one ends with an arrow and a coloured dot.
-  // Coordinates picked by hand for a slightly organic curve. Keep stroke-linecap
-  // round and use small bezier asymmetry for the hand-drawn feel.
-  const agreementRising = risingId === 'agreement';
-  const pushbackRising = risingId === 'pushback';
-
-  // Path for the rising trajectory (steep curve up-right).
-  const rising = 'M 38 152 C 110 150, 175 142, 215 100 S 268 32, 285 22';
-  // Path for the recessed/flat trajectory.
-  const flat = 'M 38 148 C 90 145, 150 152, 205 147 S 260 150, 285 149';
-  // Path for the declining trajectory (after-state opposite curve).
-  const declining = 'M 38 70 C 90 90, 150 130, 205 145 S 260 152, 285 154';
-
-  const agreementPath = agreementRising ? rising : declining;
-  const pushbackPath = pushbackRising ? rising : flat;
-
-  return (
-    <div className="relative">
-      <div className="mb-2 flex items-center gap-2">
-        <MarkerLabel text={label} tone={labelTone} />
-      </div>
-      <svg
-        viewBox="0 0 320 180"
-        className="h-auto w-full max-w-md text-fd-foreground"
-        role="img"
-        aria-label={`${label} chart`}
-        fill="none"
-      >
-        {/* Y-axis */}
+    <div className="il-chart">
+      <p className="dv-col-head">
+        <span className={before ? undefined : 'dv-acc-text'}>{phase}</span>
+      </p>
+      <svg viewBox="0 0 280 150" className="h-auto w-full" role="img" aria-label={summary} fill="none">
+        <g stroke="currentColor" strokeWidth={1} vectorEffect="non-scaling-stroke" opacity={0.45}>
+          <line x1={24} y1={8} x2={24} y2={142} vectorEffect="non-scaling-stroke" />
+          <line x1={24} y1={142} x2={272} y2={142} vectorEffect="non-scaling-stroke" />
+          {[42, 76, 110].map((y) => (
+            <line key={y} x1={24} y1={y} x2={272} y2={y} strokeDasharray="1 5" vectorEffect="non-scaling-stroke" />
+          ))}
+        </g>
         <path
-          d="M 30 14 L 30 162"
+          d={agreement}
           stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          opacity="0.85"
+          strokeWidth={1}
+          strokeDasharray="4 4"
+          opacity={0.6}
+          vectorEffect="non-scaling-stroke"
         />
-        {/* Y-axis arrow */}
         <path
-          d="M 26 18 L 30 12 L 34 18"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          d={pushback}
+          stroke="var(--acc)"
+          strokeWidth={1.5}
+          className={before ? undefined : 'dv-flow'}
+          vectorEffect="non-scaling-stroke"
         />
-        {/* X-axis */}
-        <path
-          d="M 28 162 L 296 162"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          opacity="0.85"
-        />
-        {/* X-axis arrow */}
-        <path
-          d="M 292 158 L 298 162 L 292 166"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {/* Y-axis label */}
-        <text
-          x="-90"
-          y="14"
-          transform="rotate(-90)"
-          className="font-display"
-          fontSize="11"
-          fontStyle="italic"
-          fill="currentColor"
-          opacity="0.75"
-        >
-          Your time
-        </text>
-
-        {/* Recessed trajectory: dashed */}
-        <path
-          d={agreementRising ? pushbackPath : agreementPath}
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="3 4"
-          opacity="0.55"
-        />
-        {/* Rising trajectory: solid */}
-        <path
-          d={rising}
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {/* Arrowhead on rising line */}
-        <path
-          d="M 278 28 L 287 20 L 286 32"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-
-        {/* End dots */}
-        {/* Agreement dot (red) */}
-        <circle
-          cx={agreementRising ? 285 : 285}
-          cy={agreementRising ? 22 : 154}
-          r="5"
-          className="fill-rose-500"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        />
-        {/* Pushback dot (green) */}
-        <circle
-          cx={pushbackRising ? 285 : 285}
-          cy={pushbackRising ? 22 : 149}
-          r="5"
-          className="fill-emerald-500"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        />
-
-        {/* Trajectory labels: rising goes in the upper-left empty quadrant
-            so the rising curve doesn't bisect the text; recessed goes near
-            its low endpoint dot, since the curve is flat there. */}
-        <text
-          x="150"
-          y="58"
-          className="font-display"
-          fontSize="13"
-          fontWeight="600"
-          fill="currentColor"
-        >
-          {agreementRising ? 'Agreement' : 'Pushback'}
-        </text>
-        <text
-          x="216"
-          y="138"
-          className="font-display"
-          fontSize="13"
-          fontWeight="600"
-          fill="currentColor"
-        >
-          {agreementRising ? 'Pushback' : 'Agreement'}
-        </text>
+        <circle cx={260} cy={before ? 129 : 18} r={3} fill="var(--acc)" />
       </svg>
+      <div className="il-legend">
+        <span className="il-legend-key" aria-hidden />
+        <span>agreement</span>
+        <span className="il-legend-key il-legend-key--acc" aria-hidden />
+        <span className="dv-acc-text">pushback</span>
+        <span className="il-legend-axis">y: your time</span>
+      </div>
     </div>
-  );
-}
-
-function Checklist() {
-  return (
-    <ol className="space-y-2.5 text-sm">
-      {STEPS.map((step, i) => (
-        <li
-          key={step}
-          className="flex items-baseline gap-3 font-mono text-[12.5px] leading-relaxed text-fd-foreground"
-        >
-          <span aria-hidden className="text-fd-muted-foreground">
-            •
-          </span>
-          <span className="flex-1">
-            {step}
-            <span
-              aria-hidden
-              className="ml-1 text-fd-muted-foreground/50 tracking-widest"
-            >
-              {'.'.repeat(Math.max(2, 26 - step.length))}
-            </span>
-          </span>
-        </li>
-      ))}
-    </ol>
   );
 }
 
 export function AntiSycophancyHero({ className }: AntiSycophancyHeroProps) {
   return (
-    <div className={`not-prose my-8 ${className ?? ''}`}>
-      <div className="rounded-2xl border border-fd-border bg-fd-card/60 p-6 sm:p-8">
-        <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.18em] text-fd-muted-foreground">
-          How to
-        </p>
-        <h2 className="font-display text-2xl font-normal leading-tight tracking-tight-display text-fd-foreground sm:text-3xl">
-          Stop Claude from agreeing with everything
-        </h2>
-
-        <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
-          <div className="space-y-6">
-            <Chart label="Before" labelTone="rose" risingId="agreement" />
-            <Chart label="After" labelTone="emerald" risingId="pushback" />
-          </div>
-          <Checklist />
+    <Fig
+      label="how to"
+      caption="A global rules file flips which line climbs."
+      className={className}
+    >
+      <p className="il-fig-title">Stop Claude from agreeing with everything</p>
+      <div className="il-hero-grid">
+        <div className="dv-stack il-charts">
+          <Chart phase="before" />
+          <Chart phase="after" />
         </div>
+        <ol className="il-steps">
+          {STEPS.map((step, i) => {
+            const after = i >= BEFORE_COUNT;
+            return (
+              <li key={step} className={after ? 'is-acc' : undefined}>
+                <span className="il-step-n">{String(i + 1).padStart(2, '0')}</span>
+                <span className="il-step-text">{step}</span>
+                {i === 0 || i === BEFORE_COUNT ? (
+                  <span className={`dv-tag${after ? ' dv-tag--acc' : ''}`}>{after ? 'after' : 'before'}</span>
+                ) : null}
+              </li>
+            );
+          })}
+        </ol>
       </div>
-    </div>
+    </Fig>
   );
 }

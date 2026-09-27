@@ -73,16 +73,16 @@ export default function AboutPage() {
             >
               LinkedIn
             </a>
-            . He also writes on{' '}
+            . He also writes{' '}
             <a
               href="https://shadmanrahman.substack.com/"
               className="underline underline-offset-4 hover:text-fd-primary"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Substack
+              Product Field Notes
             </a>{' '}
-            and posts code on{' '}
+            on Substack and posts code on{' '}
             <a
               href="https://github.com/mshadmanrahman"
               className="underline underline-offset-4 hover:text-fd-primary"

@@ -1,15 +1,11 @@
 import { ArrowUpRight } from 'lucide-react';
+import { AuthorPhoto } from '@/components/author-photo';
 
 export function AuthorBio() {
   return (
     <aside className="not-prose my-12 rounded-2xl border border-fd-border bg-fd-card/50 p-6 sm:p-7">
       <div className="flex items-start gap-4">
-        <div
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-fd-foreground text-base font-medium text-fd-background"
-          aria-hidden
-        >
-          SR
-        </div>
+        <AuthorPhoto size={56} className="shrink-0" />
         <div className="flex-1">
           <p className="font-display text-lg text-fd-foreground">
             Shadman Rahman
@@ -36,7 +32,7 @@ export function AuthorBio() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 font-medium text-fd-foreground hover:underline"
             >
-              Substack <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+              Product Field Notes <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
             </a>
             <a
               href="https://github.com/mshadmanrahman"

@@ -1,28 +1,22 @@
-import { FileText } from 'lucide-react';
+import { Win } from './kit';
+
+const SECTIONS = [
+  { head: 'Recent context', body: 'Took over dashboard project' },
+  { head: 'Open items', body: 'Match Maker one-pager owed' },
+  { head: 'Ask', body: 'Q3 headcount status?' },
+];
 
 export function BriefDocumentIllustration() {
   return (
-    <div className="w-full max-w-[240px] overflow-hidden rounded-xl border border-fd-border bg-fd-background shadow-sm">
-      <div className="flex items-center gap-2 border-b border-fd-border bg-fd-muted/40 px-3 py-1.5">
-        <FileText className="h-3.5 w-3.5 text-fd-muted-foreground" />
-        <span className="font-mono text-[10px] text-fd-foreground">
-          1:1 brief · Sarah
-        </span>
-      </div>
-      <div className="space-y-2 px-3 py-3 text-[10px] text-fd-muted-foreground">
-        <div>
-          <div className="font-medium text-fd-foreground">Recent context</div>
-          <div className="ml-2 mt-0.5">Took over dashboard project</div>
-        </div>
-        <div>
-          <div className="font-medium text-fd-foreground">Open items</div>
-          <div className="ml-2 mt-0.5">Match Maker one-pager owed</div>
-        </div>
-        <div>
-          <div className="font-medium text-fd-foreground">Ask</div>
-          <div className="ml-2 mt-0.5">Q3 headcount status?</div>
-        </div>
-      </div>
-    </div>
+    <Win title="1:1 brief / Sarah" width={240}>
+      <dl className="il-doc">
+        {SECTIONS.map((s) => (
+          <div key={s.head}>
+            <dt>{s.head}</dt>
+            <dd>{s.body}</dd>
+          </div>
+        ))}
+      </dl>
+    </Win>
   );
 }
