@@ -547,9 +547,12 @@ h3.font-display {
     );
   }
 }
-/* Long-read pages (tutorial detail) sit about 15% lighter so the text stays easy to read. */
+/* Long-read pages (tutorial detail): the scene shows behind the header, then
+   fades to the plain page color before the first step, so body text never sits
+   on the painting. */
 .scene--faded.scene--reading .scene-drift {
-  opacity: calc(var(--fade-landing) * 0.8);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0.6) 420px, transparent 820px);
+  mask-image: linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0.6) 420px, transparent 820px);
 }
 @keyframes scene-drift {
   from {

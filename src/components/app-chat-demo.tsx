@@ -4,6 +4,33 @@ import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useInView } from '@/hooks/use-in-view';
 
+/**
+ * Claude's avatar in the chat mocks: a spark drawn for this site in Claude's
+ * coral. Deliberately not the official Anthropic mark, since this guide is
+ * unofficial.
+ */
+function ClaudeSpark({ className = 'h-6 w-6' }: { className?: string }) {
+  const rays = [0, 45, 90, 135, 180, 225, 270, 315];
+  return (
+    <svg viewBox="0 0 24 24" className={`shrink-0 ${className}`} aria-hidden="true" focusable="false">
+      <g stroke="#cc785c" strokeLinecap="round">
+        {rays.map((deg, i) => (
+          <line
+            key={deg}
+            x1="12"
+            y1={i % 2 === 0 ? 1.75 : 3.5}
+            x2="12"
+            y2="9.25"
+            strokeWidth={i % 2 === 0 ? 2.6 : 2.1}
+            transform={`rotate(${deg} 12 12)`}
+          />
+        ))}
+      </g>
+      <circle cx="12" cy="12" r="2.4" fill="#cc785c" />
+    </svg>
+  );
+}
+
 /** Render **bold**, `inline code`, and \n line breaks from chat text. */
 function renderChatText(text: string): ReactNode {
   const lines = text.split('\n');
@@ -110,9 +137,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
         </div>
       ) : (
         <div className="flex items-center gap-2.5 border-b border-fd-border bg-[var(--code)] px-4 py-3">
-          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#cc785c] text-label font-bold text-[#141413]" aria-hidden="true">
-            C
-          </div>
+          <ClaudeSpark />
           <span className="text-sm font-medium text-fd-foreground">Claude</span>
           {variant === 'desktop' && folder ? (
             <span className="ml-auto truncate rounded-md border border-fd-border px-2 py-0.5 font-mono text-label text-fd-muted-foreground">
@@ -137,11 +162,13 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
             key={i}
             className={`flex items-end gap-2 animate-fade-in ${step.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
-            {step.role === 'claude' && (
-              <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-label font-bold ${variant === 'ide' ? 'bg-[var(--acc)] text-[var(--accInk)]' : 'bg-[#cc785c] text-[#141413]'}`} aria-hidden="true">
-                {variant === 'ide' ? 'AI' : 'C'}
+            {step.role === 'claude' && (variant === 'ide' ? (
+              <div className="mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--acc)] text-label font-bold text-[var(--accInk)]" aria-hidden="true">
+                AI
               </div>
-            )}
+            ) : (
+              <ClaudeSpark className="mb-0.5 h-6 w-6" />
+            ))}
             <div
               className={`max-w-[82%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 step.role === 'user'
@@ -157,9 +184,13 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
         {/* Typing indicator */}
         {showTyping && (
           <div className="flex items-end gap-2 justify-start animate-fade-in">
-            <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-label font-bold ${variant === 'ide' ? 'bg-[var(--acc)] text-[var(--accInk)]' : 'bg-[#cc785c] text-[#141413]'}`} aria-hidden="true">
-              {variant === 'ide' ? 'AI' : 'C'}
-            </div>
+            {variant === 'ide' ? (
+              <div className="mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--acc)] text-label font-bold text-[var(--accInk)]" aria-hidden="true">
+                AI
+              </div>
+            ) : (
+              <ClaudeSpark className="mb-0.5 h-6 w-6" />
+            )}
             <div className="flex items-center gap-1 rounded-xl rounded-bl-sm border border-fd-border bg-fd-background px-4 py-3">
               <span
                 className="h-1.5 w-1.5 rounded-full bg-fd-muted-foreground/60 animate-bounce motion-reduce:animate-none"
