@@ -71,6 +71,20 @@ function FileIcon() {
   );
 }
 
+/** The collapsed row for a non-edit tool call: [while running, when done]. */
+function collapsedLabel(name: string, file: string | undefined): [string, string] {
+  if (name === 'Bash') return ['Running a command', 'Ran 1 command'];
+  if (name === 'Glob' || name === 'Grep') return ['Searching', 'Searched for 1 pattern'];
+  if (name.endsWith('(MCP)')) return [`Calling ${name.split(' - ')[0]}`, `Called ${name.split(' - ')[0]}`];
+  return [`Reading ${file}`, 'Read 1 file'];
+}
+
+/** "Wrote 287 lines" or "with 7 additions" wins over the preview length, which is often cut short. */
+function addedCount(result: string, previewLines: number): number {
+  const m = result.match(/(\d+) (?:lines|additions?)/);
+  return m ? Number(m[1]) : previewLines;
+}
+
 function Sidebar({ title }: { title: string }) {
   const recents = ['Tidy the roadmap doc', 'Draft launch checklist'];
   return (
@@ -166,13 +180,14 @@ export function ClaudeDesktopCodeMock({
         const isEdit = step.name === 'Write' || step.name === 'Edit' || step.name === 'Update';
         const file = step.arg.split('/').pop();
         if (!isEdit) {
+          const [doing, done] = collapsedLabel(step.name, file);
           transcript.push(
             <div key={i} className="cc-in mt-3 flex items-center gap-1.5 rounded px-1 py-0.5 text-[13px] text-[var(--cm-muted)]">
               <Chevron />
               {running ? (
-                <span className="motion-safe:animate-pulse">Reading {file}…</span>
+                <span className="min-w-0 truncate motion-safe:animate-pulse">{doing}…</span>
               ) : (
-                <span>Read 1 file</span>
+                <span className="min-w-0 truncate">{done}</span>
               )}
             </div>,
           );
@@ -187,7 +202,7 @@ export function ClaudeDesktopCodeMock({
                 <span className="text-[var(--cm-muted)] motion-safe:animate-pulse">Writing…</span>
               ) : (
                 <>
-                  <span className="font-mono" style={{ color: ADDED }}>+{bodyLines.length}</span>
+                  <span className="font-mono" style={{ color: ADDED }}>+{addedCount(step.result, bodyLines.length)}</span>
                   <span className="text-[var(--cm-muted)]">Undo</span>
                 </>
               )}

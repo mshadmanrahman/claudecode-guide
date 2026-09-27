@@ -92,6 +92,15 @@ export const TUTORIALS: Record<string, Tutorial> = {
             { type: "success", text: "You're in. Let's go." },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "what's in this project?" },
+            { kind: "thinking", verb: "Exploring", ms: 800 },
+            { kind: "tool", name: "Bash", arg: "ls", result: "README.md  src/  package.json  tsconfig.json" },
+            { kind: "tool", name: "Read", arg: "package.json", result: "Read 34 lines" },
+            { kind: "say", text: "A Next.js 16 app with TypeScript, Tailwind and Prisma.\nThere's no CLAUDE.md yet, so each session starts cold.\nRun /init and I'll write one from what I find." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -146,6 +155,36 @@ export const TUTORIALS: Record<string, Tutorial> = {
               type: "warn",
               text: "Tip: Open CLAUDE.md and add your personal preferences",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "/init" },
+            { kind: "thinking", verb: "Analyzing", ms: 900 },
+            { kind: "tool", name: "Glob", arg: "**/*.{ts,tsx}", result: "Found 23 files" },
+            { kind: "tool", name: "Read", arg: "package.json", result: "Read 34 lines" },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "CLAUDE.md",
+              result: "Wrote 13 lines to CLAUDE.md",
+              lines: [
+                "# CLAUDE.md",
+                "",
+                "## Stack",
+                "Next.js 16 (App Router), TypeScript, Tailwind CSS v4, Prisma",
+                "",
+                "## Commands",
+                "npm run dev    # start dev server",
+                "npm run build  # production build",
+                "npm test       # vitest",
+                "",
+                "## Project Structure",
+                "src/app/         # App Router pages",
+                "src/components/  # shared components",
+              ],
+            },
+            { kind: "say", text: "Created CLAUDE.md. I read it at the start of every session." },
           ],
         },
         appDemo: {
@@ -203,6 +242,13 @@ export const TUTORIALS: Record<string, Tutorial> = {
             { type: "out", text: "src/components # Shared components" },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "show me what's in CLAUDE.md" },
+            { kind: "tool", name: "Read", arg: "CLAUDE.md", result: "Read 13 lines" },
+            { kind: "say", text: "Three sections so far:\n- Stack: Next.js 16, TypeScript, Tailwind CSS v4, Prisma\n- Commands: npm run dev, npm run build, npm test\n- Structure: src/app for pages, src/components for shared UI\n\nNothing yet about how you like to work. Add that next." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -254,6 +300,28 @@ export const TUTORIALS: Record<string, Tutorial> = {
               type: "warn",
               text: "Every conversation with Claude now starts here.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "add to CLAUDE.md: be concise, code first, TypeScript only, root cause before fixes, don't ask" },
+            { kind: "thinking", verb: "Editing", ms: 800 },
+            {
+              kind: "tool",
+              name: "Update",
+              arg: "CLAUDE.md",
+              result: "Updated CLAUDE.md with 7 additions",
+              lines: [
+                "",
+                "## How I Work With You",
+                "- Concise: no preamble",
+                "- Code first, explanation after",
+                "- TypeScript only, no JavaScript alternatives",
+                "- Bug fixes: root cause first, then the fix",
+                "- Don't ask \"would you like me to...\": just do it",
+              ],
+            },
+            { kind: "say", text: "Saved. CLAUDE.md is now 20 lines, and every session starts from it." },
           ],
         },
         appDemo: {
@@ -321,6 +389,44 @@ export const TUTORIALS: Record<string, Tutorial> = {
             },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "add a dark mode toggle to the header" },
+            { kind: "thinking", ms: 800 },
+            { kind: "tool", name: "Read", arg: "src/components/header.tsx", result: "Read 42 lines" },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "src/components/theme-toggle.tsx",
+              result: "Wrote 12 lines to src/components/theme-toggle.tsx",
+              lines: [
+                "'use client';",
+                "import { useTheme } from 'next-themes';",
+                "import { Sun, Moon } from 'lucide-react';",
+                "",
+                "export function ThemeToggle() {",
+                "  const { theme, setTheme } = useTheme();",
+                "  return (",
+                "    <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>",
+                "      {theme === 'dark' ? <Sun /> : <Moon />}",
+                "    </button>",
+                "  );",
+                "}",
+              ],
+            },
+            {
+              kind: "tool",
+              name: "Update",
+              arg: "src/components/header.tsx",
+              result: "Updated src/components/header.tsx with 2 additions",
+              lines: [
+                "import { ThemeToggle } from './theme-toggle';",
+                "        <ThemeToggle />",
+              ],
+            },
+            { kind: "say", text: "Added ThemeToggle with next-themes, in TypeScript as you asked.\nTailwind dark mode was already on, so no config changes." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -386,6 +492,13 @@ export const TUTORIALS: Record<string, Tutorial> = {
             { type: "success", text: "Empty folder. Perfect canvas." },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "I want a personal portfolio site. What's in this folder?" },
+            { kind: "tool", name: "Bash", arg: "ls -la", result: "total 0" },
+            { kind: "say", text: "It's empty, which is a clean start. Tell me:\n1. Your name and tagline\n2. The sections you want\n3. The style: dark, minimal, bold" },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -429,6 +542,13 @@ export const TUTORIALS: Record<string, Tutorial> = {
             { type: "out", text: "No CLAUDE.md found (that's fine for now)" },
             { type: "out", text: "" },
             { type: "warn", text: "Type your first prompt below." },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "I'm Alex Rivera, a UX designer. Dark and minimal: hero, 3 project cards, contact" },
+            { kind: "thinking", verb: "Planning", ms: 1000 },
+            { kind: "say", text: "Here's the plan, three files in this folder:\n- index.html for the page structure\n- styles.css for the dark theme and card grid\n- script.js for smooth scroll and the contact form\n\nDescribe anything else you want, then I'll write them." },
           ],
         },
         appDemo: {
@@ -506,6 +626,31 @@ export const TUTORIALS: Record<string, Tutorial> = {
             },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "build it: dark by default, hero, about, 3 projects, contact form, responsive, subtle animations" },
+            { kind: "thinking", verb: "Designing", ms: 900 },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "index.html",
+              result: "Wrote 287 lines to index.html",
+              lines: [
+                "<!DOCTYPE html>",
+                "<html lang=\"en\">",
+                "<head>",
+                "  <meta charset=\"UTF-8\">",
+                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+                "  <title>Alex Rivera · UX Designer</title>",
+                "  <link rel=\"stylesheet\" href=\"styles.css\">",
+                "</head>",
+              ],
+            },
+            { kind: "tool", name: "Write", arg: "styles.css", result: "Wrote 194 lines to styles.css" },
+            { kind: "tool", name: "Write", arg: "script.js", result: "Wrote 42 lines to script.js" },
+            { kind: "say", text: "Done: a hero, an about section, a 3-card project grid, and a contact form with validation." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -554,6 +699,13 @@ export const TUTORIALS: Record<string, Tutorial> = {
             { type: "warn", text: "Let's see it in the browser." },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "what did you just create?" },
+            { kind: "tool", name: "Bash", arg: "ls", result: "index.html  script.js  styles.css" },
+            { kind: "say", text: "Three files, and that's your whole website:\n- index.html: the page itself\n- styles.css: all the visual styling\n- script.js: smooth scroll and form handling\n\nNext, open it in a browser." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -597,6 +749,13 @@ npx serve .`,
               type: "warn",
               text: "Open that URL. Your portfolio is right there.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "start a local server so I can preview it" },
+            { kind: "tool", name: "Bash", arg: "npx serve .", result: "Serving! Local: http://localhost:3000" },
+            { kind: "say", text: "Your site is running at http://localhost:3000.\nOpen it, and tell me what you'd like to change." },
           ],
         },
         appDemo: {
@@ -648,6 +807,14 @@ npx serve .`,
               type: "warn",
               text: "That's it. Your site is live. Share the link.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "deploy it to Vercel" },
+            { kind: "thinking", verb: "Deploying", ms: 900 },
+            { kind: "tool", name: "Bash", arg: "npx vercel --yes", result: "Production: https://my-site.vercel.app [18s]" },
+            { kind: "say", text: "It's live at https://my-site.vercel.app, with HTTPS.\nShare the link." },
           ],
         },
         appDemo: {
@@ -709,6 +876,14 @@ npx serve .`,
             { type: "cmd", text: "ls .claude/", delay: 400 },
             { type: "out", text: "skills/" },
             { type: "success", text: "Skills directory ready." },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "set up a place for a reusable code review skill" },
+            { kind: "tool", name: "Bash", arg: "mkdir -p .claude/skills", result: "(No content)" },
+            { kind: "tool", name: "Bash", arg: "ls .claude/", result: "skills" },
+            { kind: "say", text: "Created .claude/skills. Skills saved there work in every session in this project." },
           ],
         },
         appDemo: {
@@ -789,6 +964,33 @@ EOF`,
             },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "write a code review skill: security, performance, error handling, naming. Rate CRITICAL to LOW" },
+            { kind: "thinking", verb: "Writing", ms: 900 },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: ".claude/skills/code-review.md",
+              result: "Wrote 12 lines to .claude/skills/code-review.md",
+              lines: [
+                "# Code Review Skill",
+                "",
+                "When asked to review code, follow this process:",
+                "",
+                "## Steps",
+                "1. Read the changed files (use git diff if available)",
+                "2. Check security, performance, error handling, naming",
+                "3. Rate each issue: CRITICAL, HIGH, MEDIUM, or LOW",
+                "",
+                "## Output Format",
+                "For each issue: file:line, severity, issue, fix",
+                "If the code is good, say so briefly.",
+              ],
+            },
+            { kind: "say", text: "Saved. Ask me to review your changes and I'll follow it." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -839,6 +1041,15 @@ EOF`,
             { type: "out", text: "  Fix: Use JOIN or batch loading" },
             { type: "out", text: "" },
             { type: "success", text: "2 issues found. 1 critical, 1 high." },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "review my recent changes" },
+            { kind: "tool", name: "Read", arg: ".claude/skills/code-review.md", result: "Read 12 lines" },
+            { kind: "tool", name: "Bash", arg: "git diff HEAD~1 --stat", result: "4 files changed, 61 insertions(+), 9 deletions(-)" },
+            { kind: "thinking", verb: "Reviewing", ms: 900 },
+            { kind: "say", text: "CRITICAL  src/api/auth.ts:15\nAPI key hardcoded in source. Move it to an environment variable.\n\nHIGH  src/db/queries.ts:42\nN+1 query in the user listing. Use a JOIN or batch loading.\n\n2 issues: 1 critical, 1 high." },
           ],
         },
         appDemo: {
@@ -893,6 +1104,13 @@ EOF`,
               type: "warn",
               text: "Skills turn Claude from helpful to reliable.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "what's different when you use the skill?" },
+            { kind: "thinking", ms: 1000 },
+            { kind: "say", text: "Without it, you get general advice in a different shape each time,\nand I can skip checks you care about.\nWith it, every review has a severity, a file:line and a concrete fix,\nand the security checks always run.\n\nThe skill turns helpful into reliable." },
           ],
         },
         appDemo: {
@@ -959,6 +1177,27 @@ EOF`,
               type: "warn",
               text: "Your code review just got a lot more thorough.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "add team rules: rate limiting on API routes, repository pattern, error boundaries, Tailwind only, JSDoc" },
+            {
+              kind: "tool",
+              name: "Update",
+              arg: ".claude/skills/code-review.md",
+              result: "Updated .claude/skills/code-review.md with 7 additions",
+              lines: [
+                "",
+                "## Team-Specific Rules",
+                "- All API routes must have rate limiting",
+                "- Database queries must use the repository pattern",
+                "- React components must have error boundaries",
+                "- No inline styles, use Tailwind classes only",
+                "- All public functions need JSDoc comments",
+              ],
+            },
+            { kind: "say", text: "Added. The next review checks all five rules." },
           ],
         },
         appDemo: {
@@ -1042,6 +1281,35 @@ EOF`,
               type: "warn",
               text: "Claude now knows your ticket format and team structure.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "create a CLAUDE.md: I'm a PM, Jira project KEY, points 1/2/3/5/8, AC as checkboxes" },
+            { kind: "thinking", verb: "Writing", ms: 800 },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "CLAUDE.md",
+              result: "Wrote 14 lines to CLAUDE.md",
+              lines: [
+                "# CLAUDE.md",
+                "",
+                "## Role",
+                "Product Manager workspace. SaaS product, web app and mobile app.",
+                "",
+                "## Ticket Format",
+                "- All tickets go to Jira project KEY",
+                "- Use story points: 1, 2, 3, 5, 8",
+                "- Include acceptance criteria as checkboxes",
+                "- Tag with team labels: frontend, backend, design, mobile",
+                "",
+                "## My Team",
+                "- Frontend: React/Next.js, Backend: Node.js/PostgreSQL",
+                "- Mobile: React Native",
+              ],
+            },
+            { kind: "say", text: "Saved. Every ticket I write in this folder follows that format." },
           ],
         },
         appDemo: {
@@ -1131,6 +1399,32 @@ EOF`,
             { type: "warn", text: "Ready to process some messy notes." },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "write a skill that turns meeting notes into tickets" },
+            { kind: "tool", name: "Bash", arg: "mkdir -p .claude/skills", result: "(No content)" },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: ".claude/skills/meeting-to-tickets.md",
+              result: "Wrote 11 lines to .claude/skills/meeting-to-tickets.md",
+              lines: [
+                "# Meeting to Tickets Skill",
+                "",
+                "When given meeting notes, extract action items and convert them to tickets.",
+                "",
+                "## Process",
+                "1. Identify every action item, decision, and follow-up",
+                "2. Group related items into logical tickets",
+                "3. Estimate story points based on complexity",
+                "4. Assign team labels based on the work involved",
+                "5. Write at least 3 acceptance criteria per ticket",
+                "6. Flag vague items as \"needs clarification\"",
+              ],
+            },
+            { kind: "say", text: "Ready. Paste your meeting notes." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -1211,6 +1505,14 @@ onboarding flow - users are dropping off at step 3."`,
             { type: "success", text: "5 tickets generated. Ready to file." },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "turn these notes into tickets: mobile pay button broken, Apple Pay by Q2, slow listing API, sale banner by Friday, onboarding drop-off" },
+            { kind: "tool", name: "Read", arg: ".claude/skills/meeting-to-tickets.md", result: "Read 11 lines" },
+            { kind: "thinking", verb: "Extracting", ms: 900 },
+            { kind: "say", text: "5 tickets across 3 teams:\n- Bug: Fix mobile checkout pay button (3 pts, mobile, frontend)\n- Story: Add Apple Pay integration (8 pts, backend, mobile)\n- Task: Add product listing caching (5 pts, backend)\n- Task: Spring sale homepage banner (2 pts, frontend, due Friday)\n- Story: Fix onboarding step 3 drop-off (3 pts, needs clarification)\n\nEach one has 3 acceptance criteria." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -1255,6 +1557,27 @@ onboarding flow - users are dropping off at step 3."`,
               type: "warn",
               text: "Time saved: ~45 minutes of manual ticket writing.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "export them as one markdown file I can paste into Jira" },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "tickets/sprint-planning-03-29.md",
+              result: "Wrote 58 lines to tickets/sprint-planning-03-29.md",
+              lines: [
+                "# Sprint planning, March 29",
+                "",
+                "### Fix mobile checkout pay button",
+                "**Type**: Bug | **Points**: 3 | **Labels**: mobile, frontend",
+                "- [ ] Tap target meets 44px minimum",
+                "- [ ] Tested on iOS and Android",
+                "- [ ] Regression test added",
+              ],
+            },
+            { kind: "say", text: "From 6 lines of notes: 5 tickets, 15 acceptance criteria, 1 item flagged for clarification.\nPaste the file into Jira's issue creator." },
           ],
         },
         appDemo: {
@@ -1327,6 +1650,17 @@ onboarding flow - users are dropping off at step 3."`,
               type: "warn",
               text: "5 tickets filed. Labels and points set. Done.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "create those tickets in GitHub" },
+            { kind: "tool", name: "github - create_issue (MCP)", arg: "title: \"Fix mobile checkout pay button\"", result: "Created issue #142" },
+            { kind: "tool", name: "github - create_issue (MCP)", arg: "title: \"Add Apple Pay integration\"", result: "Created issue #143" },
+            { kind: "tool", name: "github - create_issue (MCP)", arg: "title: \"Add product listing caching\"", result: "Created issue #144" },
+            { kind: "tool", name: "github - create_issue (MCP)", arg: "title: \"Spring sale homepage banner\"", result: "Created issue #145" },
+            { kind: "tool", name: "github - create_issue (MCP)", arg: "title: \"Optimize onboarding step 3\"", result: "Created issue #146" },
+            { kind: "say", text: "Created 5 issues with labels and acceptance criteria. Check your repo." },
           ],
         },
         appDemo: {
@@ -1425,6 +1759,35 @@ EOF`,
             },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "create a CLAUDE.md for discovery: B2B SaaS, 2,400 teams, outcome 3.2 to 4.5 active days a week, OST" },
+            { kind: "thinking", verb: "Writing", ms: 800 },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "CLAUDE.md",
+              result: "Wrote 14 lines to CLAUDE.md",
+              lines: [
+                "# CLAUDE.md",
+                "",
+                "## Role",
+                "Product Manager running continuous discovery.",
+                "Framework: Opportunity Solution Trees (Teresa Torres).",
+                "",
+                "## Product Context",
+                "- B2B SaaS project management tool",
+                "- 2,400 active teams, 85% retention",
+                "- Target outcome: weekly active usage from 3.2 to 4.5 days/week",
+                "",
+                "## Discovery State",
+                "- 12 interviews completed this cycle",
+                "- Focus: why teams stop using the tool mid-week",
+              ],
+            },
+            { kind: "say", text: "Saved. Every opportunity I pull out will tie back to that outcome." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -1521,6 +1884,33 @@ EOF`,
               type: "warn",
               text: 'Claude won\'t confuse "wants a dashboard" with a real need.',
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "write a skill that extracts opportunities from interviews, never solutions" },
+            { kind: "thinking", verb: "Writing", ms: 800 },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: ".claude/skills/discovery-ost.md",
+              result: "Wrote 12 lines to .claude/skills/discovery-ost.md",
+              lines: [
+                "# Product Discovery: OST Skill",
+                "",
+                "Process interview data using Teresa Torres'",
+                "Opportunity Solution Tree framework.",
+                "",
+                "## Key Definitions",
+                "- Outcome: the measurable result we're driving toward",
+                "- Opportunity: a customer need, pain, or desire (NOT a solution)",
+                "- Solution: an idea that addresses an opportunity",
+                "",
+                "## Rules",
+                "- Reframe any solution as the need behind it",
+              ],
+            },
+            { kind: "say", text: "Saved. If a solution sneaks in as an opportunity, I'll flag it and reframe it as the need." },
           ],
         },
         appDemo: {
@@ -1626,6 +2016,15 @@ old decisions. We started using a separate wiki just for that.'"`,
             },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "extract opportunities from interviews/sarah.md and interviews/jake.md" },
+            { kind: "tool", name: "Read", arg: "interviews/sarah.md", result: "Read 18 lines" },
+            { kind: "tool", name: "Read", arg: "interviews/jake.md", result: "Read 15 lines" },
+            { kind: "thinking", verb: "Extracting", ms: 900 },
+            { kind: "say", text: "6 opportunities, all framed as customer needs:\n1. Can't tell signal from noise in notifications (Sarah)\n2. No way to see what changed since the last visit (Sarah)\n3. Can't take action from mobile (Sarah)\n4. Async teams blocked by timezone gaps (Sarah)\n5. No overnight summary for daily standups (Jake)\n6. Past decisions are unfindable (Jake)" },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -1713,6 +2112,30 @@ old decisions. We started using a separate wiki just for that.'"`,
               text: "Full tree: 6 opportunities, 18 solutions, 6 experiments.",
             },
             { type: "warn", text: "Saved to discovery/ost-2026-03-29.md" },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "build the full OST: 3 solutions per opportunity, riskiest assumption for the best one" },
+            { kind: "thinking", verb: "Building", ms: 1000 },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "discovery/ost-2026-03-29.md",
+              result: "Wrote 64 lines to discovery/ost-2026-03-29.md",
+              lines: [
+                "# Outcome: weekly active usage 3.2 → 4.5 days/week",
+                "",
+                "├── Can't distinguish signal from noise",
+                "│   ├── Smart notification digest",
+                "│   ├── \"What's new since you left\" view",
+                "│   └── Per-project activity feed",
+                "│       └── Test: will users open a digest, or ignore it?",
+                "├── Can't take action from mobile",
+                "│   └── 1-tap approval in the mobile app",
+              ],
+            },
+            { kind: "say", text: "6 opportunities, 18 solutions, 6 assumption tests.\nRiskiest: will users read a digest, or ignore it like email newsletters?" },
           ],
         },
         appDemo: {
@@ -1806,6 +2229,30 @@ For each, give me:
             { type: "warn", text: "Ship experiments, not features." },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "design this-week tests for the notification digest and mobile approvals" },
+            { kind: "thinking", verb: "Designing", ms: 900 },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "discovery/assumption-tests.md",
+              result: "Wrote 24 lines to discovery/assumption-tests.md",
+              lines: [
+                "## Test 1: Smart notification digest",
+                "Assumption: users will open a digest instead of ignoring it",
+                "Test: hand-curate a daily digest email for 50 users, 5 days",
+                "Success: >40% open rate and >15% click back into the tool",
+                "",
+                "## Test 2: Mobile approval flow",
+                "Assumption: approvals are the main thing people need on mobile",
+                "Test: add an open-ended question to 20 interviews",
+                "Success: >50% mention approvals unprompted",
+              ],
+            },
+            { kind: "say", text: "Both run this week with no engineering, about 3 hours in total.\nShip experiments, not features." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -1896,6 +2343,25 @@ forget it exists.'"`,
               type: "warn",
               text: "Your OST grows smarter after every interview.",
             },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "update the OST with interviews/maria.md" },
+            { kind: "tool", name: "Read", arg: "interviews/maria.md", result: "Read 9 lines" },
+            {
+              kind: "tool",
+              name: "Update",
+              arg: "discovery/ost-2026-03-29.md",
+              result: "Updated discovery/ost-2026-03-29.md with 4 additions",
+              lines: [
+                "│   ├── Priority-based notification styling",
+                "│   │   └── Evidence: \"they all look the same\" (Maria)",
+                "├── No trigger to return without an @mention",
+                "│   └── Source: \"I only open it when someone @mentions me\" (Maria)",
+              ],
+            },
+            { kind: "say", text: "Strengthened \"can't distinguish signal from noise\" with Maria's evidence.\nNew opportunity: no trigger to return without an @mention.\nThe tree now has 7 opportunities and 21 solutions." },
           ],
         },
         appDemo: {
