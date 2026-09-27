@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -15,6 +17,12 @@ const focusRing =
  * so duration, level and step count cannot drift from the page they link to,
  * and the 300KB of step content never ships to the browser.
  */
+/** A card gets a scene only when public/tutorials/<slug>.jpg exists. */
+function tutorialImage(slug: string): string | undefined {
+  const file = path.join(process.cwd(), 'public', 'tutorials', `${slug}.jpg`);
+  return existsSync(file) ? `/tutorials/${slug}.jpg` : undefined;
+}
+
 function buildTracks(): BrowserTrack[] {
   return TRACKS.map((track) => ({
     id: track.id,
@@ -33,6 +41,7 @@ function buildTracks(): BrowserTrack[] {
         level: t.difficulty,
         steps: t.steps.length,
         worksIn: routes.map((r) => ROUTE_LABELS[r]).join(', '),
+        image: tutorialImage(entry.slug),
       };
     }),
   }));

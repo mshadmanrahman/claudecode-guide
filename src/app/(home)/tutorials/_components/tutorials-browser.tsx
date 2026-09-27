@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { PERSONAS, pad2, type Persona } from '../catalog';
@@ -15,6 +16,8 @@ export interface BrowserCard {
   level: 'beginner' | 'intermediate';
   steps: number;
   worksIn: string;
+  /** Decorative scene for the card, from public/tutorials. Optional. */
+  image?: string;
 }
 
 export interface BrowserTrack {
@@ -73,26 +76,39 @@ function Card({ card }: { card: BrowserCard }) {
   return (
     <Link
       href={`/tutorials/${card.slug}`}
-      className={`glass group flex flex-col gap-2.5 rounded-xl p-5 transition-colors hover:border-[var(--acc)] sm:p-6 ${focusRing}`}
+      className={`glass group flex flex-col overflow-hidden rounded-xl transition-colors hover:border-[var(--acc)] sm:flex-row ${focusRing}`}
     >
-      <span className="font-mono text-xs text-[var(--muted)]">
-        {card.duration} / {card.level} / {card.steps} steps
-      </span>
-      <span className="flex items-start justify-between gap-3">
-        <span className="text-lead font-semibold leading-snug tracking-[-0.02em] group-hover:text-[var(--acc)]">
-          {card.title}
+      {card.image && (
+        <span className="relative block aspect-[5/2] shrink-0 overflow-hidden sm:aspect-auto sm:w-44 md:w-52">
+          <Image
+            src={card.image}
+            alt=""
+            fill
+            sizes="(min-width: 768px) 208px, (min-width: 640px) 176px, 100vw"
+            className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03] motion-reduce:transition-none"
+          />
         </span>
-        <ArrowRight
-          className="mt-1.5 h-4 w-4 shrink-0 text-[var(--muted)] group-hover:text-[var(--acc)]"
-          aria-hidden="true"
-        />
+      )}
+      <span className="flex min-w-0 flex-1 flex-col gap-2.5 p-5 sm:p-6">
+        <span className="font-mono text-xs text-[var(--muted)]">
+          {card.duration} / {card.level} / {card.steps} steps
+        </span>
+        <span className="flex items-start justify-between gap-3">
+          <span className="text-lead font-semibold leading-snug tracking-[-0.02em] group-hover:text-[var(--acc)]">
+            {card.title}
+          </span>
+          <ArrowRight
+            className="mt-1.5 h-4 w-4 shrink-0 text-[var(--muted)] group-hover:text-[var(--acc)]"
+            aria-hidden="true"
+          />
+        </span>
+        <span className="text-ui leading-normal text-[var(--muted)]">{card.description}</span>
+        <span className="text-sm leading-normal">
+          <span className="text-[var(--muted)]">You end with: </span>
+          {card.outcome}
+        </span>
+        <span className="font-mono text-xs text-[var(--muted)]">works in: {card.worksIn}</span>
       </span>
-      <span className="text-ui leading-normal text-[var(--muted)]">{card.description}</span>
-      <span className="text-sm leading-normal">
-        <span className="text-[var(--muted)]">You end with: </span>
-        {card.outcome}
-      </span>
-      <span className="font-mono text-xs text-[var(--muted)]">works in: {card.worksIn}</span>
     </Link>
   );
 }
