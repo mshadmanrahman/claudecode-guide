@@ -108,7 +108,7 @@ export function SiteHeader() {
         <header className="glass flex h-14 items-center justify-between rounded-xl pl-4 pr-2 text-[var(--ink)] md:h-[60px] md:pl-5 md:pr-3">
           <Link
             href="/"
-            className={`flex items-center gap-2.5 rounded-md text-base font-semibold tracking-[-0.01em] ${focusRing}`}
+            className={`flex items-center gap-2.5 rounded-md text-body font-semibold tracking-[-0.01em] ${focusRing}`}
           >
             <Logo />
             Claude Code Guide

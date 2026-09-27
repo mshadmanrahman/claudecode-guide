@@ -127,7 +127,7 @@ export default async function StatsPage({
   return (
     <main className="mx-auto w-full max-w-5xl space-y-10 px-4 py-10 sm:px-6">
       <header>
-        <h1 className="text-3xl font-semibold tracking-tight">claudecodeguide.dev stats</h1>
+        <h1 className="text-headline leading-[1.1] font-semibold tracking-tight">claudecodeguide.dev stats</h1>
         <p className="mt-2 text-sm text-fd-muted-foreground">
           GA4 531041965 and Search Console. Last {days} days to yesterday, compared with the {days} days before.
           The Singapore crawler is excluded from every GA4 number. Data refreshes every 6 hours.

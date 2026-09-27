@@ -224,7 +224,7 @@ Cool neutral ink on an off-white ground, one violet accent, and translucent glas
 | headline | 28px to 36px, fluid | Section heads |
 | display | 38px to 84px, fluid | The homepage headline; articles use `display-article` (36px to 54px) |
 
-Tailwind's own `text-xs` (12px) and `text-sm` (14px) sit on the ramp and stay in use. `text-base`, `text-lg`, `text-3xl`, `text-5xl` and `text-6xl` do not, and are remaining debt. Do not pass the custom `text-*` tokens through `cn()` or `cva`: the `cn` package reads an unknown `text-caption` as a color and drops it when a real color class follows. Use `text-xs` or `text-sm` there instead.
+Tailwind's own `text-xs` (12px) and `text-sm` (14px) sit on the ramp and stay in use. `text-base`, `text-lg`, `text-3xl`, `text-4xl`, `text-5xl` and `text-6xl` do not; they survive only on the landing pages (`/pm-pilot`, the `/for-*` routes and their components), which keep their own scale. Do not pass the custom `text-*` tokens through `cn()` or `cva`: the `cn` package reads an unknown `text-caption` as a color and drops it when a real color class follows. Use `text-xs` or `text-sm` there instead.
 
 ### Named Rules
 **The No Italics Rule.** Nothing on the site slants. `em`, `i`, `cite`, and `dfn` render upright at weight 500, and blockquotes and syntax themes are forced upright too. Emphasis is weight, never slant.

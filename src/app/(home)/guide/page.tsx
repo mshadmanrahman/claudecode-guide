@@ -61,10 +61,10 @@ export default function GuidePage() {
         </div>
 
         <div className="mt-8 text-center">
-          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
             Let&apos;s get you running.
           </h1>
-          <p className="mt-4 text-lg text-fd-muted-foreground">
+          <p className="mt-4 text-lead text-fd-muted-foreground">
             9 steps. Check each one off as you go.
             <br />
             Progress saves automatically so you can come back anytime.
@@ -300,7 +300,7 @@ export default function GuidePage() {
                   }`}
                 >
                   <div className="font-medium text-fd-foreground">Pro</div>
-                  <div className="font-mono text-lg font-bold text-fd-foreground">$20/mo</div>
+                  <div className="font-mono text-lead font-bold text-fd-foreground">$20/mo</div>
                   <div className="mt-1 text-xs text-fd-muted-foreground">Good starting point</div>
                 </button>
                 <button
@@ -313,7 +313,7 @@ export default function GuidePage() {
                   }`}
                 >
                   <div className="font-medium text-fd-foreground">Max</div>
-                  <div className="font-mono text-lg font-bold text-fd-foreground">$100/mo</div>
+                  <div className="font-mono text-lead font-bold text-fd-foreground">$100/mo</div>
                   <div className="mt-1 text-xs text-fd-muted-foreground">For heavy daily use</div>
                 </button>
               </div>

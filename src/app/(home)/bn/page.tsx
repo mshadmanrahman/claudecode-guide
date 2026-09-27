@@ -35,10 +35,10 @@ export default function BengaliGuidePage() {
             <Globe className="h-4 w-4" />
             বাংলায় পড়ুন
           </div>
-          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
             Claude Code কী এবং কীভাবে শুরু করবেন
           </h1>
-          <p className="mt-4 text-lg text-fd-muted-foreground">
+          <p className="mt-4 text-lead text-fd-muted-foreground">
             আপনি যদি ChatGPT ব্যবহার করে থাকেন, তাহলে Claude Code বুঝতে পারবেন।
             এটি আপনার কম্পিউটারে বসে কাজ করে, ফাইল পড়ে, কোড লেখে, কমান্ড চালায়।
           </p>
@@ -149,7 +149,7 @@ export default function BengaliGuidePage() {
           </div>
 
           <div className="mt-6 space-y-4">
-            <h3 className="text-lg font-semibold text-fd-foreground">ধাপ ১: Node.js ইনস্টল করুন</h3>
+            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ১: Node.js ইনস্টল করুন</h3>
             <p className="text-fd-muted-foreground">
               <a
                 href="https://nodejs.org"
@@ -162,7 +162,7 @@ export default function BengaliGuidePage() {
               থেকে LTS ভার্সন ডাউনলোড করুন। ইনস্টলারে সব ডিফল্ট রাখুন, শুধু &ldquo;Next&rdquo; চাপতে থাকুন।
             </p>
 
-            <h3 className="text-lg font-semibold text-fd-foreground">ধাপ ২: Claude Code ইনস্টল করুন</h3>
+            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ২: Claude Code ইনস্টল করুন</h3>
             <DemoCard
               title="ইনস্টলেশন কমান্ড"
               steps={[
@@ -172,7 +172,7 @@ export default function BengaliGuidePage() {
               ]}
             />
 
-            <h3 className="text-lg font-semibold text-fd-foreground">ধাপ ৩: প্রথমবার চালান</h3>
+            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ৩: প্রথমবার চালান</h3>
             <DemoCard
               title="প্রথম রান"
               steps={[
@@ -229,7 +229,7 @@ export default function BengaliGuidePage() {
           />
 
           <div className="mt-8 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
-            <h3 className="mb-3 text-lg font-semibold text-fd-foreground">
+            <h3 className="mb-3 text-lead font-semibold text-fd-foreground">
               CLAUDE.md এ কী থাকে?
             </h3>
             <ul className="space-y-2 text-fd-muted-foreground">

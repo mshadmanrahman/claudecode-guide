@@ -57,7 +57,7 @@ export function ClaudeInYourDay() {
       <p className="mb-2 text-center text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
         Your daily workflow
       </p>
-      <h2 className="mb-3 text-center font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
+      <h2 className="mb-3 text-center font-display text-headline leading-[1.1] font-normal tracking-tight-display text-fd-foreground">
         Claude, all day long
       </h2>
       <p className="mb-12 text-center text-fd-muted-foreground max-w-lg mx-auto">
@@ -80,7 +80,7 @@ export function ClaudeInYourDay() {
               <span className="mb-2 text-label tracking-[0.18em] uppercase font-medium text-fd-muted-foreground">
                 {item.time}
               </span>
-              <h3 className="mb-2 font-display text-base font-bold tracking-tight text-fd-foreground">
+              <h3 className="mb-2 font-display text-body font-bold tracking-tight text-fd-foreground">
                 {item.title}
               </h3>
               <p className="text-sm text-fd-muted-foreground leading-relaxed flex-1">

@@ -421,10 +421,10 @@ export default function CapabilitiesPage() {
             <span className="text-fd-muted-foreground">{builtInCapabilities.length} capabilities + {integrations.length} integrations</span>
           </div>
 
-          <h1 className="animate-slide-up-fade delay-100 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h1 className="animate-slide-up-fade delay-100 font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
             What Claude Code Can Do
           </h1>
-          <p className="animate-slide-up-fade delay-200 mx-auto mt-4 max-w-2xl text-lg text-fd-muted-foreground">
+          <p className="animate-slide-up-fade delay-200 mx-auto mt-4 max-w-2xl text-lead text-fd-muted-foreground">
             Built-in capabilities out of the box, plus connections to every tool you already use.
             Think of it like ChatGPT plugins. Except these actually work.
           </p>
@@ -516,7 +516,7 @@ export default function CapabilitiesPage() {
                 <Puzzle className="h-4 w-4" />
                 <span className="font-medium">Custom Skills</span>
               </div>
-              <h3 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-3xl">
+              <h3 className="font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
                 Build your own capabilities.
                 <br />
                 <span className="text-fd-muted-foreground">No code required.</span>

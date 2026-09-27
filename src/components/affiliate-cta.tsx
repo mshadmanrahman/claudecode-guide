@@ -83,7 +83,7 @@ export function AffiliateCTA(props: AffiliateCTAProps) {
       : 'text-sm leading-relaxed text-fd-muted-foreground';
 
   return (
-    <section ref={sectionRef} className={containerClassName}> <p className="font-display text-lg font-normal tracking-tight text-fd-foreground">
+    <section ref={sectionRef} className={containerClassName}> <p className="font-display text-lead font-normal tracking-tight text-fd-foreground">
         {props.title}
       </p>
       <p className={`mt-2 ${descriptionClassName}`}>{props.description}</p>

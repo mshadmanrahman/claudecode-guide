@@ -33,10 +33,10 @@ export default function AboutPage() {
 
       <section className="border-b border-fd-border px-6 py-16 sm:py-24">
         <div className="mx-auto max-w-3xl">
-          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
             About Shadman Rahman
           </h1>
-          <p className="mt-5 text-lg text-fd-muted-foreground leading-relaxed">
+          <p className="mt-5 text-lead text-fd-muted-foreground leading-relaxed">
             Principal Product Manager at Keystone Education Group, based in Stockholm. Designer by
             training, product manager for fifteen years, and he builds at night.
           </p>

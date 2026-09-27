@@ -79,7 +79,7 @@ function Card({ card }: { card: BrowserCard }) {
         {card.duration} / {card.level} / {card.steps} steps
       </span>
       <span className="flex items-start justify-between gap-3">
-        <span className="text-lg font-semibold leading-snug tracking-[-0.02em] group-hover:text-[var(--acc)]">
+        <span className="text-lead font-semibold leading-snug tracking-[-0.02em] group-hover:text-[var(--acc)]">
           {card.title}
         </span>
         <ArrowRight
@@ -202,7 +202,7 @@ export function TutorialsBrowser({ tracks, total }: { tracks: BrowserTrack[]; to
             className={`mb-10 flex flex-col gap-1.5 rounded-xl border border-[var(--acc)] bg-[var(--chip)] p-5 sm:p-6 ${focusRing}`}
           >
             <span className="font-mono text-xs text-[var(--acc)]">also for you</span>
-            <span className="text-lg font-semibold tracking-[-0.02em]">Open the {hub.name}</span>
+            <span className="text-lead font-semibold tracking-[-0.02em]">Open the {hub.name}</span>
             <span className="text-ui text-[var(--muted)]">{hub.blurb}</span>
           </Link>
         )}

@@ -149,7 +149,7 @@ export default async function TutorialPage({
           <h1 className="mt-3 text-display-article font-semibold leading-[1.08] tracking-[-0.035em]">
             {tutorial.title}
           </h1>
-          <p className="mt-4 text-body leading-[1.55] text-[var(--muted)] md:text-lg">
+          <p className="mt-4 text-body leading-[1.55] text-[var(--muted)] md:text-lead">
             {tutorial.description}
           </p>
         </header>

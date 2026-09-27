@@ -86,7 +86,7 @@ export function SectionIndex({ sections }: SectionIndexProps) {
                 </span>
                 <h2
                   id={`section-${slug}`}
-                  className="mt-2 text-lg font-semibold text-fd-foreground leading-tight"
+                  className="mt-2 text-lead font-semibold text-fd-foreground leading-tight"
                 >
                   {section.name}
                 </h2>

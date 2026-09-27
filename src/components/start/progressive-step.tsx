@@ -44,7 +44,7 @@ export function ProgressiveStep({
       </div>
 
       {/* Step title */}
-      <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl mb-8">
+      <h2 className="font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground mb-8">
         {showConfetti && <span className="mr-2">&#127881;</span>}
         {title}
       </h2>

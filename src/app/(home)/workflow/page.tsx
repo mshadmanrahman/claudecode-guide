@@ -51,10 +51,10 @@ export default function WorkflowPage() {
       <WorkflowTracker />
       <main className="mx-auto max-w-4xl overflow-x-clip px-4 py-16 text-[var(--ink)] sm:px-6 sm:py-20">
         <div className="mb-12" data-workflow-intro>
-          <h1 className="font-display mb-5 text-4xl font-semibold tracking-[-0.035em] sm:text-5xl">
+          <h1 className="font-display mb-5 text-display-article leading-[1.1] font-semibold tracking-[-0.035em]">
             Claude, quietly working through your day.
           </h1>
-          <p className="m-0 max-w-xl text-lg leading-relaxed text-[var(--muted)]">
+          <p className="m-0 max-w-xl text-lead leading-relaxed text-[var(--muted)]">
             Five moments in a normal workday where Claude saves you time. Pick your role, copy a
             prompt, and try one today.
           </p>

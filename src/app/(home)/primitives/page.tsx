@@ -195,10 +195,10 @@ export default function PrimitivesPage() {
           <Sparkles className="h-3 w-3" />
           Mental model
         </div>
-        <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+        <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
           The seven primitives of Claude Code
         </h1>
-        <p className="mt-6 max-w-2xl text-lg text-fd-muted-foreground">
+        <p className="mt-6 max-w-2xl text-lead text-fd-muted-foreground">
           Skill, Hook, Rule, Guardrail, Workflow, Agent, MCP. The docs use these terms inconsistently. Plugins ship them in bundles. Nobody quite tells you when to reach for which one. Here is the cleanest way to think about it.
         </p>
       </section>
@@ -234,7 +234,7 @@ export default function PrimitivesPage() {
 
       {/* ── Seven primitives ── */}
       <section className="mx-auto w-full max-w-5xl px-6 pb-16">
-        <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground">
+        <h2 className="font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
           The seven primitives
         </h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
@@ -389,7 +389,7 @@ export default function PrimitivesPage() {
                 <span className="font-mono text-xs text-fd-muted-foreground">
                   Mistake {i + 1}
                 </span>
-                <h3 className="font-display text-lg font-semibold tracking-[-0.035em] text-fd-foreground">
+                <h3 className="font-display text-lead font-semibold tracking-[-0.035em] text-fd-foreground">
                   {m.title}
                 </h3>
               </div>

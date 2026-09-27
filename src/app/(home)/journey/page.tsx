@@ -532,10 +532,10 @@ export default function JourneyPage() {
             <span className="text-fd-muted-foreground">The full learning path</span>
           </div>
 
-          <h1 className="animate-slide-up-fade delay-100 font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h1 className="animate-slide-up-fade delay-100 font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
             The Claude Code Roadmap
           </h1>
-          <p className="animate-slide-up-fade delay-200 mx-auto mt-3 max-w-lg text-base text-fd-muted-foreground">
+          <p className="animate-slide-up-fade delay-200 mx-auto mt-3 max-w-lg text-ui text-fd-muted-foreground">
             Six stages, first install to actual mastery. Click any topic to dig in.
           </p>
         </div>
@@ -557,7 +557,7 @@ export default function JourneyPage() {
       {/* ── Learning Tree ── */}
       <section className="mx-auto w-full max-w-6xl px-6 pb-12">
         <div className="mb-6 text-center">
-          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-3xl">
+          <h2 className="font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
             Your Learning Tree
           </h2>
           <p className="mt-2 text-sm text-fd-muted-foreground">
@@ -590,7 +590,7 @@ export default function JourneyPage() {
                       {stage.number}
                     </span>
                     <div>
-                      <h2 className={`font-display text-lg font-semibold tracking-tight ${stage.headerColor}`}>
+                      <h2 className={`font-display text-lead font-semibold tracking-tight ${stage.headerColor}`}>
                         {stage.title}
                       </h2>
                       <p className="text-sm text-fd-muted-foreground">{stage.subtitle}</p>

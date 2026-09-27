@@ -33,7 +33,7 @@ export function JobBlock({
         </div>
         <h3
           id={id}
-          className="m-0 scroll-mt-20 text-base font-semibold text-fd-foreground"
+          className="m-0 scroll-mt-20 text-body font-semibold text-fd-foreground"
         >
           {question}
         </h3>

@@ -113,7 +113,7 @@ export function PathRouter() {
     <section className="mx-auto w-full max-w-6xl px-6 py-24 lg:px-10 lg:py-32">
       <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
         <div>
-          <h2 className="max-w-[12ch] text-balance font-display text-4xl font-medium leading-[0.98] tracking-tight-display text-fd-foreground sm:text-6xl">
+          <h2 className="max-w-[12ch] text-balance font-display text-display font-medium leading-[0.98] tracking-tight-display text-fd-foreground">
             Find the part that is slowing you down.
           </h2>
           <p className="mt-6 max-w-sm leading-relaxed text-fd-muted-foreground">
@@ -148,7 +148,7 @@ export function PathRouter() {
                       <span className="text-xs text-fd-muted-foreground">
                         {card.audience}
                       </span>
-                      <p className="mt-1 text-sm font-medium leading-snug text-fd-foreground sm:text-base">
+                      <p className="mt-1 text-sm font-medium leading-snug text-fd-foreground sm:text-ui">
                         {card.title}
                       </p>
                     </div>

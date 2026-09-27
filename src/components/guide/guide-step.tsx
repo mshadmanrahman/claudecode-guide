@@ -34,7 +34,7 @@ export function GuideStep({ stepId, number, title, completed, onToggle, children
           )}
         </div>
         <div className="flex-1">
-          <h3 className={`font-display text-lg tracking-tight ${completed ? 'text-fd-muted-foreground line-through' : 'text-fd-foreground'}`}>
+          <h3 className={`font-display text-lead tracking-tight ${completed ? 'text-fd-muted-foreground line-through' : 'text-fd-foreground'}`}>
             {title}
           </h3>
         </div>

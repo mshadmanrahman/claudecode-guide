@@ -7,7 +7,7 @@ export function AuthorBio() {
       <div className="flex items-start gap-4">
         <AuthorPhoto size={56} className="shrink-0" />
         <div className="flex-1">
-          <p className="font-display text-lg text-fd-foreground">
+          <p className="font-display text-lead text-fd-foreground">
             Shadman Rahman
           </p>
           <p className="mt-1 text-sm leading-relaxed text-fd-muted-foreground">

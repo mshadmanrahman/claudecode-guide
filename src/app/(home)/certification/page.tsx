@@ -161,10 +161,10 @@ export default function CertificationPage() {
             <Award className="h-4 w-4" />
             Checked against Anthropic&rsquo;s own pages on {VERIFIED_DATE}
           </div>
-          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
             Claude certification, and who can actually sit one
           </h1>
-          <p className="mt-5 text-lg text-fd-muted-foreground leading-relaxed">
+          <p className="mt-5 text-lead text-fd-muted-foreground leading-relaxed">
             Four credentials, $99 to $175, 120 minutes each, pass at 720 out of 1,000. The catch
             sits in the registration form rather than the exam: you need a partner email address on
             a recognised company domain, and a personal address will not work.
@@ -189,7 +189,7 @@ export default function CertificationPage() {
             {CREDENTIALS.map((c) => (
               <div key={c.name} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <h3 className="font-display text-base font-semibold text-fd-foreground">
+                  <h3 className="font-display text-body font-semibold text-fd-foreground">
                     {c.name}
                   </h3>
                   <span className="font-mono text-sm text-fd-foreground">{c.price}</span>
@@ -417,7 +417,7 @@ export default function CertificationPage() {
           <dl className="mt-6 space-y-6">
             {FAQ.map((f) => (
               <div key={f.question}>
-                <dt className="font-display text-base font-semibold text-fd-foreground">
+                <dt className="font-display text-body font-semibold text-fd-foreground">
                   {f.question}
                 </dt>
                 <dd className="mt-2 text-fd-muted-foreground leading-relaxed">{f.answer}</dd>

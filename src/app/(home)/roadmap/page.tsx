@@ -21,7 +21,7 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
     <div className="relative">
       {/* Stage header */}
       <div className="mb-6 flex items-center gap-4">
-        <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-fd-border ${color} font-mono text-lg font-bold`}>
+        <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-fd-border ${color} font-mono text-lead font-bold`}>
           {number}
         </div>
         <div>
@@ -79,10 +79,10 @@ export default function RoadmapPage() {
       />
       {/* Hero */}
       <section className="mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
-        <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+        <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
           Your learning path
         </h1>
-        <p className="mt-4 text-lg text-fd-muted-foreground">
+        <p className="mt-4 text-lead text-fd-muted-foreground">
           From zero to power user. Each stage builds on what came before.
           <br />
           Go at your own pace. Skip what you already know.

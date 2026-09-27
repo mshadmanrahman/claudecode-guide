@@ -48,14 +48,14 @@ export function Preloader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
-              className="font-mono text-sm sm:text-base tracking-widest opacity-80"
+              className="font-mono text-sm sm:text-ui tracking-widest opacity-80"
             >
               WAKING UP CLAUDE
             </motion.p>
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-              className="ml-1 font-mono text-sm sm:text-base font-bold"
+              className="ml-1 font-mono text-sm sm:text-ui font-bold"
             >
               _
             </motion.span>

@@ -15,7 +15,7 @@ export function FromClaude({ children, label = 'From Claude' }: FromClaudeProps)
           {label}
         </span>
       </div>
-      <div className="space-y-3 text-sm leading-relaxed text-fd-foreground [&>p]:my-2 [&>pre]:my-3 [&>ul]:my-2 [&>ol]:my-2 [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:font-display [&>h3]:text-base">
+      <div className="space-y-3 text-sm leading-relaxed text-fd-foreground [&>p]:my-2 [&>pre]:my-3 [&>ul]:my-2 [&>ol]:my-2 [&>h3]:mt-4 [&>h3]:mb-2 [&>h3]:font-display [&>h3]:text-body">
         {children}
       </div>
     </div>

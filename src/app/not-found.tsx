@@ -11,8 +11,8 @@ export default function NotFound() {
   return (
     <div className="relative isolate flex min-h-screen flex-col items-center justify-center px-6 text-center">
       <SceneBackdrop variant="faded" />
-      <p className="font-mono text-6xl font-semibold text-[var(--acc)]">404</p>
-      <h1 className="mt-4 font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-3xl">
+      <p className="font-mono text-display leading-[1.1] font-semibold text-[var(--acc)]">404</p>
+      <h1 className="mt-4 font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
         Page not found
       </h1>
       <p className="mt-3 max-w-md text-fd-muted-foreground">

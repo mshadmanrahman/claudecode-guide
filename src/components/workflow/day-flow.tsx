@@ -405,7 +405,7 @@ export function DayFlow() {
               <article className={`glass min-w-0 rounded-xl ${last ? '' : 'mb-4'}`}>
                 <header className="flex items-baseline gap-3 border-b border-[var(--line)] px-4 py-3 sm:px-5">
                   <span className="font-mono text-xs text-[var(--muted)]">{step.label}</span>
-                  <h3 className="m-0 text-base font-semibold tracking-[-0.02em] text-[var(--ink)] sm:text-body">
+                  <h3 className="m-0 text-ui font-semibold tracking-[-0.02em] text-[var(--ink)] sm:text-body">
                     {step.title}
                   </h3>
                 </header>

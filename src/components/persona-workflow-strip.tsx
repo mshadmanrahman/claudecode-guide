@@ -243,7 +243,7 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
             <p className="mb-2 font-mono text-label font-semibold uppercase tracking-widest text-fd-muted-foreground">
               Daily Workflow
             </p>
-            <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
+            <h2 className="font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
               {data.heading}
             </h2>
           </div>

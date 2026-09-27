@@ -296,7 +296,7 @@ export default async function HomePage() {
                 <span className="font-mono text-xs text-[var(--acc)]" aria-hidden="true">
                   {i + 1}
                 </span>
-                <span className="text-lg font-semibold leading-snug tracking-[-0.015em]">{step.title}</span>
+                <span className="text-lead font-semibold leading-snug tracking-[-0.015em]">{step.title}</span>
                 <span className="text-ui leading-normal text-[var(--muted)]">{step.text}</span>
               </li>
             ))}

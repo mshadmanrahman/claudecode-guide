@@ -31,7 +31,7 @@ export function PathPicker({ os, iface, onOsChange, onInterfaceChange, onReset }
 
   return (
     <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 sm:p-6">
-      <h3 className="font-display text-lg font-semibold tracking-[-0.035em] text-fd-foreground">
+      <h3 className="font-display text-lead font-semibold tracking-[-0.035em] text-fd-foreground">
         Personalise your path
       </h3>
       <p className="mt-1 text-sm text-fd-muted-foreground">

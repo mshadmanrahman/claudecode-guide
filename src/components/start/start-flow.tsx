@@ -137,10 +137,10 @@ export function StartFlow() {
     return (
       <main className="flex min-h-screen flex-col">
         <section className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 pt-28 pb-8 text-center">
-          <h1 className="animate-slide-up-fade font-display tracking-[-0.035em] text-4xl font-semibold text-fd-foreground sm:text-5xl leading-[1.08]">
+          <h1 className="animate-slide-up-fade font-display tracking-[-0.035em] text-display-article font-semibold text-fd-foreground leading-[1.08]">
             What do you want to make?
           </h1>
-          <p className="animate-slide-up-fade delay-100 mt-6 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
+          <p className="animate-slide-up-fade delay-100 mt-6 max-w-lg text-lead text-fd-muted-foreground leading-relaxed">
             Pick one. I&apos;ll walk you through everything from there.
           </p>
         </section>
@@ -308,7 +308,7 @@ export function StartFlow() {
           onPrev={() => goToStep(2)}
           nextLabel="I see it"
         >
-          <p className="text-lg text-fd-foreground leading-relaxed">
+          <p className="text-lead text-fd-foreground leading-relaxed">
             {osConfig.openTerminal}
           </p>
 
@@ -497,7 +497,7 @@ export function StartFlow() {
             </div>
           </div>
 
-          <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl mb-2">
+          <h2 className="font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground mb-2">
             Set up {interfaceConfig.name}
           </h2>
 
@@ -542,7 +542,7 @@ export function StartFlow() {
 
           {/* What you built */}
           <div className="mt-8 rounded-xl border border-[var(--line)] bg-[var(--chip)] p-6">
-            <h3 className="text-lg font-display font-semibold text-fd-foreground mb-2">
+            <h3 className="text-lead font-display font-semibold text-fd-foreground mb-2">
               What just happened?
             </h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
@@ -667,7 +667,7 @@ export function StartFlow() {
             </div>
           </div>
 
-          <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl mb-2">
+          <h2 className="font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground mb-2">
             {trackConfig.headline}
           </h2>
           <p className="text-fd-muted-foreground leading-relaxed mb-8">
@@ -696,7 +696,7 @@ export function StartFlow() {
 
           {/* See your result */}
           <div className="mt-8 rounded-xl border border-[var(--line)] bg-[var(--chip)] p-6">
-            <h3 className="text-lg font-display font-semibold text-fd-foreground mb-2">
+            <h3 className="text-lead font-display font-semibold text-fd-foreground mb-2">
               See your result
             </h3>
             <p className="text-sm text-fd-muted-foreground mb-3">
@@ -708,7 +708,7 @@ export function StartFlow() {
 
           {/* What just happened */}
           <div className="mt-8 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
-            <h3 className="text-lg font-display font-semibold text-fd-foreground mb-2">
+            <h3 className="text-lead font-display font-semibold text-fd-foreground mb-2">
               What just happened?
             </h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
@@ -732,7 +732,7 @@ export function StartFlow() {
             <p className="text-sm text-fd-muted-foreground leading-relaxed mb-3">
               Just tell Claude. That&apos;s the whole loop:
             </p>
-            <p className="font-display text-lg text-fd-foreground">
+            <p className="font-display text-lead text-fd-foreground">
               Describe &rarr; Claude builds &rarr; You review &rarr; Describe changes &rarr; Repeat
             </p>
           </div>
