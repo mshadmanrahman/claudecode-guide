@@ -13,8 +13,7 @@ export function DesignerWhyExists() {
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">04</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Made for the work designers actually do
           </h2>
 

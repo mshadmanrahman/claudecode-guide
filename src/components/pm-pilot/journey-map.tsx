@@ -36,13 +36,10 @@ export function PmPilotJourneyMap() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="bg-[var(--code)] py-28" ref={ref}>
+    <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div className="mb-16">
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">
-            02
-          </span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Start where you are
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -54,17 +51,17 @@ export function PmPilotJourneyMap() {
           {levels.map((l, i) => (
             <div
               key={l.level}
-              className={`relative rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 flex flex-col gap-6 transition-all motion-reduce:transition-none duration-500 ${
+              className={`glass relative rounded-xl p-8 flex flex-col gap-6 transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 120}ms` }}
             >
-              <span className="font-mono text-6xl font-light text-fd-border">
+              <span className="font-mono text-xs text-[var(--acc)]" aria-hidden="true">
                 {l.level}
               </span>
               <div className="flex flex-col gap-2">
                 <h3 className="text-lg font-semibold text-fd-foreground">{l.title}</h3>
-                <p className="text-xs font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
+                <p className="text-sm text-[var(--muted)]">
                   {l.subtitle}
                 </p>
               </div>
@@ -78,7 +75,7 @@ export function PmPilotJourneyMap() {
                     href={GRANOLA_AFFILIATE}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+                    className="rounded-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
                   >
                     Add{' '}
                     <span className="font-medium text-fd-foreground underline underline-offset-2">
@@ -88,7 +85,7 @@ export function PmPilotJourneyMap() {
                   </a>
                   <a
                     href={GUIDE_URL}
-                    className="text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+                    className="rounded-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
                   >
                     Full setup guide at{' '}
                     <span className="font-medium text-fd-foreground underline underline-offset-2">

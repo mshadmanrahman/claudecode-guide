@@ -64,21 +64,13 @@ export default function PmPilotPage() {
     <main className="overflow-x-clip">
       <PmPilotHero />
       <PmPilotWorksWith />
-      <div className="border-b border-fd-border" />
       <PmPilotBeforeAfter />
-      <div className="border-b border-fd-border" />
       <PmPilotTopSkills />
-      <div className="border-b border-fd-border" />
       <PmPilotGuideCta />
-      <div className="border-b border-fd-border" />
       <PmPilotJourneyMap />
-      <div className="border-b border-fd-border" />
       <PmPilotGettingStarted />
-      <div className="border-b border-fd-border" />
       <PmPilotIntegrations />
-      <div className="border-b border-fd-border" />
       <PmPilotMemorySystem />
-      <div className="border-b border-fd-border" />
       <PmPilotWhyExists />
       <PmPilotFooter />
     </main>

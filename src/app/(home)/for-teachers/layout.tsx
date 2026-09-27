@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function ForTeachersLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="schoolhouse" />
       {children}
     </>
   );

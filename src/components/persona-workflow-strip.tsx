@@ -240,16 +240,13 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
       <div className="mx-auto max-w-5xl px-6">
         <div className="mb-8 flex items-end justify-between gap-4 flex-wrap">
           <div>
-            <p className="mb-2 font-mono text-label font-semibold uppercase tracking-widest text-fd-muted-foreground">
-              Daily Workflow
-            </p>
             <h2 className="font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
               {data.heading}
             </h2>
           </div>
           <Link
             href="/workflow"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-fd-muted-foreground hover:text-fd-foreground transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-fd-muted-foreground hover:text-fd-foreground transition-colors whitespace-nowrap rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
             onClick={() =>
               trackEvent("workflow_strip_cta_click", {
                 persona,
@@ -262,16 +259,16 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
           </Link>
         </div>
 
-        <div className="rounded-xl border border-fd-border overflow-hidden">
+        <div className="glass overflow-hidden rounded-xl">
           {data.slots.map((slot) => (
             <div
               key={slot.time}
-              className="flex items-center gap-4 sm:gap-6 bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-5 py-4 border-b border-fd-border last:border-0 hover:bg-fd-accent/50 transition-colors"
+              className="flex items-center gap-4 sm:gap-6 px-5 py-4 border-b border-[var(--line)] last:border-0 hover:bg-[var(--glass2)] transition-colors"
             >
-              <span className="font-mono text-label text-fd-muted-foreground w-10 shrink-0">
+              <span className="font-mono text-caption text-fd-muted-foreground w-10 shrink-0">
                 {slot.time}
               </span>
-              <span className="text-label font-semibold uppercase tracking-wide text-fd-muted-foreground w-20 shrink-0 hidden sm:block font-mono">
+              <span className="text-caption font-semibold text-[var(--muted)] w-20 shrink-0 hidden sm:block">
                 {slot.label}
               </span>
               <p className="text-sm text-fd-foreground">{slot.title}</p>
@@ -283,7 +280,7 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
           One habit at a time.{" "}
           <Link
             href="/workflow"
-            className="underline underline-offset-2 hover:text-fd-foreground"
+            className="rounded-sm underline underline-offset-2 hover:text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
             onClick={() =>
               trackEvent("workflow_strip_cta_click", {
                 persona,

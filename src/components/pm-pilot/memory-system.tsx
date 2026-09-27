@@ -47,15 +47,14 @@ export function PmPilotMemorySystem() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="bg-[var(--code)] py-28" ref={ref}>
+    <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">07</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             It remembers things, so you don&apos;t have to repeat them
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -65,12 +64,12 @@ export function PmPilotMemorySystem() {
 
         {/* Directory structure */}
         <div
-          className={`mb-16 overflow-x-auto rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all motion-reduce:transition-none duration-500 ${
+          className={`mb-16 overflow-x-auto glass rounded-xl p-6 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
           style={{ animationDelay: '100ms' }}
         >
-          <p className="mb-3 text-xs font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
+          <p className="mb-3 text-sm text-[var(--muted)]">
             How the memory is structured
           </p>
           <pre className="font-mono text-xs leading-relaxed text-fd-foreground">
@@ -83,15 +82,12 @@ export function PmPilotMemorySystem() {
           {timeline.map((step, i) => (
             <div
               key={step.day}
-              className={`rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all motion-reduce:transition-none duration-500 ${
+              className={`glass rounded-xl p-6 transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 100 + 200}ms` }}
             >
-              <span className="font-mono text-4xl font-light text-fd-border">{step.day}</span>
-              <p className="mt-3 text-xs font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
-                {step.label}
-              </p>
+              <h3 className="text-lg font-semibold text-fd-foreground">{step.label}</h3>
               <p className="mt-3 text-sm leading-relaxed text-fd-muted-foreground">
                 {step.description}
               </p>
@@ -101,7 +97,7 @@ export function PmPilotMemorySystem() {
 
         {/* Key insight */}
         <div
-          className={`mt-10 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all motion-reduce:transition-none duration-500 ${
+          className={`mt-10 glass rounded-xl p-6 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
           style={{ animationDelay: '700ms' }}

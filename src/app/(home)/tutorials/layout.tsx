@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function TutorialsLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="workshop" />
       {children}
     </>
   );

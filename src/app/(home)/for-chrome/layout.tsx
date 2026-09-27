@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function ForChromeLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="signposts" />
       {children}
     </>
   );

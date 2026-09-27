@@ -525,7 +525,6 @@ export default function JourneyPage() {
       />
       {/* ── Hero ── */}
       <section className="relative mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
-        <div className="absolute inset-0 bg-grid bg-grid-fade opacity-30 pointer-events-none" />
         <div className="relative z-10">
           <div className="animate-slide-up-fade mb-3 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-1.5 text-sm">
             <Map className="h-3.5 w-3.5 text-fd-muted-foreground" />

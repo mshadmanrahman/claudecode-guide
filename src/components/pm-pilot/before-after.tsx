@@ -16,7 +16,7 @@ const comparisons = [
   {
     task: 'PRD writing',
     before: 'Staring at a blank Confluence template for 40 minutes, writing nothing',
-    after: 'Braindump first, structure second. You think out loud; it organises the output.',
+    after: 'Braindump first, structure second. You think out loud; it organizes the output.',
   },
   {
     task: 'Market sizing',
@@ -36,10 +36,7 @@ export function PmPilotBeforeAfter() {
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">
-            01
-          </span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             What actually changes
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -51,14 +48,14 @@ export function PmPilotBeforeAfter() {
           {comparisons.map((c, i) => (
             <div
               key={c.task}
-              className={`rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-8 transition-all motion-reduce:transition-none duration-500 ${
+              className={`glass rounded-xl p-6 sm:p-8 transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 100 + 100}ms` }}
             >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+              <h3 className="mb-4 text-lg font-semibold text-fd-foreground">
                 {c.task}
-              </p>
+              </h3>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="flex gap-3">
                   <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--code)]" />

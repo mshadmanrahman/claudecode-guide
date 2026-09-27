@@ -20,15 +20,14 @@ export function MarketerGettingStarted() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="border py-28 bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border-[var(--line)]" ref={ref}>
-      <div className="mx-auto max-w-5xl px-6">
+    <section className="px-4 py-12 sm:px-6" ref={ref}>
+      <div className="glass mx-auto max-w-5xl rounded-2xl px-6 py-16 sm:px-10">
         <div
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">03</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Getting started
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -43,13 +42,13 @@ export function MarketerGettingStarted() {
         >
           {/* What you need */}
           <div>
-            <p className="mb-5 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+            <p className="mb-5 text-xs font-semibold text-[var(--muted)]">
               What you need
             </p>
             <ul className="space-y-3">
               {WHAT_YOU_NEED.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--glass2)] font-mono text-[10px] text-fd-muted-foreground">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--glass2)] font-mono text-xs text-fd-muted-foreground">
                     {i + 1}
                   </span>
                   <span className="text-sm text-fd-muted-foreground leading-relaxed">{item}</span>
@@ -59,14 +58,14 @@ export function MarketerGettingStarted() {
           </div>
 
           {/* The basic workflow */}
-          <div className="rounded-xl border border-fd-border bg-[var(--glass2)] p-6">
-            <p className="mb-5 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+          <div className="glass rounded-xl p-6">
+            <p className="mb-5 text-xs font-semibold text-[var(--muted)]">
               The basic workflow
             </p>
             <ol className="space-y-4">
               {WORKFLOW_STEPS.map((item) => (
                 <li key={item.num} className="flex items-start gap-3">
-                  <span className="font-mono text-xs text-fd-muted-foreground/50 mt-0.5 w-5 shrink-0">
+                  <span className="font-mono text-xs text-[var(--muted)] mt-0.5 w-5 shrink-0">
                     {item.num}
                   </span>
                   <span className="text-sm text-fd-foreground leading-relaxed">{item.step}</span>
@@ -74,7 +73,7 @@ export function MarketerGettingStarted() {
               ))}
             </ol>
 
-            <p className="mt-6 text-[11px] text-fd-muted-foreground leading-relaxed border-t border-fd-border pt-4">
+            <p className="mt-6 text-xs text-fd-muted-foreground leading-relaxed border-t border-fd-border pt-4">
               The free tier is enough to follow all guides here. Pro ($20/month) removes the rate
               limit if you&apos;re writing a lot.
             </p>

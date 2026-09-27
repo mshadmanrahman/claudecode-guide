@@ -40,7 +40,7 @@ const skills = [
           href={GRANOLA_AFFILIATE}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
+          className="rounded-sm font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           Granola
         </a>{' '}
@@ -75,10 +75,7 @@ export function PmPilotTopSkills() {
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">
-            03
-          </span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Five skills worth trying first
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -95,7 +92,7 @@ export function PmPilotTopSkills() {
               }`}
               style={{ animationDelay: `${i * 80 + 100}ms` }}
             >
-              <span className="font-mono text-lg font-light text-fd-muted-foreground/40 pt-0.5 shrink-0">
+              <span className="font-mono text-lg font-light text-[var(--muted)] pt-0.5 shrink-0">
                 {s.num}
               </span>
               <div className="flex flex-col gap-1 sm:flex-row sm:gap-6 sm:items-baseline">
@@ -116,9 +113,6 @@ export function PmPilotTopSkills() {
             demoInView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <p className="mb-3 text-xs font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
-            /weekly-status, running live
-          </p>
           <DemoCard title="pm-pilot : weekly status" steps={WEEKLY_STATUS_STEPS} loop loopDelay={4000} />
         </div>
       </div>

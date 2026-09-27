@@ -79,8 +79,8 @@ export function PmPilotWorksWith() {
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14">
           {brands.map(({ name, icon: Icon }) => (
             <div key={name} className="flex items-center gap-2.5">
-              <Icon className="h-6 w-6 text-fd-foreground/70" />
-              <span className="text-sm font-medium text-fd-foreground/60 tracking-wide">
+              <Icon className="h-6 w-6 text-[var(--muted)]" />
+              <span className="text-sm font-medium text-[var(--muted)]">
                 {name}
               </span>
             </div>

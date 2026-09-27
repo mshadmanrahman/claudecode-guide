@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function CapabilitiesLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="overlook" />
       {children}
     </>
   );

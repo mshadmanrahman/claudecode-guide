@@ -134,8 +134,7 @@ export function DesignerBeforeAfter() {
         <div
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">02</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Same tool. Three completely different jobs.
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -149,7 +148,7 @@ export function DesignerBeforeAfter() {
             return (
               <div
                 key={journey.id}
-                className={`overflow-hidden rounded-xl border transition-all motion-reduce:transition-none duration-500 ${journey.borderStyle} ${
+                className={`glass overflow-hidden rounded-xl transition-all motion-reduce:transition-none duration-500 ${
                   inView ? 'animate-slide-up-fade' : 'opacity-0'
                 }`}
                 style={{ animationDelay: `${ji * 120 + 100}ms` }}
@@ -161,30 +160,30 @@ export function DesignerBeforeAfter() {
                       <Icon className="h-4 w-4 text-fd-muted-foreground" />
                       <span className="text-sm font-semibold text-fd-foreground">{journey.label}</span>
                     </div>
-                    <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${journey.envStyle}`}>
+                    <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${journey.envStyle}`}>
                       {journey.env}
                     </span>
                   </div>
-                  <p className="text-[11px] text-fd-muted-foreground">&quot;{journey.nickname}&quot;</p>
+                  <p className="text-xs text-fd-muted-foreground">&quot;{journey.nickname}&quot;</p>
                 </div>
 
                 {/* Tagline */}
                 <div className="px-5 py-3 border-b border-fd-border">
-                  <p className="text-[11px] leading-relaxed text-fd-muted-foreground">{journey.tagline}</p>
+                  <p className="text-xs leading-relaxed text-fd-muted-foreground">{journey.tagline}</p>
                 </div>
 
                 {/* Entry path */}
                 <div className="px-5 py-3 border-b border-fd-border">
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+                  <p className="mb-2 text-xs font-semibold text-[var(--muted)]">
                     Entry path
                   </p>
                   <div className="space-y-1">
                     {journey.entryPath.map((item, i) => (
                       <div key={i} className="flex items-center gap-2">
-                        <span className="text-fd-muted-foreground/40 text-[10px] font-mono w-4 shrink-0">
+                        <span className="text-[var(--muted)] text-xs font-mono w-4 shrink-0">
                           {String(i + 1).padStart(2, '0')}
                         </span>
-                        <span className="text-[11px] text-fd-muted-foreground">{item}</span>
+                        <span className="text-xs text-fd-muted-foreground">{item}</span>
                       </div>
                     ))}
                   </div>
@@ -194,17 +193,17 @@ export function DesignerBeforeAfter() {
                 <div className="divide-y divide-fd-border">
                   {journey.shifts.map((shift) => (
                     <div key={shift.area} className="px-5 py-4">
-                      <p className="mb-3 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+                      <p className="mb-3 text-xs font-semibold text-[var(--muted)]">
                         {shift.area}
                       </p>
                       <div className="space-y-2">
                         <div className="flex gap-2.5">
                           <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--code)]" />
-                          <p className="text-[12px] leading-relaxed text-fd-muted-foreground">{shift.before}</p>
+                          <p className="text-xs leading-relaxed text-fd-muted-foreground">{shift.before}</p>
                         </div>
                         <div className="flex gap-2.5">
                           <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--acc)]" />
-                          <p className="text-[12px] leading-relaxed text-[var(--acc)] ">
+                          <p className="text-xs leading-relaxed text-[var(--acc)] ">
                             {shift.after}
                           </p>
                         </div>
@@ -215,15 +214,15 @@ export function DesignerBeforeAfter() {
 
                 {/* Structural shift */}
                 <div className="px-5 py-4 border-t border-fd-border bg-fd-accent/40">
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+                  <p className="mb-2 text-xs font-semibold text-[var(--muted)]">
                     The structural shift
                   </p>
-                  <p className="text-[11px] leading-relaxed text-fd-foreground/80">{journey.structuralShift}</p>
+                  <p className="text-xs leading-relaxed text-[var(--muted)]">{journey.structuralShift}</p>
                 </div>
 
                 {/* Guide links */}
                 <div className="px-5 py-3 border-t border-fd-border">
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+                  <p className="mb-2 text-xs font-semibold text-[var(--muted)]">
                     Applies to these guides
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -231,7 +230,7 @@ export function DesignerBeforeAfter() {
                       <Link
                         key={guide.slug}
                         href={`/for-designers/${guide.slug}`}
-                        className="rounded-full border border-fd-border px-2.5 py-1 text-[10px] font-medium text-fd-muted-foreground hover:bg-fd-accent transition-colors"
+                        className="rounded-full border border-fd-border px-2.5 py-1 text-xs font-medium text-fd-muted-foreground hover:bg-fd-accent transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
                       >
                         {guide.short}
                       </Link>

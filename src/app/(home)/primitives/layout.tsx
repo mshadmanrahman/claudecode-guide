@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function PrimitivesLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="standingstones" />
       {children}
     </>
   );

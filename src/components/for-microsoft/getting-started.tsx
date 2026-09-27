@@ -19,15 +19,14 @@ export function MicrosoftGettingStarted() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="border py-28 bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border-[var(--line)]" ref={ref}>
+    <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">03</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             What you need
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -41,14 +40,14 @@ export function MicrosoftGettingStarted() {
           }`}
         >
           {/* Left: requirements */}
-          <div className="rounded-xl border border-fd-border bg-[var(--glass2)] p-6">
-            <p className="mb-4 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+          <div className="glass rounded-xl p-6">
+            <p className="mb-4 text-sm font-medium text-[var(--muted)]">
               What you need
             </p>
             <ul className="space-y-3">
               {REQUIREMENTS.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-fd-accent font-mono text-[10px] font-medium text-fd-muted-foreground">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-fd-accent font-mono text-xs font-medium text-fd-muted-foreground">
                     {i + 1}
                   </span>
                   <span className="text-sm text-fd-muted-foreground leading-relaxed">{item}</span>
@@ -58,8 +57,8 @@ export function MicrosoftGettingStarted() {
           </div>
 
           {/* Right: workflow */}
-          <div className="rounded-xl border border-fd-border bg-[var(--glass2)] p-6">
-            <p className="mb-4 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+          <div className="glass rounded-xl p-6">
+            <p className="mb-4 text-sm font-medium text-[var(--muted)]">
               The workflow in 30 seconds
             </p>
             <div className="space-y-4">

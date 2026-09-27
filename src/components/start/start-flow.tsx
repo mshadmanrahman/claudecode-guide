@@ -154,12 +154,12 @@ export function StartFlow() {
                   key={t.id}
                   type="button"
                   onClick={() => selectTrack(t.id)}
-                  className={`animate-slide-up-fade group flex cursor-pointer items-start gap-6 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 text-left transition-all duration-200 hover:${t.border}`}
+                  className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] animate-slide-up-fade group flex cursor-pointer items-start gap-6 glass rounded-xl p-8 text-left transition-all duration-200 hover:${t.border}`}
                   style={{ animationDelay: `${i * 100 + 200}ms` }}
                 >
                   <Icon className={`mt-1 h-8 w-8 shrink-0 ${t.color}`} />
                   <div className="flex-1">
-                    <span className="text-xs font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
+                    <span className="text-sm text-[var(--muted)]">
                       {t.verb}
                     </span>
                     <h2 className="mt-1 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
@@ -179,7 +179,7 @@ export function StartFlow() {
 
           <p className="mt-12 text-center text-sm text-fd-muted-foreground">
             Already installed and running?{' '}
-            <Link href="/tutorials" className="font-medium text-fd-foreground hover:underline">
+            <Link href="/tutorials" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] font-medium text-fd-foreground hover:underline">
               Browse tutorials instead
             </Link>
           </p>
@@ -211,10 +211,10 @@ export function StartFlow() {
                   key={option.id}
                   type="button"
                   onClick={() => selectInterface(option.id)}
-                  className={`flex cursor-pointer items-start gap-4 rounded-xl border p-5 text-left transition-all duration-200 ${
+                  className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex cursor-pointer items-start gap-4 rounded-xl border p-5 text-left transition-all duration-200 ${
                     isSelected
                       ? 'border-fd-primary bg-fd-primary/5 '
-                      : 'border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] hover:bg-fd-accent'
+                      : 'glass hover:bg-[var(--glass2)]'
                   }`}
                 >
                   <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${isSelected ? 'text-fd-foreground' : 'text-fd-muted-foreground'}`} />
@@ -224,7 +224,7 @@ export function StartFlow() {
                         {option.label}
                       </span>
                       {option.badge && (
-                        <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-label font-medium text-[var(--acc)] ">
+                        <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-caption font-medium text-[var(--acc)] ">
                           {option.badge}
                         </span>
                       )}
@@ -238,7 +238,7 @@ export function StartFlow() {
           </div>
           <p className="text-sm text-fd-muted-foreground">
             Not sure which?{' '}
-            <Link href="/docs/foundations/which-interface" className="underline hover:text-fd-foreground">
+            <Link href="/docs/foundations/which-interface" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline hover:text-fd-foreground">
               I wrote a comparison of all four
             </Link>
           </p>
@@ -271,10 +271,10 @@ export function StartFlow() {
                   key={option.id}
                   type="button"
                   onClick={() => setOs(option.id)}
-                  className={`flex cursor-pointer flex-col items-center gap-3 rounded-xl border p-6 transition-all duration-200 ${
+                  className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex cursor-pointer flex-col items-center gap-3 rounded-xl border p-6 transition-all duration-200 ${
                     isSelected
                       ? 'border-fd-primary bg-fd-primary/5 '
-                      : 'border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] hover:bg-fd-accent'
+                      : 'glass hover:bg-[var(--glass2)]'
                   }`}
                 >
                   <Icon className={`h-6 w-6 ${isSelected ? 'text-fd-foreground' : 'text-fd-muted-foreground'}`} />
@@ -312,7 +312,7 @@ export function StartFlow() {
             {osConfig.openTerminal}
           </p>
 
-          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
+          <div className="glass rounded-xl p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">What you&apos;ll see</h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
               A window with a blinking cursor. {osConfig.terminalExplanation}
@@ -322,7 +322,7 @@ export function StartFlow() {
           <button
             type="button"
             onClick={() => setTroubleOpen(troubleOpen === 'terminal' ? null : 'terminal')}
-            className="flex cursor-pointer items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+            className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex cursor-pointer items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
           >
             {troubleOpen === 'terminal' ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
             It won&apos;t open / I see something else
@@ -330,7 +330,7 @@ export function StartFlow() {
           {troubleOpen === 'terminal' && (
             <div className="animate-fade-in rounded-xl border border-[var(--line)] bg-[var(--chip)] p-4 text-sm text-fd-muted-foreground leading-relaxed">
               {os === 'mac' && (
-                <p>Try looking for Terminal in Applications &gt; Utilities. Or install <a href="https://iterm2.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">iTerm2</a> as an alternative.</p>
+                <p>Try looking for Terminal in Applications &gt; Utilities. Or install <a href="https://iterm2.com" target="_blank" rel="noopener noreferrer" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline hover:text-fd-foreground">iTerm2</a> as an alternative.</p>
               )}
               {os === 'windows' && (
                 <p>If PowerShell won&apos;t open, try searching for &quot;Command Prompt&quot; instead. Both will work.</p>
@@ -363,7 +363,7 @@ export function StartFlow() {
 
           <CopyBlock code={osConfig.installCommand} />
 
-          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
+          <div className="glass rounded-xl p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">
               What &quot;<VocabBridge term="npm install" explanation="npm is like an app store for coding tools. This command downloads Claude Code and sets it up on your computer.">npm install</VocabBridge>&quot; means
             </h3>
@@ -376,7 +376,7 @@ export function StartFlow() {
           <button
             type="button"
             onClick={() => setTroubleOpen(troubleOpen === 'npm' ? null : 'npm')}
-            className="flex cursor-pointer items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+            className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex cursor-pointer items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
           >
             {troubleOpen === 'npm' ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
             &quot;npm: command not found&quot;?
@@ -390,7 +390,7 @@ export function StartFlow() {
           <button
             type="button"
             onClick={() => setTroubleOpen(troubleOpen === 'other' ? null : 'other')}
-            className="flex cursor-pointer items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+            className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex cursor-pointer items-center gap-2 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
           >
             {troubleOpen === 'other' ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
             Something else went wrong?
@@ -399,11 +399,11 @@ export function StartFlow() {
             <div className="animate-fade-in rounded-xl border border-[var(--line)] bg-[var(--chip)] p-4 text-sm text-fd-muted-foreground leading-relaxed">
               <p>
                 Check our{' '}
-                <Link href="/docs/foundations/troubleshooting" className="underline hover:text-fd-foreground">
+                <Link href="/docs/foundations/troubleshooting" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline hover:text-fd-foreground">
                   troubleshooting guide
                 </Link>
                 {' '}or{' '}
-                <a href="https://github.com/anthropics/claude-code/issues" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">
+                <a href="https://github.com/anthropics/claude-code/issues" target="_blank" rel="noopener noreferrer" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline hover:text-fd-foreground">
                   open an issue on GitHub
                 </a>.
               </p>
@@ -436,15 +436,15 @@ export function StartFlow() {
             A browser window will open. Sign in with your Anthropic account and you&apos;re in.
           </p>
 
-          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
+          <div className="glass rounded-xl p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">No account yet?</h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
               Takes about 30 seconds.{' '}
-              <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">
+              <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline hover:text-fd-foreground">
                 Create one at console.anthropic.com
               </a>
               . You&apos;ll need{' '}
-              <a href="https://claude.ai/upgrade" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">
+              <a href="https://claude.ai/upgrade" target="_blank" rel="noopener noreferrer" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline hover:text-fd-foreground">
                 Claude Pro ($20/month)
               </a>
               {' '}or Max to use Claude Code.
@@ -462,7 +462,7 @@ export function StartFlow() {
                     href="https://ref.wisprflow.ai/shadman-rahman"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-fd-foreground underline hover:no-underline"
+                    className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] font-medium text-fd-foreground underline hover:no-underline"
                   >
                     Try it free
                   </a>
@@ -504,7 +504,7 @@ export function StartFlow() {
           {/* Setup steps */}
           <div className="mt-6 space-y-3">
             {interfaceConfig.setupSteps.map((stepText, i) => (
-              <div key={i} className="flex items-start gap-3 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4">
+              <div key={i} className="flex items-start gap-3 glass rounded-xl p-4">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-fd-accent text-xs font-medium text-fd-muted-foreground">
                   {i + 1}
                 </span>
@@ -525,7 +525,7 @@ export function StartFlow() {
           </div>
 
           {/* What Claude will do */}
-          <div className="mt-6 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
+          <div className="mt-6 glass rounded-xl p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-3">
               <Sparkles className="inline h-4 w-4 mr-1 text-fd-muted-foreground" />
               Claude will:
@@ -554,7 +554,7 @@ export function StartFlow() {
           </div>
 
           {/* Want more power? */}
-          <div className="mt-8 rounded-xl border border-fd-border bg-fd-accent/50 p-6">
+          <div className="mt-8 glass rounded-xl p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">
               Want to go further?
             </h3>
@@ -565,7 +565,7 @@ export function StartFlow() {
             </p>
             <Link
               href="/docs/foundations/which-interface"
-              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-fd-foreground hover:underline"
+              className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] mt-3 inline-flex items-center gap-1 text-sm font-medium text-fd-foreground hover:underline"
             >
               Compare all interfaces <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -584,7 +584,7 @@ export function StartFlow() {
                     key={t.id}
                     type="button"
                     onClick={() => selectTrack(t.id)}
-                    className="flex cursor-pointer items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 text-left transition-all hover:bg-fd-accent"
+                    className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex cursor-pointer items-start gap-4 glass rounded-xl p-5 text-left transition-all motion-reduce:transition-none hover:bg-[var(--glass2)]"
                   >
                     <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${t.color}`} />
                     <div>
@@ -596,7 +596,7 @@ export function StartFlow() {
               })}
               <Link
                 href="/tutorials"
-                className="flex items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex items-start gap-4 glass rounded-xl p-5 transition-all motion-reduce:transition-none hover:bg-[var(--glass2)]"
               >
                 <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-[var(--acc)]" />
                 <div>
@@ -606,7 +606,7 @@ export function StartFlow() {
               </Link>
               <Link
                 href="/docs"
-                className="flex items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex items-start gap-4 glass rounded-xl p-5 transition-all motion-reduce:transition-none hover:bg-[var(--glass2)]"
               >
                 <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-fd-muted-foreground" />
                 <div>
@@ -621,7 +621,7 @@ export function StartFlow() {
             <button
               type="button"
               onClick={() => goToStep(1)}
-              className="cursor-pointer text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+              className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] cursor-pointer text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
             >
               Try a different interface
             </button>
@@ -636,7 +636,7 @@ export function StartFlow() {
                 setOs(detectedOs);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="cursor-pointer text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+              className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] cursor-pointer text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
             >
               Start over
             </button>
@@ -676,7 +676,7 @@ export function StartFlow() {
 
           <CopyBlock code={trackConfig.prompt} />
 
-          <div className="mt-6 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
+          <div className="mt-6 glass rounded-xl p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-3">
               <Sparkles className="inline h-4 w-4 mr-1 text-fd-muted-foreground" />
               Claude will:
@@ -707,7 +707,7 @@ export function StartFlow() {
           </div>
 
           {/* What just happened */}
-          <div className="mt-8 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
+          <div className="mt-8 glass rounded-xl p-6">
             <h3 className="text-lead font-display font-semibold text-fd-foreground mb-2">
               What just happened?
             </h3>
@@ -725,7 +725,7 @@ export function StartFlow() {
           </div>
 
           {/* Iteration prompt */}
-          <div className="mt-8 rounded-xl border border-fd-border bg-fd-accent/50 p-6">
+          <div className="mt-8 glass rounded-xl p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">
               Want to tweak something?
             </h3>
@@ -750,7 +750,7 @@ export function StartFlow() {
                     key={t.id}
                     type="button"
                     onClick={() => selectTrack(t.id)}
-                    className="flex cursor-pointer items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 text-left transition-all hover:bg-fd-accent"
+                    className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex cursor-pointer items-start gap-4 glass rounded-xl p-5 text-left transition-all motion-reduce:transition-none hover:bg-[var(--glass2)]"
                   >
                     <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${t.color}`} />
                     <div>
@@ -762,7 +762,7 @@ export function StartFlow() {
               })}
               <Link
                 href="/tutorials"
-                className="flex items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex items-start gap-4 glass rounded-xl p-5 transition-all motion-reduce:transition-none hover:bg-[var(--glass2)]"
               >
                 <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-[var(--acc)]" />
                 <div>
@@ -772,7 +772,7 @@ export function StartFlow() {
               </Link>
               <Link
                 href="/docs/foundations/what-is-claude-code"
-                className="flex items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex items-start gap-4 glass rounded-xl p-5 transition-all motion-reduce:transition-none hover:bg-[var(--glass2)]"
               >
                 <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-fd-muted-foreground" />
                 <div>
@@ -794,7 +794,7 @@ export function StartFlow() {
                 setOs(detectedOs);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="cursor-pointer text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+              className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] cursor-pointer text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
             >
               Start over from the beginning
             </button>
@@ -812,7 +812,7 @@ export function StartFlow() {
         <button
           type="button"
           onClick={() => goToStep(0)}
-          className="mt-4 cursor-pointer text-sm font-medium text-fd-foreground hover:underline"
+          className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] mt-4 cursor-pointer text-sm font-medium text-fd-foreground hover:underline"
         >
           Back to the beginning
         </button>

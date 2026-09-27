@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function StartPage() {
   return (
     <>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="trailhead" />
       <Suspense
       fallback={
         <main className="flex min-h-screen items-center justify-center">

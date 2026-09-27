@@ -71,7 +71,7 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
 export default function RoadmapPage() {
   return (
     <div className="flex flex-col">
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="viaduct" />
       <DeprecationBanner
         message="The learning path got a full redesign. The new Docs section has everything organized, with progress tracking built in."
         linkText="Browse the new Docs"

@@ -34,11 +34,8 @@ export function DesignerHero() {
   return (
     <section className="mx-auto max-w-5xl px-6 pt-28 pb-20">
       {/* Category label */}
-      <p className="animate-slide-up-fade mb-8 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
-        For UX Designers
-      </p>
 
-      {/* Headline — staggered line by line */}
+      {/* Headline, staggered line by line */}
       <h1 className="font-display tracking-[-0.035em] leading-[1.05] font-semibold">
         <span
           className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
@@ -50,7 +47,7 @@ export function DesignerHero() {
           className="block animate-slide-up-fade text-5xl font-medium sm:text-6xl lg:text-[5.5rem]"
           style={{ animationDelay: '180ms' }}
         >
-          <em className=" text-fd-muted-foreground">It felt generic.</em>
+          <span className="text-[var(--muted)]">It felt generic.</span>
         </span>
         <span
           className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
@@ -70,7 +67,7 @@ export function DesignerHero() {
       </p>
 
       {/* Journey cards */}
-      <div className="mt-14 grid gap-px bg-fd-border sm:grid-cols-3 rounded-xl overflow-hidden border border-fd-border">
+      <div className="mt-14 grid gap-4 sm:grid-cols-3">
         {JOURNEYS.map((j, i) => (
           <Link
             key={j.id}
@@ -78,18 +75,12 @@ export function DesignerHero() {
             onClick={() =>
               trackEvent('designer_hero_journey_click', { journey: j.id, section: 'for-designers' })
             }
-            className="group relative flex flex-col justify-between bg-[var(--glass2)] p-6 transition-colors duration-200 hover:bg-fd-accent/40"
+            className="glass group relative flex flex-col justify-between rounded-xl p-6 transition-colors duration-200 hover:bg-[var(--glass2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
             style={{ animationDelay: `${500 + i * 80}ms` }}
           >
             {/* Large background number */}
-            <span className="pointer-events-none absolute right-4 top-3 font-mono text-6xl font-light text-fd-muted-foreground/8 select-none leading-none">
-              {j.num}
-            </span>
 
             <div>
-              <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground/50">
-                Path {j.num}
-              </p>
               <p className="font-display text-xl font-medium text-fd-foreground leading-snug group-hover:text-fd-foreground transition-colors">
                 {j.label}
               </p>
@@ -98,7 +89,7 @@ export function DesignerHero() {
               </p>
             </div>
 
-            <p className="mt-5 text-xs leading-relaxed text-fd-muted-foreground/70 border-t border-fd-border pt-4">
+            <p className="mt-5 text-xs leading-relaxed text-[var(--muted)] border-t border-fd-border pt-4">
               {j.note}
             </p>
           </Link>
@@ -115,7 +106,7 @@ export function DesignerHero() {
           onClick={() =>
             trackEvent('designer_hero_cta_click', { cta: 'start_guide_1', section: 'for-designers' })
           }
-          className="inline-flex items-center rounded-lg bg-[var(--acc)] px-6 py-3 text-sm font-semibold text-[var(--accInk)] hover:opacity-80 transition-opacity"
+          className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           Start with Guide 1
         </Link>
@@ -124,9 +115,9 @@ export function DesignerHero() {
           onClick={() =>
             trackEvent('designer_hero_cta_click', { cta: 'browse_guides', section: 'for-designers' })
           }
-          className="inline-flex items-center gap-2 text-sm font-medium text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+          className="glass inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-sm font-medium transition-colors hover:bg-[var(--glass2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
-          Browse all guides →
+          Browse all guides
         </Link>
       </div>
     </section>

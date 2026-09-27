@@ -33,7 +33,7 @@ export const HR_GUIDES: Record<string, HrGuide> = {
     difficulty: "beginner",
     availableRoutes: ["recruiting"],
     description:
-      "Turn a hiring brief into a clear, specific job description that filters in strong candidates and filters out mismatches — without the usual boilerplate.",
+      "Turn a hiring brief into a clear, specific job description that filters in strong candidates and filters out mismatches, without the usual boilerplate.",
     intro:
       "Most job descriptions read like legal disclaimers. They are exhaustive on requirements, vague on role, and silent on why anyone would want the job. Claude can write a better one, but only if you give it the real hiring context. This guide walks through exactly what to include.",
     situation: {

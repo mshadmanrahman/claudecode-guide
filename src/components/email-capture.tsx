@@ -84,7 +84,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
 
   if (status === 'success') {
     return (
-      <div className="rounded-xl border border-[var(--line)] bg-[var(--chip)] p-6 text-center">
+      <div className="glass rounded-xl p-6 text-center">
         <Check className="mx-auto mb-2 h-6 w-6 text-[var(--acc)]" />
         <p className="font-medium text-fd-foreground">You&apos;re in.</p>
         <p className="mt-1 text-sm text-fd-muted-foreground">
@@ -93,7 +93,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
         <button
           type="button"
           onClick={() => setStatus('idle')}
-          className="mt-3 text-xs text-fd-muted-foreground underline hover:text-fd-foreground"
+          className="mt-3 rounded-sm text-xs text-fd-muted-foreground underline hover:text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           Add another email
         </button>
@@ -102,7 +102,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
   }
 
   return (
-    <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
+    <div className="glass rounded-xl p-6">
       <div className="flex items-center gap-2 mb-3">
         <Mail className="h-4 w-4 text-fd-muted-foreground" />
         <p className="text-sm font-medium text-fd-foreground">New guides, when they ship</p>
@@ -120,12 +120,12 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
           onInvalid={handleInvalid}
           placeholder="you@example.com"
           required
-          className="min-w-0 flex-1 rounded-lg border border-fd-border bg-[var(--glass2)] px-4 py-2.5 text-sm text-fd-foreground placeholder:text-fd-muted-foreground focus:outline-none focus:ring-2 focus:ring-fd-ring"
+          className="h-12 min-w-0 flex-1 rounded-lg border border-[var(--line)] bg-[var(--glass2)] px-4 text-sm text-fd-foreground placeholder:text-fd-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-fd-primary px-5 py-2.5 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90 disabled:opacity-50"
+          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-[var(--acc)] px-6 text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           {status === 'loading' ? (
             <Loader2 className="h-3.5 w-3.5 animate-spin motion-reduce:animate-none" />

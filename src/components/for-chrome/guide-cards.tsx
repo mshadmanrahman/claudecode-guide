@@ -140,7 +140,7 @@ function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
       ? 'bg-[var(--chip)] text-[var(--acc)] '
       : 'bg-[var(--chip)] text-[var(--acc)] ';
   return (
-    <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${styles}`}>{level}</span>
+    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${styles}`}>{level}</span>
   );
 }
 
@@ -158,8 +158,7 @@ export function ChromeGuideCards() {
         <div
           className={`mb-12 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">02</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Pick your path
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -173,7 +172,7 @@ export function ChromeGuideCards() {
         <div
           className={`mb-8 transition-all motion-reduce:transition-none duration-500 delay-100 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
-          <div className="flex gap-1 border-b border-fd-border">
+          <div className="flex flex-wrap gap-1 border-b border-fd-border">
             {JOURNEY_DATA.map((j) => (
               <button
                 key={j.id}
@@ -181,7 +180,7 @@ export function ChromeGuideCards() {
                   setJourney(j.id);
                   trackEvent('chrome_journey_tab_click', { journey: j.id, section: 'for-chrome' });
                 }}
-                className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px ${
+                className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all motion-reduce:transition-none border-b-2 -mb-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
                   journey === j.id
                     ? `${TAB_ACTIVE_BORDER[j.id]} text-fd-foreground`
                     : 'border-transparent text-fd-muted-foreground hover:text-fd-foreground'
@@ -196,11 +195,11 @@ export function ChromeGuideCards() {
 
         {/* Journey context */}
         <div
-          className={`mb-10 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all motion-reduce:transition-none duration-300 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-10 glass rounded-xl p-5 transition-all motion-reduce:transition-none duration-300 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
-          <div className="flex items-start gap-4">
+          <div className="flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
             <span
-              className={`mt-0.5 inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold ${ENV_BADGE_STYLES[journey]}`}
+              className={`mt-0.5 inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${ENV_BADGE_STYLES[journey]}`}
             >
               {activeJourney.icon}
               {activeJourney.env}
@@ -221,7 +220,7 @@ export function ChromeGuideCards() {
 
             return (
               <div key={cluster.label}>
-                <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+                <p className="mb-4 text-sm font-medium text-[var(--muted)]">
                   {cluster.label}
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -242,17 +241,17 @@ export function ChromeGuideCards() {
                             section: 'for-chrome',
                           })
                         }
-                        className={`group flex flex-col rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all motion-reduce:transition-none hover:border-fd-muted-foreground/30  duration-500 ${
+                        className={`group glass flex flex-col rounded-xl p-6 transition-all motion-reduce:transition-none hover:bg-[var(--glass2)] duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
                           inView ? 'animate-slide-up-fade' : 'opacity-0'
                         }`}
                         style={{ animationDelay: `${(ci * 3 + (num % 3)) * 80 + 100}ms` }}
                       >
                         <div className="flex items-start justify-between mb-3">
-                          <span className="font-mono text-2xl font-light text-fd-muted-foreground/30">
+                          <span className="font-mono text-2xl font-light text-[var(--muted)]">
                             {String(num).padStart(2, '0')}
                           </span>
                           <div className="flex items-center gap-1.5">
-                            <span className="flex items-center gap-1 text-[11px] text-fd-muted-foreground">
+                            <span className="flex items-center gap-1 text-xs text-[var(--muted)]">
                               <Clock className="h-3 w-3" />
                               {guide.duration}
                             </span>

@@ -92,7 +92,7 @@ const EXAM_FACTS: { label: string; value: string }[] = [
   { label: 'Time limit', value: '120 minutes, around 135 minutes of total seat time' },
   { label: 'Scoring', value: 'Scaled score from 100 to 1,000' },
   { label: 'Passing score', value: '720, the same bar for all four exams' },
-  { label: 'Delivery', value: 'Pearson, online proctored or at a test centre' },
+  { label: 'Delivery', value: 'Pearson, online proctored or at a test center' },
   { label: 'Open book', value: 'No. Notes, documentation, translation tools and AI assistants are all barred' },
   { label: 'Minimum age', value: '18, verified against government-issued ID at check-in' },
   { label: 'Certification validity', value: '12 months from the date you earn it' },
@@ -105,7 +105,7 @@ const FAQ = [
   {
     question: 'Is there an official Claude certification?',
     answer:
-      'Yes. Anthropic runs the Claude Certification Program with four role-based credentials: Claude Certified Associate: Foundations, Claude Certified Developer: Foundations, Claude Certified Architect: Foundations, and Claude Certified Architect: Professional. The programme launched in March 2026 and expanded to four credentials on 23 July 2026.',
+      'Yes. Anthropic runs the Claude Certification Program with four role-based credentials: Claude Certified Associate: Foundations, Claude Certified Developer: Foundations, Claude Certified Architect: Foundations, and Claude Certified Architect: Professional. The program launched in March 2026 and expanded to four credentials on 23 July 2026.',
   },
   {
     question: 'How much does the Claude certification exam cost?',
@@ -120,12 +120,12 @@ const FAQ = [
   {
     question: 'Can anyone take the Claude Certified Architect exam?',
     answer:
-      'No. Certification is available only to people at Claude Partner Network organisations, and registration requires a partner email address on a recognised company domain. Personal email addresses will not work. If you do not work at a partner firm, the free courses at Claude Academy cover much of the same material without the credential.',
+      'No. Certification is available only to people at Claude Partner Network organizations, and registration requires a partner email address on a recognized company domain. Personal email addresses will not work. If you do not work at a partner firm, the free courses at Claude Academy cover much of the same material without the credential.',
   },
   {
     question: 'How are the Claude certification exams delivered?',
     answer:
-      'Through Pearson, either online proctored or at a Pearson test centre. Every exam is supervised, closed book, and identity-verified against government-issued ID before you start. People who pass receive a digital badge through Credly.',
+      'Through Pearson, either online proctored or at a Pearson test center. Every exam is supervised, closed book, and identity-verified against government-issued ID before you start. People who pass receive a digital badge through Credly.',
   },
   {
     question: 'Do I need the Foundations exam before the Professional one?',
@@ -145,19 +145,19 @@ const FAQ = [
   {
     question: 'How many people hold a Claude certification?',
     answer:
-      'More than 36,000 consultants across more than 1,300 organisations had been certified as of 23 July 2026, counting from the programme launch in March 2026.',
+      'More than 36,000 consultants across more than 1,300 organizations had been certified as of 23 July 2026, counting from the program launch in March 2026.',
   },
 ];
 
 export default function CertificationPage() {
   return (
     <main className="min-h-screen">
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="summit" />
       <FaqSchema items={FAQ} />
 
-      <section className="border-b border-fd-border px-6 py-16 sm:py-24">
+      <section className="px-6 py-16 sm:py-24">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-1.5 text-sm text-fd-muted-foreground">
+          <div className="mb-5 flex items-center gap-2 text-sm text-[var(--muted)]">
             <Award className="h-4 w-4" />
             Checked against Anthropic&rsquo;s own pages on {VERIFIED_DATE}
           </div>
@@ -167,15 +167,15 @@ export default function CertificationPage() {
           <p className="mt-5 text-lead text-fd-muted-foreground leading-relaxed">
             Four credentials, $99 to $175, 120 minutes each, pass at 720 out of 1,000. The catch
             sits in the registration form rather than the exam: you need a partner email address on
-            a recognised company domain, and a personal address will not work.
+            a recognized company domain, and a personal address will not work.
           </p>
         </div>
       </section>
 
-      <section className="border-b border-fd-border px-6 py-14">
+      <section className="px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg glass">
               <Award className="h-5 w-5 text-fd-foreground" />
             </div>
             <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">The four credentials</h2>
@@ -187,7 +187,7 @@ export default function CertificationPage() {
 
           <div className="space-y-3">
             {CREDENTIALS.map((c) => (
-              <div key={c.name} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5">
+              <div key={c.name} className="glass rounded-xl p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <h3 className="font-display text-body font-semibold text-fd-foreground">
                     {c.name}
@@ -215,7 +215,7 @@ export default function CertificationPage() {
                 <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
                   <a
                     href={c.registerUrl}
-                    className="inline-flex items-center gap-1 font-medium text-fd-foreground underline underline-offset-4 hover:text-fd-primary"
+                    className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] inline-flex items-center gap-1 font-medium text-fd-foreground underline underline-offset-4 hover:text-fd-primary"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -223,7 +223,7 @@ export default function CertificationPage() {
                   </a>
                   <a
                     href={c.prepUrl}
-                    className="inline-flex items-center gap-1 text-fd-muted-foreground underline underline-offset-4 hover:text-fd-foreground"
+                    className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] inline-flex items-center gap-1 text-fd-muted-foreground underline underline-offset-4 hover:text-fd-foreground"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -239,21 +239,21 @@ export default function CertificationPage() {
             for each credential is a PDF linked from the{' '}
             <a
               href={CATALOGUE_URL}
-              className="underline underline-offset-4 hover:text-fd-foreground"
+              className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline underline-offset-4 hover:text-fd-foreground"
               target="_blank"
               rel="noopener noreferrer"
             >
-              certification catalogue
+              certification catalog
             </a>
-            ; those file links change, so go through the catalogue rather than bookmarking one.
+            ; those file links change, so go through the catalog rather than bookmarking one.
           </p>
         </div>
       </section>
 
-      <section className="border-b border-fd-border px-6 py-14">
+      <section className="px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg glass">
               <ShieldCheck className="h-5 w-5 text-fd-foreground" />
             </div>
             <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">What the exam is like</h2>
@@ -290,10 +290,10 @@ export default function CertificationPage() {
         </div>
       </section>
 
-      <section className="border-b border-fd-border px-6 py-14">
+      <section className="px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg glass">
               <Building2 className="h-5 w-5 text-fd-foreground" />
             </div>
             <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
@@ -302,7 +302,7 @@ export default function CertificationPage() {
           </div>
           <div className="space-y-4 text-fd-muted-foreground leading-relaxed">
             <p>
-              Certification is open only to people at Claude Partner Network organisations.
+              Certification is open only to people at Claude Partner Network organizations.
               Registration checks your email domain against your firm&rsquo;s partner record, and a
               personal address is rejected. If your company is a partner but your domain is not on
               the record yet, adding it takes 7 to 10 working days, so start that before you book a
@@ -331,7 +331,7 @@ export default function CertificationPage() {
               path. Ask them before you email support. If your firm is not a partner,{' '}
               <a
                 href={PARTNERS_URL}
-                className="underline underline-offset-4 hover:text-fd-primary"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline underline-offset-4 hover:text-fd-primary"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -343,10 +343,10 @@ export default function CertificationPage() {
         </div>
       </section>
 
-      <section className="border-b border-fd-border px-6 py-14">
+      <section className="px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg glass">
               <BookOpen className="h-5 w-5 text-fd-foreground" />
             </div>
             <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
@@ -358,7 +358,7 @@ export default function CertificationPage() {
             sit at{' '}
             <a
               href="https://academy.claude.com"
-              className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+              className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -371,7 +371,7 @@ export default function CertificationPage() {
             <li>
               <Link
                 href="/docs/foundations/which-interface"
-                className="underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline underline-offset-4 hover:text-fd-foreground"
               >
                 Which Claude surface for which job
               </Link>{' '}
@@ -381,14 +381,14 @@ export default function CertificationPage() {
             <li>
               <Link
                 href="/docs/patterns/mcp-servers"
-                className="underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline underline-offset-4 hover:text-fd-foreground"
               >
                 MCP servers
               </Link>{' '}
               and{' '}
               <Link
                 href="/docs/foundations/claude-md"
-                className="underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline underline-offset-4 hover:text-fd-foreground"
               >
                 CLAUDE.md
               </Link>{' '}
@@ -397,12 +397,12 @@ export default function CertificationPage() {
             <li>
               <Link
                 href="/docs/patterns/skills"
-                className="underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline underline-offset-4 hover:text-fd-foreground"
               >
                 Skills
               </Link>{' '}
               and{' '}
-              <Link href="/workflow" className="underline underline-offset-4 hover:text-fd-foreground">
+              <Link href="/workflow" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] underline underline-offset-4 hover:text-fd-foreground">
                 agent workflows
               </Link>{' '}
               cover agentic architecture, named under the Architect track.
@@ -411,7 +411,7 @@ export default function CertificationPage() {
         </div>
       </section>
 
-      <section className="border-b border-fd-border px-6 py-14">
+      <section className="px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">Common questions</h2>
           <dl className="mt-6 space-y-6">
@@ -427,36 +427,36 @@ export default function CertificationPage() {
         </div>
       </section>
 
-      <section className="border-b border-fd-border px-6 py-10">
+      <section className="px-6 py-10">
         <div className="mx-auto max-w-3xl space-y-3 text-sm text-fd-muted-foreground">
           <p>Every figure on this page comes from one of Anthropic&rsquo;s own pages:</p>
           <ul className="space-y-1.5">
             <li>
               <a
                 href={ANNOUNCEMENT_URL}
-                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                The programme announcement <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                The program announcement <ExternalLink className="h-3 w-3" aria-hidden="true" />
               </a>{' '}
               of {ANNOUNCEMENT_DATE}, for the roles and the adoption numbers.
             </li>
             <li>
               <a
                 href={CATALOGUE_URL}
-                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                The certification catalogue <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                The certification catalog <ExternalLink className="h-3 w-3" aria-hidden="true" />
               </a>{' '}
               for prices and tier eligibility.
             </li>
             <li>
               <a
                 href={FAQ_URL}
-                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -465,7 +465,7 @@ export default function CertificationPage() {
               and{' '}
               <a
                 href={POLICIES_URL}
-                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -476,7 +476,7 @@ export default function CertificationPage() {
             <li>
               <a
                 href={PEARSON_URL}
-                className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] inline-flex items-center gap-1 underline underline-offset-4 hover:text-fd-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -488,7 +488,7 @@ export default function CertificationPage() {
           <p>
             Checked {VERIFIED_DATE}. Prices and rules have changed once already: Architect:
             Foundations went from $99 to $125 on 30 June 2026, the same day delivery moved to
-            Pearson. Confirm against the catalogue before you pay.
+            Pearson. Confirm against the catalog before you pay.
           </p>
         </div>
       </section>

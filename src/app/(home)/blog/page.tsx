@@ -65,7 +65,7 @@ function FeaturedHero({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="glass hm-card group flex flex-col overflow-hidden rounded-2xl lg:flex-row"
+      className="glass hm-card group flex flex-col overflow-hidden rounded-2xl lg:flex-row focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
     >
       <div className="flex flex-1 flex-col gap-4 p-6 sm:p-8 lg:p-10">
         <div className="ccg-card-meta">
@@ -119,7 +119,7 @@ function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="glass hm-card group flex flex-col gap-3 rounded-xl p-5 sm:p-6"
+      className="glass hm-card group flex flex-col gap-3 rounded-xl p-5 sm:p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
     >
       <div className="ccg-card-meta">
         <time dateTime={post.date}>{formatDate(post.date)}</time>
@@ -158,11 +158,10 @@ export default function BlogPage() {
 
   return (
     <div className="flex flex-col">
-      <SceneBackdrop variant="faded" position="fixed" />
+      <SceneBackdrop variant="faded" scene="cabin" position="fixed" />
       {/* Header */}
       <section className="mx-auto w-full max-w-6xl px-4 pt-14 pb-4 sm:px-6 sm:pt-20">
-        <p className="ccg-crumbs">blog</p>
-        <h1 className="ccg-title mt-[18px]">
+        <h1 className="ccg-title">
           Blog
         </h1>
         <p className="ccg-lead mt-4 max-w-xl">
@@ -217,7 +216,7 @@ export default function BlogPage() {
           <p className="text-fd-muted-foreground">Nothing in this tag yet.</p>
           <button
             onClick={() => setActiveTag(null)}
-            className="mt-3 text-sm font-medium text-fd-foreground underline underline-offset-4"
+            className="mt-3 text-sm font-medium text-fd-foreground underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
           >
             Clear filter
           </button>

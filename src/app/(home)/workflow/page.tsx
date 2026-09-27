@@ -47,7 +47,7 @@ export default function WorkflowPage() {
   return (
     <>
       <style>{connectorCss}</style>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="watermills" />
       <WorkflowTracker />
       <main className="mx-auto max-w-4xl overflow-x-clip px-4 py-16 text-[var(--ink)] sm:px-6 sm:py-20">
         <div className="mb-12" data-workflow-intro>

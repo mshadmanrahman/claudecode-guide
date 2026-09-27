@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function GuideLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="gorge" />
       {children}
     </>
   );

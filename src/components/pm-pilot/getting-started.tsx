@@ -29,15 +29,15 @@ interface LevelCardProps {
 function LevelCard({ num, title, subtitle, children, inView, delay }: LevelCardProps) {
   return (
     <div
-      className={`rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 transition-all motion-reduce:transition-none duration-500 ${
+      className={`glass rounded-xl p-8 transition-all motion-reduce:transition-none duration-500 ${
         inView ? 'animate-slide-up-fade' : 'opacity-0'
       }`}
       style={{ animationDelay: `${delay}ms` }}
     >
-      <span className="font-mono text-6xl font-light text-fd-border">{num}</span>
-      <div className="mt-6 flex flex-col gap-2">
+      <span className="font-mono text-xs text-[var(--acc)]" aria-hidden="true">{num}</span>
+      <div className="mt-3 flex flex-col gap-2">
         <h3 className="text-lg font-semibold text-fd-foreground">{title}</h3>
-        <p className="text-xs font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
+        <p className="text-sm text-[var(--muted)]">
           {subtitle}
         </p>
       </div>
@@ -52,15 +52,14 @@ export function PmPilotGettingStarted() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="bg-[var(--code)] py-28" ref={ref}>
+    <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">05</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Three ways in
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -85,11 +84,12 @@ export function PmPilotGettingStarted() {
               href={MEETING_PREP_SKILL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
+              className="inline-flex items-center gap-2 rounded-sm font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
             >
               Open the meeting-prep skill file
               <svg
                 className="h-3.5 w-3.5"
+                aria-hidden="true"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -113,7 +113,7 @@ export function PmPilotGettingStarted() {
                   href={CLAUDE_DESKTOP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
+                  className="rounded-sm font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
                 >
                   Claude Desktop app
                 </a>
@@ -131,7 +131,7 @@ export function PmPilotGettingStarted() {
                   href="https://github.com/mshadmanrahman/pm-pilot/tree/main/skills"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
+                  className="rounded-sm font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
                 >
                   skill file
                 </a>
@@ -154,7 +154,7 @@ export function PmPilotGettingStarted() {
                 href={GUIDE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
+                className="rounded-sm font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               >
                 Claude Code setup guide
               </a>
@@ -170,13 +170,13 @@ export function PmPilotGettingStarted() {
               </code>{' '}
               inside Claude Code and you&apos;re set.
             </p>
-            <p className="text-xs text-fd-muted-foreground/70">
+            <p className="text-xs text-[var(--muted)]">
               No git installed?{' '}
               <a
                 href={GIT_DOWNLOAD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-fd-foreground transition-colors"
+                className="rounded-sm underline underline-offset-2 hover:text-fd-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               >
                 Get it here first.
               </a>

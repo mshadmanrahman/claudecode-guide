@@ -1087,7 +1087,7 @@ figure.ccg-code button:focus-visible {
   border: 1px solid var(--line);
   border-radius: 999px;
   font-family: var(--font-mono);
-  font-size: var(--text-label);
+  font-size: var(--text-caption);
   color: var(--muted);
 }
 .ccg-card-meta {

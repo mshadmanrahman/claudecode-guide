@@ -47,13 +47,13 @@ export function DesignerWorksWith() {
           {tools.map(({ name, description, icon: Icon, note }) => (
             <div key={name} className="flex flex-col items-center gap-1.5 text-center">
               <div className="flex items-center gap-2">
-                <Icon className="h-5 w-5 text-fd-foreground/70" />
-                <span className="text-sm font-medium text-fd-foreground/60 tracking-wide">
+                <Icon className="h-5 w-5 text-[var(--muted)]" />
+                <span className="text-sm font-medium text-[var(--muted)]">
                   {name}
                 </span>
               </div>
-              <span className="text-[11px] text-fd-muted-foreground">{description}</span>
-              <span className="rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium text-fd-muted-foreground">
+              <span className="text-xs text-fd-muted-foreground">{description}</span>
+              <span className="rounded-full bg-fd-accent px-2 py-0.5 text-xs font-medium text-fd-muted-foreground">
                 {note}
               </span>
             </div>

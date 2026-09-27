@@ -55,8 +55,7 @@ export function DesignerProcessMap() {
         <div
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">03</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             What each journey unlocks
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -72,15 +71,15 @@ export function DesignerProcessMap() {
           <div className="flex flex-wrap items-center gap-5 mb-6">
             <div className="flex items-center gap-1.5">
               <div className="h-3 w-3 rounded-full bg-[var(--acc)]" />
-              <span className="text-[10px] text-fd-muted-foreground">New at this tier</span>
+              <span className="text-xs text-fd-muted-foreground">New at this tier</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="h-3 w-3 rounded-full bg-[var(--code)] border border-fd-border" />
-              <span className="text-[10px] text-fd-muted-foreground">Inherited from previous</span>
+              <span className="text-xs text-fd-muted-foreground">Inherited from previous</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="h-1.5 w-1.5 rounded-full bg-fd-border" />
-              <span className="text-[10px] text-fd-muted-foreground">Not covered</span>
+              <span className="text-xs text-fd-muted-foreground">Not covered</span>
             </div>
           </div>
 
@@ -94,7 +93,7 @@ export function DesignerProcessMap() {
                 <div />
                 {STAGES.map((stage) => (
                   <div key={stage} className="text-center">
-                    <span className="text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
+                    <span className="text-xs font-semibold text-[var(--muted)]">
                       {stage}
                     </span>
                   </div>
@@ -115,13 +114,13 @@ export function DesignerProcessMap() {
                 >
                   <div className="pr-3">
                     <div className="flex items-center gap-1.5 mb-1">
-                      <span className="text-[11px] font-semibold font-mono text-fd-foreground">
+                      <span className="text-xs font-semibold font-mono text-fd-foreground">
                         {layer.label}
                       </span>
-                      <span className="text-[11px] text-fd-muted-foreground">{layer.sublabel}</span>
+                      <span className="text-xs text-fd-muted-foreground">{layer.sublabel}</span>
                     </div>
                     <span
-                      className={`inline-block rounded-full px-2 py-0.5 text-[9px] font-semibold ${layer.addedBadgeStyle}`}
+                      className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${layer.addedBadgeStyle}`}
                     >
                       {layer.addedLabel}
                     </span>
@@ -158,10 +157,10 @@ export function DesignerProcessMap() {
               className={`transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
               style={{ animationDelay: `${(ji + 4) * 80 + 100}ms` }}
             >
-              <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+              <p className="mb-2 text-xs font-semibold text-[var(--muted)]">
                 {layer.label} {layer.sublabel}
               </p>
-              <p className="text-[12px] leading-relaxed text-fd-muted-foreground">{layer.description}</p>
+              <p className="text-xs leading-relaxed text-fd-muted-foreground">{layer.description}</p>
             </div>
           ))}
         </div>

@@ -25,13 +25,13 @@ const personJsonLd = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="archipelago" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      <section className="border-b border-fd-border px-6 py-16 sm:py-24">
+      <section className="px-6 pt-16 pb-8 sm:pt-24">
         <div className="mx-auto max-w-3xl">
           <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
             About Shadman Rahman
@@ -43,8 +43,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-b border-fd-border px-6 py-14">
-        <div className="mx-auto max-w-3xl space-y-4 text-fd-muted-foreground leading-relaxed">
+      <section className="px-6 py-6">
+        <div className="glass mx-auto max-w-3xl space-y-4 rounded-xl p-6 text-fd-muted-foreground leading-relaxed sm:p-8">
           <p>
             He runs Claude Code every day across a large personal workspace: memory systems, agent
             crons, and dozens of small tools built to keep it all working. This site writes down
@@ -55,7 +55,7 @@ export default function AboutPage() {
             on{' '}
             <a
               href="https://github.com/mshadmanrahman/claudecode-guide"
-              className="underline underline-offset-4 hover:text-fd-foreground"
+              className="underline underline-offset-4 hover:text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -67,7 +67,7 @@ export default function AboutPage() {
             The fastest way to reach him is{' '}
             <a
               href="https://www.linkedin.com/in/shadmanrahman"
-              className="underline underline-offset-4 hover:text-fd-primary"
+              className="underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -76,7 +76,7 @@ export default function AboutPage() {
             . He also writes{' '}
             <a
               href="https://shadmanrahman.substack.com/"
-              className="underline underline-offset-4 hover:text-fd-primary"
+              className="underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -85,7 +85,7 @@ export default function AboutPage() {
             on Substack and posts code on{' '}
             <a
               href="https://github.com/mshadmanrahman"
-              className="underline underline-offset-4 hover:text-fd-primary"
+              className="underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               target="_blank"
               rel="noopener noreferrer"
             >

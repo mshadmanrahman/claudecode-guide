@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 export default function ForMarketersLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="market" />
       {children}
     </>
   );

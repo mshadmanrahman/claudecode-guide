@@ -36,8 +36,7 @@ export function PmPilotWhyExists() {
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">08</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Why this exists
           </h2>
         </div>
@@ -68,7 +67,7 @@ export function PmPilotWhyExists() {
               }`}
               style={{ animationDelay: `${i * 80 + 200}ms` }}
             >
-              <span className="font-mono text-lg font-light text-fd-muted-foreground/40 pt-0.5 shrink-0">
+              <span className="font-mono text-lg font-light text-[var(--muted)] pt-0.5 shrink-0">
                 {p.num}
               </span>
               <p className="text-sm text-fd-muted-foreground leading-relaxed">{p.text}</p>

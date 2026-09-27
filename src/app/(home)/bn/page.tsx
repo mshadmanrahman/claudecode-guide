@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 export default function BengaliGuidePage() {
   return (
     <main className="min-h-screen">
-      <SceneBackdrop variant="faded" />
+      <SceneBackdrop variant="faded" scene="delta" />
       {/* Hero */}
       <section className="border-b border-fd-border px-6 py-16 text-center sm:py-24">
         <div className="mx-auto max-w-3xl">

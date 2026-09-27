@@ -69,7 +69,7 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
           <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
           <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         </div>
-        <span className="ml-2 font-mono text-label text-fd-muted-foreground">{title}</span>
+        <span className="ml-2 font-mono text-caption text-fd-muted-foreground">{title}</span>
       </div>
 
       {/* Content : fixed height based on step count, scrolls when full */}

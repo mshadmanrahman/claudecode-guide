@@ -28,15 +28,14 @@ export function DesignerGettingStarted() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="border py-28 bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border-[var(--line)]" ref={ref}>
-      <div className="mx-auto max-w-5xl px-6">
+    <section className="px-4 py-12 sm:px-6" ref={ref}>
+      <div className="glass mx-auto max-w-5xl rounded-2xl px-6 py-16 sm:px-10">
         <div
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">03</span>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Getting started
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -71,7 +70,7 @@ export function DesignerGettingStarted() {
                         section: 'for-designers',
                       })
                     }
-                    className="mt-3 inline-flex items-center text-sm font-medium text-fd-foreground hover:underline"
+                    className="mt-3 inline-flex items-center text-sm font-medium text-fd-foreground hover:underline rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
                   >
                     {step.num === '02' ? 'Start Guide 1' : 'Browse all guides'} &rarr;
                   </Link>

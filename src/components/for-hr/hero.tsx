@@ -17,7 +17,7 @@ const JOURNEYS = [
     label: "People ops",
     icon: FileText,
     tagline: "Onboarding, reviews, retention",
-    note: "Onboarding plans, performance review templates, and exit interview analysis — the recurring work that takes most of your week.",
+    note: "Onboarding plans, performance review templates, and exit interview analysis: the recurring work that takes most of your week.",
   },
   {
     id: "communication",
@@ -31,26 +31,13 @@ const JOURNEYS = [
 export function HrHero() {
   return (
     <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
-      <nav className="flex flex-wrap items-center gap-2 mb-10">
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">
-          Structural overview
-        </span>
-        <span className="text-fd-muted-foreground/30 text-xs">/</span>
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">
-          For HR
-        </span>
-        <span className="text-fd-muted-foreground/30 text-xs">/</span>
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">
-          Claude Code guide
-        </span>
-      </nav>
 
       <h1 className="font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
         You hire. You develop. You communicate.
         <br />
-        <em className=" text-fd-muted-foreground">
+        <span className="text-[var(--muted)]">
           Claude handles the drafting.
-        </em>
+        </span>
       </h1>
 
       <p className="mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
@@ -66,21 +53,18 @@ export function HrHero() {
           return (
             <div
               key={j.id}
-              className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5"
+              className="glass rounded-xl p-5"
             >
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
-                Works for
-              </p>
               <div className="flex items-center gap-2 mb-1.5">
-                <Icon className="h-4 w-4 text-fd-foreground/70" />
+                <Icon className="h-4 w-4 text-[var(--muted)]" />
                 <span className="text-sm font-semibold text-fd-foreground">
                   {j.label}
                 </span>
               </div>
-              <p className="text-xs font-medium text-fd-foreground/80 mb-1">
+              <p className="text-xs font-medium text-fd-foreground mb-1">
                 {j.tagline}
               </p>
-              <p className="text-[11px] leading-relaxed text-fd-muted-foreground">
+              <p className="text-xs leading-relaxed text-fd-muted-foreground">
                 {j.note}
               </p>
             </div>
@@ -97,7 +81,7 @@ export function HrHero() {
               section: "for-hr",
             })
           }
-          className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground hover:opacity-90 transition-opacity"
+          className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           Start with job descriptions
         </Link>
@@ -109,7 +93,7 @@ export function HrHero() {
               section: "for-hr",
             })
           }
-          className="inline-flex items-center gap-2 rounded-lg border border-fd-border px-6 py-3 text-sm font-medium text-fd-foreground hover:bg-fd-accent transition-colors"
+          className="glass inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-sm font-medium transition-colors hover:bg-[var(--glass2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           Browse all guides
         </Link>
