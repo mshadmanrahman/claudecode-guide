@@ -178,7 +178,7 @@ Also give me two questions about [specific role requirement, e.g. "working with 
         description:
           "Ask Claude to generate a simple scoring rubric alongside the questions so interviewers are comparing candidates on the same criteria.",
         code: {
-          snippet: `For each of the three competencies above, add a simple 3-level rubric: what a weak answer looks like, what a strong answer looks like, and what a exceptional answer looks like. Keep each level to one sentence.`,
+          snippet: `For each of the three competencies above, add a simple 3-level rubric: what a weak answer looks like, what a strong answer looks like, and what an exceptional answer looks like. Keep each level to one sentence.`,
           language: "text",
         },
       },
@@ -293,14 +293,14 @@ Keep each day to a realistic load — half their time should be unstructured so 
     ],
     promptContrast: {
       bad: "write performance review feedback for an engineer",
-      good: `I am a engineering manager writing a mid-year review for a mid-level software engineer on my team. Here are my rough notes from the past six months:
+      good: `I am an engineering manager writing a mid-year review for a mid-level software engineer on my team. Here are my rough notes from the past six months:
 - Shipped the search API refactor on time, handled a tricky edge case on their own
 - Sometimes goes quiet in design reviews — doesn't push back even when they have a view
 - Mentored the new grad well, proactively set up weekly 1:1s
 - Two incidents in Q1 where they merged without adequate review, fixed quickly but flagged by team
 - Strong technically, wants to grow into a senior role
 
-Write a review in three sections: Strengths (what to continue), Areas for development (specific and constructive, not just "improve communication"), and a closing paragraph on their path to senior. Tone: direct, specific, and encouraging. No filler like "continues to demonstrate" or "leverages their skills."`,
+Write a review in three sections: Strengths (what to continue), Areas for development (specific and constructive, not just "improve communication"), and a closing paragraph on their path to senior. Tone: direct, specific, and encouraging. No filler like "continues to demonstrate" or "leverages their skills." Address them as "you", and use only what is in my notes: do not guess at causes.`,
       why: "The raw notes are the key input. Claude turns them into structured, readable feedback. Without the notes, the output is generic. The section structure and tone instruction keep the format consistent.",
     },
     steps: [
@@ -330,7 +330,7 @@ For each section include 2-3 guiding questions to help the reviewer write. The t
 
 [paste your raw bullet points — observations, incidents, patterns, wins, concerns]
 
-Write a review with three sections: Strengths (what to keep doing and why it matters), Development areas (specific and actionable — name the behavior, not just the outcome), and a closing paragraph on their trajectory. Tone: direct and honest, not diplomatic-to-the-point-of-useless. No filler phrases.`,
+Write a review with three sections: Strengths (what to keep doing and why it matters), Development areas (specific and actionable — name the behavior, not just the outcome), and a closing paragraph on their trajectory. Tone: direct and honest, not diplomatic-to-the-point-of-useless. No filler phrases. Address the employee as "you". Use only the facts in my notes and do not guess at causes or motives.`,
           language: "text",
         },
       },
@@ -390,15 +390,15 @@ Write a review with three sections: Strengths (what to keep doing and why it mat
           snippet: `Write a [policy type, e.g. "remote work policy"] for a [company size and type, e.g. "60-person B2B SaaS company, fully distributed across Europe"].
 
 Key things this policy needs to address:
-- [Question 1 employees ask]
-- [Question 2 employees ask]
-- [Question 3]
+- [Question 1 employees ask, and our answer]
+- [Question 2 employees ask, and our answer]
+- [Question 3, and our answer]
 
 Context:
 - [Any relevant constraints, e.g. "we have employees in 4 countries with different labor laws"]
 - [Any decisions already made, e.g. "we've agreed on a core hours model of 10am-3pm CET"]
 
-Tone: clear and direct, written for the employee reading it, not for legal protection. Use plain language. Structure with headers and short paragraphs. Include a one-paragraph "the intent behind this policy" section at the top.`,
+Tone: clear and direct, written for the employee reading it, not for legal protection. Use plain language. Structure with headers and short paragraphs. Include a one-paragraph "the intent behind this policy" section at the top. Where I have not given an answer, do not invent one: write [TO DECIDE]. End with a short list of anything that needs legal review.`,
           language: "text",
         },
       },
@@ -490,7 +490,7 @@ What I can say: [e.g. "the business rationale, the number of people affected, th
 What I cannot say: [e.g. "individual names before those conversations happen, specific financials"]
 What employees will be feeling: [e.g. "anxious about their own roles, sad about colleagues leaving"]
 
-The message should be honest about the difficulty of the situation without being maudlin. Include: what happened, why, what support is available, what happens next, and how to ask questions. Avoid passive voice and avoid euphemisms like "let go" or "transition."`,
+The message should be honest about the difficulty of the situation without being maudlin. Include: what happened, why, what support is available, what happens next, and how to ask questions. Avoid passive voice and avoid euphemisms like "let go" or "transition." Use only the facts I have given: do not promise there will be no further cuts, and do not invent dates, meetings or commitments. Put [brackets] where I need to fill something in. Have HR or legal review it before it goes out.`,
           language: "text",
         },
       },
