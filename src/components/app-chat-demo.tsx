@@ -5,28 +5,19 @@ import type { ReactNode } from 'react';
 import { useInView } from '@/hooks/use-in-view';
 
 /**
- * Claude's avatar in the chat mocks: a spark drawn for this site in Claude's
- * coral. Deliberately not the official Anthropic mark, since this guide is
- * unofficial.
+ * Claude's avatar in the chat mocks: the Claude Code pixel mascot, as drawn in
+ * LobeHub's icon set (lobehub.com/icons/claudecode). The eyes are cut out, so
+ * the card behind shows through.
  */
-function ClaudeSpark({ className = 'h-6 w-6' }: { className?: string }) {
-  const rays = [0, 45, 90, 135, 180, 225, 270, 315];
+function ClaudeMascot({ className = 'h-6 w-6' }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={`shrink-0 ${className}`} aria-hidden="true" focusable="false">
-      <g stroke="#cc785c" strokeLinecap="round">
-        {rays.map((deg, i) => (
-          <line
-            key={deg}
-            x1="12"
-            y1={i % 2 === 0 ? 1.75 : 3.5}
-            x2="12"
-            y2="9.25"
-            strokeWidth={i % 2 === 0 ? 2.6 : 2.1}
-            transform={`rotate(${deg} 12 12)`}
-          />
-        ))}
-      </g>
-      <circle cx="12" cy="12" r="2.4" fill="#cc785c" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M20.998 10.949H24v3.102h-3v3.028h-1.487V20H18v-2.921h-1.487V20H15v-2.921H9V20H7.488v-2.921H6V20H4.487v-2.921H3V14.05H0V10.95h3V5h17.998v5.949zM6 10.949h1.488V8.102H6v2.847zm10.51 0H18V8.102h-1.49v2.847z"
+        fill="#D97757"
+      />
     </svg>
   );
 }
@@ -137,7 +128,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
         </div>
       ) : (
         <div className="flex items-center gap-2.5 border-b border-fd-border bg-[var(--code)] px-4 py-3">
-          <ClaudeSpark />
+          <ClaudeMascot />
           <span className="text-sm font-medium text-fd-foreground">Claude</span>
           {variant === 'desktop' && folder ? (
             <span className="ml-auto truncate rounded-md border border-fd-border px-2 py-0.5 font-mono text-label text-fd-muted-foreground">
@@ -167,7 +158,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
                 AI
               </div>
             ) : (
-              <ClaudeSpark className="mb-0.5 h-6 w-6" />
+              <ClaudeMascot className="mb-0.5 h-6 w-6" />
             ))}
             <div
               className={`max-w-[82%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
@@ -189,7 +180,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
                 AI
               </div>
             ) : (
-              <ClaudeSpark className="mb-0.5 h-6 w-6" />
+              <ClaudeMascot className="mb-0.5 h-6 w-6" />
             )}
             <div className="flex items-center gap-1 rounded-xl rounded-bl-sm border border-fd-border bg-fd-background px-4 py-3">
               <span
