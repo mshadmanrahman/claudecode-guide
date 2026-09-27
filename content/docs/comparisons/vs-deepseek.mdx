@@ -8,7 +8,7 @@ comparisonEntities:
 relatedLinks:
   - title: "Claude Code vs GLM-5.2"
     href: "/docs/comparisons/vs-glm"
-    description: "Another strong open-source challenger. 1M context, spatial coding."
+    description: "Another strong open-source challenger. Cheap 1M context, spatial coding."
   - title: "Using Claude Code with Open-Source Models"
     href: "/docs/foundations/alternative-models"
     description: "How to actually run DeepSeek inside Claude Code via ANTHROPIC_BASE_URL."
@@ -37,7 +37,7 @@ That is the real question, and it has a real answer depending on what you care a
 
 ## The price gap is real and large
 
-Claude Opus 4.8 via API costs $5/M input, $25/M output. DeepSeek V4 Pro costs $0.44/M input, $0.87/M output. That is approximately 11x cheaper on input and 29x cheaper on output for a model that matches Opus on most coding benchmarks.
+Claude Opus 5.5 via API costs $4/M input, $20/M output. DeepSeek V4 Pro costs $0.44/M input, $0.87/M output. That is approximately 9x cheaper on input ($4 / $0.44) and 23x cheaper on output ($20 / $0.87) for a model that matches Opus on most coding benchmarks.
 
 DeepSeek V4 Flash cuts that further to $0.14/$0.28 — closer to Haiku pricing with V4 Pro capability for a large class of tasks.
 
@@ -65,9 +65,9 @@ If you are building on top of Claude Code's API surface and your primary bottlen
 
 **Privacy and self-hosting.** Running open weights on your own infrastructure means your code never leaves your network. For legal, regulated, or sensitive codebases, this matters.
 
-<DemoCard title="Cost comparison: 100K tokens per day" steps={[
-  { type: 'out', text: 'Claude Opus 4.8 (API):   ~$3.00/day input + output' },
-  { type: 'out', text: 'Claude Sonnet 4.6 (API):  ~$0.90/day input + output' },
+<DemoCard title="Cost comparison: 100K tokens in + 100K out per day" steps={[
+  { type: 'out', text: 'Claude Opus 5.5 (API):   ~$2.40/day input + output' },
+  { type: 'out', text: 'Claude Sonnet 5 (API):    ~$1.20/day input + output' },
   { type: 'out', text: 'DeepSeek V4 Pro (API):    ~$0.13/day input + output' },
   { type: 'out', text: 'DeepSeek V4 Flash (API):  ~$0.04/day input + output' },
   { type: 'warn', text: 'For volume automation, the DeepSeek numbers are hard to ignore.' },
@@ -93,6 +93,6 @@ For daily interactive coding — the sessions where Claude Code reads your codeb
 
 ## When to use which
 
-**Use DeepSeek** when API cost is the primary constraint for high-volume automated workflows, when you need to self-host or fine-tune on proprietary data, when 1M context is a genuine requirement, or when you want the reasoning model (R1) for structured logic tasks.
+**Use DeepSeek** when API cost is the primary constraint for high-volume automated workflows, when you need to self-host or fine-tune on proprietary data, when you need 1M context at the lowest price per token, or when you want the reasoning model (R1) for structured logic tasks.
 
 **Use Claude Code** when you are doing daily interactive development on a real project. When you want the agent layer — CLAUDE.md, memory, hooks, sub-agents, MCP — to handle the session complexity. When consistency and reliability over a long coding session matter more than per-token cost.

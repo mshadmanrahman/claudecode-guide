@@ -68,7 +68,7 @@ DeepSeek V4 Pro. Strong on SWE-bench and daily coding tasks. MIT open-weight. Dr
 DeepSeek R1. The dedicated reasoning variant. Competes with the best frontier reasoning models on math and logic chains. Use it when you're doing architecture decisions, complex debugging chains, or structured analysis rather than file editing.
 
 **For large codebase context:**
-GLM-5.2 (1M tokens) or DeepSeek V4 (1M tokens). Both match the 1M window Claude Opus and Sonnet now have, at a lower price per token. Haiku 4.5 is the Claude model still capped at 200K.
+Stay on Claude. Opus and Sonnet now run a 1M window, so you no longer switch models for size. GLM-5.2 and DeepSeek V4 match that 1M at a lower price per token, which only matters at high volume. Haiku 4.5 is the Claude model still capped at 200K.
 
 **For visual and spatial code:**
 GLM-5.2 from Zhipu AI. Benchmarks showed it outperforming GPT-5.5 on 3D/voxel scene generation, physics simulations, and complex SVG work. If you write a lot of creative/generative code, it's worth testing.
@@ -82,7 +82,7 @@ Qwen 3.6 27B and Devstral Small 2 run on a single consumer GPU. DeepSeek V4 Flas
 <DemoCard title="Model selection cheat sheet" steps={[
   { type: 'out', text: 'Daily coding          → DeepSeek V4 Pro (cheap, capable)' },
   { type: 'out', text: 'Reasoning tasks       → DeepSeek R1 (best open reasoning)' },
-  { type: 'out', text: 'Huge codebases        → GLM-5.2 or DS V4 (1M context)' },
+  { type: 'out', text: 'Huge codebases        → Claude (1M), GLM or DS V4 if cheaper' },
   { type: 'out', text: 'Visual/3D/SVG code    → GLM-5.2 (won the viral benchmark)' },
   { type: 'out', text: 'Agentic workflows     → Kimi K2.7-Code / MiniMax M3' },
   { type: 'out', text: 'Local / no egress     → Qwen 3.6 27B / Devstral Small 2' },

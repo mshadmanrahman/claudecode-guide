@@ -1,6 +1,6 @@
 ---
 title: Claude Code vs GLM-5.2
-description: "GLM-5.2 has a 1M-token context window, MIT open weights, and a viral benchmark that beat GPT-5.5. Here's what it actually means for your coding workflow."
+description: "GLM-5.2 has MIT open weights, a 1M-token context window, and a viral benchmark that beat GPT-5.5. Here's what it actually means for your coding workflow."
 targetKeyword: "claude code vs glm 5.2"
 comparisonEntities:
   - "Claude Code"
@@ -11,7 +11,7 @@ relatedLinks:
     description: "Another strong free-tier challenger. Different trade-offs."
   - title: "Claude Code vs OpenAI Codex"
     href: "/docs/comparisons/vs-codex"
-    description: "GPT-5.5's terminal agent vs Claude Code."
+    description: "OpenAI's coding agent vs Claude Code."
   - title: "Claude Pro vs Max vs API"
     href: "/docs/comparisons/pro-vs-max"
     description: "Pick the right Claude plan before switching away."
@@ -88,7 +88,7 @@ GLM-5.2 is real. The spatial coding benchmark was not cherry-picked — building
 
 But I am not switching my daily workflow to it, for a concrete reason: there is no agent. Every time I use Claude Code on a real project, the value is not the single response quality. It is that Claude Code knows I use next-auth v5, that it will not touch the payment module without confirmation, that it runs my tests after every edit, that it remembers a decision I made three weeks ago. GLM-5.2 cannot do any of that. It is an impressive model accessed through a chat interface.
 
-The 1M context is the most genuinely interesting capability. If your bottleneck is context size — you are working with a massive legacy codebase and need to reason over all of it simultaneously — GLM-5.2 is worth testing. That is a real structural advantage.
+The 1M context used to be the headline. Claude now runs the same 1M window, so context size alone is no longer a reason to switch.
 
 The open-source angle matters for a specific audience: teams who need to self-host, fine-tune for proprietary codebases, or operate in environments where vendor-hosted AI is restricted.
 
@@ -96,7 +96,7 @@ For everyone else, the choice is simpler than the benchmark made it look. You ar
 
 ## When to use which
 
-**Try GLM-5.2** when you need 1M context for a genuinely massive codebase, when you are building creative/visual/spatial code (3D, games, generative SVG), when open-source weights are a requirement, or when you want to experiment with a strong alternative model at lower entry cost.
+**Try GLM-5.2** when you are building creative/visual/spatial code (3D, games, generative SVG), when open-source weights are a requirement, or when you want to experiment with a strong alternative model at lower entry cost.
 
 **Use Claude Code** when you are doing daily professional development on a real project. When you want the AI to know your codebase, respect your conventions, run your tools, and get smarter about your project over time. When you need a proven track record on real-world software engineering tasks, not one benchmark.
 

@@ -120,7 +120,7 @@ Running Claude Code in CI uses API tokens. Be intentional about it.
 - **Cache aggressively**: don't re-review unchanged files
 - **Set token limits**: `--max-tokens 4096` prevents runaway usage
 
-A typical PR review costs $0.02-0.10 depending on diff size. That's cheaper than one missed production bug.
+A small PR review measured about $0.08 on Haiku 4.5 and $0.24 on Sonnet 5 (2026-09-27), and bigger diffs cost more. That's cheaper than one missed production bug.
 
 ## Security Notes
 
