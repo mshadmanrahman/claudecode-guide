@@ -58,7 +58,7 @@ function PromptBlock({ text, label }: { text: string; label: string }) {
           <span aria-live="polite">{copied ? 'Copied' : 'Copy prompt'}</span>
         </button>
       </div>
-      <p className="m-0 whitespace-pre-wrap break-words p-4 text-[15px] leading-relaxed">{text}</p>
+      <p className="m-0 whitespace-pre-wrap break-words p-4 text-ui leading-relaxed">{text}</p>
     </div>
   );
 }

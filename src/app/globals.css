@@ -88,6 +88,19 @@
 }
 
 @theme static {
+  /* Type ramp: ten steps, documented in DESIGN.md "Typography". micro is for diagram text only. */
+  --text-micro: 10px;
+  --text-label: 11px;
+  --text-caption: 12px;
+  --text-compact: 14px;
+  --text-ui: 15px;
+  --text-body: 17px;
+  --text-lead: 20px;
+  --text-title: 24px;
+  --text-headline: clamp(28px, 1.2rem + 1.9vw, 36px);
+  --text-display: clamp(38px, 9vw, 84px);
+  --text-display-article: clamp(36px, 4.2vw + 14px, 54px);
+
   --color-fd-info: oklch(62.3% 0.214 259.815);
   --color-fd-warning: oklch(76.9% 0.188 70.08);
   --color-fd-error: oklch(63.7% 0.237 25.331);
@@ -397,6 +410,7 @@ h3.font-display {
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --radius-xs: calc(var(--radius) * 0.4);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -436,6 +450,7 @@ h3.font-display {
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
+  --glass-blur: blur(16px) saturate(1.2);
   --sidebar: var(--bg);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--acc);
@@ -450,8 +465,8 @@ h3.font-display {
 .glass {
   background: var(--glass);
   border: 1px solid var(--line);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
 }
 
 /* SceneBackdrop: binds to the nearest positioned ancestor (or the viewport when fixed). */
@@ -712,7 +727,7 @@ html #nd-sidebar-mobile {
 /* Left path nav: mono uppercase section labels */
 html #nd-docs-layout aside button[data-state] {
   font-family: var(--font-mono);
-  font-size: 11.5px !important;
+  font-size: var(--text-label) !important;
   font-weight: 500 !important;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -722,10 +737,10 @@ html #nd-docs-layout aside button[data-state] {
   padding-inline-start: 0.75rem !important;
 }
 html #nd-docs-layout aside a[href] {
-  font-size: 14px;
+  font-size: var(--text-compact);
   line-height: 1.4;
   color: var(--muted);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   padding-top: 7px !important;
   padding-bottom: 7px !important;
   padding-inline-start: 0.75rem !important;
@@ -756,7 +771,7 @@ html #nd-docs-layout aside a[data-active="true"] {
   gap: 10px;
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: var(--text-caption);
   color: var(--muted);
 }
 .ccg-pill {
@@ -773,7 +788,7 @@ html #nd-docs-layout aside a[data-active="true"] {
 .ccg-title {
   margin: 18px 0 16px;
   font-family: var(--font-display);
-  font-size: clamp(36px, 4.2vw + 14px, 54px);
+  font-size: var(--text-display-article);
   line-height: 1.06;
   font-weight: 600;
   letter-spacing: -0.045em;
@@ -783,7 +798,7 @@ html #nd-docs-layout aside a[data-active="true"] {
 }
 .ccg-lead {
   margin: 0 0 28px;
-  font-size: 20px;
+  font-size: var(--text-lead);
   line-height: 1.55;
   color: var(--muted);
 }
@@ -794,20 +809,20 @@ html #nd-docs-layout aside a[data-active="true"] {
   gap: 12px;
   padding-bottom: 28px;
   border-bottom: 1px solid var(--line);
-  font-size: 14px;
+  font-size: var(--text-compact);
 }
 
-/* Prose: 17.5px / 1.7 body, 26px H2, ink headings */
+/* Prose: body step / 1.7, title-step H2, ink headings */
 .prose.ccg-prose {
   --tw-prose-body: var(--ink);
   --tw-prose-headings: var(--ink);
   --tw-prose-quotes: var(--ink);
   color: var(--ink);
-  font-size: 17.5px;
+  font-size: var(--text-body);
   line-height: 1.7;
 }
 .prose.ccg-prose :where(p, li):not(:where(.not-prose, .not-prose *)) {
-  font-size: 17.5px;
+  font-size: var(--text-body);
   line-height: 1.7;
 }
 .prose.ccg-prose :where(p):not(:where(.not-prose, .not-prose *)) {
@@ -815,7 +830,7 @@ html #nd-docs-layout aside a[data-active="true"] {
 }
 .prose.ccg-prose h2 {
   margin: 44px 0 14px;
-  font-size: 26px;
+  font-size: var(--text-title);
   line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.025em;
@@ -823,7 +838,7 @@ html #nd-docs-layout aside a[data-active="true"] {
 }
 .prose.ccg-prose h3 {
   margin: 32px 0 10px;
-  font-size: 20px;
+  font-size: var(--text-lead);
   line-height: 1.3;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -844,9 +859,9 @@ html #nd-docs-layout aside a[data-active="true"] {
   color: var(--ink);
   background: var(--glass);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  border-radius: var(--radius-lg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
 }
 .prose.ccg-prose blockquote p::before,
 .prose.ccg-prose blockquote p::after {
@@ -866,12 +881,12 @@ figure.ccg-code {
   --padding-right: 16px;
   margin: 0 0 24px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--glass);
   box-shadow: none;
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
 }
 figure.ccg-code.shiki {
   --padding-left: 16px;
@@ -887,7 +902,7 @@ figure.ccg-code > div:first-child,
   padding: 0 10px 0 16px;
   border-bottom: 1px solid var(--line);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--muted);
 }
 figure.ccg-code > div[role="region"],
@@ -895,7 +910,7 @@ figure.ccg-code > div[role="region"],
   padding: 18px 0;
   background: var(--code);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--text-compact);
   line-height: 1.7;
   overflow-x: auto;
 }
@@ -905,7 +920,7 @@ figure.ccg-code > div[role="region"],
   border: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
-  font-size: 14px;
+  font-size: var(--text-compact);
 }
 .ccg-code pre code {
   line-height: 1.7 !important;
@@ -914,9 +929,9 @@ figure.ccg-code > div[role="region"],
 }
 .ccg-copy {
   padding: 4px 6px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--muted);
   background: transparent;
   cursor: pointer;
@@ -938,11 +953,11 @@ figure.ccg-code button:focus-visible {
   margin: 24px 0;
   padding: 16px 18px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   background: var(--glass);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  font-size: 15.5px;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  font-size: var(--text-ui);
   line-height: 1.6;
   color: var(--ink);
 }
@@ -950,7 +965,7 @@ figure.ccg-code button:focus-visible {
   flex: none;
   padding-top: 3px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--acc);
 }
 .ccg-callout-body {
@@ -958,7 +973,7 @@ figure.ccg-code button:focus-visible {
   min-width: 0;
 }
 .prose.ccg-prose .ccg-callout-body :where(p, li) {
-  font-size: 15.5px;
+  font-size: var(--text-ui);
   line-height: 1.6;
 }
 .ccg-callout-body > :first-child {
@@ -975,7 +990,7 @@ figure.ccg-code button:focus-visible {
 /* Right "on this page" TOC: mono label, accent progress line */
 #nd-toc #toc-title {
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: var(--text-label);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
@@ -999,7 +1014,7 @@ figure.ccg-code button:focus-visible {
   ) !important;
 }
 #nd-toc a {
-  font-size: 13.5px;
+  font-size: var(--text-compact);
   color: var(--muted);
   padding-inline-start: 14px;
 }
@@ -1022,17 +1037,17 @@ figure.ccg-code button:focus-visible {
   flex-direction: column;
   gap: 6px;
   padding: 18px 20px;
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   text-decoration: none;
   min-width: 0;
 }
 .ccg-pager-label {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--muted);
 }
 .ccg-pager-title {
-  font-size: 17px;
+  font-size: var(--text-body);
   font-weight: 500;
   color: var(--ink);
   overflow-wrap: anywhere;
@@ -1053,7 +1068,7 @@ figure.ccg-code button:focus-visible {
   gap: 6px;
   margin-bottom: 28px;
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: var(--text-caption);
   color: var(--muted);
 }
 .ccg-back:hover {
@@ -1072,7 +1087,7 @@ figure.ccg-code button:focus-visible {
   border: 1px solid var(--line);
   border-radius: 999px;
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .ccg-card-meta {
@@ -1080,7 +1095,7 @@ figure.ccg-code button:focus-visible {
   align-items: center;
   gap: 10px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--muted);
 }
 .ccg-filter {
@@ -1089,7 +1104,7 @@ figure.ccg-code button:focus-visible {
   border-radius: 999px;
   background: var(--glass);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--muted);
   cursor: pointer;
   transition: color 0.2s, background-color 0.2s;
@@ -1107,16 +1122,6 @@ figure.ccg-code button:focus-visible {
 .ccg-pager-card:focus-visible {
   outline: 2px solid var(--acc);
   outline-offset: 2px;
-}
-
-@media (max-width: 639px) {
-  .ccg-lead {
-    font-size: 18px;
-  }
-  .prose.ccg-prose,
-  .prose.ccg-prose :where(p, li):not(:where(.not-prose, .not-prose *)) {
-    font-size: 16.5px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1144,8 +1149,8 @@ figure.ccg-code button:focus-visible {
     [class*="bg-fd-secondary/"]
   ) {
   background-color: var(--glass);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
 }
 #nd-page [class~="shadow-sm"] {
   box-shadow: none;
@@ -1157,7 +1162,7 @@ figure.ccg-code button:focus-visible {
   flex-direction: column;
   min-width: 0;
   padding: 24px;
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
 }
 .ccg-section-card:focus-within {
   transform: translateY(-4px);
@@ -1176,13 +1181,13 @@ figure.ccg-code button:focus-visible {
   margin: 32px 0;
   padding: 24px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
   background: var(--glass);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   line-height: 1.45;
 }
 .dv-body {
@@ -1195,7 +1200,7 @@ figure.ccg-code button:focus-visible {
   margin-top: 20px;
   padding-top: 14px;
   border-top: 1px solid var(--line);
-  font-size: 12px;
+  font-size: var(--text-caption);
   line-height: 1.5;
   color: var(--muted);
 }
@@ -1207,7 +1212,7 @@ figure.ccg-code button:focus-visible {
   color: var(--ink);
 }
 .dv-mono-muted {
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .dv-mt {
@@ -1223,7 +1228,7 @@ figure.ccg-code button:focus-visible {
   min-width: 0;
   padding: 10px 12px;
   border: 1px solid var(--dv-stroke);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--hair);
 }
 .dv-node-head {
@@ -1240,7 +1245,7 @@ figure.ccg-code button:focus-visible {
 }
 .dv-node-sub {
   margin-top: 2px;
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .dv-node--acc {
@@ -1265,8 +1270,8 @@ figure.ccg-code button:focus-visible {
   flex: none;
   padding: 0 6px;
   border: 1px solid var(--dv-stroke);
-  border-radius: 4px;
-  font-size: 11px;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-label);
   line-height: 18px;
   color: var(--muted);
 }
@@ -1336,7 +1341,7 @@ figure.ccg-code button:focus-visible {
   top: 50%;
   transform: translateY(-50%);
   white-space: nowrap;
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .dv-arrow--acc {
@@ -1507,7 +1512,7 @@ figure.ccg-code button:focus-visible {
   border-top: 1px dashed var(--line);
 }
 .dv-aside-label {
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .dv-aside .dv-node {
@@ -1558,7 +1563,7 @@ figure.ccg-code button:focus-visible {
 }
 .dv-col-head {
   margin: 0 0 10px;
-  font-size: 11px;
+  font-size: var(--text-label);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1567,7 +1572,7 @@ figure.ccg-code button:focus-visible {
   min-width: 0;
   padding: 14px;
   border: 1px solid var(--dv-stroke);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--hair);
 }
 .dv-panel--acc {
@@ -1600,8 +1605,8 @@ figure.ccg-code button:focus-visible {
 .dv-chips span {
   padding: 0 6px;
   border: 1px solid var(--acc);
-  border-radius: 4px;
-  font-size: 11px;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-label);
   line-height: 18px;
   color: var(--acc);
 }
@@ -1652,7 +1657,7 @@ figure.ccg-code button:focus-visible {
   width: 14px;
   border: 1px dashed var(--acc);
   border-left: 0;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 .dv-loop-return::before {
   content: "";
@@ -1673,7 +1678,7 @@ figure.ccg-code button:focus-visible {
   transform: translateY(-50%);
   writing-mode: vertical-rl;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--acc);
 }
 @container (min-width: 600px) {
@@ -1712,7 +1717,7 @@ figure.ccg-code button:focus-visible {
     height: 20px;
     border: 1px dashed var(--acc);
     border-top: 0;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
   }
   .dv-loop-return::before {
     top: -2px;
@@ -1748,7 +1753,7 @@ figure.ccg-code button:focus-visible {
   justify-content: center;
   padding: 20px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--hair);
 }
 .il-stage,
@@ -1756,14 +1761,14 @@ figure.ccg-code button:focus-visible {
   --dv-stroke: color-mix(in srgb, var(--ink) 24%, transparent);
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-caption);
   line-height: 1.5;
 }
 .il-win {
   width: 100%;
   overflow: hidden;
   border: 1px solid var(--dv-stroke);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--glass2);
 }
 .il-bar {
@@ -1773,7 +1778,7 @@ figure.ccg-code button:focus-visible {
   gap: 8px;
   padding: 6px 12px;
   border-bottom: 1px solid var(--line);
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .il-bar-title {
@@ -1821,7 +1826,7 @@ figure.ccg-code button:focus-visible {
   color: var(--ink);
 }
 .il-tree {
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--muted);
 }
 .il-tree-root {
@@ -1854,13 +1859,13 @@ figure.ccg-code button:focus-visible {
 }
 .il-label {
   margin: 0;
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .il-msg {
   padding: 8px 12px;
   border: 1px solid var(--dv-stroke);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--glass2);
   color: var(--ink);
 }
@@ -1873,7 +1878,7 @@ figure.ccg-code button:focus-visible {
   gap: 8px;
   padding: 8px 12px;
   border: 1px solid var(--dv-stroke);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--glass2);
   color: var(--muted);
 }
@@ -1894,7 +1899,7 @@ figure.ccg-code button:focus-visible {
 }
 .il-status-value {
   margin-left: auto;
-  font-size: 11px;
+  font-size: var(--text-label);
 }
 .il-slots {
   display: flex;
@@ -1907,7 +1912,7 @@ figure.ccg-code button:focus-visible {
 .il-slots li {
   padding: 4px 8px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   color: var(--muted);
 }
 .il-slots li.is-acc {
@@ -1918,7 +1923,7 @@ figure.ccg-code button:focus-visible {
 .il-time {
   display: inline-block;
   min-width: 44px;
-  font-size: 11px;
+  font-size: var(--text-label);
 }
 .il-slots li.is-acc .il-time {
   color: var(--acc);
@@ -1938,7 +1943,7 @@ figure.ccg-code button:focus-visible {
 .il-sources li {
   padding: 4px 10px;
   border: 1px solid var(--dv-stroke);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   background: var(--glass2);
   white-space: nowrap;
 }
@@ -1953,7 +1958,7 @@ figure.ccg-code button:focus-visible {
 .il-hub {
   padding: 10px 12px;
   border: 1px solid var(--acc);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--chip);
   color: var(--acc);
 }
@@ -1964,7 +1969,7 @@ figure.ccg-code button:focus-visible {
   margin: 0;
 }
 .il-doc dt {
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .il-doc dd {
@@ -1982,7 +1987,7 @@ figure.ccg-code button:focus-visible {
 .il-fig-title {
   margin: 0 0 20px;
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--text-lead);
   font-weight: 600;
   line-height: 1.25;
   color: var(--ink);
@@ -2004,7 +2009,7 @@ figure.ccg-code button:focus-visible {
   align-items: center;
   gap: 4px 8px;
   margin-top: 6px;
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .il-legend-key {
@@ -2041,7 +2046,7 @@ figure.ccg-code button:focus-visible {
   border-top: 1px solid var(--acc);
 }
 .il-step-n {
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--muted);
 }
 .il-steps li.is-acc .il-step-n {

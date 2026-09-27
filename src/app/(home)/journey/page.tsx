@@ -626,7 +626,7 @@ export default function JourneyPage() {
                               {node.audiences.map((a) => (
                                 <span
                                   key={a}
-                                  className={`rounded-full px-2 py-0.5 text-[10px] font-medium leading-tight ${audienceColor[a] ?? ''}`}
+                                  className={`rounded-full px-2 py-0.5 text-label font-medium leading-tight ${audienceColor[a] ?? ''}`}
                                 >
                                   {a}
                                 </span>
@@ -635,7 +635,7 @@ export default function JourneyPage() {
                           )}
 
                           {node.badge && (
-                            <span className="shrink-0 rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
+                            <span className="shrink-0 rounded-full bg-fd-accent px-2 py-0.5 text-label font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
                               {node.badge}
                             </span>
                           )}
@@ -662,7 +662,7 @@ export default function JourneyPage() {
                                 {node.audiences.map((a) => (
                                   <span
                                     key={a}
-                                    className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${audienceColor[a] ?? ''}`}
+                                    className={`rounded-full px-2 py-0.5 text-label font-medium ${audienceColor[a] ?? ''}`}
                                   >
                                     {a}
                                   </span>

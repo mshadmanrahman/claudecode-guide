@@ -50,7 +50,7 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
                     {item.title}
                   </h3>
                   {item.badge && (
-                    <span className="rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
+                    <span className="rounded-full bg-fd-accent px-2 py-0.5 text-label font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
                       {item.badge}
                     </span>
                   )}

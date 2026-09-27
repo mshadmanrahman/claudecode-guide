@@ -37,7 +37,7 @@ export function IdeSelector({ selected, onSelect }: IdeSelectorProps) {
         >
           <ide.icon className="h-5 w-5" />
           <span className="text-sm font-medium">{ide.label}</span>
-          <span className="text-[10px] text-fd-muted-foreground">{ide.desc}</span>
+          <span className="text-label text-fd-muted-foreground">{ide.desc}</span>
         </button>
       ))}
     </div>

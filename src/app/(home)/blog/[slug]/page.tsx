@@ -228,7 +228,7 @@ export default async function BlogPostPage(props: PageProps) {
           <section className="mt-16 border-t border-fd-border pt-8" aria-labelledby="related-posts">
             <h2
               id="related-posts"
-              className="mb-6 text-[26px] font-semibold tracking-[-0.025em] text-fd-foreground"
+              className="mb-6 text-title font-semibold tracking-[-0.025em] text-fd-foreground"
             >
               Related posts
             </h2>
@@ -242,7 +242,7 @@ export default async function BlogPostPage(props: PageProps) {
                   <time dateTime={related.date} className="font-mono text-xs text-fd-muted-foreground">
                     {formatDate(related.date)}
                   </time>
-                  <h3 className="text-[17px] font-medium tracking-[-0.01em] text-fd-foreground">
+                  <h3 className="text-body font-medium tracking-[-0.01em] text-fd-foreground">
                     {related.title}
                   </h3>
                   <p className="line-clamp-2 text-sm text-fd-muted-foreground">

@@ -44,19 +44,19 @@ typography:
     letterSpacing: "-0.045em"
   headline:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "36px"
+    fontSize: "clamp(28px, 1.2rem + 1.9vw, 36px)"
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: "-0.035em"
   title:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "22px"
+    fontSize: "24px"
     fontWeight: 600
     lineHeight: 1.15
     letterSpacing: "-0.02em"
   body:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "17.5px"
+    fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.7
   body-ui:
@@ -72,12 +72,24 @@ typography:
     fontFamily: "'Geist Mono', ui-monospace, monospace"
     fontSize: "14px"
     lineHeight: 1.7
+  scale:
+    micro: "10px"
+    label: "11px"
+    caption: "12px"
+    compact: "14px"
+    ui: "15px"
+    body: "17px"
+    lead: "20px"
+    title: "24px"
+    headline: "clamp(28px, 1.2rem + 1.9vw, 36px)"
+    display: "clamp(38px, 9vw, 84px)"
+    display-article: "clamp(36px, 4.2vw + 14px, 54px)"
 rounded:
+  xs: "4px"
   sm: "6px"
   md: "8px"
   lg: "10px"
   glass: "10px"
-  card: "12px"
   xl: "14px"
   2xl: "18px"
   full: "999px"
@@ -103,9 +115,9 @@ components:
     height: "48px"
   button-glass-hover:
     backgroundColor: "{colors.glass-strong}"
-  button-ink:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
+  button-header:
+    backgroundColor: "{colors.glass}"
+    textColor: "{colors.ink}"
     rounded: "{rounded.lg}"
     padding: "0 16px"
     height: "40px"
@@ -190,12 +202,29 @@ Cool neutral ink on an off-white ground, one violet accent, and translucent glas
 
 ### Hierarchy
 - **Display** (600, fluid 38px to 84px, line-height 1.04, -0.045em): The homepage headline, capped near 14 characters per line. Article titles use the same weight and tracking at a smaller clamp (36px to 54px, line-height 1.06).
-- **Headline** (600, 28px mobile to 36px desktop, -0.035em): Homepage section heads inside their glass panels. Article H2 runs 26px at -0.025em, H3 20px at -0.02em.
-- **Title** (600, 17px to 24px, -0.015em to -0.02em): Card titles. Doc cards run 22px.
-- **Body** (400, 17.5px, line-height 1.7): Article prose on docs and blog, in a 680px column; 16.5px below 640px. The article lead runs 20px at 1.55 in muted.
+- **Headline** (600, fluid 28px to 36px, -0.035em): Homepage section heads inside their glass panels. Article H2 uses the title step at -0.025em, H3 the lead step at -0.02em.
+- **Title** (600, 24px, -0.015em to -0.02em): Large card titles and article H2. Small card titles use the body or lead step.
+- **Body** (400, 17px, line-height 1.7): Article prose on docs and blog, in a 680px column, at every width. The article lead uses the lead step (20px) at 1.55 in muted.
 - **Body UI** (400, 15px, line-height 1.5): Card blurbs, section subtitles, button labels.
-- **Label** (Geist Mono 400, 11px to 12.5px): Breadcrumbs, captions, pills, dates, callout labels, the persona name on homepage cards. Sidebar and TOC group headings and the mobile menu's "Paths" heading run uppercase at 11.5px with 0.06em tracking; that treatment is navigation chrome only.
+- **Label** (Geist Mono 400, 11px or 12px): Breadcrumbs, captions, pills, dates, callout labels, the persona name on homepage cards. Sidebar and TOC group headings and the mobile menu's "Paths" heading run uppercase at the label step with 0.06em tracking; that treatment is navigation chrome only.
 - **Mono** (Geist Mono, 14px, line-height 1.7): Code block bodies.
+
+**The ramp.** Every size on the site is one of ten steps, defined as `--text-*` tokens in the `@theme static` block of `src/app/globals.css`, so each one is also a Tailwind utility (`text-caption`, `text-headline`):
+
+| Step | Size | Used for |
+|---|---|---|
+| micro | 10px | Text inside diagrams and SVG badges only. Never body copy. |
+| label | 11px | Mono labels, eyebrows, nav group headings |
+| caption | 12px | Captions, pills, dates, callout labels |
+| compact | 14px | Nav items, sidebar links, code, dense card copy |
+| ui | 15px | Card blurbs, subtitles, button labels |
+| body | 17px | Article prose |
+| lead | 20px | Article lead, H3, small card titles |
+| title | 24px | Article H2, large card titles |
+| headline | 28px to 36px, fluid | Section heads |
+| display | 38px to 84px, fluid | The homepage headline; articles use `display-article` (36px to 54px) |
+
+Tailwind's own `text-xs` (12px) and `text-sm` (14px) sit on the ramp and stay in use. `text-base`, `text-lg`, `text-3xl`, `text-5xl` and `text-6xl` do not, and are remaining debt. Do not pass the custom `text-*` tokens through `cn()` or `cva`: the `cn` package reads an unknown `text-caption` as a color and drops it when a real color class follows. Use `text-xs` or `text-sm` there instead.
 
 ### Named Rules
 **The No Italics Rule.** Nothing on the site slants. `em`, `i`, `cite`, and `dfn` render upright at weight 500, and blockquotes and syntax themes are forced upright too. Emphasis is weight, never slant.
@@ -204,7 +233,7 @@ Cool neutral ink on an off-white ground, one violet accent, and translucent glas
 
 ## 4. Elevation
 
-Depth comes from the scene and the glass, not from shadows. The generated valley sits at the back (z-index -1, drifting a 3% scale over 60 seconds); a faint vertical rule overlay (1px hair lines every 216px) sits on it; glass panels float above with a 1px line border and a 16px backdrop blur. Resting cards carry no shadow, and the docs article treatment explicitly strips `shadow-sm` from anything inside it. Cards rise on hover by moving, not by casting: a 4px lift, the border turning violet, and the fill stepping from Glass to Strong Glass over 0.4s. The only shadows left are `shadow-lg` on the opaque dropdown menu and mobile drawer, which need to separate from glass beneath them.
+Depth comes from the scene and the glass, not from shadows. The generated valley sits at the back (z-index -1, drifting a 3% scale over 60 seconds); a faint vertical rule overlay (1px hair lines every 216px) sits on it; glass panels float above with a 1px line border and one backdrop filter, `--glass-blur` (blur 16px, saturate 1.2), shared by `.glass`, code blocks, callouts, blockquotes and cards. Resting cards carry no shadow, and the docs article treatment explicitly strips `shadow-sm` from anything inside it. Cards rise on hover by moving, not by casting: a 4px lift, the border turning violet, and the fill stepping from Glass to Strong Glass over 0.4s. The only shadows left are `shadow-lg` on the opaque dropdown menu and mobile drawer, which need to separate from glass beneath them.
 
 The scene has two variants. **Full** (homepage) shows the image at full strength. **Faded** (docs, blog, tutorials, persona pages) drops it to 26% opacity in light and 34% in dark, desaturates it, blurs it 1px, and masks the middle of the page down to 15% so long text reads on a near-plain ground. The day/night swap is a pure CSS crossfade on the `.dark` class (1.2s), so there is no hydration flash. Under `prefers-reduced-motion` the drift, the crossfade, and every homepage animation stop.
 
@@ -218,18 +247,18 @@ The scene has two variants. **Full** (homepage) shows the image at full strength
 Plain, high-contrast type on frosted panels. The terminal cards stay literal, because they are real.
 
 ### Buttons
-- **Shape:** Gently rounded (lg, 10px). The radius scale is `--radius` (0.625rem) multiplied: sm 6px for tags and small controls, md 8px for diagram nodes and sidebar links, lg 10px for buttons, nav items, section-head panels, code blocks, and callouts, card 12px for the hand-written section cards and diagram figures, xl 14px for homepage cards, the header, and menus, 2xl 18px for the large feature panels, full for pills, filters, and the byline chip. Tags inside diagrams go down to 4px.
-- **Primary:** Violet fill with accent-ink text, 48px tall on the homepage (44px in panels), 24px horizontal padding, 15px medium label. One per view region.
+- **Shape:** Gently rounded (lg, 10px). The radius scale is `--radius` (0.625rem) multiplied: xs 4px for tags inside diagrams, sm 6px for tags and small controls, md 8px for diagram nodes and sidebar links, lg 10px for buttons, nav items, section-head panels, code blocks, and callouts, xl 14px for every card (homepage, docs section cards, diagram figures), the header, and menus, 2xl 18px for the large feature panels, full for pills, filters, and the byline chip. Every radius comes from this scale; there is no separate 12px card radius.
+- **Primary:** Violet fill with accent-ink text, 48px tall on the homepage (44px in panels), 24px horizontal padding, 15px medium label. One per view region. This is the only filled button style on the site.
 - **Glass (secondary):** The glass surface at the same size, ink text; hover steps to Strong Glass or the violet chip tint.
 - **Outline:** A 1px line border on transparent, used for the essay call to action; hover fills with the chip tint.
-- **Hover / Focus:** Filled buttons shift opacity only (0.9); glass buttons shift fill. Focus is a 2px violet outline at 2px offset on every interactive element.
+- **Hover / Focus:** The primary button shifts opacity only (0.9); glass buttons shift fill. Focus is a 2px violet outline at 2px offset on every interactive element.
 
 ### Chips
 - **Style:** Pills in Geist Mono at 11.5px to 12px, muted text, a 1px line border, full radius, 2px by 10px padding.
 - **State:** Blog filter pills sit on glass; the pressed filter inverts to an ink fill with ground-colored text.
 
 ### Cards / Containers
-- **Corner Style:** xl (14px) on homepage link cards, card (12px) on docs section cards and diagram figures, 2xl (18px) on large panels such as the three-step journey and the author block.
+- **Corner Style:** xl (14px) on homepage link cards, docs section cards and diagram figures, 2xl (18px) on large panels such as the three-step journey and the author block.
 - **Background:** Glass, with a 1px line border.
 - **Shadow Strategy:** None at rest; see Elevation for the hover lift.
 - **Internal Padding:** 24px standard, 32px on the two-up practice cards at desktop, 16px by 20px on compact persona cards.
@@ -237,20 +266,20 @@ Plain, high-contrast type on frosted panels. The terminal cards stay literal, be
 
 ### Navigation
 - **Header:** A floating glass bar, sticky with an 8px top gap on mobile and 20px on desktop, 56px tall (60px desktop), xl radius, capped at 1312px wide. The wordmark is an SVG valley-line logo plus "Claude Code Guide" in 16px semibold. Nav items are 14px medium; active items take the violet chip fill with violet text. A "Paths" dropdown and the mobile drawer open as opaque Surface menus with `shadow-lg`.
-- **Header action:** "Start free" is an ink-filled button (ink background, ground-colored text, 40px tall).
+- **Header action:** "Start free" is a secondary glass button (glass fill, 1px line border, ink text, 40px tall, hover steps to Strong Glass). In the opaque mobile drawer it becomes the outline button. It never competes with the violet primary.
 - **Docs sidebar:** Transparent over the faded scene. Links are 14px muted with a 6px radius and a hair fill on hover; the active link is violet on the chip tint. The right TOC uses a 2px line rail that fills violet from the top down to the active heading.
 
 ### Terminal / Demo Cards
 - **Chrome:** macOS traffic-light dots in the borrowed system colors, on a code-wash title bar.
-- **Surface:** Glass with a 16px blur and 1.2 saturation, xl radius.
+- **Surface:** Glass with the shared `--glass-blur` (16px blur, 1.2 saturation), xl radius.
 - **Content:** Monospace, animated typing, blinking caret block. Success is green, warning amber, error red, commands bold ink, plain output muted.
 
 ### Code Blocks and Callouts
-- **Code blocks:** A glass figure (10px radius, 1px line border, 14px blur) with a 40px mono filename bar and a copy control, then a code-wash body at 14px / 1.7.
+- **Code blocks:** A glass figure (10px radius, 1px line border, the shared `--glass-blur`) with a 40px mono filename bar and a copy control, then a code-wash body at 14px / 1.7.
 - **Callouts:** The same glass box with 16px by 18px padding and a 12px mono label in violet on the left.
 
 ### Diagrams
-- **Figure:** A glass panel (12px radius, 24px padding) in 12px Geist Mono, with a caption row under a 1px line divider; the figure ID renders in violet.
+- **Figure:** A glass panel (xl, 14px radius, 24px padding) in 12px Geist Mono, with a caption row under a 1px line divider; the figure ID renders in violet.
 - **Nodes:** 8px-radius boxes with a 24% ink stroke on a hair fill. Tones are base, accent (violet stroke and chip fill), and ghost (dashed, muted). Connectors switch from vertical to horizontal at a 640px container width, so a diagram reflows the same way in the article column as on a phone.
 
 ## 6. Do's and Don'ts

@@ -139,12 +139,12 @@ export function RotatingDemo() {
             <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
             <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
           </div>
-          <span className="ml-2 font-mono text-[11px] text-fd-muted-foreground">claude-code</span>
+          <span className="ml-2 font-mono text-label text-fd-muted-foreground">claude-code</span>
         </div>
 
         {/* Content */}
         <div
-          className={`p-6 font-mono text-[13px] leading-loose sm:text-sm transition-opacity duration-200 ${
+          className={`p-6 font-mono text-compact leading-loose transition-opacity duration-200 ${
             isTransitioning ? 'opacity-0' : 'opacity-100'
           }`}
           style={{ minHeight: 300 }}

@@ -69,13 +69,13 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
           <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
           <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         </div>
-        <span className="ml-2 font-mono text-[11px] text-fd-muted-foreground">{title}</span>
+        <span className="ml-2 font-mono text-label text-fd-muted-foreground">{title}</span>
       </div>
 
       {/* Content : fixed height based on step count, scrolls when full */}
       <div
         ref={scrollRef}
-        className="overflow-y-auto p-4 font-mono text-[13px] leading-relaxed sm:p-5 sm:text-sm"
+        className="overflow-y-auto p-4 font-mono text-compact leading-relaxed sm:p-5"
         style={{ height: Math.min(Math.max(steps.length * 24 + 32, 100), maxHeight) }}
       >
         {steps.slice(0, visibleCount).map((step, i) => (

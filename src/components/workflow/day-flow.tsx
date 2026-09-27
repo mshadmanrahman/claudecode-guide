@@ -317,7 +317,7 @@ function PromptText({ text }: { text: string }) {
     <>
       {parts.map((part, i) =>
         part.startsWith('[') && part.endsWith(']') ? (
-          <span key={i} className="rounded-[4px] bg-[var(--chip)] px-1 text-[var(--ink)]">
+          <span key={i} className="rounded-xs bg-[var(--chip)] px-1 text-[var(--ink)]">
             {part}
           </span>
         ) : (
@@ -405,7 +405,7 @@ export function DayFlow() {
               <article className={`glass min-w-0 rounded-xl ${last ? '' : 'mb-4'}`}>
                 <header className="flex items-baseline gap-3 border-b border-[var(--line)] px-4 py-3 sm:px-5">
                   <span className="font-mono text-xs text-[var(--muted)]">{step.label}</span>
-                  <h3 className="m-0 text-base font-semibold tracking-[-0.02em] text-[var(--ink)] sm:text-[17px]">
+                  <h3 className="m-0 text-base font-semibold tracking-[-0.02em] text-[var(--ink)] sm:text-body">
                     {step.title}
                   </h3>
                 </header>
@@ -426,7 +426,7 @@ export function DayFlow() {
                     <span className="font-mono text-xs text-[var(--muted)]">prompt</span>
                     <CopyPrompt prompt={step.prompt} persona={active} time={step.time} />
                   </div>
-                  <p className="m-0 break-words rounded-lg bg-[var(--code)] px-3 py-2.5 font-mono text-[13px] leading-relaxed text-[var(--ink)]">
+                  <p className="m-0 break-words rounded-lg bg-[var(--code)] px-3 py-2.5 font-mono text-compact leading-relaxed text-[var(--ink)]">
                     <PromptText text={step.prompt} />
                   </p>
                 </div>

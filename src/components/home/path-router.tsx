@@ -128,7 +128,7 @@ export function PathRouter() {
             { label: "Guides by role", cards: roleGuides },
           ].map((group) => (
             <div key={group.label}>
-              <h3 className="border-b border-fd-foreground pb-3 font-mono text-[11px] uppercase tracking-[0.16em] text-fd-muted-foreground">
+              <h3 className="border-b border-fd-foreground pb-3 font-mono text-label uppercase tracking-[0.16em] text-fd-muted-foreground">
                 {group.label}
               </h3>
               <div>

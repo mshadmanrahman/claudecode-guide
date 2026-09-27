@@ -240,7 +240,7 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
       <div className="mx-auto max-w-5xl px-6">
         <div className="mb-8 flex items-end justify-between gap-4 flex-wrap">
           <div>
-            <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+            <p className="mb-2 font-mono text-label font-semibold uppercase tracking-widest text-fd-muted-foreground">
               Daily Workflow
             </p>
             <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
@@ -268,10 +268,10 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
               key={slot.time}
               className="flex items-center gap-4 sm:gap-6 bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-5 py-4 border-b border-fd-border last:border-0 hover:bg-fd-accent/50 transition-colors"
             >
-              <span className="font-mono text-[11px] text-fd-muted-foreground w-10 shrink-0">
+              <span className="font-mono text-label text-fd-muted-foreground w-10 shrink-0">
                 {slot.time}
               </span>
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground w-20 shrink-0 hidden sm:block font-mono">
+              <span className="text-label font-semibold uppercase tracking-wide text-fd-muted-foreground w-20 shrink-0 hidden sm:block font-mono">
                 {slot.label}
               </span>
               <p className="text-sm text-fd-foreground">{slot.title}</p>

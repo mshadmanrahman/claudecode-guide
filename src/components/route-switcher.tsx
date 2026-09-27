@@ -105,7 +105,7 @@ export function RouteSwitcher({ availableRoutes = ['app'] }: RouteSwitcherProps)
               type="button"
               aria-pressed={isActive}
               onClick={() => handleSelect(id)}
-              className={`flex items-center gap-1.5 rounded-md border px-3 py-2 text-[13px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
+              className={`flex items-center gap-1.5 rounded-md border px-3 py-2 text-compact font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
                 isActive
                   ? 'border-[var(--line)] bg-[var(--glass2)] text-[var(--ink)]'
                   : 'border-transparent text-[var(--muted)] hover:text-[var(--ink)]'

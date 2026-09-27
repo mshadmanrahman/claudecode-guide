@@ -44,10 +44,10 @@ export default function TutorialsPage() {
     <div className="flex flex-col text-[var(--ink)]">
       <section className="mx-auto w-full max-w-3xl px-4 pt-12 pb-8 sm:px-6 md:pt-16">
         <p className="m-0 font-mono text-xs text-[var(--muted)]">tutorials / {total} projects</p>
-        <h1 className="mt-3 text-[clamp(32px,8vw,52px)] font-semibold leading-[1.06] tracking-[-0.04em]">
+        <h1 className="mt-3 text-display-article font-semibold leading-[1.06] tracking-[-0.04em]">
           Tutorials, picked by the job you do
         </h1>
-        <p className="mt-4 max-w-2xl text-[17px] leading-[1.55] text-[var(--muted)]">
+        <p className="mt-4 max-w-2xl text-body leading-[1.55] text-[var(--muted)]">
           Each one is a short project. You copy a prompt, paste it into Claude, and end with something you
           can use. Most take 5 to 20 minutes, and most need nothing but a browser.
         </p>

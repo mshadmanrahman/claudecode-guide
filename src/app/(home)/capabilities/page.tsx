@@ -345,7 +345,7 @@ function CapabilityCard({ cap }: { cap: Capability }) {
         <div className="flex items-center gap-2">
           <h3 className="font-medium text-fd-foreground text-sm">{cap.title}</h3>
           {cap.badge && (
-            <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
+            <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-label font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
               {cap.badge}
             </span>
           )}
@@ -368,7 +368,7 @@ function IntegrationCard({ integration }: { integration: Integration }) {
           <div className="flex items-center gap-2">
             <h3 className="font-medium text-fd-foreground">{integration.name}</h3>
             {integration.badge && (
-              <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
+              <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-label font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
                 {integration.badge}
               </span>
             )}

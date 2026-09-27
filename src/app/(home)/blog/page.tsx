@@ -73,11 +73,11 @@ function FeaturedHero({ post }: { post: BlogPost }) {
           <time dateTime={post.date}>{formatDate(post.date)}</time>
         </div>
 
-        <h2 className="text-[28px] font-semibold leading-[1.1] tracking-[-0.035em] text-fd-foreground sm:text-[36px]">
+        <h2 className="text-headline font-semibold leading-[1.1] tracking-[-0.035em] text-fd-foreground">
           {post.title}
         </h2>
 
-        <p className="max-w-xl text-[17px] leading-relaxed text-fd-muted-foreground">
+        <p className="max-w-xl text-body leading-relaxed text-fd-muted-foreground">
           {post.description}
         </p>
 
@@ -125,11 +125,11 @@ function BlogCard({ post }: { post: BlogPost }) {
         <time dateTime={post.date}>{formatDate(post.date)}</time>
       </div>
 
-      <h3 className="text-[19px] font-semibold leading-snug tracking-[-0.02em] text-fd-foreground">
+      <h3 className="text-lead font-semibold leading-snug tracking-[-0.02em] text-fd-foreground">
         {post.title}
       </h3>
 
-      <p className="line-clamp-3 text-[15px] leading-relaxed text-fd-muted-foreground">
+      <p className="line-clamp-3 text-ui leading-relaxed text-fd-muted-foreground">
         {post.description}
       </p>
 

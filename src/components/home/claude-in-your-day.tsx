@@ -77,7 +77,7 @@ export function ClaudeInYourDay() {
                   <Art />
                 </div>
               )}
-              <span className="mb-2 text-[10px] tracking-[0.18em] uppercase font-medium text-fd-muted-foreground">
+              <span className="mb-2 text-label tracking-[0.18em] uppercase font-medium text-fd-muted-foreground">
                 {item.time}
               </span>
               <h3 className="mb-2 font-display text-base font-bold tracking-tight text-fd-foreground">

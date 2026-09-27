@@ -47,10 +47,10 @@ export function SectionIndex({ sections }: SectionIndexProps) {
   return (
     <div className="w-full">
       <section className="px-6 pt-12 pb-8 sm:pt-16 sm:pb-10 text-center animate-slide-up-fade">
-        <p className="text-[10px] tracking-[0.22em] uppercase text-fd-muted-foreground mb-6 font-medium">
+        <p className="text-label tracking-[0.22em] uppercase text-fd-muted-foreground mb-6 font-medium">
           Claude Code Guide
         </p>
-        <h1 className="font-display text-5xl sm:text-6xl lg:text-[5rem] font-bold tracking-tight-display text-fd-foreground leading-[0.95] max-w-2xl mx-auto">
+        <h1 className="font-display text-display font-bold tracking-tight-display text-fd-foreground leading-[0.95] max-w-2xl mx-auto">
           A guide for every kind of builder.
         </h1>
         <p className="mt-6 text-sm text-fd-muted-foreground max-w-[22rem] mx-auto leading-relaxed">

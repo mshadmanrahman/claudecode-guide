@@ -258,7 +258,7 @@ function FlowDiagram({ flow, idPrefix }: { flow: FlowConfig; idPrefix: string })
               y={y + NODE_H / 2}
               dominantBaseline="middle"
               textAnchor="middle"
-              className="fill-fd-foreground font-mono text-[10.5px]"
+              className="fill-fd-foreground font-mono text-label"
             >
               {label}
             </text>
@@ -305,7 +305,7 @@ function FlowDiagram({ flow, idPrefix }: { flow: FlowConfig; idPrefix: string })
             y={sideNode.afterStep * STEP + NODE_H / 2 - 1}
             dominantBaseline="middle"
             textAnchor="middle"
-            className="fill-fd-muted-foreground font-mono text-[9.5px]"
+            className="fill-fd-muted-foreground font-mono text-micro"
           >
             {sideNode.label}
           </text>
@@ -339,7 +339,7 @@ function FlowDiagram({ flow, idPrefix }: { flow: FlowConfig; idPrefix: string })
             y={branchTopY + NODE_H / 2}
             dominantBaseline="middle"
             textAnchor="middle"
-            className="fill-fd-foreground font-mono text-[9px]"
+            className="fill-fd-foreground font-mono text-micro"
           >
             {branch.left}
           </text>
@@ -358,7 +358,7 @@ function FlowDiagram({ flow, idPrefix }: { flow: FlowConfig; idPrefix: string })
             y={branchTopY + NODE_H / 2}
             dominantBaseline="middle"
             textAnchor="middle"
-            className="fill-fd-foreground font-mono text-[9px]"
+            className="fill-fd-foreground font-mono text-micro"
           >
             {branch.right}
           </text>
@@ -414,22 +414,22 @@ function SurfaceCard({ data, index }: { data: SurfaceCardData; index: number }) 
           <Icon className="h-[18px] w-[18px]" />
         </div>
         <div className="flex flex-col gap-0.5 min-w-0">
-          <h3 className="m-0 font-display text-[22px] font-semibold leading-tight tracking-tight text-fd-foreground">
+          <h3 className="m-0 font-display text-title font-semibold leading-tight tracking-tight text-fd-foreground">
             {data.name}
           </h3>
-          <p className="m-0 font-mono text-[11px] uppercase tracking-wider text-fd-muted-foreground/80">
+          <p className="m-0 font-mono text-label uppercase tracking-wider text-fd-muted-foreground/80">
             {data.job}
           </p>
         </div>
       </header>
 
       <SectionLabel first>What it is</SectionLabel>
-      <p className="m-0 mb-4 text-[14px] leading-[1.55] text-fd-foreground">{data.whatItIs}</p>
+      <p className="m-0 mb-4 text-compact leading-[1.55] text-fd-foreground">{data.whatItIs}</p>
 
       <SectionLabel>Where to use</SectionLabel>
       <ul className="m-0 mb-4 flex list-none flex-col gap-1.5 p-0">
         {data.whereToUse.map((item, i) => (
-          <li key={i} className="relative pl-[18px] text-[13.5px] leading-[1.5] text-fd-foreground before:absolute before:left-[4px] before:top-[9px] before:h-1 before:w-1 before:rounded-full before:bg-fd-muted-foreground/70 before:content-['']">
+          <li key={i} className="relative pl-[18px] text-compact leading-[1.5] text-fd-foreground before:absolute before:left-[4px] before:top-[9px] before:h-1 before:w-1 before:rounded-full before:bg-fd-muted-foreground/70 before:content-['']">
             {item}
           </li>
         ))}
@@ -440,7 +440,7 @@ function SurfaceCard({ data, index }: { data: SurfaceCardData; index: number }) 
           <SectionLabel inline>Pros</SectionLabel>
           <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
             {data.pros.map((item, i) => (
-              <li key={i} className="relative pl-[18px] text-[13.5px] leading-[1.5] text-fd-foreground before:absolute before:left-[4px] before:top-[9px] before:h-1 before:w-1 before:rounded-full before:bg-emerald-600 dark:before:bg-emerald-500 before:content-['']">
+              <li key={i} className="relative pl-[18px] text-compact leading-[1.5] text-fd-foreground before:absolute before:left-[4px] before:top-[9px] before:h-1 before:w-1 before:rounded-full before:bg-emerald-600 dark:before:bg-emerald-500 before:content-['']">
                 {item}
               </li>
             ))}
@@ -450,7 +450,7 @@ function SurfaceCard({ data, index }: { data: SurfaceCardData; index: number }) 
           <SectionLabel inline>Cons</SectionLabel>
           <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
             {data.cons.map((item, i) => (
-              <li key={i} className="relative pl-[18px] text-[13.5px] leading-[1.5] text-fd-foreground before:absolute before:left-[4px] before:top-[9px] before:h-1 before:w-1 before:rounded-full before:bg-amber-600 dark:before:bg-amber-500 before:content-['']">
+              <li key={i} className="relative pl-[18px] text-compact leading-[1.5] text-fd-foreground before:absolute before:left-[4px] before:top-[9px] before:h-1 before:w-1 before:rounded-full before:bg-amber-600 dark:before:bg-amber-500 before:content-['']">
                 {item}
               </li>
             ))}
@@ -460,7 +460,7 @@ function SurfaceCard({ data, index }: { data: SurfaceCardData; index: number }) 
 
       {/* Flow diagram */}
       <div className="mt-auto pt-4 border-t border-dashed border-fd-border">
-        <p className="m-0 mb-3 font-mono text-[10.5px] uppercase tracking-wider text-fd-muted-foreground/80">
+        <p className="m-0 mb-3 font-mono text-label uppercase tracking-wider text-fd-muted-foreground/80">
           How the work flows
         </p>
         <FlowDiagram flow={data.flow} idPrefix={`flow-${index}`} />
@@ -470,7 +470,7 @@ function SurfaceCard({ data, index }: { data: SurfaceCardData; index: number }) 
       <footer className="mt-5 flex flex-col gap-1.5">
         <a
           href={data.primaryHref}
-          className="inline-flex items-center gap-1.5 text-[13px] font-medium text-fd-foreground no-underline hover:text-fd-primary transition-colors"
+          className="inline-flex items-center gap-1.5 text-compact font-medium text-fd-foreground no-underline hover:text-fd-primary transition-colors"
         >
           {data.primaryLabel}
           <ArrowRight className="h-3 w-3" aria-hidden="true" />
@@ -478,7 +478,7 @@ function SurfaceCard({ data, index }: { data: SurfaceCardData; index: number }) 
         {data.tutorialHref && data.tutorialLabel && (
           <a
             href={data.tutorialHref}
-            className="inline-flex items-center gap-1.5 text-[12.5px] text-fd-muted-foreground no-underline hover:text-fd-foreground transition-colors"
+            className="inline-flex items-center gap-1.5 text-caption text-fd-muted-foreground no-underline hover:text-fd-foreground transition-colors"
           >
             {data.tutorialLabel}
             <ArrowRight className="h-3 w-3" aria-hidden="true" />
@@ -499,7 +499,7 @@ function SectionLabel({
   inline?: boolean;
 }) {
   const baseClasses =
-    'm-0 mb-2 font-mono text-[10.5px] font-medium uppercase tracking-[0.1em] text-fd-muted-foreground/80';
+    'm-0 mb-2 font-mono text-label font-medium uppercase tracking-[0.1em] text-fd-muted-foreground/80';
   if (first || inline) return <p className={baseClasses}>{children}</p>;
   return <p className={`${baseClasses} pt-4 border-t border-dashed border-fd-border`}>{children}</p>;
 }
@@ -507,10 +507,10 @@ function SectionLabel({
 function TierLabel({ num, title }: { num: string; title: string }) {
   return (
     <div className="mb-6 flex items-center gap-4">
-      <span className="font-mono text-[12px] font-medium tracking-wider text-fd-muted-foreground/60">
+      <span className="font-mono text-caption font-medium tracking-wider text-fd-muted-foreground/60">
         {num}
       </span>
-      <h2 className="m-0 font-display text-[22px] font-medium tracking-tight text-fd-foreground">
+      <h2 className="m-0 font-display text-title font-medium tracking-tight text-fd-foreground">
         {title}
       </h2>
       <hr className="m-0 flex-1 border-0 border-t border-dashed border-fd-border" />

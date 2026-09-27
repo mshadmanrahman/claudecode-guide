@@ -192,25 +192,25 @@ function TreeNode({ node, stageId, isStartHere, animationDelay, inView }: TreeNo
       </span>
 
       {/* Title */}
-      <span className={`text-[11px] font-semibold leading-snug text-center ${colors.label} line-clamp-3`}>
+      <span className={`text-label font-semibold leading-snug text-center ${colors.label} line-clamp-3`}>
         {node.title}
       </span>
 
       {/* Badge or duration (pick one to keep it clean) */}
       <div className="flex items-center gap-1 mt-auto">
         {isStartHere ? (
-          <span className="rounded-full bg-[var(--acc)] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-[var(--accInk)] animate-pulse font-mono motion-reduce:animate-none">
+          <span className="rounded-full bg-[var(--acc)] px-1.5 py-0.5 text-micro font-bold uppercase tracking-wide text-[var(--accInk)] animate-pulse font-mono motion-reduce:animate-none">
             start
           </span>
         ) : node.badge ? (
-          <span className={[ 'rounded-full px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-wide font-mono',
+          <span className={[ 'rounded-full px-1.5 py-0.5 text-micro font-semibold uppercase tracking-wide font-mono',
             colors.badge,
             colors.badgeText,
           ].join(' ')}>
             {node.badge}
           </span>
         ) : node.duration ? (
-          <span className="text-[9px] text-fd-muted-foreground">
+          <span className="text-label text-fd-muted-foreground">
             {node.duration}
           </span>
         ) : null}

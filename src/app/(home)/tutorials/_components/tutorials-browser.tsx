@@ -58,7 +58,7 @@ function Pill({
       type="button"
       aria-pressed={pressed}
       onClick={onClick}
-      className={`rounded-full border px-3 py-1.5 text-[13px] font-medium transition-colors ${focusRing} ${
+      className={`rounded-full border px-3 py-1.5 text-compact font-medium transition-colors ${focusRing} ${
         pressed
           ? 'border-[var(--acc)] bg-[var(--acc)] text-[var(--accInk)]'
           : 'border-[var(--line)] bg-[var(--glass2)] text-[var(--ink)] hover:bg-[var(--chip)]'
@@ -87,7 +87,7 @@ function Card({ card }: { card: BrowserCard }) {
           aria-hidden="true"
         />
       </span>
-      <span className="text-[15px] leading-normal text-[var(--muted)]">{card.description}</span>
+      <span className="text-ui leading-normal text-[var(--muted)]">{card.description}</span>
       <span className="text-sm leading-normal">
         <span className="text-[var(--muted)]">You end with: </span>
         {card.outcome}
@@ -172,7 +172,7 @@ export function TutorialsBrowser({ tracks, total }: { tracks: BrowserTrack[]; to
               <button
                 type="button"
                 onClick={() => sync('all', 'all')}
-                className={`rounded-sm text-[13px] text-[var(--muted)] underline underline-offset-4 hover:text-[var(--ink)] ${focusRing}`}
+                className={`rounded-sm text-compact text-[var(--muted)] underline underline-offset-4 hover:text-[var(--ink)] ${focusRing}`}
               >
                 Clear filters
               </button>
@@ -181,7 +181,7 @@ export function TutorialsBrowser({ tracks, total }: { tracks: BrowserTrack[]; to
         </div>
 
         {!active && (
-          <nav aria-label="Tracks" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[13px]">
+          <nav aria-label="Tracks" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-mono text-compact">
             {tracks.map((t, i) => (
               <a
                 key={t.id}
@@ -203,7 +203,7 @@ export function TutorialsBrowser({ tracks, total }: { tracks: BrowserTrack[]; to
           >
             <span className="font-mono text-xs text-[var(--acc)]">also for you</span>
             <span className="text-lg font-semibold tracking-[-0.02em]">Open the {hub.name}</span>
-            <span className="text-[15px] text-[var(--muted)]">{hub.blurb}</span>
+            <span className="text-ui text-[var(--muted)]">{hub.blurb}</span>
           </Link>
         )}
 
@@ -221,7 +221,7 @@ export function TutorialsBrowser({ tracks, total }: { tracks: BrowserTrack[]; to
                   {track.cards.length === 1 ? 'tutorial' : 'tutorials'}
                 </p>
                 <h2 className="mt-1.5 text-2xl font-semibold tracking-[-0.03em]">{track.title}</h2>
-                <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--muted)]">{track.description}</p>
+                <p className="mt-1.5 text-ui leading-relaxed text-[var(--muted)]">{track.description}</p>
               </div>
               <div className="grid gap-3">
                 {track.cards.map((card) => (

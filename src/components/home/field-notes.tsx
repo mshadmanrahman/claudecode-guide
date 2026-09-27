@@ -19,11 +19,11 @@ export function FieldNotes({ posts }: { posts: SubstackPost[] }) {
       className="mx-auto mt-16 flex max-w-[1440px] flex-col gap-[22px] px-4 md:px-16"
     >
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="glass flex max-w-full flex-col gap-1.5 rounded-[10px] px-5 py-3.5">
-          <h2 id="home-field-notes" className="m-0 text-[28px] font-semibold tracking-[-0.035em] md:text-4xl">
+        <div className="glass flex max-w-full flex-col gap-1.5 rounded-lg px-5 py-3.5">
+          <h2 id="home-field-notes" className="m-0 text-headline font-semibold tracking-[-0.035em]">
             Latest from {SUBSTACK_NAME}
           </h2>
-          <p className="m-0 text-[15px] leading-normal text-[var(--muted)]">
+          <p className="m-0 text-ui leading-normal text-[var(--muted)]">
             My Substack, where I publish most weeks: product work, AI in practice, and what broke along the way.
           </p>
         </div>
@@ -31,7 +31,7 @@ export function FieldNotes({ posts }: { posts: SubstackPost[] }) {
           href={SUBSTACK_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className={`glass flex h-11 items-center gap-1.5 rounded-lg px-4 text-[15px] font-medium transition-colors hover:bg-[var(--chip)] ${focusRing}`}
+          className={`glass flex h-11 items-center gap-1.5 rounded-lg px-4 text-ui font-medium transition-colors hover:bg-[var(--chip)] ${focusRing}`}
         >
           All posts <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
         </a>
@@ -59,9 +59,9 @@ export function FieldNotes({ posts }: { posts: SubstackPost[] }) {
                 ) : null}
                 <span className="flex flex-1 flex-col gap-2 px-5 py-4">
                   <span className="font-mono text-xs text-[var(--muted)]">{formatDate(post.date)}</span>
-                  <span className="text-[17px] font-semibold leading-snug tracking-[-0.015em]">{post.title}</span>
+                  <span className="text-body font-semibold leading-snug tracking-[-0.015em]">{post.title}</span>
                   {post.description ? (
-                    <span className="line-clamp-3 text-[14.5px] leading-normal text-[var(--muted)]">
+                    <span className="line-clamp-3 text-ui leading-normal text-[var(--muted)]">
                       {post.description}
                     </span>
                   ) : null}

@@ -36,7 +36,7 @@ export function InterfaceSelector({ selected, onSelect }: InterfaceSelectorProps
         >
           <opt.icon className="h-5 w-5" />
           <span className="text-sm font-medium">{opt.label}</span>
-          <span className="text-[10px] text-fd-muted-foreground">{opt.desc}</span>
+          <span className="text-label text-fd-muted-foreground">{opt.desc}</span>
         </button>
       ))}
     </div>

@@ -23,7 +23,7 @@ export function PersonaStrip() {
   return (
     <div className="sticky top-14 z-40 border-b border-fd-border bg-fd-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-10 max-w-5xl items-center gap-1 overflow-x-auto px-4 scrollbar-none">
-        <span className="shrink-0 text-[11px] font-medium text-fd-muted-foreground mr-2 hidden sm:block">
+        <span className="shrink-0 text-label font-medium text-fd-muted-foreground mr-2 hidden sm:block">
           Guides for:
         </span>
         {PERSONAS.map(({ label, href, icon: Icon }) => (

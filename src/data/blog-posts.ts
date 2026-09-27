@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-01",
     author: "Shadman Rahman",
     tags: ["claude-code", "tutorial", "productivity"],
-    content: `<img src="/blog-hero-why-most-people-use-claude-code-wrong.png" alt="Watercolor illustration for: why most people use claude code wrong" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-why-most-people-use-claude-code-wrong.png" alt="Watercolor illustration for: why most people use claude code wrong" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Most people install Claude Code, type a question, get a mediocre answer, and walk away thinking "AI isn't that useful yet."</p>
 <p>But the problem isn't Claude Code. It's that they skipped the one file that makes it actually work.</p>
 
@@ -68,7 +68,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-02",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "tutorial"],
-    content: `<img src="/blog-hero-claude-md-is-not-optional.png" alt="Watercolor illustration for: claude md is not optional" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-claude-md-is-not-optional.png" alt="Watercolor illustration for: claude md is not optional" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Here's a hot take: if you're using Claude Code without a CLAUDE.md file, you're not really using Claude Code. You're using a fancy autocomplete with a terminal UI.</p>
 
 <h2>What CLAUDE.md Actually Does</h2>
@@ -103,7 +103,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-03",
     author: "Shadman Rahman",
     tags: ["claude-code", "tutorial", "productivity", "session-lifecycle"],
-    content: `<img src="/blog-hero-the-cold-start-problem.png" alt="Watercolor illustration for: the cold start problem" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-the-cold-start-problem.png" alt="Watercolor illustration for: the cold start problem" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>You open Claude Code. You explain your project. You remind it about the bug you were fixing yesterday. You re-paste the error message. You describe the file structure. Again.</p>
 <p>Sound familiar? That's the cold start problem. And it's eating 10-15 minutes of every session.</p>
 
@@ -128,7 +128,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-04",
     author: "Shadman Rahman",
     tags: ["claude-code", "comparison", "chatgpt"],
-    content: `<img src="/blog-hero-claude-code-vs-chatgpt.png" alt="Watercolor illustration for: claude code vs chatgpt" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-claude-code-vs-chatgpt.png" alt="Watercolor illustration for: claude code vs chatgpt" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Every week someone asks me: "Is Claude Code just ChatGPT in a terminal?" No. And treating it that way is exactly why you're not getting results.</p>
 
 <h2>The Core Difference</h2>
@@ -156,7 +156,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-05",
     author: "Shadman Rahman",
     tags: ["claude-code", "tutorial", "getting-started"],
-    content: `<img src="/blog-hero-your-first-hour-with-claude-code.png" alt="Watercolor illustration for: your first hour with claude code" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-your-first-hour-with-claude-code.png" alt="Watercolor illustration for: your first hour with claude code" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Most tutorials show you the highlight reel. Here's what your first hour with Claude Code actually looks like.</p>
 
 <h2>Minutes 0-5: Installation</h2>
@@ -186,7 +186,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-06",
     author: "Shadman Rahman",
     tags: ["claude-code", "prompting", "tips", "productivity"],
-    content: `<img src="/blog-hero-3-prompts-that-changed-everything.png" alt="Watercolor illustration for: 3 prompts that changed everything" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-3-prompts-that-changed-everything.png" alt="Watercolor illustration for: 3 prompts that changed everything" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>I've sent thousands of prompts to Claude Code. These three changed my entire workflow.</p>
 
 <h2>Prompt 1: The Context Dump</h2>
@@ -212,7 +212,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-07",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "prompting", "productivity"],
-    content: `<img src="/blog-hero-context-beats-cleverness.png" alt="Watercolor illustration for: context beats cleverness" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-context-beats-cleverness.png" alt="Watercolor illustration for: context beats cleverness" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>There's a whole cottage industry around "prompt engineering." People sharing 200-word prompts with precise instructions, chain-of-thought triggers, and role-playing setups.</p>
 <p>Here's the truth: a mediocre prompt with great context beats a perfect prompt with no context. Every single time.</p>
 
@@ -241,7 +241,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-08",
     author: "Shadman Rahman",
     tags: ["claude-code", "agents", "advanced", "productivity"],
-    content: `<img src="/blog-hero-sub-agents-the-feature-nobody-uses.png" alt="Watercolor illustration for: sub agents the feature nobody uses" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-sub-agents-the-feature-nobody-uses.png" alt="Watercolor illustration for: sub agents the feature nobody uses" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Quick poll: do you know Claude Code can spawn sub-agents? Agents that run in parallel, each focused on a specific task, reporting back to a main orchestrator?</p>
 <p>If not, you're in the majority. And you're leaving serious productivity on the table.</p>
 
@@ -277,7 +277,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-10",
     author: "Shadman Rahman",
     tags: ["claude-code", "pm", "productivity", "story"],
-    content: `<img src="/blog-hero-pm-shipped-feature-without-code.png" alt="Watercolor illustration for: pm shipped feature without code" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-pm-shipped-feature-without-code.png" alt="Watercolor illustration for: pm shipped feature without code" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>I'm a product manager. I don't write production code. But last week, I shipped a feature to production using Claude Code. No engineering handoff. No ticket. No sprint planning.</p>
 
 <h2>The Context</h2>
@@ -308,7 +308,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-11",
     author: "Shadman Rahman",
     tags: ["claude-code", "memory", "tutorial", "productivity"],
-    content: `<img src="/blog-hero-memory-system-that-compounds.png" alt="Watercolor illustration for: memory system that compounds" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-memory-system-that-compounds.png" alt="Watercolor illustration for: memory system that compounds" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Session 1: you explain everything. Session 2: you explain everything again. Session 3: you explain everything again. See the pattern?</p>
 <p>Without memory, Claude Code has amnesia. With memory, sessions compound. Each one starts where the last one ended.</p>
 
@@ -338,7 +338,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-12",
     author: "Shadman Rahman",
     tags: ["claude-code", "hooks", "automation", "tutorial"],
-    content: `<img src="/blog-hero-hooks-set-it-up-once.png" alt="Watercolor illustration for: hooks set it up once" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-hooks-set-it-up-once.png" alt="Watercolor illustration for: hooks set it up once" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>What if every file Claude Code creates was automatically formatted? What if every commit message was automatically validated? What if dangerous commands were automatically blocked?</p>
 <p>That's hooks. And once you set them up, you never think about them again.</p>
 
@@ -367,7 +367,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-13",
     author: "Shadman Rahman",
     tags: ["claude-code", "cost", "comparison", "tips"],
-    content: `<img src="/blog-hero-claude-code-cost-calculator.png" alt="Watercolor illustration for: claude code cost calculator" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-claude-code-cost-calculator.png" alt="Watercolor illustration for: claude code cost calculator" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>The number one question I get: "How much does Claude Code actually cost?" The answer depends entirely on how you use it. Let's break it down.</p>
 
 <h2>The Three Tiers</h2>
@@ -400,7 +400,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-14",
     author: "Shadman Rahman",
     tags: ["claude-code", "plan-mode", "cost", "tips"],
-    content: `<img src="/blog-hero-plan-mode-saves-tokens.png" alt="Watercolor illustration for: plan mode saves tokens" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-plan-mode-saves-tokens.png" alt="Watercolor illustration for: plan mode saves tokens" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Here's something counterintuitive: making Claude Code do MORE work upfront actually costs LESS overall. Way less.</p>
 
 <h2>The Problem</h2>
@@ -439,7 +439,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-15",
     author: "Shadman Rahman",
     tags: ["claude-code", "mcp", "tutorial"],
-    content: `<img src="/blog-hero-mcp-servers-explained.png" alt="Watercolor illustration for: mcp servers explained" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-mcp-servers-explained.png" alt="Watercolor illustration for: mcp servers explained" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>MCP stands for Model Context Protocol. If that means nothing to you, don't worry. Here's the plain English version.</p>
 
 <h2>The Simple Explanation</h2>
@@ -481,7 +481,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-16",
     author: "Shadman Rahman",
     tags: ["claude-code", "automation", "autonomous", "story"],
-    content: `<img src="/blog-hero-claude-code-overnight.png" alt="Watercolor illustration for: claude code overnight" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-claude-code-overnight.png" alt="Watercolor illustration for: claude code overnight" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>At 11pm on a Tuesday, I gave Claude Code a task: "Refactor the authentication module. Split the monolithic auth.ts into separate files by concern. Write tests for each new module. Update all imports."</p>
 <p>Then I went to sleep.</p>
 
@@ -513,7 +513,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-17",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "tips"],
-    content: `<img src="/blog-hero-5-claude-md-mistakes.png" alt="Watercolor illustration for: 5 claude md mistakes" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-5-claude-md-mistakes.png" alt="Watercolor illustration for: 5 claude md mistakes" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>You set up a CLAUDE.md. Good. But is it actually helping? Here are the five mistakes I see constantly.</p>
 
 <h2>Mistake 1: Too Long</h2>
@@ -549,7 +549,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-18",
     author: "Shadman Rahman",
     tags: ["claude-code", "pm", "getting-started", "non-technical"],
-    content: `<img src="/blog-hero-claude-code-for-non-engineers.png" alt="Watercolor illustration for: claude code for non engineers" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-claude-code-for-non-engineers.png" alt="Watercolor illustration for: claude code for non engineers" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>"But I'm not a developer." I hear this every single day. And every single day, I tell people: that's not a disqualifier anymore.</p>
 
 <h2>What Non-Engineers Actually Do</h2>
@@ -587,7 +587,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-19",
     author: "Shadman Rahman",
     tags: ["claude-code", "productivity", "session-lifecycle", "tutorial"],
-    content: `<img src="/blog-hero-handoff-protocol-saves-10-minutes.png" alt="Watercolor illustration for: handoff protocol saves 10 minutes" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-handoff-protocol-saves-10-minutes.png" alt="Watercolor illustration for: handoff protocol saves 10 minutes" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>The single highest-ROI habit I've built with Claude Code: the handoff.</p>
 
 <h2>What's a Handoff?</h2>
@@ -620,7 +620,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-20",
     author: "Shadman Rahman",
     tags: ["claude-code", "skills", "automation", "advanced"],
-    content: `<img src="/blog-hero-skills-vs-prompts.png" alt="Watercolor illustration for: skills vs prompts" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-skills-vs-prompts.png" alt="Watercolor illustration for: skills vs prompts" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>You have a prompt you use all the time. Maybe it's "review this code for security issues" or "write tests for the changed files." You copy-paste it every time.</p>
 <p>Stop that. Turn it into a skill.</p>
 
@@ -660,7 +660,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-21",
     author: "Shadman Rahman",
     tags: ["claude-code", "comparison", "cursor"],
-    content: `<img src="/blog-hero-cursor-vs-claude-code.png" alt="Watercolor illustration for: cursor vs claude code" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-cursor-vs-claude-code.png" alt="Watercolor illustration for: cursor vs claude code" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>I use both. That's the honest take upfront. They're not competitors, they're complements. But the internet loves a fight, so let's break it down.</p>
 
 <h2>Cursor's Strengths</h2>
@@ -694,7 +694,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-22",
     author: "Shadman Rahman",
     tags: ["claude-code", "debugging", "tutorial", "tips"],
-    content: `<img src="/blog-hero-how-to-debug-with-claude-code.png" alt="Watercolor illustration for: how to debug with claude code" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-how-to-debug-with-claude-code.png" alt="Watercolor illustration for: how to debug with claude code" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Most people debug with Claude Code by saying "it's broken, fix it." That's not debugging. That's hoping.</p>
 
 <h2>The Systematic Approach</h2>
@@ -731,7 +731,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-23",
     author: "Shadman Rahman",
     tags: ["claude-code", "automation", "pm", "productivity"],
-    content: `<img src="/blog-hero-weekly-status-writes-itself.png" alt="Watercolor illustration for: weekly status writes itself" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-weekly-status-writes-itself.png" alt="Watercolor illustration for: weekly status writes itself" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Every Friday at 4pm, the same dread: "What did I even do this week?" Then 30 minutes of digging through Jira, Slack, and git logs to piece together a status update.</p>
 <p>Never again.</p>
 
@@ -773,7 +773,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-24",
     author: "Shadman Rahman",
     tags: ["claude-code", "team", "adoption", "tips"],
-    content: `<img src="/blog-hero-team-adoption-what-works.png" alt="Watercolor illustration for: team adoption what works" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-team-adoption-what-works.png" alt="Watercolor illustration for: team adoption what works" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>You love Claude Code. You want your team to use it. You share a link, give a demo, and... nothing happens. Three weeks later, one person tried it and quit.</p>
 <p>Team adoption is hard. Here's what actually works.</p>
 
@@ -807,7 +807,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-25",
     author: "Shadman Rahman",
     tags: ["claude-code", "shortcuts", "tips", "productivity"],
-    content: `<img src="/blog-hero-keyboard-shortcuts-youre-missing.png" alt="Watercolor illustration for: keyboard shortcuts youre missing" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-keyboard-shortcuts-youre-missing.png" alt="Watercolor illustration for: keyboard shortcuts youre missing" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Most people interact with Claude Code like it's a chat window. Type, enter, wait, repeat. But there's a whole layer of <a href="/docs/foundations/shortcuts">keyboard shortcuts</a> that make it dramatically faster.</p>
 
 <h2>Essential Shortcuts</h2>
@@ -857,7 +857,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-29",
     author: "Shadman Rahman",
     tags: ["claude-code", "productivity", "story", "tips"],
-    content: `<img src="/blog-hero-the-compound-effect-30-days.png" alt="Watercolor illustration for: the compound effect 30 days" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-the-compound-effect-30-days.png" alt="Watercolor illustration for: the compound effect 30 days" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Everyone talks about Claude Code like it's a switch. You turn it on and suddenly you're 10x productive. That's not how it works. It's a compound curve.</p>
 
 <h2>Day 1-3: The Novelty Phase</h2>
@@ -886,7 +886,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-26",
     author: "Shadman Rahman",
     tags: ["claude-code", "tips", "listicle", "productivity"],
-    content: `<img src="/blog-hero-10-claude-code-features-you-didnt-know-existed.png" alt="Watercolor illustration for: 10 claude code features you didnt know existed" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-10-claude-code-features-you-didnt-know-existed.png" alt="Watercolor illustration for: 10 claude code features you didnt know existed" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>You've been using Claude Code for weeks and you think you know it. You don't. Here are 10 features most people completely miss.</p>
 
 <h2>1. Vim Mode</h2>
@@ -928,7 +928,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-26",
     author: "Shadman Rahman",
     tags: ["claude-md", "tutorial", "listicle"],
-    content: `<img src="/blog-hero-7-claude-md-sections-every-project-needs.png" alt="Watercolor illustration for: 7 claude md sections every project needs" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-7-claude-md-sections-every-project-needs.png" alt="Watercolor illustration for: 7 claude md sections every project needs" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Everyone knows they need a CLAUDE.md. But most people write three lines and call it done. Here are the 7 sections that actually matter.</p>
 
 <h2>1. Tech Stack Declaration</h2>
@@ -961,7 +961,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-27",
     author: "Shadman Rahman",
     tags: ["claude-code", "cost", "listicle"],
-    content: `<img src="/blog-hero-5-signs-you-should-upgrade-to-claude-max.png" alt="Watercolor illustration for: 5 signs you should upgrade to claude max" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-5-signs-you-should-upgrade-to-claude-max.png" alt="Watercolor illustration for: 5 signs you should upgrade to claude max" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Claude Pro works fine for casual use. But if you've hit any of these walls, Max pays for itself in a week.</p>
 
 <h2>1. You Hit Rate Limits During Deep Work</h2>
@@ -991,7 +991,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-27",
     author: "Shadman Rahman",
     tags: ["pm", "productivity", "listicle", "non-technical"],
-    content: `<img src="/blog-hero-8-ways-pms-use-claude-code-without-writing-code.png" alt="Watercolor illustration for: 8 ways pms use claude code without writing code" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-8-ways-pms-use-claude-code-without-writing-code.png" alt="Watercolor illustration for: 8 ways pms use claude code without writing code" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Claude Code has "code" in the name. Misleading. Half the power is in workflows that have nothing to do with writing code. Here's how PMs are using it.</p>
 
 <h2>1. Meeting Note Extraction</h2>
@@ -1027,7 +1027,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-27",
     author: "Shadman Rahman",
     tags: ["autonomous", "advanced", "listicle", "automation"],
-    content: `<img src="/blog-hero-6-autonomous-loop-ideas-to-run-overnight.png" alt="Watercolor illustration for: 6 autonomous loop ideas to run overnight" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-6-autonomous-loop-ideas-to-run-overnight.png" alt="Watercolor illustration for: 6 autonomous loop ideas to run overnight" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>The most underused Claude Code feature is autonomous loops. Set it up before bed, wake up to completed work. Here are 6 ideas worth trying.</p>
 
 <h2>1. Test Coverage Gap Filler</h2>
@@ -1060,7 +1060,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-28",
     author: "Shadman Rahman",
     tags: ["shortcuts", "tips", "listicle", "productivity"],
-    content: `<img src="/blog-hero-12-slash-commands-that-save-hours-per-week.png" alt="Watercolor illustration for: 12 slash commands that save hours per week" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-12-slash-commands-that-save-hours-per-week.png" alt="Watercolor illustration for: 12 slash commands that save hours per week" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>If you're typing the same prompt more than twice, it should be a slash command. Here are 12 that real teams are using to save hours every week.</p>
 
 <h2>1. /review</h2>
@@ -1108,7 +1108,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-28",
     author: "Shadman Rahman",
     tags: ["mcp", "tutorial", "listicle"],
-    content: `<img src="/blog-hero-4-mcp-servers-every-developer-should-connect.png" alt="Watercolor illustration for: 4 mcp servers every developer should connect" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-4-mcp-servers-every-developer-should-connect.png" alt="Watercolor illustration for: 4 mcp servers every developer should connect" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>The Model Context Protocol is what separates "Claude Code the chatbot" from "Claude Code the operating system." These 4 MCP servers are the foundation.</p>
 
 <h2>1. GitHub MCP Server</h2>
@@ -1135,7 +1135,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-28",
     author: "Shadman Rahman",
     tags: ["claude-code", "tips", "listicle", "productivity"],
-    content: `<img src="/blog-hero-9-mistakes-killing-your-claude-code-productivity.png" alt="Watercolor illustration for: 9 mistakes killing your claude code productivity" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-9-mistakes-killing-your-claude-code-productivity.png" alt="Watercolor illustration for: 9 mistakes killing your claude code productivity" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Most people blame Claude Code when they get bad results. But 9 times out of 10, it's a workflow problem, not a tool problem. Here's what you're probably doing wrong.</p>
 
 <h2>1. No CLAUDE.md File</h2>
@@ -1174,7 +1174,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-29",
     author: "Shadman Rahman",
     tags: ["skills", "tutorial", "listicle", "automation"],
-    content: `<img src="/blog-hero-3-skills-you-can-build-in-under-10-minutes.png" alt="Watercolor illustration for: 3 skills you can build in under 10 minutes" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-3-skills-you-can-build-in-under-10-minutes.png" alt="Watercolor illustration for: 3 skills you can build in under 10 minutes" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Skills are just markdown files that teach Claude Code new tricks. No code. No framework. Just instructions in a file. Here are 3 you can build before your coffee gets cold.</p>
 
 <h2>1. The Commit Message Writer</h2>
@@ -1204,7 +1204,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-29",
     author: "Shadman Rahman",
     tags: ["productivity", "pm", "listicle", "story"],
-    content: `<img src="/blog-hero-top-5-claude-code-workflows-for-solo-founders.png" alt="Watercolor illustration for: top 5 claude code workflows for solo founders" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-top-5-claude-code-workflows-for-solo-founders.png" alt="Watercolor illustration for: top 5 claude code workflows for solo founders" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Solo founders don't have the luxury of "let me hand this off to the team." You ARE the team. Here are 5 Claude Code workflows that give you back the hours you desperately need.</p>
 
 <h2>1. The Full-Stack Sprint</h2>
@@ -1240,7 +1240,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-04-14",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "productivity", "settings", "tutorial"],
-    content: `<img src="/blog-hero-you-dont-need-settings-json-hacks.png" alt="Watercolor illustration for: you dont need settings json hacks" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-you-dont-need-settings-json-hacks.png" alt="Watercolor illustration for: you dont need settings json hacks" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>A tweet went viral last week. Over a thousand bookmarks. The claim: Claude Code got "nerfed," and four environment variables in <code>settings.json</code> fix it.</p>
 
 <p>The settings look like this:</p>
@@ -1373,7 +1373,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-06",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "productivity", "rules"],
-    content: `<img src="/blog-hero-universal-rules.png" alt="A figure at a desk with floating ghost-line rule cards above, soft watercolor illustration" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-universal-rules.png" alt="A figure at a desk with floating ghost-line rule cards above, soft watercolor illustration" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Most people who get serious about Claude Code stop at <a href="/docs/foundations/claude-md">CLAUDE.md</a>. They write a good one for their main project, feel the lift, and call it done.</p>
 <p>That's a project-shaped solution to a Claude-shaped problem.</p>
 <p>Some of the things you correct Claude on aren't about your project. They're about how Claude writes, how Claude edits, how Claude reports back. Those corrections need to follow it into every repo you ever open. Otherwise you're rewriting the same rules in seven CLAUDE.md files and forgetting to update the eighth.</p>
@@ -1416,7 +1416,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-07",
     author: "Shadman Rahman",
     tags: ["claude-code", "product-management", "discovery", "productivity"],
-    content: `<img src="/blog-hero-discovery-sprint.png" alt="Watercolor illustration: bearded man at desk with floating cards labelled COMPETITORS, ASSUMPTIONS, EXPERIMENT" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-discovery-sprint.png" alt="Watercolor illustration: bearded man at desk with floating cards labelled COMPETITORS, ASSUMPTIONS, EXPERIMENT" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>Two weeks used to be the minimum honest estimate for a product discovery sprint. Not because the research takes that long. Because structuring the thinking takes that long. You need a competitive analysis that finds the real gap, not just a list of features. You need an assumption map that surfaces what you're most wrong about, not just what you believe. You need an experiment design that would actually kill your riskiest assumption if the result came back bad.</p>
 <p>That structure is what eats the time. And it's exactly what Claude is good at.</p>
 <p>With the right prompts, I can run a full discovery sprint in an afternoon. Competitive analysis, assumption mapping, experiment design. Three hours of focused work, not two weeks of calendar negotiation.</p>
@@ -1460,7 +1460,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-16",
     author: "Shadman Rahman",
     tags: ["productivity", "workflow", "tutorial"],
-    content: `<img src="/blog-hero-how-to-use-claude-to-write-excel-formulas.png" alt="Watercolor illustration of a laptop with a spreadsheet open, formula visible in the formula bar, afternoon lamplight" style="width:100%;border-radius:12px;margin-bottom:2rem;" /><p>I used to spend 20 minutes on Stack Overflow every time I needed an Excel formula more complex than SUM. Search, find something close, adapt it, break it, search again. You know the loop.</p>
+    content: `<img src="/blog-hero-how-to-use-claude-to-write-excel-formulas.png" alt="Watercolor illustration of a laptop with a spreadsheet open, formula visible in the formula bar, afternoon lamplight" style="width:100%;border-radius:14px;margin-bottom:2rem;" /><p>I used to spend 20 minutes on Stack Overflow every time I needed an Excel formula more complex than SUM. Search, find something close, adapt it, break it, search again. You know the loop.</p>
 <p>Then I tried asking Claude instead. That was it. I haven't opened a formula help page since.</p>
 
 <h2>Claude Writes the Formula for Your Exact Columns</h2>
@@ -1507,7 +1507,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-16",
     author: "Shadman Rahman",
     tags: ["productivity", "workflow"],
-    content: `<img src="/blog-hero-how-to-use-claude-in-chrome-browser.png" alt="Watercolor illustration of a browser window with tabs, one showing a Claude chat panel, soft morning light" style="width:100%;border-radius:12px;margin-bottom:2rem;" /><p>I have Claude open in Chrome almost every hour I'm working. Not because I'm doing anything technical. Because it's faster than thinking alone for most things I write.</p>
+    content: `<img src="/blog-hero-how-to-use-claude-in-chrome-browser.png" alt="Watercolor illustration of a browser window with tabs, one showing a Claude chat panel, soft morning light" style="width:100%;border-radius:14px;margin-bottom:2rem;" /><p>I have Claude open in Chrome almost every hour I'm working. Not because I'm doing anything technical. Because it's faster than thinking alone for most things I write.</p>
 <p>The setup is genuinely nothing: claude.ai in a pinned tab. That's it. No extensions required to get started. Here's how it actually fits into a day.</p>
 
 <h2>The Tab Setup</h2>
@@ -1540,7 +1540,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-16",
     author: "Shadman Rahman",
     tags: ["productivity", "tutorial"],
-    content: `<img src="/blog-hero-claude-for-teachers-reclaim-planning-time.png" alt="Watercolor illustration of a teacher's desk with lesson plan book, marking pen, essays, and coffee, warm classroom light" style="width:100%;border-radius:12px;margin-bottom:2rem;" /><p>I've talked to a lot of teachers about what their week looks like. The number that comes up over and over: 5 to 10 hours a week on tasks that aren't teaching. Lesson plans, quiz generation, rubrics, feedback comments, parent emails. Planning work that takes the same amount of time regardless of whether you've taught for 2 years or 20.</p>
+    content: `<img src="/blog-hero-claude-for-teachers-reclaim-planning-time.png" alt="Watercolor illustration of a teacher's desk with lesson plan book, marking pen, essays, and coffee, warm classroom light" style="width:100%;border-radius:14px;margin-bottom:2rem;" /><p>I've talked to a lot of teachers about what their week looks like. The number that comes up over and over: 5 to 10 hours a week on tasks that aren't teaching. Lesson plans, quiz generation, rubrics, feedback comments, parent emails. Planning work that takes the same amount of time regardless of whether you've taught for 2 years or 20.</p>
 <p>Claude doesn't replace any of the actual teaching. It handles the paperwork so you can spend more time on the room.</p>
 
 <h2>The Five Things Teachers Use It For</h2>
@@ -1568,7 +1568,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-08-17",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "hooks", "productivity"],
-    content: `<img src="/blog-hero-stating-a-rule-twice-does-not-help.png" alt="Watercolor illustration for: stating a rule twice does not help" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-stating-a-rule-twice-does-not-help.png" alt="Watercolor illustration for: stating a rule twice does not help" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>When a rule in your <code>CLAUDE.md</code> keeps getting ignored, the reflex is to say it again. Put it in bold. Add it to a second file. Write "CRITICAL" in front of it.</p>
 
 <p>I did all three, for months. Then I counted, and repetition turned out to have no measurable effect at all. What did predict whether a rule got followed was whether another rule contradicted it.</p>
@@ -1676,7 +1676,7 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
     date: "2026-09-03",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "opus-5", "fable-5", "prompting"],
-    content: `<img src="/blog-hero-claude-5-prompting-rules-fact-check.png" alt="Watercolor illustration for: claude 5 prompting rules fact check" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-claude-5-prompting-rules-fact-check.png" alt="Watercolor illustration for: claude 5 prompting rules fact check" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>A video showed up in my feed this week titled something like "7 rules for prompting Claude 5 models, the ones Anthropic's own team actually uses." Bold claim. Ninety seconds later I had it open next to Anthropic's actual prompting docs, because "the team actually uses" is a specific claim, and specific claims are checkable.</p>
 
 <p>Five of the seven held up almost word for word. Two didn't. Here's the receipts, and the two things worth fixing in your own <code>CLAUDE.md</code> today.</p>
@@ -1715,7 +1715,7 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
     date: "2026-09-20",
     author: "Shadman Rahman",
     tags: ["claude-code", "memory", "claude-md", "hooks", "productivity"],
-    content: `<img src="/blog-hero-claude-code-memory-at-scale-966-files.png" alt="Watercolor illustration for: claude code memory at scale 966 files" style="width:100%;border-radius:12px;margin-bottom:2rem;" />
+    content: `<img src="/blog-hero-claude-code-memory-at-scale-966-files.png" alt="Watercolor illustration for: claude code memory at scale 966 files" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p><em>Anthropic's docs explain <code>CLAUDE.md</code> and auto memory well, and they stop at about the point where the folder gets big. This is what broke in mine after that point, with the numbers.</em></p>
 <p>Claude Code keeps a memory folder per project. Mine holds 978 markdown files today. Take away the router, the eight shard indexes and three archived routers, and 966 of them are topic files, one fact each: 978 - 12 = 966.</p>
 <p>The official memory docs cover how the folder works, and so do <a href="/docs/foundations/memory-system">this site's memory guide</a> and <a href="/docs/foundations/memory-router">the router pattern</a>. A <code>MEMORY.md</code> index loads at session start, up to its first 200 lines or 25KB, and topic files load when a task needs them. That is correct, and it is enough for the first fifty files. Nobody writes about file 500, because most people have not got there yet. This is the log of what broke in mine and the rule that came out of each break, in order.</p>

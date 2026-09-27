@@ -146,10 +146,10 @@ export default async function TutorialPage({
           <p className="m-0 font-mono text-xs text-[var(--acc)]">
             {tutorial.duration} / {tutorial.difficulty} / {total} steps
           </p>
-          <h1 className="mt-3 text-[clamp(30px,7vw,44px)] font-semibold leading-[1.08] tracking-[-0.035em]">
+          <h1 className="mt-3 text-display-article font-semibold leading-[1.08] tracking-[-0.035em]">
             {tutorial.title}
           </h1>
-          <p className="mt-4 text-[17px] leading-[1.55] text-[var(--muted)] md:text-lg">
+          <p className="mt-4 text-body leading-[1.55] text-[var(--muted)] md:text-lg">
             {tutorial.description}
           </p>
         </header>
@@ -159,7 +159,7 @@ export default async function TutorialPage({
           aria-label="Before you start"
           className="glass mb-8 flex flex-col gap-5 rounded-xl p-5 sm:p-6"
         >
-          <p className="m-0 text-[15px] leading-relaxed">{tutorial.intro}</p>
+          <p className="m-0 text-ui leading-relaxed">{tutorial.intro}</p>
           <div className="border-t border-[var(--line)] pt-5">
             <RouteSwitcher availableRoutes={routes} />
           </div>
@@ -172,9 +172,9 @@ export default async function TutorialPage({
               <li key={index}>
                 <a
                   href={`#step-${index + 1}`}
-                  className={`flex gap-3 rounded-md py-1 text-[15px] text-[var(--muted)] transition-colors hover:text-[var(--ink)] ${focusRing}`}
+                  className={`flex gap-3 rounded-md py-1 text-ui text-[var(--muted)] transition-colors hover:text-[var(--ink)] ${focusRing}`}
                 >
-                  <span className="font-mono text-[13px] text-[var(--acc)]">{pad2(index + 1)}</span>
+                  <span className="font-mono text-compact text-[var(--acc)]">{pad2(index + 1)}</span>
                   {step.title}
                 </a>
               </li>
@@ -193,7 +193,7 @@ export default async function TutorialPage({
                 step {pad2(index + 1)} / {pad2(total)}
               </p>
               <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] md:text-2xl">{step.title}</h2>
-              <p className="mt-2 mb-5 text-[15px] leading-relaxed text-[var(--muted)]">{step.description}</p>
+              <p className="mt-2 mb-5 text-ui leading-relaxed text-[var(--muted)]">{step.description}</p>
               <TutorialStepBody
                 availableRoutes={routes}
                 code={step.code}
@@ -236,7 +236,7 @@ export default async function TutorialPage({
                 href={tutorial.nextLink.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-2 rounded-sm text-[15px] font-medium hover:text-[var(--acc)] ${focusRing}`}
+                className={`flex items-center gap-2 rounded-sm text-ui font-medium hover:text-[var(--acc)] ${focusRing}`}
               >
                 <span className="font-mono text-xs text-[var(--muted)]">go deeper</span>
                 {tutorial.nextLink.label}
@@ -245,7 +245,7 @@ export default async function TutorialPage({
             ) : (
               <Link
                 href={tutorial.nextLink.href}
-                className={`flex items-center gap-2 rounded-sm text-[15px] font-medium hover:text-[var(--acc)] ${focusRing}`}
+                className={`flex items-center gap-2 rounded-sm text-ui font-medium hover:text-[var(--acc)] ${focusRing}`}
               >
                 <span className="font-mono text-xs text-[var(--muted)]">go deeper</span>
                 {tutorial.nextLink.label}

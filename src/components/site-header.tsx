@@ -171,7 +171,7 @@ export function SiteHeader() {
             <ThemeToggle />
             <Link
               href="/start"
-              className={`hidden h-10 items-center rounded-lg bg-[var(--ink)] px-4 text-sm font-medium text-[var(--bg)] transition-opacity hover:opacity-85 sm:flex ${focusRing}`}
+              className={`glass hidden h-10 items-center rounded-lg px-4 text-sm font-medium transition-colors hover:bg-[var(--glass2)] sm:flex ${focusRing}`}
             >
               Start free
             </Link>
@@ -204,7 +204,7 @@ export function SiteHeader() {
                   {link.label}
                 </Link>
               ))}
-              <p className="px-2.5 pb-1 pt-3 font-mono text-[11.5px] uppercase text-[var(--muted)]">Paths</p>
+              <p className="px-2.5 pb-1 pt-3 font-mono text-label uppercase text-[var(--muted)]">Paths</p>
               {PATHS.map((link) => (
                 <Link key={link.href} href={link.href} className={navItem(isActive(link.href))}>
                   {link.label}
@@ -212,7 +212,7 @@ export function SiteHeader() {
               ))}
               <Link
                 href="/start"
-                className={`mt-2 flex h-11 items-center justify-center rounded-lg bg-[var(--ink)] text-sm font-medium text-[var(--bg)] ${focusRing}`}
+                className={`mt-2 flex h-11 items-center justify-center rounded-lg border border-[var(--line)] text-sm font-medium transition-colors hover:bg-[var(--chip)] ${focusRing}`}
               >
                 Start free
               </Link>

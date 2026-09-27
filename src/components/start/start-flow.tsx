@@ -224,7 +224,7 @@ export function StartFlow() {
                         {option.label}
                       </span>
                       {option.badge && (
-                        <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-[10px] font-medium text-[var(--acc)] ">
+                        <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-label font-medium text-[var(--acc)] ">
                           {option.badge}
                         </span>
                       )}
