@@ -31,6 +31,7 @@
   --chip: rgba(79, 63, 208, 0.1);
   --code: rgba(15, 17, 21, 0.035);
   --fade: 0.26;
+  --fade-landing: 0.6;
   /* Opaque surfaces for popovers, menus and cards that sit on plain --bg */
   --surface: #ffffff;
   --surface2: #f1f1ee;
@@ -51,6 +52,7 @@
   --chip: rgba(174, 163, 255, 0.14);
   --code: rgba(255, 255, 255, 0.04);
   --fade: 0.34;
+  --fade-landing: 0.65;
   --surface: #11141f;
   --surface2: #171b28;
 }
@@ -522,15 +524,12 @@ h3.font-display {
     transparent 100%
   );
 }
-.scene-grid {
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    90deg,
-    var(--hair) 0 1px,
-    transparent 1px 216px
-  );
-  background-position: 64px 0;
+/* Landing pages carry their own scene, so they show it more strongly than the docs wash. */
+.scene--faded:not([data-scene="valley"]) .scene-drift {
+  opacity: var(--fade-landing);
+  filter: saturate(0.85);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0.75) 40%, rgba(0, 0, 0, 0.55) 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0.75) 40%, rgba(0, 0, 0, 0.55) 70%, transparent 100%);
 }
 /* Phones: the full scene is width-driven, so the hero copy lands on the busiest
    part of the painting. A static wash of the page color keeps it readable. */

@@ -149,7 +149,7 @@ const h2Class = "m-0 text-headline font-semibold tracking-[-0.035em]";
 function SectionHead({ id, title, sub, more }: { id: string; title: string; sub?: string; more?: { href: string; label: string } }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
-      <div className="glass flex max-w-full flex-col gap-1.5 rounded-lg px-5 py-3.5">
+      <div className="flex max-w-full flex-col gap-1.5">
         <h2 id={id} className={h2Class}>
           {title}
         </h2>

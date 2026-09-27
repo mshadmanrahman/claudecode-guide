@@ -30,7 +30,7 @@ export type SceneName =
   | "viaduct";
 
 function sceneSrc(scene: SceneName, time: "day" | "night") {
-  return scene === "valley" ? `/scene/scene-${time}.jpg` : `/scene/${scene}-${time}.jpg`;
+  return `/scene/${scene}-${time}.jpg`;
 }
 
 interface SceneBackdropProps {
@@ -88,7 +88,6 @@ export function SceneBackdrop({
           className="scene-img scene-night"
         />
       </div>
-      <div className="scene-grid" />
     </div>
   );
 }
