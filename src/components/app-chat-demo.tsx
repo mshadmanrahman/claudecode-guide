@@ -163,7 +163,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
             <div
               className={`max-w-[82%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 step.role === 'user'
-                  ? 'rounded-br-sm bg-[#525252] text-white'
+                  ? 'rounded-br-sm bg-[#434A6E] text-white'
                   : 'rounded-bl-sm border border-fd-border bg-fd-background text-fd-foreground'
               }`}
             >
