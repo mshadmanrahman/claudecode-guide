@@ -59,7 +59,7 @@ If you are building on top of Claude Code's API surface and your primary bottlen
 
 **Open weights.** MIT license. You can self-host DeepSeek V4 on your own infrastructure, fine-tune it on proprietary code, and deploy it in environments where vendor-hosted AI is not allowed. On dual RTX 4090s or a single RTX 5090, you can run quantized versions locally.
 
-**Context window.** 1M tokens vs Claude Opus's 200K. For tasks where you need to load an entire large codebase into context simultaneously, DeepSeek has structural headroom that Claude does not.
+**Context window.** Both sides now offer 1M tokens: Claude Opus 4.7 and later run with a 1M window in Claude Code. DeepSeek no longer wins on headroom; it wins on what that headroom costs per token.
 
 **Reasoning.** DeepSeek R1 (the reasoning variant) is competitive with the best frontier reasoning models on math and logic tasks. For structured reasoning over code — architecture decisions, debugging chains, complex refactors — R1 is worth knowing about.
 

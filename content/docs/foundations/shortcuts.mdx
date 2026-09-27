@@ -17,7 +17,7 @@ This is everything, in one place.
   { type: 'out', text: 'Session: $0.47 | Tokens in: 32K | Tokens out: 8.2K' },
   { type: 'out', text: 'Per-model breakdown: Sonnet 85%, Opus 15%' },
   { type: 'cmd', text: '/model opus' },
-  { type: 'out', text: 'Switched to claude-opus-4-6' },
+  { type: 'out', text: 'Switched to claude-opus-5-5' },
   { type: 'success', text: 'Use the big model when the task demands it.' },
   { type: 'warn', text: '→ These three commands alone save people 30%+ on costs.' },
 ]} />
@@ -45,8 +45,8 @@ Type these directly into the Claude Code prompt.
 | Command | What it does |
 |---------|-------------|
 | `/model` | Switch the active model (opus, sonnet, haiku) |
-| `/model opus` | Switch to Opus 5 (most capable) |
-| `/model sonnet` | Switch to Sonnet 5 (fast and capable, default) |
+| `/model opus` | Switch to Opus 5.5 (most capable, default) |
+| `/model sonnet` | Switch to Sonnet 5 (fast and capable) |
 | `/model haiku` | Switch to Haiku 4.5 (fastest, cheapest) |
 | `/init` | Generate a CLAUDE.md file for your project |
 | `/config` | View and edit Claude Code configuration |
@@ -127,8 +127,8 @@ claude --resume              # Resume last conversation (pick up where you left 
 ### Model & Behavior
 
 ```bash
-claude --model opus          # Start with Opus 5
-claude --model sonnet        # Start with Sonnet 5 (default)
+claude --model opus          # Start with Opus 5.5 (default)
+claude --model sonnet        # Start with Sonnet 5
 claude --model haiku         # Start with Haiku 4.5
 claude --verbose             # Show tool calls and internal reasoning
 claude --bare                # Minimal output (for scripted calls)
@@ -137,7 +137,7 @@ claude --bare                # Minimal output (for scripted calls)
 ### Context & Files
 
 ```bash
-claude -r "system prompt"    # Add a system prompt / reasoning instruction
+claude --append-system-prompt "..."  # Add to the system prompt
 claude @file.ts              # Load a file into context at start
 ```
 
@@ -219,7 +219,7 @@ Up (history)  Ctrl+R (search)  ! (shell)
 
 ── CLI ─────────────────────────────────────────
 -p (pipe)  -c (continue)  --resume  --verbose
---model  --bare  -r (reasoning)
+--model  --effort  --bare  -r (resume)
 ```
 
 Print this. Tape it to your monitor. You'll reference it more than you think.

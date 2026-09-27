@@ -48,7 +48,7 @@ That distinction matters because the benchmark that went viral was about one-sho
 
 ## Where GLM-5.2 genuinely wins
 
-**Context window.** 1M tokens is not a marketing number here; Z.ai says it is "usable" 1M context, not just theoretical. Claude Opus tops out at 200K. If you need to dump an entire large codebase into a single context, GLM-5.2 has a real structural advantage.
+**Context window.** 1M tokens is not a marketing number here; Z.ai says it is "usable" 1M context, not just theoretical. Claude Opus 4.7 and later and Sonnet 5 also run with a 1M window in Claude Code, so on raw size the two are even.
 
 **Creative and spatial code generation.** The viral benchmark was fair. GLM-5.2 is exceptionally strong at tasks that combine spatial math with code: 3D scenes, SVG diagrams, physics simulations, game mechanics written from scratch. It built a functional penalty kick game in Three.js and Cannon.js in one pass. For visual/creative coding, it is legitimately impressive.
 
@@ -74,7 +74,7 @@ That distinction matters because the benchmark that went viral was about one-sho
   { type: 'out', text: 'Cross-session mem   GLM: None             Claude: Full' },
   { type: 'out', text: 'Hooks / skills      GLM: No               Claude: Deep' },
   { type: 'out', text: 'MCP ecosystem       GLM: No               Claude: Full' },
-  { type: 'out', text: 'Context window      GLM: 1M tokens        Claude: 200K' },
+  { type: 'out', text: 'Context window      GLM: 1M tokens        Claude: 1M' },
   { type: 'out', text: 'Open source         GLM: MIT              Claude: Source-available' },
   { type: 'out', text: 'Vision              GLM: No (at launch)   Claude: Yes (Opus)' },
   { type: 'out', text: 'Pricing             GLM: $10-$80/mo       Claude: $20-$200/mo' },

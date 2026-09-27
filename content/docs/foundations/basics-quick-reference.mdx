@@ -15,7 +15,7 @@ Not everything needs a deep dive. This is the cheat sheet.
   { type: 'out', text: '← Your project instruction file' },
   { type: 'out', text: 'Context: 18% used' },
   { type: 'out', text: '← How much Claude can see right now' },
-  { type: 'out', text: 'Model: claude-sonnet-4-6' },
+  { type: 'out', text: 'Model: claude-opus-5-5 with medium effort' },
   { type: 'out', text: '← Which AI brain is handling this' },
   { type: 'out', text: '[hook: PreToolUse] Running lint check...' },
   { type: 'out', text: '← An automated script that fired before Claude wrote anything' },
@@ -195,11 +195,11 @@ Learn more: [Context Window Deep Dive](/docs/foundations/context-window)
 
 | Model | Speed | Best for |
 |---|---|---|
-| **Opus 5** | Slower | Complex decisions, architecture, cross-file refactors |
-| **Sonnet 4.6** | Fast | 80% of daily work. The default. |
+| **Opus 5.5** | Moderate | Complex decisions, architecture, cross-file refactors. The default. |
+| **Sonnet 5** | Fast | Most daily work at half the Opus price |
 | **Haiku 4.5** | Fastest | Quick edits, simple questions, linting |
 
-Start with Sonnet (the default). Switch to Opus when the problem is genuinely hard. Switch to Haiku when the task is trivial and speed matters more than depth.
+Claude Code starts on Opus 5.5 at `medium` effort. Drop to Sonnet for routine work if you want it cheaper, and raise the effort with `/effort` when the problem is genuinely hard. Switch to Haiku when the task is trivial and speed matters more than depth.
 
 ```
 /model opus     # Big task? Bring in the senior model.

@@ -13,11 +13,11 @@ Still here? Good. There are four model classes, they're meaningfully different, 
   { type: 'cmd', text: '/model' },
   { type: 'out', text: 'Available models:' },
   { type: 'out', text: '  claude-fable-5-1     (hardest long-horizon work)' },
-  { type: 'out', text: '  claude-opus-5        (most capable, slower)' },
-  { type: 'out', text: '  claude-sonnet-5      (fast and capable, recommended)' },
+  { type: 'out', text: '  claude-opus-5-5      (most capable, the default)' },
+  { type: 'out', text: '  claude-sonnet-5      (fast and capable)' },
   { type: 'out', text: '  claude-haiku-4-5     (fastest, cheapest)' },
   { type: 'out', text: '' },
-  { type: 'success', text: 'Current: claude-sonnet-5 (latest)' },
+  { type: 'success', text: 'Current: claude-opus-5-5 with medium effort' },
   { type: 'warn', text: '→ Switch with /model opus, /model sonnet, or /model haiku' },
 ]} />
 
@@ -72,9 +72,9 @@ The real use case is sub-agents. When you're running background code review or s
 
 ## How Claude Code Picks For You
 
-On **Claude Pro** ($20/month) you get Sonnet by default with generous daily usage. That's enough for most people. Full stop.
+On **Claude Pro** ($20/month), **Max**, **Team** and **Enterprise**, Claude Code now defaults to Opus 5.5 at `medium` effort. Before v2.1.280, Pro started on Sonnet. So if you want Sonnet as your daily driver, switch with `/model sonnet`.
 
-On **Claude Max** ($100/month) you still default to Sonnet but get Opus access and 20x the usage of Pro. Get here when you're hitting Pro limits daily, not before.
+On **Claude Max** (from $100/month) you get 5x or 20x the usage of Pro. Get here when you're hitting Pro limits daily, not before.
 
 On the **API** (pay per use) you pick the model per request. Full control, full responsibility for the bill.
 
@@ -109,4 +109,4 @@ Start there and adjust based on what you actually experience, not what you imagi
 1. **Start every session on Sonnet.** Only switch to Opus if the first attempt clearly isn't cutting it.
 2. **Use Haiku for sub-agents.** Code review and test agents running in the background don't need Opus-level reasoning.
 3. **Watch your context window.** The 1M token limit sounds massive, but loading whole codebases repeatedly adds up. Use `/compact` to trim.
-4. **Extended thinking costs output tokens, not input.** The model reasons internally before answering but you pay for the final response, not the thinking. Worth knowing.
+4. **You pay for thinking.** Thinking tokens bill as output, even when Claude Code collapses them on screen. Effort is the dial: `/effort low` on Opus 5.5 thinks less and costs less. See [thinking modes](/docs/patterns/thinking-modes).

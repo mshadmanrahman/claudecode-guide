@@ -68,7 +68,7 @@ DeepSeek V4 Pro. Strong on SWE-bench and daily coding tasks. MIT open-weight. Dr
 DeepSeek R1. The dedicated reasoning variant. Competes with the best frontier reasoning models on math and logic chains. Use it when you're doing architecture decisions, complex debugging chains, or structured analysis rather than file editing.
 
 **For large codebase context:**
-GLM-5.2 (1M tokens) or DeepSeek V4 (1M tokens). Both beat Claude Opus's 200K limit by 5x. If your main bottleneck is fitting an entire codebase into context, these have structural headroom Claude doesn't.
+GLM-5.2 (1M tokens) or DeepSeek V4 (1M tokens). Both match the 1M window Claude Opus and Sonnet now have, at a lower price per token. Haiku 4.5 is the Claude model still capped at 200K.
 
 **For visual and spatial code:**
 GLM-5.2 from Zhipu AI. Benchmarks showed it outperforming GPT-5.5 on 3D/voxel scene generation, physics simulations, and complex SVG work. If you write a lot of creative/generative code, it's worth testing.
@@ -95,7 +95,7 @@ This is important and most guides skip it.
 
 Claude Code was designed around Claude's specific tool-calling interface, response formats, and behavior. When you swap the underlying model, some things stop working or behave unpredictably:
 
-**Extended thinking.** Claude's `/think` or extended thinking modes are Claude-specific. They will not work with alternative models. The proxy will either error out or silently drop the thinking request.
+**Thinking and effort.** Claude's adaptive thinking, the `/effort` levels, and the `ultrathink` keyword are Claude-specific. They will not work with alternative models. The proxy will either error out or silently drop the thinking request.
 
 **Tool use reliability.** Claude's tool-use patterns were fine-tuned for multi-step agentic tasks. Alternative models may call tools with incorrect argument formats, fail to chain tool calls properly, or lose track of tool state mid-session. The more complex the agentic task, the more likely this is to surface.
 

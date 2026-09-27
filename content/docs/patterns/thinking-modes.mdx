@@ -1,11 +1,11 @@
 ---
 title: "Claude Code Thinking Modes"
-description: "Claude Code can think before it acts. Extended thinking, plan mode, and effort levels explained. When to let it reason deeply vs when to just get the answer."
+description: "Claude Code can think before it acts. Adaptive thinking, plan mode, and effort levels explained. When to let it reason deeply vs when to just get the answer."
 ---
 
 ## Default mode is fast. Sometimes you need deep.
 
-By default, Claude Code jumps straight to an answer. That's great for simple tasks. But for complex problems: architecture decisions, tricky bugs, multi-step plans: you want it to think first, not just react.
+By default, the model decides for itself how much to think on each step, and the effort level sets how far it goes. On Opus 5.5 that default is `medium`, which is fine for most coding. But for complex problems: architecture decisions, tricky bugs, multi-step plans: you want it to think harder first, not just react.
 
 Claude Code has three ways to control how deeply it thinks before doing anything.
 
@@ -24,7 +24,7 @@ Claude Code has three ways to control how deeply it thinks before doing anything
 
 ## Extended thinking
 
-Extended thinking means Claude "thinks out loud" internally before giving you an answer. It reasons through the problem step by step, considers edge cases, and arrives at a more careful response.
+Thinking means Claude reasons internally before giving you an answer. It works through the problem step by step, considers edge cases, and arrives at a more careful response. On current models this is adaptive: thinking is optional on each step, so routine prompts get fast answers and hard steps get deeper reasoning.
 
 **When it's worth it:**
 - Complex debugging where your first approach already failed
@@ -32,11 +32,11 @@ Extended thinking means Claude "thinks out loud" internally before giving you an
 - Security reviews where you can't afford to miss something
 - Refactoring that touches 10+ files
 
-**How to enable it:** Set the thinking effort level in settings, or just ask: "think carefully about this" or "reason through this step by step" in your prompt.
+**How to get more of it:** Raise the effort level (next section), or put `ultrathink` anywhere in your prompt for one turn of deeper reasoning without changing your session setting. Plain phrases like "think hard" are not keywords; Claude reads them as ordinary guidance, still within your effort level.
 
-**What it costs:** Extended thinking uses output tokens for the reasoning process. You pay for the thinking. For complex tasks, the quality improvement is usually worth it. For a simple bug fix, it's overkill.
+**What it costs:** Thinking is billed as output tokens, even when Claude Code collapses or redacts it on screen. You pay for the thinking. For complex tasks, the quality improvement is usually worth it. For a simple bug fix, it's overkill.
 
-All three models (Opus 4.6, Sonnet 4.6, Haiku 4.5) support extended thinking with their 1M token context windows.
+On Opus 5.5 and the Fable models thinking is always on: `Option+T` (`Alt+T` on Windows and Linux) and `MAX_THINKING_TOKENS=0` have no effect there, so effort is your only dial. Sonnet 5 always uses adaptive thinking too. Haiku 4.5 uses the older extended thinking mode and has no effort levels.
 
 ## Plan mode
 
@@ -71,15 +71,34 @@ Plan mode is the most practical thinking feature for daily use. Instead of divin
 
 ## Effort levels
 
-Some tasks need deep thinking. Others just need a quick answer. Effort levels let you control the balance without switching models:
+Some tasks need deep thinking. Others just need a quick answer. Effort levels let you control the balance without switching models. Effort shapes every output token, not just thinking: lower effort also means fewer, terser tool calls.
 
 | Level | What it means | Example |
 |---|---|---|
-| **Low** | Quick, surface-level response | "What does this function do?" |
-| **Medium** | Standard analysis (default) | "Fix this bug" |
-| **High** | Deep reasoning, considers edge cases | "Design the auth system" |
+| **low** | Short, scoped, latency-sensitive work | "What does this function do?" |
+| **medium** | Balanced. The default on Opus 5.5 | "Fix this bug" |
+| **high** | More reasoning at more tokens. The default on most other models | "Design the auth system" |
+| **xhigh** | Deeper reasoning for long agentic and coding runs | "Migrate this service end to end" |
+| **max** | Deepest. Diminishing returns, prone to overthinking | A problem `xhigh` already failed |
 
-You can hint at the effort level in your prompt. "Quick question..." signals low effort. "Think carefully about..." signals high effort. "Consider all edge cases..." signals maximum depth. Claude picks up on these cues.
+Opus 4.7 and later, Sonnet 5, and the Fable models support all five levels. Opus 4.6 and Sonnet 4.6 stop at `max` without `xhigh`. Haiku has none. Pick a level a model lacks and Claude Code drops to the highest one it supports below it.
+
+**How to set it:**
+
+```bash
+/effort              # Open the slider
+/effort high         # Set it directly (saved as your default for this model)
+/effort auto         # Clear your saved level and go back to the model default
+claude --effort low  # Launch one session at a level
+```
+
+You can also move the effort slider with the arrow keys inside `/model`, set `CLAUDE_CODE_EFFORT_LEVEL`, or put `effort:` in a skill's or subagent's frontmatter. `max` only lasts for the current session unless you set it through the environment variable. The session header shows the active level, for example "with low effort".
+
+**Moving from Opus 5?** Opus 5.5 defaults one level lower than Opus 5 did, and Anthropic's testing puts Opus 5.5 at `medium` level with or ahead of Opus 5 at `high` on coding. At the same level name it also thinks more per turn. So start at `medium` instead of carrying your old setting over, and save `xhigh` and `max` for work where you've seen them help.
+
+**Change it at the start, not mid-session.** Changing effort mid-conversation can invalidate the prompt cache, and Claude Code may show a cache warning first. Pick a level when you start a session and leave it.
+
+The `/effort` menu also lists `ultracode`. That is a Claude Code setting rather than a model level: it sends `xhigh` and has Claude plan a multi-agent workflow for each substantive task. Expect it to spend far more tokens.
 
 ## Combining thinking modes
 
@@ -91,18 +110,18 @@ The real power is mixing these together.
 
 **Extended thinking + Sonnet:** The daily sweet spot. Sonnet thinks through the problem carefully but doesn't take as long (or cost as much) as Opus. This is what I use for most non-trivial tasks.
 
-<DemoCard title="Same task, three effort levels" steps={[
-  { type: 'out', text: '── Low effort (Haiku) ──' },
+<DemoCard title="Same task, three depths" steps={[
+  { type: 'out', text: '── Quick (Haiku) ──' },
   { type: 'cmd', text: '"What does validateUser() do?"' },
   { type: 'out', text: 'Checks email format and password length. Returns boolean.' },
   { type: 'success', text: '✓ 2 seconds. $0.001.' },
   { type: 'out', text: '' },
-  { type: 'out', text: '── Medium effort (Sonnet) ──', delay: 500 },
+  { type: 'out', text: '── Standard (Sonnet) ──', delay: 500 },
   { type: 'cmd', text: '"Fix the bug in validateUser()"' },
   { type: 'out', text: 'Reading function... Found: regex misses + in emails' },
   { type: 'success', text: '✓ Fixed regex. Test added. 8 seconds.' },
   { type: 'out', text: '' },
-  { type: 'out', text: '── High effort (Opus + plan mode) ──', delay: 500 },
+  { type: 'out', text: '── Deep (Opus + plan mode) ──', delay: 500 },
   { type: 'cmd', text: '"Redesign the entire auth validation system"' },
   { type: 'out', text: 'Thinking... Analyzing 12 files, 4 validation paths...' },
   { type: 'out', text: 'Plan: Zod schemas → middleware chain → error types → tests' },

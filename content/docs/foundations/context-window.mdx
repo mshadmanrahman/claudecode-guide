@@ -1,6 +1,6 @@
 ---
 title: "Claude Code Context Window: Size, /context and /compact"
-description: "Opus 5 and Sonnet 5 hold 1M tokens, Haiku 4.5 holds 200K. What fills the window, how to read the breakdown with /context, and when /compact is the wrong fix."
+description: "Opus 5.5 and Sonnet 5 hold 1M tokens, Haiku 4.5 holds 200K. What fills the window, how to read the breakdown with /context, and when /compact is the wrong fix."
 ---
 
 import { FaqSchema } from '@/components/faq-schema';
@@ -15,8 +15,8 @@ Depends which model you are on, and the difference is larger than most people ex
 
 | Model | Context window | Roughly |
 |---|---|---|
-| Claude Opus 5 | 1,000,000 tokens | ~750,000 words |
-| Claude Sonnet 5 | 1,000,000 tokens | ~750,000 words |
+| Claude Opus 5.5 | 1,000,000 tokens | ~555,000 words |
+| Claude Sonnet 5 | 1,000,000 tokens | ~555,000 words |
 | Claude Haiku 4.5 | 200,000 tokens | ~150,000 words |
 
 So Haiku gives you a fifth of what Opus and Sonnet do. If you route cheap background work to Haiku, that is the model that will hit the wall first, and it will hit it five times sooner. A million tokens sounds like more than you could ever fill. It still goes faster than you think in agentic work, where Claude reads files, runs commands, and feeds the output back into the loop.
@@ -135,7 +135,7 @@ You lose nothing because the handoff captures everything that matters. You gain 
 
 ## A Million Tokens Is a Lot. You Still Need Strategy.
 
-Opus 5 and Sonnet 5 give you a million tokens of working memory, which is enormous. The strategies above still matter, they just start biting later in a long session rather than sooner. Two things keep them relevant. Haiku 4.5 caps at 200,000, so anything you route there hits the limit far earlier. And every token you carry is a token you pay for on the next turn, so a bloated session costs money on every message, not just once.
+Opus 5.5 and Sonnet 5 give you a million tokens of working memory, which is enormous. The strategies above still matter, they just start biting later in a long session rather than sooner. Two things keep them relevant. Haiku 4.5 caps at 200,000, so anything you route there hits the limit far earlier. And every token you carry is a token you pay for on the next turn, so a bloated session costs money on every message, not just once.
 
 ## Common questions
 
@@ -144,7 +144,7 @@ Opus 5 and Sonnet 5 give you a million tokens of working memory, which is enormo
     {
       question: 'How big is the Claude Code context window?',
       answer:
-        'It depends on the model. Claude Opus 5 and Claude Sonnet 5 both hold 1,000,000 tokens, which is roughly 750,000 words. Claude Haiku 4.5 holds 200,000 tokens, about 150,000 words. Haiku is the one that fills first, at a fifth of the capacity of the other two.',
+        'It depends on the model. Claude Opus 5.5 and Claude Sonnet 5 both hold 1,000,000 tokens, which is roughly 555,000 words. Claude Haiku 4.5 holds 200,000 tokens, about 150,000 words. Haiku is the one that fills first, at a fifth of the capacity of the other two.',
     },
     {
       question: 'What does the /context command do in Claude Code?',
@@ -181,7 +181,7 @@ Opus 5 and Sonnet 5 give you a million tokens of working memory, which is enormo
 
 ### How big is the Claude Code context window?
 
-Opus 5 and Sonnet 5 hold 1,000,000 tokens, roughly 750,000 words. Haiku 4.5 holds 200,000, about
+Opus 5.5 and Sonnet 5 hold 1,000,000 tokens, roughly 555,000 words. Haiku 4.5 holds 200,000, about
 150,000 words. Haiku fills first, at a fifth of the capacity.
 
 ### What does the /context command do?
