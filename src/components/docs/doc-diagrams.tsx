@@ -1,4 +1,6 @@
 import { Arrow, Branch, Fig, Node } from './diagram-kit';
+import { PlayOnView } from './play-on-view';
+import type { CSSProperties } from 'react';
 
 // Docs diagrams, drawn with the primitives in diagram-kit.tsx. Each one
 // replaces a raster illustration and keeps its labels and meaning.
@@ -30,20 +32,20 @@ export function EveryTurnTaxDiagram() {
   const turns = [1, 2, 3, 4];
   return (
     <Fig label="the every-turn tax" caption="The same file rides along on every turn, so what you pay for it keeps climbing.">
-      <div className="dv-turns">
+      <PlayOnView className="dv-turns dv-seq">
         {turns.map((t) => (
-          <div key={t} className="dv-turn">
+          <div key={t} className="dv-turn" style={{ '--i': t - 1, '--fill': t / 4 } as CSSProperties}>
             <span className="dv-mono-muted">turn {t}</span>
             <Node title="CLAUDE.md" sub="reloaded" lines={3} />
             <div className="dv-meter" aria-hidden>
-              <span style={{ width: `${t * 25}%` }} />
+              <span />
             </div>
             <span className="dv-mono-muted">
-              paid <span className="dv-acc-text">{t}x</span>
+              paid <span className="dv-acc-text dv-paid">{t}x</span>
             </span>
           </div>
         ))}
-      </div>
+      </PlayOnView>
     </Fig>
   );
 }

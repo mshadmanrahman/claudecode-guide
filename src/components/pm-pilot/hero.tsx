@@ -4,6 +4,7 @@ import { FloatingCard } from '@/components/floating-card';
 import { Clock, FileText, BarChart3, ArrowRight } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 
+import { KineticText } from '@/components/kinetic-text';
 const HERO_STEPS = [
   { type: 'cmd' as const, text: 'prep for my 1:1 with Sarah' },
   { type: 'out' as const, text: 'Checking Jira, Slack, Calendar...' },
@@ -24,13 +25,15 @@ export function PmPilotHero() {
   return (
     <section className="relative mx-auto max-w-5xl px-6 pt-32 pb-12">
       <div className="relative z-10">
-        <h1 className="animate-slide-up-fade font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-7xl leading-[1.1] hover:scale-[1.01]">
+        <h1 className="font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-7xl leading-[1.1] hover:scale-[1.01]">
+          <KineticText>
           Stop drowning in
           <br />
           <span className="text-[var(--muted)]">meeting prep.</span>
+          </KineticText>
         </h1>
 
-        <p className="animate-slide-up-fade delay-100 mt-8 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
+        <p className="hm-rise mt-8 max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
           I built this because I was spending 60% of my day on status updates instead of actual product work. Works with ChatGPT, Claude, Gemini. Gets a lot more powerful with Claude Code.
         </p>
 

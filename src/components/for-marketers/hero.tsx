@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { PenLine, Megaphone, BarChart2 } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
+import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
     id: 'content',
@@ -33,12 +34,12 @@ export function MarketerHero() {
     <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
 
       <h1 className="font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
-        You have more to write<br />
+        <KineticText>You have more to write<br />
         than hours to write it.<br />
-        <span className="text-[var(--muted)]">Claude doesn&apos;t replace your thinking. It removes the blank page.</span>
+        <span className="text-[var(--muted)]">Claude doesn&apos;t replace your thinking. It removes the blank page.</span></KineticText>
       </h1>
 
-      <p className="mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
+      <p className="hm-rise mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
         Social posts, blog drafts, email campaigns, ad copy, market research. Claude handles the drafting. You handle the strategy and the final call. These guides show you the workflow for each.
       </p>
 

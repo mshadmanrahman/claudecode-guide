@@ -4,6 +4,8 @@ import { FieldNotes } from "@/components/home/field-notes";
 import { getLatestPosts, SUBSTACK_NAME } from "@/lib/substack";
 import { SceneBackdrop } from "@/components/scene-backdrop";
 import { AuthorPhoto } from "@/components/author-photo";
+import { CountUp } from "@/components/home/count-up";
+import { KineticText } from "@/components/kinetic-text";
 
 const heroTagline = "The Claude Code setup I actually run.";
 const heroMetaDescription =
@@ -177,19 +179,19 @@ export default async function HomePage() {
       <SceneBackdrop variant="full" />
 
       {/* 1. Hero */}
-      <section className="hm-in flex flex-col items-center gap-6 px-4 pt-12 text-center md:gap-[26px] md:pt-[70px]">
+      <section className="flex flex-col items-center gap-6 px-4 pt-12 text-center md:gap-[26px] md:pt-[70px]">
         <h1 className="m-0 max-w-[14ch] text-display font-semibold leading-[1.04] tracking-[-0.045em]">
-          {heroTagline}
+          <KineticText>{heroTagline}</KineticText>
         </h1>
 
-        <p className="m-0 max-w-[600px] text-body leading-[1.55] text-[var(--ink)] md:text-lead">
-          I use Claude Code every day at work as a principal PM, backed by 966 memory files. This guide is that
+        <p className="hm-rise m-0 max-w-[600px] text-body leading-[1.55] text-[var(--ink)] md:text-lead">
+          I use Claude Code every day at work as a principal PM, backed by <CountUp to={966} delay={700} duration={1300} /> memory files. This guide is that
           setup, page by page, and it is written so non-engineers can follow it too.
         </p>
 
         <Link
           href="/about"
-          className={`glass flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-left transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
+          className={`hm-rise [--d:0.75s] glass flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-left transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
         >
           <AuthorPhoto variant="avatar" size={36} priority />
           <span className="flex flex-col leading-tight">
@@ -198,7 +200,7 @@ export default async function HomePage() {
           </span>
         </Link>
 
-        <div className="flex w-full max-w-[520px] flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
+        <div className="hm-rise [--d:0.9s] flex w-full max-w-[520px] flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
           <Link
             href={DOCS_START}
             className={`flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-ui font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 ${focusRing}`}
@@ -218,7 +220,7 @@ export default async function HomePage() {
             href={latest.link}
             target="_blank"
             rel="noopener noreferrer"
-            className={`glass max-w-[560px] rounded-lg px-4 py-2 text-ui leading-snug transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
+            className={`hm-rise [--d:1.05s] glass max-w-[560px] rounded-lg px-4 py-2 text-ui leading-snug transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
           >
             <span className="text-[var(--muted)]">New on {SUBSTACK_NAME}: </span>
             <span className="font-medium underline underline-offset-4">{latest.title}</span>

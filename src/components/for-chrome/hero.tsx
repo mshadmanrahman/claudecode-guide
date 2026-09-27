@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Globe, Puzzle, LayoutGrid } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
+import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
     id: 'browser-basics',
@@ -32,12 +33,12 @@ export function ChromeHero() {
   return (
     <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
       <h1 className="font-display text-[clamp(38px,9vw,48px)] font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
-        You have a browser.<br />
+        <KineticText>You have a browser.<br />
         <span className="text-[var(--muted)]">Claude runs in it.</span><br />
-        Here&apos;s what to actually do.
+        Here&apos;s what to actually do.</KineticText>
       </h1>
 
-      <p className="mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
+      <p className="hm-rise mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
         No code. No installs required to start. Claude.ai works in Chrome like any other website, but most people use 5% of what it can do. These guides cover the other 95%, from browser basics to the Chrome extension to running Claude alongside Gmail and Google Docs.
       </p>
 

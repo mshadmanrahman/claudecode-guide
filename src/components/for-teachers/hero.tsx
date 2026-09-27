@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { BookOpen, CheckSquare, MessageCircle } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
+import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
     id: 'lesson-planning',
@@ -33,11 +34,11 @@ export function TeacherHero() {
     <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
 
       <h1 className="font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
-        You plan. You teach. You assess.<br />
-        <span className="text-[var(--muted)]">Claude handles the paperwork.</span>
+        <KineticText>You plan. You teach. You assess.<br />
+        <span className="text-[var(--muted)]">Claude handles the paperwork.</span></KineticText>
       </h1>
 
-      <p className="mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
+      <p className="hm-rise mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
         Teachers spend hours every week on tasks that are not teaching: writing lesson plans, generating quiz questions, drafting parent emails, marking feedback. These guides show you how to use Claude for all of it, so your time goes back to the room.
       </p>
 

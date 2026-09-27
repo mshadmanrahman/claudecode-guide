@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { trackEvent } from '@/lib/analytics';
 
+import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
     id: 'claude-ai',
@@ -37,28 +38,27 @@ export function DesignerHero() {
 
       {/* Headline, staggered line by line */}
       <h1 className="font-display tracking-[-0.035em] leading-[1.05] font-semibold">
+        <KineticText>
         <span
-          className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
-          style={{ animationDelay: '80ms' }}
+          className="block text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
         >
           You tried Claude.
         </span>
         <span
-          className="block animate-slide-up-fade text-5xl font-medium sm:text-6xl lg:text-[5.5rem]"
-          style={{ animationDelay: '180ms' }}
+          className="block text-5xl font-medium sm:text-6xl lg:text-[5.5rem]"
         >
           <span className="text-[var(--muted)]">It felt generic.</span>
         </span>
         <span
-          className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
-          style={{ animationDelay: '280ms' }}
+          className="block text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
         >
           That&apos;s a setup problem.
         </span>
+        </KineticText>
       </h1>
 
       <p
-        className="animate-slide-up-fade mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed"
+        className="hm-rise mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed"
         style={{ animationDelay: '400ms' }}
       >
         Claude doesn&apos;t know you design for first-time mobile users on low-end Android in a

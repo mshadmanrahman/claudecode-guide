@@ -16,6 +16,7 @@ import { OS_CONFIGS, TRACK_CONFIGS, INTERFACE_CONFIGS } from '@/data/start-track
 import type { OsType } from '@/hooks/use-os-detect';
 import type { TrackId, InterfaceId } from '@/data/start-tracks';
 
+import { KineticText } from '@/components/kinetic-text';
 const STORAGE_KEY = 'claudecodeguide-start-progress';
 
 const TRACK_OPTIONS = [
@@ -137,10 +138,10 @@ export function StartFlow() {
     return (
       <main className="flex min-h-screen flex-col">
         <section className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 pt-28 pb-8 text-center">
-          <h1 className="animate-slide-up-fade font-display tracking-[-0.035em] text-display-article font-semibold text-fd-foreground leading-[1.08]">
-            What do you want to make?
+          <h1 className="font-display tracking-[-0.035em] text-display-article font-semibold text-fd-foreground leading-[1.08]">
+            <KineticText>What do you want to make?</KineticText>
           </h1>
-          <p className="animate-slide-up-fade delay-100 mt-6 max-w-lg text-lead text-fd-muted-foreground leading-relaxed">
+          <p className="hm-rise mt-6 max-w-lg text-lead text-fd-muted-foreground leading-relaxed">
             Pick one. I&apos;ll walk you through everything from there.
           </p>
         </section>

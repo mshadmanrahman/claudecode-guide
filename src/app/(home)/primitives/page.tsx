@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
+import { KineticText } from '@/components/kinetic-text';
 interface Primitive {
   number: number;
   icon: React.ElementType;
@@ -196,9 +197,9 @@ export default function PrimitivesPage() {
           Mental model
         </div>
         <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
-          The seven primitives of Claude Code
+          <KineticText>The seven primitives of Claude Code</KineticText>
         </h1>
-        <p className="mt-6 max-w-2xl text-lead text-fd-muted-foreground">
+        <p className="hm-rise mt-6 max-w-2xl text-lead text-fd-muted-foreground">
           Skill, Hook, Rule, Guardrail, Workflow, Agent, MCP. The docs use these terms inconsistently. Plugins ship them in bundles. Nobody quite tells you when to reach for which one. Here is the cleanest way to think about it.
         </p>
       </section>

@@ -15,6 +15,7 @@ import { AffiliateCTA } from '@/components/affiliate-cta';
 import { DeprecationBanner } from '@/components/deprecation-banner';
 import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 
+import { KineticText } from '@/components/kinetic-text';
 export default function GuidePage() {
   const progress = useGuideProgress();
   const ctas = getAffiliateCtasForPage('guide');
@@ -62,9 +63,9 @@ export default function GuidePage() {
 
         <div className="mt-8 text-center">
           <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
-            Let&apos;s get you running.
+            <KineticText>Let&apos;s get you running.</KineticText>
           </h1>
-          <p className="mt-4 text-lead text-fd-muted-foreground">
+          <p className="hm-rise mt-4 text-lead text-fd-muted-foreground">
             9 steps. Check each one off as you go.
             <br />
             Progress saves automatically so you can come back anytime.

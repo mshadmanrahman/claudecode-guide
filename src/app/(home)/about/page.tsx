@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { AuthorBio } from '@/components/author-bio';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
+import { KineticText } from '@/components/kinetic-text';
 export const metadata: Metadata = {
   title: { absolute: 'About Shadman Rahman' },
   description:
@@ -34,9 +35,9 @@ export default function AboutPage() {
       <section className="px-6 pt-16 pb-8 sm:pt-24">
         <div className="mx-auto max-w-3xl">
           <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
-            About Shadman Rahman
+            <KineticText>About Shadman Rahman</KineticText>
           </h1>
-          <p className="mt-5 text-lead text-fd-muted-foreground leading-relaxed">
+          <p className="hm-rise mt-5 text-lead text-fd-muted-foreground leading-relaxed">
             Principal Product Manager at Keystone Education Group, based in Stockholm. Designer by
             training, product manager for fifteen years, and he builds at night.
           </p>

@@ -5,6 +5,7 @@ import { OsMapLink } from '@/components/workflow/os-map-link';
 import { LoopDiagram } from '@/components/workflow/loop-diagram';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
+import { KineticText } from '@/components/kinetic-text';
 const description =
   'Five moments in a workday where Claude saves you time, with a prompt to copy for each. For designers, teachers, marketers, HR teams and PMs.';
 
@@ -52,9 +53,9 @@ export default function WorkflowPage() {
       <main className="mx-auto max-w-4xl overflow-x-clip px-4 py-16 text-[var(--ink)] sm:px-6 sm:py-20">
         <div className="mb-12" data-workflow-intro>
           <h1 className="font-display mb-5 text-display-article leading-[1.1] font-semibold tracking-[-0.035em]">
-            Claude, quietly working through your day.
+            <KineticText>Claude, quietly working through your day.</KineticText>
           </h1>
-          <p className="m-0 max-w-xl text-lead leading-relaxed text-[var(--muted)]">
+          <p className="hm-rise m-0 max-w-xl text-lead leading-relaxed text-[var(--muted)]">
             Five moments in a normal workday where Claude saves you time. Pick your role, copy a
             prompt, and try one today.
           </p>

@@ -532,6 +532,22 @@ h3.font-display {
   );
   background-position: 64px 0;
 }
+/* Phones: the full scene is width-driven, so the hero copy lands on the busiest
+   part of the painting. A static wash of the page color keeps it readable. */
+@media (max-width: 767px) {
+  .scene--full::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg) 80%, transparent) 0,
+      color-mix(in srgb, var(--bg) 72%, transparent) 560px,
+      color-mix(in srgb, var(--bg) 40%, transparent) 820px,
+      transparent 1000px
+    );
+  }
+}
 @keyframes scene-drift {
   from {
     transform: scale(1);
@@ -543,19 +559,41 @@ h3.font-display {
 
 /* ── Signal redesign: homepage motion ── */
 
-.hm-in {
-  animation: hm-in 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+/*
+ * Hero entrance, after the ClimbX reel: each headline word slides up out of its
+ * own mask, 70ms apart, then the lines under it rise phrase by phrase.
+ * Transform and opacity only. The 966 counter is CountUp (components/home).
+ */
+.hm-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
 }
-@keyframes hm-in {
+.hm-word > span {
+  display: inline-block;
+  animation: hm-word 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) calc(min(var(--i, 0), 12) * 70ms) both;
+}
+@keyframes hm-word {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+.hm-rise {
+  animation: hm-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0.55s) both;
+}
+@keyframes hm-rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
-    filter: blur(6px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 }
 
@@ -679,7 +717,8 @@ h3.font-display {
 
 @media (prefers-reduced-motion: reduce) {
   .scene-drift,
-  .hm-in,
+  .hm-word > span,
+  .hm-rise,
   .hm-rot,
   .hm-caret,
   .hm-type,
@@ -1551,6 +1590,64 @@ figure.ccg-code button:focus-visible {
   display: block;
   height: 100%;
   background: var(--acc);
+  transform: scaleX(var(--fill, 1));
+  transform-origin: left;
+}
+
+/*
+ * dv-seq: a diagram that plays once on scroll (PlayOnView). Each turn lands,
+ * its meter fills to its share, then the cost pops in with a small overshoot.
+ * Without JS, or with reduced motion, the attribute never appears and the
+ * finished state shows.
+ */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .dv-seq[data-motion="armed"] .dv-turn {
+    opacity: 0;
+  }
+  .dv-seq[data-motion="armed"] .dv-meter span {
+    transform: scaleX(0);
+  }
+  .dv-seq[data-motion="armed"] .dv-paid {
+    opacity: 0;
+  }
+  .dv-seq[data-motion="play"] .dv-turn {
+    animation: dv-turn-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 0.55s) both;
+  }
+  .dv-seq[data-motion="play"] .dv-meter span {
+    animation: dv-fill 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i) * 0.55s + 0.25s) both;
+  }
+  .dv-seq[data-motion="play"] .dv-paid {
+    display: inline-block;
+    animation: dv-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i) * 0.55s + 0.8s) both;
+  }
+}
+@keyframes dv-turn-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes dv-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(var(--fill, 1));
+  }
+}
+@keyframes dv-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .dv-cols {
   display: grid;

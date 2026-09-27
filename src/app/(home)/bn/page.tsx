@@ -4,6 +4,7 @@ import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
+import { KineticText } from '@/components/kinetic-text';
 /**
  * Search sends this page 564 impressions a month at position 8.7, its best
  * position on the site, against 9 clicks. The queries arrive in both scripts:
@@ -36,9 +37,9 @@ export default function BengaliGuidePage() {
             বাংলায় পড়ুন
           </div>
           <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
-            Claude Code কী এবং কীভাবে শুরু করবেন
+            <KineticText>Claude Code কী এবং কীভাবে শুরু করবেন</KineticText>
           </h1>
-          <p className="mt-4 text-lead text-fd-muted-foreground">
+          <p className="hm-rise mt-4 text-lead text-fd-muted-foreground">
             আপনি যদি ChatGPT ব্যবহার করে থাকেন, তাহলে Claude Code বুঝতে পারবেন।
             এটি আপনার কম্পিউটারে বসে কাজ করে, ফাইল পড়ে, কোড লেখে, কমান্ড চালায়।
           </p>

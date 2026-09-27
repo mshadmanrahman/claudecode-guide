@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FileText, BarChart2, Monitor } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
+import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
     id: 'word',
@@ -32,12 +33,12 @@ export function MicrosoftHero() {
   return (
     <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
       <h1 className="font-display text-[clamp(38px,9vw,48px)] font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
-        Claude doesn&apos;t have a Word add-in.<br />
+        <KineticText>Claude doesn&apos;t have a Word add-in.<br />
         <span className="text-[var(--muted)]">It doesn&apos;t need one.</span><br />
-        Here&apos;s the workflow.
+        Here&apos;s the workflow.</KineticText>
       </h1>
 
-      <p className="mt-6 max-w-lg text-sm font-medium text-fd-muted-foreground">
+      <p className="hm-rise mt-6 max-w-lg text-sm font-medium text-fd-muted-foreground">
         Copy. Paste. Claude.
       </p>
 

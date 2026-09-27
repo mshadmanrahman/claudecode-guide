@@ -6,6 +6,7 @@ import { DemoCard } from '@/components/demo-card';
 import { DeprecationBanner } from '@/components/deprecation-banner';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
+import { KineticText } from '@/components/kinetic-text';
 // metadata handled by layout
 
 interface StageProps {
@@ -80,9 +81,9 @@ export default function RoadmapPage() {
       {/* Hero */}
       <section className="mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
         <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
-          Your learning path
+          <KineticText>Your learning path</KineticText>
         </h1>
-        <p className="mt-4 text-lead text-fd-muted-foreground">
+        <p className="hm-rise mt-4 text-lead text-fd-muted-foreground">
           From zero to power user. Each stage builds on what came before.
           <br />
           Go at your own pace. Skip what you already know.

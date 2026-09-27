@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Users, FileText, MessageSquare } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
+import { KineticText } from "@/components/kinetic-text";
 const JOURNEYS = [
   {
     id: "recruiting",
@@ -33,14 +34,14 @@ export function HrHero() {
     <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
 
       <h1 className="font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
-        You hire. You develop. You communicate.
+        <KineticText>You hire. You develop. You communicate.
         <br />
         <span className="text-[var(--muted)]">
           Claude handles the drafting.
-        </span>
+        </span></KineticText>
       </h1>
 
-      <p className="mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
+      <p className="hm-rise mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
         HR professionals spend hours every week writing things that are not the
         job: job descriptions, onboarding plans, performance review templates,
         policy documents, all-staff emails. These guides show you how to use

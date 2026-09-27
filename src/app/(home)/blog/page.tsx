@@ -9,6 +9,7 @@ import { useState, useMemo } from 'react';
 import { getSortedPosts, getAllTags } from '@/data/blog-posts';
 import type { BlogPost } from '@/data/blog-posts';
 
+import { KineticText } from '@/components/kinetic-text';
 // ---------- Helpers ----------
 
 function formatDate(dateStr: string): string {
@@ -162,9 +163,9 @@ export default function BlogPage() {
       {/* Header */}
       <section className="mx-auto w-full max-w-6xl px-4 pt-14 pb-4 sm:px-6 sm:pt-20">
         <h1 className="ccg-title">
-          Blog
+          <KineticText>Blog</KineticText>
         </h1>
-        <p className="ccg-lead mt-4 max-w-xl">
+        <p className="hm-rise ccg-lead mt-4 max-w-xl">
           Things I&apos;ve learned using Claude Code daily. Tips, patterns, and the occasional honest take.
         </p>
       </section>

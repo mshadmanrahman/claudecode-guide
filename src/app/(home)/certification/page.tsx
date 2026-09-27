@@ -5,6 +5,7 @@ import { FaqSchema } from '@/components/faq-schema';
 import { EmailCapture } from '@/components/email-capture';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
+import { KineticText } from '@/components/kinetic-text';
 const ANNOUNCEMENT_URL = 'https://claude.com/blog/four-role-based-claude-certifications';
 const ANNOUNCEMENT_DATE = '23 July 2026';
 const CATALOGUE_URL = 'https://anthropic-partners.skilljar.com/page/partner-certifications';
@@ -162,9 +163,9 @@ export default function CertificationPage() {
             Checked against Anthropic&rsquo;s own pages on {VERIFIED_DATE}
           </div>
           <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
-            Claude certification, and who can actually sit one
+            <KineticText>Claude certification, and who can actually sit one</KineticText>
           </h1>
-          <p className="mt-5 text-lead text-fd-muted-foreground leading-relaxed">
+          <p className="hm-rise mt-5 text-lead text-fd-muted-foreground leading-relaxed">
             Four credentials, $99 to $175, 120 minutes each, pass at 720 out of 1,000. The catch
             sits in the registration form rather than the exam: you need a partner email address on
             a recognized company domain, and a personal address will not work.

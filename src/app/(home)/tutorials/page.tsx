@@ -5,6 +5,7 @@ import { TUTORIALS } from '@/lib/tutorials';
 import { TRACKS, ROUTE_LABELS } from './catalog';
 import { TutorialsBrowser, type BrowserTrack } from './_components/tutorials-browser';
 
+import { KineticText } from '@/components/kinetic-text';
 const focusRing =
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]';
 
@@ -45,9 +46,9 @@ export default function TutorialsPage() {
       <section className="mx-auto w-full max-w-3xl px-4 pt-12 pb-8 sm:px-6 md:pt-16">
         <p className="m-0 font-mono text-xs text-[var(--muted)]">tutorials / {total} projects</p>
         <h1 className="mt-3 text-display-article font-semibold leading-[1.06] tracking-[-0.04em]">
-          Tutorials, picked by the job you do
+          <KineticText>Tutorials, picked by the job you do</KineticText>
         </h1>
-        <p className="mt-4 max-w-2xl text-body leading-[1.55] text-[var(--muted)]">
+        <p className="hm-rise mt-4 max-w-2xl text-body leading-[1.55] text-[var(--muted)]">
           Each one is a short project. You copy a prompt, paste it into Claude, and end with something you
           can use. Most take 5 to 20 minutes, and most need nothing but a browser.
         </p>

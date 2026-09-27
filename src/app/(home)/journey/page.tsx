@@ -33,6 +33,7 @@ import { DeprecationBanner } from '@/components/deprecation-banner';
 import { useJourneySelections } from '@/hooks/use-journey-selections';
 import type { JourneyOs, JourneyInterface } from '@/hooks/use-journey-selections';
 
+import { KineticText } from '@/components/kinetic-text';
 /* ─────────────────────────────────────────────
    Types
    ───────────────────────────────────────────── */
@@ -531,10 +532,10 @@ export default function JourneyPage() {
             <span className="text-fd-muted-foreground">The full learning path</span>
           </div>
 
-          <h1 className="animate-slide-up-fade delay-100 font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
-            The Claude Code Roadmap
+          <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
+            <KineticText>The Claude Code Roadmap</KineticText>
           </h1>
-          <p className="animate-slide-up-fade delay-200 mx-auto mt-3 max-w-lg text-ui text-fd-muted-foreground">
+          <p className="hm-rise mx-auto mt-3 max-w-lg text-ui text-fd-muted-foreground">
             Six stages, first install to actual mastery. Click any topic to dig in.
           </p>
         </div>
