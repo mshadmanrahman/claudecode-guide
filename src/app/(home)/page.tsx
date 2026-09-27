@@ -137,7 +137,6 @@ const PERSONAS: ReadonlyArray<{ href: string; label: string; title: string }> = 
   { href: "/for-marketers", label: "Marketers", title: "Sound like you, at volume" },
   { href: "/for-hr", label: "HR teams", title: "Read every exit interview this quarter" },
   { href: "/pm-pilot", label: "Product managers", title: "Braindump first, PRD second" },
-  { href: "/start", label: "Brand new", title: "Which Claude should I open?" },
 ];
 
 const focusRing =

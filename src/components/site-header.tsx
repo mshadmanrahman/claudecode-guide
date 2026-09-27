@@ -25,9 +25,8 @@ const PRIMARY_NAV: NavLink[] = [
   { href: "/docs", label: "Docs" },
   { href: "/tutorials", label: "Tutorials" },
   { href: "/workflow", label: "Workflow", wideOnly: true },
-  { href: "/blog", label: "Essays" },
   { href: "/about", label: "About", wideOnly: true },
-  { href: "https://shadmanrahman.substack.com/", label: "Field Notes", external: true },
+  { href: "https://shadmanrahman.substack.com/", label: "Product Field Notes", external: true },
 ];
 
 const PATHS: DropdownLink[] = [

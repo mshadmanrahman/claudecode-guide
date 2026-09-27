@@ -72,8 +72,8 @@ export default function WorkflowPage() {
             where this came from
           </h2>
           <p className="m-0 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
-            This page is a simplified version of an AI operating system I actually run. Four agents, 25+
-            automated workflows, morning brief to evening recap. The prompts above are drawn from what
+            This page is a simplified version of an AI operating system I actually run: 35 scheduled jobs,
+            from a morning brief to an evening recap. The prompts above are drawn from what
             I use daily as a PM and builder.
           </p>
           <OsMapLink />
