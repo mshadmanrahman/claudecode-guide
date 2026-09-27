@@ -34,17 +34,22 @@ typography:
   mono:
     fontFamily: "'Geist Mono', monospace"
 rounded:
-  md: "12px"
-  lg: "16px"
+  sm: "4px"
+  md: "6px"
+  lg: "8px"
+  glass: "10px"
+  xl: "12px"
+  2xl: "16px"
+  full: "999px"
 spacing: {}
 components:
   button-primary:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.paper}"
-    rounded: "{rounded.md}"
+    rounded: "{rounded.lg}"
   card:
     backgroundColor: "{colors.card-surface}"
-    rounded: "{rounded.lg}"
+    rounded: "{rounded.xl}"
 ---
 
 # Design System: Claude Code Guide
@@ -122,7 +127,7 @@ Mostly flat with occasional soft elevation on interactive surfaces. `shadow-sm`/
 Plain, high-contrast, and terminal-literal where the content demands it. The site doesn't decorate; the terminal cards ARE the decoration, because they're real.
 
 ### Buttons
-- **Shape:** `rounded-lg`.
+- **Shape:** `rounded-lg` (8px). Radius scales with size: chips and code `rounded-sm`/`rounded-md`, buttons and inputs `rounded-lg`, glass heading panels `rounded-[10px]`, cards `rounded-xl`, large feature panels `rounded-2xl`, pills and avatars `rounded-full`. Values are Fumadocs' `--radius-*` tokens plus Tailwind v4 defaults.
 - **Primary:** `bg-fd-primary` (ink in light mode, near-white in dark), `text-fd-primary-foreground`, `px-4 py-2`, `text-sm font-medium`.
 - **Hover:** Opacity shift only (`hover:opacity-90`) — no color-shift, no shadow-pop. Consistent with the plain, unfussy voice.
 
@@ -132,7 +137,7 @@ Plain, high-contrast, and terminal-literal where the content demands it. The sit
 - **Output coloring:** Success = green, warning = amber, error = red, command = bold foreground, plain output = muted. This is the one place in the system where color carries real-time meaning.
 
 ### Cards / Containers
-- **Corner Style:** `rounded-xl` / `rounded-2xl`.
+- **Corner Style:** `rounded-xl` (12px) for cards, `rounded-2xl` (16px) only for large panels.
 - **Background:** `bg-fd-card`, `border border-fd-border`.
 - **Exception:** Affiliate CTA cards vary background/border by placement (emerald for inline, indigo for mid-banner, neutral `fd-card` for end-card) — a deliberate, hand-picked exception per context, not a token to reuse elsewhere without the same reasoning.
 
