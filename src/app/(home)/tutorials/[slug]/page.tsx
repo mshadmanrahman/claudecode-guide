@@ -202,6 +202,9 @@ export default async function TutorialPage({
                 demo={step.demo}
                 appDemo={step.appDemo}
                 ideDemo={step.ideDemo}
+                cliDemo={step.cliDemo}
+                mockStyle={tutorial.mockStyle}
+                title={step.title}
               />
             </li>
           ))}

@@ -8,6 +8,7 @@
  * copy of every slug, which drifted out of date.
  */
 import type { TutorialRoute } from "@/components/route-switcher";
+import type { CliStep } from "@/components/claude-code-mock";
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
@@ -38,6 +39,8 @@ export interface TutorialStep {
       delay?: number;
     }>;
   };
+  /** One Claude Code session, shown as the CLI (terminal route) or the desktop Code tab (app route). Only read when the tutorial sets mockStyle: "product". */
+  cliDemo?: { steps: CliStep[] };
 }
 
 export interface Tutorial {
@@ -51,6 +54,8 @@ export interface Tutorial {
   nextLink: { label: string; href: string };
   /** Routes with authored content. Defaults to ['terminal'] for old tutorials, ['app'] for new. */
   availableRoutes?: TutorialRoute[];
+  /** "product" renders the faithful Claude app and Claude Code mocks. Pilot on one page before rolling out. */
+  mockStyle?: "product";
 }
 
 /* ------------------------------------------------------------------ */
@@ -3941,6 +3946,7 @@ When asked for "email format":
     duration: "10 min",
     difficulty: "beginner",
     availableRoutes: ["app", "terminal"],
+    mockStyle: "product",
     description:
       "Claude feels different from ChatGPT. Here is why that happens, and how to set it up so it works the way you expect.",
     intro:
@@ -3960,6 +3966,16 @@ When asked for "email format":
             {
               type: "warn",
               text: "Claude does not know you yet. Let us fix that.",
+            },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "why do you start from scratch every session?" },
+            { kind: "thinking", ms: 1100 },
+            {
+              kind: "say",
+              text: "I don't carry memory between sessions. What I do read, every time\nI start, is a file called CLAUDE.md.\n\nThis folder doesn't have one yet, so I know nothing about you.\nRun /init, or ask me to write one with you.",
             },
           ],
         },
@@ -4023,6 +4039,32 @@ EOF`,
             },
           ],
         },
+        cliDemo: {
+          steps: [
+            {
+              kind: "prompt",
+              text: "create ~/CLAUDE.md: I'm a PM, concise answers, British English, bullets over paragraphs",
+            },
+            { kind: "thinking", verb: "Writing", ms: 1000 },
+            {
+              kind: "tool",
+              name: "Write",
+              arg: "~/CLAUDE.md",
+              result: "Wrote 8 lines to ~/CLAUDE.md",
+              lines: [
+                "# About Me",
+                "I am a product manager. I prefer concise answers.",
+                "Always use British English spelling.",
+                "",
+                "# Preferences",
+                "- Bullet points over paragraphs",
+                "- Answer first, reasoning after",
+                "- No filler phrases",
+              ],
+            },
+            { kind: "say", text: "Done. Every new session starts by reading this file." },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -4071,6 +4113,16 @@ claude "write a three-bullet summary of what a product roadmap is"`,
             {
               type: "success",
               text: "British English. Bullets first. No preamble. Done.",
+            },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "write a three-bullet summary of what a product roadmap is" },
+            { kind: "thinking", ms: 1000 },
+            {
+              kind: "say",
+              text: "A product roadmap is:\n- A prioritised plan of what to build and when\n- A tool for aligning stakeholders on direction\n- A living document, not a promise",
             },
           ],
         },
@@ -4139,6 +4191,17 @@ EOF`,
             { type: "warn", text: "No need to explain the project again." },
           ],
         },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "what do you already know about this project?" },
+            { kind: "thinking", verb: "Reading", ms: 900 },
+            { kind: "tool", name: "Read", arg: "CLAUDE.md", result: "Read 14 lines" },
+            {
+              kind: "say",
+              text: "You're choosing between three Q3 bets, and the call is due Friday.\nAlready decided: mobile-first, no native apps this cycle.\nI'll work from roadmap-draft.md and user-research-notes.md.",
+            },
+          ],
+        },
         appDemo: {
           steps: [
             {
@@ -4194,6 +4257,16 @@ EOF`,
             {
               type: "success",
               text: "You do not have to choose one forever. Use both.",
+            },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "honestly, when should I use ChatGPT instead of you?" },
+            { kind: "thinking", ms: 1100 },
+            {
+              kind: "say",
+              text: "Reach for ChatGPT for quick chat on your phone, or memory with no setup.\nReach for Claude Code when the work lives in a folder:\nreal files to read and edit, and context that loads from CLAUDE.md.\n\nMost people use both.",
             },
           ],
         },

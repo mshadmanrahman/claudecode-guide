@@ -6,6 +6,8 @@ import { DemoCard } from '@/components/demo-card';
 import { AppChatDemo, type ChatStep } from '@/components/app-chat-demo';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { useTutorialRoute, type TutorialRoute } from '@/components/route-switcher';
+import { ClaudeCodeMock, type CliStep } from '@/components/claude-code-mock';
+import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
 
 interface DemoData {
   title?: string;
@@ -26,6 +28,12 @@ interface TutorialStepBodyProps {
   demo?: DemoData;
   appDemo?: ChatDemoData;
   ideDemo?: ChatDemoData;
+  /** One scripted session, shown as the real CLI or the desktop Code tab. */
+  cliDemo?: { steps: CliStep[] };
+  /** 'product' swaps the generic cards for the product-faithful mocks. */
+  mockStyle?: 'product';
+  /** Used as the desktop mock's session title. */
+  title?: string;
 }
 
 function PromptBlock({ text, label }: { text: string; label: string }) {
@@ -71,7 +79,16 @@ function PromptBlock({ text, label }: { text: string; label: string }) {
  * to copy even when the tutorial has no code block. Route-neutral files
  * (markdown, JSON, plain-text prompts) show on every route.
  */
-export function TutorialStepBody({ availableRoutes, code, demo, appDemo, ideDemo }: TutorialStepBodyProps) {
+export function TutorialStepBody({
+  availableRoutes,
+  code,
+  demo,
+  appDemo,
+  ideDemo,
+  cliDemo,
+  mockStyle,
+  title,
+}: TutorialStepBodyProps) {
   const route = useTutorialRoute(availableRoutes);
   const chat = route === 'app' ? appDemo : route === 'ide' ? ideDemo : undefined;
   const prompts = chat ? chat.steps.filter((s) => s.role === 'user').map((s) => s.text) : [];
@@ -83,8 +100,12 @@ export function TutorialStepBody({ availableRoutes, code, demo, appDemo, ideDemo
   const showPrompts = route !== 'terminal' && prompts.length > 0 && !(code && codeIsPrompt);
   const showCode = Boolean(code) && (route === 'terminal' || !codeIsShell || !showPrompts);
 
+  const product = mockStyle === 'product' && cliDemo;
+
   let preview: React.ReactNode = null;
-  if (route === 'app' && appDemo) preview = <AppChatDemo steps={appDemo.steps} loop={false} variant="app" />;
+  if (product && route === 'app') preview = <ClaudeDesktopCodeMock steps={cliDemo.steps} title={title} />;
+  else if (product && route === 'terminal') preview = <ClaudeCodeMock steps={cliDemo.steps} />;
+  else if (route === 'app' && appDemo) preview = <AppChatDemo steps={appDemo.steps} loop={false} variant="app" />;
   else if (route === 'ide' && ideDemo) preview = <AppChatDemo steps={ideDemo.steps} loop={false} variant="ide" />;
   else if (route === 'terminal' && demo) preview = <DemoCard title={demo.title} steps={demo.steps} loop={false} />;
   else if (appDemo) preview = <AppChatDemo steps={appDemo.steps} loop={false} variant="app" />;

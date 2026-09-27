@@ -309,6 +309,50 @@ h3.font-display {
   }
 }
 
+/* Product mocks (claude-app-mock, claude-code-mock): new lines rise in, the way the real apps stream. */
+@keyframes cc-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cc-in {
+  animation: cc-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.cmock {
+  --cm-bg: #fcfcfb;
+  --cm-side: #fcfcfb;
+  --cm-ink: #1f1e1d;
+  --cm-muted: #5e5d59;
+  --cm-line: rgba(31, 30, 29, 0.1);
+  --cm-card: #ffffff;
+  --cm-bubble: rgba(0, 0, 0, 0.05);
+  --cm-chrome: #ecebe8;
+}
+
+.dark .cmock {
+  --cm-bg: #151515;
+  --cm-side: #151515;
+  --cm-ink: #ecebe8;
+  --cm-muted: #a6a39b;
+  --cm-line: rgba(255, 255, 255, 0.1);
+  --cm-card: #201f20;
+  --cm-bubble: rgba(255, 255, 255, 0.06);
+  --cm-chrome: #2b2a28;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-in {
+    animation: none;
+  }
+}
+
 /* Widen sidebar to reduce title wrapping (desktop only; must not override the 0px mobile default) */
 @media (min-width: 768px) {
   #nd-docs-layout {
