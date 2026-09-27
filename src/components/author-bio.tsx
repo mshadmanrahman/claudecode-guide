@@ -13,7 +13,7 @@ export function AuthorBio() {
           <p className="mt-1 text-sm leading-relaxed text-fd-muted-foreground">
             Principal Product Manager at Keystone Education Group, leading
             product for Student Experience and Search. Designer by training,
-            PM for fifteen years, builder by night. He writes the Claude Code
+            PM for more than a decade, builder by night. He writes the Claude Code
             Guide because most docs tell you what Claude Code is, not how to
             actually live with it.
           </p>
