@@ -4,6 +4,8 @@ description: "Once you have a few agents, a fat CLAUDE.md, and some cron jobs, t
 image: /subagent-context-isolation/hero.png
 ---
 
+![A blueprint diagram of a context-isolation architecture: a thin router fanning out to faded shards, bounded subagent boxes returning thin summaries, and scoped per-persona state folders](/subagent-context-isolation/hero.png)
+
 There is a lot of advice on writing a better CLAUDE.md. There is almost none on the problem you hit right after: you now have five agents, three cron jobs, a memory directory with two hundred files, and every one of them wants to be in context. The file got better. The system got worse.
 
 This page is about the harder problem. Not "what do I put in memory," but "where do the walls go." Once a setup grows past one file and one chat, the thing that determines whether it stays sharp is not the quality of any single instruction. It is the boundaries between instructions.
@@ -19,6 +21,8 @@ Available means the agent can reach it the moment it becomes relevant. A topic f
 ## The shape
 
 Three kinds of wall, doing three different jobs.
+
+![The three isolation walls: routed memory keeping the always-loaded layer thin, subagents with their own context windows, and per-persona scoped state](/subagent-context-isolation/walls.png)
 
 <IsolationWallsDiagram />
 
