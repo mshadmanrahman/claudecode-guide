@@ -1,46 +1,21 @@
 import Link from "next/link";
-import { AsciiWaves } from "@/components/ui/ascii-waves";
-import Image from "next/image";
-import {
-  ArrowRight,
-  ChevronDown,
-  Gamepad2,
-  ClipboardList,
-  BarChart3,
-  Shield,
-  Star,
-  MousePointerClick,
-  Rocket,
-  Sparkles,
-  Globe,
-  FileText,
-  FileSpreadsheet,
-  Presentation,
-  Mail,
-  BookOpen,
-  Search,
-  Smartphone,
-  TrendingUp,
-} from "lucide-react";
-import { EmailCapture } from "@/components/email-capture";
-import { PathRouter } from "@/components/home/path-router";
-import { HeroVisual } from "@/components/home/hero-visual";
-import { ClaudeInYourDay } from "@/components/home/claude-in-your-day";
 import type { Metadata } from "next";
+import { EmailCapture } from "@/components/email-capture";
+import { SceneBackdrop } from "@/components/scene-backdrop";
 
-const heroTagline = "Tell it what you need. It builds it.";
+const heroTagline = "Claude, set up for the job you do.";
 const heroMetaDescription =
   "The practitioner's guide to Claude Code: CLAUDE.md patterns, persistent memory systems, agentic workflows, hooks, and real-world examples. Setup guides, honest comparisons, and daily workflows. Free.";
 const ogImage = {
   url: "https://claudecodeguide.dev/api/og",
   width: 1200,
   height: 630,
-  alt: "Claude Code Guide homepage: Tell it what you need. It builds it.",
+  alt: "Claude Code Guide homepage",
 };
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Claude Code Guide: Tell It What You Need. It Builds It.",
+    absolute: "Claude Code Guide: Claude, Set Up for the Job You Do",
   },
   description: heroMetaDescription,
   openGraph: {
@@ -58,76 +33,6 @@ export const metadata: Metadata = {
     images: [ogImage],
   },
 };
-
-const STATS = [
-  { value: "90+", label: "Guides & Docs" },
-  { value: "8", label: "Platforms Covered" },
-  { value: "9", label: "Learning Tracks" },
-  { value: "100%", label: "Free & Open Source" },
-] as const;
-
-const HOW_IT_WORKS = [
-  {
-    step: 1,
-    icon: MousePointerClick,
-    title: "Pick something you want",
-    description:
-      "A game, a document, a chart. No coding knowledge needed. Really.",
-    color: "text-green-600 dark:text-green-400",
-    bg: "bg-green-500/10",
-  },
-  {
-    step: 2,
-    icon: Rocket,
-    title: "Follow the setup",
-    description:
-      "I walk you through picking an interface and getting running. Under 3 minutes.",
-    color: "text-blue-600 dark:text-blue-400",
-    bg: "bg-blue-500/10",
-  },
-  {
-    step: 3,
-    icon: Sparkles,
-    title: "Paste a prompt, watch it go",
-    description:
-      "Plain English. Claude does the rest. You end up with something real.",
-    color: "text-purple-600 dark:text-purple-400",
-    bg: "bg-purple-500/10",
-  },
-] as const;
-
-const OUTCOME_CARDS = [
-  {
-    id: "build",
-    icon: Gamepad2,
-    verb: "Build",
-    headline: "Make a quiz game your friends can play",
-    time: "10 min",
-    href: "/start?track=build",
-    color: "text-green-600 dark:text-green-400",
-    bgHover: "hover:border-green-500/30",
-  },
-  {
-    id: "organize",
-    icon: ClipboardList,
-    verb: "Organize",
-    headline: "Turn messy notes into a clear action plan",
-    time: "5 min",
-    href: "/start?track=organize",
-    color: "text-blue-600 dark:text-blue-400",
-    bgHover: "hover:border-blue-500/30",
-  },
-  {
-    id: "analyze",
-    icon: BarChart3,
-    verb: "Analyze",
-    headline: "Give it a spreadsheet, get insights and charts",
-    time: "8 min",
-    href: "/start?track=analyze",
-    color: "text-purple-600 dark:text-purple-400",
-    bgHover: "hover:border-purple-500/30",
-  },
-] as const;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -153,355 +58,279 @@ const jsonLd = {
   ],
 };
 
+const ESSAY_HREF = "/blog/claude-code-memory-at-scale-966-files";
+
+/** Rotator rows: six words, then the first again so the loop resets without a jump. */
+const ROTATING_WORDS = ["teachers", "designers", "marketers", "HR teams", "PMs", "beginners", "teachers"] as const;
+
+interface PathEntry {
+  href: string;
+  label: string;
+  slug: string;
+  title: string;
+  blurb: string;
+}
+
+const PATHS: ReadonlyArray<PathEntry> = [
+  {
+    href: "/for-teachers",
+    label: "Teachers",
+    slug: "teachers",
+    title: "Plan a week of lessons in one sitting",
+    blurb: "Reading levels, rubrics and parent emails from one plan.",
+  },
+  {
+    href: "/for-designers",
+    label: "Designers",
+    slug: "designers",
+    title: "Stop getting the generic look",
+    blurb: "Critique first, then name the defaults you want avoided.",
+  },
+  {
+    href: "/for-marketers",
+    label: "Marketers",
+    slug: "marketers",
+    title: "Sound like you, at volume",
+    blurb: "Five of your own posts beat any list of adjectives.",
+  },
+  {
+    href: "/for-hr",
+    label: "HR teams",
+    slug: "HR teams",
+    title: "Read every exit interview this quarter",
+    blurb: "Strip names first, then ask for the themes.",
+  },
+  {
+    href: "/pm-pilot",
+    label: "Product managers",
+    slug: "product managers",
+    title: "Braindump first, PRD second",
+    blurb: "Claude finds the tension you skipped before the template hides it.",
+  },
+  {
+    href: "/start",
+    label: "Brand new",
+    slug: "brand new",
+    title: "Which Claude should I open?",
+    blurb: "Chat, Chrome, Excel or Code. One page, one answer.",
+  },
+];
+
+const TIPS = [
+  "ask for the critique before the fix",
+  "paste examples, not adjectives",
+  "new topic, new chat",
+  "tell Claude who will read it",
+  "strip names before you paste",
+] as const;
+
+const LEVELS = [
+  { label: "level 1", text: "Short sentences, one idea each, with a picture prompt per fact." },
+  { label: "level 2", text: "The standard version, with two new vocabulary words defined inline." },
+  { label: "level 3", text: "Adds a why question after each fact, for students who finish early." },
+] as const;
+
+const focusRing =
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
+
+function pad(n: number): string {
+  return String(n).padStart(2, "0");
+}
+
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col bg-fd-background overflow-x-clip">
+    <div className="overflow-x-clip text-[var(--ink)]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* ── Hero (full-viewport, first screen) ── */}
-      <section className="relative -mt-14 flex min-h-[100dvh] w-full flex-col items-center justify-center overflow-hidden px-6 pt-14 pb-16 text-center">
-        <AsciiWaves />
-        
+      <SceneBackdrop variant="full" />
 
-        <div className="relative z-10 flex flex-col items-center mt-12">
-          <h1 className="font-sans tracking-tighter max-w-4xl text-6xl font-medium text-fd-foreground sm:text-7xl lg:text-[5rem] leading-[1.05]">
-            Tell it what you need.
-            <br />
-            <span className="text-fd-foreground/80 font-normal">It builds it.</span>
-          </h1>
-
-          <p className="mt-8 max-w-xl text-lg text-fd-foreground/80 leading-relaxed">
-            The practical guide to Claude: Code, Chrome, Word, Excel,
-            PowerPoint, and more. Calm, beginner-friendly, and free.
-          </p>
-
-          <p className="mt-4 text-sm text-fd-foreground/60">
-            Written by{" "}
-            <Link href="/about" className="font-medium text-fd-foreground hover:underline">
-              Shadman Rahman
-            </Link>
-            , Principal Product Manager in Stockholm ·{" "}
-            <a
-              href="https://www.linkedin.com/in/shadmanrahman"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-fd-foreground hover:underline"
-            >
-              LinkedIn
-            </a>{" "}
-            ·{" "}
-            <a
-              href="https://shadmanrahman.substack.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-fd-foreground hover:underline"
-            >
-              Substack
-            </a>{" "}
-            ·{" "}
-            <a
-              href="https://github.com/mshadmanrahman"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-fd-foreground hover:underline"
-            >
-              GitHub
-            </a>
-          </p>
-
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/start"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-fd-foreground bg-transparent px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-foreground hover:text-fd-background"
-            >
-              Start building
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <a
-              href="https://github.com/mshadmanrahman/claudecode-guide"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-fd-secondary px-6 py-3 text-sm font-medium text-fd-secondary-foreground transition-all hover:bg-fd-secondary/80 border border-fd-border"
-            >
-              <Star className="h-4 w-4" />
-              Star on GitHub
-            </a>
-          </div>
-        </div>
-
-        <a
-          href="#stats-bar"
-          aria-label="Scroll to see what's covered"
-          className="absolute bottom-6 z-10 animate-float text-fd-foreground/50 transition-colors hover:text-fd-foreground"
+      {/* Hero */}
+      <section className="hm-in flex flex-col items-center gap-6 px-4 pt-12 text-center md:gap-[26px] md:pt-[70px]">
+        <Link
+          href={ESSAY_HREF}
+          className={`glass flex max-w-full items-center gap-2.5 rounded-full py-[7px] pl-2 pr-3.5 font-mono text-[12.5px] ${focusRing}`}
         >
-          <ChevronDown className="h-6 w-6" />
-        </a>
-      </section>
+          <span className="rounded-full bg-[var(--acc)] px-2 py-[3px] text-[var(--accInk)]">new</span>
+          <span className="truncate">What 966 memory files taught me</span>
+          <span className="text-[var(--muted)]">read</span>
+        </Link>
 
-      {/* ── Stats Bar ── */}
-      <section id="stats-bar" className="mx-auto w-full max-w-4xl px-6 pt-16 pb-16">
-        <div className="flex items-baseline justify-center gap-x-3 sm:gap-x-5">
-          {STATS.map((stat, i) => (
-            <div
-              key={stat.label}
-              className="flex items-baseline gap-1.5 sm:gap-2"
-            >
-              <span className="font-display text-2xl sm:text-4xl font-normal tracking-tight text-fd-foreground">
-                {stat.value}
+        <h1 className="m-0 flex flex-col items-center text-[clamp(36px,10vw,88px)] font-semibold leading-[1.04] tracking-[-0.045em]">
+          <span className="sr-only">Claude, set up for teachers, designers, marketers, HR teams, PMs and beginners</span>
+          <span aria-hidden="true">Claude, set up for</span>
+          <span aria-hidden="true" className="mt-2 flex items-center gap-[0.16em]">
+            <span className="glass block h-[1.09em] w-[5.35em] overflow-hidden rounded-[14px] px-[0.3em] text-left">
+              <span className="hm-rot flex flex-col text-[var(--acc)]">
+                {ROTATING_WORDS.map((word, i) => (
+                  <span key={`${word}-${i}`} className="block h-[1.09em] leading-[1.09em]">
+                    {word}
+                  </span>
+                ))}
               </span>
-              <span className="text-xs sm:text-sm text-fd-muted-foreground whitespace-nowrap">
-                {stat.label}
-              </span>
-              {i < STATS.length - 1 && (
-                <span className="ml-3 sm:ml-5 h-5 w-px bg-fd-border" />
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
+            </span>
+            <span className="hm-caret block h-[0.8em] w-[0.07em] min-w-1 bg-[var(--acc)]" />
+          </span>
+        </h1>
 
-      {/* ── Hero Visual ── */}
-      <section className="mx-auto w-full max-w-4xl px-6 pb-24">
-        <HeroVisual />
-      </section>
-
-      {/* ── Path Router (data-driven, post-Crucible 2026-05-04) ── */}
-      <PathRouter />
-
-      {/* ── Email Capture (primary, above-fold once demo is seen) ── */}
-      <section className="mx-auto w-full max-w-2xl px-6 pb-20">
-        <EmailCapture placement="homepage-primary" />
-      </section>
-
-      {/* ── Divider ── */}
-      <div className="mx-auto w-full max-w-5xl border-t border-dashed border-fd-border" />
-
-      {/* ── How It Works ── */}
-      <section className="mx-auto w-full max-w-5xl px-6 py-24">
-        <h2 className="mb-4 text-center font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
-          How it works
-        </h2>
-        <p className="mb-14 text-center text-fd-muted-foreground max-w-lg mx-auto">
-          No coding bootcamp. No config files you don&apos;t understand. Just
-          pick something, set it up, and go make it.
+        <p className="m-0 max-w-[560px] text-[17px] leading-[1.55] text-[var(--muted)] md:text-[19px]">
+          Prompts and small habits, picked by the job you do. Tested in real work by{" "}
+          <Link href="/about" className={`rounded-sm text-[var(--ink)] underline-offset-4 hover:underline ${focusRing}`}>
+            Shadman Rahman
+          </Link>
+          , Principal PM.
         </p>
 
-        <div className="grid gap-6 sm:grid-cols-3">
-          {HOW_IT_WORKS.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.step}
-                className="flex flex-col items-center text-center"
-              >
-                {/* Step number */}
-                <span className="mb-3 font-display text-5xl font-normal tracking-tight text-fd-border">
-                  {item.step}
-                </span>
-                {/* Icon */}
-                <div
-                  className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl ${item.bg}`}
-                >
-                  <Icon className={`h-6 w-6 ${item.color}`} />
-                </div>
-                <h3 className="mb-2 font-display text-lg font-normal tracking-tight text-fd-foreground">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-fd-muted-foreground leading-relaxed max-w-[260px]">
-                  {item.description}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="mt-12 flex justify-center">
+        <div className="glass relative flex w-full max-w-[620px] flex-col items-stretch gap-3 rounded-xl p-3 text-left font-mono text-[13px] sm:h-16 sm:flex-row sm:items-center sm:py-0 sm:pl-5 sm:pr-2 sm:text-[14.5px]">
+          <span className="hm-glow" aria-hidden="true" />
+          <p className="m-0 flex min-w-0 items-baseline gap-3 px-1 sm:px-0">
+            <span className="text-[var(--muted)]" aria-hidden="true">&gt;</span>
+            <span>
+              <span className="hm-type">I teach 7th grade and have 20 minutes a day</span>
+              <span
+                aria-hidden="true"
+                className="hm-caret ml-1 inline-block h-[17px] w-2 bg-[var(--acc)] align-[-3px]"
+              />
+            </span>
+          </p>
           <Link
-            href="/start"
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-fd-foreground bg-transparent px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-foreground hover:text-fd-background"
+            href="/for-teachers"
+            className={`flex h-[46px] shrink-0 items-center justify-center gap-2 rounded-lg bg-[var(--acc)] px-[18px] font-sans text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 sm:ml-auto ${focusRing}`}
           >
-            Try it now
-            <ArrowRight className="h-4 w-4" />
+            Show my path
+            <span className="font-mono text-xs opacity-75" aria-hidden="true">enter</span>
           </Link>
         </div>
       </section>
 
-      {/* ── Divider ── */}
-      <div className="mx-auto w-full max-w-5xl border-t border-dashed border-fd-border" />
+      {/* Product panel: path list + chat demo */}
+      <div className="mt-16 px-4 md:mt-[88px] md:px-16">
+      <section
+        aria-label="A tip from the teachers path"
+        className="glass mx-auto grid max-w-[1072px] overflow-hidden rounded-2xl md:h-[400px] md:grid-cols-[260px_1fr]"
+      >
+        <nav
+          aria-label="Paths"
+          className="flex flex-col gap-1 border-b border-[var(--line)] px-3 py-[18px] text-[14.5px] md:border-b-0 md:border-r"
+        >
+          <span className="px-2.5 pb-3 pt-1.5 font-mono text-[11.5px] text-[var(--muted)]">PATHS</span>
+          <div className="grid grid-cols-2 gap-1 md:grid-cols-1">
+            {PATHS.map((path, i) => {
+              const current = i === 0;
+              return (
+                <Link
+                  key={path.href}
+                  href={path.href}
+                  aria-current={current ? "true" : undefined}
+                  className={`flex justify-between rounded-lg p-2.5 transition-colors ${focusRing} ${
+                    current ? "bg-[var(--chip)] font-medium text-[var(--acc)]" : "hover:bg-[var(--chip)]"
+                  }`}
+                >
+                  {path.label}
+                  <span className={`font-mono text-xs ${current ? "" : "text-[var(--muted)]"}`}>{pad(i + 1)}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
 
-      {/* ── Reassurance ── */}
-      <section className="relative mx-auto w-full max-w-3xl px-6 py-24 text-center">
-        <p className="font-display text-3xl font-normal leading-snug tracking-tight-display text-fd-foreground sm:text-4xl">
-          You don&apos;t need to be a developer.
-          <br />
-          You don&apos;t need to understand &ldquo;prompts.&rdquo;
-        </p>
-        <p className="mt-6 font-display text-3xl font-normal leading-snug tracking-tight-display text-fd-muted-foreground sm:text-4xl">
-          If you can describe what you want in plain English, you can use
-          Claude. That&apos;s genuinely it.
-        </p>
-        <p className="mt-8 text-fd-muted-foreground leading-relaxed">
-          I built this because I kept explaining the same things to people
-          who&apos;d never touched a terminal. The official docs are solid if
-          you already know the territory. This guide is for everyone who
-          doesn&apos;t. I&apos;m a PM who&apos;s used AI tools with hundreds of
-          people across different roles. I know where people get stuck. This
-          guide skips those parts.
-        </p>
-      </section>
-
-      {/* ── Divider ── */}
-      <div className="mx-auto w-full max-w-5xl border-t border-dashed border-fd-border" />
-
-      {/* ── Three Outcome Cards ── */}
-      <section className="mx-auto w-full max-w-5xl px-6 py-24">
-        <h2 className="mb-4 text-center font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl">
-          What do you want to make?
-        </h2>
-        <p className="mb-12 text-center text-fd-muted-foreground max-w-lg mx-auto">
-          Pick one. I&apos;ll walk you through setup and you&apos;ll have
-          something real in under 10 minutes.
-        </p>
-
-        <div className="grid gap-4 sm:grid-cols-3">
-          {OUTCOME_CARDS.map((card, i) => {
-            const Icon = card.icon;
-            return (
-              <Link
-                key={card.id}
-                href={card.href}
-                className={`group flex flex-col rounded-xl border border-fd-border bg-fd-background p-8 transition-all duration-200 hover:shadow-md ${card.bgHover}`}
+        <div className="flex min-w-0 flex-col">
+          <div className="flex h-12 items-center justify-between gap-4 border-b border-[var(--line)] px-4 font-mono text-xs text-[var(--muted)] md:px-[22px]">
+            <span className="truncate">teachers / tip-01 / differentiate-a-lesson</span>
+            <span aria-hidden="true" className="block h-0.5 w-[120px] shrink-0 overflow-hidden rounded-sm bg-[var(--line)]">
+              <span className="hm-bar block h-0.5 bg-[var(--acc)]" />
+            </span>
+          </div>
+          <div className="flex flex-col gap-4 px-4 py-6 text-[15px] leading-[1.55] md:px-7 md:text-[15.5px]">
+            <p
+              className="hm-msg m-0 max-w-[520px] self-end rounded-[10px] border border-[var(--line)] bg-[var(--chip)] px-4 py-3"
+              style={{ animationDelay: "0s" }}
+            >
+              Here is my lesson on the water cycle. Rewrite it at three reading levels, and keep the same five facts in each.
+            </p>
+            {LEVELS.map((level, i) => (
+              <p
+                key={level.label}
+                className="hm-msg m-0 flex items-baseline gap-3"
+                style={{ animationDelay: `${0.9 + i * 0.7}s` }}
               >
-                <Icon className={`mb-4 h-6 w-6 ${card.color}`} />
-                <span className="mb-1 text-xs font-medium text-fd-muted-foreground">
-                  {card.verb}
-                </span>
-                <h3 className="mb-3 font-display text-xl font-normal text-fd-foreground tracking-tight-display leading-snug">
-                  {card.headline}
-                </h3>
-                <div className="mt-auto flex items-center justify-between pt-4">
-                  <span className="text-sm text-fd-muted-foreground">
-                    {card.time}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                    Let&apos;s go <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── Claude In Your Day ── */}
-      <div className="mx-auto w-full max-w-5xl border-t border-dashed border-fd-border" />
-      <ClaudeInYourDay />
-
-      {/* ── Not Just for Coding ── */}
-      <section className="mx-auto w-full max-w-5xl px-6 pb-24">
-        <div className="overflow-hidden rounded-xl border border-fd-border">
-          <div className="grid lg:grid-cols-2">
-            <div className="flex flex-col justify-center p-10 lg:p-12">
-              <div className="mb-4 inline-flex items-center gap-2 text-sm text-fd-muted-foreground">
-                <Shield className="h-4 w-4" />
-                <span className="font-medium">General purpose</span>
-              </div>
-              <h3 className="font-display text-2xl font-normal tracking-tight-display text-fd-foreground sm:text-3xl">
-                Not just for coding.
-                <br />
-                <span className="text-fd-muted-foreground">For doing.</span>
-              </h3>
-              <p className="mt-4 text-fd-muted-foreground leading-relaxed">
-                Claude builds apps, writes documents, analyzes spreadsheets, and
-                automates the stuff that takes you forever. It works on the web,
-                desktop, terminal, or inside your editor. You pick.
+                <span className="w-16 shrink-0 font-mono text-xs text-[var(--acc)]">{level.label}</span>
+                <span>{level.text}</span>
               </p>
-              <Link
-                href="/tutorials"
-                className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-fd-foreground hover:underline"
-              >
-                See what people actually build{" "}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-            <div className="border-t border-fd-border bg-fd-background p-8 lg:border-l lg:border-t-0">
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: "Build websites", Icon: Globe },
-                  { label: "Analyze data", Icon: BarChart3 },
-                  { label: "Write in Word", Icon: FileText },
-                  { label: "Excel formulas", Icon: FileSpreadsheet },
-                  { label: "Create PowerPoint decks", Icon: Presentation },
-                  { label: "Draft emails", Icon: Mail },
-                  { label: "Summarize webpages", Icon: BookOpen },
-                  { label: "Research any topic", Icon: Search },
-                  { label: "Create apps", Icon: Smartphone },
-                  { label: "Generate charts", Icon: TrendingUp },
-                ].map(({ label, Icon }) => (
-                  <div
-                    key={label}
-                    className="flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-3 py-2.5 text-sm text-fd-muted-foreground"
-                  >
-                    <Icon className="h-3.5 w-3.5 shrink-0 opacity-60" />
-                    {label}
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
+            <p
+              className="hm-msg m-0 mt-1.5 border-t border-dashed border-[var(--line)] pt-3.5 text-sm text-[var(--muted)]"
+              style={{ animationDelay: "3s" }}
+            >
+              You named the facts to keep fixed, so only the wording changes.
+            </p>
           </div>
         </div>
       </section>
+      </div>
 
-      {/* ── Email Capture (footer backup) ── */}
-      <section className="mx-auto w-full max-w-4xl px-6 pb-16">
-        <EmailCapture placement="homepage-footer" />
-      </section>
+      {/* Tips marquee */}
+      <div className="glass mt-12 flex h-[52px] items-center overflow-hidden border-x-0">
+        <p className="sr-only">Tips: {TIPS.join("; ")}.</p>
+        <div
+          aria-hidden="true"
+          className="hm-marquee flex w-max gap-12 whitespace-nowrap font-mono text-[13.5px] text-[var(--muted)]"
+        >
+          {[...TIPS, ...TIPS].map((tip, i) => (
+            <span key={i} className="flex gap-12">
+              <span>{tip}</span>
+              <span className="text-[var(--acc)]">/</span>
+            </span>
+          ))}
+        </div>
+      </div>
 
-      {/* ── Final CTA ── */}
-      <section className="mx-auto w-full max-w-5xl px-6 pb-24">
-        <div className="rounded-xl border border-fd-border bg-fd-background p-12 text-center">
-          <h2 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground">
-            Ready to try it?
-          </h2>
-          <p className="mt-4 text-fd-muted-foreground max-w-md mx-auto leading-relaxed">
-            Pick a project, choose your interface, follow the steps. Ten minutes
-            from now you&apos;ll have something that actually works.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+      {/* Persona cards */}
+      <section className="mx-auto mt-16 flex max-w-[1440px] flex-col gap-[22px] px-4 md:px-16">
+        <div className="glass flex flex-wrap items-baseline gap-x-4 gap-y-1 self-start rounded-[10px] px-5 py-3.5">
+          <h2 className="m-0 text-[28px] font-semibold tracking-[-0.035em] md:text-4xl">Pick your desk</h2>
+          <span className="font-mono text-[12.5px] text-[var(--muted)]">six paths, three tips each to start</span>
+        </div>
+        <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+          {PATHS.map((path, i) => (
             <Link
-              href="/start"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-fd-foreground bg-transparent px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-foreground hover:text-fd-background"
+              key={path.href}
+              href={path.href}
+              className={`glass hm-card flex min-h-[196px] flex-col gap-3 rounded-xl p-6 ${focusRing}`}
             >
-              Start building
-              <ArrowRight className="h-4 w-4" />
+              <span className="font-mono text-xs text-[var(--acc)]">
+                {pad(i + 1)} / {path.slug}
+              </span>
+              <span className="text-2xl font-semibold leading-[1.15] tracking-[-0.02em]">{path.title}</span>
+              <span className="text-[15px] leading-normal text-[var(--muted)]">{path.blurb}</span>
             </Link>
-            <a
-              href="https://github.com/mshadmanrahman/claudecode-guide"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-fd-secondary px-6 py-3 text-sm font-medium text-fd-secondary-foreground transition-all hover:bg-fd-secondary/80 border border-fd-border"
-            >
-              <Star className="h-4 w-4" />
-              Star on GitHub
-            </a>
-          </div>
-          <p className="mt-5 text-sm text-fd-muted-foreground">
-            Need a Claude plan first?{" "}
-            <a
-              href="https://claude.ai/upgrade"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-fd-foreground underline underline-offset-2 hover:no-underline"
-            >
-              Get Claude Pro
-            </a>{" "}
-            to unlock Claude Code.
-          </p>
+          ))}
         </div>
       </section>
 
-    </main>
+      {/* Newsletter */}
+      <section className="mx-auto mt-16 max-w-2xl px-4">
+        <EmailCapture placement="homepage-primary" />
+      </section>
+
+      {/* Essay strip */}
+      <section className="mx-auto mt-16 max-w-[1440px] px-4 md:px-16">
+        <div className="glass flex flex-col items-start gap-6 rounded-[14px] px-6 py-8 md:min-h-[170px] md:flex-row md:items-center md:justify-between md:px-9 md:py-0">
+          <div className="flex flex-col gap-2.5">
+            <span className="font-mono text-xs text-[var(--muted)]">the long read</span>
+            <h2 className="m-0 text-[24px] font-semibold leading-tight tracking-[-0.03em] md:text-[32px]">
+              966 memory files later, here is what stuck.
+            </h2>
+          </div>
+          <Link
+            href={ESSAY_HREF}
+            className={`flex h-12 shrink-0 items-center rounded-lg border border-[var(--line)] px-5 text-[15px] font-medium transition-colors hover:bg-[var(--chip)] ${focusRing}`}
+          >
+            Read the essay
+          </Link>
+        </div>
+      </section>
+    </div>
   );
 }

@@ -32,18 +32,18 @@ export function PmPilotWhyExists() {
     <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">08</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Why this exists
           </h2>
         </div>
 
         <div
-          className={`mb-16 max-w-3xl space-y-6 transition-all duration-500 ${
+          className={`mb-16 max-w-3xl space-y-6 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
           style={{ animationDelay: '100ms' }}
@@ -63,7 +63,7 @@ export function PmPilotWhyExists() {
           {principles.map((p, i) => (
             <div
               key={p.num}
-              className={`flex items-start gap-6 border-b border-fd-border py-6 transition-all duration-500 ${
+              className={`flex items-start gap-6 border-b border-fd-border py-6 transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 80 + 200}ms` }}

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 const ogTitle =
   'Claude for Marketers: Social Media, Blog Posts, Email Campaigns, and Ad Copy';
@@ -26,5 +27,10 @@ export const metadata: Metadata = {
 };
 
 export default function ForMarketersLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <SceneBackdrop variant="faded" />
+      {children}
+    </>
+  );
 }

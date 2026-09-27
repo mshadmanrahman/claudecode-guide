@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Award, ShieldCheck, Building2, BookOpen, ExternalLink } from 'lucide-react';
 import { FaqSchema } from '@/components/faq-schema';
 import { EmailCapture } from '@/components/email-capture';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 const ANNOUNCEMENT_URL = 'https://claude.com/blog/four-role-based-claude-certifications';
 const ANNOUNCEMENT_DATE = '23 July 2026';
@@ -151,15 +152,16 @@ const FAQ = [
 export default function CertificationPage() {
   return (
     <main className="min-h-screen">
+      <SceneBackdrop variant="faded" />
       <FaqSchema items={FAQ} />
 
-      <section className="border-b border-fd-border bg-fd-background px-6 py-16 sm:py-24">
+      <section className="border-b border-fd-border px-6 py-16 sm:py-24">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm text-fd-muted-foreground">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-1.5 text-sm text-fd-muted-foreground">
             <Award className="h-4 w-4" />
             Checked against Anthropic&rsquo;s own pages on {VERIFIED_DATE}
           </div>
-          <h1 className="font-display text-4xl font-bold tracking-tight text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Claude certification, and who can actually sit one
           </h1>
           <p className="mt-5 text-lg text-fd-muted-foreground leading-relaxed">
@@ -173,10 +175,10 @@ export default function CertificationPage() {
       <section className="border-b border-fd-border px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-fd-card">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
               <Award className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-bold text-fd-foreground">The four credentials</h2>
+            <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">The four credentials</h2>
           </div>
           <p className="mb-6 text-fd-muted-foreground leading-relaxed">
             Three roles, four exams. Each links straight to its own registration page and its free
@@ -185,7 +187,7 @@ export default function CertificationPage() {
 
           <div className="space-y-3">
             {CREDENTIALS.map((c) => (
-              <div key={c.name} className="rounded-xl border border-fd-border bg-fd-card p-5">
+              <div key={c.name} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <h3 className="font-display text-base font-semibold text-fd-foreground">
                     {c.name}
@@ -251,10 +253,10 @@ export default function CertificationPage() {
       <section className="border-b border-fd-border px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-fd-card">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
               <ShieldCheck className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-bold text-fd-foreground">What the exam is like</h2>
+            <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">What the exam is like</h2>
           </div>
 
           <div className="overflow-x-auto">
@@ -291,10 +293,10 @@ export default function CertificationPage() {
       <section className="border-b border-fd-border px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-fd-card">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
               <Building2 className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-bold text-fd-foreground">
+            <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
               The part that is hard to find out
             </h2>
           </div>
@@ -344,10 +346,10 @@ export default function CertificationPage() {
       <section className="border-b border-fd-border px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-fd-card">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
               <BookOpen className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-bold text-fd-foreground">
+            <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
               Learning the material without the badge
             </h2>
           </div>
@@ -411,7 +413,7 @@ export default function CertificationPage() {
 
       <section className="border-b border-fd-border px-6 py-14">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-display text-2xl font-bold text-fd-foreground">Common questions</h2>
+          <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">Common questions</h2>
           <dl className="mt-6 space-y-6">
             {FAQ.map((f) => (
               <div key={f.question}>

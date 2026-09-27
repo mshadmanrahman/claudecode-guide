@@ -18,8 +18,8 @@ export function CopyBlock({ code, language = 'bash' }: CopyBlockProps) {
   };
 
   return (
-    <div className="group relative overflow-hidden rounded-lg border border-fd-border bg-fd-card">
-      <div className="flex items-center justify-between border-b border-fd-border bg-fd-muted px-4 py-2">
+    <div className="group relative overflow-hidden rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
+      <div className="flex items-center justify-between border-b border-fd-border bg-[var(--code)] px-4 py-2">
         <span className="font-mono text-xs text-fd-muted-foreground">{language}</span>
         <button
           type="button"
@@ -28,8 +28,8 @@ export function CopyBlock({ code, language = 'bash' }: CopyBlockProps) {
         >
           {copied ? (
             <>
-              <Check className="h-3 w-3 text-green-500" />
-              <span className="text-green-500">Copied!</span>
+              <Check className="h-3 w-3 text-[var(--acc)]" />
+              <span className="text-[var(--acc)]">Copied!</span>
             </>
           ) : (
             <>

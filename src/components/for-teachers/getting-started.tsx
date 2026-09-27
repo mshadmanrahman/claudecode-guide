@@ -21,15 +21,15 @@ export function TeacherGettingStarted() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="py-28 bg-fd-card" ref={ref}>
+    <section className="border py-28 bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border-[var(--line)]" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">03</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Getting started
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -40,11 +40,11 @@ export function TeacherGettingStarted() {
         <div className="grid gap-8 sm:grid-cols-2">
           {/* What you need */}
           <div
-            className={`transition-all duration-500 delay-100 ${
+            className={`transition-all motion-reduce:transition-none duration-500 delay-100 ${
               inView ? 'animate-slide-up-fade' : 'opacity-0'
             }`}
           >
-            <h3 className="font-display text-lg font-medium text-fd-foreground mb-5">
+            <h3 className="font-display text-lg font-semibold text-fd-foreground mb-5">
               What you need
             </h3>
             <ul className="space-y-3">
@@ -57,7 +57,7 @@ export function TeacherGettingStarted() {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 rounded-lg border border-fd-border bg-fd-background p-4">
+            <div className="mt-6 rounded-lg border border-fd-border bg-[var(--glass2)] p-4">
               <p className="text-xs text-fd-muted-foreground leading-relaxed">
                 {"Claude's free tier is enough to follow all guides here. If you use Claude daily, Pro ($20/month) removes the rate limits."}
               </p>
@@ -66,17 +66,17 @@ export function TeacherGettingStarted() {
 
           {/* How it works */}
           <div
-            className={`transition-all duration-500 delay-200 ${
+            className={`transition-all motion-reduce:transition-none duration-500 delay-200 ${
               inView ? 'animate-slide-up-fade' : 'opacity-0'
             }`}
           >
-            <h3 className="font-display text-lg font-medium text-fd-foreground mb-5">
+            <h3 className="font-display text-lg font-semibold text-fd-foreground mb-5">
               How it works
             </h3>
-            <div className="rounded-xl border border-fd-border bg-fd-background p-5 space-y-4">
+            <div className="rounded-xl border border-fd-border bg-[var(--glass2)] p-5 space-y-4">
               {HOW_IT_WORKS.map((step) => (
                 <div key={step.num} className="flex items-start gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-fd-border bg-fd-muted font-mono text-[11px] text-fd-muted-foreground">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--code)] font-mono text-[11px] text-fd-muted-foreground">
                     {step.num}
                   </span>
                   <p className="text-sm text-fd-muted-foreground leading-relaxed pt-0.5">{step.text}</p>

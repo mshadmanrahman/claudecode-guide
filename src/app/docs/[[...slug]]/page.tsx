@@ -10,7 +10,9 @@ import { ComparisonRelatedLinks } from "@/components/comparison-related-links";
 import { ChapterNav } from "@/components/docs/chapter-nav";
 import { GithubStarCta } from "@/components/github-star-cta";
 import { SectionIndex } from "@/components/docs/section-index";
-import { SectionArt } from "@/components/docs/section-art";
+import { DocCallout } from "@/components/docs/doc-callout";
+import { DocPre } from "@/components/docs/doc-pre";
+import { ArticleHeader } from "@/components/docs/article-header";
 import { PromptCard } from "@/components/prompt-card";
 import { FromClaude } from "@/components/from-claude";
 import { UseCaseMeta } from "@/components/use-case-meta";
@@ -37,6 +39,8 @@ import type { Metadata } from "next";
 
 const mdxComponents = {
   ...defaultMdxComponents,
+  pre: DocPre,
+  Callout: DocCallout,
   DemoCard,
   VocabBridge,
   PromptCard,
@@ -98,6 +102,14 @@ export default async function Page(props: PageProps) {
   // Table of contents for the floating TOC
   const toc = data.toc ?? [];
 
+  // Reading time from the indexed text Fumadocs already extracts for search
+  const contents: { content?: string }[] = data.structuredData?.contents ?? [];
+  const wordCount = contents.reduce(
+    (sum, block) => sum + (block.content?.split(/\s+/).filter(Boolean).length ?? 0),
+    0,
+  );
+  const readMinutes = Math.max(1, Math.round(wordCount / 230));
+
   const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -123,31 +135,14 @@ export default async function Page(props: PageProps) {
         toc={toc}
         breadcrumb={{ enabled: false }}
         footer={{ enabled: false }}
+        className="ccg-doc"
       >
-        {/* Page header */}
-        <header className="mb-8">
-          <div className="flex items-start gap-4">
-            <div className="flex-1 min-w-0">
-              {current?.section && (
-                <p className="text-sm font-medium text-fd-primary mb-2">
-                  {current.section}
-                </p>
-              )}
-              <h1 className="font-display text-3xl font-bold tracking-tight-display text-fd-foreground sm:text-4xl">
-                {data.title}
-              </h1>
-              {data.description && (
-                <p className="mt-3 text-sm text-fd-muted-foreground">
-                  {data.description}
-                </p>
-              )}
-            </div>
-            <SectionArt
-              section={current?.section}
-              className="w-[96px] shrink-0 hidden sm:block text-fd-foreground/40 mt-1"
-            />
-          </div>
-        </header>
+        <ArticleHeader
+          crumbs={["docs", ...(current?.section ? [current.section.toLowerCase()] : [])]}
+          meta={`${readMinutes} min read`}
+          title={data.title}
+          lead={data.description}
+        />
 
         {/* Dev-only comparison metadata */}
         {process.env.NODE_ENV === "development" &&
@@ -191,7 +186,7 @@ export default async function Page(props: PageProps) {
         ) : null}
 
         {/* Main content */}
-        <div className="prose prose-fd max-w-none">
+        <div className="prose prose-fd ccg-prose max-w-none">
           <MDX components={mdxComponents} />
         </div>
 

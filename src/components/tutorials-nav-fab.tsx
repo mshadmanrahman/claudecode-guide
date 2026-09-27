@@ -92,7 +92,7 @@ export function TutorialsNavFab({ sections }: TutorialsNavFabProps) {
       <button
         ref={buttonRef}
         onClick={() => setOpen((v) => !v)}
-        className="fixed left-4 bottom-6 z-30 flex items-center gap-2 rounded-full border border-fd-border bg-fd-background/90 px-4 py-2.5 shadow-lg backdrop-blur-md text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-all hover:shadow-xl md:left-6 md:bottom-8"
+        className="fixed left-4 bottom-6 z-30 flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass2)] px-4 py-2.5 backdrop-blur-md text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-all  md:left-6 md:bottom-8"
         aria-label="Open tutorial sections"
         aria-expanded={open}
       >
@@ -104,12 +104,12 @@ export function TutorialsNavFab({ sections }: TutorialsNavFabProps) {
       {open && (
         <div
           ref={popupRef}
-          className="fixed left-4 bottom-16 z-40 w-56 rounded-xl border border-fd-border bg-fd-background/95 shadow-xl backdrop-blur-md md:left-6 md:bottom-20"
+          className="fixed left-4 bottom-16 z-40 w-56 rounded-xl border border-fd-border bg-[var(--glass2)] backdrop-blur-md md:left-6 md:bottom-20"
           role="dialog"
           aria-label="Tutorial sections"
         >
           <div className="flex items-center justify-between border-b border-fd-border px-4 py-2.5">
-            <span className="text-xs font-medium text-fd-muted-foreground uppercase tracking-wide">
+            <span className="text-xs font-medium text-fd-muted-foreground uppercase tracking-wide font-mono">
               Sections
             </span>
             <button

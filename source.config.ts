@@ -4,6 +4,7 @@ import {
   frontmatterSchema,
 } from "fumadocs-mdx/config";
 import { z } from "zod";
+import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
 import { claudeGuideTheme } from "./src/lib/code-theme";
 
 export const docs = defineDocs({
@@ -26,6 +27,16 @@ export default defineConfig({
         light: "github-light",
         dark: claudeGuideTheme,
       },
+      transformers: [
+        ...(rehypeCodeDefaultOptions.transformers ?? []),
+        {
+          // Expose the language so untitled code blocks can label their bar (DocPre)
+          name: "ccg-language",
+          pre(node) {
+            node.properties["data-language"] = this.options.lang;
+          },
+        },
+      ],
     },
   },
 });

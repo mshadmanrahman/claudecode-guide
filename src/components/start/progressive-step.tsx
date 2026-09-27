@@ -35,16 +35,16 @@ export function ProgressiveStep({
           </span>
           <span className="text-sm font-medium text-fd-foreground">{progress}%</span>
         </div>
-        <div className="h-2 w-full rounded-full bg-fd-muted overflow-hidden">
+        <div className="h-2 w-full rounded-full bg-[var(--code)] overflow-hidden">
           <div
-            className="h-full rounded-full bg-fd-primary transition-all duration-500 ease-out"
+            className="h-full rounded-full bg-fd-primary transition-all motion-reduce:transition-none duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
       </div>
 
       {/* Step title */}
-      <h2 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl mb-8">
+      <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl mb-8">
         {showConfetti && <span className="mr-2">&#127881;</span>}
         {title}
       </h2>
@@ -60,7 +60,7 @@ export function ProgressiveStep({
           <button
             type="button"
             onClick={onPrev}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-4 py-2.5 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-fd-border bg-[var(--glass2)] px-4 py-2.5 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
           >
             <ArrowLeft className="h-4 w-4" />
             Back

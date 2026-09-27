@@ -2,33 +2,11 @@ import "./globals.css";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { Fraunces, Inter, Geist_Mono, Geist } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Preloader } from "@/components/ui/preloader";
 import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  axes: ["opsz", "WONK"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const siteUrl = "https://claudecodeguide.dev";
 
@@ -127,7 +105,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={cn(fraunces.variable, inter.variable, geistMono.variable, "font-sans", geist.variable)}
+      className={cn(GeistSans.variable, GeistMono.variable, "font-sans")}
       suppressHydrationWarning
     >
       <head>
@@ -137,7 +115,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body className="flex min-h-screen flex-col antialiased bg-fd-background text-fd-foreground">
-        <Preloader />
         <RootProvider
           theme={{
             defaultTheme: "light",

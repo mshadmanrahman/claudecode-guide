@@ -40,9 +40,9 @@ export function PmPilotGuideCta() {
     <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
-          <h2 className="font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Pick the skill that matches your biggest time sink.
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -51,7 +51,7 @@ export function PmPilotGuideCta() {
         </div>
 
         <div
-          className={`mt-10 flex flex-wrap gap-2 transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mt-10 flex flex-wrap gap-2 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
           style={{ animationDelay: '150ms' }}
         >
           {SKILLS.map((skill) => (
@@ -59,7 +59,7 @@ export function PmPilotGuideCta() {
               key={skill.name}
               href={skill.href}
               onClick={() => trackEvent('pm_pilot_skill_chip_click', { skill: skill.name })}
-              className="rounded-lg border border-fd-border bg-fd-card px-3 py-2 font-mono text-sm text-fd-muted-foreground transition-colors hover:border-green-500/50 hover:bg-green-500/5 hover:text-green-600 dark:hover:text-green-400"
+              className="rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-3 py-2 font-mono text-sm text-fd-muted-foreground transition-colors hover:border-[var(--acc)] hover:bg-[var(--chip)] hover:text-[var(--acc)]"
             >
               {skill.name}
             </Link>
@@ -67,13 +67,13 @@ export function PmPilotGuideCta() {
         </div>
 
         <div
-          className={`mt-10 flex flex-col gap-4 sm:flex-row sm:items-center transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mt-10 flex flex-col gap-4 sm:flex-row sm:items-center transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
           style={{ animationDelay: '250ms' }}
         >
           <Link
             href="/pm-pilot/guide"
             onClick={() => trackEvent('pm_pilot_open_guide_click', { source: 'landing_cta' })}
-            className="inline-flex items-center gap-2 rounded-xl bg-fd-foreground px-6 py-3 text-sm font-semibold text-fd-background transition-opacity hover:opacity-80"
+            className="inline-flex items-center gap-2 rounded-xl bg-[var(--acc)] px-6 py-3 text-sm font-semibold text-[var(--accInk)] transition-opacity hover:opacity-80"
           >
             Open the guide
             <ArrowRight className="h-4 w-4" />

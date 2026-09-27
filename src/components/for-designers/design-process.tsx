@@ -10,11 +10,11 @@ const LAYERS = [
     label: '[AI]',
     sublabel: 'Claude.ai',
     addedLabel: 'Baseline',
-    addedBadgeStyle: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+    addedBadgeStyle: 'bg-[var(--code)] text-[var(--ink)]',
     addedStages: ['Brief', 'Research', 'Critique'],
     allCoveredStages: ['Brief', 'Research', 'Critique'],
-    newDotStyle: 'bg-slate-600 dark:bg-slate-300',
-    inheritedDotStyle: 'bg-slate-200 dark:bg-slate-700',
+    newDotStyle: 'bg-[var(--muted)]',
+    inheritedDotStyle: 'bg-[var(--code)]',
     description:
       'Everything in conversation. Interrogates briefs, synthesizes research, critiques designs. No files, no code, no terminal.',
   },
@@ -23,11 +23,11 @@ const LAYERS = [
     label: '[CW]',
     sublabel: 'Co-Work',
     addedLabel: '+ Direction, Handoff',
-    addedBadgeStyle: 'bg-emerald-50 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
+    addedBadgeStyle: 'bg-[var(--chip)] text-[var(--acc)]  ',
     addedStages: ['Direction', 'Handoff'],
     allCoveredStages: ['Brief', 'Research', 'Direction', 'Critique', 'Handoff'],
-    newDotStyle: 'bg-emerald-500 dark:bg-emerald-400',
-    inheritedDotStyle: 'bg-slate-200 dark:bg-slate-700',
+    newDotStyle: 'bg-[var(--acc)] ',
+    inheritedDotStyle: 'bg-[var(--code)]',
     description:
       'Reads files from your local folder. Challenges direction before you commit to frames. Reads Figma exports for handoff prep.',
   },
@@ -36,11 +36,11 @@ const LAYERS = [
     label: '[CC]',
     sublabel: 'Claude Code',
     addedLabel: '+ Frames, Build, Ship',
-    addedBadgeStyle: 'bg-blue-50 text-blue-900 dark:bg-blue-900/30 dark:text-blue-300',
+    addedBadgeStyle: 'bg-[var(--chip)] text-[var(--acc)]  ',
     addedStages: ['Frames', 'Build', 'Ship'],
     allCoveredStages: ['Brief', 'Research', 'Direction', 'Frames', 'Critique', 'Handoff', 'Build', 'Ship'],
-    newDotStyle: 'bg-blue-500 dark:bg-blue-400',
-    inheritedDotStyle: 'bg-slate-200 dark:bg-slate-700',
+    newDotStyle: 'bg-[var(--acc)] ',
+    inheritedDotStyle: 'bg-[var(--code)]',
     description:
       'Full coverage. Every stage from brief to ship. Adds prototype generation, working code from Figma prep, and Git-based version control.',
   },
@@ -53,10 +53,10 @@ export function DesignerProcessMap() {
     <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">03</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             What each journey unlocks
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -65,17 +65,17 @@ export function DesignerProcessMap() {
         </div>
 
         <div
-          className={`transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
           style={{ animationDelay: '100ms' }}
         >
           {/* Legend */}
           <div className="flex flex-wrap items-center gap-5 mb-6">
             <div className="flex items-center gap-1.5">
-              <div className="h-3 w-3 rounded-full bg-fd-foreground/60" />
+              <div className="h-3 w-3 rounded-full bg-[var(--acc)]" />
               <span className="text-[10px] text-fd-muted-foreground">New at this tier</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="h-3 w-3 rounded-full bg-slate-200 dark:bg-slate-700 border border-fd-border" />
+              <div className="h-3 w-3 rounded-full bg-[var(--code)] border border-fd-border" />
               <span className="text-[10px] text-fd-muted-foreground">Inherited from previous</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -94,7 +94,7 @@ export function DesignerProcessMap() {
                 <div />
                 {STAGES.map((stage) => (
                   <div key={stage} className="text-center">
-                    <span className="text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+                    <span className="text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                       {stage}
                     </span>
                   </div>
@@ -105,7 +105,7 @@ export function DesignerProcessMap() {
               {LAYERS.map((layer, ji) => (
                 <div
                   key={layer.id}
-                  className={`grid items-center border-b border-fd-border py-4 transition-all duration-500 ${
+                  className={`grid items-center border-b border-fd-border py-4 transition-all motion-reduce:transition-none duration-500 ${
                     inView ? 'animate-slide-up-fade' : 'opacity-0'
                   }`}
                   style={{
@@ -155,7 +155,7 @@ export function DesignerProcessMap() {
           {LAYERS.map((layer, ji) => (
             <div
               key={layer.id}
-              className={`transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+              className={`transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
               style={{ animationDelay: `${(ji + 4) * 80 + 100}ms` }}
             >
               <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">

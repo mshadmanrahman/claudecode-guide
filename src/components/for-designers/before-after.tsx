@@ -12,9 +12,9 @@ const JOURNEYS = [
     nickname: 'The Thinking Partner',
     tagline: 'Designer who never leaves the browser. Claude lives in a Project tab alongside Figma. No terminal, no code.',
     env: 'Online only',
-    envStyle: 'bg-slate-100 text-slate-700 dark:bg-slate-800/60 dark:text-slate-300',
-    borderStyle: 'border-slate-200 dark:border-slate-700',
-    headerStyle: 'bg-slate-50 dark:bg-slate-900/40',
+    envStyle: 'bg-[var(--code)] text-[var(--ink)]',
+    borderStyle: 'border-[var(--line)] ',
+    headerStyle: 'bg-[var(--code)]',
     entryPath: ['claude.ai', 'Create a Project', 'Write your working agreement', 'Start interrogating briefs'],
     shifts: [
       {
@@ -52,9 +52,9 @@ const JOURNEYS = [
     tagline:
       "Designer using Claude's co-working mode in the desktop app. Claude is in the session with them, actively challenging and building alongside.",
     env: 'Local workspace',
-    envStyle: 'bg-emerald-50 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-    borderStyle: 'border-emerald-200 dark:border-emerald-800/40',
-    headerStyle: 'bg-emerald-50/50 dark:bg-emerald-950/30',
+    envStyle: 'bg-[var(--chip)] text-[var(--acc)]  ',
+    borderStyle: 'border-[var(--line)] ',
+    headerStyle: 'bg-[var(--chip)] ',
     entryPath: ['Claude desktop app', 'Local project folder', 'CLAUDE.md working agreement', 'Active collaborative session'],
     shifts: [
       {
@@ -91,9 +91,9 @@ const JOURNEYS = [
     tagline:
       'Designer who has crossed into the terminal. Uses Claude Code in VS Code or Cursor. Builds working HTML prototypes, not just static specs.',
     env: 'Local + terminal',
-    envStyle: 'bg-blue-50 text-blue-900 dark:bg-blue-900/20 dark:text-blue-300',
-    borderStyle: 'border-blue-200 dark:border-blue-800/40',
-    headerStyle: 'bg-blue-50/50 dark:bg-blue-950/30',
+    envStyle: 'bg-[var(--chip)] text-[var(--acc)]  ',
+    borderStyle: 'border-[var(--line)] ',
+    headerStyle: 'bg-[var(--chip)] ',
     entryPath: ['Install Claude Code', 'VS Code / Cursor / Terminal', 'CLAUDE.md working agreement', 'Point Claude at files'],
     shifts: [
       {
@@ -132,10 +132,10 @@ export function DesignerBeforeAfter() {
     <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">02</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Same tool. Three completely different jobs.
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -149,7 +149,7 @@ export function DesignerBeforeAfter() {
             return (
               <div
                 key={journey.id}
-                className={`overflow-hidden rounded-xl border transition-all duration-500 ${journey.borderStyle} ${
+                className={`overflow-hidden rounded-xl border transition-all motion-reduce:transition-none duration-500 ${journey.borderStyle} ${
                   inView ? 'animate-slide-up-fade' : 'opacity-0'
                 }`}
                 style={{ animationDelay: `${ji * 120 + 100}ms` }}
@@ -165,7 +165,7 @@ export function DesignerBeforeAfter() {
                       {journey.env}
                     </span>
                   </div>
-                  <p className="text-[11px] italic text-fd-muted-foreground">&quot;{journey.nickname}&quot;</p>
+                  <p className="text-[11px] text-fd-muted-foreground">&quot;{journey.nickname}&quot;</p>
                 </div>
 
                 {/* Tagline */}
@@ -175,7 +175,7 @@ export function DesignerBeforeAfter() {
 
                 {/* Entry path */}
                 <div className="px-5 py-3 border-b border-fd-border">
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                     Entry path
                   </p>
                   <div className="space-y-1">
@@ -194,17 +194,17 @@ export function DesignerBeforeAfter() {
                 <div className="divide-y divide-fd-border">
                   {journey.shifts.map((shift) => (
                     <div key={shift.area} className="px-5 py-4">
-                      <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+                      <p className="mb-3 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                         {shift.area}
                       </p>
                       <div className="space-y-2">
                         <div className="flex gap-2.5">
-                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400/60" />
+                          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--code)]" />
                           <p className="text-[12px] leading-relaxed text-fd-muted-foreground">{shift.before}</p>
                         </div>
                         <div className="flex gap-2.5">
-                          <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green-500" />
-                          <p className="text-[12px] leading-relaxed text-green-700 dark:text-green-400">
+                          <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--acc)]" />
+                          <p className="text-[12px] leading-relaxed text-[var(--acc)] ">
                             {shift.after}
                           </p>
                         </div>
@@ -215,7 +215,7 @@ export function DesignerBeforeAfter() {
 
                 {/* Structural shift */}
                 <div className="px-5 py-4 border-t border-fd-border bg-fd-accent/40">
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                     The structural shift
                   </p>
                   <p className="text-[11px] leading-relaxed text-fd-foreground/80">{journey.structuralShift}</p>
@@ -223,7 +223,7 @@ export function DesignerBeforeAfter() {
 
                 {/* Guide links */}
                 <div className="px-5 py-3 border-t border-fd-border">
-                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                     Applies to these guides
                   </p>
                   <div className="flex flex-wrap gap-1.5">

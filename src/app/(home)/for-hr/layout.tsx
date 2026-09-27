@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { SceneBackdrop } from "@/components/scene-backdrop";
 
 const ogTitle =
   "Claude for HR: Job Descriptions, Onboarding, Performance Reviews, and More";
@@ -27,5 +28,10 @@ export const metadata: Metadata = {
 };
 
 export default function ForHrLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <SceneBackdrop variant="faded" />
+      {children}
+    </>
+  );
 }

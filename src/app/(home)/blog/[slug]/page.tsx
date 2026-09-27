@@ -2,9 +2,6 @@ import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
-  Calendar,
-  User,
-  Tag,
   Paintbrush,
   Mic,
   NotebookPen,
@@ -17,6 +14,8 @@ import { notFound } from "next/navigation";
 import { getPostBySlug, getRelatedPosts, blogPosts } from "@/data/blog-posts";
 import type { Metadata } from "next";
 import { ArticleSchema } from "@/components/article-schema";
+import { ArticleHeader } from "@/components/docs/article-header";
+import { SceneBackdrop } from "@/components/scene-backdrop";
 
 const DESIGNER_RELEVANT_SLUGS = new Set([
   "claude-code-for-non-engineers",
@@ -48,6 +47,14 @@ const GRANOLA_RELEVANT_SLUGS = new Set([
   "top-5-claude-code-workflows-for-solo-founders",
   "discovery-sprint",
 ]);
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -95,68 +102,49 @@ export default async function BlogPostPage(props: PageProps) {
   if (!post) notFound();
 
   const relatedPosts = getRelatedPosts(params.slug, 3);
+  const wordCount = post.content
+    .replace(/<[^>]+>/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const readMinutes = Math.max(1, Math.round(wordCount / 230));
 
   return (
-    <div className="flex flex-col bg-fd-background">
+    <div className="flex flex-col">
+      <SceneBackdrop variant="faded" position="fixed" />
       <ArticleSchema
         headline={post.title}
         description={post.description}
         url={`https://claudecodeguide.dev/blog/${post.slug}`}
         datePublished={post.date}
       />
-      <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          Back to blog
+      <article className="ccg-post mx-auto w-full px-4 pt-10 pb-16 sm:px-6 sm:pt-14">
+        <Link href="/blog" className="ccg-back">
+          <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
+          back to blog
         </Link>
 
-        <div className="flex items-center gap-3 text-sm text-fd-muted-foreground mb-4">
-          <span className="flex items-center gap-1.5">
-            <Calendar className="h-3.5 w-3.5" />
-            {new Date(post.date).toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <User className="h-3.5 w-3.5" />
-            {post.author}
-          </span>
-        </div>
+        <ArticleHeader
+          crumbs={["blog", formatDate(post.date)]}
+          meta={`${readMinutes} min read`}
+          title={post.title}
+          lead={post.description}
+        >
+          <ul className="ccg-tags mt-5" aria-label="Tags">
+            {post.tags.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+        </ArticleHeader>
 
-        <h1 className="font-display text-3xl font-normal tracking-tight text-fd-foreground sm:text-4xl mb-4">
-          {post.title}
-        </h1>
-        <p className="text-lg text-fd-muted-foreground mb-6">
-          {post.description}
-        </p>
-
-        <div className="flex flex-wrap gap-1.5 mb-12">
-          {post.tags.map((tag) => (
-            <Link
-              key={tag}
-              href={`/blog?tag=${tag}`}
-              className="inline-flex items-center gap-1 rounded-full bg-fd-muted px-2.5 py-1 text-xs text-fd-muted-foreground hover:bg-fd-accent hover:text-fd-foreground transition-colors"
-            >
-              <Tag className="h-2.5 w-2.5" />
-              {tag}
-            </Link>
-          ))}
-        </div>
-
-        <div className="prose prose-neutral dark:prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-normal [&_h2]:tracking-tight [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-normal [&_h3]:tracking-tight [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:text-fd-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_code]:rounded [&_code]:bg-fd-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_.blog-code-block_code]:bg-transparent [&_.blog-code-block_code]:p-0 [&_.blog-code-block_code]:rounded-none [&_.blog-code-block_pre]:bg-transparent [&_.blog-code-block_pre]:p-0 [&_.blog-code-block_pre]:m-0 [&_.blog-code-block_pre]:border-0 [&_li]:text-fd-muted-foreground [&_table]:text-sm [&_th]:text-left [&_th]:p-3 [&_th]:border-b [&_th]:border-fd-border [&_td]:p-3 [&_td]:border-b [&_td]:border-fd-border [&_a]:text-fd-foreground [&_a]:underline [&_a]:hover:text-fd-muted-foreground [&_strong]:text-fd-foreground [&_em]:text-fd-foreground [&_blockquote]:border-l-2 [&_blockquote]:border-fd-border [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-fd-muted-foreground">
+        <div className="prose ccg-prose max-w-none">
           <BlogContent html={post.content} />
         </div>
 
         {DESIGNER_RELEVANT_SLUGS.has(params.slug) && (
-          <div className="mt-12 rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="glass mt-12 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <Paintbrush className="h-4 w-4 text-fd-muted-foreground" />
-              <span className="text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+              <span className="font-mono text-xs uppercase tracking-[0.06em] text-fd-muted-foreground">
                 For designers
               </span>
             </div>
@@ -177,10 +165,10 @@ export default async function BlogPostPage(props: PageProps) {
         )}
 
         {WISPR_RELEVANT_SLUGS.has(params.slug) && (
-          <div className="mt-6 rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="glass mt-6 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <Mic className="h-4 w-4 text-fd-muted-foreground" />
-              <span className="text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+              <span className="font-mono text-xs uppercase tracking-[0.06em] text-fd-muted-foreground">
                 What I use for this
               </span>
             </div>
@@ -206,10 +194,10 @@ export default async function BlogPostPage(props: PageProps) {
         )}
 
         {GRANOLA_RELEVANT_SLUGS.has(params.slug) && (
-          <div className="mt-6 rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="glass mt-6 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <NotebookPen className="h-4 w-4 text-fd-muted-foreground" />
-              <span className="text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+              <span className="font-mono text-xs uppercase tracking-[0.06em] text-fd-muted-foreground">
                 What I use for this
               </span>
             </div>
@@ -217,7 +205,7 @@ export default async function BlogPostPage(props: PageProps) {
               Granola
             </p>
             <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
-              Granola transcribes and summarises meetings automatically in the
+              Granola transcribes and summarizes meetings automatically in the
               background. I paste the notes straight into Claude. No manual
               capture, no missed context. It has saved hours of admin time every
               week.
@@ -237,35 +225,33 @@ export default async function BlogPostPage(props: PageProps) {
         <GithubStarCta />
 
         {relatedPosts.length > 0 && (
-          <div className="mt-16 border-t border-fd-border pt-8">
-            <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground mb-6">
-              Related Posts
+          <section className="mt-16 border-t border-fd-border pt-8" aria-labelledby="related-posts">
+            <h2
+              id="related-posts"
+              className="mb-6 text-[26px] font-semibold tracking-[-0.025em] text-fd-foreground"
+            >
+              Related posts
             </h2>
-            <div className="grid gap-4">
+            <div className="grid gap-3">
               {relatedPosts.map((related) => (
                 <Link
                   key={related.slug}
                   href={`/blog/${related.slug}`}
-                  className="group flex flex-col gap-2 rounded-xl border border-fd-border bg-fd-card p-5 transition-all hover:border-fd-muted-foreground/30 hover:bg-fd-accent"
+                  className="glass hm-card flex flex-col gap-2 rounded-xl p-5"
                 >
-                  <div className="flex items-center gap-2 text-xs text-fd-muted-foreground">
-                    <Calendar className="h-3 w-3" />
-                    {new Date(related.date).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </div>
-                  <h3 className="font-display text-base font-normal tracking-tight text-fd-foreground group-hover:underline">
+                  <time dateTime={related.date} className="font-mono text-xs text-fd-muted-foreground">
+                    {formatDate(related.date)}
+                  </time>
+                  <h3 className="text-[17px] font-medium tracking-[-0.01em] text-fd-foreground">
                     {related.title}
                   </h3>
-                  <p className="text-sm text-fd-muted-foreground line-clamp-2">
+                  <p className="line-clamp-2 text-sm text-fd-muted-foreground">
                     {related.description}
                   </p>
                 </Link>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         <div className="mt-16 border-t border-fd-border pt-8">

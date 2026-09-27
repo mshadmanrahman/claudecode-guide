@@ -32,14 +32,14 @@ export function PmPilotBeforeAfter() {
     <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">
             01
           </span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             What actually changes
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -51,24 +51,24 @@ export function PmPilotBeforeAfter() {
           {comparisons.map((c, i) => (
             <div
               key={c.task}
-              className={`rounded-xl border border-fd-border bg-fd-card p-6 sm:p-8 transition-all duration-500 ${
+              className={`rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-8 transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 100 + 100}ms` }}
             >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                 {c.task}
               </p>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="flex gap-3">
-                  <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-red-400/60" />
+                  <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--code)]" />
                   <p className="text-sm leading-relaxed text-fd-muted-foreground">
                     {c.before}
                   </p>
                 </div>
                 <div className="flex gap-3">
-                  <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-green-500" />
-                  <p className="text-sm leading-relaxed text-green-600 dark:text-green-400">
+                  <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--acc)]" />
+                  <p className="text-sm leading-relaxed text-[var(--acc)] ">
                     {c.after}
                   </p>
                 </div>

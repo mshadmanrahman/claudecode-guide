@@ -15,7 +15,7 @@ function renderChatText(text: string): ReactNode {
       }
       if (part.startsWith('`') && part.endsWith('`')) {
         return (
-          <code key={pi} className="rounded bg-fd-muted px-1 py-0.5 font-mono text-[11px]">
+          <code key={pi} className="rounded bg-[var(--code)] px-1 py-0.5 font-mono text-[11px]">
             {part.slice(1, -1)}
           </code>
         );
@@ -81,11 +81,11 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
   return (
     <div
       ref={containerRef}
-      className="my-6 overflow-hidden rounded-xl border border-fd-border shadow-sm bg-fd-card"
+      className="my-6 overflow-hidden rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]"
     >
       {/* Header : changes based on variant */}
       {variant === 'ide' ? (
-        <div className="flex items-center gap-2.5 border-b border-zinc-600 bg-zinc-800 px-4 py-3">
+        <div className="flex items-center gap-2.5 border-b border-[var(--line)] bg-zinc-800 px-4 py-3">
           <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-zinc-600 text-[10px] text-zinc-200">
             ⌘
           </div>
@@ -93,7 +93,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
           <span className="ml-auto font-mono text-[11px] text-zinc-400">Cursor · ⌘L</span>
         </div>
       ) : (
-        <div className="flex items-center gap-2.5 border-b border-fd-border bg-fd-muted px-4 py-3">
+        <div className="flex items-center gap-2.5 border-b border-fd-border bg-[var(--code)] px-4 py-3">
           <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#cc785c] text-[11px] font-bold text-white">
             C
           </div>
@@ -114,12 +114,12 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
             className={`flex items-end gap-2 animate-fade-in ${step.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {step.role === 'claude' && (
-              <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white ${variant === 'ide' ? 'bg-violet-600' : 'bg-[#cc785c]'}`}>
+              <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-[var(--accInk)] ${variant === 'ide' ? 'bg-[var(--acc)]' : 'bg-[#cc785c]'}`}>
                 {variant === 'ide' ? 'AI' : 'C'}
               </div>
             )}
             <div
-              className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+              className={`max-w-[82%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 step.role === 'user'
                   ? 'rounded-br-sm bg-[#525252] text-white'
                   : 'rounded-bl-sm border border-fd-border bg-fd-background text-fd-foreground'
@@ -133,20 +133,20 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
         {/* Typing indicator */}
         {showTyping && (
           <div className="flex items-end gap-2 justify-start animate-fade-in">
-            <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white ${variant === 'ide' ? 'bg-violet-600' : 'bg-[#cc785c]'}`}>
+            <div className={`mb-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-[var(--accInk)] ${variant === 'ide' ? 'bg-[var(--acc)]' : 'bg-[#cc785c]'}`}>
               {variant === 'ide' ? 'AI' : 'C'}
             </div>
-            <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-fd-border bg-fd-background px-4 py-3">
+            <div className="flex items-center gap-1 rounded-xl rounded-bl-sm border border-fd-border bg-fd-background px-4 py-3">
               <span
-                className="h-1.5 w-1.5 rounded-full bg-fd-muted-foreground/60 animate-bounce"
+                className="h-1.5 w-1.5 rounded-full bg-fd-muted-foreground/60 animate-bounce motion-reduce:animate-none"
                 style={{ animationDelay: '0ms' }}
               />
               <span
-                className="h-1.5 w-1.5 rounded-full bg-fd-muted-foreground/60 animate-bounce"
+                className="h-1.5 w-1.5 rounded-full bg-fd-muted-foreground/60 animate-bounce motion-reduce:animate-none"
                 style={{ animationDelay: '160ms' }}
               />
               <span
-                className="h-1.5 w-1.5 rounded-full bg-fd-muted-foreground/60 animate-bounce"
+                className="h-1.5 w-1.5 rounded-full bg-fd-muted-foreground/60 animate-bounce motion-reduce:animate-none"
                 style={{ animationDelay: '320ms' }}
               />
             </div>
@@ -155,7 +155,7 @@ export function AppChatDemo({ steps, loop = true, loopDelay = 4000, variant = 'a
       </div>
 
       {/* Input bar */}
-      <div className="border-t border-fd-border bg-fd-muted px-4 py-3">
+      <div className="border-t border-fd-border bg-[var(--code)] px-4 py-3">
         <div className="flex items-center gap-2 rounded-xl border border-fd-border bg-fd-background px-3 py-2">
           <span className="flex-1 text-xs text-fd-muted-foreground/60 select-none">
             {variant === 'ide' ? 'Ask Cursor…' : 'Message Claude…'}

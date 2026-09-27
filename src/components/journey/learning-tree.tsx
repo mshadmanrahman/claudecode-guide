@@ -52,69 +52,69 @@ const stageColors: Record<string, {
   glow: string;
 }> = {
   understand: {
-    node: 'bg-green-50 dark:bg-green-950/40 hover:bg-green-100 dark:hover:bg-green-950/70',
-    nodeBorder: 'border-green-200 dark:border-green-800/50 hover:border-green-400 dark:hover:border-green-600',
-    label: 'text-green-700 dark:text-green-300',
-    labelBg: 'bg-green-100 dark:bg-green-900/40',
-    dot: 'bg-green-500',
+    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
+    label: 'text-[var(--acc)] ',
+    labelBg: 'bg-[var(--chip)] ',
+    dot: 'bg-[var(--acc)]',
     line: '#22c55e',
-    badge: 'bg-green-100 dark:bg-green-900/40',
-    badgeText: 'text-green-700 dark:text-green-400',
+    badge: 'bg-[var(--chip)] ',
+    badgeText: 'text-[var(--acc)] ',
     glow: 'shadow-green-200/60 dark:shadow-green-900/40',
   },
   setup: {
-    node: 'bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950/70',
-    nodeBorder: 'border-blue-200 dark:border-blue-800/50 hover:border-blue-400 dark:hover:border-blue-600',
-    label: 'text-blue-700 dark:text-blue-300',
-    labelBg: 'bg-blue-100 dark:bg-blue-900/40',
-    dot: 'bg-blue-500',
+    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
+    label: 'text-[var(--acc)] ',
+    labelBg: 'bg-[var(--chip)] ',
+    dot: 'bg-[var(--acc)]',
     line: '#3b82f6',
-    badge: 'bg-blue-100 dark:bg-blue-900/40',
-    badgeText: 'text-blue-700 dark:text-blue-400',
+    badge: 'bg-[var(--chip)] ',
+    badgeText: 'text-[var(--acc)] ',
     glow: 'shadow-blue-200/60 dark:shadow-blue-900/40',
   },
   'first-win': {
-    node: 'bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-950/70',
-    nodeBorder: 'border-amber-200 dark:border-amber-800/50 hover:border-amber-400 dark:hover:border-amber-600',
-    label: 'text-amber-700 dark:text-amber-300',
-    labelBg: 'bg-amber-100 dark:bg-amber-900/40',
-    dot: 'bg-amber-500',
+    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
+    label: 'text-[var(--acc)] ',
+    labelBg: 'bg-[var(--chip)] ',
+    dot: 'bg-[var(--acc)]',
     line: '#f59e0b',
-    badge: 'bg-amber-100 dark:bg-amber-900/40',
-    badgeText: 'text-amber-700 dark:text-amber-400',
+    badge: 'bg-[var(--chip)] ',
+    badgeText: 'text-[var(--acc)] ',
     glow: 'shadow-amber-200/60 dark:shadow-amber-900/40',
   },
   'build-habits': {
-    node: 'bg-purple-50 dark:bg-purple-950/40 hover:bg-purple-100 dark:hover:bg-purple-950/70',
-    nodeBorder: 'border-purple-200 dark:border-purple-800/50 hover:border-purple-400 dark:hover:border-purple-600',
-    label: 'text-purple-700 dark:text-purple-300',
-    labelBg: 'bg-purple-100 dark:bg-purple-900/40',
-    dot: 'bg-purple-500',
+    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
+    label: 'text-[var(--acc)] ',
+    labelBg: 'bg-[var(--chip)] ',
+    dot: 'bg-[var(--acc)]',
     line: '#a855f7',
-    badge: 'bg-purple-100 dark:bg-purple-900/40',
-    badgeText: 'text-purple-700 dark:text-purple-400',
+    badge: 'bg-[var(--chip)] ',
+    badgeText: 'text-[var(--acc)] ',
     glow: 'shadow-purple-200/60 dark:shadow-purple-900/40',
   },
   'level-up': {
-    node: 'bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-950/70',
-    nodeBorder: 'border-rose-200 dark:border-rose-800/50 hover:border-rose-400 dark:hover:border-rose-600',
-    label: 'text-rose-700 dark:text-rose-300',
-    labelBg: 'bg-rose-100 dark:bg-rose-900/40',
-    dot: 'bg-rose-500',
+    node: 'bg-[var(--code)]  hover:bg-[var(--code)] ',
+    nodeBorder: 'border-[var(--line)]  hover:border-[var(--line)] ',
+    label: 'text-red-700 dark:text-red-300 ',
+    labelBg: 'bg-[var(--code)] ',
+    dot: 'bg-[var(--code)]',
     line: '#f43f5e',
-    badge: 'bg-rose-100 dark:bg-rose-900/40',
-    badgeText: 'text-rose-700 dark:text-rose-400',
+    badge: 'bg-[var(--code)] ',
+    badgeText: 'text-red-700 dark:text-red-300 ',
     glow: 'shadow-rose-200/60 dark:shadow-rose-900/40',
   },
   mastery: {
-    node: 'bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 dark:hover:bg-indigo-950/70',
-    nodeBorder: 'border-indigo-200 dark:border-indigo-800/50 hover:border-indigo-400 dark:hover:border-indigo-600',
-    label: 'text-indigo-700 dark:text-indigo-300',
-    labelBg: 'bg-indigo-100 dark:bg-indigo-900/40',
-    dot: 'bg-indigo-500',
+    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
+    label: 'text-[var(--acc)] ',
+    labelBg: 'bg-[var(--chip)] ',
+    dot: 'bg-[var(--acc)]',
     line: '#6366f1',
-    badge: 'bg-indigo-100 dark:bg-indigo-900/40',
-    badgeText: 'text-indigo-700 dark:text-indigo-400',
+    badge: 'bg-[var(--chip)] ',
+    badgeText: 'text-[var(--acc)] ',
     glow: 'shadow-indigo-200/60 dark:shadow-indigo-900/40',
   },
 };
@@ -171,23 +171,21 @@ function TreeNode({ node, stageId, isStartHere, animationDelay, inView }: TreeNo
   return (
     <Link
       href={node.href}
-      className={[
-        'group/node relative flex flex-col items-center gap-1.5 rounded-xl border p-3 transition-all duration-200',
+      className={[ 'group/node relative flex flex-col items-center gap-1.5 rounded-xl border p-3 transition-all duration-200',
         'cursor-pointer no-underline',
         'h-[120px] w-full min-w-0',
         colors.node,
         colors.nodeBorder,
-        'hover:scale-[1.03] hover:shadow-md',
+        'hover:scale-[1.03] ',
         colors.glow,
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-        'transition-all duration-500',
-        isStartHere ? 'ring-2 ring-offset-1 ring-green-400/60 dark:ring-green-500/40' : '',
+        'transition-all motion-reduce:transition-none duration-500',
+        isStartHere ? 'ring-2 ring-offset-1 ring-[var(--acc)] ' : '',
       ].join(' ')}
       style={{ transitionDelay: `${animationDelay}ms` }}
     >
       {/* Icon */}
-      <span className={[
-        'flex h-7 w-7 shrink-0 items-center justify-center rounded-lg',
+      <span className={[ 'flex h-7 w-7 shrink-0 items-center justify-center rounded-lg',
         colors.labelBg,
       ].join(' ')}>
         <Icon className={`h-4 w-4 ${colors.label}`} />
@@ -201,12 +199,11 @@ function TreeNode({ node, stageId, isStartHere, animationDelay, inView }: TreeNo
       {/* Badge or duration (pick one to keep it clean) */}
       <div className="flex items-center gap-1 mt-auto">
         {isStartHere ? (
-          <span className="rounded-full bg-green-500 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white animate-pulse">
+          <span className="rounded-full bg-[var(--acc)] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-[var(--accInk)] animate-pulse font-mono motion-reduce:animate-none">
             start
           </span>
         ) : node.badge ? (
-          <span className={[
-            'rounded-full px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-wider',
+          <span className={[ 'rounded-full px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-wide font-mono',
             colors.badge,
             colors.badgeText,
           ].join(' ')}>
@@ -237,8 +234,7 @@ function MobileTimeline({ stages }: { stages: Stage[] }) {
           <div key={stage.id} ref={ref} className="relative flex gap-4">
             {/* Left: dot + line */}
             <div className="flex flex-col items-center shrink-0 w-8">
-              <div className={[
-                'h-3 w-3 rounded-full shrink-0 mt-5 z-10 transition-all duration-500',
+              <div className={[ 'h-3 w-3 rounded-full shrink-0 mt-5 z-10 transition-all motion-reduce:transition-none duration-500',
                 colors.dot,
                 inView ? 'scale-100 opacity-100' : 'scale-0 opacity-0',
               ].join(' ')}
@@ -250,8 +246,7 @@ function MobileTimeline({ stages }: { stages: Stage[] }) {
             </div>
 
             {/* Right: stage content */}
-            <div className={[
-              'flex-1 pb-6 transition-all duration-500',
+            <div className={[ 'flex-1 pb-6 transition-all motion-reduce:transition-none duration-500',
               inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4',
             ].join(' ')}
               style={{ transitionDelay: '150ms' }}
@@ -314,12 +309,10 @@ function DesktopTree({ stages }: { stages: Stage[] }) {
               )}
 
               {/* Stage label row */}
-              <div className={[
-                'flex items-center gap-3 mb-3 transition-all duration-500',
+              <div className={[ 'flex items-center gap-3 mb-3 transition-all motion-reduce:transition-none duration-500',
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3',
               ].join(' ')}>
-                <span className={[
-                  'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold font-mono',
+                <span className={[ 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold font-mono',
                   colors.labelBg,
                   colors.label,
                 ].join(' ')}>
@@ -338,8 +331,7 @@ function DesktopTree({ stages }: { stages: Stage[] }) {
 
               {/* Node grid: fixed columns based on count, all same size */}
               <div
-                className={[
-                  'grid gap-2.5',
+                className={[ 'grid gap-2.5',
                   stage.nodes.length <= 3 ? 'grid-cols-3' :
                   stage.nodes.length === 4 ? 'grid-cols-4' :
                   stage.nodes.length === 5 ? 'grid-cols-5' :

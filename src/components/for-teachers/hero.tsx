@@ -32,16 +32,16 @@ export function TeacherHero() {
   return (
     <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
       <nav className="flex flex-wrap items-center gap-2 mb-10">
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">Structural overview</span>
+        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">Structural overview</span>
         <span className="text-fd-muted-foreground/30 text-xs">/</span>
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">For teachers</span>
+        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">For teachers</span>
         <span className="text-fd-muted-foreground/30 text-xs">/</span>
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">Claude Code guide</span>
+        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">Claude Code guide</span>
       </nav>
 
-      <h1 className="font-display text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
+      <h1 className="font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
         You plan. You teach. You assess.<br />
-        <em className="italic text-fd-muted-foreground">Claude handles the paperwork.</em>
+        <em className=" text-fd-muted-foreground">Claude handles the paperwork.</em>
       </h1>
 
       <p className="mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
@@ -52,8 +52,8 @@ export function TeacherHero() {
         {JOURNEYS.map((j) => {
           const Icon = j.icon;
           return (
-            <div key={j.id} className="rounded-xl border border-fd-border bg-fd-card p-5">
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+            <div key={j.id} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                 Works for
               </p>
               <div className="flex items-center gap-2 mb-1.5">
@@ -71,7 +71,7 @@ export function TeacherHero() {
         <Link
           href="/for-teachers/write-lesson-plans-with-claude"
           onClick={() => trackEvent('teacher_hero_cta_click', { cta: 'start_lesson_planning', section: 'for-teachers' })}
-          className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground shadow-sm hover:opacity-90 transition-opacity"
+          className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground hover:opacity-90 transition-opacity"
         >
           Start with lesson planning
         </Link>

@@ -19,9 +19,9 @@ import type { TrackId, InterfaceId } from '@/data/start-tracks';
 const STORAGE_KEY = 'claudecodeguide-start-progress';
 
 const TRACK_OPTIONS = [
-  { id: 'build' as TrackId, icon: Gamepad2, verb: 'Build', headline: 'Make a quiz game your friends can play', time: '10 min', color: 'text-green-600 dark:text-green-400', border: 'border-green-500/30' },
-  { id: 'organize' as TrackId, icon: ClipboardList, verb: 'Organize', headline: 'Turn messy notes into a clear action plan', time: '5 min', color: 'text-blue-600 dark:text-blue-400', border: 'border-blue-500/30' },
-  { id: 'analyze' as TrackId, icon: BarChart3, verb: 'Analyze', headline: 'Give it a spreadsheet, get insights and charts', time: '8 min', color: 'text-purple-600 dark:text-purple-400', border: 'border-purple-500/30' },
+  { id: 'build' as TrackId, icon: Gamepad2, verb: 'Build', headline: 'Make a quiz game your friends can play', time: '10 min', color: 'text-[var(--acc)] ', border: 'border-[var(--line)]' },
+  { id: 'organize' as TrackId, icon: ClipboardList, verb: 'Organize', headline: 'Turn messy notes into a clear action plan', time: '5 min', color: 'text-[var(--acc)] ', border: 'border-[var(--line)]' },
+  { id: 'analyze' as TrackId, icon: BarChart3, verb: 'Analyze', headline: 'Give it a spreadsheet, get insights and charts', time: '8 min', color: 'text-[var(--acc)] ', border: 'border-[var(--line)]' },
 ] as const;
 
 const OS_OPTIONS: { id: OsType; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
@@ -120,7 +120,7 @@ export function StartFlow() {
 
   if (!loaded) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-fd-background">
+      <main className="flex min-h-screen items-center justify-center">
         <p className="text-fd-muted-foreground">Loading your progress...</p>
       </main>
     );
@@ -135,9 +135,9 @@ export function StartFlow() {
   // ─── Step 0: Pick your track ───
   if (!track || step === 0) {
     return (
-      <main className="flex min-h-screen flex-col bg-fd-background">
+      <main className="flex min-h-screen flex-col">
         <section className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 pt-28 pb-8 text-center">
-          <h1 className="animate-slide-up-fade font-display tracking-tight-display text-4xl font-normal text-fd-foreground sm:text-5xl leading-[1.08]">
+          <h1 className="animate-slide-up-fade font-display tracking-[-0.035em] text-4xl font-semibold text-fd-foreground sm:text-5xl leading-[1.08]">
             What do you want to make?
           </h1>
           <p className="animate-slide-up-fade delay-100 mt-6 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
@@ -154,20 +154,20 @@ export function StartFlow() {
                   key={t.id}
                   type="button"
                   onClick={() => selectTrack(t.id)}
-                  className={`animate-slide-up-fade group flex cursor-pointer items-start gap-6 rounded-xl border border-fd-border bg-fd-card p-8 text-left transition-all duration-200 hover:shadow-md hover:${t.border}`}
+                  className={`animate-slide-up-fade group flex cursor-pointer items-start gap-6 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 text-left transition-all duration-200 hover:${t.border}`}
                   style={{ animationDelay: `${i * 100 + 200}ms` }}
                 >
                   <Icon className={`mt-1 h-8 w-8 shrink-0 ${t.color}`} />
                   <div className="flex-1">
-                    <span className="text-xs font-medium uppercase tracking-wider text-fd-muted-foreground">
+                    <span className="text-xs font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
                       {t.verb}
                     </span>
-                    <h2 className="mt-1 font-display text-2xl font-normal text-fd-foreground tracking-tight-display">
+                    <h2 className="mt-1 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
                       {t.headline}
                     </h2>
                     <div className="mt-3 flex items-center gap-3">
                       <span className="text-sm text-fd-muted-foreground">{t.time}</span>
-                      <span className="inline-flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity group-hover:opacity-100">
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity motion-reduce:transition-none group-hover:opacity-100">
                         Let&apos;s go <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
@@ -191,7 +191,7 @@ export function StartFlow() {
   // ─── Step 1: How do you want to use Claude? ───
   if (step === 1) {
     return (
-      <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
+      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={1}
           totalSteps={totalSteps}
@@ -213,8 +213,8 @@ export function StartFlow() {
                   onClick={() => selectInterface(option.id)}
                   className={`flex cursor-pointer items-start gap-4 rounded-xl border p-5 text-left transition-all duration-200 ${
                     isSelected
-                      ? 'border-fd-primary bg-fd-primary/5 shadow-sm'
-                      : 'border-fd-border bg-fd-card hover:bg-fd-accent'
+                      ? 'border-fd-primary bg-fd-primary/5 '
+                      : 'border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] hover:bg-fd-accent'
                   }`}
                 >
                   <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${isSelected ? 'text-fd-foreground' : 'text-fd-muted-foreground'}`} />
@@ -224,7 +224,7 @@ export function StartFlow() {
                         {option.label}
                       </span>
                       {option.badge && (
-                        <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-medium text-green-600 dark:text-green-400">
+                        <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-[10px] font-medium text-[var(--acc)] ">
                           {option.badge}
                         </span>
                       )}
@@ -250,7 +250,7 @@ export function StartFlow() {
   // ─── Step 2 (Terminal path): What computer are you on? ───
   if (step === 2 && interfaceChoice === 'terminal') {
     return (
-      <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
+      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={2}
           totalSteps={totalSteps}
@@ -273,15 +273,15 @@ export function StartFlow() {
                   onClick={() => setOs(option.id)}
                   className={`flex cursor-pointer flex-col items-center gap-3 rounded-xl border p-6 transition-all duration-200 ${
                     isSelected
-                      ? 'border-fd-primary bg-fd-primary/5 shadow-sm'
-                      : 'border-fd-border bg-fd-card hover:bg-fd-accent'
+                      ? 'border-fd-primary bg-fd-primary/5 '
+                      : 'border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] hover:bg-fd-accent'
                   }`}
                 >
                   <Icon className={`h-6 w-6 ${isSelected ? 'text-fd-foreground' : 'text-fd-muted-foreground'}`} />
                   <span className={`text-sm font-medium ${isSelected ? 'text-fd-foreground' : 'text-fd-muted-foreground'}`}>
                     {option.label}
                   </span>
-                  {isSelected && <Check className="h-4 w-4 text-green-600 dark:text-green-400" />}
+                  {isSelected && <Check className="h-4 w-4 text-[var(--acc)] " />}
                 </button>
               );
             })}
@@ -299,7 +299,7 @@ export function StartFlow() {
   // ─── Step 3 (Terminal path): Open your terminal ───
   if (step === 3 && osConfig) {
     return (
-      <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
+      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={3}
           totalSteps={totalSteps}
@@ -312,7 +312,7 @@ export function StartFlow() {
             {osConfig.openTerminal}
           </p>
 
-          <div className="rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">What you&apos;ll see</h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
               A window with a blinking cursor. {osConfig.terminalExplanation}
@@ -328,7 +328,7 @@ export function StartFlow() {
             It won&apos;t open / I see something else
           </button>
           {troubleOpen === 'terminal' && (
-            <div className="animate-fade-in rounded-xl border border-amber-500/20 bg-amber-50 dark:bg-amber-950/20 p-4 text-sm text-fd-muted-foreground leading-relaxed">
+            <div className="animate-fade-in rounded-xl border border-[var(--line)] bg-[var(--chip)] p-4 text-sm text-fd-muted-foreground leading-relaxed">
               {os === 'mac' && (
                 <p>Try looking for Terminal in Applications &gt; Utilities. Or install <a href="https://iterm2.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">iTerm2</a> as an alternative.</p>
               )}
@@ -348,7 +348,7 @@ export function StartFlow() {
   // ─── Step 4 (Terminal path): Install Claude Code ───
   if (step === 4 && osConfig) {
     return (
-      <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
+      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={4}
           totalSteps={totalSteps}
@@ -363,7 +363,7 @@ export function StartFlow() {
 
           <CopyBlock code={osConfig.installCommand} />
 
-          <div className="rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">
               What &quot;<VocabBridge term="npm install" explanation="npm is like an app store for coding tools. This command downloads Claude Code and sets it up on your computer.">npm install</VocabBridge>&quot; means
             </h3>
@@ -382,7 +382,7 @@ export function StartFlow() {
             &quot;npm: command not found&quot;?
           </button>
           {troubleOpen === 'npm' && (
-            <div className="animate-fade-in rounded-xl border border-amber-500/20 bg-amber-50 dark:bg-amber-950/20 p-4 text-sm text-fd-muted-foreground leading-relaxed">
+            <div className="animate-fade-in rounded-xl border border-[var(--line)] bg-[var(--chip)] p-4 text-sm text-fd-muted-foreground leading-relaxed">
               <p className="whitespace-pre-line">{osConfig.nodeInstall}</p>
             </div>
           )}
@@ -396,7 +396,7 @@ export function StartFlow() {
             Something else went wrong?
           </button>
           {troubleOpen === 'other' && (
-            <div className="animate-fade-in rounded-xl border border-amber-500/20 bg-amber-50 dark:bg-amber-950/20 p-4 text-sm text-fd-muted-foreground leading-relaxed">
+            <div className="animate-fade-in rounded-xl border border-[var(--line)] bg-[var(--chip)] p-4 text-sm text-fd-muted-foreground leading-relaxed">
               <p>
                 Check our{' '}
                 <Link href="/docs/foundations/troubleshooting" className="underline hover:text-fd-foreground">
@@ -417,7 +417,7 @@ export function StartFlow() {
   // ─── Step 5 (Terminal path): Sign in ───
   if (step === 5) {
     return (
-      <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
+      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={5}
           totalSteps={totalSteps}
@@ -436,7 +436,7 @@ export function StartFlow() {
             A browser window will open. Sign in with your Anthropic account and you&apos;re in.
           </p>
 
-          <div className="rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-2">No account yet?</h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
               Takes about 30 seconds.{' '}
@@ -451,9 +451,9 @@ export function StartFlow() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/8 p-5">
+          <div className="rounded-xl border border-[var(--line)] bg-[var(--chip)] p-5">
             <div className="flex items-start gap-3">
-              <Mic className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <Mic className="mt-0.5 h-4 w-4 shrink-0 text-[var(--acc)] " />
               <div>
                 <p className="text-sm font-medium text-fd-foreground mb-1">Workflow tip: speak your prompts instead of typing them</p>
                 <p className="text-sm text-fd-muted-foreground leading-relaxed">
@@ -479,7 +479,7 @@ export function StartFlow() {
   // ─── Step 10: Non-terminal path (Web/Desktop/VSCode) ───
   if (step === 10 && trackConfig && interfaceConfig && !interfaceConfig.needsTerminal) {
     return (
-      <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
+      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
         <div className="animate-slide-up-fade w-full max-w-2xl mx-auto">
           {/* Progress bar */}
           <div className="mb-8">
@@ -487,24 +487,24 @@ export function StartFlow() {
               <span className="text-sm text-fd-muted-foreground">
                 Step 3 of 3
               </span>
-              <span className="text-sm font-medium text-green-600 dark:text-green-400">
+              <span className="text-sm font-medium text-[var(--acc)] ">
                 <Check className="inline h-4 w-4 mr-1" />
                 Almost there!
               </span>
             </div>
-            <div className="h-2 w-full rounded-full bg-fd-muted overflow-hidden">
-              <div className="h-full rounded-full bg-green-600 dark:bg-green-400 transition-all duration-500" style={{ width: '100%' }} />
+            <div className="h-2 w-full rounded-full bg-[var(--code)] overflow-hidden">
+              <div className="h-full rounded-full bg-[var(--acc)] transition-all motion-reduce:transition-none duration-500" style={{ width: '100%' }} />
             </div>
           </div>
 
-          <h2 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl mb-2">
+          <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl mb-2">
             Set up {interfaceConfig.name}
           </h2>
 
           {/* Setup steps */}
           <div className="mt-6 space-y-3">
             {interfaceConfig.setupSteps.map((stepText, i) => (
-              <div key={i} className="flex items-start gap-3 rounded-xl border border-fd-border bg-fd-card p-4">
+              <div key={i} className="flex items-start gap-3 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-fd-accent text-xs font-medium text-fd-muted-foreground">
                   {i + 1}
                 </span>
@@ -515,7 +515,7 @@ export function StartFlow() {
 
           {/* The prompt */}
           <div className="mt-8">
-            <h3 className="font-display text-xl font-normal tracking-tight-display text-fd-foreground mb-3">
+            <h3 className="font-display text-xl font-semibold tracking-[-0.035em] text-fd-foreground mb-3">
               {trackConfig.headline}
             </h3>
             <p className="text-sm text-fd-muted-foreground mb-4">
@@ -525,7 +525,7 @@ export function StartFlow() {
           </div>
 
           {/* What Claude will do */}
-          <div className="mt-6 rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="mt-6 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-3">
               <Sparkles className="inline h-4 w-4 mr-1 text-fd-muted-foreground" />
               Claude will:
@@ -533,7 +533,7 @@ export function StartFlow() {
             <ul className="space-y-2">
               {trackConfig.expectation.map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-fd-muted-foreground">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--acc)] " />
                   {item}
                 </li>
               ))}
@@ -541,8 +541,8 @@ export function StartFlow() {
           </div>
 
           {/* What you built */}
-          <div className="mt-8 rounded-xl border border-green-500/20 bg-green-50 dark:bg-green-950/20 p-6">
-            <h3 className="text-lg font-display font-normal text-fd-foreground mb-2">
+          <div className="mt-8 rounded-xl border border-[var(--line)] bg-[var(--chip)] p-6">
+            <h3 className="text-lg font-display font-semibold text-fd-foreground mb-2">
               What just happened?
             </h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed">
@@ -573,7 +573,7 @@ export function StartFlow() {
 
           {/* What next */}
           <div className="mt-12">
-            <h3 className="font-display text-2xl font-normal tracking-tight-display text-fd-foreground mb-6">
+            <h3 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground mb-6">
               What to try next
             </h3>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -584,7 +584,7 @@ export function StartFlow() {
                     key={t.id}
                     type="button"
                     onClick={() => selectTrack(t.id)}
-                    className="flex cursor-pointer items-start gap-4 rounded-xl border border-fd-border bg-fd-card p-5 text-left transition-all hover:shadow-sm hover:bg-fd-accent"
+                    className="flex cursor-pointer items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 text-left transition-all hover:bg-fd-accent"
                   >
                     <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${t.color}`} />
                     <div>
@@ -596,9 +596,9 @@ export function StartFlow() {
               })}
               <Link
                 href="/tutorials"
-                className="flex items-start gap-4 rounded-xl border border-fd-border bg-fd-card p-5 transition-all hover:shadow-sm hover:bg-fd-accent"
+                className="flex items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
               >
-                <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
+                <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-[var(--acc)]" />
                 <div>
                   <p className="text-sm font-medium text-fd-foreground">Browse all tutorials</p>
                   <p className="mt-1 text-xs text-fd-muted-foreground">20+ guided projects</p>
@@ -606,7 +606,7 @@ export function StartFlow() {
               </Link>
               <Link
                 href="/docs"
-                className="flex items-start gap-4 rounded-xl border border-fd-border bg-fd-card p-5 transition-all hover:shadow-sm hover:bg-fd-accent"
+                className="flex items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
               >
                 <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-fd-muted-foreground" />
                 <div>
@@ -649,7 +649,7 @@ export function StartFlow() {
   // ─── Step 6 (Terminal path): The Win! ───
   if (step === 6 && trackConfig && osConfig) {
     return (
-      <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
+      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
         <div className="animate-slide-up-fade w-full max-w-2xl mx-auto">
           {/* Progress bar - complete */}
           <div className="mb-8">
@@ -657,17 +657,17 @@ export function StartFlow() {
               <span className="text-sm text-fd-muted-foreground">
                 Step {totalSteps} of {totalSteps}
               </span>
-              <span className="text-sm font-medium text-green-600 dark:text-green-400">
+              <span className="text-sm font-medium text-[var(--acc)] ">
                 <Check className="inline h-4 w-4 mr-1" />
                 Ready!
               </span>
             </div>
-            <div className="h-2 w-full rounded-full bg-fd-muted overflow-hidden">
-              <div className="h-full rounded-full bg-green-600 dark:bg-green-400 transition-all duration-500" style={{ width: '100%' }} />
+            <div className="h-2 w-full rounded-full bg-[var(--code)] overflow-hidden">
+              <div className="h-full rounded-full bg-[var(--acc)] transition-all motion-reduce:transition-none duration-500" style={{ width: '100%' }} />
             </div>
           </div>
 
-          <h2 className="font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-4xl mb-2">
+          <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl mb-2">
             {trackConfig.headline}
           </h2>
           <p className="text-fd-muted-foreground leading-relaxed mb-8">
@@ -676,7 +676,7 @@ export function StartFlow() {
 
           <CopyBlock code={trackConfig.prompt} />
 
-          <div className="mt-6 rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="mt-6 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <h3 className="text-sm font-medium text-fd-foreground mb-3">
               <Sparkles className="inline h-4 w-4 mr-1 text-fd-muted-foreground" />
               Claude will:
@@ -684,7 +684,7 @@ export function StartFlow() {
             <ul className="space-y-2">
               {trackConfig.expectation.map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-fd-muted-foreground">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--acc)] " />
                   {item}
                 </li>
               ))}
@@ -695,8 +695,8 @@ export function StartFlow() {
           </div>
 
           {/* See your result */}
-          <div className="mt-8 rounded-xl border border-green-500/20 bg-green-50 dark:bg-green-950/20 p-6">
-            <h3 className="text-lg font-display font-normal text-fd-foreground mb-2">
+          <div className="mt-8 rounded-xl border border-[var(--line)] bg-[var(--chip)] p-6">
+            <h3 className="text-lg font-display font-semibold text-fd-foreground mb-2">
               See your result
             </h3>
             <p className="text-sm text-fd-muted-foreground mb-3">
@@ -707,8 +707,8 @@ export function StartFlow() {
           </div>
 
           {/* What just happened */}
-          <div className="mt-8 rounded-xl border border-fd-border bg-fd-card p-6">
-            <h3 className="text-lg font-display font-normal text-fd-foreground mb-2">
+          <div className="mt-8 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
+            <h3 className="text-lg font-display font-semibold text-fd-foreground mb-2">
               What just happened?
             </h3>
             <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
@@ -739,7 +739,7 @@ export function StartFlow() {
 
           {/* What next */}
           <div className="mt-12">
-            <h3 className="font-display text-2xl font-normal tracking-tight-display text-fd-foreground mb-6">
+            <h3 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground mb-6">
               What to try next
             </h3>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -750,7 +750,7 @@ export function StartFlow() {
                     key={t.id}
                     type="button"
                     onClick={() => selectTrack(t.id)}
-                    className="flex cursor-pointer items-start gap-4 rounded-xl border border-fd-border bg-fd-card p-5 text-left transition-all hover:shadow-sm hover:bg-fd-accent"
+                    className="flex cursor-pointer items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 text-left transition-all hover:bg-fd-accent"
                   >
                     <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${t.color}`} />
                     <div>
@@ -762,9 +762,9 @@ export function StartFlow() {
               })}
               <Link
                 href="/tutorials"
-                className="flex items-start gap-4 rounded-xl border border-fd-border bg-fd-card p-5 transition-all hover:shadow-sm hover:bg-fd-accent"
+                className="flex items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
               >
-                <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
+                <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-[var(--acc)]" />
                 <div>
                   <p className="text-sm font-medium text-fd-foreground">Browse all tutorials</p>
                   <p className="mt-1 text-xs text-fd-muted-foreground">20+ guided projects</p>
@@ -772,7 +772,7 @@ export function StartFlow() {
               </Link>
               <Link
                 href="/docs/foundations/what-is-claude-code"
-                className="flex items-start gap-4 rounded-xl border border-fd-border bg-fd-card p-5 transition-all hover:shadow-sm hover:bg-fd-accent"
+                className="flex items-start gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
               >
                 <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-fd-muted-foreground" />
                 <div>
@@ -806,7 +806,7 @@ export function StartFlow() {
 
   // Fallback
   return (
-    <main className="flex min-h-screen flex-col bg-fd-background px-6 pt-24 pb-16">
+    <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
       <div className="mx-auto text-center">
         <p className="text-fd-muted-foreground">Something went wrong. Let&apos;s try again from the start.</p>
         <button

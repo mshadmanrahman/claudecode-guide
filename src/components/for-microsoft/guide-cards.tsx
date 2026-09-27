@@ -79,22 +79,22 @@ const JOURNEY_DATA: JourneyData[] = [
 ];
 
 const TAB_ACTIVE_BORDER: Record<MicrosoftJourney, string> = {
-  word: 'border-blue-600',
-  excel: 'border-green-600',
-  powerpoint: 'border-orange-600',
+  word: 'border-[var(--acc)]',
+  excel: 'border-[var(--acc)]',
+  powerpoint: 'border-[var(--acc)]',
 };
 
 const JOURNEY_BADGE_STYLES: Record<MicrosoftJourney, string> = {
-  word: 'bg-blue-50 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
-  excel: 'bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-300',
-  powerpoint: 'bg-orange-50 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300',
+  word: 'bg-[var(--chip)] text-[var(--acc)]  ',
+  excel: 'bg-[var(--chip)] text-[var(--acc)]  ',
+  powerpoint: 'bg-[var(--chip)] text-[var(--acc)]  ',
 };
 
 function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
   const styles =
     level === 'beginner'
-      ? 'bg-green-500/10 text-green-600 dark:text-green-400'
-      : 'bg-purple-500/10 text-purple-600 dark:text-purple-400';
+      ? 'bg-[var(--chip)] text-[var(--acc)] '
+      : 'bg-[var(--chip)] text-[var(--acc)] ';
   return (
     <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${styles}`}>
       {level}
@@ -117,10 +117,10 @@ export function MicrosoftGuideCards() {
     <section id="guides" className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-12 transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-12 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">02</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Pick your app
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -132,7 +132,7 @@ export function MicrosoftGuideCards() {
 
         {/* Journey tabs */}
         <div
-          className={`mb-8 transition-all duration-500 delay-100 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-8 transition-all motion-reduce:transition-none duration-500 delay-100 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <div className="flex gap-1 border-b border-fd-border">
             {JOURNEY_DATA.map((j) => (
@@ -160,7 +160,7 @@ export function MicrosoftGuideCards() {
 
         {/* Journey context */}
         <div
-          className={`mb-10 rounded-xl border border-fd-border bg-fd-card p-5 transition-all duration-300 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-10 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all motion-reduce:transition-none duration-300 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <div className="flex items-start gap-4">
             <span
@@ -185,7 +185,7 @@ export function MicrosoftGuideCards() {
 
             return (
               <div key={cluster.cluster}>
-                <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                   {cluster.cluster}
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -206,7 +206,7 @@ export function MicrosoftGuideCards() {
                             section: 'for-microsoft',
                           })
                         }
-                        className={`group flex flex-col rounded-xl border border-fd-border bg-fd-card p-6 transition-all hover:border-fd-muted-foreground/30 hover:shadow-md duration-500 ${
+                        className={`group flex flex-col rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all motion-reduce:transition-none hover:border-fd-muted-foreground/30  duration-500 ${
                           inView ? 'animate-slide-up-fade' : 'opacity-0'
                         }`}
                         style={{ animationDelay: `${(ci * 3 + (num % 3)) * 80 + 100}ms` }}
@@ -223,13 +223,13 @@ export function MicrosoftGuideCards() {
                             <DifficultyBadge level={guide.difficulty} />
                           </div>
                         </div>
-                        <h3 className="mb-2 font-display text-base font-medium text-fd-foreground leading-snug group-hover:text-fd-primary transition-colors">
+                        <h3 className="mb-2 font-display text-base font-semibold text-fd-foreground leading-snug group-hover:text-fd-primary transition-colors">
                           {guide.title}
                         </h3>
                         <p className="text-sm text-fd-muted-foreground leading-relaxed flex-1">
                           {guide.description}
                         </p>
-                        <div className="mt-4 flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity group-hover:opacity-100">
+                        <div className="mt-4 flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity motion-reduce:transition-none group-hover:opacity-100">
                           Open <ArrowRight className="h-3.5 w-3.5" />
                         </div>
                       </Link>

@@ -32,7 +32,7 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
   }
 
   return (
-    <div className="rounded-xl border border-fd-border bg-fd-card p-6 space-y-4">
+    <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 space-y-4">
       <div className="flex items-center gap-2">
         <Share2 className="h-4 w-4 text-fd-muted-foreground" />
         <p className="text-sm font-medium text-fd-foreground">Tell someone what you built</p>
@@ -52,12 +52,12 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g. Priya Sharma"
-          className="w-full rounded-lg border border-fd-border bg-fd-background px-3 py-2 text-sm text-fd-foreground placeholder:text-fd-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-fd-muted-foreground/30"
+          className="w-full rounded-lg border border-fd-border bg-[var(--glass2)] px-3 py-2 text-sm text-fd-foreground placeholder:text-fd-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-fd-muted-foreground/30"
         />
       </div>
 
       {/* Post preview */}
-      <div className="rounded-lg border border-fd-border bg-fd-background px-4 py-3">
+      <div className="rounded-lg border border-fd-border bg-[var(--glass2)] px-4 py-3">
         <p className="text-xs text-fd-muted-foreground leading-relaxed whitespace-pre-line">
           {shareText}
           {'\n'}
@@ -82,9 +82,9 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
         </a>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 rounded-lg border border-fd-border bg-fd-muted px-4 py-2.5 text-sm font-medium text-fd-muted-foreground transition-colors hover:text-fd-foreground"
+          className="flex items-center gap-1.5 rounded-lg border border-fd-border bg-[var(--code)] px-4 py-2.5 text-sm font-medium text-fd-muted-foreground transition-colors hover:text-fd-foreground"
         >
-          {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+          {copied ? <Check className="h-4 w-4 text-[var(--acc)]" /> : <Copy className="h-4 w-4" />}
           {copied ? 'Copied' : 'Copy'}
         </button>
       </div>

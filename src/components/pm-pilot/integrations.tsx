@@ -51,12 +51,12 @@ export function PmPilotIntegrations() {
     <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">06</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Connect your work tools
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -68,7 +68,7 @@ export function PmPilotIntegrations() {
           {integrations.map((item, i) => (
             <div
               key={item.name}
-              className={`flex flex-col gap-3 rounded-xl border border-fd-border bg-fd-card p-6 sm:flex-row sm:items-center sm:justify-between transition-all duration-500 ${
+              className={`flex flex-col gap-3 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:flex-row sm:items-center sm:justify-between transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 80 + 100}ms` }}
@@ -81,7 +81,7 @@ export function PmPilotIntegrations() {
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="shrink-0 text-xs font-medium text-fd-foreground underline underline-offset-2 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                className="shrink-0 text-xs font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
               >
                 {item.linkLabel} &rarr;
               </a>
@@ -90,7 +90,7 @@ export function PmPilotIntegrations() {
         </div>
 
         <div
-          className={`mt-10 rounded-xl border border-fd-border bg-fd-card p-6 transition-all duration-500 ${
+          className={`mt-10 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
           style={{ animationDelay: '600ms' }}

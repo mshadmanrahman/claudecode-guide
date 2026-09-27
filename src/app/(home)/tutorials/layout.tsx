@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 export const metadata: Metadata = {
   title: 'Claude Code Tutorials: Step-by-Step Guides for Every Skill Level',
@@ -14,5 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default function TutorialsLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <SceneBackdrop variant="faded" />
+      {children}
+    </>
+  );
 }

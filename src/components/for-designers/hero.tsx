@@ -34,12 +34,12 @@ export function DesignerHero() {
   return (
     <section className="mx-auto max-w-5xl px-6 pt-28 pb-20">
       {/* Category label */}
-      <p className="animate-slide-up-fade mb-8 text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground">
+      <p className="animate-slide-up-fade mb-8 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
         For UX Designers
       </p>
 
       {/* Headline — staggered line by line */}
-      <h1 className="font-display tracking-tight leading-[1.05]">
+      <h1 className="font-display tracking-[-0.035em] leading-[1.05] font-semibold">
         <span
           className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
           style={{ animationDelay: '80ms' }}
@@ -50,7 +50,7 @@ export function DesignerHero() {
           className="block animate-slide-up-fade text-5xl font-medium sm:text-6xl lg:text-[5.5rem]"
           style={{ animationDelay: '180ms' }}
         >
-          <em className="italic text-fd-muted-foreground">It felt generic.</em>
+          <em className=" text-fd-muted-foreground">It felt generic.</em>
         </span>
         <span
           className="block animate-slide-up-fade text-5xl font-medium text-fd-foreground sm:text-6xl lg:text-[5.5rem]"
@@ -78,7 +78,7 @@ export function DesignerHero() {
             onClick={() =>
               trackEvent('designer_hero_journey_click', { journey: j.id, section: 'for-designers' })
             }
-            className="group relative flex flex-col justify-between bg-fd-background p-6 transition-colors duration-200 hover:bg-fd-accent/40"
+            className="group relative flex flex-col justify-between bg-[var(--glass2)] p-6 transition-colors duration-200 hover:bg-fd-accent/40"
             style={{ animationDelay: `${500 + i * 80}ms` }}
           >
             {/* Large background number */}
@@ -115,7 +115,7 @@ export function DesignerHero() {
           onClick={() =>
             trackEvent('designer_hero_cta_click', { cta: 'start_guide_1', section: 'for-designers' })
           }
-          className="inline-flex items-center rounded-lg bg-fd-foreground px-6 py-3 text-sm font-semibold text-fd-background hover:opacity-80 transition-opacity"
+          className="inline-flex items-center rounded-lg bg-[var(--acc)] px-6 py-3 text-sm font-semibold text-[var(--accInk)] hover:opacity-80 transition-opacity"
         >
           Start with Guide 1
         </Link>

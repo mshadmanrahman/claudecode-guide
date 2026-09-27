@@ -62,54 +62,43 @@ export function BlogContent({ html }: { html: string }) {
       try {
         const highlighted = await codeToHtml(rawCode, {
           lang,
-          theme: claudeGuideTheme,
+          themes: { light: 'github-light', dark: claudeGuideTheme },
+          defaultColor: false,
         });
 
-        // Create a wrapper with Carbon-style chrome
-        const wrapper = document.createElement('div');
-        wrapper.className = 'blog-code-block';
-        wrapper.innerHTML = `
-          <div style="background: #1e1e1e; border-radius: 12px; overflow: hidden; margin: 1.5rem 0; border: 1px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-            <div style="display: flex; align-items: center; gap: 6px; padding: 12px 16px; background: #2d2d2d;">
-              <span style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f57;"></span>
-              <span style="width: 12px; height: 12px; border-radius: 50%; background: #febc2e;"></span>
-              <span style="width: 12px; height: 12px; border-radius: 50%; background: #28c840;"></span>
-            </div>
-            <div style="padding: 0;">${highlighted}</div>
-          </div>
-        `;
+        // Glass panel with a mono label bar and a copy button (docs + blog styles in globals.css)
+        const wrapper = document.createElement('figure');
+        wrapper.className = 'blog-code-block ccg-code not-prose';
 
-        // Override shiki's generated pre/code styles and reset prose bleeding
-        const shikiPre = wrapper.querySelector('pre');
-        if (shikiPre) {
-          shikiPre.style.margin = '0';
-          shikiPre.style.padding = '16px 20px';
-          shikiPre.style.borderRadius = '0';
-          shikiPre.style.border = 'none';
-          shikiPre.style.fontSize = '14px';
-          shikiPre.style.lineHeight = '1.6';
-          shikiPre.style.overflowX = 'auto';
-          shikiPre.style.whiteSpace = 'pre-wrap';
-          shikiPre.style.wordBreak = 'break-word';
-          shikiPre.style.background = 'transparent';
-        }
-
-        // Reset prose code styles that bleed into the highlighted output
-        const codeEls = wrapper.querySelectorAll('code');
-        codeEls.forEach((code) => {
-          code.style.background = 'transparent';
-          code.style.padding = '0';
-          code.style.borderRadius = '0';
-          code.style.fontSize = 'inherit';
+        const bar = document.createElement('div');
+        bar.className = 'ccg-code-bar';
+        const label = document.createElement('span');
+        label.textContent = lang === 'text' ? 'text' : lang;
+        const copy = document.createElement('button');
+        copy.type = 'button';
+        copy.className = 'ccg-copy';
+        copy.textContent = 'copy';
+        copy.setAttribute('aria-label', 'Copy code');
+        copy.addEventListener('click', () => {
+          navigator.clipboard
+            .writeText(rawCode)
+            .then(() => {
+              copy.textContent = 'copied';
+              window.setTimeout(() => {
+                copy.textContent = 'copy';
+              }, 1600);
+            })
+            .catch(() => {
+              copy.textContent = 'copy failed';
+            });
         });
+        bar.append(label, copy);
 
-        // Reset any span backgrounds from prose
-        const spans = wrapper.querySelectorAll('span');
-        spans.forEach((span) => {
-          if (!span.style.color) return;
-          span.style.background = 'transparent';
-        });
+        const body = document.createElement('div');
+        body.className = 'ccg-code-body';
+        body.innerHTML = highlighted;
 
+        wrapper.append(bar, body);
         pre.replaceWith(wrapper);
       } catch {
         // Shiki failed for this block, leave original styling

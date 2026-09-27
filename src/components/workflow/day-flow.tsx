@@ -280,7 +280,7 @@ export function DayFlow() {
             }}
             className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
               active === p.id
-                ? 'bg-fd-foreground text-fd-background'
+                ? 'bg-[var(--acc)] text-[var(--accInk)]'
                 : 'border border-fd-border text-fd-muted-foreground hover:border-fd-foreground/30 hover:text-fd-foreground'
             }`}
           >
@@ -300,7 +300,7 @@ export function DayFlow() {
               <div key={`${active}-${slot.time}`} className="relative flex gap-4 sm:gap-8">
                 {/* Time + icon column */}
                 <div className="flex flex-col items-center gap-1.5 w-[52px] shrink-0 pt-5">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-fd-card border border-fd-border z-10">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border border-fd-border z-10">
                     <Icon className="h-3.5 w-3.5 text-fd-muted-foreground" />
                   </div>
                   <span className="font-mono text-[10px] text-fd-muted-foreground/60">
@@ -309,21 +309,21 @@ export function DayFlow() {
                 </div>
 
                 {/* Card */}
-                <div className="flex-1 min-w-0 rounded-xl border border-fd-border bg-fd-card p-6">
+                <div className="flex-1 min-w-0 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
                   <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
                     {slot.label}
                   </p>
-                  <h3 className="font-display text-lg font-normal tracking-tight text-fd-foreground mb-2">
+                  <h3 className="font-display text-lg font-semibold tracking-[-0.035em] text-fd-foreground mb-2">
                     {slot.title}
                   </h3>
                   <p className="text-sm text-fd-muted-foreground leading-relaxed mb-4">
                     {slot.description}
                   </p>
-                  <div className="rounded-lg bg-fd-background border border-fd-border px-4 py-3">
+                  <div className="rounded-lg bg-[var(--glass2)] border border-fd-border px-4 py-3">
                     <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground mb-1.5">
                       Try saying:
                     </p>
-                    <p className="text-sm text-fd-foreground leading-relaxed italic">
+                    <p className="text-sm text-fd-foreground leading-relaxed ">
                       &ldquo;{slot.prompt}&rdquo;
                     </p>
                   </div>

@@ -71,8 +71,8 @@ const stages: Stage[] = [
     number: '01',
     title: 'Understand',
     subtitle: 'What is this thing?',
-    headerColor: 'text-green-700 dark:text-green-300',
-    headerBg: 'bg-green-50 border-green-200 dark:bg-green-950/40 dark:border-green-800/40',
+    headerColor: 'text-[var(--acc)] ',
+    headerBg: 'bg-[var(--chip)] border-[var(--line)]  ',
     nodes: [
       {
         id: 'what-is-claude-code',
@@ -109,8 +109,8 @@ const stages: Stage[] = [
     number: '02',
     title: 'Set Up',
     subtitle: '~10 minutes to get running',
-    headerColor: 'text-blue-700 dark:text-blue-300',
-    headerBg: 'bg-blue-50 border-blue-200 dark:bg-blue-950/40 dark:border-blue-800/40',
+    headerColor: 'text-[var(--acc)] ',
+    headerBg: 'bg-[var(--chip)] border-[var(--line)]  ',
     nodes: [
       {
         id: 'install',
@@ -145,8 +145,8 @@ const stages: Stage[] = [
     number: '03',
     title: 'First Win',
     subtitle: 'Build something real',
-    headerColor: 'text-amber-700 dark:text-amber-300',
-    headerBg: 'bg-amber-50 border-amber-200 dark:bg-amber-950/40 dark:border-amber-800/40',
+    headerColor: 'text-[var(--acc)] ',
+    headerBg: 'bg-[var(--chip)] border-[var(--line)]  ',
     nodes: [
       {
         id: 'ship-landing-page',
@@ -207,8 +207,8 @@ const stages: Stage[] = [
     number: '04',
     title: 'Build Habits',
     subtitle: "From \"cool\" to \"can't work without\"",
-    headerColor: 'text-purple-700 dark:text-purple-300',
-    headerBg: 'bg-purple-50 border-purple-200 dark:bg-purple-950/40 dark:border-purple-800/40',
+    headerColor: 'text-[var(--acc)] ',
+    headerBg: 'bg-[var(--chip)] border-[var(--line)]  ',
     nodes: [
       {
         id: 'session-lifecycle',
@@ -249,8 +249,8 @@ const stages: Stage[] = [
     number: '05',
     title: 'Level Up',
     subtitle: 'Skills, hooks, agents',
-    headerColor: 'text-rose-700 dark:text-rose-300',
-    headerBg: 'bg-rose-50 border-rose-200 dark:bg-rose-950/40 dark:border-rose-800/40',
+    headerColor: 'text-red-700 dark:text-red-300 ',
+    headerBg: 'bg-[var(--code)] border-[var(--line)]  ',
     nodes: [
       {
         id: 'skills',
@@ -304,8 +304,8 @@ const stages: Stage[] = [
     number: '06',
     title: 'Mastery',
     subtitle: 'Run Claude while you sleep',
-    headerColor: 'text-indigo-700 dark:text-indigo-300',
-    headerBg: 'bg-indigo-50 border-indigo-200 dark:bg-indigo-950/40 dark:border-indigo-800/40',
+    headerColor: 'text-[var(--acc)] ',
+    headerBg: 'bg-[var(--chip)] border-[var(--line)]  ',
     nodes: [
       {
         id: 'autonomous-loops',
@@ -370,12 +370,12 @@ const stages: Stage[] = [
    ───────────────────────────────────────────── */
 
 const audienceColor: Record<string, string> = {
-  Beginners: 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400',
-  PMs: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400',
-  Devs: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400',
-  Founders: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400',
-  Students: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-400',
-  Designers: 'bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-400',
+  Beginners: 'bg-[var(--chip)] text-[var(--acc)]  ',
+  PMs: 'bg-[var(--chip)] text-[var(--acc)]  ',
+  Devs: 'bg-[var(--chip)] text-[var(--acc)]  ',
+  Founders: 'bg-[var(--chip)] text-[var(--acc)]  ',
+  Students: 'bg-[var(--chip)] text-[var(--acc)]  ',
+  Designers: 'bg-[var(--chip)] text-[var(--acc)]  ',
 };
 
 /* ─────────────────────────────────────────────
@@ -517,7 +517,7 @@ export default function JourneyPage() {
   const journey = useJourneySelections();
 
   return (
-    <div className="flex flex-col bg-fd-background">
+    <div className="flex flex-col">
       <DeprecationBanner
         message="Want the fastest path? The new guided setup gets you from zero to your first win in under 5 minutes."
         linkText="Go to Start Here"
@@ -527,12 +527,12 @@ export default function JourneyPage() {
       <section className="relative mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
         <div className="absolute inset-0 bg-grid bg-grid-fade opacity-30 pointer-events-none" />
         <div className="relative z-10">
-          <div className="animate-slide-up-fade mb-3 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm">
+          <div className="animate-slide-up-fade mb-3 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-1.5 text-sm">
             <Map className="h-3.5 w-3.5 text-fd-muted-foreground" />
             <span className="text-fd-muted-foreground">The full learning path</span>
           </div>
 
-          <h1 className="animate-slide-up-fade delay-100 font-display text-3xl font-normal tracking-tight-display text-fd-foreground sm:text-5xl">
+          <h1 className="animate-slide-up-fade delay-100 font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             The Claude Code Roadmap
           </h1>
           <p className="animate-slide-up-fade delay-200 mx-auto mt-3 max-w-lg text-base text-fd-muted-foreground">
@@ -557,7 +557,7 @@ export default function JourneyPage() {
       {/* ── Learning Tree ── */}
       <section className="mx-auto w-full max-w-6xl px-6 pb-12">
         <div className="mb-6 text-center">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-3xl">
             Your Learning Tree
           </h2>
           <p className="mt-2 text-sm text-fd-muted-foreground">
@@ -582,7 +582,7 @@ export default function JourneyPage() {
               )}
 
               {/* Stage card */}
-              <div className="overflow-hidden rounded-2xl border border-fd-border bg-fd-card shadow-sm">
+              <div className="overflow-hidden rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
                 {/* Colored header */}
                 <div className={`border-b px-5 py-4 sm:px-6 ${stage.headerBg}`}>
                   <div className="flex items-center gap-3">
@@ -635,7 +635,7 @@ export default function JourneyPage() {
                           )}
 
                           {node.badge && (
-                            <span className="shrink-0 rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-fd-muted-foreground">
+                            <span className="shrink-0 rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
                               {node.badge}
                             </span>
                           )}
@@ -681,7 +681,7 @@ export default function JourneyPage() {
                                   ))}
                                 </ol>
                                 {getInstallBlock(journey.os, journey.iface)!.note && (
-                                  <p className="text-xs text-fd-muted-foreground/80 italic">
+                                  <p className="text-xs text-fd-muted-foreground/80 ">
                                     {getInstallBlock(journey.os, journey.iface)!.note}
                                   </p>
                                 )}
@@ -695,7 +695,7 @@ export default function JourneyPage() {
                                 <p className="text-sm text-fd-muted-foreground leading-relaxed">
                                   {node.description}
                                 </p>
-                                <p className="text-xs text-fd-muted-foreground/70 italic">
+                                <p className="text-xs text-fd-muted-foreground/70 ">
                                   Pick your setup above to see exact steps for your platform.
                                 </p>
                               </div>
@@ -717,7 +717,7 @@ export default function JourneyPage() {
                                   href={node.affiliateHref}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400"
+                                  className="inline-flex items-center gap-1 text-xs font-medium text-[var(--acc)] hover:text-[var(--acc)] "
                                 >
                                   {node.affiliateLabel}
                                   <ExternalLink className="h-3 w-3" />
@@ -738,8 +738,8 @@ export default function JourneyPage() {
 
       {/* ── Bottom CTA ── */}
       <section className="mx-auto w-full max-w-3xl px-6 pb-24">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-8 text-center sm:p-10">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 text-center sm:p-10">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             Ready to start?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
@@ -759,13 +759,13 @@ export default function JourneyPage() {
             </Link>
             <Link
               href="/tutorials"
-              className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground hover:bg-fd-accent"
+              className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-[var(--glass2)] px-6 py-3 text-sm font-medium text-fd-foreground hover:bg-fd-accent"
             >
               Browse tutorials
             </Link>
           </div>
 
-          <div className="mt-8 rounded-xl border border-indigo-500/20 bg-indigo-500/5 p-5">
+          <div className="mt-8 rounded-xl border border-[var(--line)] bg-[var(--chip)] p-5">
             <p className="text-sm font-medium text-fd-foreground">
               Need Claude Pro to follow along?
             </p>
@@ -774,7 +774,7 @@ export default function JourneyPage() {
             </p>
             <a
               href="/docs/comparisons/pro-vs-max"
-              className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+              className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-[var(--acc)] hover:text-[var(--acc)] "
             >
               Compare Pro vs Max
               <ExternalLink className="h-3.5 w-3.5" />

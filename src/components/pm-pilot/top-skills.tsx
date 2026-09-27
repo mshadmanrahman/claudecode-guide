@@ -40,7 +40,7 @@ const skills = [
           href={GRANOLA_AFFILIATE}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium text-fd-foreground underline underline-offset-2 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+          className="font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
         >
           Granola
         </a>{' '}
@@ -71,14 +71,14 @@ export function PmPilotTopSkills() {
     <section className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">
             03
           </span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Five skills worth trying first
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -90,7 +90,7 @@ export function PmPilotTopSkills() {
           {skills.map((s, i) => (
             <div
               key={s.name}
-              className={`flex items-start gap-6 border-b border-fd-border py-6 transition-all duration-500 ${
+              className={`flex items-start gap-6 border-b border-fd-border py-6 transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 80 + 100}ms` }}
@@ -99,7 +99,7 @@ export function PmPilotTopSkills() {
                 {s.num}
               </span>
               <div className="flex flex-col gap-1 sm:flex-row sm:gap-6 sm:items-baseline">
-                <span className="font-mono text-sm font-semibold text-green-600 dark:text-green-400 shrink-0 sm:w-44">
+                <span className="font-mono text-sm font-semibold text-[var(--acc)] shrink-0 sm:w-44">
                   {s.name}
                 </span>
                 <p className="text-sm text-fd-muted-foreground leading-relaxed">
@@ -112,11 +112,11 @@ export function PmPilotTopSkills() {
 
         <div
           ref={demoRef}
-          className={`transition-all duration-500 ${
+          className={`transition-all motion-reduce:transition-none duration-500 ${
             demoInView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <p className="mb-3 text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+          <p className="mb-3 text-xs font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
             /weekly-status, running live
           </p>
           <DemoCard title="pm-pilot : weekly status" steps={WEEKLY_STATUS_STEPS} loop loopDelay={4000} />

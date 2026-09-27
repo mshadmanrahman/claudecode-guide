@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { AuthorBio } from '@/components/author-bio';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 export const metadata: Metadata = {
   title: { absolute: 'About Shadman Rahman' },
@@ -24,14 +25,15 @@ const personJsonLd = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
+      <SceneBackdrop variant="faded" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      <section className="border-b border-fd-border bg-fd-background px-6 py-16 sm:py-24">
+      <section className="border-b border-fd-border px-6 py-16 sm:py-24">
         <div className="mx-auto max-w-3xl">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             About Shadman Rahman
           </h1>
           <p className="mt-5 text-lg text-fd-muted-foreground leading-relaxed">

@@ -36,13 +36,13 @@ export function PmPilotJourneyMap() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="bg-fd-muted py-28" ref={ref}>
+    <section className="bg-[var(--code)] py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div className="mb-16">
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">
             02
           </span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Start where you are
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -54,7 +54,7 @@ export function PmPilotJourneyMap() {
           {levels.map((l, i) => (
             <div
               key={l.level}
-              className={`relative rounded-xl border border-fd-border bg-fd-card p-8 flex flex-col gap-6 transition-all duration-500 ${
+              className={`relative rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 flex flex-col gap-6 transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 120}ms` }}
@@ -64,7 +64,7 @@ export function PmPilotJourneyMap() {
               </span>
               <div className="flex flex-col gap-2">
                 <h3 className="text-lg font-semibold text-fd-foreground">{l.title}</h3>
-                <p className="text-xs font-medium uppercase tracking-widest text-green-600 dark:text-green-400">
+                <p className="text-xs font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
                   {l.subtitle}
                 </p>
               </div>

@@ -49,8 +49,8 @@ export async function generateStaticParams() {
 function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
   const styles =
     level === 'beginner'
-      ? 'bg-green-500/10 text-green-600 dark:text-green-400'
-      : 'bg-purple-500/10 text-purple-600 dark:text-purple-400';
+      ? 'bg-[var(--chip)] text-[var(--acc)] '
+      : 'bg-[var(--chip)] text-[var(--acc)] ';
   return (
     <span className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${styles}`}>
       {level}
@@ -71,7 +71,7 @@ export default async function MicrosoftGuidePage({
   }
 
   return (
-    <div className="flex flex-col bg-fd-background">
+    <div className="flex flex-col">
       <ArticleSchema
         headline={guide.title}
         description={guide.description}
@@ -98,7 +98,7 @@ export default async function MicrosoftGuidePage({
             <DifficultyBadge level={guide.difficulty} />
           </div>
 
-          <h1 className="font-display text-3xl font-normal tracking-tight text-fd-foreground sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
             {guide.title}
           </h1>
 
@@ -108,7 +108,7 @@ export default async function MicrosoftGuidePage({
         {/* Situation card */}
         {guide.situation && (
           <div className="mb-10 rounded-xl border border-fd-border bg-fd-accent/50 px-6 py-5">
-            <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
               The situation
             </p>
             <p className="text-base font-medium text-fd-foreground leading-relaxed">
@@ -123,12 +123,12 @@ export default async function MicrosoftGuidePage({
         {/* Outcomes grid (replaces intro when present) */}
         {guide.outcomes ? (
           <div data-persona-guide-intro className="mb-12">
-            <p className="mb-4 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
               What you walk away with
             </p>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               {guide.outcomes.map((outcome, i) => (
-                <div key={i} className="rounded-xl border border-fd-border bg-fd-card p-5">
+                <div key={i} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5">
                   <span className="font-mono text-3xl font-light text-fd-muted-foreground/25">
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -138,7 +138,7 @@ export default async function MicrosoftGuidePage({
             </div>
           </div>
         ) : (
-          <div data-persona-guide-intro className="mb-12 rounded-xl border border-fd-border bg-fd-card p-6">
+          <div data-persona-guide-intro className="mb-12 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <p className="text-sm leading-relaxed text-fd-muted-foreground">{guide.intro}</p>
           </div>
         )}
@@ -146,19 +146,19 @@ export default async function MicrosoftGuidePage({
         {/* Prompt contrast */}
         {guide.promptContrast && (
           <div className="mb-12 space-y-3">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
               The difference one prompt makes
             </p>
-            <div className="rounded-xl border border-red-200 bg-red-50 dark:border-red-900/40 dark:bg-red-950/20 p-5">
-              <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-red-500 dark:text-red-400">
+            <div className="rounded-xl border border-[var(--line)] bg-[var(--code)] p-5">
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-red-700 dark:text-red-300  font-mono">
                 Don&apos;t
               </p>
               <p className="font-mono text-sm text-fd-foreground whitespace-pre-wrap leading-relaxed">
                 {guide.promptContrast.bad}
               </p>
             </div>
-            <div className="rounded-xl border border-green-200 bg-green-50 dark:border-green-900/40 dark:bg-green-950/20 p-5">
-              <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-green-600 dark:text-green-400">
+            <div className="rounded-xl border border-[var(--line)] bg-[var(--chip)] p-5">
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-[var(--acc)]  font-mono">
                 Do this
               </p>
               <p className="font-mono text-sm text-fd-foreground whitespace-pre-wrap leading-relaxed">
@@ -166,7 +166,7 @@ export default async function MicrosoftGuidePage({
               </p>
             </div>
             {guide.promptContrast.why && (
-              <p className="px-1 text-sm text-fd-muted-foreground leading-relaxed italic">
+              <p className="px-1 text-sm text-fd-muted-foreground leading-relaxed ">
                 {guide.promptContrast.why}
               </p>
             )}
@@ -178,7 +178,7 @@ export default async function MicrosoftGuidePage({
           {guide.steps.map((step, index) => (
             <section key={index}>
               <div className="flex items-start gap-4 mb-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-fd-border bg-fd-muted text-sm font-medium text-fd-muted-foreground">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--code)] text-sm font-medium text-fd-muted-foreground">
                   {index + 1}
                 </div>
                 <div>
@@ -213,7 +213,7 @@ export default async function MicrosoftGuidePage({
 
         {/* Footer */}
         <div data-persona-guide-sentinel className="mt-20 space-y-8">
-          <div className="rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <p className="text-sm font-medium text-fd-muted-foreground mb-2">
               What&apos;s next?
             </p>

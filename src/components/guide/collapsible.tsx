@@ -15,7 +15,7 @@ export function Collapsible({ title, variant = 'help', children }: CollapsiblePr
 
   return (
     <div className={`rounded-lg border transition-colors ${
-      variant === 'help' ? 'border-amber-500/30 bg-amber-500/5' : 'border-fd-border bg-fd-card'
+      variant === 'help' ? 'border-[var(--line)] bg-[var(--chip)]' : 'border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]'
     }`}>
       <button
         type="button"
@@ -23,11 +23,11 @@ export function Collapsible({ title, variant = 'help', children }: CollapsiblePr
         className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm"
       >
         {variant === 'help' ? (
-          <HelpCircle className="h-4 w-4 shrink-0 text-amber-500" />
+          <HelpCircle className="h-4 w-4 shrink-0 text-[var(--acc)]" />
         ) : (
           <ChevronRight className={`h-4 w-4 shrink-0 text-fd-muted-foreground transition-transform ${open ? 'rotate-90' : ''}`} />
         )}
-        <span className={`font-medium ${variant === 'help' ? 'text-amber-600 dark:text-amber-400' : 'text-fd-foreground'}`}>
+        <span className={`font-medium ${variant === 'help' ? 'text-[var(--acc)] ' : 'text-fd-foreground'}`}>
           {title}
         </span>
       </button>

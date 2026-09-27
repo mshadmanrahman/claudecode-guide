@@ -69,7 +69,7 @@ export function PmPilotWorksWith() {
   return (
     <section className="py-10" ref={ref}>
       <div
-        className={`mx-auto max-w-5xl px-6 text-center transition-all duration-500 ${
+        className={`mx-auto max-w-5xl px-6 text-center transition-all motion-reduce:transition-none duration-500 ${
           inView ? 'animate-slide-up-fade' : 'opacity-0'
         }`}
       >

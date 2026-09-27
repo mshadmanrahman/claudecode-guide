@@ -25,9 +25,9 @@ interface DemoCardProps {
 const TYPE_STYLES: Record<DemoStep['type'], string> = {
   cmd: 'text-fd-foreground font-medium',
   out: 'text-fd-muted-foreground text-xs',
-  success: 'text-green-600 dark:text-green-400 text-xs',
-  warn: 'text-amber-600 dark:text-amber-400 text-xs',
-  error: 'text-red-600 dark:text-red-400 text-xs',
+  success: 'text-[var(--acc)]  text-xs',
+  warn: 'text-[var(--acc)]  text-xs',
+  error: 'text-red-700 dark:text-red-300  text-xs',
 };
 
 export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3000, maxHeight = 280 }: DemoCardProps) {
@@ -60,10 +60,10 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
   return (
     <div
       ref={containerRef}
-      className="my-6 overflow-hidden rounded-xl border border-fd-border shadow-sm bg-fd-card"
+      className="my-6 overflow-hidden rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]"
     >
       {/* Title bar */}
-      <div className="flex items-center gap-2 border-b border-fd-border bg-fd-muted px-4 py-2.5">
+      <div className="flex items-center gap-2 border-b border-fd-border bg-[var(--code)] px-4 py-2.5">
         <div className="flex gap-1.5">
           <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
           <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
@@ -85,13 +85,11 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
           >
             {step.type === 'cmd' ? (
               <div>
-                <span className="text-green-600 dark:text-green-400">~</span>
+                <span className="text-[var(--acc)] ">~</span>
                 <span className="text-fd-muted-foreground"> $ </span>
-                <span className={TYPE_STYLES.cmd}>{step.text}</span>
-              </div>
+                <span className={TYPE_STYLES.cmd}>{step.text}</span> </div>
             ) : (
-              <div className={TYPE_STYLES[step.type]}>
-                {'  '}{step.text}
+              <div className={TYPE_STYLES[step.type]}> {'  '}{step.text}
               </div>
             )}
           </div>
@@ -99,7 +97,7 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
 
         {/* Blinking cursor */}
         {visibleCount < steps.length && isInView && (
-          <span className="inline-block h-4 w-1.5 animate-blink bg-fd-foreground/60 align-middle" />
+          <span className="inline-block h-4 w-1.5 animate-blink bg-[var(--acc)] align-middle motion-reduce:animate-none" />
         )}
       </div>
     </div>

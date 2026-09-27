@@ -15,7 +15,7 @@ interface GuideStepProps {
 
 export function GuideStep({ stepId, number, title, completed, onToggle, children }: GuideStepProps) {
   return (
-    <div className={`rounded-xl border transition-colors ${completed ? 'border-green-500/30 bg-green-500/5' : 'border-fd-border bg-fd-card'}`}>
+    <div className={`rounded-xl border transition-colors ${completed ? 'border-[var(--line)] bg-[var(--chip)]' : 'border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]'}`}>
       {/* Header */}
       <button
         type="button"
@@ -24,7 +24,7 @@ export function GuideStep({ stepId, number, title, completed, onToggle, children
       >
         <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
           completed
-            ? 'border-green-500 bg-green-500 text-white'
+            ? 'border-[var(--acc)] bg-[var(--acc)] text-[var(--accInk)]'
             : 'border-fd-border text-fd-muted-foreground hover:border-fd-foreground'
         }`}>
           {completed ? (
@@ -39,7 +39,7 @@ export function GuideStep({ stepId, number, title, completed, onToggle, children
           </h3>
         </div>
         {completed && (
-          <span className="text-xs text-green-500 font-medium">Done</span>
+          <span className="text-xs text-[var(--acc)] font-medium">Done</span>
         )}
       </button>
 

@@ -188,14 +188,14 @@ const mistakes = [
 
 export default function PrimitivesPage() {
   return (
-    <div className="min-h-screen bg-fd-background">
+    <div className="min-h-screen">
       {/* ── Hero ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pt-20 pb-12 sm:pt-28">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-3 py-1 text-xs text-fd-muted-foreground">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-3 py-1 text-xs text-fd-muted-foreground">
           <Sparkles className="h-3 w-3" />
           Mental model
         </div>
-        <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl">
+        <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
           The seven primitives of Claude Code
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-fd-muted-foreground">
@@ -205,8 +205,8 @@ export default function PrimitivesPage() {
 
       {/* ── Two axes ── */}
       <section className="mx-auto w-full max-w-3xl px-6 pb-16">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-6 sm:p-8">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-8">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             The two axes that organize everything
           </h2>
           <p className="mt-4 text-fd-muted-foreground">
@@ -234,7 +234,7 @@ export default function PrimitivesPage() {
 
       {/* ── Seven primitives ── */}
       <section className="mx-auto w-full max-w-5xl px-6 pb-16">
-        <h2 className="font-display text-3xl font-normal tracking-tight text-fd-foreground">
+        <h2 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground">
           The seven primitives
         </h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
@@ -243,7 +243,7 @@ export default function PrimitivesPage() {
             return (
               <article
                 key={p.number}
-                className="rounded-xl border border-fd-border bg-fd-card p-6 transition-all hover:border-fd-border/80"
+                className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all hover:border-fd-border/80"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fd-accent">
@@ -254,7 +254,7 @@ export default function PrimitivesPage() {
                       <span className="font-mono text-xs text-fd-muted-foreground">
                         {String(p.number).padStart(2, '0')}
                       </span>
-                      <h3 className="font-display text-xl font-normal tracking-tight text-fd-foreground">
+                      <h3 className="font-display text-xl font-semibold tracking-[-0.035em] text-fd-foreground">
                         {p.name}
                       </h3>
                     </div>
@@ -263,19 +263,19 @@ export default function PrimitivesPage() {
                 </div>
                 <dl className="mt-5 space-y-3 border-t border-fd-border pt-5 text-sm">
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-fd-muted-foreground">What it is</dt>
+                    <dt className="text-xs uppercase tracking-wide text-fd-muted-foreground font-mono">What it is</dt>
                     <dd className="mt-1 text-fd-foreground">{p.whatItIs}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-fd-muted-foreground">When it fires</dt>
+                    <dt className="text-xs uppercase tracking-wide text-fd-muted-foreground font-mono">When it fires</dt>
                     <dd className="mt-1 text-fd-foreground">{p.whenItFires}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-fd-muted-foreground">Strength</dt>
+                    <dt className="text-xs uppercase tracking-wide text-fd-muted-foreground font-mono">Strength</dt>
                     <dd className="mt-1 text-fd-foreground">{p.strength}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-fd-muted-foreground">Example</dt>
+                    <dt className="text-xs uppercase tracking-wide text-fd-muted-foreground font-mono">Example</dt>
                     <dd className="mt-1 text-fd-muted-foreground">{p.example}</dd>
                   </div>
                 </dl>
@@ -287,14 +287,14 @@ export default function PrimitivesPage() {
 
       {/* ── Decision rule ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-6 sm:p-8">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-8">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             The decision rule (memorize this)
           </h2>
           <div className="mt-6 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-fd-border text-left text-xs uppercase tracking-wide text-fd-muted-foreground">
+                <tr className="border-b border-fd-border text-left text-xs uppercase tracking-wide text-fd-muted-foreground font-mono">
                   <th className="pb-3 pr-4 font-medium">Question</th>
                   <th className="pb-3 font-medium">Reach for</th>
                 </tr>
@@ -314,14 +314,14 @@ export default function PrimitivesPage() {
 
       {/* ── Triggers cheat sheet ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-6 sm:p-8">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-8">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             The triggers cheat sheet
           </h2>
           <div className="mt-6 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-fd-border text-left text-xs uppercase tracking-wide text-fd-muted-foreground">
+                <tr className="border-b border-fd-border text-left text-xs uppercase tracking-wide text-fd-muted-foreground font-mono">
                   <th className="pb-3 pr-4 font-medium">Primitive</th>
                   <th className="pb-3 pr-4 font-medium">Who pulls the trigger?</th>
                   <th className="pb-3 font-medium">Can Claude opt out?</th>
@@ -343,12 +343,12 @@ export default function PrimitivesPage() {
 
       {/* ── Kitchen analogy ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-6 sm:p-10">
+        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-10">
           <div className="mb-4 flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-fd-accent">
               <ChefHat className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+            <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
               The kitchen analogy
             </h2>
           </div>
@@ -359,7 +359,7 @@ export default function PrimitivesPage() {
             {kitchenAnalogy.map((row) => (
               <li
                 key={row.primitive}
-                className="flex flex-col gap-1 rounded-lg border border-fd-border/60 bg-fd-background p-4 sm:flex-row sm:items-baseline sm:gap-4"
+                className="flex flex-col gap-1 rounded-lg border border-fd-border/60 bg-[var(--glass2)] p-4 sm:flex-row sm:items-baseline sm:gap-4"
               >
                 <span className="w-32 shrink-0 font-medium text-fd-foreground">{row.primitive}</span>
                 <span className="text-fd-muted-foreground">{row.analogy}</span>
@@ -375,21 +375,21 @@ export default function PrimitivesPage() {
       {/* ── Common mistakes ── */}
       <section className="mx-auto w-full max-w-4xl px-6 pb-16">
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
-            <AlertTriangle className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--chip)]">
+            <AlertTriangle className="h-5 w-5 text-[var(--acc)] " />
           </div>
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             Where most people get this wrong
           </h2>
         </div>
         <div className="space-y-4">
           {mistakes.map((m, i) => (
-            <article key={m.title} className="rounded-xl border border-fd-border bg-fd-card p-6">
+            <article key={m.title} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
               <div className="flex items-baseline gap-3">
                 <span className="font-mono text-xs text-fd-muted-foreground">
                   Mistake {i + 1}
                 </span>
-                <h3 className="font-display text-lg font-normal tracking-tight text-fd-foreground">
+                <h3 className="font-display text-lg font-semibold tracking-[-0.035em] text-fd-foreground">
                   {m.title}
                 </h3>
               </div>
@@ -401,8 +401,8 @@ export default function PrimitivesPage() {
 
       {/* ── Takeaway ── */}
       <section className="mx-auto w-full max-w-3xl px-6 pb-16">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-6 sm:p-10 text-center">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-10 text-center">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             The takeaway
           </h2>
           <p className="mt-4 text-fd-muted-foreground">
@@ -416,8 +416,8 @@ export default function PrimitivesPage() {
 
       {/* ── Bottom CTA ── */}
       <section className="mx-auto w-full max-w-3xl px-6 pb-24">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-8 text-center sm:p-10">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 text-center sm:p-10">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             Ready to try it?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
@@ -433,7 +433,7 @@ export default function PrimitivesPage() {
             </Link>
             <Link
               href="/journey"
-              className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
+              className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-[var(--glass2)] px-6 py-3 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
             >
               Start the journey
             </Link>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 const ogTitle = 'Claude for Designers: Practical Guides for UX and UI Work';
 const ogDescription =
@@ -25,5 +26,10 @@ export const metadata: Metadata = {
 };
 
 export default function ForDesignersLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <SceneBackdrop variant="faded" />
+      {children}
+    </>
+  );
 }

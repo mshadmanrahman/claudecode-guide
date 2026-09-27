@@ -370,18 +370,18 @@ interface TutorialCardProps {
 
 function TutorialCard({ title, description, duration, difficulty, outcome, href, icon, available }: TutorialCardProps) {
   const content = (
-    <div className={`group relative flex flex-col gap-4 rounded-xl border border-fd-border bg-fd-card p-6 transition-all ${available ? 'hover:border-fd-muted-foreground/30 hover:bg-fd-accent cursor-pointer' : ''}`}>
+    <div className={`group relative flex flex-col gap-4 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all ${available ?'hover:border-fd-muted-foreground/30 hover:bg-fd-accent cursor-pointer' : ''}`}>
       {/* Badge row */}
       <div className="flex items-center gap-2">
         <span className="flex items-center gap-1.5 rounded-full bg-fd-accent px-2.5 py-1 text-[11px] font-medium text-fd-muted-foreground">
           <Clock className="h-3 w-3" />
           {duration}
         </span>
-        <span className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${difficulty === 'beginner' ? 'bg-green-500/10 text-green-600 dark:text-green-400' : 'bg-purple-500/10 text-purple-600 dark:text-purple-400'}`}>
+        <span className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${difficulty === 'beginner' ? 'bg-[var(--chip)] text-[var(--acc)] ' : 'bg-[var(--chip)] text-[var(--acc)] '}`}>
           {difficulty}
         </span>
         {!available && (
-          <span className="rounded-full bg-amber-500/10 px-2.5 py-1 text-[11px] font-medium text-amber-600 dark:text-amber-400">
+          <span className="rounded-full bg-[var(--chip)] px-2.5 py-1 text-[11px] font-medium text-[var(--acc)] ">
             coming soon
           </span>
         )}
@@ -389,7 +389,7 @@ function TutorialCard({ title, description, duration, difficulty, outcome, href,
 
       {/* Content */}
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-fd-border bg-fd-background text-fd-muted-foreground">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-fd-border bg-[var(--glass2)] text-fd-muted-foreground">
           {icon}
         </div>
         <div className="flex-1">
@@ -397,12 +397,12 @@ function TutorialCard({ title, description, duration, difficulty, outcome, href,
           <p className="mt-1 text-sm text-fd-muted-foreground">{description}</p>
         </div>
         {available && (
-          <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-fd-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+          <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-fd-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity motion-reduce:transition-none" />
         )}
       </div>
 
       {/* Outcome */}
-      <div className="rounded-lg border border-fd-border bg-fd-background px-4 py-2.5">
+      <div className="rounded-lg border border-fd-border bg-[var(--glass2)] px-4 py-2.5">
         <p className="text-xs font-medium text-fd-muted-foreground">
           What you&apos;ll have at the end:
         </p>
@@ -494,7 +494,7 @@ function FilterBar({
   hasActiveFilters,
 }: FilterBarProps) {
   return (
-    <div className="sticky top-14 z-20 border-b border-fd-border bg-fd-background/95 backdrop-blur-sm">
+    <div className="sticky top-14 z-20 border-b border-fd-border bg-[var(--glass2)] backdrop-blur-sm">
       <div className="mx-auto w-full max-w-3xl px-6 py-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-2">
@@ -632,7 +632,7 @@ export default function TutorialsPage() {
   }, 0);
 
   return (
-    <div className="flex flex-col bg-fd-background">
+    <div className="flex flex-col">
       {/* Hero */}
       <section className="mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
         <div className="mb-4 flex justify-center">
@@ -641,7 +641,7 @@ export default function TutorialsPage() {
             Hands-on learning
           </span>
         </div>
-        <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl">
+        <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
           Stop reading. Start building.
         </h1>
         <p className="mt-4 text-lg text-fd-muted-foreground max-w-2xl mx-auto">
@@ -665,10 +665,10 @@ export default function TutorialsPage() {
 
       {/* Wispr Flow workflow tip */}
       <div className="mx-auto w-full max-w-3xl px-6 pb-4">
-        <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-5 py-4">
+        <div className="rounded-xl border border-[var(--line)] bg-[var(--chip)] px-5 py-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-3">
-              <Mic className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <Mic className="mt-0.5 h-4 w-4 shrink-0 text-[var(--acc)] " />
               <div>
                 <p className="text-sm font-medium text-fd-foreground">Before you type your first prompt, consider speaking it</p>
                 <p className="mt-0.5 text-sm text-fd-muted-foreground">
@@ -680,7 +680,7 @@ export default function TutorialsPage() {
               href="https://ref.wisprflow.ai/shadman-rahman"
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-4 py-2 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
+              className="shrink-0 inline-flex items-center gap-2 rounded-lg border border-fd-border bg-[var(--glass2)] px-4 py-2 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
             >
               Try Wispr Flow free
               <ArrowRight className="h-3.5 w-3.5" />
@@ -714,7 +714,7 @@ export default function TutorialsPage() {
             <SectionWrapper key={section.id} visible={showSection}>
               <div id={section.id} className="mb-12">
                 <div className="mb-8">
-                  <h2 className="font-display text-xl font-normal tracking-tight text-fd-foreground">
+                  <h2 className="font-display text-xl font-semibold tracking-[-0.035em] text-fd-foreground">
                     {section.title}
                   </h2>
                   <p className="mt-1 text-sm text-fd-muted-foreground">
@@ -745,7 +745,7 @@ export default function TutorialsPage() {
         )}
 
         {/* Railway deployment CTA */}
-        <div className="mt-16 rounded-xl border border-fd-border bg-fd-card p-6">
+        <div className="mt-16 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-fd-foreground">Built something and want it live?</p>
@@ -757,7 +757,7 @@ export default function TutorialsPage() {
               href="https://railway.com/?referralCode=shadman"
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-4 py-2 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
+              className="shrink-0 inline-flex items-center gap-2 rounded-lg border border-fd-border bg-[var(--glass2)] px-4 py-2 text-sm font-medium text-fd-foreground transition-all hover:bg-fd-accent"
             >
               Deploy your first app on Railway
               <ArrowRight className="h-3.5 w-3.5" />
@@ -767,8 +767,8 @@ export default function TutorialsPage() {
 
         {/* Email capture CTA */}
         <div className="mt-8 space-y-6">
-          <div className="rounded-xl border border-fd-border bg-fd-card p-10 text-center">
-            <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-10 text-center">
+            <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
               Want more?
             </h2>
             <p className="mt-3 text-fd-muted-foreground max-w-lg mx-auto">

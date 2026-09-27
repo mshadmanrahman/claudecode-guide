@@ -29,7 +29,7 @@ interface LevelCardProps {
 function LevelCard({ num, title, subtitle, children, inView, delay }: LevelCardProps) {
   return (
     <div
-      className={`rounded-xl border border-fd-border bg-fd-card p-8 transition-all duration-500 ${
+      className={`rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 transition-all motion-reduce:transition-none duration-500 ${
         inView ? 'animate-slide-up-fade' : 'opacity-0'
       }`}
       style={{ animationDelay: `${delay}ms` }}
@@ -37,7 +37,7 @@ function LevelCard({ num, title, subtitle, children, inView, delay }: LevelCardP
       <span className="font-mono text-6xl font-light text-fd-border">{num}</span>
       <div className="mt-6 flex flex-col gap-2">
         <h3 className="text-lg font-semibold text-fd-foreground">{title}</h3>
-        <p className="text-xs font-medium uppercase tracking-widest text-green-600 dark:text-green-400">
+        <p className="text-xs font-medium uppercase tracking-wide text-[var(--acc)]  font-mono">
           {subtitle}
         </p>
       </div>
@@ -52,15 +52,15 @@ export function PmPilotGettingStarted() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="bg-fd-muted py-28" ref={ref}>
+    <section className="bg-[var(--code)] py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">05</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Three ways in
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -85,7 +85,7 @@ export function PmPilotGettingStarted() {
               href={MEETING_PREP_SKILL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-medium text-fd-foreground underline underline-offset-2 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+              className="inline-flex items-center gap-2 font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
             >
               Open the meeting-prep skill file
               <svg
@@ -113,7 +113,7 @@ export function PmPilotGettingStarted() {
                   href={CLAUDE_DESKTOP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-fd-foreground underline underline-offset-2 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                  className="font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
                 >
                   Claude Desktop app
                 </a>
@@ -131,7 +131,7 @@ export function PmPilotGettingStarted() {
                   href="https://github.com/mshadmanrahman/pm-pilot/tree/main/skills"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-fd-foreground underline underline-offset-2 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                  className="font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
                 >
                   skill file
                 </a>
@@ -154,18 +154,18 @@ export function PmPilotGettingStarted() {
                 href={GUIDE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-fd-foreground underline underline-offset-2 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                className="font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors"
               >
                 Claude Code setup guide
               </a>
               {' '}to get started, then run:
             </p>
-            <div className="overflow-x-auto rounded-lg border border-fd-border bg-fd-background p-4 font-mono text-xs leading-relaxed">
+            <div className="overflow-x-auto rounded-lg border border-fd-border bg-[var(--glass2)] p-4 font-mono text-xs leading-relaxed">
               <pre className="text-fd-foreground">{installCommands}</pre>
             </div>
             <p>
               Then run{' '}
-              <code className="rounded bg-fd-background px-1.5 py-0.5 font-mono text-xs text-green-600 dark:text-green-400">
+              <code className="rounded bg-[var(--glass2)] px-1.5 py-0.5 font-mono text-xs text-[var(--acc)] ">
                 /configure-pm-pilot
               </code>{' '}
               inside Claude Code and you&apos;re set.

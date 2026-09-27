@@ -12,9 +12,9 @@ interface CheckpointProps {
 
 export function Checkpoint({ title, description, nextLabel, nextHref }: CheckpointProps) {
   return (
-    <div className="rounded-xl border border-green-500/30 bg-green-500/5 p-6 text-center">
-      <CheckCircle className="mx-auto mb-3 h-8 w-8 text-green-500" />
-      <h3 className="font-display text-xl font-normal text-fd-foreground">{title}</h3>
+    <div className="rounded-xl border border-[var(--line)] bg-[var(--chip)] p-6 text-center">
+      <CheckCircle className="mx-auto mb-3 h-8 w-8 text-[var(--acc)]" />
+      <h3 className="font-display text-xl font-semibold text-fd-foreground">{title}</h3>
       <p className="mt-2 text-sm text-fd-muted-foreground">{description}</p>
       {nextLabel && nextHref && (
         <Link

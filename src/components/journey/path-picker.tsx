@@ -30,8 +30,8 @@ export function PathPicker({ os, iface, onOsChange, onInterfaceChange, onReset }
   const bothSelected = os !== null && iface !== null;
 
   return (
-    <div className="rounded-2xl border border-fd-border bg-fd-card p-5 sm:p-6">
-      <h3 className="font-display text-lg font-semibold tracking-tight text-fd-foreground">
+    <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 sm:p-6">
+      <h3 className="font-display text-lg font-semibold tracking-[-0.035em] text-fd-foreground">
         Personalise your path
       </h3>
       <p className="mt-1 text-sm text-fd-muted-foreground">
@@ -59,7 +59,7 @@ export function PathPicker({ os, iface, onOsChange, onInterfaceChange, onReset }
       {/* Confirmation */}
       {bothSelected && (
         <div className="mt-4 flex items-center justify-between animate-slide-up-fade">
-          <p className="flex items-center gap-2 text-sm text-green-700 dark:text-green-400">
+          <p className="flex items-center gap-2 text-sm text-[var(--acc)] ">
             <Check className="h-4 w-4" />
             Got it: {osLabels[os]} + {interfaceLabels[iface]}. Steps are tailored for you.
           </p>

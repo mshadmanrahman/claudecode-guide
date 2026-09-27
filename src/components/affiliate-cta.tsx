@@ -72,10 +72,10 @@ export function AffiliateCTA(props: AffiliateCTAProps) {
 
   const containerClassName =
     props.placement === 'inline'
-      ? 'rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-4 py-4 sm:px-5'
+      ? 'rounded-xl border border-[var(--line)] bg-[var(--chip)] px-4 py-4 sm:px-5'
       : props.placement === 'mid-banner'
-        ? 'rounded-2xl border border-indigo-500/25 bg-indigo-500/10 px-5 py-5 sm:px-6'
-        : 'rounded-2xl border border-fd-border bg-fd-card px-5 py-6 sm:px-6';
+        ? 'rounded-xl border border-[var(--line)] bg-[var(--chip)] px-5 py-5 sm:px-6'
+        : 'rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-5 py-6 sm:px-6';
 
   const descriptionClassName =
     props.placement === 'mid-banner'
@@ -83,8 +83,7 @@ export function AffiliateCTA(props: AffiliateCTAProps) {
       : 'text-sm leading-relaxed text-fd-muted-foreground';
 
   return (
-    <section ref={sectionRef} className={containerClassName}>
-      <p className="font-display text-lg font-normal tracking-tight text-fd-foreground">
+    <section ref={sectionRef} className={containerClassName}> <p className="font-display text-lg font-normal tracking-tight text-fd-foreground">
         {props.title}
       </p>
       <p className={`mt-2 ${descriptionClassName}`}>{props.description}</p>

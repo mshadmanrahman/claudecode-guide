@@ -44,7 +44,7 @@ export function DesignerRouteSwitcher({ availableRoutes = ['claude-ai'] }: Desig
       <div className="mb-2 flex items-center gap-1.5">
         <span className="text-xs font-medium text-fd-muted-foreground">Follow along using:</span>
       </div>
-      <div className="inline-flex items-center gap-1 overflow-x-auto rounded-lg border border-fd-border bg-fd-muted p-1 max-w-full">
+      <div className="inline-flex items-center gap-1 overflow-x-auto rounded-lg border border-fd-border bg-[var(--code)] p-1 max-w-full">
         {TABS.map(({ id, label, icon }) => {
           const available = availableRoutes.includes(id);
           const isActive = active === id;
@@ -56,7 +56,7 @@ export function DesignerRouteSwitcher({ availableRoutes = ['claude-ai'] }: Desig
               title={available ? undefined : 'Not available for this guide'}
               className={`flex shrink-0 items-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium transition-all ${
                 isActive
-                  ? 'bg-fd-background border border-fd-border text-fd-foreground shadow-sm'
+                  ? 'bg-[var(--glass2)] border border-fd-border text-fd-foreground '
                   : available
                   ? 'text-fd-muted-foreground hover:text-fd-foreground'
                   : 'cursor-not-allowed text-fd-muted-foreground/30'

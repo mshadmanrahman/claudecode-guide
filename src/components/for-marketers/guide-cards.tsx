@@ -69,22 +69,22 @@ const JOURNEY_DATA: Array<{
 ];
 
 const TAB_ACTIVE_BORDER: Record<Journey, string> = {
-  content: 'border-violet-600',
-  campaigns: 'border-rose-600',
-  strategy: 'border-blue-600',
+  content: 'border-[var(--acc)]',
+  campaigns: 'border-[var(--line)]',
+  strategy: 'border-[var(--acc)]',
 };
 
 const ENV_BADGE_STYLES: Record<Journey, string> = {
-  content: 'bg-violet-50 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300',
-  campaigns: 'bg-rose-50 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300',
-  strategy: 'bg-blue-50 text-blue-900 dark:bg-blue-900/20 dark:text-blue-300',
+  content: 'bg-[var(--chip)] text-[var(--acc)]  ',
+  campaigns: 'bg-[var(--code)] text-red-700 dark:text-red-300  ',
+  strategy: 'bg-[var(--chip)] text-[var(--acc)]  ',
 };
 
 function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
   const styles =
     level === 'beginner'
-      ? 'bg-green-500/10 text-green-600 dark:text-green-400'
-      : 'bg-purple-500/10 text-purple-600 dark:text-purple-400';
+      ? 'bg-[var(--chip)] text-[var(--acc)] '
+      : 'bg-[var(--chip)] text-[var(--acc)] ';
   return (
     <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${styles}`}>{level}</span>
   );
@@ -105,10 +105,10 @@ export function MarketerGuideCards() {
     <section id="guides" className="py-28" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-12 transition-all duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-12 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">02</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Pick your focus
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -120,7 +120,7 @@ export function MarketerGuideCards() {
 
         {/* Journey tabs */}
         <div
-          className={`mb-8 transition-all duration-500 delay-100 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-8 transition-all motion-reduce:transition-none duration-500 delay-100 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <div className="flex gap-1 border-b border-fd-border">
             {JOURNEY_DATA.map((j) => (
@@ -148,7 +148,7 @@ export function MarketerGuideCards() {
 
         {/* Journey context */}
         <div
-          className={`mb-10 rounded-xl border border-fd-border bg-fd-card p-5 transition-all duration-300 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
+          className={`mb-10 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all motion-reduce:transition-none duration-300 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <div className="flex items-start gap-4">
             <span
@@ -173,7 +173,7 @@ export function MarketerGuideCards() {
 
             return (
               <div key={cluster.cluster}>
-                <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                   {cluster.cluster}
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -194,7 +194,7 @@ export function MarketerGuideCards() {
                             section: 'for-marketers',
                           })
                         }
-                        className={`group flex flex-col rounded-xl border border-fd-border bg-fd-card p-6 transition-all hover:border-fd-muted-foreground/30 hover:shadow-md duration-500 ${
+                        className={`group flex flex-col rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 transition-all motion-reduce:transition-none hover:border-fd-muted-foreground/30  duration-500 ${
                           inView ? 'animate-slide-up-fade' : 'opacity-0'
                         }`}
                         style={{ animationDelay: `${(ci * 3 + (num % 3)) * 80 + 100}ms` }}
@@ -211,13 +211,13 @@ export function MarketerGuideCards() {
                             <DifficultyBadge level={guide.difficulty} />
                           </div>
                         </div>
-                        <h3 className="mb-2 font-display text-base font-medium text-fd-foreground leading-snug group-hover:text-fd-primary transition-colors">
+                        <h3 className="mb-2 font-display text-base font-semibold text-fd-foreground leading-snug group-hover:text-fd-primary transition-colors">
                           {guide.title}
                         </h3>
                         <p className="text-sm text-fd-muted-foreground leading-relaxed flex-1">
                           {guide.description}
                         </p>
-                        <div className="mt-4 flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity group-hover:opacity-100">
+                        <div className="mt-4 flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity motion-reduce:transition-none group-hover:opacity-100">
                           Open <ArrowRight className="h-3.5 w-3.5" />
                         </div>
                       </Link>

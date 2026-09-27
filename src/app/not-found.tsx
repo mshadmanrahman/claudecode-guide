@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 export const metadata: Metadata = {
   title: 'Page Not Found',
@@ -8,9 +9,10 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-fd-background px-6 text-center">
-      <p className="font-mono text-6xl font-bold text-fd-muted-foreground/30">404</p>
-      <h1 className="mt-4 font-display text-2xl font-normal tracking-tight text-fd-foreground sm:text-3xl">
+    <div className="relative isolate flex min-h-screen flex-col items-center justify-center px-6 text-center">
+      <SceneBackdrop variant="faded" />
+      <p className="font-mono text-6xl font-semibold text-[var(--acc)]">404</p>
+      <h1 className="mt-4 font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-3xl">
         Page not found
       </h1>
       <p className="mt-3 max-w-md text-fd-muted-foreground">
@@ -25,7 +27,7 @@ export default function NotFound() {
         </Link>
         <Link
           href="/docs/foundations/what-is-claude-code"
-          className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-background px-5 py-2.5 text-sm font-medium text-fd-foreground hover:bg-fd-accent"
+          className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-[var(--glass2)] px-5 py-2.5 text-sm font-medium text-fd-foreground hover:bg-fd-accent"
         >
           What is Claude Code?
         </Link>

@@ -84,8 +84,8 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
 
   if (status === 'success') {
     return (
-      <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-6 text-center">
-        <Check className="mx-auto mb-2 h-6 w-6 text-green-500" />
+      <div className="rounded-xl border border-[var(--line)] bg-[var(--chip)] p-6 text-center">
+        <Check className="mx-auto mb-2 h-6 w-6 text-[var(--acc)]" />
         <p className="font-medium text-fd-foreground">You&apos;re in.</p>
         <p className="mt-1 text-sm text-fd-muted-foreground">
           Confirm in your inbox (check spam if it is slow). First issue lands next Sunday.
@@ -102,7 +102,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
   }
 
   return (
-    <div className="rounded-xl border border-fd-border bg-fd-card p-6">
+    <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
       <div className="flex items-center gap-2 mb-3">
         <Mail className="h-4 w-4 text-fd-muted-foreground" />
         <p className="text-sm font-medium text-fd-foreground">New guides, when they ship</p>
@@ -120,7 +120,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
           onInvalid={handleInvalid}
           placeholder="you@example.com"
           required
-          className="min-w-0 flex-1 rounded-lg border border-fd-border bg-fd-background px-4 py-2.5 text-sm text-fd-foreground placeholder:text-fd-muted-foreground focus:outline-none focus:ring-2 focus:ring-fd-ring"
+          className="min-w-0 flex-1 rounded-lg border border-fd-border bg-[var(--glass2)] px-4 py-2.5 text-sm text-fd-foreground placeholder:text-fd-muted-foreground focus:outline-none focus:ring-2 focus:ring-fd-ring"
         />
         <button
           type="submit"
@@ -128,7 +128,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
           className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-fd-primary px-5 py-2.5 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90 disabled:opacity-50"
         >
           {status === 'loading' ? (
-            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            <Loader2 className="h-3.5 w-3.5 animate-spin motion-reduce:animate-none" />
           ) : (
             <>
               Subscribe
@@ -138,13 +138,13 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
         </button>
       </form>
       {status === 'error' && (
-        <p className="mt-2 text-xs text-red-500">
+        <p className="mt-2 text-xs text-red-700 dark:text-red-300">
           That didn&apos;t go through. Try again, or{' '}
           <a
             href="https://shadmanrahman.substack.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-red-400"
+            className="underline hover:text-red-700"
           >
             subscribe directly on Substack
           </a>

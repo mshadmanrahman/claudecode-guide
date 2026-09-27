@@ -24,14 +24,14 @@ export default function GuidePage() {
 
   if (!progress.loaded) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-fd-background">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="font-mono text-sm text-fd-muted-foreground">Loading your progress...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-fd-background">
+    <div className="min-h-screen">
       <DeprecationBanner
         message="There's a better way to start now. The new guided setup walks you through everything, step by step, in under 5 minutes."
         linkText="Try the new Start Here"
@@ -61,7 +61,7 @@ export default function GuidePage() {
         </div>
 
         <div className="mt-8 text-center">
-          <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Let&apos;s get you running.
           </h1>
           <p className="mt-4 text-lg text-fd-muted-foreground">
@@ -88,7 +88,7 @@ export default function GuidePage() {
         {/* ═══════════ PHASE 1: Getting Started ═══════════ */}
         <section>
           <div className="mb-6 flex items-center gap-3">
-            <span className="font-mono text-sm font-bold text-green-500">Phase 1</span>
+            <span className="font-mono text-sm font-bold text-[var(--acc)]">Phase 1</span>
             <span className="text-sm text-fd-muted-foreground">Getting Started</span>
           </div>
 
@@ -110,7 +110,7 @@ export default function GuidePage() {
               {/* VS Code path, extension install, no terminal needed */}
               {progress.selectedIde === 'vscode' && (
                 <div className="mt-6 space-y-4">
-                  <div className="rounded-lg border-2 border-green-500/30 bg-green-500/5 p-4">
+                  <div className="rounded-lg border-2 border-[var(--line)] bg-[var(--chip)] p-4">
                     <p className="text-sm font-medium text-fd-foreground">
                       Good news. VS Code has a one-click extension.
                     </p>
@@ -120,7 +120,7 @@ export default function GuidePage() {
                   </div>
                   <div className="space-y-3">
                     <p className="text-sm text-fd-muted-foreground">
-                      <strong>Option A:</strong> Open VS Code, press <kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Cmd/Ctrl + Shift + X</kbd>, search &quot;Claude Code&quot;, click Install.
+                      <strong>Option A:</strong> Open VS Code, press <kbd className="rounded border border-fd-border bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">Cmd/Ctrl + Shift + X</kbd>, search &quot;Claude Code&quot;, click Install.
                     </p>
                     <p className="text-sm text-fd-muted-foreground">
                       <strong>Option B:</strong> Or install from the{' '}
@@ -138,7 +138,7 @@ export default function GuidePage() {
               {/* Cursor path */}
               {progress.selectedIde === 'cursor' && (
                 <div className="mt-6 space-y-4">
-                  <div className="rounded-lg border-2 border-blue-500/30 bg-blue-500/5 p-4">
+                  <div className="rounded-lg border-2 border-[var(--line)] bg-[var(--chip)] p-4">
                     <p className="text-sm font-medium text-fd-foreground">
                       Cursor already has Claude baked in, but Claude Code adds real agent mode.
                     </p>
@@ -147,7 +147,7 @@ export default function GuidePage() {
                     </p>
                   </div>
                   <p className="text-sm text-fd-muted-foreground">
-                    Open Cursor&apos;s integrated terminal (<kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Ctrl + `</kbd>) and run:
+                    Open Cursor&apos;s integrated terminal (<kbd className="rounded border border-fd-border bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">Ctrl + `</kbd>) and run:
                   </p>
                   <CopyBlock code="npm install -g @anthropic-ai/claude-code" />
                   <p className="text-sm text-fd-muted-foreground">
@@ -162,7 +162,7 @@ export default function GuidePage() {
               {/* JetBrains path */}
               {progress.selectedIde === 'jetbrains' && (
                 <div className="mt-6 space-y-4">
-                  <div className="rounded-lg border-2 border-purple-500/30 bg-purple-500/5 p-4">
+                  <div className="rounded-lg border-2 border-[var(--line)] bg-[var(--chip)] p-4">
                     <p className="text-sm font-medium text-fd-foreground">
                       JetBrains IDEs have a Claude Code plugin.
                     </p>
@@ -197,7 +197,7 @@ export default function GuidePage() {
                   {progress.selectedOs === 'mac' && (
                     <div className="space-y-4">
                       <p className="text-sm text-fd-muted-foreground">
-                        Open Terminal (press <kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Cmd + Space</kbd>, type &quot;Terminal&quot;, hit Enter).
+                        Open Terminal (press <kbd className="rounded border border-fd-border bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">Cmd + Space</kbd>, type &quot;Terminal&quot;, hit Enter).
                       </p>
                       <CopyBlock code="npm install -g @anthropic-ai/claude-code" />
                       <p className="text-sm text-fd-muted-foreground">
@@ -219,7 +219,7 @@ export default function GuidePage() {
                   {progress.selectedOs === 'windows' && (
                     <div className="space-y-4">
                       <p className="text-sm text-fd-muted-foreground">
-                        Open PowerShell (press <kbd className="rounded border border-fd-border bg-fd-muted px-1.5 py-0.5 font-mono text-xs">Win + X</kbd>, select &quot;Terminal&quot;).
+                        Open PowerShell (press <kbd className="rounded border border-fd-border bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">Win + X</kbd>, select &quot;Terminal&quot;).
                       </p>
                       <CopyBlock code="npm install -g @anthropic-ai/claude-code" language="powershell" />
                       <p className="text-sm text-fd-muted-foreground">
@@ -373,14 +373,14 @@ export default function GuidePage() {
               ]} />
 
               <Collapsible title="Stuck? Claude Code won't start?">
-                <p>Make sure you&apos;re logged in. Run <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">claude auth login</code> and follow the prompts to connect your Anthropic account.</p>
+                <p>Make sure you&apos;re logged in. Run <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">claude auth login</code> and follow the prompts to connect your Anthropic account.</p>
               </Collapsible>
 
               <Collapsible title="Claude suggested a command I don't understand. Is it safe?">
                 <p className="mb-2">This will happen a lot, and it&apos;s normal. Here&apos;s your framework:</p>
                 <ul className="list-disc space-y-1 pl-4">
                   <li><strong>Read before you approve.</strong> Claude Code always asks permission before running commands. Don&apos;t click &quot;Yes&quot; on autopilot.</li>
-                  <li><strong>Look for red flags.</strong> Anything with <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">rm</code> (delete), <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">sudo</code> (admin access), or <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">--force</code> deserves a pause.</li>
+                  <li><strong>Look for red flags.</strong> Anything with <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">rm</code> (delete), <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">sudo</code> (admin access), or <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">--force</code> deserves a pause.</li>
                   <li><strong>Ask Claude to explain it.</strong> Just type: &quot;What does that command do? Explain it simply.&quot; It will break it down for you.</li>
                   <li><strong>When in doubt, say no.</strong> You can always deny a command and ask Claude to try a different approach.</li>
                 </ul>
@@ -403,7 +403,7 @@ export default function GuidePage() {
         {/* ═══════════ PHASE 2: Set Up Your Workspace ═══════════ */}
         <section>
           <div className="mb-6 flex items-center gap-3">
-            <span className="font-mono text-sm font-bold text-blue-500">Phase 2</span>
+            <span className="font-mono text-sm font-bold text-[var(--acc)]">Phase 2</span>
             <span className="text-sm text-fd-muted-foreground">Set Up Your Workspace</span>
           </div>
 
@@ -536,7 +536,7 @@ npm run test   # Run tests
         {/* ═══════════ PHASE 3: Build Your Flow ═══════════ */}
         <section>
           <div className="mb-6 flex items-center gap-3">
-            <span className="font-mono text-sm font-bold text-purple-500">Phase 3</span>
+            <span className="font-mono text-sm font-bold text-[var(--acc)]">Phase 3</span>
             <span className="text-sm text-fd-muted-foreground">Build Your Flow</span>
           </div>
 
@@ -553,16 +553,16 @@ npm run test   # Run tests
                 The gap between &quot;I use Claude Code sometimes&quot; and &quot;I literally can&apos;t work without it&quot; is daily habits. Here&apos;s the rhythm I use:
               </p>
               <div className="space-y-2 text-sm">
-                <div className="flex items-start gap-3 rounded-lg bg-fd-muted/50 p-3">
-                  <span className="shrink-0 text-green-500">AM</span>
+                <div className="flex items-start gap-3 rounded-lg bg-[var(--code)] p-3">
+                  <span className="shrink-0 text-[var(--acc)]">AM</span>
                   <p className="text-fd-muted-foreground">Start session. Memory loads automatically. Check what&apos;s next from your last handoff.</p>
                 </div>
-                <div className="flex items-start gap-3 rounded-lg bg-fd-muted/50 p-3">
-                  <span className="shrink-0 text-blue-500">Work</span>
+                <div className="flex items-start gap-3 rounded-lg bg-[var(--code)] p-3">
+                  <span className="shrink-0 text-[var(--acc)]">Work</span>
                   <p className="text-fd-muted-foreground">Use Claude Code for tasks. When it makes a mistake, correct it (the correction gets saved).</p>
                 </div>
-                <div className="flex items-start gap-3 rounded-lg bg-fd-muted/50 p-3">
-                  <span className="shrink-0 text-amber-500">PM</span>
+                <div className="flex items-start gap-3 rounded-lg bg-[var(--code)] p-3">
+                  <span className="shrink-0 text-[var(--acc)]">PM</span>
                   <p className="text-fd-muted-foreground">Write a handoff before closing. 30 seconds. Tomorrow starts warm.</p>
                 </div>
               </div>
@@ -599,7 +599,7 @@ Review the code I just changed for quality, bugs, and style.
 ## Output Format
 List each finding with the file, line, severity, and a one-line fix.`} language="markdown" />
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.claude/skills/code-review.md</code>. Then try it:
+                Save this as <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">.claude/skills/code-review.md</code>. Then try it:
               </p>
 
               <DemoCard title="Your skill in action" loop={false} steps={[
@@ -641,7 +641,7 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
   }
 }`} language="json" />
               <p className="my-4 text-sm text-fd-muted-foreground">
-                Save this as <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project root. Set your <code className="rounded bg-fd-muted px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable (think of it as <strong>saving a password your computer remembers</strong>, so Claude Code can use it without you typing it every time). Then try:
+                Save this as <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project root. Set your <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable (think of it as <strong>saving a password your computer remembers</strong>, so Claude Code can use it without you typing it every time). Then try:
               </p>
               <DemoCard title="MCP in action: talking to GitHub" loop={false} steps={[
                 { type: 'cmd', text: '"List my open pull requests"' },
@@ -676,8 +676,8 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
         </section>
 
         {/* ═══════════ What's Next ═══════════ */}
-        <section className="rounded-xl border border-fd-border bg-fd-card p-8">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <section className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             What comes next
           </h2>
           <p className="mt-2 mb-6 text-sm text-fd-muted-foreground">
@@ -699,15 +699,15 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
                   <div className="text-sm font-medium text-fd-foreground group-hover:underline">{item.title}</div>
                   <div className="text-xs text-fd-muted-foreground">{item.desc}</div>
                 </div>
-                <ArrowRight className="h-4 w-4 text-fd-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ArrowRight className="h-4 w-4 text-fd-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity motion-reduce:transition-none" />
               </Link>
             ))}
           </div>
         </section>
 
         {/* ═══════════ Feedback ═══════════ */}
-        <section className="rounded-xl border border-fd-border bg-fd-card p-8">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <section className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             Help me make this better
           </h2>
           <p className="mt-2 mb-6 text-sm text-fd-muted-foreground">

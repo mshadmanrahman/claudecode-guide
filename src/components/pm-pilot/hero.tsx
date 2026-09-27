@@ -48,7 +48,7 @@ export function PmPilotHero() {
       {/* Membrane glow - follows cursor */}
       <div
         ref={glowRef}
-        className={`pointer-events-none absolute h-[400px] w-[400px] rounded-full transition-opacity duration-700 blur-[120px] ${
+        className={`pointer-events-none absolute h-[400px] w-[400px] rounded-full transition-opacity motion-reduce:transition-none duration-700 blur-[120px] ${
           isHovering ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
@@ -59,7 +59,7 @@ export function PmPilotHero() {
       />
 
       <div className="relative z-10">
-        <h1 className="animate-slide-up-fade animate-breathe font-display text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-7xl leading-[1.1] hover:scale-[1.01] transition-transform duration-500 cursor-default">
+        <h1 className="animate-slide-up-fade font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-7xl leading-[1.1] hover:scale-[1.01]">
           Stop drowning in
           <br />
           <span className="text-fade">meeting prep.</span>
@@ -74,7 +74,7 @@ export function PmPilotHero() {
             href="https://github.com/mshadmanrahman/pm-pilot#quick-start"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground shadow-sm hover:opacity-90 transition-opacity"
+            className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground hover:opacity-90 transition-opacity"
           >
             Try it free
           </a>
@@ -103,28 +103,28 @@ export function PmPilotHero() {
         </div>
 
         <div className="animate-slide-up-fade delay-300 mt-20 relative">
-          <p className="mb-3 text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
+          <p className="mb-3 text-xs font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
             Live example
           </p>
 
           {/* Floating accent cards, half outside the terminal */}
-          <FloatingCard className="animate-float absolute -top-4 -right-6 z-10 hidden lg:block">
+          <FloatingCard className="animate-float absolute -top-4 -right-6 z-10 hidden lg:block motion-reduce:animate-none">
             <div className="flex items-center gap-2 text-xs">
               <Clock className="h-3 w-3 text-fd-muted-foreground" />
               <span className="text-fd-muted-foreground">Meeting with Sarah in 45 min</span>
             </div>
           </FloatingCard>
 
-          <FloatingCard className="animate-float delay-300 absolute bottom-8 -left-8 z-10 hidden lg:block">
+          <FloatingCard className="animate-float delay-300 absolute bottom-8 -left-8 z-10 hidden lg:block motion-reduce:animate-none">
             <div className="flex items-center gap-2 text-xs">
-              <BarChart3 className="h-3 w-3 text-green-500" />
+              <BarChart3 className="h-3 w-3 text-[var(--acc)]" />
               <span className="text-fd-muted-foreground">Sprint 42: 14/18 closed</span>
             </div>
           </FloatingCard>
 
-          <FloatingCard className="animate-float delay-500 absolute top-1/3 -right-10 z-10 hidden xl:block">
+          <FloatingCard className="animate-float delay-500 absolute top-1/3 -right-10 z-10 hidden xl:block motion-reduce:animate-none">
             <div className="flex items-center gap-2 text-xs">
-              <FileText className="h-3 w-3 text-blue-500" />
+              <FileText className="h-3 w-3 text-[var(--acc)]" />
               <span className="text-fd-muted-foreground">PRD draft ready for review</span>
             </div>
           </FloatingCard>

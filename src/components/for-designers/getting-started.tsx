@@ -28,15 +28,15 @@ export function DesignerGettingStarted() {
   const [ref, inView] = useInView(0.1);
 
   return (
-    <section className="py-28 bg-fd-card" ref={ref}>
+    <section className="border py-28 bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border-[var(--line)]" ref={ref}>
       <div className="mx-auto max-w-5xl px-6">
         <div
-          className={`mb-16 transition-all duration-500 ${
+          className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${
             inView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
           <span className="font-mono text-5xl font-light text-fd-muted-foreground/30">03</span>
-          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-fd-foreground sm:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Getting started
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
@@ -48,16 +48,16 @@ export function DesignerGettingStarted() {
           {STEPS.map((step, i) => (
             <div
               key={step.num}
-              className={`flex gap-6 transition-all duration-500 ${
+              className={`flex gap-6 transition-all motion-reduce:transition-none duration-500 ${
                 inView ? 'animate-slide-up-fade' : 'opacity-0'
               }`}
               style={{ animationDelay: `${i * 100 + 100}ms` }}
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-fd-border bg-fd-background font-mono text-sm font-light text-fd-muted-foreground">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--glass2)] font-mono text-sm font-light text-fd-muted-foreground">
                 {step.num}
               </div>
               <div className="pt-1">
-                <h3 className="font-display text-lg font-medium text-fd-foreground mb-2">
+                <h3 className="font-display text-lg font-semibold text-fd-foreground mb-2">
                   {step.title}
                 </h3>
                 <p className="text-sm text-fd-muted-foreground leading-relaxed">{step.body}</p>

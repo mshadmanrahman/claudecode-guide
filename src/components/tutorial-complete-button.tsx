@@ -26,7 +26,7 @@ export function TutorialCompleteButton({ slug, title }: TutorialCompleteButtonPr
   if (completed) {
     return (
       <div className="space-y-4">
-        <div className="flex items-center justify-center gap-2 rounded-xl border border-green-500/30 bg-green-500/10 px-6 py-4 text-sm font-medium text-green-600 dark:text-green-400">
+        <div className="flex items-center justify-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--chip)] px-6 py-4 text-sm font-medium text-[var(--acc)] ">
           <CheckCircle2 className="h-4 w-4" />
           Done. Nice work.
         </div>
@@ -38,7 +38,7 @@ export function TutorialCompleteButton({ slug, title }: TutorialCompleteButtonPr
   return (
     <button
       onClick={handleClick}
-      className="w-full flex items-center justify-center gap-2 rounded-xl border border-fd-border bg-fd-card px-6 py-4 text-sm font-medium text-fd-muted-foreground hover:border-fd-muted-foreground/30 hover:text-fd-foreground cursor-pointer transition-all"
+      className="w-full flex items-center justify-center gap-2 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-6 py-4 text-sm font-medium text-fd-muted-foreground hover:border-fd-muted-foreground/30 hover:text-fd-foreground cursor-pointer transition-all"
     >
       <Circle className="h-4 w-4" />
       Mark as complete

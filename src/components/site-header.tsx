@@ -3,12 +3,14 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Menu, X, ChevronDown, Star } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 
 interface NavLink {
   href: string;
   label: string;
+  /** Hidden between 768px and 1024px to keep the bar on one line */
+  wideOnly?: boolean;
 }
 
 interface DropdownLink {
@@ -18,294 +20,198 @@ interface DropdownLink {
 }
 
 const PRIMARY_NAV: NavLink[] = [
-  { href: "/start", label: "Start Here" },
   { href: "/docs", label: "Docs" },
   { href: "/tutorials", label: "Tutorials" },
-  { href: "/workflow", label: "Workflow" },
-  { href: "/blog", label: "Blog" },
+  { href: "/workflow", label: "Workflow", wideOnly: true },
+  { href: "/blog", label: "Essays" },
+  { href: "/about", label: "About", wideOnly: true },
 ];
 
-const FOR_YOUR_ROLE: DropdownLink[] = [
-  {
-    href: "/for-designers",
-    label: "For Designers",
-    description: "11 guides: briefs, research, handoff",
-  },
-  {
-    href: "/for-chrome",
-    label: "For Chrome",
-    description: "6 guides: browser, Gmail, Google Docs",
-  },
-  {
-    href: "/for-microsoft",
-    label: "For Office",
-    description: "7 guides: Word, Excel, PowerPoint",
-  },
-  {
-    href: "/for-teachers",
-    label: "For Teachers",
-    description: "6 guides: plans, rubrics, feedback",
-  },
-  {
-    href: "/for-marketers",
-    label: "For Marketers",
-    description: "7 guides: copy, campaigns, research",
-  },
-  {
-    href: "/for-hr",
-    label: "For HR",
-    description: "6 guides: job descriptions, interviews, onboarding",
-  },
-  {
-    href: "/pm-pilot",
-    label: "PM Pilot",
-    description: "AI-assisted product management",
-  },
-  {
-    href: "/certification",
-    label: "Certification",
-    description: "The 4 Claude credentials: prices, format, eligibility",
-  },
+const PATHS: DropdownLink[] = [
+  { href: "/start", label: "Brand new", description: "Pick an interface and make something in 10 minutes" },
+  { href: "/for-teachers", label: "Teachers", description: "Lesson plans, rubrics, parent emails" },
+  { href: "/for-designers", label: "Designers", description: "Briefs, research, critique, handoff" },
+  { href: "/for-marketers", label: "Marketers", description: "Copy, campaigns, research" },
+  { href: "/for-hr", label: "HR teams", description: "Job descriptions, interviews, onboarding" },
+  { href: "/pm-pilot", label: "Product managers", description: "PM Pilot: AI-assisted product management" },
+  { href: "/for-chrome", label: "Chrome", description: "Browser, Gmail, Google Docs" },
+  { href: "/for-microsoft", label: "Office", description: "Word, Excel, PowerPoint" },
+  { href: "/certification", label: "Certification", description: "The 4 Claude credentials: prices, format, eligibility" },
 ];
 
-const ALL_NAV_LINKS: NavLink[] = [
-  ...PRIMARY_NAV,
-  ...FOR_YOUR_ROLE.map(({ href, label }) => ({ href, label })),
-];
+const focusRing =
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
+
+function Logo() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <rect x="1" y="1" width="20" height="20" rx="5" stroke="currentColor" strokeOpacity=".5" />
+      <path d="M5 15 L9 9 L12 13 L14 10 L17 15" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [roleOpen, setRoleOpen] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const [pathsOpen, setPathsOpen] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const closeMobile = useCallback(() => setMobileOpen(false), []);
-  const closeRole = useCallback(() => setRoleOpen(false), []);
-
-  // Close mobile on Escape
-  useEffect(() => {
-    if (!mobileOpen && !roleOpen) return;
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        closeMobile();
-        closeRole();
-      }
-    }
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [mobileOpen, roleOpen, closeMobile, closeRole]);
-
-  // Close mobile on outside click
-  useEffect(() => {
-    if (!mobileOpen) return;
-    function handleClick(e: MouseEvent) {
-      if (
-        mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(e.target as Node)
-      ) {
-        closeMobile();
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [mobileOpen, closeMobile]);
-
-  // Close role dropdown on outside click
-  useEffect(() => {
-    if (!roleOpen) return;
-    function handleClick(e: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        closeRole();
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [roleOpen, closeRole]);
-
-  // Close both on route change
-  useEffect(() => {
-    closeMobile();
-    closeRole();
-  }, [pathname, closeMobile, closeRole]);
-
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 20);
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+  const closeAll = useCallback(() => {
+    setMobileOpen(false);
+    setPathsOpen(false);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen && !pathsOpen) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") closeAll();
+    }
+    function onClick(e: MouseEvent) {
+      const target = e.target as Node;
+      if (pathsOpen && dropdownRef.current && !dropdownRef.current.contains(target)) {
+        setPathsOpen(false);
+      }
+      if (mobileOpen && barRef.current && !barRef.current.contains(target)) {
+        setMobileOpen(false);
+      }
+    }
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [mobileOpen, pathsOpen, closeAll]);
+
+  useEffect(() => {
+    closeAll();
+  }, [pathname, closeAll]);
 
   function isActive(href: string): boolean {
     return pathname === href || pathname.startsWith(href + "/");
   }
 
-  const isHome = pathname === "/";
-  
-  
-  const headerClasses = (!scrolled && !mobileOpen && isHome)
-    ? "sticky top-0 z-50 h-14 border-b border-transparent bg-transparent transition-all duration-300"
-    : "sticky top-0 z-50 h-14 border-b border-fd-border bg-fd-background/80 backdrop-blur-lg transition-all duration-300";
+  const pathsActive = PATHS.some((link) => isActive(link.href));
 
-  const isRoleActive = FOR_YOUR_ROLE.some((link) => isActive(link.href));
+  const navItem = (active: boolean) =>
+    `rounded-lg px-2.5 py-2.5 text-sm font-medium transition-colors lg:px-3.5 ${focusRing} ${
+      active ? "bg-[var(--chip)] text-[var(--acc)]" : "text-[var(--ink)] hover:bg-[var(--chip)]"
+    }`;
 
   return (
-    <>
-      <header className={headerClasses}>
-        <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-4">
-          {/* Logo */}
+    <div className="sticky top-0 z-50 px-4 pt-2 md:px-16 md:pt-5">
+      <div ref={barRef} className="relative mx-auto max-w-[1312px]">
+        <header className="glass flex h-14 items-center justify-between rounded-xl pl-4 pr-2 text-[var(--ink)] md:h-[60px] md:pl-5 md:pr-3">
           <Link
             href="/"
-            className={`flex items-center font-mono text-sm font-semibold transition-colors ${
-              "text-fd-foreground hover:text-fd-foreground"
-            }`}
+            className={`flex items-center gap-2.5 rounded-md text-base font-semibold tracking-[-0.01em] ${focusRing}`}
           >
-            claudecodeguide
-            <span className={"text-fd-muted-foreground"}>.dev</span>
+            <Logo />
+            Claude Code Guide
           </Link>
 
-          {/* Desktop nav */}
-          <nav
-            className="hidden md:flex items-center gap-1"
-            aria-label="Main navigation"
-          >
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+            <div ref={dropdownRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setPathsOpen((prev) => !prev)}
+                aria-expanded={pathsOpen}
+                aria-controls="paths-menu"
+                className={`flex cursor-pointer items-center gap-1 ${navItem(pathsActive)}`}
+              >
+                Paths
+                <ChevronDown
+                  aria-hidden="true"
+                  className={`h-3.5 w-3.5 transition-transform duration-150 ${pathsOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {pathsOpen && (
+                <div
+                  id="paths-menu"
+                  className="absolute left-0 top-full mt-2 w-80 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-1.5 shadow-lg"
+                >
+                  {PATHS.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`block rounded-lg px-3 py-2.5 transition-colors ${focusRing} ${
+                        isActive(link.href) ? "bg-[var(--chip)]" : "hover:bg-[var(--chip)]"
+                      }`}
+                    >
+                      <span
+                        className={`block text-sm font-medium ${
+                          isActive(link.href) ? "text-[var(--acc)]" : "text-[var(--ink)]"
+                        }`}
+                      >
+                        {link.label}
+                      </span>
+                      <span className="mt-0.5 block text-xs text-[var(--muted)]">{link.description}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             {PRIMARY_NAV.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
-                  isActive(link.href)
-                    ? ("bg-fd-primary/10 text-fd-primary font-medium")
-                    : ("text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent")
-                }`}
+                className={`${link.wideOnly ? "hidden lg:block" : ""} ${navItem(isActive(link.href))}`}
               >
                 {link.label}
               </Link>
             ))}
-
-            {/* For Your Role dropdown */}
-            <div ref={dropdownRef} className="relative">
-              <button
-                onClick={() => setRoleOpen((prev) => !prev)}
-                aria-expanded={roleOpen}
-                className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm transition-colors ${
-                  isRoleActive
-                    ? ("bg-fd-primary/10 text-fd-primary font-medium")
-                    : ("text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent")
-                }`}
-              >
-                For Your Role
-                <ChevronDown
-                  className={`h-3.5 w-3.5 transition-transform duration-150 ${roleOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-
-              {roleOpen && (
-                <div className="absolute right-0 top-full mt-1.5 w-72 rounded-xl border border-fd-border bg-fd-background shadow-lg animate-in fade-in slide-in-from-top-1 duration-150">
-                  <div className="p-1.5 grid gap-0.5">
-                    {FOR_YOUR_ROLE.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className={`rounded-lg px-3 py-2.5 transition-colors ${
-                          isActive(link.href)
-                            ? "bg-fd-primary/10 text-fd-primary"
-                            : "hover:bg-fd-accent"
-                        }`}
-                      >
-                        <span className="block text-sm font-medium text-fd-foreground">
-                          {link.label}
-                        </span>
-                        <span className="block text-xs text-fd-muted-foreground mt-0.5">
-                          {link.description}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
           </nav>
 
-          {/* Right controls */}
-          <div className="flex items-center gap-1">
-            <a
-              href="https://github.com/mshadmanrahman/claudecode-guide"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Star claudecode-guide on GitHub"
-              className={`hidden sm:inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm transition-colors ${
-                "text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent"
-              }`}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Link
+              href="/start"
+              className={`hidden h-10 items-center rounded-lg bg-[var(--ink)] px-4 text-sm font-medium text-[var(--bg)] transition-opacity hover:opacity-85 sm:flex ${focusRing}`}
             >
-              <Star className="h-3.5 w-3.5" />
-              Star
-            </a>
-            <ThemeToggle  />
-
-            {/* Mobile hamburger */}
+              Start free
+            </Link>
             <button
+              type="button"
               onClick={() => setMobileOpen((prev) => !prev)}
-              className={`md:hidden rounded-lg p-2 transition-colors ${
-                "text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent"
-              }`}
+              className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-[var(--line)] text-[var(--ink)] md:hidden ${focusRing}`}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
             >
-              {mobileOpen ? (
-                <X className="h-4 w-4" />
-              ) : (
-                <Menu className="h-4 w-4" />
-              )}
+              {mobileOpen ? <X className="h-4 w-4" aria-hidden="true" /> : <Menu className="h-4 w-4" aria-hidden="true" />}
             </button>
           </div>
-        </div>
+        </header>
 
-        {/* Mobile menu dropdown */}
         {mobileOpen && (
           <div
-            ref={mobileMenuRef}
-            className="absolute left-0 right-0 top-14 z-40 border-b border-fd-border bg-fd-background/95 backdrop-blur-lg shadow-lg animate-in slide-in-from-top-2 duration-150"
+            id="mobile-menu"
+            className="absolute left-0 right-0 top-full mt-2 max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-xl border border-[var(--line)] bg-[var(--surface)] p-2 shadow-lg md:hidden"
           >
-            <nav
-              className="mx-auto max-w-5xl flex flex-col gap-0.5 px-4 py-3"
-              aria-label="Mobile navigation"
-            >
-              {ALL_NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={closeMobile}
-                  className={`rounded-md px-3 py-2 text-sm transition-colors ${
-                    isActive(link.href)
-                      ? "bg-fd-primary/10 text-fd-primary font-medium"
-                      : "text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent"
-                  }`}
-                >
+            <nav aria-label="Mobile navigation" className="flex flex-col gap-0.5">
+              {PRIMARY_NAV.map((link) => (
+                <Link key={link.href} href={link.href} className={navItem(isActive(link.href))}>
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="https://github.com/mshadmanrahman/claudecode-guide"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={closeMobile}
-                className="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-colors"
+              <p className="px-2.5 pb-1 pt-3 font-mono text-[11.5px] uppercase text-[var(--muted)]">Paths</p>
+              {PATHS.map((link) => (
+                <Link key={link.href} href={link.href} className={navItem(isActive(link.href))}>
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="/start"
+                className={`mt-2 flex h-11 items-center justify-center rounded-lg bg-[var(--ink)] text-sm font-medium text-[var(--bg)] ${focusRing}`}
               >
-                <Star className="h-3.5 w-3.5" />
-                Star on GitHub
-              </a>
+                Start free
+              </Link>
             </nav>
           </div>
         )}
-      </header>
-    </>
+      </div>
+    </div>
   );
 }

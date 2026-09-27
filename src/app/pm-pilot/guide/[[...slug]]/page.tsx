@@ -39,12 +39,12 @@ export default async function PmPilotGuidePage(props: PageProps) {
       <header className="mb-10">
         {data.command && (
           <div className="mb-3">
-            <span className="inline-block rounded-md border border-fd-border bg-fd-muted px-2.5 py-1 font-mono text-xs font-medium text-fd-muted-foreground">
+            <span className="inline-block rounded-md border border-fd-border bg-[var(--code)] px-2.5 py-1 font-mono text-xs font-medium text-fd-muted-foreground">
               {data.command}
             </span>
           </div>
         )}
-        <h1 className="font-display text-3xl font-semibold text-fd-foreground sm:text-4xl">
+        <h1 className="font-display text-3xl font-semibold text-fd-foreground sm:text-4xl tracking-[-0.035em]">
           {data.title}
         </h1>
         {data.description && (
@@ -60,7 +60,7 @@ export default async function PmPilotGuidePage(props: PageProps) {
         {prev ? (
           <Link
             href={prev.url}
-            className="group flex flex-1 items-center gap-3 rounded-xl border border-fd-border bg-fd-card p-5 transition-all hover:shadow-sm hover:bg-fd-accent"
+            className="group flex flex-1 items-center gap-3 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 transition-all hover:bg-fd-accent"
           >
             <ArrowLeft className="h-4 w-4 shrink-0 text-fd-muted-foreground group-hover:text-fd-foreground transition-colors" />
             <div className="min-w-0">
@@ -72,7 +72,7 @@ export default async function PmPilotGuidePage(props: PageProps) {
         {next ? (
           <Link
             href={next.url}
-            className="group flex flex-1 items-center justify-end gap-3 rounded-xl border border-fd-border bg-fd-card p-5 text-right transition-all hover:shadow-sm hover:bg-fd-accent"
+            className="group flex flex-1 items-center justify-end gap-3 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5 text-right transition-all hover:bg-fd-accent"
           >
             <div className="min-w-0">
               <span className="text-xs text-fd-muted-foreground">Next</span>

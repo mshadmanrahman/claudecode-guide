@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { StartFlow } from '@/components/start/start-flow';
 import type { Metadata } from 'next';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 export const metadata: Metadata = {
   title: 'Start Here : Claude Code Guide',
@@ -9,14 +10,17 @@ export const metadata: Metadata = {
 
 export default function StartPage() {
   return (
-    <Suspense
+    <>
+      <SceneBackdrop variant="faded" />
+      <Suspense
       fallback={
-        <main className="flex min-h-screen items-center justify-center bg-fd-background">
+        <main className="flex min-h-screen items-center justify-center">
           <p className="text-fd-muted-foreground">Loading...</p>
         </main>
       }
     >
       <StartFlow />
     </Suspense>
+    </>
   );
 }

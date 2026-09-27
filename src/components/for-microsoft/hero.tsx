@@ -32,26 +32,26 @@ export function MicrosoftHero() {
   return (
     <section className="mx-auto max-w-5xl px-6 pt-32 pb-20">
       <nav className="flex flex-wrap items-center gap-2 mb-10">
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">
+        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">
           Structural overview
         </span>
         <span className="text-fd-muted-foreground/30 text-xs">/</span>
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">
+        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">
           For Microsoft Office users
         </span>
         <span className="text-fd-muted-foreground/30 text-xs">/</span>
-        <span className="text-xs text-fd-muted-foreground uppercase tracking-widest">
+        <span className="text-xs text-fd-muted-foreground uppercase tracking-wide font-mono">
           Claude Code guide
         </span>
       </nav>
 
-      <h1 className="font-display text-5xl font-medium tracking-tight text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
+      <h1 className="font-display text-5xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-6xl lg:text-[5.5rem] leading-[1.05]">
         Claude doesn&apos;t have a Word add-in.<br />
-        <em className="italic text-fd-muted-foreground">It doesn&apos;t need one.</em><br />
+        <em className=" text-fd-muted-foreground">It doesn&apos;t need one.</em><br />
         Here&apos;s the workflow.
       </h1>
 
-      <p className="mt-6 max-w-lg text-sm font-medium text-fd-muted-foreground italic">
+      <p className="mt-6 max-w-lg text-sm font-medium text-fd-muted-foreground ">
         Copy. Paste. Claude.
       </p>
 
@@ -65,8 +65,8 @@ export function MicrosoftHero() {
         {JOURNEYS.map((j) => {
           const Icon = j.icon;
           return (
-            <div key={j.id} className="rounded-xl border border-fd-border bg-fd-card p-5">
-              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground">
+            <div key={j.id} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-5">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
                 Works with
               </p>
               <div className="flex items-center gap-2 mb-1.5">
@@ -89,7 +89,7 @@ export function MicrosoftHero() {
               section: 'for-microsoft',
             })
           }
-          className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground shadow-sm hover:opacity-90 transition-opacity"
+          className="inline-flex items-center rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground hover:opacity-90 transition-opacity"
         >
           Start with Word
         </Link>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 /**
  * Search sends this page 564 impressions a month at position 8.7, its best
@@ -26,14 +27,15 @@ export const metadata: Metadata = {
 export default function BengaliGuidePage() {
   return (
     <main className="min-h-screen">
+      <SceneBackdrop variant="faded" />
       {/* Hero */}
-      <section className="border-b border-fd-border bg-fd-background px-6 py-16 text-center sm:py-24">
+      <section className="border-b border-fd-border px-6 py-16 text-center sm:py-24">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-4 py-1.5 text-sm text-fd-muted-foreground">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-1.5 text-sm text-fd-muted-foreground">
             <Globe className="h-4 w-4" />
             বাংলায় পড়ুন
           </div>
-          <h1 className="font-display text-4xl font-bold tracking-tight text-fd-foreground sm:text-5xl">
+          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
             Claude Code কী এবং কীভাবে শুরু করবেন
           </h1>
           <p className="mt-4 text-lg text-fd-muted-foreground">
@@ -53,10 +55,10 @@ export default function BengaliGuidePage() {
       <section className="border-b border-fd-border px-6 py-12">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-fd-card border border-fd-border">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border border-fd-border">
               <Terminal className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-bold text-fd-foreground">
+            <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
               Claude Code কী?
             </h2>
           </div>
@@ -87,10 +89,10 @@ export default function BengaliGuidePage() {
             ]}
           />
 
-          <div className="mt-8 overflow-hidden rounded-xl border border-fd-border bg-fd-card">
+          <div className="mt-8 overflow-hidden rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-fd-border bg-fd-muted/30">
+                <tr className="border-b border-fd-border bg-[var(--code)]">
                   <th className="px-4 py-3 text-left font-medium text-fd-foreground"></th>
                   <th className="px-4 py-3 text-left font-medium text-fd-foreground">ChatGPT</th>
                   <th className="px-4 py-3 text-left font-medium text-fd-foreground">Claude Code</th>
@@ -127,10 +129,10 @@ export default function BengaliGuidePage() {
       <section className="border-b border-fd-border px-6 py-12">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-fd-card border border-fd-border">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border border-fd-border">
               <Zap className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-bold text-fd-foreground">
+            <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
               কীভাবে ইনস্টল করবেন
             </h2>
           </div>
@@ -194,10 +196,10 @@ export default function BengaliGuidePage() {
       <section className="border-b border-fd-border px-6 py-12">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-fd-card border border-fd-border">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] border border-fd-border">
               <FileText className="h-5 w-5 text-fd-foreground" />
             </div>
-            <h2 className="font-display text-2xl font-bold text-fd-foreground">
+            <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
               CLAUDE.md: সবচেয়ে গুরুত্বপূর্ণ ফাইল
             </h2>
           </div>
@@ -210,7 +212,7 @@ export default function BengaliGuidePage() {
             </p>
             <p>
               <strong className="text-fd-foreground">সবচেয়ে সহজ উপায়:</strong>{' '}
-              <code className="rounded bg-fd-muted px-1.5 py-0.5 text-sm font-mono">claude /init</code>{' '}
+              <code className="rounded bg-[var(--code)] px-1.5 py-0.5 text-sm font-mono">claude /init</code>{' '}
               কমান্ড চালান। Claude Code আপনার প্রজেক্ট স্ক্যান করে নিজেই CLAUDE.md তৈরি করে দেবে।
             </p>
           </div>
@@ -226,25 +228,25 @@ export default function BengaliGuidePage() {
             ]}
           />
 
-          <div className="mt-8 rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="mt-8 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <h3 className="mb-3 text-lg font-semibold text-fd-foreground">
               CLAUDE.md এ কী থাকে?
             </h3>
             <ul className="space-y-2 text-fd-muted-foreground">
               <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-fd-foreground" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--acc)]" />
                 <span><strong className="text-fd-foreground">প্রজেক্টের তথ্য:</strong> কোন ভাষা, কোন ফ্রেমওয়ার্ক, কোথায় ডিপ্লয় হয়</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-fd-foreground" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--acc)]" />
                 <span><strong className="text-fd-foreground">আপনার পছন্দ:</strong> কোডিং স্টাইল, আউটপুট ফরম্যাট, যোগাযোগের ধরন</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-fd-foreground" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--acc)]" />
                 <span><strong className="text-fd-foreground">নিয়ম:</strong> কোন ভুলগুলো এড়াতে হবে, কীভাবে টেস্ট করতে হবে</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-fd-foreground" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--acc)]" />
                 <span><strong className="text-fd-foreground">সেশন লাইফসাইকেল:</strong> কীভাবে শুরু এবং শেষ করতে হবে</span>
               </li>
             </ul>
@@ -255,7 +257,7 @@ export default function BengaliGuidePage() {
       {/* Next Steps */}
       <section className="px-6 py-12">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-display text-2xl font-bold text-fd-foreground">
+          <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
             এরপর কী করবেন?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
@@ -265,47 +267,47 @@ export default function BengaliGuidePage() {
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <Link
               href="/guide"
-              className="group flex items-center justify-between rounded-xl border border-fd-border bg-fd-card p-4 transition-colors hover:bg-fd-muted/50"
+              className="group flex items-center justify-between rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-colors hover:bg-[var(--code)]"
             >
               <div>
                 <p className="font-medium text-fd-foreground">Interactive Guide</p>
                 <p className="text-sm text-fd-muted-foreground">ধাপে ধাপে সেটআপ গাইড</p>
               </div>
-              <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform motion-reduce:transition-none group-hover:translate-x-1" />
             </Link>
             <Link
               href="/tutorials"
-              className="group flex items-center justify-between rounded-xl border border-fd-border bg-fd-card p-4 transition-colors hover:bg-fd-muted/50"
+              className="group flex items-center justify-between rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-colors hover:bg-[var(--code)]"
             >
               <div>
                 <p className="font-medium text-fd-foreground">Tutorials</p>
                 <p className="text-sm text-fd-muted-foreground">১৫টি হাতে-কলমে টিউটোরিয়াল</p>
               </div>
-              <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform motion-reduce:transition-none group-hover:translate-x-1" />
             </Link>
             <Link
               href="/docs/foundations/what-is-claude-code"
-              className="group flex items-center justify-between rounded-xl border border-fd-border bg-fd-card p-4 transition-colors hover:bg-fd-muted/50"
+              className="group flex items-center justify-between rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-colors hover:bg-[var(--code)]"
             >
               <div>
                 <p className="font-medium text-fd-foreground">What is Claude Code?</p>
                 <p className="text-sm text-fd-muted-foreground">বিস্তারিত ইংরেজি ভার্সন</p>
               </div>
-              <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform motion-reduce:transition-none group-hover:translate-x-1" />
             </Link>
             <Link
               href="/docs/foundations/claude-md"
-              className="group flex items-center justify-between rounded-xl border border-fd-border bg-fd-card p-4 transition-colors hover:bg-fd-muted/50"
+              className="group flex items-center justify-between rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-colors hover:bg-[var(--code)]"
             >
               <div>
                 <p className="font-medium text-fd-foreground">CLAUDE.md Guide</p>
                 <p className="text-sm text-fd-muted-foreground">বিস্তারিত CLAUDE.md গাইড</p>
               </div>
-              <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform motion-reduce:transition-none group-hover:translate-x-1" />
             </Link>
           </div>
 
-          <div className="mt-10 rounded-xl border border-fd-border bg-fd-muted/30 p-6 text-center">
+          <div className="mt-10 rounded-xl border border-fd-border bg-[var(--code)] p-6 text-center">
             <p className="text-fd-muted-foreground">
               আরও বাংলা কন্টেন্ট চান?{' '}
               <a

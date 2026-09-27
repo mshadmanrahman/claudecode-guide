@@ -70,8 +70,8 @@ export async function generateMetadata({
 function DifficultyBadge({ level }: { level: "beginner" | "intermediate" }) {
   const styles =
     level === "beginner"
-      ? "bg-green-500/10 text-green-600 dark:text-green-400"
-      : "bg-purple-500/10 text-purple-600 dark:text-purple-400";
+      ? "bg-[var(--chip)] text-[var(--acc)] "
+      : "bg-[var(--chip)] text-[var(--acc)] ";
 
   return (
     <span
@@ -99,7 +99,7 @@ export default async function TutorialPage({
   }
 
   return (
-    <div className="flex flex-col bg-fd-background">
+    <div className="flex flex-col">
       <ArticleSchema
         headline={tutorial.title}
         description={tutorial.description}
@@ -126,7 +126,7 @@ export default async function TutorialPage({
             <DifficultyBadge level={tutorial.difficulty} />
           </div>
 
-          <h1 className="font-display text-3xl font-normal tracking-tight text-fd-foreground sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
             {tutorial.title}
           </h1>
 
@@ -143,7 +143,7 @@ export default async function TutorialPage({
         {/* Intro */}
         <div
           data-tutorial-intro
-          className="mb-12 rounded-xl border border-fd-border bg-fd-card p-6"
+          className="mb-12 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6"
         >
           <p className="text-sm leading-relaxed text-fd-muted-foreground">
             {tutorial.intro}
@@ -156,11 +156,11 @@ export default async function TutorialPage({
             <section key={index}>
               {/* Step header */}
               <div className="flex items-start gap-4 mb-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-fd-border bg-fd-muted text-sm font-medium text-fd-muted-foreground">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--code)] text-sm font-medium text-fd-muted-foreground">
                   {index + 1}
                 </div>
                 <div>
-                  <h2 className="font-display text-lg font-medium text-fd-foreground">
+                  <h2 className="font-display text-lg font-semibold text-fd-foreground tracking-[-0.035em]">
                     {step.title}
                   </h2>
                   <p className="mt-1 text-sm text-fd-muted-foreground">
@@ -206,7 +206,7 @@ export default async function TutorialPage({
           />
 
           {/* What's next */}
-          <div className="rounded-xl border border-fd-border bg-fd-card p-6">
+          <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
             <p className="text-sm font-medium text-fd-muted-foreground mb-2">
               What&apos;s next?
             </p>

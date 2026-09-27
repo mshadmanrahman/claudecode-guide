@@ -1,174 +1,56 @@
 import Link from "next/link";
-import { Star, ExternalLink } from "lucide-react";
 
 interface FooterLink {
   label: string;
   href: string;
-  external?: boolean;
 }
 
-interface FooterColumn {
-  heading: string;
-  links: ReadonlyArray<FooterLink>;
-}
-
-const COLUMNS: ReadonlyArray<FooterColumn> = [
-  {
-    heading: "Get started",
-    links: [
-      { label: "Compare to other tools", href: "/docs/comparisons" },
-      { label: "Set up CLAUDE.md", href: "/docs/foundations/claude-md" },
-      {
-        label: "Pick the right interface",
-        href: "/docs/foundations/which-interface",
-      },
-      { label: "Browse tutorials", href: "/tutorials" },
-    ],
-  },
-  {
-    heading: "Learn",
-    links: [
-      { label: "Foundations", href: "/docs/foundations" },
-      { label: "Patterns", href: "/docs/patterns" },
-      { label: "Workflows", href: "/docs/workflows" },
-      { label: "Templates", href: "/docs/templates" },
-      { label: "Comparisons", href: "/docs/comparisons" },
-    ],
-  },
-  {
-    heading: "For your role",
-    links: [
-      { label: "For Designers", href: "/for-designers" },
-      { label: "For Chrome users", href: "/for-chrome" },
-      { label: "For Office (Word, Excel, PowerPoint)", href: "/for-microsoft" },
-      { label: "For Teachers", href: "/for-teachers" },
-      { label: "For Marketers", href: "/for-marketers" },
-      { label: "For HR Professionals", href: "/for-hr" },
-      { label: "PM Pilot", href: "/pm-pilot" },
-    ],
-  },
-  {
-    heading: "More",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Claude certification", href: "/certification" },
-      { label: "Blog", href: "/blog" },
-      { label: "Roadmap", href: "/roadmap" },
-      { label: "Journey", href: "/journey" },
-      { label: "বাংলায় পড়ুন", href: "/bn" },
-    ],
-  },
+const SITE_LINKS: ReadonlyArray<FooterLink> = [
+  { label: "docs", href: "/docs" },
+  { label: "tutorials", href: "/tutorials" },
+  { label: "essays", href: "/blog" },
+  { label: "certification", href: "/certification" },
+  { label: "roadmap", href: "/roadmap" },
+  { label: "journey", href: "/journey" },
+  { label: "about", href: "/about" },
+  { label: "বাংলায় পড়ুন", href: "/bn" },
+  { label: "sitemap", href: "/sitemap.xml" },
+  { label: "llms.txt", href: "/llms.txt" },
 ];
+
+const SOCIAL_LINKS: ReadonlyArray<FooterLink> = [
+  { label: "linkedin", href: "https://www.linkedin.com/in/shadmanrahman" },
+  { label: "substack", href: "https://shadmanrahman.substack.com/" },
+  { label: "github", href: "https://github.com/mshadmanrahman/claudecode-guide" },
+];
+
+const linkClass =
+  "rounded-sm text-[var(--ink)] transition-opacity hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-fd-border bg-fd-card/30">
-      <div className="mx-auto w-full max-w-6xl px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-12">
-          {/* Brand column (spans wider) */}
-          <div className="md:col-span-4">
-            <p className="font-mono text-sm text-fd-foreground">
-              claudecodeguide<span className="font-bold">.dev</span>
-            </p>
-            <p className="mt-4 max-w-sm text-sm text-fd-muted-foreground leading-relaxed">
-              The plain-English on-ramp to Claude Code. Built and updated by one
-              person who kept explaining the same things to people who&apos;d
-              never touched a terminal.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a
-                href="https://github.com/mshadmanrahman/claudecode-guide"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub repository"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-fd-border bg-fd-background px-3 py-1.5 text-xs font-medium text-fd-foreground transition-colors hover:bg-fd-accent"
-              >
-                <Star className="h-3.5 w-3.5" />
-                GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/shadmanrahman"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-fd-border bg-fd-background px-3 py-1.5 text-xs font-medium text-fd-foreground transition-colors hover:bg-fd-accent"
-              >
-                LinkedIn
-                <ExternalLink className="h-3 w-3" />
-              </a>
-              <a
-                href="https://shadmanrahman.substack.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-fd-border bg-fd-background px-3 py-1.5 text-xs font-medium text-fd-foreground transition-colors hover:bg-fd-accent"
-              >
-                Substack
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            </div>
-          </div>
-
-          {/* Nav columns */}
-          {COLUMNS.map((col) => (
-            <div key={col.heading} className="md:col-span-2">
-              <p className="text-xs font-medium uppercase tracking-widest text-fd-muted-foreground">
-                {col.heading}
-              </p>
-              <ul className="mt-4 space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link.href}>
-                    {link.external ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-fd-muted-foreground transition-colors hover:text-fd-foreground"
-                      >
-                        {link.label}
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        className="text-sm text-fd-muted-foreground transition-colors hover:text-fd-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
+    <footer className="mt-auto px-4 pb-9 pt-16 font-mono text-[12.5px] md:px-16">
+      <div className="mx-auto flex max-w-[1312px] flex-col gap-3">
+        <nav aria-label="Site" className="glass flex flex-wrap gap-x-5 gap-y-2 self-start rounded-lg px-3.5 py-2.5">
+          {SITE_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className={linkClass}>
+              {link.label}
+            </Link>
           ))}
-        </div>
-
-        {/* Bottom row */}
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-fd-border pt-8 sm:flex-row sm:items-center">
-          <p className="text-xs text-fd-muted-foreground">
-            Built by{" "}
-            <Link
-              href="/about"
-              className="font-medium text-fd-foreground hover:underline"
-            >
+        </nav>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="glass m-0 self-start rounded-lg px-3.5 py-2.5 text-[var(--ink)]">
+            kept by{" "}
+            <Link href="/about" className={linkClass}>
               Shadman Rahman
             </Link>
-            . With ♥️, ☕️, and a lot of Claude Code.
           </p>
-          <div className="flex items-center gap-4 text-xs text-fd-muted-foreground">
-            <Link
-              href="/sitemap.xml"
-              className="hover:text-fd-foreground transition-colors"
-            >
-              Sitemap
-            </Link>
-            <span className="text-fd-border">·</span>
-            <Link
-              href="/llms.txt"
-              className="hover:text-fd-foreground transition-colors"
-            >
-              llms.txt
-            </Link>
-            <span className="text-fd-border">·</span>
-            <span>Free &amp; Open Source</span>
+          <div className="glass flex gap-5 self-start rounded-lg px-3.5 py-2.5 sm:self-auto">
+            {SOCIAL_LINKS.map((link) => (
+              <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>

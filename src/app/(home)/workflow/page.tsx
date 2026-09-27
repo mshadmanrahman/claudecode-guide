@@ -4,6 +4,7 @@ import { WorkflowTracker } from '@/components/workflow/workflow-tracker';
 import { OsMapLink } from '@/components/workflow/os-map-link';
 import { MessageSquare, Cpu, FileText } from 'lucide-react';
 import type { Metadata } from 'next';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 export const metadata: Metadata = {
   title: 'Claude in Your Day | Claude Code Guide',
@@ -20,13 +21,14 @@ export const metadata: Metadata = {
 export default function WorkflowPage() {
   return (
     <>
+      <SceneBackdrop variant="faded" />
       <WorkflowTracker />
       <main className="mx-auto max-w-4xl px-6 py-20">
         <div className="mb-16" data-workflow-intro>
           <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-fd-muted-foreground">
             Your Claude Workflow
           </p>
-          <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl mb-6">
+          <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl mb-6">
             Claude, quietly working through your day.
           </h1>
           <p className="max-w-xl text-lg text-fd-muted-foreground leading-relaxed">
@@ -65,14 +67,14 @@ export default function WorkflowPage() {
           ].map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.step} className="rounded-xl border border-fd-border bg-fd-card p-6">
+              <div key={item.step} className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
                 <div className="mb-4 flex items-center justify-between">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-fd-background border border-fd-border">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--glass2)] border border-fd-border">
                     <Icon className="h-4 w-4 text-fd-muted-foreground" />
                   </div>
                   <span className="font-mono text-xs text-fd-muted-foreground/40">{item.step}</span>
                 </div>
-                <h3 className="mb-2 font-display text-base font-normal tracking-tight text-fd-foreground">
+                <h3 className="mb-2 font-display text-base font-semibold tracking-[-0.035em] text-fd-foreground">
                   {item.title}
                 </h3>
                 <p className="text-sm text-fd-muted-foreground leading-relaxed">{item.description}</p>
@@ -84,7 +86,7 @@ export default function WorkflowPage() {
         <DayFlow />
 
         {/* Origin note */}
-        <div className="mt-16 rounded-xl border border-fd-border bg-fd-card/50 p-6 sm:p-8" data-workflow-complete>
+        <div className="mt-16 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6 sm:p-8" data-workflow-complete>
           <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-fd-muted-foreground mb-3">
             Where this came from
           </p>

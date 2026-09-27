@@ -608,7 +608,7 @@ export const blogPosts: BlogPost[] = [
 <p>Without handoffs: 10-15 minutes of context-setting per session. With handoffs: 30 seconds ("read the latest handoff and continue").</p>
 <p>If you have 2 sessions per day, that's 20-30 minutes saved daily. Over a month, that's 10+ hours recovered.</p>
 
-<h2>Why It Works</h2>
+<h2>Claude Reads It at the Next Session Start</h2>
 <p>The handoff isn't for you to read (though you can). It's for Claude Code to read at the start of the next session. It's the bridge between sessions that makes the <a href="/docs/foundations/memory-system">memory system</a> actually work.</p>
 <p>No handoff = cold start. Every time. Handoff = warm start. Every time.</p>
 <p>This is the <a href="/docs/foundations/session-lifecycle">session lifecycle</a> in its simplest form. Start reading, end writing. The compound effect is real.</p>`,
@@ -1463,7 +1463,7 @@ export const blogPosts: BlogPost[] = [
     content: `<img src="/blog-hero-how-to-use-claude-to-write-excel-formulas.png" alt="Watercolor illustration of a laptop with a spreadsheet open, formula visible in the formula bar, afternoon lamplight" style="width:100%;border-radius:12px;margin-bottom:2rem;" /><p>I used to spend 20 minutes on Stack Overflow every time I needed an Excel formula more complex than SUM. Search, find something close, adapt it, break it, search again. You know the loop.</p>
 <p>Then I tried asking Claude instead. That was it. I haven't opened a formula help page since.</p>
 
-<h2>Why This Works Better Than Googling</h2>
+<h2>Claude Writes the Formula for Your Exact Columns</h2>
 <p>When you search for "Excel VLOOKUP with multiple conditions," you get generic answers. When you tell Claude "I have columns A (Date), B (Sales Rep), C (Region), D (Revenue) and I want to calculate the total revenue for each rep only in the North region," you get a formula written for your exact spreadsheet.</p>
 <p>The difference is context. Claude doesn't need you to know what the formula is called. You describe the outcome you want, and it figures out the formula.</p>
 

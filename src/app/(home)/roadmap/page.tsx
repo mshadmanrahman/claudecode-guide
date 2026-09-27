@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Check, Lock, ChevronDown } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { DeprecationBanner } from '@/components/deprecation-banner';
+import { SceneBackdrop } from '@/components/scene-backdrop';
 
 // metadata handled by layout
 
@@ -24,7 +25,7 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
           {number}
         </div>
         <div>
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             {title}
           </h2>
           <p className="text-sm text-fd-muted-foreground">{subtitle}</p>
@@ -38,7 +39,7 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
             <Link
               key={item.href}
               href={item.href}
-              className="group flex items-start gap-4 rounded-lg border border-fd-border bg-fd-card p-4 transition-all hover:border-fd-muted-foreground/30 hover:bg-fd-accent"
+              className="group flex items-start gap-4 rounded-lg border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-all hover:border-fd-muted-foreground/30 hover:bg-fd-accent"
             >
               <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-fd-border text-fd-muted-foreground group-hover:border-fd-foreground group-hover:text-fd-foreground transition-colors">
                 <Check className="h-3 w-3" />
@@ -49,7 +50,7 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
                     {item.title}
                   </h3>
                   {item.badge && (
-                    <span className="rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-fd-muted-foreground">
+                    <span className="rounded-full bg-fd-accent px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-fd-muted-foreground font-mono">
                       {item.badge}
                     </span>
                   )}
@@ -58,7 +59,7 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
                   {item.description}
                 </p>
               </div>
-              <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-fd-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-fd-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity motion-reduce:transition-none" />
             </Link>
           ))}
         </div>
@@ -69,7 +70,8 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
 
 export default function RoadmapPage() {
   return (
-    <div className="flex flex-col bg-fd-background">
+    <div className="flex flex-col">
+      <SceneBackdrop variant="faded" />
       <DeprecationBanner
         message="The learning path got a full redesign. The new Docs section has everything organized, with progress tracking built in."
         linkText="Browse the new Docs"
@@ -77,7 +79,7 @@ export default function RoadmapPage() {
       />
       {/* Hero */}
       <section className="mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
-        <h1 className="font-display text-4xl font-normal tracking-tight text-fd-foreground sm:text-5xl">
+        <h1 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
           Your learning path
         </h1>
         <p className="mt-4 text-lg text-fd-muted-foreground">
@@ -110,7 +112,7 @@ export default function RoadmapPage() {
           number="01"
           title="Getting Started"
           subtitle="Install, configure, write your first prompt"
-          color="bg-green-500/10 text-green-600 dark:text-green-400"
+          color="bg-[var(--chip)] text-[var(--acc)] "
           items={[
             {
               title: 'The CLAUDE.md Guide',
@@ -141,7 +143,7 @@ export default function RoadmapPage() {
           number="02"
           title="Build the Foundation"
           subtitle="Memory, sessions, and the habits that compound"
-          color="bg-blue-500/10 text-blue-600 dark:text-blue-400"
+          color="bg-[var(--chip)] text-[var(--acc)] "
           items={[
             {
               title: 'Session Lifecycle',
@@ -170,7 +172,7 @@ export default function RoadmapPage() {
           number="03"
           title="Learn the Patterns"
           subtitle="Skills, hooks, agents, and connecting your tools"
-          color="bg-purple-500/10 text-purple-600 dark:text-purple-400"
+          color="bg-[var(--chip)] text-[var(--acc)] "
           items={[
             {
               title: 'Building Skills',
@@ -204,7 +206,7 @@ export default function RoadmapPage() {
           number="04"
           title="Go Deeper"
           subtitle="Advanced patterns, team workflows, and automation"
-          color="bg-amber-500/10 text-amber-600 dark:text-amber-400"
+          color="bg-[var(--chip)] text-[var(--acc)] "
           items={[
             {
               title: 'Autonomous Loops',
@@ -238,7 +240,7 @@ export default function RoadmapPage() {
           number="05"
           title="Grab a Template & Ship"
           subtitle="Copy-paste configs and honest comparisons"
-          color="bg-rose-500/10 text-rose-600 dark:text-rose-400"
+          color="bg-[var(--code)] text-red-700 dark:text-red-300 "
           items={[
             {
               title: 'Template Gallery',
@@ -266,8 +268,8 @@ export default function RoadmapPage() {
 
       {/* CTA */}
       <section className="mx-auto w-full max-w-3xl px-6 pb-24">
-        <div className="rounded-xl border border-fd-border bg-fd-card p-10 text-center">
-          <h2 className="font-display text-2xl font-normal tracking-tight text-fd-foreground">
+        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-10 text-center">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             Ready to begin?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
