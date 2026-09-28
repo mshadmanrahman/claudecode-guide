@@ -20,18 +20,15 @@ relatedLinks:
 
 Claude Code runs on your Anthropic plan. Picking the right one saves you money or frustration. Here's the honest breakdown.
 
-<DemoCard title="When you know it's time to upgrade" steps={[
-  { type: 'cmd', text: 'claude "refactor the auth module"' },
-  { type: 'out', text: 'Reading 12 files...' },
-  { type: 'out', text: 'Planning approach...' },
-  { type: 'out', text: 'Refactoring middleware.ts...' },
-  { type: 'error', text: '⚠ Rate limit reached. Please wait 14 minutes.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '← This is the third time this week.' },
-  { type: 'out', text: '← You\'re losing momentum waiting.' },
-  { type: 'out', text: '← The $80/mo upgrade pays for itself in one afternoon.' },
-  { type: 'warn', text: '→ Pro is great. Until it isn\'t. You\'ll know when.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'refactor the auth module' },
+  { kind: 'thinking', verb: 'Exploring', ms: 900 },
+  { kind: 'tool', name: 'Glob', arg: 'src/auth/**/*.ts', result: 'Found 12 files' },
+  { kind: 'tool', name: 'Read', arg: 'src/auth/middleware.ts', result: 'Read 214 lines' },
+  { kind: 'tool', name: 'Update', arg: 'src/auth/middleware.ts', result: 'Updated src/auth/middleware.ts with 22 additions and 47 removals' },
 ]} />
+
+On Pro, a session like this can stop partway with a usage limit and a reset time, and when that happens several times a week the $80/mo step up to Max pays for itself in one afternoon.
 
 ## Plans at a glance
 

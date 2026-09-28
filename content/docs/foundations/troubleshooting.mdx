@@ -5,17 +5,13 @@ description: "The actual fixes for the most common Claude Code problems. Install
 
 Something's broken. Let's fix it. Here's what I've seen come up most often, and the shortest path to each solution.
 
-<DemoCard title="Quick diagnostic" steps={[
-  { type: 'cmd', text: 'node --version' },
-  { type: 'success', text: 'v22.12.0 ✓' },
-  { type: 'cmd', text: 'claude --version', delay: 600 },
-  { type: 'success', text: '1.0.41 ✓' },
-  { type: 'cmd', text: 'claude /doctor', delay: 600 },
-  { type: 'success', text: '✓ Authentication: valid' },
-  { type: 'success', text: '✓ Node.js: v22.12.0 (supported)' },
-  { type: 'success', text: '✓ npm: 10.9.0 (supported)' },
-  { type: 'warn', text: '→ Run these three commands to diagnose most issues.' },
-]} />
+```bash
+node --version
+claude --version
+claude doctor
+```
+
+Run these three first. They catch most install problems.
 
 ## Installation Problems
 

@@ -26,18 +26,16 @@ export ANTHROPIC_API_KEY=your-key-for-the-proxy
 
 That's it. Claude Code will send the same Anthropic-format requests to your custom endpoint instead of Anthropic's servers.
 
-<DemoCard title="Routing Claude Code at DeepSeek V4 via LiteLLM" steps={[
-  { type: 'cmd', text: 'pip install litellm' },
-  { type: 'cmd', text: 'litellm --model deepseek/deepseek-chat --port 4000' },
-  { type: 'out', text: 'LiteLLM proxy running at http://localhost:4000' },
-  { type: 'out', text: 'Translating: Anthropic format → DeepSeek API' },
-  { type: 'out', text: '' },
-  { type: 'cmd', text: 'export ANTHROPIC_BASE_URL=http://localhost:4000' },
-  { type: 'cmd', text: 'export ANTHROPIC_API_KEY=your-deepseek-key' },
-  { type: 'cmd', text: 'claude "explain this function"' },
-  { type: 'success', text: 'Claude Code running, model: deepseek/deepseek-v4-pro' },
-  { type: 'warn', text: 'Some Claude-specific features may behave differently.' },
-]} />
+```bash
+pip install 'litellm[proxy]'
+export DEEPSEEK_API_KEY=your-deepseek-key
+litellm --model deepseek/deepseek-chat --port 4000
+
+# in a second terminal
+export ANTHROPIC_BASE_URL=http://localhost:4000
+export ANTHROPIC_API_KEY=your-key-for-the-proxy
+claude "explain this function"
+```
 
 ## The proxy options
 
@@ -79,15 +77,16 @@ Kimi K2.7-Code (Moonshot AI). A 1T/32B-active MoE with 256K context, specificall
 **For self-hosting locally:**
 Qwen 3.6 27B and Devstral Small 2 run on a single consumer GPU. DeepSeek V4 Flash can run on dual RTX 4090s quantized. These are the practical choices if you want zero network egress.
 
-<DemoCard title="Model selection cheat sheet" steps={[
-  { type: 'out', text: 'Daily coding          → DeepSeek V4 Pro (cheap, capable)' },
-  { type: 'out', text: 'Reasoning tasks       → DeepSeek R1 (best open reasoning)' },
-  { type: 'out', text: 'Huge codebases        → Claude (1M), GLM or DS V4 if cheaper' },
-  { type: 'out', text: 'Visual/3D/SVG code    → GLM-5.2 (won the viral benchmark)' },
-  { type: 'out', text: 'Agentic workflows     → Kimi K2.7-Code / MiniMax M3' },
-  { type: 'out', text: 'Local / no egress     → Qwen 3.6 27B / Devstral Small 2' },
-  { type: 'warn', text: 'None of these have Claude Code\'s agent layer natively.' },
-]} />
+| Task | Model |
+|---|---|
+| Daily coding | DeepSeek V4 Pro (cheap, capable) |
+| Reasoning tasks | DeepSeek R1 (best open reasoning) |
+| Huge codebases | Claude (1M), GLM or DS V4 if cheaper |
+| Visual/3D/SVG code | GLM-5.2 (won the viral benchmark) |
+| Agentic workflows | Kimi K2.7-Code / MiniMax M3 |
+| Local / no egress | Qwen 3.6 27B / Devstral Small 2 |
+
+None of these have Claude Code's agent layer natively.
 
 ## What breaks when you switch models
 

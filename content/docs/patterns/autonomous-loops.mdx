@@ -11,20 +11,15 @@ That's an autonomous loop. Claude Code runs a task, the session ends, and a stop
 
 Long story short: this is the most powerful pattern in the Claude Code toolkit. It's also the one that demands the most respect. Bounded properly, it's magic. Unbounded, it will wreck your codebase at 2am while you sleep peacefully.
 
-<DemoCard title="Autonomous loop fixing tests overnight" steps={[
-  { type: 'cmd', text: 'claude --task-file fix-tests.md' },
-  { type: 'out', text: 'Task: Fix all failing tests until suite is green.' },
-  { type: 'out', text: 'Running npm test...' },
-  { type: 'error', text: '✗ 7 tests failing across 4 files' },
-  { type: 'out', text: 'Fixing auth.test.ts (assertion mismatch)...' },
-  { type: 'success', text: '✓ auth.test.ts : fixed, passing' },
-  { type: 'out', text: 'Fixing api.test.ts (missing mock)...' },
-  { type: 'success', text: '✓ api.test.ts : fixed, passing' },
-  { type: 'out', text: '... [session ends, stop hook restarts] ...' },
-  { type: 'out', text: 'Resuming task. 3 tests remaining.' },
-  { type: 'success', text: '✓ All 7 tests fixed. Suite is green.' },
-  { type: 'out', text: 'Deleting task file. Loop complete.' },
-  { type: 'warn', text: '→ You went to sleep. Woke up to a green build.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'run the task in current-task.md' },
+  { kind: 'tool', name: 'Read', arg: '~/.claude/autonomous/current-task.md', result: 'Read 28 lines' },
+  { kind: 'tool', name: 'Bash', arg: 'npm test', result: 'Tests: 7 failed, 41 passed, 48 total' },
+  { kind: 'tool', name: 'Update', arg: 'src/auth/session.ts', result: 'Updated src/auth/session.ts with 4 additions and 2 removals' },
+  { kind: 'tool', name: 'Update', arg: 'src/api.test.ts', result: 'Updated src/api.test.ts with 9 additions' },
+  { kind: 'tool', name: 'Bash', arg: 'npm test', result: 'Tests: 48 passed, 48 total' },
+  { kind: 'tool', name: 'Bash', arg: 'rm ~/.claude/autonomous/current-task.md', result: '(No content)' },
+  { kind: 'say', text: 'Suite is green: 7 tests fixed across 4 files.\nSummary written, task file deleted.' },
 ]} />
 
 ## How it works (three pieces)
@@ -115,20 +110,16 @@ One command. The stop hook checks for this file before restarting. No file, loop
 
 **Always test your kill switch before running a long task.** Start a loop, trigger the stop, verify it halts. Do this first. Not after you've let it run for 6 hours and it's rewritten your public API.
 
-<DemoCard title="The kill switch saves you at 3am" steps={[
-  { type: 'out', text: 'Autonomous loop running (iteration 14)...' },
-  { type: 'out', text: 'Refactoring src/legacy/parser.ts...' },
-  { type: 'error', text: '✗ Wait : it\'s rewriting the public API contract' },
-  { type: 'out', text: '' },
-  { type: 'cmd', text: 'touch ~/.claude/autonomous/STOP', delay: 600 },
-  { type: 'out', text: '[Stop hook] Emergency stop detected.' },
-  { type: 'success', text: '✓ Loop halted. No more iterations.' },
-  { type: 'out', text: '' },
-  { type: 'cmd', text: 'git diff --stat', delay: 400 },
-  { type: 'out', text: '13 files changed. Last 2 iterations reverted.' },
-  { type: 'success', text: '✓ Good work preserved. Bad work rolled back.' },
-  { type: 'warn', text: '→ One command. Always test this before a long run.' },
-]} />
+```bash
+# Iteration 14 is rewriting the public API. Stop the loop:
+touch ~/.claude/autonomous/STOP
+
+# Then review what the loop changed and roll back the bad part
+git diff --stat
+git restore src/legacy/parser.ts
+```
+
+The stop hook checks for that file when the current session ends, then prints "Emergency stop detected" and exits, so work from earlier iterations stays on disk for you to review.
 
 ## Real-world example: autonomous PR reviewer
 

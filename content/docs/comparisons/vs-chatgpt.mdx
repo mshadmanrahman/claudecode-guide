@@ -30,22 +30,17 @@ It's not. It's a fundamentally different kind of tool.
 
 **Claude Code** is an AI agent that runs on your computer. It reads your files, writes code, runs commands, creates projects from scratch, runs tests, and deploys things. You describe what you want. It does the work. Not the text of the work. The actual work.
 
-<DemoCard title="Same request, completely different experience" steps={[
-  { type: 'out', text: '-- ChatGPT --' },
-  { type: 'cmd', text: '"Build me a personal portfolio website"' },
-  { type: 'out', text: 'Here\'s some code you can use:' },
-  { type: 'out', text: '```html <div class="hero">... ``` (200 lines)' },
-  { type: 'out', text: 'Copy this into a file called index.html...' },
-  { type: 'warn', text: '→ You get TEXT. You copy-paste. You figure out the rest.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '-- Claude Code --', delay: 800 },
-  { type: 'cmd', text: '"Build me a personal portfolio website"' },
-  { type: 'out', text: 'Creating project structure...' },
-  { type: 'success', text: '✓ Created index.html, styles.css, script.js' },
-  { type: 'success', text: '✓ Added responsive design + dark mode' },
-  { type: 'success', text: '✓ Deployed to https://your-site.vercel.app' },
-  { type: 'warn', text: '→ You get a LIVE WEBSITE. On the internet. Done.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'build me a personal portfolio website' },
+  { kind: 'thinking', verb: 'Planning', ms: 1000 },
+  { kind: 'tool', name: 'Write', arg: 'index.html', result: 'Wrote 86 lines to index.html' },
+  { kind: 'tool', name: 'Write', arg: 'styles.css', result: 'Wrote 142 lines to styles.css' },
+  { kind: 'tool', name: 'Write', arg: 'script.js', result: 'Wrote 24 lines to script.js' },
+  { kind: 'tool', name: 'Bash', arg: 'npx vercel --yes', result: 'Production: https://your-site.vercel.app [18s]' },
+  { kind: 'say', text: 'Your portfolio is live at https://your-site.vercel.app.\nIt is responsive and has a dark mode.' },
 ]} />
+
+Ask ChatGPT the same thing and you get code to copy into files yourself; Claude Code writes the files and puts the site online.
 
 ## The Real Difference
 

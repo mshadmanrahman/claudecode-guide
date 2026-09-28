@@ -11,20 +11,17 @@ Hooks fix this permanently. They're scripts that fire automatically before a too
 
 Think of them like git hooks, but for Claude Code. And frankly, they're more useful than most git hooks you've actually written.
 
-<DemoCard title="Hooks working silently in the background" steps={[
-  { type: 'cmd', text: 'claude "add a new API endpoint for users"' },
-  { type: 'out', text: 'Writing src/app/api/users/route.ts...' },
-  { type: 'out', text: '[PostToolUse] Running prettier --write...' },
-  { type: 'success', text: '✓ Auto-formatted route.ts' },
-  { type: 'out', text: '[PostToolUse] Running eslint --fix...' },
-  { type: 'success', text: '✓ Lint clean' },
-  { type: 'cmd', text: 'claude "commit this"', delay: 1000 },
-  { type: 'out', text: '[PreToolUse] Scanning for secrets...' },
-  { type: 'error', text: '✗ Blocked: hardcoded DB_URL in route.ts:3' },
-  { type: 'out', text: 'Moving to .env.local...' },
-  { type: 'success', text: '✓ Secret removed. Commit succeeded.' },
-  { type: 'warn', text: '→ You configured this once. It runs forever.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add a new API endpoint for users' },
+  { kind: 'tool', name: 'Write', arg: 'src/app/api/users/route.ts', result: 'Wrote 34 lines to src/app/api/users/route.ts' },
+  { kind: 'prompt', text: 'commit this' },
+  { kind: 'tool', name: 'Bash', arg: 'git add . && git commit -m "Add users API"', result: 'Error: PreToolUse:Bash hook error: blocked hardcoded DB_URL in route.ts:3' },
+  { kind: 'tool', name: 'Update', arg: 'src/app/api/users/route.ts', result: 'Updated src/app/api/users/route.ts with 1 addition and 1 removal' },
+  { kind: 'tool', name: 'Bash', arg: 'git add . && git commit -m "Add users API"', result: '[main 4e1c2ab] Add users API' },
+  { kind: 'say', text: 'The hook caught a hardcoded DB_URL, so I moved it to .env.local and committed.' },
 ]} />
+
+The Prettier and ESLint hooks also ran after the Write; they print nothing when they pass.
 
 ## The three hook types
 
@@ -123,18 +120,15 @@ The second hook everyone should have. Prettier runs after every file edit so for
 
 The `|| true` keeps things moving if Prettier can't handle a file type. Always add a fallback for non-critical hooks.
 
-<DemoCard title="SessionStart hook: never start cold again" steps={[
-  { type: 'cmd', text: 'claude' },
-  { type: 'out', text: '[SessionStart] Loading context...' },
-  { type: 'success', text: '✓ Read MEMORY.md (3 projects, 8 preferences)' },
-  { type: 'success', text: '✓ Read handoffs/2026-04-08.md' },
-  { type: 'success', text: '✓ Loaded: "Dashboard feature: tooltip PR pending review"' },
-  { type: 'out', text: '' },
-  { type: 'cmd', text: '"continue where we left off"', delay: 600 },
-  { type: 'out', text: 'Resuming dashboard tooltips. Reading PR #142 comments...' },
-  { type: 'success', text: '✓ Addressed 2 review comments. Updated tests.' },
-  { type: 'warn', text: '→ Zero re-explanation. The hook loaded everything.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'continue where we left off' },
+  { kind: 'tool', name: 'Read', arg: '_context/handoffs/2026-04-08.md', result: 'Read 31 lines' },
+  { kind: 'tool', name: 'github - get_pull_request_comments (MCP)', arg: 'pull_number: 142', result: 'Found 2 comments' },
+  { kind: 'tool', name: 'Update', arg: 'src/components/Tooltip.tsx', result: 'Updated src/components/Tooltip.tsx with 6 additions and 2 removals' },
+  { kind: 'say', text: 'Picked up the dashboard tooltip PR #142.\nAddressed both review comments and updated the tests.' },
 ]} />
+
+The SessionStart hook's checklist told Claude to open the latest handoff, so it knew about PR #142 without you explaining it.
 
 ## Tips that actually matter
 

@@ -25,19 +25,12 @@ Everything else, you can ask Claude to do for you once it's running.
 
 One more thing you'll see later: "environment variables." Think of those as settings stored on your computer that programs can read. Like a sticky note that says `API_KEY=abc123`. You won't need them during installation. Claude Code can set them up for you when the time comes.
 
-<DemoCard title="What the install looks like" steps={[
-  { type: 'cmd', text: 'npm install -g @anthropic-ai/claude-code' },
-  { type: 'out', text: 'added 1 package in 4s' },
-  { type: 'success', text: '✓ Claude Code installed' },
-  { type: 'cmd', text: 'claude', delay: 800 },
-  { type: 'out', text: '╔════════════════════════════════════╗' },
-  { type: 'out', text: '║  Welcome to Claude Code v1.0.41   ║' },
-  { type: 'out', text: '╚════════════════════════════════════╝' },
-  { type: 'out', text: '? How would you like to authenticate?' },
-  { type: 'success', text: '❯ Log in with your Claude subscription  ← pick this one' },
-  { type: 'out', text: '  Use an API key' },
-  { type: 'warn', text: '→ That\'s it. You\'re in.' },
-]} />
+```bash
+npm install -g @anthropic-ai/claude-code
+claude
+```
+
+The first time you run `claude`, it asks how you want to log in. Pick your Claude subscription.
 
 ## Install Node.js First
 

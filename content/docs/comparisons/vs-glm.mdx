@@ -27,16 +27,17 @@ But the benchmark was also one specific thing. The original poster said the same
 
 Here is what we actually know, and what it means for the Claude Code vs GLM-5.2 decision.
 
-<DemoCard title="What GLM-5.2 actually is" steps={[
-  { type: 'out', text: 'Developer: z.ai (Zhipu AI, Beijing, spun from Tsinghua 2019)' },
-  { type: 'out', text: 'Released: June 13, 2026' },
-  { type: 'out', text: 'License: MIT open-source (weights releasing)' },
-  { type: 'out', text: 'Context: 1,000,000 tokens' },
-  { type: 'out', text: 'Benchmarks at launch: none published' },
-  { type: 'out', text: 'Terminal agent: no — model/API only' },
-  { type: 'out', text: 'API: Anthropic-compatible endpoint' },
-  { type: 'warn', text: 'It is a model. Claude Code is an agent. Different category.' },
-]} />
+| | GLM-5.2 |
+|---|---|
+| Developer | z.ai (Zhipu AI, Beijing, spun from Tsinghua 2019) |
+| Released | June 13, 2026 |
+| License | MIT open-source (weights releasing) |
+| Context | 1,000,000 tokens |
+| Benchmarks at launch | None published |
+| Terminal agent | No, model/API only |
+| API | Anthropic-compatible endpoint |
+
+It is a model. Claude Code is an agent. Different category.
 
 ## This is not a direct comparison
 
@@ -68,19 +69,20 @@ That distinction matters because the benchmark that went viral was about one-sho
 
 **Cost efficiency for daily work.** The benchmark poster burned 25% of their Pro weekly quota in roughly 10 prompts. That is approximately 500 prompts per week on Pro ($30/month). For sustained daily coding, the per-session cost of GLM-5.2 is higher than it looks.
 
-<DemoCard title="Head-to-head at a glance" steps={[
-  { type: 'out', text: 'Terminal agent      GLM: No               Claude Code: Yes' },
-  { type: 'out', text: 'Project config      GLM: None             Claude: CLAUDE.md' },
-  { type: 'out', text: 'Cross-session mem   GLM: None             Claude: Full' },
-  { type: 'out', text: 'Hooks / skills      GLM: No               Claude: Deep' },
-  { type: 'out', text: 'MCP ecosystem       GLM: No               Claude: Full' },
-  { type: 'out', text: 'Context window      GLM: 1M tokens        Claude: 1M' },
-  { type: 'out', text: 'Open source         GLM: MIT              Claude: Source-available' },
-  { type: 'out', text: 'Vision              GLM: No (at launch)   Claude: Yes (Opus)' },
-  { type: 'out', text: 'Pricing             GLM: $10-$80/mo       Claude: $20-$200/mo' },
-  { type: 'out', text: 'SWE-bench (5.2)     GLM: Unpublished      Claude: Verified' },
-  { type: 'warn', text: 'Pricing looks cheaper until you model prompts-per-week.' },
-]} />
+| | GLM-5.2 | Claude Code |
+|---|---|---|
+| Terminal agent | No | Yes |
+| Project config | None | CLAUDE.md |
+| Cross-session memory | None | Full |
+| Hooks / skills | No | Deep |
+| MCP ecosystem | No | Full |
+| Context window | 1M tokens | 1M |
+| Open source | MIT | Source-available |
+| Vision | No (at launch) | Yes (Opus) |
+| Pricing | $10-$80/mo | $20-$200/mo |
+| SWE-bench (5.2) | Unpublished | Verified |
+
+Pricing looks cheaper until you model prompts-per-week.
 
 ## My actual take
 

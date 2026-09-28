@@ -250,12 +250,11 @@ The first time you run the loop on a campaign brief, it takes time. The fifth ti
 
 The most valuable thing to compound in marketing is brand voice. Claude's default output is professional and generic. If you have saved examples of your best-performing copy alongside notes on what made them work — the phrases your audience actually uses, the tone that converts, the angles that land — Claude can approximate that voice. Not perfectly, but close enough that your editing pass is sharpening rather than rebuilding.
 
-<DemoCard title="Saving brand voice and audience to CLAUDE.md." steps={[
-  { type: 'cmd', text: 'Add to CLAUDE.md:' },
-  { type: 'out', text: '## Brand voice: direct, no jargon, problem-first.' },
-  { type: 'out', text: '## Audience: ops leads at 50-500 person companies.' },
-  { type: 'out', text: '## High-performing phrases: [paste 3-4 examples]' },
-  { type: 'success', text: 'Every brief starts with this. C2 costs nothing.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'save our brand voice and audience to CLAUDE.md' },
+  { kind: 'thinking', verb: 'Thinking', ms: 800 },
+  { kind: 'tool', name: 'Update', arg: 'CLAUDE.md', result: 'Updated CLAUDE.md with 3 additions', lines: ['## Brand voice: direct, no jargon, problem-first.', '## Audience: ops leads at 50-500 person companies.', '## High-performing phrases: [paste 3-4 examples]'] },
+  { kind: 'say', text: 'Saved. Every campaign brief will start from this voice and audience.' },
 ]} />
 
 ## What the Check step means for marketing work

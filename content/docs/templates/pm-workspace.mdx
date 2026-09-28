@@ -11,19 +11,15 @@ This template is for Product Managers who want Claude Code as a daily operating 
 
 It's the most opinionated template in the gallery. It assumes you'll invest a week building the memory and skills layer. That investment pays back fast.
 
-<DemoCard title="PM workspace in action : no code needed" steps={[
-  { type: 'cmd', text: 'claude /pulse' },
-  { type: 'success', text: '✓ Reading 4 project documents...' },
-  { type: 'out', text: 'Dashboard v2: on track, deploy Wednesday' },
-  { type: 'error', text: '⚠ Auth migration: blocked 3 days (legal review)' },
-  { type: 'success', text: '✓ Mobile app: sprint started, 12 tickets' },
-  { type: 'cmd', text: 'claude /meeting-prep Sarah', delay: 1000 },
-  { type: 'out', text: 'Pulling context for 1:1...' },
-  { type: 'success', text: '✓ 2 open action items from last week' },
-  { type: 'success', text: '✓ Talking points generated' },
-  { type: 'cmd', text: 'claude /weekly-status', delay: 1000 },
-  { type: 'success', text: '✓ Status report generated from Jira + GitHub + meetings' },
-  { type: 'warn', text: '→ Three commands. Monday morning sorted. No code written.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: '/pulse' },
+  { kind: 'tool', name: 'Glob', arg: 'projects/*.md', result: 'Found 4 files' },
+  { kind: 'say', text: 'Dashboard v2: on track, deploy Wednesday\nAuth migration: blocked 3 days on legal review\nMobile app: sprint started, 12 tickets' },
+  { kind: 'prompt', text: '/meeting-prep Sarah' },
+  { kind: 'tool', name: 'Write', arg: 'briefs/sarah-1on1.md', result: 'Wrote 22 lines to briefs/sarah-1on1.md' },
+  { kind: 'prompt', text: '/weekly-status' },
+  { kind: 'tool', name: 'Write', arg: 'status/weekly.md', result: 'Wrote 18 lines to status/weekly.md' },
+  { kind: 'say', text: 'Status drafted from Jira, GitHub and your meeting notes.' },
 ]} />
 
 ```markdown title="CLAUDE.md"

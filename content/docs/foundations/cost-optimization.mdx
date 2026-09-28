@@ -11,14 +11,15 @@ Fair question. Straight answer: it depends on how you use it. A $20/month Pro pl
 
 Let me break down the real math.
 
-<DemoCard title="Quick plan check" steps={[
-  { type: 'cmd', text: 'claude' },
-  { type: 'out', text: 'Authenticated as you@email.com' },
-  { type: 'out', text: 'Plan: Claude Pro ($20/mo)' },
-  { type: 'out', text: 'Usage today: 45 minutes of active sessions' },
-  { type: 'success', text: '✓ Plenty of quota remaining' },
-  { type: 'warn', text: '→ Pro is enough for most people. Upgrade only when you hit limits.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add a loading state to the signup button' },
+  { kind: 'thinking', verb: 'Reading', ms: 900 },
+  { kind: 'tool', name: 'Read', arg: 'src/components/SignupButton.tsx', result: 'Read 48 lines' },
+  { kind: 'tool', name: 'Update', arg: 'src/components/SignupButton.tsx', result: 'Updated src/components/SignupButton.tsx with 9 additions and 2 removals' },
+  { kind: 'say', text: 'The button now shows a spinner and stays disabled while the request runs.' },
 ]} />
+
+The banner at the top names your plan, here Claude Pro. Pro is enough for most people; upgrade only when you hit limits.
 
 ## The Plans (Honest Assessment)
 

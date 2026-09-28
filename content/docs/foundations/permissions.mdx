@@ -9,25 +9,17 @@ That's what default Claude Code feels like. You ask it to fix a test. It wants t
 
 The fix takes five minutes. You configure it once. Then it just works.
 
-<DemoCard title="Before and after permission configuration" steps={[
-  { type: 'out', text: '── Default (no config) ──' },
-  { type: 'cmd', text: '"fix the broken test in auth.test.ts"' },
-  { type: 'out', text: 'Read auth.test.ts? [Y/n]' },
-  { type: 'out', text: 'Read auth.ts? [Y/n]' },
-  { type: 'out', text: 'Edit auth.ts? [Y/n]' },
-  { type: 'out', text: 'Run npm test? [Y/n]' },
-  { type: 'out', text: 'Read test output? [Y/n]' },
-  { type: 'error', text: '5 permission prompts for a simple fix' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── After configuring allowedTools ──' },
-  { type: 'cmd', text: '"fix the broken test in auth.test.ts"' },
-  { type: 'out', text: 'Reading auth.test.ts...' },
-  { type: 'out', text: 'Reading auth.ts...' },
-  { type: 'out', text: 'Fixed: assertion expected wrong status code' },
-  { type: 'out', text: 'Running tests...' },
-  { type: 'success', text: 'All tests passing. Zero interruptions.' },
-  { type: 'warn', text: 'Configure once, flow forever.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'fix the broken test in auth.test.ts' },
+  { kind: 'thinking', verb: 'Reading', ms: 800 },
+  { kind: 'tool', name: 'Read', arg: 'auth.test.ts', result: 'Read 86 lines' },
+  { kind: 'tool', name: 'Read', arg: 'src/auth.ts', result: 'Read 142 lines' },
+  { kind: 'tool', name: 'Update', arg: 'auth.test.ts', result: 'Updated auth.test.ts with 1 addition and 1 removal' },
+  { kind: 'tool', name: 'Bash', arg: 'npm test', result: '> app@0.1.0 test' },
+  { kind: 'say', text: 'The test expected 401, but a missing role correctly returns 403.\nFixed the assertion. All tests pass.' },
 ]} />
+
+With `allowedTools` set, none of those steps stopped to ask. On a default setup, each one waits for your approval first.
 
 ## Setting Up allowedTools
 
@@ -69,16 +61,7 @@ Read operations are always safe. Your test and lint commands are safe. Anything 
 
 Mid-session and tired of clicking? Type `/permissions` to manage it on the fly.
 
-<DemoCard title="Managing permissions mid-session" steps={[
-  { type: 'cmd', text: '/permissions' },
-  { type: 'out', text: 'Current session permissions:' },
-  { type: 'out', text: '  Auto-allowed: Read, Glob, Grep, LS' },
-  { type: 'out', text: '  Requires approval: Edit, Bash, Write' },
-  { type: 'out', text: '' },
-  { type: 'cmd', text: 'Allow Edit for this session' },
-  { type: 'success', text: 'Edit operations auto-approved for this session' },
-  { type: 'warn', text: 'Session permissions reset when you close the terminal.' },
-]} />
+It opens your allow, ask and deny rules, where you can add or remove a rule without editing `settings.json` by hand.
 
 ## What to Auto-Accept vs What to Always Review
 
@@ -116,14 +99,14 @@ Week 3: Add `Edit` if you're confident in the edit quality. Most people get here
 
 Week 4+: You're reviewing only destructive operations and network calls. That's the sweet spot: 90% of operations flow without interruption, 10% get a human eye where it matters.
 
-<DemoCard title="The permission sweet spot" steps={[
-  { type: 'out', text: 'Auto-accept:  Read, Search, Edit, Test, Lint' },
-  { type: 'out', text: 'Always review: Delete, Push, Deploy, Network' },
-  { type: 'out', text: '' },
-  { type: 'success', text: '90% of operations flow without interruption' },
-  { type: 'success', text: '10% get human review where it actually matters' },
-  { type: 'warn', text: 'Maximum speed. Minimum risk.' },
-]} />
+```json
+{
+  "permissions": {
+    "allow": ["Read", "Glob", "Grep", "Edit", "Bash(npm test*)", "Bash(npm run lint*)"],
+    "ask": ["Bash(git push*)", "Bash(rm*)", "Bash(curl*)", "WebFetch"]
+  }
+}
+```
 
 ## One More Thing: The Accept Button
 

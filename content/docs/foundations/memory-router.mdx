@@ -68,13 +68,15 @@ Splitting files is easy. The instruction that says "load only the shard that mat
 
 This is the system I run. My always-loaded router is a short index table: a row per knowledge area and a note on when to load it. Under it sits a small block of rules that genuinely apply every session, and a short active-this-week list capped at a handful of entries that decay after two weeks.
 
-<DemoCard title="The same memory, loaded two different ways." steps={[
-  { type: 'cmd', text: 'claude "fix the auth bug"' },
-  { type: 'out', text: 'loaded CLAUDE.md (847 lines)' },
-  { type: 'error', text: '↑ every turn pays for all 847 lines, most of it irrelevant' },
-  { type: 'success', text: '✓ router pattern: loaded index + 1 shard (auth.md)' },
-  { type: 'warn', text: '→ context stays lean, model stays sharp' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'fix the auth bug' },
+  { kind: 'thinking', verb: 'Reading', ms: 800 },
+  { kind: 'tool', name: 'Read', arg: 'memory/auth.md', result: 'Read 38 lines' },
+  { kind: 'tool', name: 'Read', arg: 'src/auth/session.ts', result: 'Read 142 lines' },
+  { kind: 'say', text: 'Your auth notes say tokens refresh in middleware, and that is where it breaks.\nFixing the expiry check in session.ts.' },
 ]} />
+
+The router loaded silently at startup, and Claude read one shard on purpose. A flat 847-line CLAUDE.md would cost all 847 lines on every turn.
 
 Behind that router are more than two hundred topic files. The agent never loads them by default. It reads the router, sees which shard matches the task in front of it, and pulls in only that one. A question about deploys loads the deploy shard and nothing else.
 

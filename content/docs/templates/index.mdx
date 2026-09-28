@@ -5,22 +5,14 @@ description: Production-extracted CLAUDE.md configs for different project types.
 
 > **Before using these templates**, complete the [Interactive Guide](/guide) first (at minimum steps 1-5). You need Claude Code installed and a working CLAUDE.md before templates make sense. If you haven't done that yet, [start here](/guide).
 
-<DemoCard title="Templates in action" steps={[
-  { type: 'out', text: '── Without a template ──' },
-  { type: 'cmd', text: 'claude "add a new API route"' },
-  { type: 'out', text: 'What framework are you using?' },
-  { type: 'out', text: 'What\'s your file structure?' },
-  { type: 'out', text: 'Do you use TypeScript?' },
-  { type: 'error', text: '⚠ 5 minutes of questions before any code' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── With a template CLAUDE.md ──' },
-  { type: 'cmd', text: 'claude "add a new API route"', delay: 1000 },
-  { type: 'out', text: 'Reading CLAUDE.md... Next.js App Router, TypeScript, Zod.' },
-  { type: 'success', text: '✓ Created src/app/api/users/route.ts' },
-  { type: 'success', text: '✓ Zod schema for request validation' },
-  { type: 'success', text: '✓ Error handling matching your conventions' },
-  { type: 'warn', text: '→ Copy a template. Customize it. Done.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add a new API route for users' },
+  { kind: 'thinking', verb: 'Exploring', ms: 900 },
+  { kind: 'tool', name: 'Write', arg: 'src/app/api/users/route.ts', result: 'Wrote 34 lines to src/app/api/users/route.ts' },
+  { kind: 'say', text: 'Added POST /api/users with a Zod schema for the request body.\nErrors return the { error } shape your CLAUDE.md asks for.' },
 ]} />
+
+Without a template CLAUDE.md, the same request starts with questions about your framework, file layout and TypeScript before any code gets written.
 
 ## Template Gallery
 

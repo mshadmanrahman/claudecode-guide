@@ -11,19 +11,13 @@ You needed the 5-line summary. Not the journey.
 
 Sub-agents fix this. They're separate Claude Code instances that handle focused tasks in their own context windows. The security review happens over there. The test generation happens over there. Your main session stays clean and can keep steering.
 
-<DemoCard title="Sub-agents working in parallel" steps={[
-  { type: 'cmd', text: 'claude "ship the new auth feature"' },
-  { type: 'out', text: 'This is a multi-step task. Entering plan mode...' },
-  { type: 'out', text: 'Spawning 3 agents in parallel:' },
-  { type: 'success', text: '  → code-reviewer: reviewing auth changes' },
-  { type: 'success', text: '  → security-reviewer: checking for vulnerabilities' },
-  { type: 'success', text: '  → tdd-guide: writing missing tests' },
-  { type: 'out', text: 'Working...' },
-  { type: 'success', text: '✓ code-reviewer: 2 style fixes applied' },
-  { type: 'success', text: '✓ security-reviewer: LGTM, no issues' },
-  { type: 'success', text: '✓ tdd-guide: 8 tests added, all passing' },
-  { type: 'out', text: 'All agents complete. Ready to commit.' },
-  { type: 'warn', text: '→ 3 expert reviews in the time of 1. Main session stayed clean.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'ship the new auth feature' },
+  { kind: 'thinking', verb: 'Planning', ms: 900 },
+  { kind: 'tool', name: 'Task', arg: 'code-reviewer: review auth changes', result: 'Done (12 tool uses · 31.4k tokens · 38s)' },
+  { kind: 'tool', name: 'Task', arg: 'security-reviewer: check auth', result: 'Done (9 tool uses · 24.8k tokens · 33s)' },
+  { kind: 'tool', name: 'Task', arg: 'tdd-guide: write missing tests', result: 'Done (17 tool uses · 42.1k tokens · 51s)' },
+  { kind: 'say', text: 'All three agents are done.\nReviewer applied 2 style fixes, security found no issues, 8 tests added and passing.\nReady to commit.' },
 ]} />
 
 ## Why this actually matters
@@ -48,20 +42,10 @@ Claude Code ships with several agent patterns ready to go:
 
 These spawn automatically when the task calls for it. You can also be explicit: "Run the code-reviewer on the files I just changed."
 
-<DemoCard title="Creating and using a custom agent" steps={[
-  { type: 'cmd', text: 'cat .claude/agents/pr-writer.md' },
-  { type: 'out', text: '# PR Description Writer' },
-  { type: 'out', text: '## Role: Generate PR descriptions from git diffs' },
-  { type: 'out', text: '## Steps: Read diff → Group changes → Write summary' },
-  { type: 'out', text: '' },
-  { type: 'cmd', text: '"Use the PR description writer for this branch"', delay: 600 },
-  { type: 'out', text: 'Loading agent: pr-writer.md...' },
-  { type: 'out', text: 'Reading git diff main...HEAD (4 commits, 8 files)...' },
-  { type: 'success', text: '✓ Generated PR description:' },
-  { type: 'out', text: '  ## Summary' },
-  { type: 'out', text: '  Adds rate limiting to auth endpoints with Redis backing.' },
-  { type: 'out', text: '  ## Changes: 2 features, 1 fix, 5 tests' },
-  { type: 'warn', text: '→ 20-line markdown file. Reusable forever.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'use the pr-writer agent for this branch' },
+  { kind: 'tool', name: 'Task', arg: 'pr-writer: describe this branch', result: 'Done (6 tool uses · 14.2k tokens · 22s)' },
+  { kind: 'say', text: 'Here is the PR description:\nAdds rate limiting to auth endpoints with Redis backing.\nChanges: 2 features, 1 fix, 5 tests.' },
 ]} />
 
 ## Building your own agents

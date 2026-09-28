@@ -9,17 +9,12 @@ description: "Your CLAUDE.md file does 80% of the prompting work. The actual pro
 
 Here's what actually matters: your CLAUDE.md does 80% of the prompting work. It tells Claude Code your stack, your patterns, your coding style, your constraints. The prompt you type is just the task. Not the context. Not the persona. Just: what do you need right now?
 
-<DemoCard title="ChatGPT brain vs Claude Code brain" steps={[
-  { type: 'out', text: '── ChatGPT prompting habits (don\'t do this) ──' },
-  { type: 'cmd', text: '"Act as a senior TypeScript engineer. Think step by step. First analyze the codebase architecture, then identify the best design pattern for implementing user authentication using industry best practices..."' },
-  { type: 'error', text: 'Wasted 200 tokens on instructions Claude Code already knows' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── Claude Code prompting (do this) ──' },
-  { type: 'cmd', text: '"add GitHub OAuth login to the signup page"' },
-  { type: 'out', text: 'Reading CLAUDE.md → knows your stack, patterns, style' },
-  { type: 'out', text: 'Reading existing auth code → matches conventions' },
-  { type: 'success', text: 'Implementation matches project perfectly' },
-  { type: 'warn', text: 'CLAUDE.md is your prompt. The message is just the task.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add GitHub OAuth login to the signup page' },
+  { kind: 'thinking', verb: 'Reading', ms: 900 },
+  { kind: 'tool', name: 'Read', arg: 'src/lib/auth.ts', result: 'Read 58 lines' },
+  { kind: 'tool', name: 'Update', arg: 'src/app/signup/page.tsx', result: 'Updated src/app/signup/page.tsx with 21 additions and 2 removals' },
+  { kind: 'say', text: 'Added a GitHub button that uses the auth setup in src/lib/auth.ts.\nIt follows the form patterns your CLAUDE.md describes.' },
 ]} />
 
 ## The Three Rules of Good Prompts
@@ -42,21 +37,17 @@ I see this constantly. Someone pastes an entire PRD into a single prompt. 2,000 
 
 What happens? Claude Code tries to do everything at once. It misses details. It makes contradictory choices. It burns through your context window and delivers something half-right that takes longer to fix than if you'd broken it down.
 
-<DemoCard title="Spec dump vs iterative prompting" steps={[
-  { type: 'out', text: '── The Spec Dump (don\'t do this) ──' },
-  { type: 'cmd', text: '"Here is the full PRD for our new checkout flow: [2000 words of requirements, edge cases, acceptance criteria, design specs, API contracts...]"' },
-  { type: 'out', text: 'Creating 14 files...' },
-  { type: 'error', text: 'Missed 3 requirements. Mixed up two edge cases. Wrong API format.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── Iterative approach (do this) ──' },
-  { type: 'cmd', text: '"create the checkout page with cart summary and address form"' },
-  { type: 'success', text: 'Cart summary + address form done. Tests passing.' },
-  { type: 'cmd', text: '"now add the payment step with Stripe Elements"' },
-  { type: 'success', text: 'Payment integration done. Tests passing.' },
-  { type: 'cmd', text: '"add order confirmation with email notification"' },
-  { type: 'success', text: 'Full flow complete. All 12 tests green.' },
-  { type: 'warn', text: '3 focused prompts > 1 giant prompt. Every time.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'build checkout: cart and address form' },
+  { kind: 'tool', name: 'Write', arg: 'src/app/checkout/page.tsx', result: 'Wrote 112 lines to src/app/checkout/page.tsx' },
+  { kind: 'prompt', text: 'now add payment with Stripe Elements' },
+  { kind: 'tool', name: 'Update', arg: 'src/app/checkout/page.tsx', result: 'Updated src/app/checkout/page.tsx with 64 additions and 3 removals' },
+  { kind: 'prompt', text: 'add order confirmation email' },
+  { kind: 'tool', name: 'Bash', arg: 'npm test', result: '> app@0.1.0 test' },
+  { kind: 'say', text: 'Checkout is complete. All 12 tests pass.' },
 ]} />
+
+Each small prompt got a finished, tested step before the next one started.
 
 ## Prompt Patterns That Work
 

@@ -9,15 +9,13 @@ Monorepos fall apart when code starts bleeding across boundaries. `apps/web` imp
 
 Use it for monorepos managed with Turborepo and npm/pnpm workspaces. It assumes a standard `apps/` + `packages/` layout. If you use Nx instead of Turborepo, swap the build commands but keep the boundary rules.
 
-<DemoCard title="Monorepo template enforcing boundaries" steps={[
-  { type: 'cmd', text: 'claude "add a date formatter to the web app"' },
-  { type: 'out', text: 'Reading CLAUDE.md... Turborepo monorepo detected.' },
-  { type: 'out', text: 'Checking: does packages/shared-utils have a formatter?' },
-  { type: 'success', text: '✓ Found formatDate() in packages/shared-utils' },
-  { type: 'out', text: 'Importing from @repo/shared-utils (not relative path)' },
-  { type: 'success', text: '✓ Added import to apps/web/src/lib/dates.ts' },
-  { type: 'out', text: 'Did NOT duplicate code in the app.' },
-  { type: 'warn', text: '→ Boundary rules prevent cross-app imports and duplication.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add a date formatter to the web app' },
+  { kind: 'thinking', verb: 'Searching', ms: 900 },
+  { kind: 'tool', name: 'Grep', arg: 'pattern: "formatDate"', result: 'Found 3 files' },
+  { kind: 'tool', name: 'Read', arg: 'packages/shared-utils/src/dates.ts', result: 'Read 41 lines' },
+  { kind: 'tool', name: 'Update', arg: 'apps/web/src/lib/dates.ts', result: 'Updated apps/web/src/lib/dates.ts with 2 additions and 1 removal' },
+  { kind: 'say', text: 'formatDate() already lives in @repo/shared-utils, so I imported it from there.\nNo copy in the app, and no relative path across packages.' },
 ]} />
 
 ```markdown title="CLAUDE.md"

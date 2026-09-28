@@ -11,17 +11,16 @@ One catch: Claude Code now starts you on Opus 5.5. That's a good default for dec
 
 There are four model classes, they're meaningfully different, and picking wrong costs you either money or quality.
 
-<DemoCard title="claude-code" steps={[
-  { type: 'cmd', text: '/model' },
-  { type: 'out', text: 'Available models:' },
-  { type: 'out', text: '  claude-fable-5-1     (hardest long-horizon work)' },
-  { type: 'out', text: '  claude-opus-5-5      (most capable, the default)' },
-  { type: 'out', text: '  claude-sonnet-5      (fast and capable)' },
-  { type: 'out', text: '  claude-haiku-4-5     (fastest, cheapest)' },
-  { type: 'out', text: '' },
-  { type: 'success', text: 'Current: claude-opus-5-5 with medium effort' },
-  { type: 'warn', text: '→ Switch with /model opus, /model sonnet, or /model haiku' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: '/model sonnet' },
+  { kind: 'output', text: 'Set model to Sonnet 5' },
+  { kind: 'prompt', text: '/model haiku' },
+  { kind: 'output', text: 'Set model to Haiku 4.5' },
+  { kind: 'prompt', text: '/model opus' },
+  { kind: 'output', text: 'Set model to Opus 5.5' },
 ]} />
+
+The banner shows the default, Opus 5.5. Type `/model` on its own to pick from the full list.
 
 ## When to Use the Fable Class
 

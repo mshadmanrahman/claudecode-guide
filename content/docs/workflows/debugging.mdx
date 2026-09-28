@@ -11,19 +11,14 @@ Twenty minutes later you've touched six files, the original error is gone, and t
 
 Claude Code is at its best when you treat debugging as an investigation. Give it evidence, let it trace the path, fix what's actually broken. Not what you suspect is broken.
 
-<DemoCard title="Debugging like an investigator, not a guesser" steps={[
-  { type: 'cmd', text: 'claude "the checkout page returns 500 after clicking pay"' },
-  { type: 'out', text: 'Reading server logs...' },
-  { type: 'out', text: 'Found: TypeError at src/checkout/process.ts:47' },
-  { type: 'out', text: '  → shipping.address is undefined' },
-  { type: 'out', text: 'Tracing data flow from form to API...' },
-  { type: 'out', text: 'Found: form submits "shippingAddress" but API expects "shipping.address"' },
-  { type: 'success', text: '✓ Root cause: field name mismatch after last refactor' },
-  { type: 'out', text: 'Checking git blame...' },
-  { type: 'out', text: '  Introduced in commit a3f91e2 (2 days ago)' },
-  { type: 'success', text: '✓ Fixed mapping in src/checkout/process.ts:42' },
-  { type: 'success', text: '✓ Tests passing. Verified on localhost.' },
-  { type: 'warn', text: '→ Evidence first. Hypothesis second. Fix last.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'checkout returns 500 after clicking pay' },
+  { kind: 'thinking', verb: 'Analyzing', ms: 800 },
+  { kind: 'tool', name: 'Bash', arg: 'tail -n 50 logs/server.log', result: "TypeError: Cannot read properties of undefined (reading 'address')" },
+  { kind: 'tool', name: 'Read', arg: 'src/checkout/process.ts', result: 'Read 96 lines' },
+  { kind: 'tool', name: 'Bash', arg: 'git log --oneline -3 src/checkout', result: 'a3f91e2 Rename shipping fields in checkout form' },
+  { kind: 'tool', name: 'Update', arg: 'src/checkout/process.ts', result: 'Updated src/checkout/process.ts with 1 addition and 1 removal' },
+  { kind: 'say', text: 'Root cause: the form sends shippingAddress, the API reads shipping.address.\nThe rename came in with a3f91e2 two days ago. Fixed the mapping on line 42.' },
 ]} />
 
 ## The Six Steps (In Order, Every Time)
@@ -80,21 +75,14 @@ Paste the full test output. Not just the error line. Claude Code needs expected 
 
 Often the test is correct and the implementation has a subtle bug. Sometimes the test is outdated. Ask Claude Code to read both files. It usually spots the mismatch fast.
 
-<DemoCard title="Parallel investigation: frontend + backend" steps={[
-  { type: 'cmd', text: '"Login button does nothing when clicked"' },
-  { type: 'out', text: 'Spawning 2 investigation agents...' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '  Agent 1 (frontend):' },
-  { type: 'out', text: '  → onClick handler fires, fetch() returns 200' },
-  { type: 'success', text: '  ✓ Frontend is fine. Response body is empty though.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '  Agent 2 (backend):', delay: 400 },
-  { type: 'out', text: '  → POST /api/auth/login returns 200 but no session cookie' },
-  { type: 'error', text: '  ✗ Found: SESSION_SECRET env var is empty in .env.local' },
-  { type: 'out', text: '' },
-  { type: 'success', text: '✓ Root cause: missing env var after last .env reset' },
-  { type: 'success', text: '✓ Added SESSION_SECRET to .env.local. Login works.' },
-  { type: 'warn', text: '→ Two agents, two sides of the stack, one answer.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'login button does nothing when clicked' },
+  { kind: 'thinking', verb: 'Planning', ms: 700 },
+  { kind: 'tool', name: 'Task', arg: 'Investigate login frontend', result: 'Done (9 tool uses · 21.4k tokens · 34s)' },
+  { kind: 'tool', name: 'Task', arg: 'Investigate login backend', result: 'Done (12 tool uses · 27.8k tokens · 41s)' },
+  { kind: 'say', text: 'Frontend is fine: the click fires and fetch() gets a 200 with an empty body.\nBackend: no session cookie, because SESSION_SECRET is empty in .env.local.' },
+  { kind: 'tool', name: 'Update', arg: '.env.local', result: 'Updated .env.local with 1 addition' },
+  { kind: 'say', text: 'Login works again.' },
 ]} />
 
 ## Tips That Make the Difference

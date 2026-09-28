@@ -100,16 +100,18 @@ An operations manager needs to write a weekly exception report for their VP.
 
 The first Friday: 45 minutes. The fifth Friday: 12 minutes. The tenth Friday: 8 minutes, mostly checking.
 
-<DemoCard title="The 5C Loop, compressed to a single prompt block." steps={[
-  { type: 'cmd', text: '## CAPTURE' },
-  { type: 'out', text: '[paste raw material here]' },
-  { type: 'cmd', text: '## CONTEXT' },
-  { type: 'out', text: 'Reader: [who]. Goal: [what they need]. Format: [how].' },
-  { type: 'cmd', text: '## CREATE' },
-  { type: 'out', text: 'Draft a [type of output] based on the above.' },
-  { type: 'warn', text: 'Keep a version of this in your CLAUDE.md per task type.' },
-  { type: 'success', text: 'C4 and C5 happen after: reading carefully, then saving what worked.' },
-]} />
+```text
+## CAPTURE
+[paste raw material here]
+
+## CONTEXT
+Reader: [who]. Goal: [what they need]. Format: [how].
+
+## CREATE
+Draft a [type of output] based on the above.
+```
+
+That is the whole loop as one prompt block; keep one per task type in your CLAUDE.md, and do Check and Compound after the draft comes back.
 
 ## What makes this different from just prompting
 

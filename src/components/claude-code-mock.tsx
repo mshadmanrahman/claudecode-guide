@@ -18,7 +18,9 @@ export type CliStep =
   /** A plain reply. Supports \n; lines stream in one by one. */
   | { kind: 'say'; text: string }
   /** A tool call: "⏺ Write(CLAUDE.md)" then "⎿ result", then optional file lines. */
-  | { kind: 'tool'; name: string; arg: string; result: string; lines?: string[] };
+  | { kind: 'tool'; name: string; arg: string; result: string; lines?: string[] }
+  /** What a slash command prints under its prompt: "⎿ Set model to Haiku 4.5". */
+  | { kind: 'output'; text: string };
 
 interface ClaudeCodeMockProps {
   steps: CliStep[];
@@ -28,7 +30,7 @@ interface ClaudeCodeMockProps {
 }
 
 export const ORANGE = '#D77757';
-const MASCOT_ROSE = '#D78787';
+const MASCOT = 'var(--ct-mascot)';
 export const DIM = 'var(--ct-dim)';
 export const INK = 'var(--ct-ink)';
 export const SPINNER = ['·', '✢', '✳', '✶', '✻', '✽', '✻', '✶', '✳', '✢'];
@@ -49,6 +51,8 @@ export function stepDuration(step: CliStep): number {
       return step.text.split('\n').length * LINE_MS + 200;
     case 'tool':
       return TOOL_RUN_MS + 100 + (step.lines?.length ?? 0) * TOOL_LINE_MS;
+    case 'output':
+      return 300 + step.text.split('\n').length * LINE_MS;
   }
 }
 
@@ -59,7 +63,7 @@ export function Mascot({ className, color }: { className: string; color: string 
         fillRule="evenodd"
         clipRule="evenodd"
         d="M20.998 10.949H24v3.102h-3v3.028h-1.487V20H18v-2.921h-1.487V20H15v-2.921H9V20H7.488v-2.921H6V20H4.487v-2.921H3V14.05H0V10.95h3V5h17.998v5.949zM6 10.949h1.488V8.102H6v2.847zm10.51 0H18V8.102h-1.49v2.847z"
-        fill={color}
+        style={{ fill: color }}
       />
     </svg>
   );
@@ -68,7 +72,7 @@ export function Mascot({ className, color }: { className: string; color: string 
 function CurrentBanner({ cwd }: { cwd: string }) {
   return (
     <div className="flex items-center gap-3 py-1">
-      <Mascot className="h-10 w-10" color={MASCOT_ROSE} />
+      <Mascot className="h-10 w-10" color={MASCOT} />
       <div className="min-w-0 leading-[1.45]">
         <div>
           <span className="font-bold">Claude Code</span> <span style={{ color: DIM }}>v2.1.28</span>
@@ -232,6 +236,15 @@ export function ClaudeCodeMock({ steps, cwd = '~/my-project', loop = false, heig
                 <span className="min-w-0 whitespace-pre-wrap break-words">{line}</span>
               </div>
             ))}
+          </div>,
+        );
+        break;
+      }
+      case 'output': {
+        transcript.push(
+          <div key={i} className="cc-in flex gap-2 pl-2" style={{ color: DIM }}>
+            <span className="shrink-0">⎿</span>
+            <span className="min-w-0 whitespace-pre-wrap break-words">{step.text}</span>
           </div>,
         );
         break;

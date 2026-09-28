@@ -9,13 +9,13 @@ description: "ChatGPT tells you what to do. Claude Code actually does it. Here's
 
 If ChatGPT is a person you text for advice, Claude Code is a colleague sitting next to you with access to your actual project. Not just suggestions. Real output. Real files.
 
-<DemoCard title="claude-code" steps={[
-  { type: 'cmd', text: '"Build me a personal website with my resume"' },
-  { type: 'out', text: 'Reading your project folder...' },
-  { type: 'out', text: 'Creating index.html, styles.css, resume.json...', delay: 400 },
-  { type: 'out', text: 'Adding responsive layout, dark mode toggle...', delay: 500 },
-  { type: 'success', text: '✓ Website ready. Open index.html to preview.', delay: 600 },
-  { type: 'warn', text: '→ That just happened. On your computer. Real files.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'build me a personal website with my resume' },
+  { kind: 'thinking', verb: 'Exploring', ms: 900 },
+  { kind: 'tool', name: 'Glob', arg: '**/*', result: 'Found 3 files' },
+  { kind: 'tool', name: 'Write', arg: 'index.html', result: 'Wrote 86 lines to index.html' },
+  { kind: 'tool', name: 'Write', arg: 'styles.css', result: 'Wrote 142 lines to styles.css' },
+  { kind: 'say', text: 'Your site is ready, with a responsive layout and a dark mode toggle.\nOpen index.html to preview it.' },
 ]} />
 
 ## How Is This Different from ChatGPT?

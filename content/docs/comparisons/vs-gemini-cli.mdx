@@ -23,22 +23,16 @@ Gemini CLI launched in mid-2025 and the headline was hard to ignore: Gemini 2.5 
 
 I tested it. It's genuinely capable for one-off tasks. The model is good. But after a few days I understood why I still reach for Claude Code when the work is real.
 
-<DemoCard title="Same task, two different agents" steps={[
-  { type: 'out', text: '── Gemini CLI ──' },
-  { type: 'cmd', text: 'gemini "add user authentication to this app"' },
-  { type: 'out', text: 'Reading files...' },
-  { type: 'out', text: 'I\'ll add authentication using passport.js...' },
-  { type: 'success', text: '3 files created' },
-  { type: 'warn', text: 'No memory of your project preferences from last session' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── Claude Code ──' },
-  { type: 'cmd', text: 'claude "add user authentication to this app"' },
-  { type: 'out', text: 'Reading CLAUDE.md... Found: "Use next-auth v5, no passport"' },
-  { type: 'out', text: 'Reading memory... Found: "Auth uses GitHub OAuth provider"' },
-  { type: 'success', text: '5 files created, matching existing project conventions' },
-  { type: 'success', text: '2 tests written and passing' },
-  { type: 'warn', text: 'CLAUDE.md + memory = context that compounds over time.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add user authentication to this app' },
+  { kind: 'thinking', verb: 'Exploring', ms: 900 },
+  { kind: 'tool', name: 'Glob', arg: 'app/**/*.tsx', result: 'Found 23 files' },
+  { kind: 'tool', name: 'Write', arg: 'auth.ts', result: 'Wrote 31 lines to auth.ts' },
+  { kind: 'tool', name: 'Bash', arg: 'npx vitest run auth', result: 'Tests  2 passed (2)' },
+  { kind: 'say', text: 'Added next-auth v5 with the GitHub OAuth provider, as your CLAUDE.md and memory ask.\n5 files created, 2 tests passing.' },
 ]} />
+
+Claude Code picked next-auth over passport because CLAUDE.md said so, and that context compounds over time.
 
 ## Where Claude Code wins
 
@@ -62,17 +56,18 @@ I tested it. It's genuinely capable for one-off tasks. The model is good. But af
 
 **Open source.** Gemini CLI is fully open source. Claude Code's CLI is source-available but not open source in the traditional sense. If that distinction matters to you, Gemini wins here.
 
-<DemoCard title="Feature comparison at a glance" steps={[
-  { type: 'out', text: 'Price           Gemini: Free          Claude: $20/mo+' },
-  { type: 'out', text: 'Project config  Gemini: None          Claude: CLAUDE.md' },
-  { type: 'out', text: 'Memory          Gemini: None          Claude: Cross-session' },
-  { type: 'out', text: 'Hooks/Skills    Gemini: Basic         Claude: Deep' },
-  { type: 'out', text: 'MCP support     Gemini: Limited       Claude: Full ecosystem' },
-  { type: 'out', text: 'Sub-agents      Gemini: No            Claude: Yes' },
-  { type: 'out', text: 'Context window  Gemini: 1M tokens     Claude: 1M (Opus, Sonnet)' },
-  { type: 'out', text: 'Open source     Gemini: Yes           Claude: Source-available' },
-  { type: 'warn', text: 'Free gets you started. Configuration depth keeps you productive.' },
-]} />
+| | Gemini CLI | Claude Code |
+|---|---|---|
+| Price | Free | $20/mo+ |
+| Project config | None | CLAUDE.md |
+| Memory | None | Cross-session |
+| Hooks/Skills | Basic | Deep |
+| MCP support | Limited | Full ecosystem |
+| Sub-agents | No | Yes |
+| Context window | 1M tokens | 1M (Opus, Sonnet) |
+| Open source | Yes | Source-available |
+
+Free gets you started. Configuration depth keeps you productive.
 
 ## My actual take
 

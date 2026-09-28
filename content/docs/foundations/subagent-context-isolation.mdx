@@ -44,13 +44,14 @@ This is not a toy repo. It is the setup I run daily across a personal AIOS, and 
 
 The always-loaded file is a `MEMORY.md` router: a table with one row per knowledge area and a note on when to load it. Behind it sit more than two hundred topic shards, sharded by domain (work projects, infra, people, decisions, references). The agent reads the router, finds the one shard that matches the task in front of it, and loads only that. A question about a deploy pulls the infra shard and nothing else. The router has held roughly the same size for months while the shards behind it keep multiplying.
 
-<DemoCard title="The same memory, two ways to load it" steps={[
-  { type: 'cmd', text: 'claude "what is the state of the search epic"' },
-  { type: 'out', text: 'flat memory: loaded MEMORY.md (840 lines)' },
-  { type: 'error', text: '↑ every turn pays for 200 topics, one is relevant' },
-  { type: 'success', text: '✓ routed: loaded router index + 1 shard (search.md)' },
-  { type: 'warn', text: '→ same knowledge available, a fraction loaded' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'what is the state of the search epic' },
+  { kind: 'thinking', verb: 'Recalling', ms: 900 },
+  { kind: 'tool', name: 'Read', arg: 'memory/search.md', result: 'Read 41 lines' },
+  { kind: 'say', text: '3 of 5 stories are done.\nRanking tweaks are blocked on the analytics export.' },
 ]} />
+
+Only the router loaded at startup, plus the one search shard. A flat 840-line MEMORY.md would put all 200 topics in context on every turn.
 
 ### Specialized subagents
 

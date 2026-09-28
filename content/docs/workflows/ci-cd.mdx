@@ -9,16 +9,10 @@ Lint, test, build, deploy. Same gates, every PR. They don't understand context. 
 
 Claude Code in CI changes that. The `-p` flag runs it non-interactively in any pipeline. It reads your code, understands the diff, and does real work. Not just pass/fail.
 
-<DemoCard title="Claude Code in a GitHub Action" steps={[
-  { type: 'cmd', text: 'claude -p "review the changes in this PR and post a summary"' },
-  { type: 'out', text: 'Reading diff: 4 files changed, 127 additions, 43 deletions' },
-  { type: 'out', text: 'Analysis:' },
-  { type: 'out', text: '  - New rate limiting middleware added to /api/*' },
-  { type: 'out', text: '  - Redis connection pool size increased (good)' },
-  { type: 'out', text: '  - Missing error handling in fallback path (line 84)' },
-  { type: 'success', text: 'PR comment posted with summary + 1 suggestion' },
-  { type: 'warn', text: 'The -p flag = non-interactive mode. Perfect for CI.' },
-]} />
+```bash
+# In a GitHub Actions step
+claude -p "review the changes in this PR and post a summary"
+```
 
 ## The -p Flag: Non-Interactive Mode
 
@@ -96,18 +90,13 @@ claude -p "write tests for any functions in src/utils/
   that don't have corresponding test files"
 ```
 
-<DemoCard title="Full CI pipeline with Claude Code" steps={[
-  { type: 'out', text: '── PR opened ──' },
-  { type: 'cmd', text: 'Step 1: claude -p "summarize this PR"' },
-  { type: 'success', text: 'PR description updated automatically' },
-  { type: 'cmd', text: 'Step 2: claude -p "review for bugs and security"' },
-  { type: 'success', text: 'Review comment posted: 1 bug found, 0 security issues' },
-  { type: 'cmd', text: 'Step 3: claude -p "check for missing tests"' },
-  { type: 'out', text: '2 new functions without test coverage' },
-  { type: 'cmd', text: 'Step 4: claude -p "generate tests for uncovered functions"' },
-  { type: 'success', text: 'Test file created and committed to PR branch' },
-  { type: 'warn', text: 'Smart CI = fewer bugs reaching production.' },
-]} />
+```bash
+# Runs when a PR opens
+claude -p "summarize this PR"
+claude -p "review for bugs and security"
+claude -p "check for missing tests"
+claude -p "generate tests for uncovered functions"
+```
 
 ## Cost Considerations
 

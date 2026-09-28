@@ -9,19 +9,15 @@ There are eight things you'll hear about constantly when using Claude Code. This
 
 Not everything needs a deep dive. This is the cheat sheet.
 
-<DemoCard title="terms you'll encounter in your first session" steps={[
-  { type: 'cmd', text: 'claude "refactor my auth module"' },
-  { type: 'out', text: 'Reading CLAUDE.md...' },
-  { type: 'out', text: '← Your project instruction file' },
-  { type: 'out', text: 'Context: 18% used' },
-  { type: 'out', text: '← How much Claude can see right now' },
-  { type: 'out', text: 'Model: claude-opus-5-5 with medium effort' },
-  { type: 'out', text: '← Which AI brain is handling this' },
-  { type: 'out', text: '[hook: PreToolUse] Running lint check...' },
-  { type: 'out', text: '← An automated script that fired before Claude wrote anything' },
-  { type: 'success', text: '✓ Refactor complete. 4 files updated.' },
-  { type: 'warn', text: '→ Scroll down for every term unpacked.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'refactor my auth module' },
+  { kind: 'thinking', verb: 'Reading', ms: 900 },
+  { kind: 'tool', name: 'Read', arg: 'src/auth/session.ts', result: 'Read 142 lines' },
+  { kind: 'tool', name: 'Update', arg: 'src/auth/session.ts', result: 'Updated src/auth/session.ts with 18 additions and 41 removals' },
+  { kind: 'say', text: 'Split session.ts into token and cookie helpers.\nYour CLAUDE.md says tests come first, so I added two cases to auth.test.ts.' },
 ]} />
+
+The banner names the model doing the work. The CLAUDE.md shaped the reply without you mentioning it. Every term on this page shows up in a session like this one.
 
 ---
 
@@ -56,20 +52,15 @@ Learn more: [Full CLAUDE.md Guide](/docs/foundations/claude-md)
 
 **Shortcuts you type directly into Claude Code.** Start with `/`, trigger a built-in action instantly.
 
-<DemoCard title="the most useful slash commands" steps={[
-  { type: 'cmd', text: '/help' },
-  { type: 'out', text: 'Shows all available commands' },
-  { type: 'cmd', text: '/clear' },
-  { type: 'out', text: 'Wipes conversation history and starts fresh' },
-  { type: 'cmd', text: '/compact' },
-  { type: 'out', text: 'Compresses context: 48K tokens → 12K tokens' },
-  { type: 'cmd', text: '/cost' },
-  { type: 'out', text: 'Session: $0.29 | 32K tokens in | 8K out' },
-  { type: 'cmd', text: '/model haiku' },
-  { type: 'out', text: 'Switched to claude-haiku-4-5 (faster, cheaper)' },
-  { type: 'cmd', text: '/init' },
-  { type: 'out', text: 'Generating CLAUDE.md for your project...' },
-  { type: 'warn', text: '→ These six commands alone will save you hours.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: '/init' },
+  { kind: 'thinking', verb: 'Analyzing', ms: 900 },
+  { kind: 'tool', name: 'Write', arg: 'CLAUDE.md', result: 'Wrote 38 lines to CLAUDE.md' },
+  { kind: 'say', text: 'Created CLAUDE.md with your stack, scripts and folder layout.' },
+  { kind: 'prompt', text: '/model haiku' },
+  { kind: 'output', text: 'Set model to Haiku 4.5' },
+  { kind: 'prompt', text: '/compact' },
+  { kind: 'output', text: 'Compacted (ctrl+o to see full summary)' },
 ]} />
 
 The ones to know on day one:
@@ -147,16 +138,13 @@ Learn more: [Hooks Guide](/docs/patterns/hooks)
 
 **How Claude connects to tools outside your local files.** MCP stands for Model Context Protocol. It's a standard that lets Claude talk to GitHub, Slack, Jira, databases, and dozens of other services.
 
-<DemoCard title="MCP connecting Claude to GitHub" steps={[
-  { type: 'cmd', text: 'claude "what PRs need my review?"' },
-  { type: 'out', text: '[MCP: github] Querying open pull requests...' },
-  { type: 'success', text: '✓ Connected to github.com/your-org/your-repo' },
-  { type: 'out', text: '2 PRs awaiting your review:' },
-  { type: 'out', text: '  #142 : Fix login redirect loop (Sarah)' },
-  { type: 'out', text: '  #145 : Add dark mode (Marcus)' },
-  { type: 'cmd', text: '"review #142 and leave inline comments"', delay: 800 },
-  { type: 'success', text: '✓ Posted 3 review comments on GitHub PR #142' },
-  { type: 'warn', text: '→ Claude Code talked to GitHub directly. That is MCP.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'what PRs need my review?' },
+  { kind: 'thinking', verb: 'Searching', ms: 800 },
+  { kind: 'tool', name: 'github - search_pull_requests (MCP)', arg: 'query: "is:open review-requested:@me"', result: 'Found 2 pull requests' },
+  { kind: 'say', text: 'Two PRs are waiting on you:\n#142 Fix login redirect loop (Sarah)\n#145 Add dark mode (Marcus)' },
+  { kind: 'prompt', text: 'review #142 and leave inline comments' },
+  { kind: 'tool', name: 'github - create_pull_request_review (MCP)', arg: 'pull_number: 142', result: 'Review submitted with 3 comments' },
 ]} />
 
 You configure MCP servers in `.mcp.json`. Each server gives Claude a set of capabilities: read GitHub PRs, post Slack messages, query your database. Claude picks the right one based on what you ask.
@@ -171,19 +159,17 @@ Learn more: [MCP Setup Guide](/docs/patterns/mcp-servers)
 
 Current models support up to 1 million tokens (roughly 750,000 words). That sounds enormous, and it is. But long sessions with many files fill up faster than you'd expect.
 
-<DemoCard title="watching context fill up" steps={[
-  { type: 'cmd', text: '/status' },
-  { type: 'out', text: 'Context: 12% used (120K / 1M tokens)' },
-  { type: 'out', text: '... (30 minutes of work later) ...' },
-  { type: 'cmd', text: '/status' },
-  { type: 'out', text: 'Context: 71% used (710K / 1M tokens)' },
-  { type: 'cmd', text: '/compact' },
-  { type: 'out', text: 'Compressing conversation...' },
-  { type: 'success', text: 'Context: 18% used. Understanding preserved.' },
-  { type: 'warn', text: '→ /compact shrinks the window without losing the plot.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: '/context' },
+  { kind: 'output', text: 'claude-opus-5-5 · 710k/1000k tokens (71%)' },
+  { kind: 'prompt', text: '/compact' },
+  { kind: 'thinking', verb: 'Compacting conversation', ms: 1400 },
+  { kind: 'output', text: 'Compacted (ctrl+o to see full summary)' },
+  { kind: 'prompt', text: '/context' },
+  { kind: 'output', text: 'claude-opus-5-5 · 64k/1000k tokens (6%)' },
 ]} />
 
-When context fills, Claude Code compresses the conversation automatically. Or you can do it manually with `/compact`. It keeps the important parts and summarizes the rest. Use `/status` to check where you are.
+When context fills, Claude Code compresses the conversation automatically. Or you can do it manually with `/compact`. It keeps the important parts and summarizes the rest. Use `/context` to check where you are.
 
 Learn more: [Context Window Deep Dive](/docs/foundations/context-window)
 
@@ -223,13 +209,11 @@ Memory in Claude Code is file-based: plain Markdown files that Claude reads at t
 
 **User memory** (`~/.claude/MEMORY.md`): what Claude knows about you across all projects. Preferences, writing style, corrections you've made before.
 
-<DemoCard title="memory at work" steps={[
-  { type: 'cmd', text: 'claude "continue the API work from yesterday"' },
-  { type: 'out', text: 'Reading CLAUDE.md...' },
-  { type: 'out', text: 'Reading .claude/memory/current-sprint.md...' },
-  { type: 'out', text: 'Found: API refactor 60% complete, blocked on auth middleware' },
-  { type: 'success', text: '✓ Context loaded. Picking up from auth middleware.' },
-  { type: 'warn', text: '→ No re-explaining. Memory carried the context.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'continue the API work from yesterday' },
+  { kind: 'thinking', verb: 'Recalling', ms: 900 },
+  { kind: 'tool', name: 'Read', arg: '.claude/memory/current-sprint.md', result: 'Read 24 lines' },
+  { kind: 'say', text: 'The API refactor is about 60% done and blocked on the auth middleware.\nPicking up there, starting with the token check in middleware.ts.' },
 ]} />
 
 Without memory, you repeat yourself every session. With it, Claude Code compounds: it gets more useful the longer you use it.

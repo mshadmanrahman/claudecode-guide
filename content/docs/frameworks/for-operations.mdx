@@ -222,12 +222,11 @@ After running each of the eight use cases above, save the Context block to your 
 
 That is the real return. Not faster typing. A shift in where your cognitive load actually sits.
 
-<DemoCard title="Saving context to CLAUDE.md after an exception report run." steps={[
-  { type: 'cmd', text: 'Add to CLAUDE.md:' },
-  { type: 'out', text: '## Exception report context' },
-  { type: 'out', text: 'Reader: [VP name]. Friday afternoon. Needs: attention vs handled.' },
-  { type: 'out', text: 'Format: exec summary para + max 5 issues (Issue/Status/Owner/Next).' },
-  { type: 'success', text: 'Next Friday: C2 is already done. Copy, update names, go.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'save this exception report context to CLAUDE.md' },
+  { kind: 'thinking', verb: 'Thinking', ms: 800 },
+  { kind: 'tool', name: 'Update', arg: 'CLAUDE.md', result: 'Updated CLAUDE.md with 3 additions', lines: ['## Exception report context', 'Reader: [VP name]. Friday afternoon. Needs: attention vs handled.', 'Format: exec summary para + max 5 issues (Issue/Status/Owner/Next).'] },
+  { kind: 'say', text: 'Saved. Next Friday, paste the updated issues and I will use this reader and format.' },
 ]} />
 
 ## What the Check step means for operations work

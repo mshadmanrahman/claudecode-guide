@@ -3,22 +3,14 @@ title: "Claude Code Team Adoption"
 description: "Your team won't adopt Claude Code because you told them to. Here's the champion-first strategy that actually works."
 ---
 
-<DemoCard title="Day 1 without shared config vs day 1 with" steps={[
-  { type: 'out', text: '── No shared CLAUDE.md ──' },
-  { type: 'cmd', text: 'claude "add a new API route"' },
-  { type: 'out', text: 'Created route.js' },
-  { type: 'error', text: '↑ Team uses TypeScript, not JavaScript' },
-  { type: 'out', text: 'Added express-style handler' },
-  { type: 'error', text: '↑ Team uses Next.js App Router' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── With shared CLAUDE.md ──' },
-  { type: 'cmd', text: 'claude "add a new API route"', delay: 1000 },
-  { type: 'out', text: 'Reading shared CLAUDE.md...' },
-  { type: 'success', text: '✓ Created route.ts (TypeScript)' },
-  { type: 'success', text: '✓ App Router handler with Zod validation' },
-  { type: 'success', text: '✓ Matches team conventions exactly' },
-  { type: 'warn', text: '→ One shared config. Consistent results for everyone.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add a new API route' },
+  { kind: 'thinking', verb: 'Exploring', ms: 900 },
+  { kind: 'tool', name: 'Write', arg: 'src/app/api/orders/route.ts', result: 'Wrote 36 lines to src/app/api/orders/route.ts' },
+  { kind: 'say', text: 'App Router handler in TypeScript, with Zod validation on the body.\nIt follows the same conventions as the team\'s other routes.' },
 ]} />
+
+Without the shared file, the same request produced a JavaScript file with an Express-style handler in a TypeScript, App Router codebase.
 
 ## Why Your Team Is Pushing Back (And They're Not Wrong)
 
@@ -79,21 +71,18 @@ The goal is a working setup, not mastery. Mastery comes from daily use.
 
 Do not measure lines of code generated. That metric is meaningless and encourages the wrong behavior.
 
-<DemoCard title="Champion demo: the moment adoption clicks" steps={[
-  { type: 'out', text: '── Team meeting: Sarah demos Claude Code ──' },
-  { type: 'cmd', text: 'claude "find the production bug from last night\'s alert"' },
-  { type: 'out', text: 'Reading PagerDuty alert... Checking server logs...' },
-  { type: 'out', text: 'Found: OOM kill on worker-3 at 02:47 UTC' },
-  { type: 'out', text: 'Tracing memory leak to unbounded cache in search.ts...' },
-  { type: 'success', text: '✓ Root cause: missing cache eviction. Fix: add TTL.' },
-  { type: 'cmd', text: '"fix it, add a test, open a PR"', delay: 600 },
-  { type: 'success', text: '✓ Fixed src/search.ts: added 5min TTL' },
-  { type: 'success', text: '✓ Test added: cache evicts after TTL' },
-  { type: 'success', text: '✓ PR #891 opened with description' },
-  { type: 'out', text: '' },
-  { type: 'out', text: 'Team: "That took 3 minutes?!"' },
-  { type: 'warn', text: '→ One real demo > ten slide decks.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'find the bug from last night\'s alert' },
+  { kind: 'tool', name: 'Bash', arg: 'grep -i "out of memory" logs/worker-3.log', result: '02:47:13 worker-3 Out of memory: Killed process 4121 (node)' },
+  { kind: 'tool', name: 'Read', arg: 'src/search.ts', result: 'Read 87 lines' },
+  { kind: 'say', text: 'worker-3 was OOM-killed at 02:47 UTC.\nThe cache in search.ts never evicts entries. A 5 minute TTL fixes it.' },
+  { kind: 'prompt', text: 'fix it, add a test, open a PR' },
+  { kind: 'tool', name: 'Update', arg: 'src/search.ts', result: 'Updated src/search.ts with 6 additions and 1 removal' },
+  { kind: 'tool', name: 'Update', arg: 'src/search.test.ts', result: 'Updated src/search.test.ts with 14 additions' },
+  { kind: 'tool', name: 'Bash', arg: 'gh pr create --fill', result: 'https://github.com/acme/app/pull/891' },
 ]} />
+
+Sarah ran this live in a team meeting, and the team saw alert to open PR in about three minutes. One real demo like this does more than ten slide decks.
 
 ## Mistakes That Kill Adoption
 

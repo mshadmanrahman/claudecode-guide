@@ -9,17 +9,14 @@ They type prompts and hit Enter. That's it. They don't know `/compact` exists. T
 
 This is everything, in one place.
 
-<DemoCard title="Commands you probably don't know about" steps={[
-  { type: 'cmd', text: '/compact' },
-  { type: 'out', text: 'Context compressed: 48K tokens → 12K tokens' },
-  { type: 'success', text: 'Conversation continues with full understanding' },
-  { type: 'cmd', text: '/cost' },
-  { type: 'out', text: 'Session: $0.29 | Tokens in: 32K | Tokens out: 8.2K' },
-  { type: 'out', text: 'Per-model breakdown: Sonnet 85%, Opus 15%' },
-  { type: 'cmd', text: '/model opus' },
-  { type: 'out', text: 'Switched to claude-opus-5-5' },
-  { type: 'success', text: 'Use the big model when the task demands it.' },
-  { type: 'warn', text: '→ These three commands alone save people 30%+ on costs.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: '/compact' },
+  { kind: 'thinking', verb: 'Compacting conversation', ms: 1400 },
+  { kind: 'output', text: 'Compacted (ctrl+o to see full summary)' },
+  { kind: 'prompt', text: '/context' },
+  { kind: 'output', text: 'claude-opus-5-5 · 12k/1000k tokens (1%)' },
+  { kind: 'prompt', text: '/model sonnet' },
+  { kind: 'output', text: 'Set model to Sonnet 5' },
 ]} />
 
 ## Slash Commands
@@ -98,17 +95,14 @@ Any `.md` file in `~/.claude/skills/` or your project's `.claude/skills/` become
 | **`\`** | Multi-line input mode (type across multiple lines before sending) |
 | **`@`** | Reference a file or context (e.g., `@src/api.ts explain this`) |
 
-<DemoCard title="Keyboard shortcuts in practice" steps={[
-  { type: 'cmd', text: 'You type a big refactoring prompt and hit Enter' },
-  { type: 'out', text: 'Claude is editing files... 3 of 8 complete...' },
-  { type: 'cmd', text: 'You realize it\'s going wrong → press Escape' },
-  { type: 'out', text: 'Operation cancelled. Changes so far are kept.' },
-  { type: 'cmd', text: 'Shift+Tab → plan mode on' },
-  { type: 'cmd', text: 'Up arrow → re-send the same prompt' },
-  { type: 'out', text: 'Now it plans first instead of diving in' },
-  { type: 'success', text: 'Plan looks good → approve → clean execution' },
-  { type: 'warn', text: '→ Escape + plan mode = undo button for AI coding.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'refactor the API layer to use one fetch client' },
+  { kind: 'thinking', verb: 'Thinking', ms: 900 },
+  { kind: 'tool', name: 'Update', arg: 'src/api/users.ts', result: 'Updated src/api/users.ts with 14 additions and 22 removals' },
+  { kind: 'tool', name: 'Update', arg: 'src/api/posts.ts', result: 'Updated src/api/posts.ts with 11 additions and 19 removals' },
 ]} />
+
+Three files in, you see it going wrong. Press Escape to stop (edits so far stay), Shift+Tab into plan mode, then the up arrow to send the same prompt again.
 
 ## CLI Flags
 

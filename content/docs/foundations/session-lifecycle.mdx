@@ -9,16 +9,14 @@ That's not an AI limitation. That's a workflow problem. And it's fully fixable.
 
 I built this system after realizing I was typing the same three paragraphs of context at the start of every session: what project, what stage, what just happened. Once I stopped doing that, sessions got noticeably faster. Not because Claude Code got smarter, but because I stopped treating it like a first meeting every time.
 
-<DemoCard title="Cold start vs warm start" steps={[
-  { type: 'cmd', text: 'claude' },
-  { type: 'success', text: '✓ Reading MEMORY.md... 3 projects, 12 preferences loaded' },
-  { type: 'success', text: '✓ Loading handoff from yesterday... context resumed' },
-  { type: 'out', text: 'Welcome back. Picking up where you left off.' },
-  { type: 'cmd', text: '"Continue with the dashboard feature"', delay: 1000 },
-  { type: 'out', text: 'Resuming: dashboard layout, 3 components done, chart pending.' },
-  { type: 'success', text: '✓ Zero re-explanation needed' },
-  { type: 'warn', text: '→ This is what a warm start looks like.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'continue with the dashboard feature' },
+  { kind: 'thinking', verb: 'Recalling', ms: 900 },
+  { kind: 'tool', name: 'Read', arg: 'docs/handoffs/dashboard.md', result: 'Read 28 lines' },
+  { kind: 'say', text: 'Layout and 3 components are done; the chart is next.\nStarting in DashboardChart.tsx.' },
 ]} />
+
+No re-explaining: memory and yesterday's handoff carried the context.
 
 ## The Three Phases
 

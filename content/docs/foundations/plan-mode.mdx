@@ -9,27 +9,16 @@ You send a big prompt. Claude Code starts immediately. Three files in, you reali
 
 Plan mode fixes this. Claude Code outlines its full approach first, you review it, optionally correct it, then it executes. One toggle. Massive impact on complex tasks.
 
-<DemoCard title="Without plan mode vs with plan mode" steps={[
-  { type: 'out', text: '── Without Plan Mode ──' },
-  { type: 'cmd', text: '"refactor the auth system to use JWT instead of sessions"' },
-  { type: 'out', text: 'Creating lib/jwt.ts...' },
-  { type: 'out', text: 'Modifying 8 files...' },
-  { type: 'out', text: 'Removing session middleware...' },
-  { type: 'error', text: 'Broke 12 tests. Wrong approach: needed refresh tokens too.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── With Plan Mode ──' },
-  { type: 'cmd', text: 'Shift+Tab → Plan mode ON' },
-  { type: 'cmd', text: '"refactor the auth system to use JWT instead of sessions"' },
-  { type: 'out', text: 'Plan:' },
-  { type: 'out', text: '1. Create JWT utility with access + refresh token pairs' },
-  { type: 'out', text: '2. Add token refresh endpoint' },
-  { type: 'out', text: '3. Update middleware to validate JWT' },
-  { type: 'out', text: '4. Migrate session-based routes (8 files)' },
-  { type: 'out', text: '5. Update tests' },
-  { type: 'cmd', text: 'You: "Add rate limiting to the refresh endpoint"' },
-  { type: 'success', text: 'Plan updated. Now executing with corrections built in.' },
-  { type: 'warn', text: '5 minutes of planning saved 30 minutes of rework.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'refactor auth to use JWT instead of sessions' },
+  { kind: 'thinking', verb: 'Planning', ms: 1000 },
+  { kind: 'tool', name: 'Grep', arg: 'req.session', result: 'Found 8 files' },
+  { kind: 'tool', name: 'Read', arg: 'src/middleware/auth.ts', result: 'Read 96 lines' },
+  { kind: 'tool', name: 'Write', arg: 'lib/jwt.ts', result: 'Wrote 74 lines to lib/jwt.ts' },
+  { kind: 'say', text: 'Step 1 done: access and refresh token pairs in lib/jwt.ts.\nNext is the refresh endpoint, with the rate limiting you added.' },
 ]} />
+
+Before the Write, Claude showed a five-step plan and changed nothing; you added rate limiting, where the unplanned run had edited 8 files and broken 12 tests.
 
 ## How to Activate Plan Mode
 
@@ -73,20 +62,15 @@ Without planning, Claude Code might write 500 lines of code, realize the approac
 
 With planning, it spends maybe 50 tokens on a plan, you catch the problem, it writes 500 lines correctly the first time. That's 550 tokens total. You just saved 40%. The plan paid for itself 7 times over.
 
-<DemoCard title="Plan mode in your daily workflow" steps={[
-  { type: 'cmd', text: 'Shift+Tab  →  Toggle plan mode' },
-  { type: 'out', text: 'Plan mode: ON' },
-  { type: 'cmd', text: '"migrate our REST endpoints to tRPC"' },
-  { type: 'out', text: 'I\'ll plan this migration:' },
-  { type: 'out', text: '  Phase 1: Set up tRPC router and context' },
-  { type: 'out', text: '  Phase 2: Convert GET endpoints (users, posts, comments)' },
-  { type: 'out', text: '  Phase 3: Convert mutation endpoints' },
-  { type: 'out', text: '  Phase 4: Update client-side calls' },
-  { type: 'out', text: '  Phase 5: Remove old REST routes + test' },
-  { type: 'cmd', text: 'You: "Looks good, start with phase 1"' },
-  { type: 'success', text: 'Executing phase 1 with full context of what comes next.' },
-  { type: 'warn', text: 'Plan, review, execute. That\'s the rhythm.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'migrate our REST endpoints to tRPC' },
+  { kind: 'thinking', verb: 'Planning', ms: 900 },
+  { kind: 'tool', name: 'Glob', arg: 'src/app/api/**/route.ts', result: 'Found 14 files' },
+  { kind: 'tool', name: 'Write', arg: 'src/server/trpc.ts', result: 'Wrote 42 lines to src/server/trpc.ts' },
+  { kind: 'say', text: 'Phase 1 done: the tRPC router and context are set up.\nPhase 2 converts the GET endpoints for users, posts and comments.' },
 ]} />
+
+After the Glob, Claude laid out five phases and waited until you said "start with phase 1."
 
 ## Plan Mode + Extended Thinking
 

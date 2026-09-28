@@ -219,12 +219,11 @@ The investment is once: run the loop carefully on a document type, save the Cont
 
 The real shift is where your time goes. Instead of drafting from scratch, you are doing the thing that actually requires you: judging whether this description reflects how the role will really be experienced, whether this feedback is fair and will land well, whether this policy covers the edge cases your organisation actually faces. That judgment is the irreplaceable part. Let Claude handle the typing.
 
-<DemoCard title="Saving a JD context block to CLAUDE.md." steps={[
-  { type: 'cmd', text: 'Add to CLAUDE.md:' },
-  { type: 'out', text: '## JD context (Engineering roles)' },
-  { type: 'out', text: 'Reader: senior engineer scanning to decide if worth applying.' },
-  { type: 'out', text: 'Format: impact-first opening, outcome-oriented bullets, split requirements.' },
-  { type: 'success', text: 'Next JD: paste intake notes and requirements. Done in 8 minutes.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'save this JD context block to CLAUDE.md' },
+  { kind: 'thinking', verb: 'Thinking', ms: 800 },
+  { kind: 'tool', name: 'Update', arg: 'CLAUDE.md', result: 'Updated CLAUDE.md with 3 additions', lines: ['## JD context (Engineering roles)', 'Reader: senior engineer scanning to decide if worth applying.', 'Format: impact-first opening, outcome-oriented bullets, split requirements.'] },
+  { kind: 'say', text: 'Saved. Next JD, paste the intake notes and requirements and I will start from this block.' },
 ]} />
 
 ## What the Check step means for HR work

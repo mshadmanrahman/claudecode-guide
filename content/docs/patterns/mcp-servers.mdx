@@ -11,19 +11,13 @@ MCP (Model Context Protocol) changes that. MCP servers are plugins that connect 
 
 One conversation. Slack context, GitHub PRs, database queries, Figma specs. That's the pitch, and it actually delivers.
 
-<DemoCard title="MCP connecting Claude Code to your world" steps={[
-  { type: 'cmd', text: 'claude "what happened in #engineering today?"' },
-  { type: 'out', text: '[MCP: slack] Searching #engineering...' },
-  { type: 'success', text: '✓ Found 23 messages today' },
-  { type: 'out', text: 'Key threads:' },
-  { type: 'out', text: '  • Deploy blocked: DNS propagation (Sarah, 10:14am)' },
-  { type: 'out', text: '  • New hire onboarding checklist shared (Marcus, 11:30am)' },
-  { type: 'out', text: '  • Hotfix merged for checkout bug (PR #891)' },
-  { type: 'cmd', text: '"show me that PR"', delay: 1000 },
-  { type: 'out', text: '[MCP: github] Fetching PR #891...' },
-  { type: 'success', text: '✓ +12 -3 lines in src/checkout/validate.ts' },
-  { type: 'out', text: 'Fix: null check on shipping address before total calc' },
-  { type: 'warn', text: '→ Slack + GitHub in one conversation. That\'s MCP.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'what happened in #engineering today?' },
+  { kind: 'tool', name: 'slack - search_messages (MCP)', arg: 'query: "in:#engineering"', result: 'Found 23 messages' },
+  { kind: 'say', text: 'Deploy blocked on DNS propagation (Sarah, 10:14am)\nOnboarding checklist shared (Marcus, 11:30am)\nHotfix for the checkout bug merged in PR #891' },
+  { kind: 'prompt', text: 'show me that PR' },
+  { kind: 'tool', name: 'github - get_pull_request (MCP)', arg: 'pull_number: 891', result: 'Fetched PR #891 (+12 -3)' },
+  { kind: 'say', text: 'PR #891 changes src/checkout/validate.ts.\nIt adds a null check on the shipping address before the total is calculated.' },
 ]} />
 
 ## How it works
@@ -100,20 +94,14 @@ Here's what a two-service config actually looks like:
 
 With both connected, you can say "Find the Linear ticket for the auth bug, then check if there's a related PR on GitHub." Claude Code coordinates across both in a single response. This is where it gets genuinely fun.
 
-<DemoCard title="Cross-service workflow: ticket → code → PR" steps={[
-  { type: 'cmd', text: 'claude "pick up the next ticket from my sprint"' },
-  { type: 'out', text: '[MCP: linear] Fetching your sprint backlog...' },
-  { type: 'success', text: '✓ INS-347: Add email validation to signup form' },
-  { type: 'out', text: 'Reading requirements... Creating branch...' },
-  { type: 'success', text: '✓ Implemented validation in src/auth/signup.ts' },
-  { type: 'success', text: '✓ 3 tests added, all passing' },
-  { type: 'out', text: '[MCP: github] Creating pull request...', delay: 500 },
-  { type: 'success', text: '✓ PR #204 created with description' },
-  { type: 'out', text: '[MCP: linear] Updating ticket status...', delay: 300 },
-  { type: 'success', text: '✓ INS-347 → In Review' },
-  { type: 'out', text: '[MCP: slack] Notifying #engineering...', delay: 300 },
-  { type: 'success', text: '✓ Posted: "PR #204 ready for review"' },
-  { type: 'warn', text: '→ Ticket → code → PR → notification. One prompt.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'pick up the next ticket from my sprint' },
+  { kind: 'tool', name: 'linear - list_issues (MCP)', arg: 'assignee: "me"', result: 'Found 5 issues' },
+  { kind: 'tool', name: 'Update', arg: 'src/auth/signup.ts', result: 'Updated src/auth/signup.ts with 14 additions and 2 removals' },
+  { kind: 'tool', name: 'github - create_pull_request (MCP)', arg: 'title: "Add signup validation"', result: 'Created pull request #204' },
+  { kind: 'tool', name: 'linear - update_issue (MCP)', arg: 'id: "INS-347"', result: 'Updated INS-347 to In Review' },
+  { kind: 'tool', name: 'slack - post_message (MCP)', arg: 'channel: "#engineering"', result: 'Message sent' },
+  { kind: 'say', text: 'INS-347 is in review: email validation in signup.ts, 3 tests, PR #204.\nPosted a heads-up in #engineering.' },
 ]} />
 
 ## Security: take this seriously

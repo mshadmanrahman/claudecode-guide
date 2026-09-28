@@ -238,12 +238,11 @@ The investment is once: run the loop carefully on a document type, save the Cont
 
 By the end of a school year, most of your recurring documents — lesson plans for familiar standards, rubric variations, exit ticket prompts, parent updates — will have saved Context blocks. You open Claude, paste the raw material, and spend your energy on C4: the moment where your professional judgment about your specific students makes the document actually good.
 
-<DemoCard title="Saving a lesson plan context to CLAUDE.md." steps={[
-  { type: 'cmd', text: 'Add to CLAUDE.md:' },
-  { type: 'out', text: '## Lesson plan context (7th grade ELA)' },
-  { type: 'out', text: 'Reader: me at 7am. Period length: 50 min.' },
-  { type: 'out', text: 'Format: warm-up / instruction / practice / exit ticket.' },
-  { type: 'success', text: 'Next lesson: paste the standard and notes. Done in 8 minutes.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'save this lesson plan context to CLAUDE.md' },
+  { kind: 'thinking', verb: 'Thinking', ms: 800 },
+  { kind: 'tool', name: 'Update', arg: 'CLAUDE.md', result: 'Updated CLAUDE.md with 3 additions', lines: ['## Lesson plan context (7th grade ELA)', 'Reader: me at 7am. Period length: 50 min.', 'Format: warm-up / instruction / practice / exit ticket.'] },
+  { kind: 'say', text: 'Saved. For the next lesson, paste the standard and your notes.' },
 ]} />
 
 ## What the Check step means for teaching work

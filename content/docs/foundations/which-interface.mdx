@@ -4,7 +4,6 @@ description: "Sixteen Claude surfaces, mapped to the job each one is best at. Cl
 full: true
 ---
 
-import { DemoCard } from '@/components/demo-card';
 import { JobBlock } from '@/components/job-block';
 import { VocabBridge } from '@/components/vocab-bridge';
 import { SectionBreak } from '@/components/section-break';
@@ -37,20 +36,11 @@ This page is the map I wish someone had handed me three months ago. Not a rankin
 
 If you're a developer, skip down to the Code section. Everyone else, start at the top.
 
-<DemoCard title="Same Claude, different surfaces" steps={[
-  { type: 'out', text: '── Claude for Excel ──' },
-  { type: 'cmd', text: '"explain this DCF model and flag risky assumptions"' },
-  { type: 'success', text: '✓ Model calculates 5 scenarios. Cells B12, B45, B67 hold key assumptions.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── Claude for Word ──' },
-  { type: 'cmd', text: '"find inconsistencies between sections 2 and 7"', delay: 800 },
-  { type: 'success', text: '✓ 4 inconsistencies found. Section 7 uses "Free tier," Section 2 says "Starter."' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── Cowork ──' },
-  { type: 'cmd', text: '"cross-reference last month\'s CPL export with the GA4 report"', delay: 800 },
-  { type: 'success', text: '✓ 32 campaigns matched. 4 flagged: CPL 2x higher vs baseline.' },
-  { type: 'warn', text: '→ One model family. Twelve surfaces. Different jobs.' },
-]} />
+| Surface | You ask | You get |
+|---|---|---|
+| Claude for Excel | "explain this DCF model and flag risky assumptions" | 5 scenarios explained, with the key assumptions in B12, B45 and B67 |
+| Claude for Word | "find inconsistencies between sections 2 and 7" | 4 found, including "Free tier" in section 7 and "Starter" in section 2 |
+| Cowork | "cross-reference last month's CPL export with the GA4 report" | 32 campaigns matched, 4 flagged with CPL at 2x baseline |
 
 <SectionBreak number="01" kicker="Match the job" title="Pick the Claude that matches the job" />
 

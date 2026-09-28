@@ -11,15 +11,9 @@ But Claude Code also runs without you. You pipe in a prompt, it does the work, a
 
 This is how Claude Code becomes part of your build pipeline.
 
-<DemoCard title="Headless mode in action" steps={[
-  { type: 'cmd', text: 'echo "review this PR for bugs" | claude -p' },
-  { type: 'out', text: 'Reading diff... 12 files changed, 340 additions' },
-  { type: 'out', text: 'Found 2 potential issues:' },
-  { type: 'out', text: '  1. Null check missing in validateUser() line 42' },
-  { type: 'out', text: '  2. SQL query not parameterized in search() line 87' },
-  { type: 'success', text: 'Review complete. Exit code 0.' },
-  { type: 'warn', text: '→ No chat. No approval prompts. Just input → output.' },
-]} />
+```bash
+echo "review this PR for bugs" | claude -p
+```
 
 ## The `-p` flag: pipe mode
 
@@ -103,17 +97,12 @@ claude -p --model opus "audit this codebase for security vulnerabilities"
 
 Haiku for high-volume automated checks. Sonnet for standard CI tasks. Opus only when the stakes justify the cost. Measured on 2026-09-27, one short diff review cost about $0.08 on Haiku 4.5 and $0.24 on Sonnet 5. Most of that is Claude Code writing its own system prompt and tools into the cache, not your diff. So a pipeline with 2 Haiku calls and 1 Sonnet call runs about $0.40 ($0.08 x 2 + $0.24). Fewer tools and MCP servers in the runner means a smaller prompt and a smaller bill.
 
-<DemoCard title="Chaining Claude calls in a CI pipeline" steps={[
-  { type: 'out', text: '── GitHub Actions workflow ──' },
-  { type: 'cmd', text: 'git diff origin/main...HEAD | claude -p "review this diff"' },
-  { type: 'out', text: '2 issues found: missing null check, unparameterized query' },
-  { type: 'cmd', text: 'npm test 2>&1 | claude -p --model haiku "summarize failures"', delay: 500 },
-  { type: 'out', text: '1 failure: auth.test.ts : expected 401, got 200' },
-  { type: 'cmd', text: 'claude -p "generate changelog from recent commits" > CHANGELOG.md', delay: 500 },
-  { type: 'success', text: '✓ CHANGELOG.md updated with 3 features, 1 fix' },
-  { type: 'out', text: 'Total CI cost: ~$0.40 (2 Haiku + 1 Sonnet call)' },
-  { type: 'warn', text: '→ Three AI steps in CI. Under 5 cents. Fully automated.' },
-]} />
+```bash
+# Three steps in a GitHub Actions workflow
+git diff origin/main...HEAD | claude -p --model sonnet "review this diff"
+npm test 2>&1 | claude -p --model haiku "summarize failures"
+claude -p --model haiku "generate changelog from recent commits" > CHANGELOG.md
+```
 
 ## Practical examples
 

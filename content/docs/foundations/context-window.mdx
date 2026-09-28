@@ -21,17 +21,17 @@ Depends which model you are on, and the difference is larger than most people ex
 
 So Haiku gives you a fifth of what Opus and Sonnet do. If you route cheap background work to Haiku, that is the model that will hit the wall first, and it will hit it five times sooner. A million tokens sounds like more than you could ever fill. It still goes faster than you think in agentic work, where Claude reads files, runs commands, and feeds the output back into the loop.
 
-<DemoCard title="When your context window fills up" steps={[
-  { type: 'out', text: 'Context: ████████████████████░░░ 78%' },
-  { type: 'error', text: 'Performance is degrading : too much context' },
-  { type: 'cmd', text: '/compact', delay: 800 },
-  { type: 'out', text: 'Summarizing conversation...' },
-  { type: 'out', text: 'Keeping: file changes, decisions, current task' },
-  { type: 'out', text: 'Dropping: dead ends, verbose output' },
-  { type: 'success', text: '✓ Compacted' },
-  { type: 'success', text: 'Context: ████████░░░░░░░░░░░░░░ 35%' },
-  { type: 'warn', text: '→ 78% → 35%. Session saved.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: '/context' },
+  { kind: 'output', text: 'claude-opus-5-5 · 780k/1000k tokens (78%)' },
+  { kind: 'prompt', text: '/compact' },
+  { kind: 'thinking', verb: 'Compacting conversation', ms: 1400 },
+  { kind: 'output', text: 'Compacted (ctrl+o to see full summary)' },
+  { kind: 'prompt', text: '/context' },
+  { kind: 'output', text: 'claude-opus-5-5 · 350k/1000k tokens (35%)' },
 ]} />
+
+The summary keeps file changes, decisions and the current task, and drops dead ends and verbose output.
 
 A rough sense of scale:
 

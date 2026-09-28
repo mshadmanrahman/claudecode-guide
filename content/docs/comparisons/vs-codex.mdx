@@ -21,18 +21,14 @@ Two agentic coding tools from the two biggest AI labs. Both read your codebase, 
 
 OpenAI Codex (the agent, not the old completion model) launched in 2025. Today it ships as a CLI, an IDE extension, a desktop app, and Codex cloud, and it comes with every ChatGPT plan. Facts on this page were checked against OpenAI's docs on 2026-09-27.
 
-<DemoCard title="Same task, same machine" steps={[
-  { type: 'out', text: '── Claude Code ──' },
-  { type: 'cmd', text: 'claude "run the test suite"' },
-  { type: 'out', text: 'Running npm test locally...' },
-  { type: 'success', text: '✓ 142 tests pass (your machine, your env)' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '── OpenAI Codex ──' },
-  { type: 'cmd', text: 'codex "run the test suite"', delay: 800 },
-  { type: 'out', text: 'Running npm test locally, inside the sandbox...' },
-  { type: 'success', text: '✓ 142 tests pass (your machine, bounded access)' },
-  { type: 'warn', text: '→ Same task, same result. The difference is in the defaults.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'run the test suite' },
+  { kind: 'thinking', verb: 'Thinking', ms: 900 },
+  { kind: 'tool', name: 'Bash', arg: 'npm test', result: 'Tests  142 passed (142)' },
+  { kind: 'say', text: 'All 142 tests pass.' },
 ]} />
+
+Codex runs the same request (`codex "run the test suite"`) on the same machine with the same result, inside its sandbox by default, so the difference is in the defaults.
 
 ## Side-by-side
 

@@ -25,22 +25,17 @@ Claude Code is different. It runs on your machine, reads your actual files, uses
 
 Both are agentic. The philosophy behind each is not.
 
-<DemoCard title="Different approaches to the same goal" steps={[
-  { type: 'out', text: '-- Devin --' },
-  { type: 'cmd', text: 'Assign: "Add user authentication to the app"' },
-  { type: 'out', text: '(Devin works in cloud sandbox...)' },
-  { type: 'out', text: '(You check back in 30 minutes...)' },
-  { type: 'out', text: 'PR ready for review. 12 files changed.' },
-  { type: 'warn', text: '→ Autonomous. You review after the fact.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '-- Claude Code --', delay: 800 },
-  { type: 'cmd', text: '"Add user authentication to the app"' },
-  { type: 'out', text: 'Plan: 1) NextAuth setup 2) Login page 3) Middleware 4) Tests' },
-  { type: 'cmd', text: 'Approve? → yes' },
-  { type: 'out', text: 'Creating auth config... Adding login page... Writing middleware...' },
-  { type: 'success', text: '✓ Auth added. 8 files. Tests passing.' },
-  { type: 'warn', text: '→ Collaborative. You approve the plan, watch it execute.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add user authentication to the app' },
+  { kind: 'thinking', verb: 'Planning', ms: 1000 },
+  { kind: 'tool', name: 'Write', arg: 'auth.ts', result: 'Wrote 28 lines to auth.ts' },
+  { kind: 'tool', name: 'Write', arg: 'app/login/page.tsx', result: 'Wrote 52 lines to app/login/page.tsx' },
+  { kind: 'tool', name: 'Write', arg: 'middleware.ts', result: 'Wrote 19 lines to middleware.ts' },
+  { kind: 'tool', name: 'Bash', arg: 'npm test', result: 'Tests  11 passed (11)' },
+  { kind: 'say', text: 'Auth is in: NextAuth config, login page, middleware and tests.\n8 files changed, all tests passing.' },
 ]} />
+
+In plan mode, Claude Code shows you the plan first and waits for your yes before it touches a file, then you watch it work; Devin hands you a finished PR after the fact.
 
 ## The Comparison
 

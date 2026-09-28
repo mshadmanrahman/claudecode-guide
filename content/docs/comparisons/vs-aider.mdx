@@ -25,23 +25,24 @@ Aider is an open-source, model-agnostic coding assistant. It works with any LLM:
 
 Claude Code is Anthropic's first-party agent. It only runs Claude models, but it goes well beyond code editing. It plans, executes, tests, deploys, connects to external tools, and remembers you across sessions. It's closer to an operating system than an editor.
 
-<DemoCard title="Same terminal, different depth" steps={[
-  { type: 'out', text: '-- Aider --' },
-  { type: 'cmd', text: 'aider' },
-  { type: 'cmd', text: '/add src/auth.ts' },
-  { type: 'cmd', text: 'Add rate limiting to the login endpoint' },
-  { type: 'success', text: '✓ Applied edit to src/auth.ts' },
-  { type: 'warn', text: '→ File edited. You run the tests yourself.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '-- Claude Code --', delay: 800 },
-  { type: 'cmd', text: '"Add rate limiting to the login endpoint"' },
-  { type: 'out', text: 'Reading auth.ts, middleware/, and test files...' },
-  { type: 'success', text: '✓ Added rate limiter to src/middleware/rate-limit.ts' },
-  { type: 'success', text: '✓ Updated src/auth.ts to use middleware' },
-  { type: 'success', text: '✓ Added 3 tests, all passing' },
-  { type: 'success', text: '✓ Updated CHANGELOG.md' },
-  { type: 'warn', text: '→ Full execution. Tests run. Multiple files. Done.' },
+```text
+$ aider
+> /add src/auth.ts
+> Add rate limiting to the login endpoint
+Applied edit to src/auth.ts
+```
+
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add rate limiting to the login endpoint' },
+  { kind: 'thinking', verb: 'Exploring', ms: 900 },
+  { kind: 'tool', name: 'Grep', arg: 'login', result: 'Found 4 files' },
+  { kind: 'tool', name: 'Write', arg: 'src/middleware/rate-limit.ts', result: 'Wrote 34 lines to src/middleware/rate-limit.ts' },
+  { kind: 'tool', name: 'Update', arg: 'src/auth.ts', result: 'Updated src/auth.ts with 3 additions and 1 removal' },
+  { kind: 'tool', name: 'Bash', arg: 'npx vitest run auth', result: 'Tests  3 passed (3)' },
+  { kind: 'say', text: 'Login is now limited to 5 attempts per minute per IP.\nAdded 3 tests, all passing, and a CHANGELOG entry.' },
 ]} />
+
+Aider edits the file you added and leaves the tests to you; Claude Code finds the files itself, writes the tests and runs them.
 
 ## The comparison
 

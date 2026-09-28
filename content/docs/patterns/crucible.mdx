@@ -11,15 +11,12 @@ This is the problem every product manager, founder, and builder hits. Hard decis
 
 The Crucible fixes this. It is a Claude Code skill that convenes a council of sixteen specialized AI personas, runs them against your question in parallel, and hands you back a structured verdict with a mandatory dissenting voice. Different voices, different angles, one clean read.
 
-<DemoCard title="A quick Crucible run between meetings" steps={[
-  { type: 'cmd', text: '/crucible --quick should I split this feature into two releases?' },
-  { type: 'out', text: 'Convening 3 personas: Contrarian, Steelman, Reframer...' },
-  { type: 'out', text: '' },
-  { type: 'success', text: '✓ Contrarian: "You are asking a scope question. The real risk is in dependency A, not the split."' },
-  { type: 'success', text: '✓ Steelman: "Splitting buys faster feedback on the riskiest part. Worth it."' },
-  { type: 'success', text: '✓ Reframer: "What if the question is not whether to split, but what to delete?"' },
-  { type: 'out', text: '', delay: 400 },
-  { type: 'warn', text: '→ Chair call: REFRAME. Cut dependency A before deciding on the split.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: '/crucible --quick should I split this feature into two releases?' },
+  { kind: 'tool', name: 'Task', arg: 'Contrarian opening', result: 'Done (2 tool uses · 8.4k tokens · 14s)' },
+  { kind: 'tool', name: 'Task', arg: 'Steelman opening', result: 'Done (2 tool uses · 7.9k tokens · 12s)' },
+  { kind: 'tool', name: 'Task', arg: 'Reframer opening', result: 'Done (2 tool uses · 8.1k tokens · 13s)' },
+  { kind: 'say', text: 'Contrarian: the real risk is dependency A, not the split.\nReframer: ask what to delete, not whether to split.\nChair call: REFRAME. Cut dependency A before deciding on the split.' },
 ]} />
 
 ## What a Crucible run looks like
@@ -65,14 +62,11 @@ Start with Quick. Most days, that is the mode you need. Decision mode is for twi
 
 Crucible is three markdown files. No build step. No dependencies.
 
-<DemoCard title="Installing Crucible" steps={[
-  { type: 'cmd', text: 'git clone https://github.com/mshadmanrahman/crucible ~/.claude/skills/crucible' },
-  { type: 'out', text: "Cloning into '/Users/you/.claude/skills/crucible'..." },
-  { type: 'success', text: '✓ Ready to use' },
-  { type: 'out', text: '', delay: 300 },
-  { type: 'cmd', text: '/crucible --quick is building this newsletter worth the effort?' },
-  { type: 'warn', text: '→ Three voices, thirty seconds, one clean call.' },
-]} />
+```bash
+git clone https://github.com/mshadmanrahman/crucible ~/.claude/skills/crucible
+```
+
+Then type `/crucible --quick is building this newsletter worth the effort?` in any Claude Code session.
 
 The skill hooks straight into Claude Code's slash-command system, which you already know from the [Building Skills](/docs/patterns/skills) pattern.
 

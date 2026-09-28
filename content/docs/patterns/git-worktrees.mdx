@@ -11,16 +11,21 @@ Every time this happens you lose context. Sometimes you lose work.
 
 Git worktrees eliminate this entirely.
 
-<DemoCard title="Parallel work with worktrees" steps={[
-  { type: 'cmd', text: 'git worktree add ../hotfix -b fix/p0-crash' },
-  { type: 'success', text: '✓ Created worktree at ../hotfix on branch fix/p0-crash' },
-  { type: 'cmd', text: 'cd ../hotfix && claude "fix the crash in checkout.ts"', delay: 500 },
-  { type: 'out', text: 'Reading checkout.ts... Found null pointer at line 42...' },
-  { type: 'success', text: '✓ Fixed. Test passing.' },
-  { type: 'cmd', text: 'git push && cd ../main-project', delay: 400 },
-  { type: 'success', text: '✓ Back to your original work. Nothing was stashed.' },
-  { type: 'warn', text: '→ Two branches. Two directories. Zero stashing.' },
+```bash
+git worktree add ../hotfix -b fix/p0-crash
+cd ../hotfix && claude
+```
+
+<ClaudeCodeMock cwd="~/hotfix" steps={[
+  { kind: 'prompt', text: 'fix the crash in checkout.ts' },
+  { kind: 'thinking', verb: 'Reading', ms: 800 },
+  { kind: 'tool', name: 'Read', arg: 'src/checkout.ts', result: 'Read 118 lines' },
+  { kind: 'tool', name: 'Update', arg: 'src/checkout.ts', result: 'Updated src/checkout.ts with 3 additions' },
+  { kind: 'tool', name: 'Bash', arg: 'npm test -- checkout', result: 'Tests: 12 passed, 12 total' },
+  { kind: 'say', text: 'Fixed a null dereference at line 42 of checkout.ts.\nThe checkout tests pass.' },
 ]} />
+
+Push the branch from `../hotfix`, then `cd` back to your original directory; your in-progress work is where you left it, with nothing stashed.
 
 ## What a worktree actually is
 
@@ -73,23 +78,13 @@ Main agent: "Fix issues #42, #43, and #44 in parallel"
 
 Each sub-agent has a clean working directory, a focused context, and commits independently. I've run this pattern on batches of 8 issues at a time.
 
-<DemoCard title="Three sub-agents, three worktrees, one command" steps={[
-  { type: 'cmd', text: 'claude "Fix issues #42, #43, and #44 in parallel"' },
-  { type: 'out', text: 'Creating 3 worktrees...' },
-  { type: 'success', text: '✓ ../fix-42 on branch fix/issue-42' },
-  { type: 'success', text: '✓ ../fix-43 on branch fix/issue-43' },
-  { type: 'success', text: '✓ ../fix-44 on branch fix/issue-44' },
-  { type: 'out', text: 'Spawning sub-agents...', delay: 500 },
-  { type: 'out', text: '  Agent 1: fixing null check in auth...' },
-  { type: 'out', text: '  Agent 2: updating deprecated API call...' },
-  { type: 'out', text: '  Agent 3: adding missing test coverage...' },
-  { type: 'success', text: '✓ All 3 issues fixed. 3 PRs ready for review.' },
-  { type: 'cmd', text: 'git worktree list', delay: 400 },
-  { type: 'out', text: '~/my-app          main      [clean]' },
-  { type: 'out', text: '~/fix-42          fix/issue-42  [1 commit ahead]' },
-  { type: 'out', text: '~/fix-43          fix/issue-43  [1 commit ahead]' },
-  { type: 'out', text: '~/fix-44          fix/issue-44  [2 commits ahead]' },
-  { type: 'warn', text: '→ Parallel fixes. No branch conflicts. No stashing.' },
+<ClaudeCodeMock cwd="~/my-app" steps={[
+  { kind: 'prompt', text: 'fix issues #42, #43 and #44 in parallel' },
+  { kind: 'thinking', verb: 'Planning', ms: 900 },
+  { kind: 'tool', name: 'Task', arg: 'Fix #42 in ../fix-42', result: 'Done (14 tool uses · 36.2k tokens · 48s)' },
+  { kind: 'tool', name: 'Task', arg: 'Fix #43 in ../fix-43', result: 'Done (11 tool uses · 29.7k tokens · 41s)' },
+  { kind: 'tool', name: 'Task', arg: 'Fix #44 in ../fix-44', result: 'Done (18 tool uses · 44.9k tokens · 63s)' },
+  { kind: 'say', text: 'All three are fixed, each committed in its own worktree:\nfix/issue-42, fix/issue-43 and fix/issue-44 are ready for PRs.' },
 ]} />
 
 ## When to use worktrees vs branches

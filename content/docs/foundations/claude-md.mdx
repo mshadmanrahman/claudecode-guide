@@ -29,23 +29,17 @@ The problem isn't Claude Code. They skipped the one file that makes it work.
 
 Without CLAUDE.md, every session starts blind. Claude Code doesn't know your stack. Doesn't know your coding style. Doesn't know your team uses Tailwind, not styled-components. Doesn't know you hate verbose output. It guesses. And guessing produces average results.
 
-<DemoCard title="Same prompt. Completely different results." steps={[
-  { type: 'cmd', text: 'claude "Add a login form"' },
-  { type: 'out', text: 'Created LoginForm.jsx' },
-  { type: 'error', text: '↑ Wrong : your project uses TypeScript (.tsx)' },
-  { type: 'out', text: '<button style={{background: "blue"}}>' },
-  { type: 'error', text: '↑ Wrong : your project uses Tailwind CSS' },
-  { type: 'out', text: 'import axios from "axios"' },
-  { type: 'error', text: '↑ Wrong : your project uses native fetch' },
-  { type: 'cmd', text: 'claude /init', delay: 1200 },
-  { type: 'success', text: '✓ Generated CLAUDE.md from your project' },
-  { type: 'cmd', text: 'claude "Add a login form"', delay: 800 },
-  { type: 'out', text: 'Created LoginForm.tsx' },
-  { type: 'success', text: '✓ "use client" : correct for interactivity' },
-  { type: 'success', text: '✓ className="rounded-lg bg-blue-600" : Tailwind' },
-  { type: 'success', text: '✓ await fetch("/api/auth") : native fetch' },
-  { type: 'warn', text: '→ Same prompt. Completely different result.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add a login form' },
+  { kind: 'tool', name: 'Write', arg: 'components/LoginForm.jsx', result: 'Wrote 41 lines to components/LoginForm.jsx', lines: ['import axios from "axios"', '<button style={{ background: "blue" }}>'] },
+  { kind: 'prompt', text: '/init' },
+  { kind: 'thinking', verb: 'Analyzing', ms: 900 },
+  { kind: 'tool', name: 'Write', arg: 'CLAUDE.md', result: 'Wrote 38 lines to CLAUDE.md' },
+  { kind: 'prompt', text: 'add a login form' },
+  { kind: 'tool', name: 'Write', arg: 'components/LoginForm.tsx', result: 'Wrote 44 lines to components/LoginForm.tsx', lines: ['"use client"', 'className="rounded-lg bg-blue-600"', 'await fetch("/api/auth")'] },
 ]} />
+
+The first form is plain JSX with inline styles and axios, while the project uses TypeScript, Tailwind and native fetch; the second follows all three.
 
 Same person. Same prompt. Night and day difference. The only variable: a CLAUDE.md file.
 

@@ -13,16 +13,11 @@ The memory system fixes this. It gives Claude Code a structured way to remember 
 Both `CLAUDE.md` files and your `MEMORY.md` index are **loaded automatically** at session start. `CLAUDE.md` loads in full. `MEMORY.md` loads the first 200 lines (or 25KB). You don't need hooks or manual config: it just works.
 </Callout>
 
-<DemoCard title="Memory loads automatically at session start" steps={[
-  { type: 'cmd', text: 'claude' },
-  { type: 'out', text: 'Loading CLAUDE.md... Loading MEMORY.md (auto)...' },
-  { type: 'success', text: '✓ Loaded: your role (PM), 4 active projects, 8 preferences' },
-  { type: 'success', text: '✓ Loaded: "never use em dashes in writing"' },
-  { type: 'success', text: '✓ Loaded: "Sebastian owns the API : match his patterns"' },
-  { type: 'out', text: 'Welcome back. I remember everything from last time.' },
-  { type: 'cmd', text: '"Prep for my 1:1 with Sarah"', delay: 1000 },
-  { type: 'out', text: 'Found 4 recent interactions, 2 open items...' },
-  { type: 'warn', text: '→ No re-explanation. It already knows you.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'prep for my 1:1 with Sarah' },
+  { kind: 'thinking', verb: 'Recalling', ms: 900 },
+  { kind: 'tool', name: 'Grep', arg: 'Sarah', result: 'Found 4 files' },
+  { kind: 'say', text: 'Two open items with Sarah: the API review and the Q4 roadmap.\nThe agenda has no em dashes, per your writing rules.' },
 ]} />
 
 ## The Two Memory Systems
@@ -130,20 +125,6 @@ The `/memory` command is your dashboard for everything memory-related. Run it to
 - **Toggle auto memory** on or off for the current project
 - **Browse memory files**: get a link to open the memory folder
 - **Open files in your editor**: quickly edit any memory file
-
-<DemoCard title="/memory in action" steps={[
-  { type: 'cmd', text: '/memory' },
-  { type: 'out', text: 'Memory status for this project:' },
-  { type: 'success', text: '  CLAUDE.md (project): loaded, 42 lines' },
-  { type: 'success', text: '  CLAUDE.md (user): loaded, 15 lines' },
-  { type: 'success', text: '  CLAUDE.local.md: loaded, 8 lines' },
-  { type: 'success', text: '  Auto memory: ON (12 topic files, 3.2KB)' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '  [t] Toggle auto memory' },
-  { type: 'out', text: '  [o] Open memory folder' },
-  { type: 'out', text: '  [e] Edit a file' },
-  { type: 'warn', text: '→ One command. Full visibility into what Claude knows.' },
-]} />
 
 You don't need to run `/memory` to use memory. It loads automatically. This command is for when you want to inspect, toggle, or edit what's there.
 

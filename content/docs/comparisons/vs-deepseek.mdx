@@ -23,17 +23,17 @@ DeepSeek does not have a terminal agent. There is no DeepSeek equivalent to Clau
 
 That is the real question, and it has a real answer depending on what you care about.
 
-<DemoCard title="What DeepSeek actually is in 2026" steps={[
-  { type: 'out', text: 'DeepSeek V4 Pro — released April 24, 2026' },
-  { type: 'out', text: 'Architecture: 1T param MoE, MIT open-weight' },
-  { type: 'out', text: 'Context: 1,000,000 tokens' },
-  { type: 'out', text: 'Price: $0.44/M input, $0.87/M output (API)' },
-  { type: 'out', text: 'DeepSeek V4 Flash: $0.14/M input, $0.28/M output' },
-  { type: 'out', text: 'API format: OpenAI AND Anthropic compatible' },
-  { type: 'out', text: 'Platforms: AWS Bedrock, Azure, Vertex AI' },
-  { type: 'out', text: 'Terminal agent: none' },
-  { type: 'warn', text: 'You can run it inside Claude Code via ANTHROPIC_BASE_URL.' },
-]} />
+| | DeepSeek, September 2026 |
+|---|---|
+| Flagship | DeepSeek V4 Pro, released April 24, 2026 |
+| Architecture | 1T param MoE, MIT open-weight |
+| Context | 1,000,000 tokens |
+| Price (API) | V4 Pro: $0.44/M input, $0.87/M output. V4 Flash: $0.14/M input, $0.28/M output |
+| API format | OpenAI and Anthropic compatible |
+| Platforms | AWS Bedrock, Azure, Vertex AI |
+| Terminal agent | None |
+
+You can run it inside Claude Code via `ANTHROPIC_BASE_URL`.
 
 ## The price gap is real and large
 
@@ -65,13 +65,14 @@ If you are building on top of Claude Code's API surface and your primary bottlen
 
 **Privacy and self-hosting.** Running open weights on your own infrastructure means your code never leaves your network. For legal, regulated, or sensitive codebases, this matters.
 
-<DemoCard title="Cost comparison: 100K tokens in + 100K out per day" steps={[
-  { type: 'out', text: 'Claude Opus 5.5 (API):   ~$2.40/day input + output' },
-  { type: 'out', text: 'Claude Sonnet 5 (API):    ~$1.20/day input + output' },
-  { type: 'out', text: 'DeepSeek V4 Pro (API):    ~$0.13/day input + output' },
-  { type: 'out', text: 'DeepSeek V4 Flash (API):  ~$0.04/day input + output' },
-  { type: 'warn', text: 'For volume automation, the DeepSeek numbers are hard to ignore.' },
-]} />
+| Model (API) | Cost per day, 100K tokens in + 100K out |
+|---|---|
+| Claude Opus 5.5 | ~$2.40 |
+| Claude Sonnet 5 | ~$1.20 |
+| DeepSeek V4 Pro | ~$0.13 |
+| DeepSeek V4 Flash | ~$0.04 |
+
+For volume automation, the DeepSeek numbers are hard to ignore.
 
 ## The hybrid approach most teams actually use
 

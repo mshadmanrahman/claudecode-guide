@@ -9,16 +9,13 @@ Use this template for standalone Next.js applications using the App Router with 
 
 If you use the Pages Router or a different directory layout, adjust the project structure section accordingly.
 
-<DemoCard title="Next.js template in action" steps={[
-  { type: 'cmd', text: 'claude "add a user profile page"' },
-  { type: 'out', text: 'Reading CLAUDE.md... Next.js App Router, TypeScript strict.' },
-  { type: 'out', text: 'Creating Server Component (default per CLAUDE.md)...' },
-  { type: 'success', text: '✓ Created src/app/profile/page.tsx (Server Component)' },
-  { type: 'success', text: '✓ Created src/app/profile/loading.tsx (Suspense fallback)' },
-  { type: 'success', text: '✓ Async params: const { id } = await params' },
-  { type: 'success', text: '✓ Named export (not default : per code style rules)' },
-  { type: 'success', text: '✓ Created src/app/profile/page.test.tsx' },
-  { type: 'warn', text: '→ Every convention from your CLAUDE.md, followed automatically.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add a user profile page' },
+  { kind: 'thinking', verb: 'Planning', ms: 900 },
+  { kind: 'tool', name: 'Write', arg: 'src/app/profile/page.tsx', result: 'Wrote 28 lines to src/app/profile/page.tsx', lines: ['export async function ProfilePage({ params }: Props) {', '  const { id } = await params'] },
+  { kind: 'tool', name: 'Write', arg: 'src/app/profile/loading.tsx', result: 'Wrote 9 lines to src/app/profile/loading.tsx' },
+  { kind: 'tool', name: 'Write', arg: 'src/app/profile/page.test.tsx', result: 'Wrote 31 lines to src/app/profile/page.test.tsx' },
+  { kind: 'say', text: 'The page is a Server Component with a named export, as your CLAUDE.md asks.\nloading.tsx is the Suspense fallback, and the test sits next to the page.' },
 ]} />
 
 ```markdown title="CLAUDE.md"

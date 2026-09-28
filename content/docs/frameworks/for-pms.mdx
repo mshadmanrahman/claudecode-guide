@@ -231,12 +231,11 @@ The investment is front-loaded: running the loop carefully the first time, then 
 
 After six months of this, most of your recurring PM documents take 20 minutes instead of two hours. The time shifts from writing to reading: C4 gets more attention because you have more time for it. That is where PM quality actually lives — not in the first draft, but in the judgment call about what needs changing.
 
-<DemoCard title="Saving a PRD context block to CLAUDE.md." steps={[
-  { type: 'cmd', text: 'Add to CLAUDE.md:' },
-  { type: 'out', text: '## PRD context block' },
-  { type: 'out', text: 'Reader: eng lead. Needs: buildable spec, clear scope.' },
-  { type: 'out', text: 'Format: problem / goals+non-goals / stories / requirements / metrics.' },
-  { type: 'success', text: 'Next PRD: C2 is already done. Load research, go.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'save this PRD context block to CLAUDE.md' },
+  { kind: 'thinking', verb: 'Thinking', ms: 800 },
+  { kind: 'tool', name: 'Update', arg: 'CLAUDE.md', result: 'Updated CLAUDE.md with 3 additions', lines: ['## PRD context block', 'Reader: eng lead. Needs: buildable spec, clear scope.', 'Format: problem / goals+non-goals / stories / requirements / metrics.'] },
+  { kind: 'say', text: 'Saved. For the next PRD, share the research and I will follow this structure.' },
 ]} />
 
 ## What the Check step means for PM work

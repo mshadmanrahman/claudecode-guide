@@ -9,17 +9,14 @@ Left to its own devices, Claude Code will default to whatever Python patterns it
 
 This template steers it toward modern tooling: `uv` or `poetry` for dependency management, `pytest` for testing, `mypy` for type checking. If you use Django or FastAPI, add framework-specific conventions after the base template.
 
-<DemoCard title="Python template preventing legacy patterns" steps={[
-  { type: 'cmd', text: 'claude "add a new data processing module"' },
-  { type: 'out', text: 'Reading CLAUDE.md... Python project, uv, pytest, mypy.' },
-  { type: 'out', text: 'Creating src/processing/pipeline.py...' },
-  { type: 'success', text: '✓ Type hints on all functions (per CLAUDE.md)' },
-  { type: 'success', text: '✓ Used pathlib, not os.path (modern Python)' },
-  { type: 'success', text: '✓ Created tests/test_pipeline.py (pytest)' },
-  { type: 'success', text: '✓ uv add pandas (not pip install)' },
-  { type: 'out', text: 'Running: uv run mypy src/ && uv run pytest' },
-  { type: 'success', text: '✓ Types clean. 4 tests passing.' },
-  { type: 'warn', text: '→ No requirements.txt. No pip install. Modern Python only.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'add a new data processing module' },
+  { kind: 'thinking', verb: 'Planning', ms: 800 },
+  { kind: 'tool', name: 'Write', arg: 'src/processing/pipeline.py', result: 'Wrote 64 lines to src/processing/pipeline.py' },
+  { kind: 'tool', name: 'Write', arg: 'tests/test_pipeline.py', result: 'Wrote 38 lines to tests/test_pipeline.py' },
+  { kind: 'tool', name: 'Bash', arg: 'uv add pandas', result: 'Resolved 12 packages in 214ms' },
+  { kind: 'tool', name: 'Bash', arg: 'uv run mypy src/ && uv run pytest', result: 'Success: no issues found in 6 source files' },
+  { kind: 'say', text: 'pipeline.py uses type hints throughout and pathlib for file paths.\nmypy is clean and all 4 tests pass.' },
 ]} />
 
 ```markdown title="CLAUDE.md"

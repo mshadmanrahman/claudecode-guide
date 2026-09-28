@@ -15,15 +15,14 @@ A skill is a markdown file that encodes a complete workflow. Write it once, and 
 
 Skills turn scattered tribal knowledge into repeatable, composable workflows. They're the building blocks of a Claude Code operating system tailored to how you actually work.
 
-<DemoCard title="Creating your first skill" steps={[
-  { type: 'cmd', text: 'claude "Create a /commit skill that stages, commits, and pushes"' },
-  { type: 'out', text: 'Creating .claude/commands/commit.md...' },
-  { type: 'success', text: '✓ Created skill: /commit' },
-  { type: 'cmd', text: '/commit', delay: 1000 },
-  { type: 'out', text: 'Staging 3 files...' },
-  { type: 'out', text: 'Commit: "feat: add dark mode toggle to settings"' },
-  { type: 'success', text: '✓ Pushed to origin/main' },
-  { type: 'warn', text: '→ One word. Three steps. Zero thinking.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'create a /commit skill that stages, commits, and pushes' },
+  { kind: 'tool', name: 'Write', arg: '.claude/skills/commit/SKILL.md', result: 'Wrote 14 lines to .claude/skills/commit/SKILL.md' },
+  { kind: 'say', text: 'Created /commit. Type it any time to stage, commit and push.' },
+  { kind: 'prompt', text: '/commit' },
+  { kind: 'tool', name: 'Bash', arg: 'git add -A && git commit -m "feat: add dark mode"', result: '[main 9b3e2f1] feat: add dark mode' },
+  { kind: 'tool', name: 'Bash', arg: 'git push', result: 'To github.com:you/my-app.git' },
+  { kind: 'say', text: 'Committed 3 files and pushed to origin/main.' },
 ]} />
 
 ## What a skill looks like
@@ -243,18 +242,12 @@ The user describes who they're emailing and what about.
 Subject line + email body. Ready to paste.
 ```
 
-<DemoCard title="A non-coder running /meeting-prep" steps={[
-  { type: 'cmd', text: '/meeting-prep Sarah' },
-  { type: 'out', text: 'Gathering context for 1:1 with Sarah...' },
-  { type: 'out', text: '[Slack] 4 threads with Sarah this week' },
-  { type: 'out', text: '[Linear] 2 shared tickets (1 blocked)' },
-  { type: 'out', text: '[Notes] Last 1:1: discussed PTO handoff' },
-  { type: 'out', text: '', delay: 400 },
-  { type: 'success', text: '✓ Briefing ready:' },
-  { type: 'out', text: '  Open items: API migration blocked on legal' },
-  { type: 'out', text: '  Her PTO: starts Thursday, handoff needed' },
-  { type: 'out', text: '  Suggested: align on sprint 5 priorities' },
-  { type: 'warn', text: '→ No code. No terminal knowledge. Just /meeting-prep.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: '/meeting-prep Sarah' },
+  { kind: 'tool', name: 'slack - search_messages (MCP)', arg: 'query: "from:@sarah"', result: 'Found 4 threads' },
+  { kind: 'tool', name: 'linear - list_issues (MCP)', arg: 'query: "Sarah"', result: 'Found 2 issues' },
+  { kind: 'tool', name: 'Read', arg: 'notes/1on1-sarah.md', result: 'Read 46 lines' },
+  { kind: 'say', text: 'Open items: API migration is blocked on legal.\nHer PTO starts Thursday, so the handoff needs a plan.\nSuggested topic: align on sprint 5 priorities.' },
 ]} />
 
 ## Sharing skills with your team

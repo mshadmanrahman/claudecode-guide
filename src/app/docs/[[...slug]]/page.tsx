@@ -2,7 +2,7 @@ import { source } from "@/lib/source";
 import { DocsPage } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
-import { DemoCard } from "@/components/demo-card";
+import { ClaudeCodeMock } from "@/components/claude-code-mock";
 import { VocabBridge } from "@/components/vocab-bridge";
 import { EmailCapture } from "@/components/email-capture";
 import { AffiliateCTA } from "@/components/affiliate-cta";
@@ -51,7 +51,7 @@ const mdxComponents = {
   ...defaultMdxComponents,
   pre: DocPre,
   Callout: DocCallout,
-  DemoCard,
+  ClaudeCodeMock,
   VocabBridge,
   PromptCard,
   FromClaude,

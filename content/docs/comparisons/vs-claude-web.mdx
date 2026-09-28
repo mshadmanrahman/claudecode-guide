@@ -29,19 +29,14 @@ It's not. They're as different as Google Docs and Google Cloud. Same company, co
 
 Same AI brain. Completely different body.
 
-<DemoCard title="Claude.ai vs Claude Code" steps={[
-  { type: 'out', text: '-- Claude.ai (chat) --' },
-  { type: 'cmd', text: '"Write me a Python script to rename files"' },
-  { type: 'out', text: 'Here\'s a script you can use:' },
-  { type: 'out', text: '```python import os... ``` (copy this)' },
-  { type: 'warn', text: '→ You get code as TEXT. You save it yourself. You run it yourself.' },
-  { type: 'out', text: '' },
-  { type: 'out', text: '-- Claude Code (agent) --', delay: 800 },
-  { type: 'cmd', text: '"Rename all .jpeg files to .jpg in this folder"' },
-  { type: 'out', text: 'Scanning folder... Found 23 .jpeg files' },
-  { type: 'success', text: '✓ Renamed 23 files: photo1.jpeg → photo1.jpg...' },
-  { type: 'warn', text: '→ Already done. Files renamed. No script needed.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'rename all .jpeg files in this folder to .jpg' },
+  { kind: 'tool', name: 'Glob', arg: '*.jpeg', result: 'Found 23 files' },
+  { kind: 'tool', name: 'Bash', arg: 'for f in *.jpeg; do mv "$f" "${f%.jpeg}.jpg"; done', result: '(No content)' },
+  { kind: 'say', text: 'Renamed 23 files from .jpeg to .jpg.' },
 ]} />
+
+Claude.ai would hand you a script to save and run yourself; Claude Code renames the files in your folder.
 
 ## The Quick Comparison
 

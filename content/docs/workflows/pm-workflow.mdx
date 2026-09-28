@@ -19,16 +19,13 @@ The hardest part of writing a PRD isn't the writing. It's making the decisions t
 
 Paste your rough notes and half-formed thinking into Claude and ask it to clarify scope before it writes anything. The questions it asks are often more valuable than the draft it produces.
 
-<DemoCard title="PRD from rough notes" steps={[
-  { type: 'cmd', text: 'Paste this into Claude.ai' },
-  { type: 'out', text: 'Here are my rough notes on the notification redesign...' },
-  { type: 'out', text: '[paste everything: Slack threads, Figma comments, your notes]' },
-  { type: 'out', text: 'Ask me 3 questions to sharpen scope, then write a PRD.' },
-  { type: 'out', text: '' },
-  { type: 'success', text: '→ Claude asks about primary user, success metric, Zendesk hard constraint' },
-  { type: 'success', text: '→ Writes: problem statement, user stories, success metrics, out of scope, open questions' },
-  { type: 'warn', text: '→ 15 minutes. Not 3 hours.' },
-]} />
+```text
+Here are my rough notes on the notification redesign...
+[paste everything: Slack threads, Figma comments, your notes]
+Ask me 3 questions to sharpen scope, then write a PRD.
+```
+
+Claude comes back with questions about the primary user, the success metric and hard constraints like Zendesk, then writes the problem statement, user stories, success metrics, out of scope and open questions. Expect about 15 minutes instead of 3 hours.
 
 Full walkthrough with prompts: [Write a PRD from rough notes](/docs/workflows/write-a-prd-from-rough-notes).
 
@@ -40,16 +37,11 @@ After interviews, you have transcripts. Before insights, you have hours of synth
 
 Paste your raw notes and tell Claude the research question you were trying to answer. It groups findings into themes, pulls supporting quotes, writes design implications, and surfaces the contradictions your team needs to discuss.
 
-<DemoCard title="Research synthesis in 20 minutes" steps={[
-  { type: 'cmd', text: 'Paste this into Claude.ai' },
-  { type: 'out', text: 'Research question: why do users abandon during checkout?' },
-  { type: 'out', text: 'Notes: [paste your interview transcripts or summaries]' },
-  { type: 'out', text: 'Group into 3-5 themes. Quote users. Flag contradictions.' },
-  { type: 'out', text: '' },
-  { type: 'success', text: '→ Executive summary: 3-4 sentences on what you learned' },
-  { type: 'success', text: '→ Theme 1: Confirmation anxiety. Theme 2: Error recovery. Theme 3: Contradictory data on price sensitivity (surfaced, not resolved)' },
-  { type: 'warn', text: '→ Walk into design review knowing exactly what to say.' },
-]} />
+```text
+Research question: why do users abandon during checkout?
+Notes: [paste your interview transcripts or summaries]
+Group into 3-5 themes. Quote users. Flag contradictions.
+```
 
 Full walkthrough with prompts: [Synthesize user research into findings](/docs/workflows/synthesize-user-research-into-findings).
 
@@ -61,16 +53,12 @@ The meeting prep problem is simple: you need context from four different places,
 
 Claude doesn't have calendar access by default, but you can give it the context. Paste the person's name, your last meeting notes, any open items, and the current project state. Ask for a one-page brief.
 
-<DemoCard title="1:1 brief in 2 minutes" steps={[
-  { type: 'cmd', text: 'Paste this into Claude.ai' },
-  { type: 'out', text: 'Prep me for my 1:1 with Sarah in 30 minutes.' },
-  { type: 'out', text: 'Last meeting (3 weeks ago): she took over dashboard project from Marcus.' },
-  { type: 'out', text: 'Open items: I owe her the roadmap one-pager. She owes me scope clarity.' },
-  { type: 'out', text: 'Generate: recent context, open items, 3 questions to ask, 2 things to be ready to answer.' },
-  { type: 'out', text: '' },
-  { type: 'success', text: '→ One-page brief, ready to skim on the walk over.' },
-  { type: 'warn', text: '→ No Slack tab-switching. No Jira scramble. 2 minutes.' },
-]} />
+```text
+Prep me for my 1:1 with Sarah in 30 minutes.
+Last meeting (3 weeks ago): she took over the dashboard project from Marcus.
+Open items: I owe her the roadmap one-pager. She owes me scope clarity.
+Generate: recent context, open items, 3 questions to ask, 2 things to be ready to answer.
+```
 
 Full walkthrough with prompts: [Walk into your 1:1 already prepared](/docs/workflows/walk-into-your-1on1-prepared).
 
@@ -82,16 +70,12 @@ Status updates take too long and get ignored anyway. The problem is usually that
 
 Tell it what happened this week, who the audience is, and what they care about. Ask for a one-paragraph update that leads with the decision or blocker, not the activity.
 
-<DemoCard title="Status update that gets read" steps={[
-  { type: 'cmd', text: 'Paste this into Claude.ai' },
-  { type: 'out', text: 'Write a weekly status update for my exec audience.' },
-  { type: 'out', text: 'This week: shipped the notification redesign (2 weeks late).' },
-  { type: 'out', text: 'Next week: A/B test goes live. Blocker: legal review on copy.' },
-  { type: 'out', text: 'Audience: VP of Product. They care about delivery dates and blockers, not process.' },
-  { type: 'out', text: '' },
-  { type: 'success', text: '→ One paragraph. Leads with the late ship and why. Flags legal blocker. Gives the one date that matters.' },
-  { type: 'warn', text: '→ They actually read this one.' },
-]} />
+```text
+Write a weekly status update for my exec audience.
+This week: shipped the notification redesign (2 weeks late).
+Next week: A/B test goes live. Blocker: legal review on copy.
+Audience: VP of Product. They care about delivery dates and blockers, not process.
+```
 
 ---
 
@@ -101,15 +85,11 @@ The most expensive PM failure mode isn't making bad decisions. It's not recordin
 
 After any meaningful decision, ask Claude to write a decision record: the context, the options considered, the choice made, and the reasoning. Paste it into Confluence or Notion. Future you will thank you.
 
-<DemoCard title="Decision record in 5 minutes" steps={[
-  { type: 'cmd', text: 'Paste this into Claude.ai' },
-  { type: 'out', text: 'Write a decision record for: we cut the search filter feature from V1.' },
-  { type: 'out', text: 'Context: team was 2 weeks behind. Filters affect <5% of users. We can add in V1.1.' },
-  { type: 'out', text: 'Options we considered: cut entirely, ship behind a flag, delay V1.' },
-  { type: 'out', text: '' },
-  { type: 'success', text: '→ Decision record with: context, options, rationale, what we\'ll do in V1.1' },
-  { type: 'warn', text: '→ Six months from now, nobody asks "why did we cut that?"' },
-]} />
+```text
+Write a decision record for: we cut the search filter feature from V1.
+Context: team was 2 weeks behind. Filters affect <5% of users. We can add in V1.1.
+Options we considered: cut entirely, ship behind a flag, delay V1.
+```
 
 ---
 

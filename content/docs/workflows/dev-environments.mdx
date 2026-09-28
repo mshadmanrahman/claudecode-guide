@@ -25,15 +25,15 @@ echo 'export ANTHROPIC_API_KEY=your-key' >> ~/.bashrc
 echo 'alias cc=claude' >> ~/.bashrc
 ```
 
-<DemoCard title="Claude Code from your phone via Codespaces" steps={[
-  { type: 'out', text: 'Device: iPhone / Android (any browser)' },
-  { type: 'cmd', text: 'github.com → Codespaces → your repo' },
-  { type: 'out', text: 'VS Code in browser loads with full terminal' },
-  { type: 'cmd', text: 'claude "review the auth flow and flag anything risky"' },
-  { type: 'out', text: 'Reading: src/auth/*.ts...' },
-  { type: 'success', text: '✓ Full Claude Code session, running in the cloud' },
-  { type: 'warn', text: 'Session persists even after you close the browser tab.' },
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'review the auth flow and flag anything risky' },
+  { kind: 'thinking', verb: 'Reading', ms: 900 },
+  { kind: 'tool', name: 'Glob', arg: 'src/auth/**/*.ts', result: 'Found 6 files' },
+  { kind: 'tool', name: 'Read', arg: 'src/auth/session.ts', result: 'Read 118 lines' },
+  { kind: 'say', text: 'One risk: session tokens never expire on the server side.\nThe rest of the flow looks sound.' },
 ]} />
+
+This is the same session from a phone: open your repo on github.com, start a Codespace in the mobile browser, and run `claude` in its terminal.
 
 The major advantage over running locally: the Codespace keeps running after you close your browser. You can start a long agent task on your lunch break and check the results hours later from a different device.
 
@@ -58,14 +58,10 @@ export ANTHROPIC_API_KEY=your-key
 claude
 ```
 
-<DemoCard title="SSH into your Pi, run Claude Code" steps={[
-  { type: 'cmd', text: 'ssh pi@192.168.1.42' },
-  { type: 'out', text: 'Connected to Raspberry Pi 4 (4GB)' },
-  { type: 'cmd', text: 'cd ~/projects/my-app' },
-  { type: 'cmd', text: 'claude "catch me up on what changed since last Tuesday"' },
-  { type: 'out', text: 'Reading git log...' },
-  { type: 'out', text: '5 commits. Auth refactor, 2 bug fixes, 1 new endpoint.' },
-  { type: 'success', text: '✓ Running on a $60 computer. That\'s not a limitation.' },
+<ClaudeCodeMock cwd="~/projects/my-app" steps={[
+  { kind: 'prompt', text: 'catch me up on what changed since last Tuesday' },
+  { kind: 'tool', name: 'Bash', arg: 'git log --oneline --since="last tuesday"', result: 'e7d21b4 Add /api/exports endpoint' },
+  { kind: 'say', text: '5 commits since Tuesday: the auth refactor, 2 bug fixes and 1 new endpoint.' },
 ]} />
 
 What works well: code review, reading large codebases, writing documentation, analyzing git history. What to avoid: tasks that require many parallel file writes (Pi's SD card I/O is slow) and sub-agent heavy workloads (RAM gets tight).
