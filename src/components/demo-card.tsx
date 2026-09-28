@@ -23,11 +23,11 @@ interface DemoCardProps {
 }
 
 const TYPE_STYLES: Record<DemoStep['type'], string> = {
-  cmd: 'text-fd-foreground font-medium',
-  out: 'text-fd-muted-foreground text-xs',
-  success: 'text-[var(--acc)]  text-xs',
-  warn: 'text-[var(--acc)]  text-xs',
-  error: 'text-red-700 dark:text-red-300  text-xs',
+  cmd: 'text-[var(--ct-ink)]',
+  out: 'text-[var(--ct-dim)]',
+  success: 'text-[var(--ct-ok)]',
+  warn: 'text-[#D77757]',
+  error: 'text-red-700 dark:text-red-400',
 };
 
 export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3000, maxHeight = 280 }: DemoCardProps) {
@@ -60,22 +60,22 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
   return (
     <div
       ref={containerRef}
-      className="my-6 overflow-hidden rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]"
+      className="ctmock my-6 min-w-0 overflow-hidden rounded-xl border border-[var(--ct-edge)] bg-[var(--ct-bg)] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.35)] dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.6)]"
     >
       {/* Title bar */}
-      <div className="flex items-center gap-2 border-b border-fd-border bg-[var(--code)] px-4 py-2.5">
-        <div className="flex gap-1.5">
-          <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-          <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-          <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-        </div>
-        <span className="ml-2 font-mono text-caption text-fd-muted-foreground">{title}</span>
+      <div className="relative flex items-center gap-2 border-b border-[var(--ct-edge)] bg-[var(--ct-bar)] px-3.5 py-2.5">
+        <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+        <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+        <span className="pointer-events-none absolute inset-x-20 truncate text-center font-mono text-[11.5px] text-[var(--ct-dim)]">
+          {title}
+        </span>
       </div>
 
       {/* Content : fixed height based on step count, scrolls when full */}
       <div
         ref={scrollRef}
-        className="overflow-y-auto p-4 font-mono text-compact leading-relaxed sm:p-5"
+        className="overflow-y-auto px-3 py-3 font-mono text-[12.5px] leading-[1.5] text-[var(--ct-ink)] sm:px-4"
         style={{ height: Math.min(Math.max(steps.length * 24 + 32, 100), maxHeight) }}
       >
         {steps.slice(0, visibleCount).map((step, i) => (
@@ -85,8 +85,7 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
           >
             {step.type === 'cmd' ? (
               <div>
-                <span className="text-[var(--acc)] ">~</span>
-                <span className="text-fd-muted-foreground"> $ </span>
+                <span className="text-[var(--ct-dim)]">~ $ </span>
                 <span className={TYPE_STYLES.cmd}>{step.text}</span> </div>
             ) : (
               <div className={TYPE_STYLES[step.type]}> {'  '}{step.text}
@@ -97,7 +96,7 @@ export function DemoCard({ title = 'Terminal', steps, loop = true, loopDelay = 3
 
         {/* Blinking cursor */}
         {visibleCount < steps.length && isInView && (
-          <span className="inline-block h-4 w-1.5 animate-blink bg-[var(--acc)] align-middle motion-reduce:animate-none" />
+          <span className="inline-block h-4 w-1.5 animate-blink bg-[var(--ct-ink)] align-middle motion-reduce:animate-none" />
         )}
       </div>
     </div>
