@@ -347,6 +347,28 @@ h3.font-display {
   --cm-chrome: #2b2a28;
 }
 
+.ctmock {
+  --ct-bg: #fbfaf8;
+  --ct-bar: #ecebe8;
+  --ct-ink: #1f1e1d;
+  --ct-dim: #6b6a65;
+  --ct-rule: #c9c7c1;
+  --ct-ok: #2c7a39;
+  --ct-chip: rgba(0, 0, 0, 0.05);
+  --ct-edge: rgba(31, 30, 29, 0.15);
+}
+
+.dark .ctmock {
+  --ct-bg: #1f1e1d;
+  --ct-bar: #2b2a28;
+  --ct-ink: #ecebe8;
+  --ct-dim: #9a9894;
+  --ct-rule: #5c5b57;
+  --ct-ok: #4eba65;
+  --ct-chip: rgba(255, 255, 255, 0.07);
+  --ct-edge: rgba(0, 0, 0, 0.5);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cc-in {
     animation: none;

@@ -29,8 +29,8 @@ interface ClaudeCodeMockProps {
 
 export const ORANGE = '#D77757';
 const MASCOT_ROSE = '#D78787';
-export const DIM = '#9a9894';
-export const INK = '#ecebe8';
+export const DIM = 'var(--ct-dim)';
+export const INK = 'var(--ct-ink)';
 export const SPINNER = ['·', '✢', '✳', '✶', '✻', '✽', '✻', '✶', '✳', '✢'];
 export const CHAR_MS = 34;
 const LINE_MS = 110;
@@ -165,7 +165,7 @@ export function ClaudeCodeMock({ steps, cwd = '~/my-project', loop = false, heig
           inputText = step.text.slice(0, Math.floor(local / CHAR_MS));
         } else {
           transcript.push(
-            <div key={i} className="cc-in mt-3 rounded-sm bg-white/[0.07] px-1.5 py-0.5">
+            <div key={i} className="cc-in mt-3 rounded-sm bg-[var(--ct-chip)] px-1.5 py-0.5">
               <span style={{ color: DIM }}>{promptGlyph} </span>
               {step.text}
             </div>,
@@ -213,7 +213,7 @@ export function ClaudeCodeMock({ steps, cwd = '~/my-project', loop = false, heig
         transcript.push(
           <div key={i} className="cc-in mt-3">
             <div className="flex gap-2">
-              <span className="shrink-0 transition-colors duration-300" style={{ color: running ? DIM : '#4eba65' }}>
+              <span className="shrink-0 transition-colors duration-300" style={{ color: running ? DIM : 'var(--ct-ok)' }}>
                 ⏺
               </span>
               <span className="min-w-0 break-words">
@@ -242,19 +242,19 @@ export function ClaudeCodeMock({ steps, cwd = '~/my-project', loop = false, heig
   return (
     <div
       ref={containerRef}
-      className="my-6 min-w-0 overflow-hidden rounded-xl border border-black/40 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.6)]"
+      className="ctmock my-6 min-w-0 overflow-hidden rounded-xl border border-[var(--ct-edge)] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.35)] dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.6)]"
       role="img"
       aria-label="A Claude Code session in a terminal"
     >
-      <div className="relative flex items-center gap-2 border-b border-black/50 bg-[#2b2a28] px-3.5 py-2.5">
+      <div className="relative flex items-center gap-2 border-b border-[var(--ct-edge)] bg-[var(--ct-bar)] px-3.5 py-2.5">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-        <span className="pointer-events-none absolute inset-x-20 truncate text-center font-mono text-[11.5px] text-[#a8a6a1]">
+        <span className="pointer-events-none absolute inset-x-20 truncate text-center font-mono text-[11.5px] text-[var(--ct-dim)]">
           claude · {cwd.split('/').pop()}
         </span>
       </div>
-      <div className="bg-[#1f1e1d] font-mono text-[12.5px] leading-[1.5]" style={{ color: INK }}>
+      <div className="bg-[var(--ct-bg)] font-mono text-[12.5px] leading-[1.5]" style={{ color: INK }}>
         <div ref={viewportRef} className="relative overflow-hidden px-3 pt-3 sm:px-4" style={{ height }}>
           <div
             ref={contentRef}
@@ -268,14 +268,14 @@ export function ClaudeCodeMock({ steps, cwd = '~/my-project', loop = false, heig
         </div>
         {/* The input box: rules above and below, like the real CLI. */}
         <div className="px-3 pb-2 sm:px-4">
-          <div className="truncate border-y border-[#5c5b57] py-1.5">
+          <div className="truncate border-y border-[var(--ct-rule)] py-1.5">
             <span style={{ color: DIM }}>{promptGlyph} </span>
             {inputText ? (
               <span>{inputText}</span>
             ) : (
               <span style={{ color: DIM }}>Try &quot;what does this project do?&quot;</span>
             )}
-            <span className="ml-px inline-block h-[1.1em] w-[0.55em] translate-y-[0.2em] bg-[#ecebe8] motion-safe:animate-blink" />
+            <span className="ml-px inline-block h-[1.1em] w-[0.55em] translate-y-[0.2em] bg-[var(--ct-ink)] motion-safe:animate-blink" />
           </div>
           <div className="pt-1 text-[11.5px]" style={{ color: DIM }}>
             ⏵⏵ accept edits on (shift+tab to cycle)
