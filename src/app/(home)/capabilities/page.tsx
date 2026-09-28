@@ -548,8 +548,12 @@ export default function CapabilitiesPage() {
 
             <div className="border-t border-fd-border bg-fd-accent/50 p-6 lg:border-l lg:border-t-0 flex items-center">
               <div className="w-full rounded-lg border border-fd-border bg-[var(--glass2)] p-4 font-mono text-xs leading-relaxed text-fd-muted-foreground">
-                <div className="mb-3 text-fd-foreground font-medium">~/.claude/skills/weekly-status.md</div>
+                <div className="mb-3 break-all text-fd-foreground font-medium">~/.claude/skills/weekly-status/SKILL.md</div>
                 <div className="space-y-1">
+                  <p>---</p>
+                  <p>name: weekly-status</p>
+                  <p>description: Write my weekly status report. Use when I ask for a weekly update.</p>
+                  <p>---</p>
                   <p className="text-fd-foreground"># Weekly Status Report</p>
                   <p></p>
                   <p>Generate my weekly status report.</p>

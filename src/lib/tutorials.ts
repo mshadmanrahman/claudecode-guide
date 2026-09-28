@@ -864,26 +864,26 @@ npx serve .`,
       {
         title: "Create the skills directory",
         description:
-          "Skills live inside the .claude/skills folder in your project. If it doesn't exist yet, create it.",
+          "Skills live inside the .claude/skills folder in your project. Each skill gets its own folder, named after the skill, with a SKILL.md file inside. Create the folder for your first one.",
         code: {
-          snippet: "mkdir -p .claude/skills",
+          snippet: "mkdir -p .claude/skills/code-review",
           language: "bash",
         },
         demo: {
           title: "Setting up skills",
           steps: [
-            { type: "cmd", text: "mkdir -p .claude/skills" },
-            { type: "cmd", text: "ls .claude/", delay: 400 },
-            { type: "out", text: "skills/" },
+            { type: "cmd", text: "mkdir -p .claude/skills/code-review" },
+            { type: "cmd", text: "ls .claude/skills/", delay: 400 },
+            { type: "out", text: "code-review/" },
             { type: "success", text: "Skills directory ready." },
           ],
         },
         cliDemo: {
           steps: [
             { kind: "prompt", text: "set up a place for a reusable code review skill" },
-            { kind: "tool", name: "Bash", arg: "mkdir -p .claude/skills", result: "(No content)" },
-            { kind: "tool", name: "Bash", arg: "ls .claude/", result: "skills" },
-            { kind: "say", text: "Created .claude/skills. Skills saved there work in every session in this project." },
+            { kind: "tool", name: "Bash", arg: "mkdir -p .claude/skills/code-review", result: "(No content)" },
+            { kind: "tool", name: "Bash", arg: "ls .claude/skills/", result: "code-review" },
+            { kind: "say", text: "Created .claude/skills/code-review. Each skill gets its own folder, with a SKILL.md\nfile inside that works in every session in this project." },
           ],
         },
         appDemo: {
@@ -906,7 +906,7 @@ npx serve .`,
             },
             {
               role: "claude",
-              text: "In VS Code/Cursor, create a file at `.claude/skills/code-review.md` in your project root. I can create it for you right now, just confirm and I'll write the skill definition.",
+              text: "In VS Code/Cursor, create a file at `.claude/skills/code-review/SKILL.md` in your project root. I can create it for you right now, just confirm and I'll write the skill definition.",
             },
           ],
         },
@@ -916,7 +916,12 @@ npx serve .`,
         description:
           "Create a markdown file that tells Claude exactly how to review code. This is where the magic happens. You define the rules, the format, the tone, everything.",
         code: {
-          snippet: `cat > .claude/skills/code-review.md << 'EOF'
+          snippet: `cat > .claude/skills/code-review/SKILL.md << 'EOF'
+---
+name: code-review
+description: Review code changes for security, performance, error handling and naming. Use when asked to review code or recent changes.
+---
+
 # Code Review Skill
 
 When asked to review code, follow this process:
@@ -951,12 +956,12 @@ EOF`,
           steps: [
             {
               type: "cmd",
-              text: "cat > .claude/skills/code-review.md << 'EOF'",
+              text: "cat > .claude/skills/code-review/SKILL.md << 'EOF'",
             },
             { type: "out", text: "# Code Review Skill", delay: 300 },
             { type: "out", text: "...(writing skill definition)..." },
             { type: "out", text: "EOF" },
-            { type: "success", text: "Created .claude/skills/code-review.md" },
+            { type: "success", text: "Created .claude/skills/code-review/SKILL.md" },
             { type: "out", text: "" },
             {
               type: "warn",
@@ -971,9 +976,14 @@ EOF`,
             {
               kind: "tool",
               name: "Write",
-              arg: ".claude/skills/code-review.md",
-              result: "Wrote 12 lines to .claude/skills/code-review.md",
+              arg: ".claude/skills/code-review/SKILL.md",
+              result: "Wrote 17 lines to .claude/skills/code-review/SKILL.md",
               lines: [
+                "---",
+                "name: code-review",
+                "description: Review code changes for security, performance, error handling and naming. Use when asked to review code or recent changes.",
+                "---",
+                "",
                 "# Code Review Skill",
                 "",
                 "When asked to review code, follow this process:",
@@ -1007,11 +1017,11 @@ EOF`,
           steps: [
             {
               role: "user",
-              text: "Create `.claude/skills/code-review.md` with a skill that checks for security issues, performance problems, and missing error handling. Rate each CRITICAL/HIGH/MEDIUM/LOW with file, line, and fix.",
+              text: "Create `.claude/skills/code-review/SKILL.md` with a skill that checks for security issues, performance problems, and missing error handling. Rate each CRITICAL/HIGH/MEDIUM/LOW with file, line, and fix.",
             },
             {
               role: "claude",
-              text: 'Creating `.claude/skills/code-review.md` now...\n\nDone. The skill is saved. From now on, any time you ask me to "review recent changes" or invoke `/code-review`, I\'ll follow your format exactly.\n\nWant to test it on your current diff?',
+              text: 'Creating `.claude/skills/code-review/SKILL.md` now...\n\nDone. The skill is saved. From now on, any time you ask me to "review recent changes" or invoke `/code-review`, I\'ll follow your format exactly.\n\nWant to test it on your current diff?',
             },
           ],
         },
@@ -1046,7 +1056,7 @@ EOF`,
         cliDemo: {
           steps: [
             { kind: "prompt", text: "review my recent changes" },
-            { kind: "tool", name: "Read", arg: ".claude/skills/code-review.md", result: "Read 12 lines" },
+            { kind: "tool", name: "Read", arg: ".claude/skills/code-review/SKILL.md", result: "Read 17 lines" },
             { kind: "tool", name: "Bash", arg: "git diff HEAD~1 --stat", result: "4 files changed, 61 insertions(+), 9 deletions(-)" },
             { kind: "thinking", verb: "Reviewing", ms: 900 },
             { kind: "say", text: "CRITICAL  src/api/auth.ts:15\nAPI key hardcoded in source. Move it to an environment variable.\n\nHIGH  src/db/queries.ts:42\nN+1 query in the user listing. Use a JOIN or batch loading.\n\n2 issues: 1 critical, 1 high." },
@@ -1158,7 +1168,7 @@ EOF`,
           steps: [
             {
               type: "cmd",
-              text: 'echo "## Team-Specific Rules" >> .claude/skills/code-review.md',
+              text: 'echo "## Team-Specific Rules" >> .claude/skills/code-review/SKILL.md',
             },
             {
               type: "success",
@@ -1185,8 +1195,8 @@ EOF`,
             {
               kind: "tool",
               name: "Update",
-              arg: ".claude/skills/code-review.md",
-              result: "Updated .claude/skills/code-review.md with 7 additions",
+              arg: ".claude/skills/code-review/SKILL.md",
+              result: "Updated .claude/skills/code-review/SKILL.md with 7 additions",
               lines: [
                 "",
                 "## Team-Specific Rules",
@@ -1220,7 +1230,7 @@ EOF`,
             },
             {
               role: "claude",
-              text: "Added a `## Team Rules` section to `.claude/skills/code-review.md` with all five rules.\n\nNext time you run a review, I'll check for all of them. The file is updated and saved. It applies to every Claude Code session in this project.",
+              text: "Added a `## Team Rules` section to `.claude/skills/code-review/SKILL.md` with all five rules.\n\nNext time you run a review, I'll check for all of them. The file is updated and saved. It applies to every Claude Code session in this project.",
             },
           ],
         },
@@ -1342,8 +1352,13 @@ EOF`,
         description:
           "This skill tells Claude exactly how to parse meeting notes. It extracts action items, decides who owns them, estimates effort, and formats them as tickets.",
         code: {
-          snippet: `mkdir -p .claude/skills
-cat > .claude/skills/meeting-to-tickets.md << 'EOF'
+          snippet: `mkdir -p .claude/skills/meeting-to-tickets
+cat > .claude/skills/meeting-to-tickets/SKILL.md << 'EOF'
+---
+name: meeting-to-tickets
+description: Turn meeting notes into tickets with story points, labels and acceptance criteria. Use when given meeting notes.
+---
+
 # Meeting to Tickets Skill
 
 When given meeting notes, extract action items and convert them to structured tickets.
@@ -1381,7 +1396,7 @@ EOF`,
         demo: {
           title: "Skill created",
           steps: [
-            { type: "cmd", text: "cat > .claude/skills/meeting-to-tickets.md" },
+            { type: "cmd", text: "cat > .claude/skills/meeting-to-tickets/SKILL.md" },
             {
               type: "success",
               text: "Created meeting-to-tickets.md",
@@ -1402,13 +1417,18 @@ EOF`,
         cliDemo: {
           steps: [
             { kind: "prompt", text: "write a skill that turns meeting notes into tickets" },
-            { kind: "tool", name: "Bash", arg: "mkdir -p .claude/skills", result: "(No content)" },
+            { kind: "tool", name: "Bash", arg: "mkdir -p .claude/skills/meeting-to-tickets", result: "(No content)" },
             {
               kind: "tool",
               name: "Write",
-              arg: ".claude/skills/meeting-to-tickets.md",
-              result: "Wrote 11 lines to .claude/skills/meeting-to-tickets.md",
+              arg: ".claude/skills/meeting-to-tickets/SKILL.md",
+              result: "Wrote 16 lines to .claude/skills/meeting-to-tickets/SKILL.md",
               lines: [
+                "---",
+                "name: meeting-to-tickets",
+                "description: Turn meeting notes into tickets with story points, labels and acceptance criteria. Use when given meeting notes.",
+                "---",
+                "",
                 "# Meeting to Tickets Skill",
                 "",
                 "When given meeting notes, extract action items and convert them to tickets.",
@@ -1441,11 +1461,11 @@ EOF`,
           steps: [
             {
               role: "user",
-              text: "Create `.claude/skills/meeting-to-tickets.md` : a skill that extracts action items from meeting notes, groups them into tickets, estimates story points (1/2/3/5/8), assigns team labels (frontend/backend/mobile/design), writes 3+ acceptance criteria per ticket, and flags vague items.",
+              text: "Create `.claude/skills/meeting-to-tickets/SKILL.md` : a skill that extracts action items from meeting notes, groups them into tickets, estimates story points (1/2/3/5/8), assigns team labels (frontend/backend/mobile/design), writes 3+ acceptance criteria per ticket, and flags vague items.",
             },
             {
               role: "claude",
-              text: "Created `.claude/skills/meeting-to-tickets.md` with the full process definition.\n\nThe skill includes output formatting, estimation defaults, and the clarification flag rule. Ready to test. Paste your meeting notes.",
+              text: "Created `.claude/skills/meeting-to-tickets/SKILL.md` with the full process definition.\n\nThe skill includes output formatting, estimation defaults, and the clarification flag rule. Ready to test. Paste your meeting notes.",
             },
           ],
         },
@@ -1508,7 +1528,7 @@ onboarding flow - users are dropping off at step 3."`,
         cliDemo: {
           steps: [
             { kind: "prompt", text: "turn these notes into tickets: mobile pay button broken, Apple Pay by Q2, slow listing API, sale banner by Friday, onboarding drop-off" },
-            { kind: "tool", name: "Read", arg: ".claude/skills/meeting-to-tickets.md", result: "Read 11 lines" },
+            { kind: "tool", name: "Read", arg: ".claude/skills/meeting-to-tickets/SKILL.md", result: "Read 16 lines" },
             { kind: "thinking", verb: "Extracting", ms: 900 },
             { kind: "say", text: "5 tickets across 3 teams:\n- Bug: Fix mobile checkout pay button (3 pts, mobile, frontend)\n- Story: Add Apple Pay integration (8 pts, backend, mobile)\n- Task: Add product listing caching (5 pts, backend)\n- Task: Spring sale homepage banner (2 pts, frontend, due Friday)\n- Story: Fix onboarding step 3 drop-off (3 pts, needs clarification)\n\nEach one has 3 acceptance criteria." },
           ],
@@ -1818,8 +1838,13 @@ EOF`,
         description:
           "This skill teaches Claude the OST framework, covering how to extract opportunities from interviews, distinguish opportunities from solutions, and structure everything into a tree. This is the engine.",
         code: {
-          snippet: `mkdir -p .claude/skills
-cat > .claude/skills/discovery-ost.md << 'EOF'
+          snippet: `mkdir -p .claude/skills/discovery-ost
+cat > .claude/skills/discovery-ost/SKILL.md << 'EOF'
+---
+name: discovery-ost
+description: Extract opportunities from customer interviews and build an Opportunity Solution Tree. Use when given interview notes.
+---
+
 # Product Discovery : OST Skill
 
 Process customer interview data using Teresa Torres'
@@ -1869,7 +1894,7 @@ EOF`,
         demo: {
           title: "Discovery skill loaded",
           steps: [
-            { type: "cmd", text: "cat > .claude/skills/discovery-ost.md" },
+            { type: "cmd", text: "cat > .claude/skills/discovery-ost/SKILL.md" },
             { type: "success", text: "Created discovery-ost.md", delay: 300 },
             { type: "out", text: "  Framework: Opportunity Solution Trees" },
             {
@@ -1893,9 +1918,14 @@ EOF`,
             {
               kind: "tool",
               name: "Write",
-              arg: ".claude/skills/discovery-ost.md",
-              result: "Wrote 12 lines to .claude/skills/discovery-ost.md",
+              arg: ".claude/skills/discovery-ost/SKILL.md",
+              result: "Wrote 17 lines to .claude/skills/discovery-ost/SKILL.md",
               lines: [
+                "---",
+                "name: discovery-ost",
+                "description: Extract opportunities from customer interviews and build an Opportunity Solution Tree. Use when given interview notes.",
+                "---",
+                "",
                 "# Product Discovery: OST Skill",
                 "",
                 "Process interview data using Teresa Torres'",
@@ -1929,11 +1959,11 @@ EOF`,
           steps: [
             {
               role: "user",
-              text: "Create `.claude/skills/discovery-ost.md`. It should enforce: opportunities are customer needs only (not solutions), use customer language, anchor everything to the outcome in CLAUDE.md, output as markdown tree with 🎯/🔍/💡/🧪 icons.",
+              text: "Create `.claude/skills/discovery-ost/SKILL.md`. It should enforce: opportunities are customer needs only (not solutions), use customer language, anchor everything to the outcome in CLAUDE.md, output as markdown tree with 🎯/🔍/💡/🧪 icons.",
             },
             {
               role: "claude",
-              text: "Created `.claude/skills/discovery-ost.md` with the full OST process.\n\nKey constraint baked in: if I detect a solution masquerading as an opportunity, I'll flag it and reframe it as the underlying customer need. Ready for the interview data.",
+              text: "Created `.claude/skills/discovery-ost/SKILL.md` with the full OST process.\n\nKey constraint baked in: if I detect a solution masquerading as an opportunity, I'll flag it and reframe it as the underlying customer need. Ready for the interview data.",
             },
           ],
         },
@@ -2808,8 +2838,13 @@ EOF`,
         description:
           "This skill defines the exact structure of your status report. It tells Claude what sections to include, what tone to use, and how to handle missing information.",
         code: {
-          snippet: `mkdir -p .claude/skills
-cat > .claude/skills/weekly-status.md << 'EOF'
+          snippet: `mkdir -p .claude/skills/weekly-status
+cat > .claude/skills/weekly-status/SKILL.md << 'EOF'
+---
+name: weekly-status
+description: Generate a weekly status report for leadership. Use when asked for a weekly status or update.
+---
+
 # Weekly Status Report Skill
 
 Generate a weekly status report for leadership.
@@ -2862,7 +2897,7 @@ EOF`,
         demo: {
           title: "Skill created",
           steps: [
-            { type: "cmd", text: "cat > .claude/skills/weekly-status.md" },
+            { type: "cmd", text: "cat > .claude/skills/weekly-status/SKILL.md" },
             { type: "success", text: "Created weekly-status.md", delay: 300 },
             {
               type: "out",
@@ -2891,11 +2926,11 @@ EOF`,
           steps: [
             {
               role: "user",
-              text: "Create `.claude/skills/weekly-status.md`. Template: TL;DR with 🟢/🟡/🔴, per-project (this week / next week / risk), decisions needed. Rules: scannable, concrete numbers, bad news prominent.",
+              text: "Create `.claude/skills/weekly-status/SKILL.md`. Template: TL;DR with 🟢/🟡/🔴, per-project (this week / next week / risk), decisions needed. Rules: scannable, concrete numbers, bad news prominent.",
             },
             {
               role: "claude",
-              text: 'Created `.claude/skills/weekly-status.md`.\n\nThe skill is active for this project. Run it by saying "generate my weekly status" and giving me bullet points of what happened. I\'ll handle the formatting.',
+              text: 'Created `.claude/skills/weekly-status/SKILL.md`.\n\nThe skill is active for this project. Run it by saying "generate my weekly status" and giving me bullet points of what happened. I\'ll handle the formatting.',
             },
           ],
         },

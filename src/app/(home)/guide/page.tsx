@@ -583,11 +583,16 @@ npm run test   # Run tests
               <p className="mb-4 text-sm text-fd-muted-foreground">
                 A skill turns a multi-step task into a single command. Think about something you explain to Claude Code over and over. That&apos;s your first skill. Encode it once, run it forever:
               </p>
-              <CopyBlock code={'mkdir -p .claude/skills'} />
+              <CopyBlock code={'mkdir -p .claude/skills/code-review'} />
               <p className="my-4 text-sm text-fd-muted-foreground">
                 Create a simple skill file. Here&apos;s an example &quot;code review&quot; skill:
               </p>
-              <CopyBlock code={`# Code Review
+              <CopyBlock code={`---
+name: code-review
+description: Review the code I just changed for bugs, security and style. Use when I ask for a code review.
+---
+
+# Code Review
 
 Review the code I just changed for quality, bugs, and style.
 
@@ -600,7 +605,7 @@ Review the code I just changed for quality, bugs, and style.
 ## Output Format
 List each finding with the file, line, severity, and a one-line fix.`} language="markdown" />
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Save this as <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">.claude/skills/code-review.md</code>. Then try it:
+                Save this as <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">.claude/skills/code-review/SKILL.md</code>. Then try it:
               </p>
 
               <DemoCard title="Your skill in action" loop={false} steps={[
