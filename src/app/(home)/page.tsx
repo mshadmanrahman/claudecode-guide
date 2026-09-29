@@ -5,6 +5,7 @@ import { FieldNotes } from "@/components/home/field-notes";
 import { getLatestPosts, SUBSTACK_NAME } from "@/lib/substack";
 import { SceneBackdrop } from "@/components/scene-backdrop";
 import { AuthorPhoto } from "@/components/author-photo";
+import { SayHiPill } from "@/components/say-hi-pill";
 import { CountUp } from "@/components/home/count-up";
 import { KineticText } from "@/components/kinetic-text";
 
@@ -193,16 +194,24 @@ export default async function HomePage() {
           that setup, page by page, written for teachers, designers, marketers and HR teams as much as for engineers.
         </p>
 
-        <Link
-          href="/about"
-          className={`hm-rise [--d:0.75s] glass flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-4 text-left transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
-        >
-          <AuthorPhoto variant="avatar" size={36} priority />
-          <span className="flex flex-col leading-tight">
-            <span className="text-ui font-medium">Shadman Rahman</span>
-            <span className="text-caption text-[var(--muted)]">Principal PM, writes every page</span>
-          </span>
-        </Link>
+        <SayHiPill
+          href="https://www.linkedin.com/in/shadmanrahman/"
+          target="_blank"
+          rel="noopener noreferrer"
+          hoverText="Let's connect"
+          label="Shadman Rahman, principal PM, writes every page. Connect on LinkedIn."
+          className={`hm-rise [--d:0.75s] !w-[272px] ${focusRing}`}
+          idleClassName="justify-start gap-3 pl-1.5 pr-4 text-left"
+          idle={
+            <>
+              <AuthorPhoto variant="avatar" size={36} priority />
+              <span className="flex flex-col leading-tight">
+                <span className="text-ui font-medium">Shadman Rahman</span>
+                <span className="text-caption font-normal text-[var(--muted)]">Principal PM, writes every page</span>
+              </span>
+            </>
+          }
+        />
 
         <div className="hm-rise [--d:0.9s] flex w-full max-w-[520px] flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
           <Link

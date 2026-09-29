@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Check, Mail, Loader2 } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
@@ -127,14 +128,32 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
           disabled={status === 'loading'}
           className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-[var(--acc)] px-6 text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
-          {status === 'loading' ? (
-            <Loader2 className="h-3.5 w-3.5 animate-spin motion-reduce:animate-none" />
-          ) : (
-            <>
-              Subscribe
-              <ArrowRight className="h-3.5 w-3.5" />
-            </>
-          )}
+          <AnimatePresence mode="wait" initial={false}>
+            {status === 'loading' ? (
+              <motion.span
+                key="loading"
+                initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
+                transition={{ duration: 0.18 }}
+                className="inline-flex"
+              >
+                <Loader2 className="h-3.5 w-3.5 animate-spin motion-reduce:animate-none" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="idle"
+                initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
+                transition={{ duration: 0.18 }}
+                className="inline-flex items-center gap-2"
+              >
+                Subscribe
+                <ArrowRight className="h-3.5 w-3.5" />
+              </motion.span>
+            )}
+          </AnimatePresence>
         </button>
       </form>
       {status === 'error' && (

@@ -155,7 +155,7 @@ export default async function HrGuidePage({
             <p className="text-[11px] font-semibold uppercase tracking-wide text-fd-muted-foreground font-mono">
               The difference one prompt makes
             </p>
-            <div className="rounded-xl border border-[var(--line)] bg-[var(--code)] p-5">
+            <div className="rounded-xl border border-[var(--line)] bg-fd-background p-5">
               <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-red-700 dark:text-red-300  font-mono">
                 Don&apos;t
               </p>
@@ -163,7 +163,7 @@ export default async function HrGuidePage({
                 {guide.promptContrast.bad}
               </p>
             </div>
-            <div className="rounded-xl border border-[var(--line)] bg-[var(--chip)] p-5">
+            <div className="rounded-xl border border-[var(--acc)]/40 bg-fd-background p-5">
               <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-[var(--acc)]  font-mono">
                 Do this
               </p>
@@ -181,9 +181,12 @@ export default async function HrGuidePage({
           </div>
         )}
 
-        <div className="space-y-16">
+        <div className="space-y-8">
           {guide.steps.map((step, index) => (
-            <section key={index}>
+            <section
+              key={index}
+              className="rounded-xl border border-fd-border bg-[var(--glass)] p-5 backdrop-blur-[16px] backdrop-saturate-[1.2] sm:p-6"
+            >
               <div className="flex items-start gap-4 mb-4">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--code)] text-sm font-medium text-fd-muted-foreground">
                   {index + 1}
@@ -210,7 +213,7 @@ export default async function HrGuidePage({
                 </div>
               </div>
               {step.code && (
-                <div className="ml-12 mt-4">
+                <div className="mt-4 sm:ml-12">
                   <CopyBlock
                     code={step.code.snippet}
                     language={step.code.language}
