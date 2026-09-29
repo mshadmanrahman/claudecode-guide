@@ -82,7 +82,7 @@ export function CopyBlock({ code, language = 'bash', title = 'Prompt', hint = 'P
             return (
               <motion.span
                 key={i}
-                className="inline-block rounded-md align-baseline"
+                className="inline-block max-w-full rounded-md align-baseline"
                 animate={
                   inView && !reduce
                     ? {
@@ -103,7 +103,7 @@ export function CopyBlock({ code, language = 'bash', title = 'Prompt', hint = 'P
                   placeholder={part}
                   aria-label={`Fill in ${part.slice(1, -1)}`}
                   size={Math.max(part.length, (values[i] ?? '').length, 6)}
-                  className="rounded-md border-b border-dashed border-[var(--acc)] bg-[color-mix(in_srgb,var(--acc)_12%,transparent)] px-1.5 py-0 text-sm text-[var(--acc)] placeholder:text-[var(--acc)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--acc)]"
+                  className="max-w-full text-ellipsis rounded-md border-b border-dashed border-[var(--acc)] bg-[color-mix(in_srgb,var(--acc)_12%,transparent)] px-1.5 py-0 text-sm text-[var(--acc)] placeholder:text-[var(--acc)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--acc)]"
                 />
               </motion.span>
             );
