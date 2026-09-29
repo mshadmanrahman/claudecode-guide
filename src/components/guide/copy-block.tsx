@@ -9,17 +9,22 @@ import { useInView } from '@/hooks/use-in-view';
 interface CopyBlockProps {
   code: string;
   language?: string;
+  /** Header label for prompt cards, for example "prompt 1 of 2". */
+  title?: string;
+  /** Small text beside the title. Defaults to "Paste into Claude". */
+  hint?: string;
+  onCopy?: () => void;
 }
 
 const PLACEHOLDER = /(\[[^\]\n]+\])/g;
 const isPlaceholder = (part: string) => /^\[[^\]\n]+\]$/.test(part);
 
-export function CopyBlock({ code, language = 'bash' }: CopyBlockProps) {
+export function CopyBlock({ code, language = 'bash', title = 'Prompt', hint = 'Paste into Claude', onCopy }: CopyBlockProps) {
   const [copied, setCopied] = useState(false);
   const [values, setValues] = useState<Record<number, string>>({});
   const [ref, inView] = useInView(0.4);
   const reduce = useReducedMotion();
-  const isPrompt = language === 'text';
+  const isPrompt = language === 'text' || language === 'prompt';
   const parts = useMemo(() => code.split(PLACEHOLDER), [code]);
 
   const finalText = () =>
@@ -28,6 +33,7 @@ export function CopyBlock({ code, language = 'bash' }: CopyBlockProps) {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(finalText());
     setCopied(true);
+    onCopy?.();
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -46,8 +52,8 @@ export function CopyBlock({ code, language = 'bash' }: CopyBlockProps) {
       >
         <div className="flex items-center gap-2.5 border-b border-[var(--line)] px-4 py-2.5">
           <ClaudeMark className="h-5 w-5 shrink-0" />
-          <span className="text-sm font-medium text-fd-foreground">Prompt</span>
-          <span className="hidden text-xs text-fd-muted-foreground sm:inline">Paste into Claude</span>
+          <span className="text-sm font-medium text-fd-foreground">{title}</span>
+          <span className="hidden text-xs text-fd-muted-foreground sm:inline">{hint}</span>
           <button
             type="button"
             onClick={handleCopy}

@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AppChatDemo, type ChatStep } from '@/components/app-chat-demo';
+import type { ChatStep } from '@/components/app-chat-demo';
+import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
+import { chatToSession } from '@/components/tutorial-step-demo';
 import {
   DESIGNER_ROUTE_CHANGE_EVENT,
   readSavedDesignerRoute,
@@ -35,11 +37,13 @@ export function DesignerStepDemo({ appDemo, desktopDemo }: DesignerStepDemoProps
     return () => window.removeEventListener(DESIGNER_ROUTE_CHANGE_EVENT, onRouteChange);
   }, []);
 
-  const desktop = desktopDemo ? (
-    <AppChatDemo steps={desktopDemo.steps} loop={false} variant="desktop" folder={desktopDemo.folder} />
-  ) : null;
-  const web = appDemo ? <AppChatDemo steps={appDemo.steps} loop={false} variant="app" /> : null;
+  const demo = route === 'desktop' ? (desktopDemo ?? appDemo) : (appDemo ?? desktopDemo);
+  if (!demo) return null;
 
-  // Show the chosen surface, and fall back to the other when a step has only one.
-  return route === 'desktop' ? (desktop ?? web) : (web ?? desktop);
+  return (
+    <div className="min-w-0">
+      <p className="m-0 mb-2 font-mono text-xs text-[var(--muted)]">what you should see</p>
+      <ClaudeDesktopCodeMock steps={chatToSession(demo.steps)} folder={demo.folder} />
+    </div>
+  );
 }

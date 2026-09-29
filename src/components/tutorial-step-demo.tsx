@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { AppChatDemo, type ChatStep } from '@/components/app-chat-demo';
 import { CopyBlock } from '@/components/guide/copy-block';
@@ -39,44 +37,9 @@ interface TutorialStepBodyProps {
  * sent, each reply arrives after a short think. Steps with a hand-written
  * cliDemo get tool rows too; this keeps every other step on the same mock.
  */
-function chatToSession(steps: ChatStep[]): CliStep[] {
+export function chatToSession(steps: ChatStep[]): CliStep[] {
   return steps.flatMap((s): CliStep[] =>
     s.role === 'user' ? [{ kind: 'prompt', text: s.text }] : [{ kind: 'thinking', ms: 900 }, { kind: 'say', text: s.text }],
-  );
-}
-
-function PromptBlock({ text, label }: { text: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-
-  async function handleCopy() {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard blocked: the text stays selectable.
-    }
-  }
-
-  return (
-    <div className="glass overflow-hidden rounded-lg">
-      <div className="flex items-center justify-between border-b border-[var(--line)] bg-[var(--code)] px-4 py-2">
-        <span className="font-mono text-xs text-[var(--muted)]">{label}</span>
-        <button
-          type="button"
-          onClick={handleCopy}
-          className="flex items-center gap-1.5 rounded px-2 py-1 text-xs text-[var(--muted)] transition-colors hover:bg-[var(--chip)] hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
-        >
-          {copied ? (
-            <Check className="h-3 w-3 text-[var(--acc)]" aria-hidden="true" />
-          ) : (
-            <Copy className="h-3 w-3" aria-hidden="true" />
-          )}
-          <span aria-live="polite">{copied ? 'Copied' : 'Copy prompt'}</span>
-        </button>
-      </div>
-      <p className="m-0 whitespace-pre-wrap break-words p-4 text-ui leading-relaxed">{text}</p>
-    </div>
   );
 }
 
@@ -123,10 +86,11 @@ export function TutorialStepBody({
     <div className="flex min-w-0 flex-col gap-4">
       {showPrompts &&
         prompts.map((text, i) => (
-          <PromptBlock
+          <CopyBlock
             key={i}
-            text={text}
-            label={prompts.length > 1 ? `prompt ${i + 1} of ${prompts.length}` : 'prompt'}
+            code={text}
+            language="prompt"
+            title={prompts.length > 1 ? `Prompt ${i + 1} of ${prompts.length}` : 'Prompt'}
           />
         ))}
       {showCode && code && (
