@@ -1,6 +1,8 @@
 'use client';
 
-import { AppChatDemo, type ChatStep } from '@/components/app-chat-demo';
+import type { ChatStep } from '@/components/app-chat-demo';
+import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
+import { chatToSession } from '@/lib/chat-session';
 import { useInView } from '@/hooks/use-in-view';
 
 const GRANOLA_AFFILIATE = 'https://www.granola.ai?via=shadman-rahman';
@@ -108,7 +110,7 @@ export function PmPilotTopSkills() {
             demoInView ? 'animate-slide-up-fade' : 'opacity-0'
           }`}
         >
-          <AppChatDemo steps={WEEKLY_STATUS_STEPS} loop loopDelay={4000} />
+          <ClaudeDesktopCodeMock steps={chatToSession(WEEKLY_STATUS_STEPS)} loop />
         </div>
       </div>
     </section>

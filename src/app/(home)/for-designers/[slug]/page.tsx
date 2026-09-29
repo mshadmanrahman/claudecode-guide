@@ -249,7 +249,7 @@ export default async function DesignerGuidePage({
                 </div>
               ) : (step.appDemo ?? step.desktopDemo) ? (
                 <div className="mt-4">
-                  <DesignerStepDemo appDemo={step.appDemo} desktopDemo={step.desktopDemo} />
+                  <DesignerStepDemo appDemo={step.appDemo} desktopDemo={step.desktopDemo} skipPrompts={Boolean(step.code)} />
                 </div>
               ) : null}
             </section>

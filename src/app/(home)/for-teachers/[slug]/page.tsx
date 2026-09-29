@@ -222,6 +222,7 @@ export default async function TeacherGuidePage({
                 <div className="ml-12 mt-4">
                   <DesignerStepDemo
                     appDemo={step.appDemo}
+                    skipPrompts={Boolean(step.code)}
                   />
                 </div>
               )}

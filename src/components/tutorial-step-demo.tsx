@@ -6,6 +6,7 @@ import { CopyBlock } from '@/components/guide/copy-block';
 import { useTutorialRoute, type TutorialRoute } from '@/components/route-switcher';
 import { ClaudeCodeMock, type CliStep } from '@/components/claude-code-mock';
 import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
+import { chatToSession } from '@/lib/chat-session';
 
 interface DemoData {
   title?: string;
@@ -30,17 +31,6 @@ interface TutorialStepBodyProps {
   cliDemo?: { steps: CliStep[] };
   /** Used as the desktop mock's session title. */
   title?: string;
-}
-
-/**
- * A chat script replayed as a Claude Code session: each user turn is typed and
- * sent, each reply arrives after a short think. Steps with a hand-written
- * cliDemo get tool rows too; this keeps every other step on the same mock.
- */
-export function chatToSession(steps: ChatStep[]): CliStep[] {
-  return steps.flatMap((s): CliStep[] =>
-    s.role === 'user' ? [{ kind: 'prompt', text: s.text }] : [{ kind: 'thinking', ms: 900 }, { kind: 'say', text: s.text }],
-  );
 }
 
 /**

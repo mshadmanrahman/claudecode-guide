@@ -220,7 +220,7 @@ export default async function ChromeGuidePage({
 
               {step.appDemo && (
                 <div className="ml-12 mt-4">
-                  <DesignerStepDemo appDemo={step.appDemo} />
+                  <DesignerStepDemo appDemo={step.appDemo} skipPrompts={Boolean(step.code)} />
                 </div>
               )}
             </section>

@@ -1,5 +1,7 @@
 import Link from 'next/link';
-import { AppChatDemo, type ChatStep } from '@/components/app-chat-demo';
+import type { ChatStep } from '@/components/app-chat-demo';
+import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
+import { chatToSession } from '@/lib/chat-session';
 import { FloatingCard } from '@/components/floating-card';
 import { Clock, FileText, BarChart3, ArrowRight } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
@@ -85,7 +87,7 @@ export function PmPilotHero() {
             </div>
           </FloatingCard>
 
-          <AppChatDemo steps={HERO_STEPS} loop loopDelay={4000} />
+          <ClaudeDesktopCodeMock steps={chatToSession(HERO_STEPS)} loop />
         </div>
       </div>
     </section>
