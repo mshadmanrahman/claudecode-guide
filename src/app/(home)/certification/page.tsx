@@ -6,6 +6,7 @@ import { EmailCapture } from '@/components/email-capture';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
+import { ogImage } from '@/lib/og/image';
 const ANNOUNCEMENT_URL = 'https://claude.com/blog/four-role-based-claude-certifications';
 const ANNOUNCEMENT_DATE = '23 July 2026';
 const CATALOGUE_URL = 'https://anthropic-partners.skilljar.com/page/partner-certifications';
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
     'The four Claude certifications cost $99 to $175, run 120 minutes through Pearson, and need a passing score of 720. Registration requires a partner email address.',
   alternates: { canonical: 'https://claudecodeguide.dev/certification' },
   openGraph: {
+    images: [ogImage('certification', 'Claude Certification')],
     title: 'Claude Certification: Four Credentials, Prices, and Who Can Sit Them',
     description:
       'Prices, exam length, passing score, retake rules, and the partner email requirement that stops most people registering.',

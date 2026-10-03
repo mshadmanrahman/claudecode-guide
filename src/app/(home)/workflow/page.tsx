@@ -6,6 +6,7 @@ import { LoopDiagram } from '@/components/workflow/loop-diagram';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
+import { ogImage } from '@/lib/og/image';
 const description =
   'Five moments in a workday where Claude saves you time, with a prompt to copy for each. For designers, teachers, marketers, HR teams and PMs.';
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
   title: 'Claude in Your Day',
   description,
   openGraph: {
+    images: [ogImage('workflow', 'Claude in Your Day')],
     title: 'Claude in Your Day',
     description,
     type: 'website',

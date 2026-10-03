@@ -7,6 +7,7 @@ import { GeistMono } from "geist/font/mono";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { ogImage } from "@/lib/og/image";
 
 const siteUrl = "https://claudecodeguide.dev";
 
@@ -29,21 +30,13 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Claude Code Guide",
     url: siteUrl,
-    images: [
-      {
-        url: `${siteUrl}/api/og`,
-        width: 1200,
-        height: 630,
-        alt: "Claude Code Guide: Tell it what you need. It builds it.",
-      },
-    ],
+    images: [ogImage("")],
   },
   twitter: {
     card: "summary_large_image",
     title: "Claude Code Guide",
     description:
       "Claude Code is Anthropic's AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.",
-    images: [`${siteUrl}/api/og`],
   },
   keywords: [
     "claude code",

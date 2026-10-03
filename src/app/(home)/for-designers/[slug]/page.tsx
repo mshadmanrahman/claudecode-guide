@@ -11,6 +11,7 @@ import { DesignerRouteSwitcher } from '@/components/designer-route-switcher';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
 import { AuthorBio } from '@/components/author-bio';
+import { ogImage } from '@/lib/og/image';
 
 /* ------------------------------------------------------------------ */
 /*  Metadata                                                           */
@@ -37,13 +38,12 @@ export async function generateMetadata({
       description: guide.description,
       type: 'article',
       url: canonicalUrl,
-      images: [{ url: '/api/og', width: 1200, height: 630 }],
+      images: [ogImage(`for-designers/${slug}`, guide.title)],
     },
     twitter: {
       card: 'summary_large_image',
       title: guide.title,
       description: guide.description,
-      images: ['/api/og'],
     },
   };
 }

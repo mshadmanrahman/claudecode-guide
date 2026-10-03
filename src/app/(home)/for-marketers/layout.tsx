@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { SceneBackdrop } from '@/components/scene-backdrop';
+import { ogImage } from '@/lib/og/image';
 
 const ogTitle =
   'Claude for Marketers: Social Media, Blog Posts, Email Campaigns, and Ad Copy';
@@ -15,14 +16,7 @@ export const metadata: Metadata = {
     title: ogTitle,
     description: ogDescription,
     type: 'website',
-    images: [
-      {
-        url: `https://claudecodeguide.dev/api/og?title=${encodeURIComponent(ogTitle)}&description=${encodeURIComponent(ogDescription)}`,
-        width: 1200,
-        height: 630,
-        alt: ogTitle,
-      },
-    ],
+    images: [ogImage('for-marketers', ogTitle)],
   },
 };
 

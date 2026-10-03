@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import { SkillExample } from '@/components/pm-pilot-docs/skill-example';
 import { GitHubCta } from '@/components/pm-pilot-docs/github-cta';
+import { ogImage } from '@/lib/og/image';
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
@@ -106,5 +107,8 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     title: `${data.title as string} - PM Pilot`,
     description: data.description as string | undefined,
     alternates: { canonical: canonicalUrl },
+    openGraph: {
+      images: [ogImage(slug.length === 0 ? 'pm-pilot/guide' : `pm-pilot/guide/${slug.join('/')}`, data.title as string)],
+    },
   };
 }

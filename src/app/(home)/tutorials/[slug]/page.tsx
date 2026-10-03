@@ -14,6 +14,7 @@ import { AuthorBio } from "@/components/author-bio";
 import { TUTORIALS } from "@/lib/tutorials";
 import { ArticleSchema } from "@/components/article-schema";
 import { findTrackPosition, pad2, type CatalogEntry } from "../catalog";
+import { ogImage } from "@/lib/og/image";
 
 const ALL_SLUGS = Object.keys(TUTORIALS);
 
@@ -52,13 +53,12 @@ export async function generateMetadata({
       description: tutorial.description,
       type: "article",
       url: canonicalUrl,
-      images: [{ url: "/api/og", width: 1200, height: 630 }],
+      images: [ogImage(`tutorials/${slug}`, tutorial.title)],
     },
     twitter: {
       card: "summary_large_image",
       title: seoTitle,
       description: tutorial.description,
-      images: ["/api/og"],
     },
   };
 }

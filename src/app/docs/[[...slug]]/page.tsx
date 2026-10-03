@@ -46,6 +46,7 @@ import { getAffiliateCtasForPage } from "@/lib/affiliate-cta-config";
 import { getComparisonArticleMetadata } from "@/lib/comparison-article";
 import { getPageNavigation, getSections } from "@/lib/docs-navigation";
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og/image";
 
 const mdxComponents = {
   ...defaultMdxComponents,
@@ -266,6 +267,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       description:
         "Everything you need to know about Claude Code, organized by topic.",
       alternates: { canonical: "https://claudecodeguide.dev/docs" },
+      openGraph: { images: [ogImage("docs", "Documentation")] },
     };
   }
 
@@ -273,7 +275,6 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   if (!page) notFound();
 
   const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
-  const ogImage = (page.data as { image?: string }).image ?? "/api/og";
 
   return {
     title: page.data.title,
@@ -284,13 +285,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       description: page.data.description,
       type: "article",
       url: canonicalUrl,
-      images: [{ url: ogImage, width: 1200, height: 630 }],
+      images: [ogImage(`docs/${params.slug.join("/")}`, page.data.title)],
     },
     twitter: {
       card: "summary_large_image",
       title: page.data.title,
       description: page.data.description,
-      images: [ogImage],
     },
   };
 }

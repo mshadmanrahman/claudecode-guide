@@ -16,6 +16,7 @@ import type { Metadata } from "next";
 import { ArticleSchema } from "@/components/article-schema";
 import { ArticleHeader } from "@/components/docs/article-header";
 import { SceneBackdrop } from "@/components/scene-backdrop";
+import { ogImage } from "@/lib/og/image";
 
 const DESIGNER_RELEVANT_SLUGS = new Set([
   "claude-code-for-non-engineers",
@@ -81,13 +82,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
-      images: [{ url: "/api/og", width: 1200, height: 630 }],
+      images: [ogImage(`blog/${post.slug}`, post.title)],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: ["/api/og"],
     },
   };
 }

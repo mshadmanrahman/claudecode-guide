@@ -10,6 +10,7 @@ import { PmPilotMemorySystem } from '@/components/pm-pilot/memory-system';
 import { PmPilotWhyExists } from '@/components/pm-pilot/why-exists';
 import { PmPilotGuideCta } from '@/components/pm-pilot/guide-cta';
 import { PmPilotFooter } from '@/components/pm-pilot/footer';
+import { ogImage } from '@/lib/og/image';
 
 const siteUrl = 'https://claudecodeguide.dev';
 
@@ -24,21 +25,13 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'Claude Code Guide',
     url: `${siteUrl}/pm-pilot`,
-    images: [
-      {
-        url: `${siteUrl}/og-pm-pilot.png`,
-        width: 1200,
-        height: 630,
-        alt: 'PM Pilot - meeting prep, PRDs, and status reports for product managers',
-      },
-    ],
+    images: [ogImage('pm-pilot', 'PM Pilot')],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'PM Pilot - Meeting Prep, PRDs, and Status Reports on Autopilot',
     description:
       'Built by a PM who was tired of context-switching. Works with ChatGPT, Claude, Gemini. Free and open source.',
-    images: [`${siteUrl}/og-pm-pilot.png`],
   },
   keywords: [
     'pm pilot',

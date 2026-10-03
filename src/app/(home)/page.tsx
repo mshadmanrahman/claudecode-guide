@@ -8,16 +8,12 @@ import { AuthorPhoto } from "@/components/author-photo";
 import { SayHiPill } from "@/components/say-hi-pill";
 import { CountUp } from "@/components/home/count-up";
 import { KineticText } from "@/components/kinetic-text";
+import { ogImage } from "@/lib/og/image";
 
 const heroTagline = "The Claude Code setup I actually run.";
 const heroMetaDescription =
   "The practitioner's guide to Claude Code, from the setup Shadman Rahman runs daily at work: CLAUDE.md patterns, a 966-file memory system, hooks, skills and workflows. Written so non-engineers can follow too. Free.";
-const ogImage = {
-  url: "https://claudecodeguide.dev/api/og",
-  width: 1200,
-  height: 630,
-  alt: "Claude Code Guide homepage",
-};
+const homeOg = ogImage("", heroTagline);
 
 export const metadata: Metadata = {
   title: {
@@ -30,13 +26,12 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Claude Code Guide",
     url: "https://claudecodeguide.dev",
-    images: [ogImage],
+    images: [homeOg],
   },
   twitter: {
     card: "summary_large_image",
     title: heroTagline,
     description: heroMetaDescription,
-    images: [ogImage],
   },
 };
 
