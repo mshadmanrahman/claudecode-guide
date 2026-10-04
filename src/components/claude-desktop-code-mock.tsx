@@ -25,6 +25,71 @@ export interface DesktopClock {
   starts: number[];
 }
 
+/** The model and effort picker beside the send button, and which of its menus is open. */
+export interface PickerState {
+  model: string;
+  effort: string;
+  menu?: 'model' | 'effort' | null;
+  /** The chip being clicked right now, drawn pressed. */
+  press?: 'model' | 'effort' | null;
+  /** The model row under the pointer while the model menu is open. */
+  hover?: string;
+  /** Slider thumb position, 0 (low) to 4 (max), fractional while it moves. */
+  slider?: number;
+}
+
+const MODELS = ['Fable 5.1', 'Opus 5.5', 'Sonnet 5.5', 'Haiku 4.5'];
+const EFFORTS = ['low', 'medium', 'high', 'xhigh', 'max'];
+
+function Picker({ p }: { p: PickerState }) {
+  const chip = (which: 'model' | 'effort') =>
+    `rounded-md px-1.5 py-0.5 transition-[transform,background-color] duration-150 ${
+      p.menu === which ? 'bg-[var(--cm-bubble)] text-[var(--cm-ink)]' : ''
+    } ${p.press === which ? 'scale-95' : ''}`;
+  const pos = p.slider ?? EFFORTS.indexOf(p.effort);
+  return (
+    <span className="relative ml-auto flex items-center gap-0.5">
+      <span className={chip('model')}>{p.model}</span>
+      <span className={chip('effort')}>{p.effort}</span>
+      {p.menu === 'model' ? (
+        <span className="cc-in absolute bottom-full right-0 z-10 mb-2 w-[170px] rounded-lg border border-[var(--cm-line)] bg-[var(--cm-card)] p-1 text-[12.5px] text-[var(--cm-ink)] shadow-lg">
+          {MODELS.map((m) => (
+            <span
+              key={m}
+              className={`flex items-center justify-between rounded-md px-2 py-1 ${p.hover === m ? 'bg-[var(--cm-bubble)]' : ''}`}
+            >
+              {m}
+              {m === p.model ? <span style={{ color: ORANGE }}>✓</span> : null}
+            </span>
+          ))}
+        </span>
+      ) : null}
+      {p.menu === 'effort' ? (
+        <span className="cc-in absolute bottom-full right-0 z-10 mb-2 w-[230px] rounded-lg border border-[var(--cm-line)] bg-[var(--cm-card)] px-3 pb-2 pt-2.5 text-[var(--cm-ink)] shadow-lg">
+          <span className="block text-[12px] font-medium">Effort</span>
+          <span className="relative mx-1.5 mt-3 block h-1 rounded-full bg-[var(--cm-line)]">
+            <span className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${(pos / 4) * 100}%`, background: ORANGE }} />
+            {EFFORTS.map((e, i) => (
+              <span key={e} className="absolute top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cm-muted)]" style={{ left: `${(i / 4) * 100}%` }} />
+            ))}
+            <span
+              className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-white shadow"
+              style={{ left: `${(pos / 4) * 100}%`, borderColor: ORANGE }}
+            />
+          </span>
+          <span className="mt-2 flex justify-between text-[10.5px] text-[var(--cm-muted)]">
+            {EFFORTS.map((e, i) => (
+              <span key={e} className={Math.round(pos) === i ? 'font-medium text-[var(--cm-ink)]' : ''}>
+                {e}
+              </span>
+            ))}
+          </span>
+        </span>
+      ) : null}
+    </span>
+  );
+}
+
 interface ClaudeDesktopCodeMockProps {
   steps: CliStep[];
   title?: string;
@@ -41,6 +106,8 @@ interface ClaudeDesktopCodeMockProps {
   fill?: (c: DesktopClock) => string | undefined;
   /** Extra time to hold after the last step, for extras that keep moving. */
   tailMs?: number;
+  /** Draws the model and effort picker as a scripted state instead of the plain model label. */
+  picker?: (c: DesktopClock) => PickerState;
 }
 
 const LINE_MS = 110;
@@ -142,6 +209,7 @@ export function ClaudeDesktopCodeMock({
   status,
   fill,
   tailMs = 0,
+  picker,
 }: ClaudeDesktopCodeMockProps) {
   const { t, starts, containerRef, viewportRef, contentRef, offset } = useSessionClock(steps, loop, tailMs);
   const clock = { t, starts };
@@ -313,7 +381,7 @@ export function ClaudeDesktopCodeMock({
               <div className="mt-2 flex items-center gap-2 text-[11.5px] text-[var(--cm-muted)]">
                 <span className="text-[16px] leading-none">+</span>
                 <span className="rounded-md bg-[var(--cm-bubble)] px-1.5 py-0.5">Accept edits</span>
-                <span className="ml-auto hidden sm:inline">Opus 5.5</span>
+                {picker ? <Picker p={picker(clock)} /> : <span className="ml-auto hidden sm:inline">Opus 5.5</span>}
                 <span
                   className="flex h-6 w-6 items-center justify-center rounded-[6px] transition-transform duration-200"
                   style={{ background: ORANGE, transform: sending ? 'scale(0.88)' : 'none' }}

@@ -18,16 +18,11 @@ So the dial you reach for first is effort, not the model. If a task is simple, `
 
 From Anthropic's [models overview](https://platform.claude.com/docs/en/about-claude/models/overview), checked 4 October 2026. Opus costs 2x Sonnet ($4 / $2 = 2), and Fable costs 2.5x Opus ($10 / $4 = 2.5).
 
-<ClaudeCodeMock steps={[
-  { kind: 'prompt', text: '/model sonnet' },
-  { kind: 'output', text: 'Set model to Sonnet 5.5' },
-  { kind: 'prompt', text: '/model haiku' },
-  { kind: 'output', text: 'Set model to Haiku 4.5' },
-  { kind: 'prompt', text: '/model opus' },
-  { kind: 'output', text: 'Set model to Opus 5.5' },
-]} />
+<ModelPickerMock />
 
-The banner shows the default, Opus 5.5. Type `/model` on its own to pick from the full list.
+In the desktop app, the model and effort sit beside the send button, and both are clickable. Click the model name to get the list of models. Click the effort level to open a slider that runs from `low` to `max`.
+
+In the terminal, `/model` and `/effort` do the same job.
 
 ## When to Use the Fable Class
 
@@ -85,6 +80,8 @@ On **Claude Max** (from $100/month) you get 5x or 20x the usage of Pro. Get here
 On the **API** (pay per use) you pick the model per request. Full control, full responsibility for the bill.
 
 ### Switching Models Mid-Session
+
+In the app, use the picker beside the send button, as in the session above. In the terminal, type:
 
 ```bash
 /effort low     # Same model, less thinking, lower cost
