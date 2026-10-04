@@ -27,15 +27,17 @@ Not "improve the dashboard" but "add a bar chart showing monthly revenue to the 
 
 "Make the settings page work like the profile page" is worth more than a paragraph explaining your preferred layout. Claude Code reads your codebase. Use that. Point at things that already exist.
 
-**Rule 3: Set the boundaries.**
+**Rule 3: Set the boundaries, and say why.**
 
-"Add error handling to the checkout flow. Don't change the payment provider integration." Telling Claude Code what NOT to touch is often more valuable than explaining what to do. Scope is everything. Without it, things sprawl.
+"Add error handling to the checkout flow. Leave the payment provider integration alone, because finance is auditing it this week." Naming what's out of scope stops the sprawl. The reason does more work than it looks: Anthropic's prompting guide says context or motivation behind an instruction helps Claude understand the goal, and a bare "don't" gives it nothing to reason from when a case you didn't foresee comes up.
 
-## The "Spec Dump" Mistake
+## Brief once, check at the joints
 
-I see this constantly. Someone pastes an entire PRD into a single prompt. 2,000 words of requirements, acceptance criteria, edge cases, API contracts. All at once.
+This page used to call the long prompt a mistake. The Claude 5 models changed that. Anthropic's Opus 5 guide says the model "performs best when given the complete task specification up front and left to run." So write the whole brief once: the outcome, what's out of scope, and what done looks like.
 
-What happens? Claude Code tries to do everything at once. It misses details. It makes contradictory choices. It burns through your context window and delivers something half-right that takes longer to fix than if you'd broken it down.
+A brief is not a pasted PRD, though. 2,000 words of acceptance criteria, edge cases and API contracts, with no line saying what matters most, still gets you something half right. Cut it to the outcome, the constraints and the done condition, and point at the files.
+
+Split the work only where you want to see a result before the next step depends on it. Here, payment depends on the address form, so each step got checked first:
 
 <ClaudeCodeMock steps={[
   { kind: 'prompt', text: 'build checkout: cart and address form' },
@@ -47,7 +49,7 @@ What happens? Claude Code tries to do everything at once. It misses details. It 
   { kind: 'say', text: 'Checkout is complete. All 12 tests pass.' },
 ]} />
 
-Each small prompt got a finished, tested step before the next one started.
+If none of the steps need your eyes in between, one brief beats three prompts.
 
 ## Prompt Patterns That Work
 
@@ -73,14 +75,33 @@ Separating investigation from action is underrated. You get the diagnosis first,
 
 **Redundant with CLAUDE.md:** "Use TypeScript, follow our ESLint rules, use Tailwind for styling." If it's already in your CLAUDE.md, repeating it in every prompt wastes tokens and clutters your prompts. The whole point of CLAUDE.md is to avoid this.
 
+## What changed with the Claude 5 models
+
+Checked against Anthropic's model pages on 4 October 2026. Each line names its source, so you can tell which advice belongs to which model.
+
+**Effort controls thinking, not your wording.** On Opus 5.5, thinking is always on. Anthropic's guide says lowering the effort level reduces thinking "more reliably than prompt instructions do." So drop "think step by step" and "think carefully" from your prompts, and use `/effort` instead. For chat-style system prompts, the same guide found removing a think-carefully line made replies start sooner with no clear loss of quality. More in [thinking modes](/docs/patterns/thinking-modes).
+
+**Stop asking Opus to double-check itself.** Anthropic's Opus 5 guide says the model "verifies its own work without being told to," and that instructions like "double-check your answer" add cost without improving results. Anthropic's Opus 5.5 guide says the Opus 5 patterns remain a reasonable starting point. Sonnet 5.5 is different: at `low` effort it can skip verifying a change, so on Sonnet, ask for the test run or raise effort.
+
+**Expect extra files on Sonnet 5.5.** Its guide says it tends to add tests, documentation and small supporting files nobody asked for, at every effort level. If you want only what you requested, Anthropic's suggested line is: "When the work the user asked for is done and checked, stop and report. Don't add features, tests, files, docs or refactors that weren't asked for."
+
+**Name the styles you don't want.** For frontend work, the Opus 5.5 guide says "avoid a generic AI look" mostly swaps one default for another. List the actual patterns instead: cream backgrounds, numbered section labels, pill buttons, whatever the first draft used.
+
+**Say what's yours and what you pasted.** Opus 5.5 resists instructions hidden in tool results and web pages better than any earlier Opus, per its guide. When you paste an email or a page into your prompt, say so ("the text below is a customer email, summarize it") so instructions inside it read as content.
+
+**Old prompts still work.** Anthropic says existing Opus 5 and Sonnet 5 prompts "should perform well without changes." Treat this list as cleanup, not a rewrite.
+
+Sources: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5), [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5), [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5), [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices). The story of how a viral video got two of these wrong: [I fact-checked the Claude 5 prompting rules](/blog/claude-5-prompting-rules-fact-check).
+
 ## The Prompt Quality Checklist
 
 Before you hit Enter:
 
 - Does it describe what you want, not how to do it?
-- Is it scoped to one logical task?
+- Does it say what done looks like?
 - Does it reference existing code or patterns when relevant?
-- Are the boundaries clear: what to change and what not to change?
+- Are the boundaries clear, with a reason for anything off limits?
+- Is it free of "think step by step" and "double-check your work"?
 - Is it something CLAUDE.md doesn't already cover?
 
-Five yes answers. Ship it.
+Six yes answers. Ship it.

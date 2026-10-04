@@ -16,7 +16,7 @@ This is everything, in one place.
   { kind: 'prompt', text: '/context' },
   { kind: 'output', text: 'claude-opus-5-5 · 12k/1000k tokens (1%)' },
   { kind: 'prompt', text: '/model sonnet' },
-  { kind: 'output', text: 'Set model to Sonnet 5' },
+  { kind: 'output', text: 'Set model to Sonnet 5.5' },
 ]} />
 
 ## Slash Commands
@@ -43,7 +43,7 @@ Type these directly into the Claude Code prompt.
 |---------|-------------|
 | `/model` | Switch the active model (opus, sonnet, haiku) |
 | `/model opus` | Switch to Opus 5.5 (most capable, default) |
-| `/model sonnet` | Switch to Sonnet 5 (fast and capable) |
+| `/model sonnet` | Switch to Sonnet 5.5 (fast and capable) |
 | `/model haiku` | Switch to Haiku 4.5 (fastest, cheapest) |
 | `/init` | Generate a CLAUDE.md file for your project |
 | `/config` | View and edit Claude Code configuration |
@@ -122,7 +122,7 @@ claude --resume              # Resume last conversation (pick up where you left 
 
 ```bash
 claude --model opus          # Start with Opus 5.5 (default)
-claude --model sonnet        # Start with Sonnet 5
+claude --model sonnet        # Start with Sonnet 5.5
 claude --model haiku         # Start with Haiku 4.5
 claude --verbose             # Show tool calls and internal reasoning
 claude --bare                # Minimal output (for scripted calls)

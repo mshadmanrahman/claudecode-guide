@@ -1,19 +1,26 @@
 ---
 title: "Which Claude Model Should I Use?"
-description: "One rule: Sonnet for doing work, Opus for deciding work. Here's how to tell them apart, what each costs, and when Haiku and Fable earn a slot."
+description: "Start on Opus 5.5 at medium effort, turn effort down before you switch models, and step down to Sonnet 5.5 for speed and volume. Prices, defaults and when Haiku and Fable earn a slot."
 ---
 
-## Sonnet for doing. Opus for deciding.
+## Start on Opus 5.5. Turn effort down before you switch.
 
-Here's the whole rule. If your prompt is an instruction ("do this", "fetch that", "rename these", "write the test for this function"), use Sonnet. You already know what you want, and you need it carried out quickly and cheaply. If your prompt is a question with no obvious answer ("how should we structure this?", "why does this keep failing?", "which of these approaches is right?"), use Opus. You're paying for judgment, and a wrong call costs more than the tokens.
+This page used to say "Sonnet for doing, Opus for deciding." The Claude 5.5 models changed the math. Anthropic's models page now says to "start with Claude Opus 5.5 for most workloads," and its Opus 5.5 guide reports that at the default `medium` effort it matched or beat Opus 5 at `high` on coding tasks, in fewer steps and fewer tokens.
 
-One catch: Claude Code now starts you on Opus 5.5. That's a good default for deciding work and an expensive one for everything else. So when you sit down to execute a plan, switch with `/model sonnet`.
+So the dial you reach for first is effort, not the model. If a task is simple, `/effort low` on Opus 5.5 thinks less and costs less, and Anthropic says `low` comes close to Opus 5 at `high` on several coding evaluations. Switch to Sonnet 5.5 when you need speed or you're running a lot of the same small job, since it costs half as much per token.
 
-There are four model classes, they're meaningfully different, and picking wrong costs you either money or quality.
+| | Fable 5.1 | Opus 5.5 | Sonnet 5.5 | Haiku 4.5 |
+|---|---|---|---|---|
+| Price per million tokens (input / output) | $10 / $50 | $4 / $20 | $2 / $10 | $1 / $5 |
+| Default effort | `high` | `medium` | `high` | none |
+| Context window | 1M | 1M | 1M | 200K |
+| Speed | Slower | Moderate | Fast | Fastest |
+
+From Anthropic's [models overview](https://platform.claude.com/docs/en/about-claude/models/overview), checked 4 October 2026. Opus costs 2x Sonnet ($4 / $2 = 2), and Fable costs 2.5x Opus ($10 / $4 = 2.5).
 
 <ClaudeCodeMock steps={[
   { kind: 'prompt', text: '/model sonnet' },
-  { kind: 'output', text: 'Set model to Sonnet 5' },
+  { kind: 'output', text: 'Set model to Sonnet 5.5' },
   { kind: 'prompt', text: '/model haiku' },
   { kind: 'output', text: 'Set model to Haiku 4.5' },
   { kind: 'prompt', text: '/model opus' },
@@ -24,38 +31,36 @@ The banner shows the default, Opus 5.5. Type `/model` on its own to pick from th
 
 ## When to Use the Fable Class
 
-Fable 5.1 sits above Opus in Anthropic's lineup, in what they call the Mythos class. Reach for it on the hardest long-horizon work: a multi-hour agentic run, a refactor across a codebase you don't fully understand, a problem where Opus has already stalled twice. For everyday coding it is overkill, and it ships with extra safety measures on dual-use tasks, so a small share of edge-case requests come back refused. Anthropic's own page: [anthropic.com/claude/fable](https://www.anthropic.com/claude/fable).
+Fable 5.1 is Anthropic's top model. Its models page says to use it "for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short." In plain terms: try Opus 5.5 at `high` first, and move to Fable only when that still fails. It runs extra safety classifiers, so a small share of edge-case requests come back refused. Anthropic's own page: [anthropic.com/claude/fable](https://www.anthropic.com/claude/fable).
 
-**Pricing:** Most expensive of the four. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
+**Pricing:** $10 / $50 per million tokens, the most expensive of the four.
 
 ## When to Use the Opus Class
 
-Use Opus when the work is a decision, and getting it wrong the first time is expensive.
+Opus 5.5 is the default, and for most work it should stay that way.
 
-- Designing system architecture or making foundational decisions
-- Refactoring that touches 10+ files
-- Debugging cross-file issues where your first approach already failed
-- Writing PRDs, competitive analysis, strategy documents
-- Security reviews and code audits where you need to be thorough
+- Most coding, including multi-file changes and refactors
+- Debugging where your first approach already failed
+- Code review: Anthropic says early testers saw more bugs caught and fewer false alarms than on Opus 5
+- Reading dense charts, diagrams and screenshots
+- Writing PRDs, analysis and strategy documents
 
-Opus generates noticeably slower than Sonnet. You feel it. For a quick bug fix it's irritating. For a 2-hour architecture session it's worth every second of waiting.
+It also writes output more than 30% faster than Opus 5, per Anthropic's guide, so the old "Opus is slow" complaint mostly went away. Reserve `xhigh` and `max` for work where you've seen them help; Anthropic says the same.
 
-**Pricing:** Second most expensive of the four. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
+**Pricing:** $4 / $20 per million tokens.
 
 ## When to Use the Sonnet Class
 
-Use Sonnet when the work is execution. You've already decided what should happen, and Claude just needs to do it.
+Use Sonnet 5.5 when speed matters or the job repeats many times.
 
-- Single-file edits and bug fixes
-- Writing tests, docs, code reviews
-- CSS tweaks and UI changes
-- Git operations and daily workflow
-- Features that are mostly straightforward
-- Answering questions about your codebase
+- Quick edits where you'll read the result straight away
+- Bulk work: renaming across files, formatting, generating many similar things
+- Background agents doing mechanical work
+- Chat-style back and forth, where a fast first word matters
 
-Here's the thing most people discover after a week: on execution work, the quality gap between Sonnet and Opus is small, and Sonnet costs half as much per token. Once the decision is made, Opus's extra reasoning has nothing left to decide.
+Two things to know. Sonnet 5.5's guide says it tends to add tests and docs nobody asked for, and that at `low` and `medium` effort it's more likely to stop and check in before a long task is finished. If either bothers you, raise effort or add a scope line (see [prompting](/docs/foundations/prompting)). For the hardest long-horizon work, Anthropic itself says an Opus model is the better choice.
 
-**Pricing:** Mid-tier. Fast enough that it never feels slow. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
+**Pricing:** $2 / $10 per million tokens, half of Opus.
 
 ## When to Use the Haiku Class
 
@@ -69,11 +74,11 @@ Haiku is for volume work where you don't need deep reasoning. Think of it like t
 
 The real use case is sub-agents. When you're running background code review or spinning up a test-execution agent, Haiku is fast and cheap enough that you can run several in parallel without watching your bill climb.
 
-**Pricing:** Cheapest of the four by a wide margin. See [anthropic.com/pricing](https://anthropic.com/pricing) for current rates.
+**Pricing:** $1 / $5 per million tokens, the cheapest. Check before you build on it: Anthropic lists Haiku 4.5's retirement as "not sooner than October 15, 2026," and its knowledge cutoff is February 2025, much older than the 5.x models.
 
 ## How Claude Code Picks For You
 
-On **Claude Pro** ($20/month), **Max**, **Team** and **Enterprise**, Claude Code now defaults to Opus 5.5 at `medium` effort. Before v2.1.280, Pro started on Sonnet. So for execution work, switch with `/model sonnet`.
+On **Claude Pro** ($20/month), **Max**, **Team** and **Enterprise**, Claude Code now defaults to Opus 5.5 at `medium` effort. Before v2.1.280, Pro started on Sonnet. `/model sonnet` now picks Sonnet 5.5, the default Sonnet since Claude Code v2.1.284.
 
 On **Claude Max** (from $100/month) you get 5x or 20x the usage of Pro. Get here when you're hitting Pro limits daily, not before.
 
@@ -82,12 +87,13 @@ On the **API** (pay per use) you pick the model per request. Full control, full 
 ### Switching Models Mid-Session
 
 ```bash
-/model opus     # Switch to Opus for a complex task
-/model sonnet   # Switch back for regular work
-/model haiku    # Switch to Haiku for quick tasks
+/effort low     # Same model, less thinking, lower cost
+/model sonnet   # Faster and half the price, for bulk work
+/model haiku    # Cheapest, for simple background jobs
+/model opus     # Back to the default
 ```
 
-You can do this mid-conversation, mid-task. The context carries over. Switch to Opus when you hit something hard, switch back when it's done.
+You can do this mid-conversation, mid-task. The context carries over. One cost to know: Anthropic's docs say changing effort between requests invalidates the prompt cache, so set it at the start of a session where you can.
 
 ## Which Plan Should I Get?
 
@@ -101,13 +107,13 @@ If you're building apps that call Claude: API, pay per token, pick your model pe
 
 ## The Decision in One Line
 
-Opus for decisions, Sonnet for execution, Haiku for background agents and volume work.
+Opus 5.5 by default, effort as the cost dial, Sonnet 5.5 for speed and volume, Fable when Opus at `high` still falls short.
 
-Start there and adjust based on what you actually experience, not what you imagine might be better.
+Start there and adjust based on what you actually see, not what you imagine might be better.
 
 ## Pro Tips
 
-1. **Decide on Opus, then build on Sonnet.** Plan the change with Opus, then `/model sonnet` and let it carry out the plan. The context carries over.
-2. **Use Haiku for sub-agents.** Code review and test agents running in the background don't need Opus-level reasoning.
+1. **Lower effort before you lower the model.** `/effort low` on Opus 5.5 keeps the stronger model and cuts thinking. Drop to Sonnet when you need speed.
+2. **Use Sonnet or Haiku for mechanical sub-agents.** Test runs and lookups in the background don't need Opus-level reasoning. Keep code review on Opus.
 3. **Watch your context window.** The 1M token limit sounds massive, but loading whole codebases repeatedly adds up. Use `/compact` to trim.
 4. **You pay for thinking.** Thinking tokens bill as output, even when Claude Code collapses them on screen. Effort is the dial: `/effort low` on Opus 5.5 thinks less and costs less. See [thinking modes](/docs/patterns/thinking-modes).

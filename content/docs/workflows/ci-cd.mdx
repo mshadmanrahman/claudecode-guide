@@ -103,7 +103,7 @@ claude -p "generate tests for uncovered functions"
 Running Claude Code in CI uses API tokens. Be intentional about it.
 
 - **Run on PR events only**, not every push to every branch
-- **Use Haiku for simple tasks** (PR descriptions, changelog): Haiku 4.5 ($1/$5 per million tokens) is half the price of Sonnet 5 ($2/$10)
+- **Use Haiku for simple tasks** (PR descriptions, changelog): Haiku 4.5 ($1/$5 per million tokens) is half the price of Sonnet 5.5 ($2/$10)
 - **Use Sonnet for code review**: worth the cost for actual bug detection
 - **Set the effort level**: `claude -p --effort low` for routine jobs; thinking bills as output tokens
 - **Cache aggressively**: don't re-review unchanged files

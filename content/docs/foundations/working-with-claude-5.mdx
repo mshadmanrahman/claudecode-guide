@@ -1,0 +1,73 @@
+---
+title: "Working With the Claude 5 Models"
+description: "How your Claude Code workflow should change on Opus 5.5 and Sonnet 5.5: effort as the main dial, fewer subagents, no extra verification steps, and how to keep unattended runs from stopping early."
+---
+
+## The habits that changed
+
+Most Claude Code advice was written for models that needed a push: think harder, check your work, split the job into small agents. The Claude 5 models do those things on their own, and often too much. So the workflow now is mostly about holding back.
+
+Every claim on this page comes from Anthropic's model guides, checked on 4 October 2026. The sources are linked at the bottom.
+
+## Effort is the first dial
+
+Thinking is always on in Opus 5.5 and the Fable models, so `/effort` decides how much Claude thinks before it acts. Anthropic's Opus 5.5 guide calls effort "the main control" for trading off intelligence, speed and cost.
+
+| Effort | Use it for |
+|---|---|
+| `low` | Short, mechanical jobs and background subagents |
+| `medium` | Most work, including most coding. The Opus 5.5 default |
+| `high` | Hard reasoning, or a task where `medium` fell short |
+| `xhigh` / `max` | Only where you've seen them do better on your own tasks |
+
+The names don't mean the same thing across models. Anthropic says Opus 5.5 at `medium` matches or beats Opus 5 at `high` on coding, so if you carried `high` over from Opus 5, you're probably paying for thinking you don't need.
+
+Set effort when the session starts. Anthropic's guide says changing the effort level between requests invalidates the prompt cache, and on a long session the cache is most of what you pay for. To run one turn at a different level, use a per-message effort change, which keeps the cache.
+
+More on the levels in [thinking modes](/docs/patterns/thinking-modes), and on picking a model in [model selection](/docs/foundations/model-selection).
+
+## Delegate less
+
+Anthropic's Opus 5 guide says the model "delegates to subagents more readily than prior models," and that delegation "multiplies cost and time when applied to small tasks." Each subagent starts its own context and pays for it on every one of its turns. In one session we measured, a single subagent spent about 173K tokens to read a file of roughly 16K tokens.
+
+So send a subagent a pile you'll read once: many files, long logs, test output. Read one file, or a slice of one, yourself. Two environment variables set hard caps if you'd rather not trust the model's judgment:
+
+```bash
+export CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1
+export CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS=3
+```
+
+They need Claude Code 2.1.217 or later. The values above are examples; pick your own. Background on why subagents cost what they do: [subagent context isolation](/docs/foundations/subagent-context-isolation).
+
+## Don't add verification steps
+
+Opus 5 checks its own work without being asked. Anthropic's guide says instructions like "include a final verification step" or "use a subagent to verify" cause over-verification, and that removing them saves tokens "with no loss in quality." If your CLAUDE.md or a skill still says "double-check your answer," delete the line.
+
+Sonnet 5.5 is the exception. Its guide says that at `low` effort it can skip checking a change, so on Sonnet, ask for the test run in your prompt or raise effort.
+
+## Compact at the joints
+
+The 1M context window means you hit the limit late. You still pay for every token you carry, on every turn. Run `/compact` when one piece of work ends and the next begins: after a fix lands, after research turns into building, when the topic changes. Waiting for auto-compact means you've already paid for the bloat on all the turns in between. Details in [context window](/docs/foundations/context-window).
+
+## Unattended runs stop early
+
+This one bites if you run Claude through the SDK or in CI with nobody watching. Opus 5.5 sends progress updates on long tasks, and some of them end the turn with plain text instead of a tool call. A loop that reads that as "done" stops halfway.
+
+Anthropic's guide gives the fix in four parts:
+
+1. Treat a text-only end of turn as a report, not proof the task is finished.
+2. Keep the task's parts in a checklist the model updates, like a to-do list or a file.
+3. If a turn ends with items still open and no blocker named, send a short message listing them and asking it to continue.
+4. Stop after two or three automatic continuations, so a run that's truly stuck ends and someone can look at it.
+
+If something the model started is still running, such as a background command or a subagent, wait for its output before you call the task done.
+
+## Leave room for thinking
+
+On the API, thinking counts toward `max_tokens` even when you don't see the thinking. A limit sized for an older model with thinking off can cut replies short. Anthropic says a `max_tokens` of 128,000, the model's maximum, has worked well for long agentic coding turns. Inside Claude Code you don't set this yourself; it matters for headless and SDK runs ([headless mode](/docs/patterns/headless-mode)).
+
+## Old setups still work
+
+Anthropic says prompts written for Opus 5 "should perform well without changes" on Opus 5.5. None of this is urgent. Lower effort first, since that saves money today, then clean out the verification lines and subagent habits when you next touch the file. The prompt-level changes are in [prompting](/docs/foundations/prompting).
+
+Sources: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5), [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5), [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5), [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview).

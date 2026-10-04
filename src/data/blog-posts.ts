@@ -1769,6 +1769,115 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
 </ol>
 <p>The folder keeps growing. Between 12 April and 20 September it added 816 topic files: 966 - 150 = 816, over 161 days, which is about five a day. The router is still 108 lines.</p>`,
   },
+  {
+    slug: "how-to-mod-claude-code",
+    title: "How to Mod Claude Code: Seven Mods I Built in a Week",
+    description: "Claude Code 2.1.287 added mods: TypeScript handlers that run inside Claude Code and can rewrite tool calls and draw their own panes. Here are the seven I run every day, 899 lines in total, and how to write your first one in 25.",
+    seoTitle: "How to Mod Claude Code: Writing Claude Code Mods in TypeScript, With 7 Real Examples",
+    date: "2026-10-04",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "mods", "plugins", "hooks", "productivity"],
+    content: `<p><em>Claude Code 2.1.287 added mods: TypeScript handlers that run inside Claude Code and can rewrite tool calls and draw their own panes. Here are the seven I run every day, 899 lines in total, and how to write your first one in 25.</em></p>
+
+<h2>Why I stopped writing shell hooks for this</h2>
+<p>I have a rule that nothing I write contains an em dash. For months a shell hook enforced it. Claude would write a file, the hook would see the dash and block the write, and Claude would try again. It worked, but every flagged file cost a full retry, and I'd watch the same paragraph get written twice.</p>
+<p>What I wanted was simpler: take the file, swap the dashes for commas, and let the write go through. A settings hook couldn't do that cleanly. It runs as a separate script, outside Claude Code, and talks back through a JSON reply. Anthropic's <a href="https://code.claude.com/docs/en/plugins/mods/overview">mods overview</a> puts the difference plainly: settings hooks, skills and MCP servers "work from outside Claude Code," while a mod "runs inside Claude Code."</p>
+<p>Running inside means a mod can do things the outside tools can't. It can change a tool call before it runs. It can draw a pane beside the transcript or a band above the prompt, with buttons. It can show its own line in the status bar. And its handlers share variables, so one can count something and another can display it.</p>
+
+<h2>What a mod looks like</h2>
+<p>A mod is a plugin with a TypeScript file in it. Mine each have three files:</p>
+<ul>
+<li><code>.claude-plugin/plugin.json</code>: the name and a one-line description</li>
+<li><code>hooks/hooks.json</code>: points Claude Code at the code</li>
+<li><code>hooks/register.tsx</code>: the handlers</li>
+</ul>
+<p>The <code>hooks.json</code> is one line:</p>
+<pre><code class="language-json">{ "modules": ["./register.tsx"] }</code></pre>
+<p>Inside <code>register.tsx</code> you export a <code>register</code> function. Claude Code hands it an <code>on</code> function, and you call <code>on</code> with an event name and a handler. Each handler gets three things: <code>$</code>, which is Claude Code itself (the UI, the session, the clock), <code>e</code>, the event, and <code>next</code>, which passes the event along. Call <code>next(e)</code> and nothing changes. Call <code>next</code> with an edited event and Claude Code uses your version instead.</p>
+
+<h2>The 25-line example: em-dash-fixer</h2>
+<p>Here's the mod that replaced my blocking hook, unedited:</p>
+<pre><code class="language-ts">import type { Register } from 'claude-code'
+
+const DASH = '\\u2014'
+// Files that talk about the character on purpose (the guard hooks, this mod).
+const SKIP = /em-dash|block-em-dashes|sloptrim/i
+
+const fix = (text: string) =&gt;
+  text
+    .replace(new RegExp(\`\\\\s*\${DASH}\\\\s*\`, 'g'), ', ')
+    .replace(/, ([.,;:!?)])/g, '$1')
+
+export const register: Register = on =&gt; {
+  on('tool.call', { tool: 'Write' }, ($, e, next) =&gt; {
+    if (SKIP.test(e.file_path) || !e.content.includes(DASH)) return next(e)
+    $.ui.toast(\`em-dash-fixer: rewrote dashes in \${e.file_path.split('/').at(-1)}\`)
+    return next({ ...e, content: fix(e.content) })
+  })
+
+  // Only new_string changes: old_string must still match the file as it is.
+  on('tool.call', { tool: 'Edit' }, ($, e, next) =&gt; {
+    if (SKIP.test(e.file_path) || !e.new_string.includes(DASH)) return next(e)
+    $.ui.toast(\`em-dash-fixer: rewrote dashes in \${e.file_path.split('/').at(-1)}\`)
+    return next({ ...e, new_string: fix(e.new_string) })
+  })
+}</code></pre>
+<p>Two handlers, one for <code>Write</code> and one for <code>Edit</code>. Each checks whether the content has a dash, and if not, passes the call through untouched. If it does, it shows a toast saying which file it fixed and passes on a copy with the dashes replaced. The <code>SKIP</code> line keeps it away from the files that need to contain a literal dash, like the hook that used to block them.</p>
+<p>The retry is gone. Claude writes once, the file lands clean, and a small toast tells me it happened.</p>
+
+<h2>The other six</h2>
+<p>Once the first one worked, the rest came quickly. These all load in every session:</p>
+<ul>
+<li><strong>agent-panel</strong> (626 lines): a side pane with one row per subagent, showing its cost, tokens read, context size, steps and time, with a small pixel avatar by role. It's the biggest by far, and the one I look at most. When a subagent starts reading far more than the job needs, I see it while it's happening.</li>
+<li><strong>topic-drift-band</strong> (64 lines): watches the words in my prompts. From the third prompt on, if a new one shares less than 15% of its vocabulary with the session so far, a band appears above the prompt asking "New topic?" with a button that copies a ready-made prompt for a fresh chat. Long mixed-topic sessions were my biggest token cost, and this catches me drifting.</li>
+<li><strong>context-band</strong> (62 lines): my auto-compact fires at 260K tokens, so this mod treats that as full and puts a band with a Compact button above the prompt at 80% of it (0.8 x 260K = 208K). I'd rather compact on purpose at a task boundary than have it happen mid-edit.</li>
+<li><strong>active-week-pane</strong> (57 lines): a pane listing the threads I marked active this week in my memory file. Click one to load its resume question.</li>
+<li><strong>secret-scrubber</strong> (40 lines): masks API keys and tokens in tool output before the model or the transcript sees them. It runs the tool first, then walks the result and replaces anything shaped like an Anthropic, OpenAI, GitHub, Slack, AWS or Telegram key.</li>
+<li><strong>usage-pace</strong> (25 lines): a status line that reads my weekly usage against how much of the week has passed.</li>
+</ul>
+<p>That last one fixes a mistake I kept making. The usage meter says 33%, and 33% sounds fine. But if four days of the seven have gone, 33% is a slow week, and if one day has gone, it's a fast one. The mod shows both numbers side by side:</p>
+<pre><code class="language-ts">import type { EngineInterface, Register } from 'claude-code'
+
+const WEEK = 7 * 24 * 3600 * 1000
+
+const refresh = async ($: EngineInterface) =&gt; {
+  const { rateLimits } = await $.session.usage()
+  const week = rateLimits.find(r =&gt; r.kind.includes('seven_day'))
+  if (!week?.resetsAt) return $.ui.status(undefined)
+  const now = await $.clock.now()
+  const left = Math.max(0, new Date(week.resetsAt).getTime() - now)
+  const elapsed = Math.min(1, Math.max(0.01, 1 - left / WEEK))
+  const pace = week.percentUsed / (elapsed * 100)
+  const verdict = pace &gt; 1.15 ? 'Over pace' : pace &lt; 0.85 ? 'Under pace' : 'On pace'
+  // Show the arithmetic: share used against share of the window elapsed.
+  const used = Math.round(week.percentUsed)
+  const filled = Math.round((used / 100) * 5)
+  const bar = '\\u2588'.repeat(filled) + '\\u2591'.repeat(5 - filled)
+  // Same bar as the CLI status line; the engine prefixes the plugin name, "Usage".
+  $.ui.status(\`\${bar} \${used}% / \${Math.round(elapsed * 100)}% week | \${verdict}\`)
+}
+
+export const register: Register = on =&gt; {
+  on('session.start', async ($, e, next) =&gt; { await refresh($); return next(e) })
+  on('turn.complete', async ($, e, next) =&gt; { await refresh($); return next(e) })
+}</code></pre>
+<p>It reads the seven-day limit from <code>$.session.usage()</code>, works out what share of the window has passed, and divides one by the other. Above 1.15 it says "Over pace," below 0.85 "Under pace." It refreshes when a session starts and after every turn.</p>
+<p>Line count across all seven: 626 + 64 + 62 + 57 + 40 + 25 + 25 = 899.</p>
+
+<h2>How to write your first one</h2>
+<ol>
+<li>Update Claude Code to 2.1.287 or later. That's the release where the changelog says "Added Claude Mods."</li>
+<li>Make a folder with the three files above. Start from em-dash-fixer if you want something that works on the first try.</li>
+<li>Load it. I list my mod folders in the <code>CLAUDE_CODE_PLUGIN_DIRS</code> environment variable in <code>settings.json</code>, separated by colons, so they load in every session. To try one for a single session, use <code>claude --plugin-dir ./your-mod</code>.</li>
+<li>Run <code>claude plugin validate</code> on the folder before you load it. It catches a broken manifest before Claude Code does.</li>
+</ol>
+<p>You don't have to write the code yourself, either. The docs suggest describing the mod you want in a session and letting Claude write it, which is how most of mine started. Anthropic also publishes <a href="https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods">sample mods</a>, including <code>blast-radius</code>, which holds a risky shell command like <code>rm -rf</code> and shows what it would change before it runs.</p>
+
+<h2>One thing to take seriously</h2>
+<p>A mod is your code running with your permissions. Anthropic's docs are direct about it: mods "aren't sandboxed," and a mod can read your environment variables and every prompt you send. Turning on sandboxing doesn't cover a process a mod starts. Read a mod before you install it, the same as you would a shell script from a stranger. All seven of mine are short enough to read in a few minutes, except agent-panel, and I wrote that one.</p>
+<p>Full reference: <a href="https://code.claude.com/docs/en/plugins/mods/overview">Mods overview</a> in the Claude Code docs. For the older, settings-file kind of hook, see <a href="/docs/automation/hooks">hooks</a> in this guide.</p>
+`,
+  },
 ];
 
 // Sorted newest first for display
