@@ -324,7 +324,7 @@ export function ClaudeDesktopCodeMock({
   return (
     <div
       ref={containerRef}
-      className="cmock my-6 min-w-0 overflow-hidden rounded-xl border border-[var(--cm-line)] bg-[var(--cm-bg)] text-[var(--cm-ink)] shadow-[0_24px_60px_-30px_rgba(0,0,0,0.45)]"
+      className="cmock not-prose my-6 min-w-0 overflow-hidden rounded-xl border border-[var(--cm-line)] bg-[var(--cm-bg)] text-[var(--cm-ink)] shadow-[0_24px_60px_-30px_rgba(0,0,0,0.45)]"
       role="img"
       aria-label="A Claude Code session in the Code tab of the Claude desktop app"
     >
