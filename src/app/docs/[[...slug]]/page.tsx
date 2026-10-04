@@ -3,6 +3,7 @@ import { DocsPage } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { ClaudeCodeMock } from "@/components/claude-code-mock";
+import { AppSessionMock } from "@/components/docs/app-session-mock";
 import { VocabBridge } from "@/components/vocab-bridge";
 import { EmailCapture } from "@/components/email-capture";
 import { AffiliateCTA } from "@/components/affiliate-cta";
@@ -52,7 +53,9 @@ const mdxComponents = {
   ...defaultMdxComponents,
   pre: DocPre,
   Callout: DocCallout,
-  ClaudeCodeMock,
+  // Scripted sessions render in the desktop app by default; TerminalMock keeps the CLI look.
+  ClaudeCodeMock: AppSessionMock,
+  TerminalMock: ClaudeCodeMock,
   VocabBridge,
   PromptCard,
   FromClaude,

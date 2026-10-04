@@ -9,7 +9,7 @@ They type prompts and hit Enter. That's it. They don't know `/compact` exists. T
 
 This is everything, in one place.
 
-<ClaudeCodeMock steps={[
+<TerminalMock steps={[
   { kind: 'prompt', text: '/compact' },
   { kind: 'thinking', verb: 'Compacting conversation', ms: 1400 },
   { kind: 'output', text: 'Compacted (ctrl+o to see full summary)' },
@@ -95,7 +95,7 @@ Any `.md` file in `~/.claude/skills/` or your project's `.claude/skills/` become
 | **`\`** | Multi-line input mode (type across multiple lines before sending) |
 | **`@`** | Reference a file or context (e.g., `@src/api.ts explain this`) |
 
-<ClaudeCodeMock steps={[
+<TerminalMock steps={[
   { kind: 'prompt', text: 'refactor the API layer to use one fetch client' },
   { kind: 'thinking', verb: 'Thinking', ms: 900 },
   { kind: 'tool', name: 'Update', arg: 'src/api/users.ts', result: 'Updated src/api/users.ts with 14 additions and 22 removals' },

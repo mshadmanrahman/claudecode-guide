@@ -1771,18 +1771,21 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
   },
   {
     slug: "how-to-mod-claude-code",
-    title: "How to Mod Claude Code: Seven Mods I Built in a Week",
-    description: "Claude Code 2.1.287 added mods: TypeScript handlers that run inside Claude Code and can rewrite tool calls and draw their own panes. Here are the seven I run every day, 899 lines in total, and how to write your first one in 25.",
+    title: "How to Mod Claude Code: The Seven Mods I Built in Four Days",
+    description: "Claude Code 2.1.287 added mods: TypeScript handlers that run inside Claude Code and can rewrite tool calls and draw their own panes. I built seven with Claude in four days. Here's what they do, what broke, and how to write your first one in 25 lines.",
     seoTitle: "How to Mod Claude Code: Writing Claude Code Mods in TypeScript, With 7 Real Examples",
     date: "2026-10-04",
     author: "Shadman Rahman",
     tags: ["claude-code", "mods", "plugins", "hooks", "productivity"],
-    content: `<p><em>Claude Code 2.1.287 added mods: TypeScript handlers that run inside Claude Code and can rewrite tool calls and draw their own panes. Here are the seven I run every day, 899 lines in total, and how to write your first one in 25.</em></p>
+    content: `<img src="/blog-hero-how-to-mod-claude-code.png" alt="Watercolor illustration of a tinkerer's desk with a laptop being modded" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
+<p><em>Claude Code 2.1.287 added mods: TypeScript handlers that run inside Claude Code and can rewrite tool calls and draw their own panes. I built seven of them with Claude between 1 and 4 October. This is what they do, what broke along the way, and how to write your first one in 25 lines.</em></p>
+<p>I didn't plan to build any of this. I read the launch post, asked Claude what a mod actually was, and by the end of that evening six of them were loading in every session I opened. The seventh, a panel for watching subagents, started from a screenshot I saw on X of pixel Claude avatars wearing role hats. It took a late Saturday night and most of Sunday.</p>
+<p>I should be upfront about the split. I'm a product manager, not a TypeScript developer. I described what I wanted, looked at what came back, and said what was wrong with it. Claude wrote the code, using Anthropic's plugin-authoring skill. Every mod below went through that loop several times, and the interesting part is mostly in what I kept sending back.</p>
 
 <h2>Why I stopped writing shell hooks for this</h2>
 <p>I have a rule that nothing I write contains an em dash. For months a shell hook enforced it. Claude would write a file, the hook would see the dash and block the write, and Claude would try again. It worked, but every flagged file cost a full retry, and I'd watch the same paragraph get written twice.</p>
 <p>What I wanted was simpler: take the file, swap the dashes for commas, and let the write go through. A settings hook couldn't do that cleanly. It runs as a separate script, outside Claude Code, and talks back through a JSON reply. Anthropic's <a href="https://code.claude.com/docs/en/plugins/mods/overview">mods overview</a> puts the difference plainly: settings hooks, skills and MCP servers "work from outside Claude Code," while a mod "runs inside Claude Code."</p>
-<p>Running inside means a mod can do things the outside tools can't. It can change a tool call before it runs. It can draw a pane beside the transcript or a band above the prompt, with buttons. It can show its own line in the status bar. And its handlers share variables, so one can count something and another can display it.</p>
+<p>Running inside means a mod can do things the outside tools can't. It can change a tool call before it runs, draw a pane beside the transcript or a band above the prompt, and put its own line in the status bar. And its handlers share variables, so one can count something and another can display it.</p>
 
 <h2>What a mod looks like</h2>
 <p>A mod is a plugin with a TypeScript file in it. Mine each have three files:</p>
@@ -1829,9 +1832,9 @@ export const register: Register = on =&gt; {
 <p>Once the first one worked, the rest came quickly. These all load in every session:</p>
 <ul>
 <li><strong>agent-panel</strong> (626 lines): a side pane with one row per subagent, showing its cost, tokens read, context size, steps and time, with a small pixel avatar by role. It's the biggest by far, and the one I look at most. When a subagent starts reading far more than the job needs, I see it while it's happening.</li>
-<li><strong>topic-drift-band</strong> (64 lines): watches the words in my prompts. From the third prompt on, if a new one shares less than 15% of its vocabulary with the session so far, a band appears above the prompt asking "New topic?" with a button that copies a ready-made prompt for a fresh chat. Long mixed-topic sessions were my biggest token cost, and this catches me drifting.</li>
+<li><strong>topic-drift-band</strong> (64 lines): watches the words in my prompts. From the third prompt on, if a new one shares less than 15% of its vocabulary with the session so far, a band appears above the prompt asking "New topic?" with a button that copies a starter prompt for a fresh chat. Long mixed-topic sessions were my biggest token cost, and this catches me drifting.</li>
 <li><strong>context-band</strong> (62 lines): my auto-compact fires at 260K tokens, so this mod treats that as full and puts a band with a Compact button above the prompt at 80% of it (0.8 x 260K = 208K). I'd rather compact on purpose at a task boundary than have it happen mid-edit.</li>
-<li><strong>active-week-pane</strong> (57 lines): a pane listing the threads I marked active this week in my memory file. Click one to load its resume question.</li>
+<li><strong>active-week-pane</strong> (57 lines): a pane listing the threads I marked active this week in my memory file. Click one and it fills the prompt with the question I left myself for picking that thread back up.</li>
 <li><strong>secret-scrubber</strong> (40 lines): masks API keys and tokens in tool output before the model or the transcript sees them. It runs the tool first, then walks the result and replaces anything shaped like an Anthropic, OpenAI, GitHub, Slack, AWS or Telegram key.</li>
 <li><strong>usage-pace</strong> (25 lines): a status line that reads my weekly usage against how much of the week has passed.</li>
 </ul>
@@ -1864,6 +1867,17 @@ export const register: Register = on =&gt; {
 <p>It reads the seven-day limit from <code>$.session.usage()</code>, works out what share of the window has passed, and divides one by the other. Above 1.15 it says "Over pace," below 0.85 "Under pace." It refreshes when a session starts and after every turn.</p>
 <p>Line count across all seven: 626 + 64 + 62 + 57 + 40 + 25 + 25 = 899.</p>
 
+<h2>What went wrong along the way</h2>
+<p>Most of the time went into small things I only noticed once a mod was running in front of me.</p>
+<ul>
+<li><strong>The status line got renamed twice.</strong> Claude Code prints the mod's name in front of its status line, and there's no way to hide it. The first version was called <code>7d</code>, so my status bar read "7d 28% / 36% week," which meant nothing to anyone but me. Renaming the plugin to <code>usage-pace</code> and its label to Usage fixed it. I also cut a "2.6d of 7" counter, because it said the same thing as the week percentage.</li>
+<li><strong>A percentage was the wrong trigger.</strong> The context band first appeared at 60% full. But the window is about 1M tokens, my auto-compact fires at 260K, and a separate guard of mine blocks a turn at 350K. 60% of 1M is 600K, so the band would have shown up after both of those had already fired. It now triggers on a token count instead.</li>
+<li><strong>Yellow text disappeared.</strong> The first bands used yellow to stand out. On the desktop app's light theme, I couldn't read them. Bold text in the default color, with one orange word (Claude's <code>#D97757</code>) on the drift band, reads in both themes.</li>
+<li><strong>The agent panel flickered.</strong> Every time the pane redrew, every animated avatar restarted from frame one, so a panel with four agents running looked like it was strobing. Now the avatars only move while their agent is working, and the panel refreshes every five seconds instead of on every event.</li>
+<li><strong>The scrubber masked things twice.</strong> A GitHub token got replaced with <code>[redacted:github]</code>, and then the general "anything called TOKEN" pattern matched the replacement and masked it again. It's cosmetic, and it's still on my list.</li>
+</ul>
+<p>None of these were hard to fix. Each one needed someone looking at the real thing on a real screen, which is the part I could do and Claude couldn't.</p>
+
 <h2>How to write your first one</h2>
 <ol>
 <li>Update Claude Code to 2.1.287 or later. That's the release where the changelog says "Added Claude Mods."</li>
@@ -1871,7 +1885,7 @@ export const register: Register = on =&gt; {
 <li>Load it. I list my mod folders in the <code>CLAUDE_CODE_PLUGIN_DIRS</code> environment variable in <code>settings.json</code>, separated by colons, so they load in every session. To try one for a single session, use <code>claude --plugin-dir ./your-mod</code>.</li>
 <li>Run <code>claude plugin validate</code> on the folder before you load it. It catches a broken manifest before Claude Code does.</li>
 </ol>
-<p>You don't have to write the code yourself, either. The docs suggest describing the mod you want in a session and letting Claude write it, which is how most of mine started. Anthropic also publishes <a href="https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods">sample mods</a>, including <code>blast-radius</code>, which holds a risky shell command like <code>rm -rf</code> and shows what it would change before it runs.</p>
+<p>You don't have to write the code yourself, either. The docs suggest describing the mod you want in a session and letting Claude write it, which is how all of mine started. Anthropic also publishes <a href="https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods">sample mods</a>, including <code>blast-radius</code>, which holds a risky shell command like <code>rm -rf</code> and shows what it would change before it runs.</p>
 
 <h2>One thing to take seriously</h2>
 <p>A mod is your code running with your permissions. Anthropic's docs are direct about it: mods "aren't sandboxed," and a mod can read your environment variables and every prompt you send. Turning on sandboxing doesn't cover a process a mod starts. Read a mod before you install it, the same as you would a shell script from a stranger. All seven of mine are short enough to read in a few minutes, except agent-panel, and I wrote that one.</p>
