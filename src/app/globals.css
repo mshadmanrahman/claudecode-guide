@@ -1187,6 +1187,17 @@ figure.ccg-code button:focus-visible {
 .ccg-back:hover {
   color: var(--ink);
 }
+/* With tags under the byline, the hairline moves below the tags. */
+.ccg-byline:has(+ .ccg-tags) {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.ccg-article-header > .ccg-tags {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
 .ccg-tags {
   display: flex;
   flex-wrap: wrap;
@@ -2255,4 +2266,16 @@ figure.ccg-code button:focus-visible {
   .ccg-section-card:focus-within {
     transform: none;
   }
+}
+
+/* Animated React blocks inside blog posts (BlogContent data-embed). */
+.ccg-embed {
+  margin: 2rem 0;
+}
+
+.ccg-embed figcaption {
+  margin-top: -0.75rem;
+  font-size: var(--text-caption);
+  color: var(--muted);
+  text-align: center;
 }

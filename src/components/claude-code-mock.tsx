@@ -90,7 +90,7 @@ function CurrentBanner({ cwd }: { cwd: string }) {
  * up when it outgrows the window. Reduced motion returns t = Infinity, so every
  * step renders in its finished state.
  */
-export function useSessionClock(steps: CliStep[], loop: boolean) {
+export function useSessionClock(steps: CliStep[], loop: boolean, tailMs = 0) {
   const [containerRef, isInView] = useInView(0.3);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [elapsed, setElapsed] = useState(0);
@@ -104,6 +104,7 @@ export function useSessionClock(steps: CliStep[], loop: boolean) {
     starts.push(total);
     total += stepDuration(s) + GAP_MS;
   }
+  total += tailMs;
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');

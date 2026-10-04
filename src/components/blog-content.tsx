@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { codeToHtml } from 'shiki';
 import { claudeGuideTheme } from '@/lib/code-theme';
 
@@ -26,6 +27,13 @@ const LANG_MAP: Record<string, string> = {
   jsx: 'jsx',
   tsx: 'tsx',
 };
+
+// Animated React blocks a post can place with <div data-embed="name"></div>.
+const EMBEDS = {
+  'mods-agent-panel': dynamic(() => import('@/components/mods/mod-mocks').then((m) => m.ModsAgentPanelMock), { ssr: false }),
+  'mods-usage': dynamic(() => import('@/components/mods/mod-mocks').then((m) => m.ModsUsageMock), { ssr: false }),
+  'mods-active-pane': dynamic(() => import('@/components/mods/mod-mocks').then((m) => m.ModsActivePaneMock), { ssr: false }),
+} as const;
 
 function detectLanguage(code: string): string {
   const trimmed = code.trim();
@@ -106,10 +114,22 @@ export function BlogContent({ html }: { html: string }) {
     });
   }, [html]);
 
+  // Split around <div data-embed="name" data-caption="..."></div> so each embed renders as a real component.
+  const parts = html.split(/<div data-embed="([\w-]+)" data-caption="([^"]*)"><\/div>/);
+
   return (
-    <div
-      ref={containerRef}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <div ref={containerRef}>
+      {parts.map((part, i) => {
+        if (i % 3 === 0) return part ? <div key={i} dangerouslySetInnerHTML={{ __html: part }} /> : null;
+        if (i % 3 === 2) return null;
+        const Embed = EMBEDS[part as keyof typeof EMBEDS];
+        return Embed ? (
+          <figure key={i} className="not-prose ccg-embed">
+            <Embed />
+            <figcaption>{parts[i + 1]}</figcaption>
+          </figure>
+        ) : null;
+      })}
+    </div>
   );
 }

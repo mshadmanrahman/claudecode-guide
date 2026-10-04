@@ -1830,6 +1830,7 @@ export const register: Register = on =&gt; {
 
 <h2>The other six</h2>
 <p>Once the first one worked, the rest came quickly. These all load in every session:</p>
+<div data-embed="mods-agent-panel" data-caption="The agent panel. One card per agent: cost, tokens read, steps, context and time."></div>
 <ul>
 <li><strong>agent-panel</strong> (626 lines): a side pane with one row per subagent, showing its cost, tokens read, context size, steps and time, with a small pixel avatar by role. It's the biggest by far, and the one I look at most. When a subagent starts reading far more than the job needs, I see it while it's happening.</li>
 <li><strong>topic-drift-band</strong> (64 lines): watches the words in my prompts. From the third prompt on, if a new one shares less than 15% of its vocabulary with the session so far, a band appears above the prompt asking "New topic?" with a button that copies a starter prompt for a fresh chat. Long mixed-topic sessions were my biggest token cost, and this catches me drifting.</li>
@@ -1864,8 +1865,10 @@ export const register: Register = on =&gt; {
   on('session.start', async ($, e, next) =&gt; { await refresh($); return next(e) })
   on('turn.complete', async ($, e, next) =&gt; { await refresh($); return next(e) })
 }</code></pre>
+<div data-embed="mods-usage" data-caption="The Usage line under the prompt. It moves once the reply lands."></div>
 <p>It reads the seven-day limit from <code>$.session.usage()</code>, works out what share of the window has passed, and divides one by the other. Above 1.15 it says "Over pace," below 0.85 "Under pace." It refreshes when a session starts and after every turn.</p>
 <p>Line count across all seven: 626 + 64 + 62 + 57 + 40 + 25 + 25 = 899.</p>
+<div data-embed="mods-active-pane" data-caption="The /active pane. Clicking a thread fills the prompt with my resume question."></div>
 
 <h2>What went wrong along the way</h2>
 <p>Most of the time went into small things I only noticed once a mod was running in front of me.</p>

@@ -10,6 +10,7 @@ import {
   useSessionClock,
   type CliStep,
 } from '@/components/claude-code-mock';
+import type { ReactNode } from 'react';
 
 /**
  * The Code tab of the Claude desktop app, running the same scripted session
@@ -18,12 +19,28 @@ import {
  * calls collapse into one-line rows, and the task composer.
  */
 
+/** Where the session is: the clock and when each step starts. Extras draw from it. */
+export interface DesktopClock {
+  t: number;
+  starts: number[];
+}
+
 interface ClaudeDesktopCodeMockProps {
   steps: CliStep[];
   title?: string;
   folder?: string;
   loop?: boolean;
   height?: number;
+  /** A side pane, as a mod would open one. Return null while it is closed. */
+  pane?: (c: DesktopClock) => { title: string; body: ReactNode } | null;
+  /** A band above the composer, as a mod's AbovePrompt render would draw it. */
+  band?: (c: DesktopClock) => ReactNode;
+  /** A status line under the composer. */
+  status?: (c: DesktopClock) => ReactNode;
+  /** Overrides the composer text, e.g. when a pane button fills the prompt. */
+  fill?: (c: DesktopClock) => string | undefined;
+  /** Extra time to hold after the last step, for extras that keep moving. */
+  tailMs?: number;
 }
 
 const LINE_MS = 110;
@@ -74,6 +91,7 @@ function FileIcon() {
 /** The collapsed row for a non-edit tool call: [while running, when done]. */
 function collapsedLabel(name: string, file: string | undefined): [string, string] {
   if (name === 'Bash') return ['Running a command', 'Ran 1 command'];
+  if (name === 'Agent') return [`Starting ${file}`, `Started ${file}`];
   if (name === 'Glob' || name === 'Grep') return ['Searching', 'Searched for 1 pattern'];
   if (name.endsWith('(MCP)')) return [`Calling ${name.split(' - ')[0]}`, `Called ${name.split(' - ')[0]}`];
   return [`Reading ${file}`, 'Read 1 file'];
@@ -119,8 +137,16 @@ export function ClaudeDesktopCodeMock({
   folder = 'my-project',
   loop = false,
   height = 330,
+  pane,
+  band,
+  status,
+  fill,
+  tailMs = 0,
 }: ClaudeDesktopCodeMockProps) {
-  const { t, starts, containerRef, viewportRef, contentRef, offset } = useSessionClock(steps, loop);
+  const { t, starts, containerRef, viewportRef, contentRef, offset } = useSessionClock(steps, loop, tailMs);
+  const clock = { t, starts };
+  const openPane = pane?.(clock) ?? null;
+  const bandNode = band?.(clock);
 
   let inputText = '';
   let sending = false;
@@ -224,6 +250,9 @@ export function ClaudeDesktopCodeMock({
     }
   });
 
+  const filled = fill?.(clock);
+  if (filled !== undefined) inputText = filled;
+
   return (
     <div
       ref={containerRef}
@@ -232,14 +261,14 @@ export function ClaudeDesktopCodeMock({
       aria-label="A Claude Code session in the Code tab of the Claude desktop app"
     >
       <div className="flex">
-        <div className="hidden w-[184px] shrink-0 items-center gap-2 border-r border-[var(--cm-line)] bg-[var(--cm-side)] px-3.5 h-10 sm:flex">
+        <div className={`hidden w-[184px] shrink-0 items-center gap-2 border-r border-[var(--cm-line)] bg-[var(--cm-side)] px-3.5 h-10 ${pane ? '' : 'sm:flex'}`}>
           <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
           <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
           <span className="h-3 w-3 rounded-full bg-[#28c840]" />
         </div>
         {/* Top bar: session title, folder chip, then the right-hand actions. */}
         <div className="flex h-10 min-w-0 flex-1 items-center gap-2 border-b border-[var(--cm-line)] px-3 text-[12.5px]">
-          <span className="mr-1 flex items-center gap-1.5 sm:hidden">
+          <span className={`mr-1 flex items-center gap-1.5 ${pane ? '' : 'sm:hidden'}`}>
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
@@ -252,8 +281,9 @@ export function ClaudeDesktopCodeMock({
           <span className="shrink-0 rounded-md border border-[var(--cm-line)] px-2 py-0.5 text-[11.5px]">Share</span>
         </div>
       </div>
-      <div className="flex">
-        <Sidebar title={title} />
+      <div className={pane ? 'flex flex-col sm:flex-row' : 'flex'}>
+        {/* A pane takes the sidebar's room, so the transcript keeps its width. */}
+        {pane ? null : <Sidebar title={title} />}
         <div className="flex min-w-0 flex-1 flex-col text-[14px] leading-[20px]">
           <div ref={viewportRef} className="relative overflow-hidden px-4 sm:px-6" style={{ height }}>
             <div
@@ -267,6 +297,11 @@ export function ClaudeDesktopCodeMock({
           </div>
           {/* Composer: task box, then mode, model and the send button. */}
           <div className="px-3 pb-3 sm:px-5">
+            {bandNode ? (
+              <div className="cc-in mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-[var(--cm-line)] bg-[var(--cm-card)] px-3 py-2 text-[12.5px]">
+                {bandNode}
+              </div>
+            ) : null}
             <div className="rounded-xl border border-[var(--cm-line)] bg-[var(--cm-card)] px-3 pb-2 pt-2.5 shadow-sm">
               <div className="min-h-[20px] truncate">
                 {inputText ? (
@@ -289,8 +324,31 @@ export function ClaudeDesktopCodeMock({
                 </span>
               </div>
             </div>
+            {status ? (
+              <div className="mt-1.5 flex min-h-[18px] items-center gap-2 overflow-hidden whitespace-nowrap px-1 font-mono text-[11px] text-[var(--cm-muted)]">
+                {status(clock)}
+              </div>
+            ) : null}
           </div>
         </div>
+        {pane ? (
+          <aside
+            className={`relative shrink-0 overflow-hidden border-[var(--cm-line)] bg-[var(--cm-side)] transition-[width,opacity] duration-500 motion-reduce:transition-none max-sm:border-t sm:border-l ${
+              openPane ? 'opacity-100 sm:w-[280px]' : 'max-sm:hidden opacity-0 sm:w-0'
+            }`}
+            style={{ transitionTimingFunction: EASE }}
+          >
+            {openPane ? (
+              <div className="w-full sm:absolute sm:inset-y-0 sm:left-0 sm:w-[280px]">
+                <div className="flex h-9 items-center justify-between border-b border-[var(--cm-line)] px-3 text-[12px] font-medium">
+                  <span>{openPane.title}</span>
+                  <span className="text-[var(--cm-muted)]">×</span>
+                </div>
+                <div className="px-3 py-2.5 text-[12px] leading-[17px]">{openPane.body}</div>
+              </div>
+            ) : null}
+          </aside>
+        ) : null}
       </div>
     </div>
   );
