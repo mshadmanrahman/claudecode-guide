@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
 import { AppChatDemo } from '@/components/app-chat-demo';
@@ -29,6 +32,52 @@ export const metadata: Metadata = {
     url: 'https://claudecodeguide.dev/bn',
   },
 };
+
+/** A card gets the painted scene only when public/<dir>/<slug>.jpg exists, same rule as /tutorials. */
+function cardImage(dir: 'tutorials' | 'for-designers', slug: string): string | undefined {
+  const file = path.join(process.cwd(), 'public', dir, `${slug}.jpg`);
+  return existsSync(file) ? `/${dir}/${slug}.jpg` : undefined;
+}
+
+function GuideCard({
+  href,
+  image,
+  title,
+  duration,
+  description,
+}: {
+  href: string;
+  image?: string;
+  title: string;
+  duration: string;
+  description: string;
+}) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className="group flex h-full flex-col overflow-hidden rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] transition-colors hover:border-[var(--acc)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+      >
+        {image && (
+          <span className="relative block aspect-[2/1] overflow-hidden">
+            <Image
+              src={image}
+              alt=""
+              fill
+              sizes="(min-width: 640px) 370px, 100vw"
+              className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03] motion-reduce:transition-none"
+            />
+          </span>
+        )}
+        <span className="flex flex-1 flex-col gap-1.5 p-4">
+          <span className="font-mono text-xs text-fd-muted-foreground">{duration}</span>
+          <span className="font-medium leading-snug text-fd-foreground group-hover:text-[var(--acc)]">{title}</span>
+          <span className="line-clamp-2 text-sm leading-relaxed text-fd-muted-foreground">{description}</span>
+        </span>
+      </Link>
+    </li>
+  );
+}
 
 export default function BengaliGuidePage() {
   return (
@@ -258,34 +307,37 @@ export default function BengaliGuidePage() {
           <p className="mt-3 text-fd-muted-foreground">
             প্রতিটা টিউটোরিয়াল বাংলায় পড়তে পারবেন। প্রতিটা পেজের উপরে English-এ যাওয়ার switch আছে।
           </p>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {Object.entries(BN_TUTORIALS).map(([slug, t]) => (
-              <li key={slug}>
-                <Link
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            {Object.entries(BN_TUTORIALS).map(([slug, t]) =>
+              t ? (
+                <GuideCard
+                  key={slug}
                   href={`/bn/tutorials/${slug}`}
-                  className="block rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-colors hover:bg-[var(--code)]"
-                >
-                  <p className="font-medium text-fd-foreground">{t?.content.title}</p>
-                  <p className="text-sm text-fd-muted-foreground">{t?.content.duration}</p>
-                </Link>
-              </li>
-            ))}
+                  image={cardImage('tutorials', slug)}
+                  title={t.content.title}
+                  duration={t.content.duration}
+                  description={t.content.description}
+                />
+              ) : null,
+            )}
           </ul>
 
           <h2 className="mt-12 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
             Designer-দের জন্য গাইড
           </h2>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {Object.entries(BN_DESIGNER_GUIDES).map(([slug, g]) => (
-              <li key={slug}>
-                <Link
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            {Object.entries(BN_DESIGNER_GUIDES).map(([slug, g]) =>
+              g ? (
+                <GuideCard
+                  key={slug}
                   href={`/bn/for-designers/${slug}`}
-                  className="block rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-colors hover:bg-[var(--code)]"
-                >
-                  <p className="font-medium text-fd-foreground">{g?.content.title}</p>
-                </Link>
-              </li>
-            ))}
+                  image={cardImage('for-designers', slug)}
+                  title={g.content.title}
+                  duration={g.content.duration}
+                  description={g.content.description}
+                />
+              ) : null,
+            )}
           </ul>
         </div>
       </section>
