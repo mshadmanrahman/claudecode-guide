@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { SceneBackdrop } from '@/components/scene-backdrop';
+import { SceneFooterBand } from '@/components/scene-footer-band';
 import { ogImage } from '@/lib/og/image';
 
 const ogTitle = 'Claude for Designers: Practical Guides for UX and UI Work';
@@ -24,6 +25,7 @@ export default function ForDesignersLayout({ children }: { children: ReactNode }
     <>
       <SceneBackdrop variant="faded" scene="swatches" />
       {children}
+      <SceneFooterBand scene="swatches" />
     </>
   );
 }
