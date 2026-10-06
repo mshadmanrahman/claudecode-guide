@@ -9,7 +9,6 @@ import { ui, type Locale } from '@/lib/i18n/locale';
 export type TutorialRoute = 'app' | 'terminal' | 'ide';
 
 export const ROUTE_CHANGE_EVENT = 'tutorial-route-change';
-const STORAGE_KEY = 'tutorial-route';
 
 const TABS: Array<{ id: TutorialRoute; label: string; icon: React.ReactNode }> = [
   { id: 'app', label: 'Claude app', icon: <MessageSquare className="h-3.5 w-3.5" aria-hidden="true" /> },
@@ -17,38 +16,20 @@ const TABS: Array<{ id: TutorialRoute; label: string; icon: React.ReactNode }> =
   { id: 'ide', label: 'VS Code / Cursor', icon: <Code2 className="h-3.5 w-3.5" aria-hidden="true" /> },
 ];
 
-function readSaved(): TutorialRoute | null {
-  try {
-    const v = localStorage.getItem(STORAGE_KEY);
-    return v === 'app' || v === 'terminal' || v === 'ide' ? v : null;
-  } catch {
-    return null;
-  }
-}
-
-function saveRoute(route: TutorialRoute) {
-  try {
-    localStorage.setItem(STORAGE_KEY, route);
-  } catch {
-    // Private mode or blocked storage: the choice still applies to this page.
-  }
-}
-
 /**
  * The route the reader is following on this tutorial. The switcher and every
  * step read this same hook, so the tab shown and the instructions shown can
- * never disagree. A saved route that this tutorial lacks falls back to its
- * first authored route.
+ * never disagree. Every page opens on the Claude app tab when it has one; a
+ * pick applies to the current page only.
  */
 export function useTutorialRoute(availableRoutes: TutorialRoute[]): TutorialRoute {
   const key = availableRoutes.join(',');
-  const [route, setRoute] = useState<TutorialRoute>(availableRoutes[0] ?? 'app');
+  const [route, setRoute] = useState<TutorialRoute>(
+    availableRoutes.includes('app') ? 'app' : (availableRoutes[0] ?? 'app'),
+  );
 
   useEffect(() => {
     const routes = key.split(',') as TutorialRoute[];
-    const saved = readSaved();
-    if (saved && routes.includes(saved)) setRoute(saved);
-
     function onChange(e: Event) {
       const detail = (e as CustomEvent<TutorialRoute>).detail;
       if (detail && routes.includes(detail)) setRoute(detail);
@@ -86,7 +67,6 @@ export function RouteSwitcher({ availableRoutes = ['app'], locale = 'en' }: Rout
   const tabs = TABS.filter((t) => availableRoutes.includes(t.id));
 
   function handleSelect(id: TutorialRoute) {
-    saveRoute(id);
     window.dispatchEvent(new CustomEvent(ROUTE_CHANGE_EVENT, { detail: id }));
     trackEvent('route_switcher_select', { route: id });
   }
