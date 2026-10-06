@@ -6,6 +6,9 @@
  * rejects arbitrary named exports from a page module, so the data could not
  * stay there and be imported. The sitemap previously kept a hand-maintained
  * copy of every slug, which drifted out of date.
+ *
+ * Bangla versions live in src/lib/i18n/bn/. Don't hand-edit them after an
+ * English change; .github/workflows/bn-sync.yml re-translates on push to main.
  */
 import type { TutorialRoute } from "@/components/route-switcher";
 import type { CliStep } from "@/components/claude-code-mock";
