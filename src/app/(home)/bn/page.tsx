@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
+import { AppChatDemo } from '@/components/app-chat-demo';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
@@ -31,12 +32,12 @@ export const metadata: Metadata = {
 
 export default function BengaliGuidePage() {
   return (
-    <main className="min-h-screen">
-      <SceneBackdrop variant="faded" scene="delta" />
+    <main lang="bn" className="min-h-screen">
+      <SceneBackdrop variant="faded" scene="delta" className="scene--reading" />
       {/* Hero */}
       <section className="border-b border-fd-border px-6 py-16 text-center sm:py-24">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-1.5 text-sm text-fd-muted-foreground">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-2 text-base text-fd-muted-foreground">
             <Globe className="h-4 w-4" />
             বাংলায় পড়ুন
           </div>
@@ -80,16 +81,14 @@ export default function BengaliGuidePage() {
             </p>
           </div>
 
-          <DemoCard
-            title="Claude Code ব্যবহারের উদাহরণ"
+          <AppChatDemo
+            variant="desktop"
+            folder="my-resume"
             steps={[
-              { type: 'cmd', text: '"আমার রেজুমে দিয়ে একটি ওয়েবসাইট বানাও"' },
-              { type: 'out', text: 'আপনার প্রজেক্ট ফোল্ডার পড়ছে...' },
-              { type: 'out', text: 'index.html, styles.css তৈরি করছে...', delay: 400 },
-              { type: 'success', text: 'ওয়েবসাইট তৈরি হয়ে গেছে! index.html খুলুন।', delay: 600 },
+              { role: 'user', text: 'আমার resume দিয়ে একটা website বানিয়ে দিন।' },
               {
-                type: 'warn',
-                text: 'এটি আপনার কম্পিউটারে সত্যিকারের ফাইল তৈরি করেছে।',
+                role: 'claude',
+                text: 'ঠিক আছে, আপনার folder-এর resume পড়ে নিলাম। দুটা file বানিয়েছি:\n\n- `index.html`\n- `styles.css`\n\nWebsite তৈরি হয়ে গেছে। `index.html` খুলে দেখুন। এগুলো আপনার computer-এ আসল file হিসেবে save হয়েছে।',
               },
             ]}
           />
@@ -217,19 +216,19 @@ export default function BengaliGuidePage() {
             </p>
             <p>
               <strong className="text-fd-foreground">সবচেয়ে সহজ উপায়:</strong>{' '}
-              <code className="rounded bg-[var(--code)] px-1.5 py-0.5 text-sm font-mono">claude /init</code>{' '}
-              কমান্ড চালান। Claude Code আপনার প্রজেক্ট স্ক্যান করে নিজেই CLAUDE.md তৈরি করে দেবে।
+              Claude-কে বলুন আপনার project দেখে একটা CLAUDE.md বানিয়ে দিতে। Claude আপনার project পড়ে নিজেই file-টা তৈরি করে দেবে।
             </p>
           </div>
 
-          <DemoCard
-            title="CLAUDE.md তৈরি করুন"
+          <AppChatDemo
+            variant="desktop"
+            folder="my-project"
             steps={[
-              { type: 'cmd', text: 'claude /init' },
-              { type: 'out', text: 'প্রজেক্ট স্ক্যান করছে...' },
-              { type: 'out', text: 'Next.js, TypeScript, Tailwind CSS সনাক্ত করেছে', delay: 400 },
-              { type: 'success', text: 'CLAUDE.md তৈরি হয়ে গেছে!', delay: 600 },
-              { type: 'warn', text: 'এখন থেকে প্রতিটি সেশন এই ফাইল পড়ে শুরু হবে।' },
+              { role: 'user', text: 'আমার project-এর জন্য একটা CLAUDE.md বানিয়ে দিন।' },
+              {
+                role: 'claude',
+                text: 'আপনার project দেখে নিলাম। এটা Next.js, TypeScript আর Tailwind CSS দিয়ে বানানো। `CLAUDE.md` বানিয়ে দিয়েছি।\n\nএখন থেকে প্রতিটা session-এর শুরুতে Claude এই file পড়ে নেবে।',
+              },
             ]}
           />
 
