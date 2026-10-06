@@ -6519,7 +6519,7 @@ Use only HTML and CSS. No external libraries. I want to open it in my browser ri
     difficulty: "beginner",
     availableRoutes: ["app", "terminal"],
     description:
-      "Tell Claude a topic. Get a fully playable quiz with scoring, hints, and multiple choice. No coding required. Zero setup. Just vibes.",
+      "Tell Claude a topic. Get a fully playable quiz with scoring, hints, and multiple choice. No coding and no setup needed.",
     intro:
       "You are going to build a real game. Not a prototype, not a mockup: an actual playable quiz you can open in your browser right now. Pick literally any topic (world history, Taylor Swift albums, Premier League trivia, your favorite TV show, whatever) and Claude will write all the code for you. Ten minutes from now, you will be playing something you built.",
     steps: [
