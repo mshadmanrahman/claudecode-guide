@@ -1,4 +1,6 @@
+import { Fragment } from "react";
 import Link from "next/link";
+import { FooterLanguageLink } from "@/components/footer-language-link";
 
 interface FooterLink {
   label: string;
@@ -13,7 +15,6 @@ const SITE_LINKS: ReadonlyArray<FooterLink> = [
   { label: "roadmap", href: "/roadmap" },
   { label: "journey", href: "/journey" },
   { label: "about", href: "/about" },
-  { label: "বাংলায় পড়ুন", href: "/bn" },
   { label: "sitemap", href: "/sitemap.xml" },
   { label: "llms.txt", href: "/llms.txt" },
 ];
@@ -33,9 +34,12 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-[1312px] flex-col gap-3">
         <nav aria-label="Site" className="glass flex flex-wrap gap-x-5 gap-y-2 self-start rounded-lg px-3.5 py-2.5">
           {SITE_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className={linkClass}>
-              {link.label}
-            </Link>
+            <Fragment key={link.href}>
+              <Link href={link.href} className={linkClass}>
+                {link.label}
+              </Link>
+              {link.href === "/about" && <FooterLanguageLink className={linkClass} />}
+            </Fragment>
           ))}
         </nav>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

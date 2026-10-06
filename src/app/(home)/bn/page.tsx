@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
-import { DemoCard } from '@/components/demo-card';
 import { AppChatDemo } from '@/components/app-chat-demo';
+import { SceneFooterBand } from '@/components/scene-footer-band';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
@@ -143,53 +143,44 @@ export default function BengaliGuidePage() {
 
           <div className="space-y-4 text-fd-muted-foreground leading-relaxed">
             <p>
-              <strong className="text-fd-foreground">যা লাগবে:</strong> একটি কম্পিউটার (Mac, Windows, বা Linux),
-              ইন্টারনেট সংযোগ, এবং একটি পেইড Anthropic অ্যাকাউন্ট।
-            </p>
-            <p>
-              <strong className="text-fd-foreground">VS Code বা JetBrains ব্যবহার করেন?</strong>{' '}
-              Extension marketplace এ &ldquo;Claude Code&rdquo; সার্চ করুন। টার্মিনাল লাগবে না।
+              <strong className="text-fd-foreground">যা লাগবে:</strong> একটি কম্পিউটার (Mac বা Windows),
+              ইন্টারনেট সংযোগ, এবং একটি paid Claude account। কোনো terminal বা command লাগবে না।
             </p>
           </div>
 
           <div className="mt-6 space-y-4">
-            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ১: Node.js ইনস্টল করুন</h3>
+            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ১: Claude app download করুন</h3>
             <p className="text-fd-muted-foreground">
               <a
-                href="https://nodejs.org"
+                href="https://claude.ai/download"
                 className="underline hover:text-fd-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                nodejs.org
+                claude.ai/download
               </a>{' '}
-              থেকে LTS ভার্সন ডাউনলোড করুন। ইনস্টলারে সব ডিফল্ট রাখুন, শুধু &ldquo;Next&rdquo; চাপতে থাকুন।
+              এ যান। Mac হলে &ldquo;Download for Mac&rdquo; চাপুন, তারপর .dmg file খুলে Claude-কে Applications folder-এ drag করুন।
+              Windows হলে &ldquo;Download for Windows&rdquo; চাপুন, তারপর .exe installer চালিয়ে screen-এর কথামতো এগোন।
             </p>
 
-            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ২: Claude Code ইনস্টল করুন</h3>
-            <DemoCard
-              title="ইনস্টলেশন কমান্ড"
-              steps={[
-                { type: 'cmd', text: 'npm install -g @anthropic-ai/claude-code' },
-                { type: 'out', text: 'added 1 package in 4s' },
-                { type: 'success', text: 'Claude Code ইনস্টল হয়ে গেছে!' },
-              ]}
-            />
+            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ২: app খুলে sign in করুন</h3>
+            <p className="text-fd-muted-foreground">
+              Mac-এ Applications থেকে, Windows-এ Start menu থেকে Claude খুলুন। তারপর আপনার account দিয়ে sign in করুন।
+            </p>
 
-            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ৩: প্রথমবার চালান</h3>
-            <DemoCard
-              title="প্রথম রান"
+            <h3 className="text-lead font-semibold text-fd-foreground">ধাপ ৩: Code tab-এ একটা folder দিন</h3>
+            <p className="text-fd-muted-foreground">
+              app-এর ভেতরে Code tab খুলুন, আর যে folder-এ কাজ করতে চান সেটা বেছে নিন। তারপর সাধারণ বাংলায় বলুন আপনি কী চান।
+            </p>
+            <AppChatDemo
+              variant="desktop"
+              folder="my-project"
               steps={[
-                { type: 'cmd', text: 'cd my-project' },
-                { type: 'cmd', text: 'claude' },
-                { type: 'out', text: 'Welcome to Claude Code!' },
-                { type: 'out', text: '? How would you like to authenticate?' },
+                { role: 'user', text: 'এই folder-এ কী কী আছে, short করে বুঝিয়ে দিন।' },
                 {
-                  type: 'success',
-                  text: 'Log in with your Claude subscription  এটি বেছে নিন',
+                  role: 'claude',
+                  text: 'আপনার folder-এ তিনটা জিনিস আছে:\n\n- `resume.pdf`: আপনার resume\n- `notes.txt`: কিছু ছোট note\n- `photos`: ১২টা ছবি\n\nএরপর কী করব?',
                 },
-                { type: 'out', text: 'ব্রাউজারে লগইন পেজ খুলবে...', delay: 500 },
-                { type: 'success', text: 'লগইন সফল! Claude Code ব্যবহারের জন্য প্রস্তুত।' },
               ]}
             />
           </div>
@@ -367,6 +358,7 @@ export default function BengaliGuidePage() {
           </div>
         </div>
       </section>
+      <SceneFooterBand scene="delta" />
     </main>
   );
 }
