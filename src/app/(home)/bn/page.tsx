@@ -4,7 +4,9 @@ import path from 'node:path';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
-import { AppChatDemo } from '@/components/app-chat-demo';
+import type { ChatStep } from '@/components/app-chat-demo';
+import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
+import { chatToSession } from '@/lib/chat-session';
 import { SceneFooterBand } from '@/components/scene-footer-band';
 import { SceneBackdrop } from '@/components/scene-backdrop';
 
@@ -32,6 +34,21 @@ export const metadata: Metadata = {
     url: 'https://claudecodeguide.dev/bn',
   },
 };
+
+/** The Code tab of the Claude desktop app, the same mock the tutorials use. Its transcript is plain text, so backticks are dropped. */
+function AppDemo({ folder, steps }: { folder: string; steps: ChatStep[] }) {
+  const first = steps.find((s) => s.role === 'user')?.text ?? '';
+  const title = first.length > 42 ? `${first.slice(0, 40).trimEnd()}…` : first;
+  return (
+    <div className="mt-8">
+      <ClaudeDesktopCodeMock
+        steps={chatToSession(steps.map((s) => ({ ...s, text: s.text.replace(/`/g, '') })))}
+        title={title}
+        folder={folder}
+      />
+    </div>
+  );
+}
 
 /** A card gets the painted scene only when public/<dir>/<slug>.jpg exists, same rule as /tutorials. */
 function cardImage(dir: 'tutorials' | 'for-designers', slug: string): string | undefined {
@@ -130,8 +147,7 @@ export default function BengaliGuidePage() {
             </p>
           </div>
 
-          <AppChatDemo
-            variant="desktop"
+          <AppDemo
             folder="my-resume"
             steps={[
               { role: 'user', text: 'আমার resume দিয়ে একটা website বানিয়ে দিন।' },
@@ -221,8 +237,7 @@ export default function BengaliGuidePage() {
             <p className="text-fd-muted-foreground">
               app-এর ভেতরে Code tab খুলুন, আর যে folder-এ কাজ করতে চান সেটা বেছে নিন। তারপর সাধারণ বাংলায় বলুন আপনি কী চান।
             </p>
-            <AppChatDemo
-              variant="desktop"
+            <AppDemo
               folder="my-project"
               steps={[
                 { role: 'user', text: 'এই folder-এ কী কী আছে, short করে বুঝিয়ে দিন।' },
@@ -260,8 +275,7 @@ export default function BengaliGuidePage() {
             </p>
           </div>
 
-          <AppChatDemo
-            variant="desktop"
+          <AppDemo
             folder="my-project"
             steps={[
               { role: 'user', text: 'আমার project-এর জন্য একটা CLAUDE.md বানিয়ে দিন।' },
