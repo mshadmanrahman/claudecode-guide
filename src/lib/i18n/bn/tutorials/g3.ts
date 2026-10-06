@@ -3,7 +3,7 @@ import type { Translation } from "@/lib/i18n/bn/tutorials";
 
 export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
   "job-application-assistant": {
-    sourceHash: "0c31b8b6bb807a1f",
+    sourceHash: "eae309d2a2051916",
     translatedAt: "2026-10-06",
     content: {
       title: "Claude দিয়ে একটা Job Application System বানান",
@@ -11,6 +11,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
       duration: "এক সন্ধ্যা",
       difficulty: "beginner",
       availableRoutes: ["app"],
+      folder: "job-search",
       personas: [
         { id: "general", label: "যেকোনো role" },
         { id: "designer", label: "Designer" },
@@ -21,8 +22,34 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
       description:
         "এক সন্ধ্যা সময় দিন। Claude আপনার interview নিয়ে একটা master file আর একটা master CV বানাবে। এরপর প্রতিটা application হবে সেই boilerplate থেকে বানানো একটা tailored pack, কয়েক মিনিটেই।",
       intro:
-        "বেশিরভাগ মানুষ প্রতিটা application একদম শুরু থেকে tailor করেন। তাই প্রতিটায় এক ঘণ্টা লাগে, আর প্রতিবার CV সত্যি থেকে একটু একটু করে সরে যায়। উল্টোভাবে করুন। Claude-কে এক সন্ধ্যা দিন: সে আপনার interview নেবে আর আপনার করা সবকিছু লিখে রাখবে। তারপর এমন একটা master CV বানান যেটা নিয়ে আপনি খুশি। এরপর প্রতিটা job-এ একই কাজ: post-টা paste করুন, আর শুধু আপনার নিজের record থেকে বানানো একটা pack নিন।\n\nশুরু করার আগে: এই tutorial Claude desktop app-এর Code tab use করে (claude.ai/download থেকে download করুন), আর এর জন্য মাসে $20 থেকে শুরু হওয়া একটা paid plan লাগবে। একটা খালি folder বানান, নাম দিন job-search, আর Code tab-এ সেটা খুলুন। এই tutorial-এর প্রতিটা file Claude এর ভেতরেই save করবে।\n\nChatGPT-তে paste করার সঙ্গে পার্থক্য ঠিক এই folder-টাই। আপনার record থাকে আপনার computer-এর file-এ, তাই সাত নম্বর application-ও এক নম্বরের মতো একই master file পড়ে, আর আপনাকে আর কখনো CV paste করতে বা career বোঝাতে হয় না। নিচে আপনার role বেছে নিন, আপনার field-এর উদাহরণ দেখতে পাবেন।",
+        "বেশিরভাগ মানুষ প্রতিটা application একদম শুরু থেকে tailor করেন। তাই প্রতিটায় এক ঘণ্টা লাগে, আর প্রতিবার CV সত্যি থেকে একটু একটু করে সরে যায়। উল্টোভাবে করুন। Claude-কে এক সন্ধ্যা দিন: সে আপনার interview নেবে আর আপনার করা সবকিছু লিখে রাখবে। তারপর এমন একটা master CV বানান যেটা নিয়ে আপনি খুশি। এরপর প্রতিটা job-এ একই কাজ: post-টা paste করুন, আর শুধু আপনার নিজের record থেকে বানানো একটা pack নিন।\n\nশুরু করার আগে: এই tutorial Claude desktop app-এর Code tab use করে (claude.ai/download থেকে download করুন), আর এর জন্য মাসে $20 থেকে শুরু হওয়া একটা paid plan লাগবে। Step 1-এ সেই folder-টা setup করবেন, যেখানে Claude এই tutorial-এর প্রতিটা file save করবে।\n\nChatGPT-তে paste করার সঙ্গে পার্থক্য ঠিক এই folder-টাই। আপনার record থাকে আপনার computer-এর file-এ, তাই সাত নম্বর application-ও এক নম্বরের মতো একই master file পড়ে, আর আপনাকে আর কখনো CV paste করতে বা career বোঝাতে হয় না। নিচে আপনার role বেছে নিন, আপনার field-এর উদাহরণ দেখতে পাবেন।",
       steps: [
+        {
+          title: "আপনার folder setup করুন",
+          description:
+            "আপনার computer-এ যেকোনো জায়গায় job-search নামে একটা খালি folder বানান। Claude desktop app-এর Code tab খুলুন, Local বেছে নিন, Select folder-এ click করে job-search বেছে নিন। তারপর Claude-কে নিচের তিনটা folder বানাতে বলুন, আর Files pane-এ সেগুলো আসতে দেখুন। পরের প্রতিটা step এগুলোর ভেতরেই save করে, তাই আপনার record এক জায়গায় থাকে।",
+          appDemo: {
+            steps: [
+              { role: "user", text: "আমার job search-এর জন্য এই folder-টা setup করে দিন। আমার record-এর জন্য একটা career-vault folder বানান, তার ভেতরে পুরনো CV আর sample-এর জন্য একটা versions folder, আর প্রতিটা job-এর জন্য আলাদা folder রাখতে একটা applications folder। তারপর বলুন কোনটা কীসের জন্য।" },
+              { role: "claude", text: "হয়ে গেছে। আপনার job-search folder-এ এখন আছে:\n\n• career-vault/: আপনার master file আর master CV এখানে থাকবে\n• career-vault/versions/: পুরনো CV, আর যে CV-র look আপনার ভালো লাগে\n• career-vault/applications/: প্রতিটা job-এর জন্য একটা folder, প্রতিটায় তার নিজের pack\n\nএরপর আমি আপনার interview নেব। আপনি না বলা পর্যন্ত career-vault/-এ কিছুই লেখা হবে না।" },
+            ],
+          },
+          cliDemo: {
+            steps: [
+              { kind: "prompt", text: "আমার job search-এর জন্য এই folder-টা setup করে দিন। আমার record-এর জন্য একটা career-vault folder বানান, তার ভেতরে পুরনো CV আর sample-এর জন্য একটা versions folder, আর প্রতিটা job-এর জন্য আলাদা folder রাখতে একটা applications folder। তারপর বলুন কোনটা কীসের জন্য।" },
+              { kind: "thinking", verb: "Setting up", ms: 700 },
+              { kind: "tool", name: "Bash", arg: "mkdir career-vault", result: "" },
+              { kind: "tool", name: "Bash", arg: "mkdir career-vault/versions", result: "" },
+              { kind: "tool", name: "Bash", arg: "mkdir career-vault/applications", result: "" },
+              { kind: "say", text: "হয়ে গেছে। আপনার job-search folder-এ এখন আছে:\n\n• career-vault/: আপনার master file আর master CV এখানে থাকবে\n• career-vault/versions/: পুরনো CV, আর যে CV-র look আপনার ভালো লাগে\n• career-vault/applications/: প্রতিটা job-এর জন্য একটা folder, প্রতিটায় তার নিজের pack\n\nএরপর আমি আপনার interview নেব। আপনি না বলা পর্যন্ত career-vault/-এ কিছুই লেখা হবে না।" },
+            ],
+          },
+          files: [
+            { path: "career-vault/", at: 2 },
+            { path: "career-vault/versions/", at: 3 },
+            { path: "career-vault/applications/", at: 4 },
+          ],
+        },
         {
           title: "Claude-কে আপনার interview নিতে দিন",
           description:
