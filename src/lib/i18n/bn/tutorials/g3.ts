@@ -3,7 +3,7 @@ import type { Translation } from "@/lib/i18n/bn/tutorials";
 
 export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
   "job-application-assistant": {
-    sourceHash: "fa00c456f58d3fd1",
+    sourceHash: "0c31b8b6bb807a1f",
     translatedAt: "2026-10-06",
     content: {
       title: "Claude দিয়ে একটা Job Application System বানান",
@@ -21,12 +21,12 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
       description:
         "এক সন্ধ্যা সময় দিন। Claude আপনার interview নিয়ে একটা master file আর একটা master CV বানাবে। এরপর প্রতিটা application হবে সেই boilerplate থেকে বানানো একটা tailored pack, কয়েক মিনিটেই।",
       intro:
-        "বেশিরভাগ মানুষ প্রতিটা application একদম শুরু থেকে tailor করেন। তাই প্রতিটায় এক ঘণ্টা লাগে, আর প্রতিবার CV সত্যি থেকে একটু একটু করে সরে যায়। উল্টোভাবে করুন। Claude-কে এক সন্ধ্যা দিন: সে আপনার interview নেবে আর আপনার করা সবকিছু লিখে রাখবে। তারপর এমন একটা master CV বানান যেটা নিয়ে আপনি খুশি। এরপর প্রতিটা job-এ একই কাজ: post-টা paste করুন, আর শুধু আপনার নিজের record থেকে বানানো একটা pack নিন। নিচে আপনার role বেছে নিন, আপনার field-এর উদাহরণ দেখতে পাবেন।",
+        "বেশিরভাগ মানুষ প্রতিটা application একদম শুরু থেকে tailor করেন। তাই প্রতিটায় এক ঘণ্টা লাগে, আর প্রতিবার CV সত্যি থেকে একটু একটু করে সরে যায়। উল্টোভাবে করুন। Claude-কে এক সন্ধ্যা দিন: সে আপনার interview নেবে আর আপনার করা সবকিছু লিখে রাখবে। তারপর এমন একটা master CV বানান যেটা নিয়ে আপনি খুশি। এরপর প্রতিটা job-এ একই কাজ: post-টা paste করুন, আর শুধু আপনার নিজের record থেকে বানানো একটা pack নিন।\n\nশুরু করার আগে: এই tutorial Claude desktop app-এর Code tab use করে (claude.ai/download থেকে download করুন), আর এর জন্য মাসে $20 থেকে শুরু হওয়া একটা paid plan লাগবে। একটা খালি folder বানান, নাম দিন job-search, আর Code tab-এ সেটা খুলুন। এই tutorial-এর প্রতিটা file Claude এর ভেতরেই save করবে।\n\nChatGPT-তে paste করার সঙ্গে পার্থক্য ঠিক এই folder-টাই। আপনার record থাকে আপনার computer-এর file-এ, তাই সাত নম্বর application-ও এক নম্বরের মতো একই master file পড়ে, আর আপনাকে আর কখনো CV paste করতে বা career বোঝাতে হয় না। নিচে আপনার role বেছে নিন, আপনার field-এর উদাহরণ দেখতে পাবেন।",
       steps: [
         {
           title: "Claude-কে আপনার interview নিতে দিন",
           description:
-            "CV দিয়ে শুরু করবেন না। শুরু করুন Claude-কে প্রশ্ন করতে দিয়ে, একবারে একটা করে, আপনার পড়াশোনা থেকে। হাতে dictation tool থাকলে মুখে বলে উত্তর দিন: মানুষ type করার চেয়ে বলে অনেক বেশি, আর মুখে বলা এই detail থেকেই পরের step-গুলো বানানো হয়। এর জন্য একটা সন্ধ্যা রাখুন।",
+            "CV দিয়ে শুরু করবেন না। শুরু করুন Claude-কে প্রশ্ন করতে দিয়ে, একবারে একটা করে, আপনার পড়াশোনা থেকে। হাতে dictation tool থাকলে মুখে বলে উত্তর দিন: মানুষ type করার চেয়ে বলে অনেক বেশি, আর মুখে বলা এই detail থেকেই পরের step-গুলো বানানো হয়। Claude-এর প্রশ্ন শেষ না হওয়া পর্যন্ত উত্তর দিয়ে যান। এটা একবারের কাজ না, কয়েক ডজন বার আদান-প্রদান, তাই এর জন্য একটা সন্ধ্যা রাখুন।",
           appDemo: {
             steps: [
               {
@@ -39,6 +39,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
               },
               {
                 role: "user",
+                example: true,
                 text: "Business administration। তারপর একটা logistics কোম্পানির operations-এ চার বছর। পুরো southern region-এর returns process আমি চালাতাম।",
               },
               {
@@ -61,6 +62,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "user",
+                    example: true,
                     text: "Fine arts, তারপর নিজে নিজে Figma শিখেছি। আমার সেরা project একটা clinic chain-এর booking flow redesign। Booking বেড়েছিল।",
                   },
                   {
@@ -83,6 +85,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "user",
+                    example: true,
                     text: "Computer science। এখনকার job-এ আমাদের payments service-টা monolith থেকে আলাদা করেছি। এখন অনেক fast।",
                   },
                   {
@@ -105,6 +108,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "user",
+                    example: true,
                     text: "Economics, তারপর customer support, তারপর product-এ এসেছি। একটা self-serve onboarding flow launch করেছিলাম, তাতে support ticket কমেছে।",
                   },
                   {
@@ -127,6 +131,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "user",
+                    example: true,
                     text: "Chemistry, তারপর একটা teaching qualification। ছয় বছর ধরে science পড়াচ্ছি। যে student-রা পিছিয়ে পড়ছিল, তাদের জন্য একটা lunchtime club শুরু করেছিলাম।",
                   },
                   {
@@ -141,7 +146,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
         {
           title: "আপনার master file save করুন",
           description:
-            "Master file কোনো CV নয়। আপনি যা যা বলেছেন, সব গুছিয়ে রাখা, আর ইচ্ছা করেই এটা লম্বা। Claude-কে জিজ্ঞেস করুন file-টা কোথায় save করেছে, খুলুন, আর কোথাও ভুল থাকলে এখনই ঠিক করুন। পরে আপনার প্রতিটা application এই file-এ যা আছে তা-ই নেবে, ভুলসহ।",
+            "Master file কোনো CV নয়। আপনি যা যা বলেছেন, সব গুছিয়ে রাখা, আর ইচ্ছা করেই এটা লম্বা। Claude-কে জিজ্ঞেস করুন file-টা কোথায় save করেছে, খুলুন, আর কোথাও ভুল থাকলে এখনই ঠিক করুন। পরে আপনার প্রতিটা application এই file-এ যা আছে তা-ই নেবে, ভুলসহ। আপনার NID নম্বর, জন্মতারিখ, বাসার ঠিকানা, আর CV-তে যা ছাপাবেন না এমন কিছুই এখানে রাখবেন না: file-টা আপনার computer-এই থাকে, কিন্তু প্রতিবার apply করার সময় Claude এটা পড়ে।",
           appDemo: {
             steps: [
               {
@@ -154,6 +159,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
               },
               {
                 role: "user",
+                example: true,
                 text: "এখনকার কোম্পানিতে join করেছি March 2021-এ, 2022-এ না। আর training-টা ছিল 40 জনের জন্য।",
               },
               {
@@ -166,7 +172,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
         {
           title: "আপনার পছন্দের CV format Claude-কে দিন",
           description:
-            "পছন্দের একটা CV layout খুঁজে Claude-কে template হিসেবে দিন। Simple রাখুন: এক column, standard font, শুধু bullet আর bold, কোনো table, icon বা sidebar নয়। Applicant tracking system text পড়ে, design না, আর fancy layout-এই ওরা সব গুলিয়ে ফেলে। ছোটও রাখুন। North America-তে সাধারণত এক page, Europe আর Australia-তে দুই page।",
+            "পছন্দের একটা CV layout খুঁজে Claude-কে template হিসেবে দিন। Simple রাখুন: এক column, standard font, শুধু bullet আর bold, কোনো table, icon বা sidebar নয়। Applicant tracking system text পড়ে, design না, আর fancy layout-এই ওরা সব গুলিয়ে ফেলে। ছোটও রাখুন। North America-তে সাধারণত এক page, Europe আর Australia-তে দুই page। বাংলাদেশে apply করছেন? Local employer-রা অনেক সময় ছবি, দুজন referee আর একটু লম্বা CV আশা করেন। অন্যদিকে international আর remote role-এ ওপরের simple format-টাই চায়, কোনো ছবি ছাড়া, আর বাবার নাম, ধর্ম বা বৈবাহিক অবস্থার মতো personal detail ছাড়া। দুই জায়গাতেই apply করলে Claude-এর কাছে দুটো template চান।",
           appDemo: {
             steps: [
               {
@@ -196,6 +202,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
               },
               {
                 role: "user",
+                example: true,
                 text: "হ্যাঁ, লিখুন cost case-টা আমি বানিয়েছি।",
               },
               {
@@ -218,6 +225,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "user",
+                    example: true,
                     text: "হ্যাঁ। আমি extend করেছি।",
                   },
                   {
@@ -240,6 +248,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "user",
+                    example: true,
                     text: "হ্যাঁ, এটাই ঠিক।",
                   },
                   {
@@ -262,6 +271,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "user",
+                    example: true,
                     text: "হ্যাঁ। Research আমি চালিয়েছি।",
                   },
                   {
@@ -284,6 +294,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "user",
+                    example: true,
                     text: "হ্যাঁ, এটাই হয়েছিল।",
                   },
                   {
@@ -307,7 +318,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
               },
               {
                 role: "claude",
-                text: "Pack save করেছি career-vault/applications/freshcart-supply-chain-coordinator/-এ।\n\n**Fit**\n✅ Logistics-এ 3+ বছর: Northline-এ চার বছর\n✅ Vendor management: courier contract-এর cost case\n✅ Excel: আপনার বানানো returns tracker\n❌ SQL: আপনার vault-এ কিছু নেই\n❌ Perishable goods: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: returns আর vendor-এর কাজ ওপরে তুলে এনেছি\n• cover-letter.md: প্রথম paragraph-এই perishables-এর gap-টা বলা আছে\n• form-answers.md: ওদের form-এর বাড়তি তিনটা প্রশ্ন\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
+                text: "Pack save করেছি career-vault/applications/freshcart-supply-chain-coordinator/-এ।\n\n**Fit**\n✅ Logistics-এ 3+ বছর: Northline-এ চার বছর\n✅ Vendor management: courier contract-এর cost case\n✅ Excel: আপনার বানানো returns tracker\n❌ SQL: আপনার vault-এ কিছু নেই\n❌ Perishable goods: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: returns আর vendor-এর কাজ ওপরে তুলে এনেছি\n• cover-letter.md: শুরু হচ্ছে Northline-এর returns-এর কাজ দিয়ে; SQL আর perishables থাকলে ভালো, লাগবেই না, তাই letter-এ ওগুলো রাখা হয়নি\n• form-answers.md: ওদের form-এর বাড়তি তিনটা প্রশ্ন\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
               },
             ],
           },
@@ -321,7 +332,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "claude",
-                    text: "Pack save করেছি career-vault/applications/learnloop-product-designer/-এ।\n\n**Fit**\n✅ 3+ বছর product design: 2022 থেকে Clinicly, তার আগে freelance\n✅ Design system: shared Figma library আর তার extension\n✅ Usability testing: booking flow-এর পাঁচ round test\n❌ Motion design: আপনার vault-এ কিছু নেই\n❌ Education background: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: booking flow আর design system ওপরে তুলে এনেছি\n• cover-letter.md: প্রথম paragraph-এই education-এর gap-টা বলা আছে\n• form-answers.md: ওদের portfolio প্রশ্ন, booking flow case দিয়ে উত্তর দেওয়া\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
+                    text: "Pack save করেছি career-vault/applications/learnloop-product-designer/-এ।\n\n**Fit**\n✅ 3+ বছর product design: 2022 থেকে Clinicly, তার আগে freelance\n✅ Design system: shared Figma library আর তার extension\n✅ Usability testing: booking flow-এর পাঁচ round test\n❌ Motion design: আপনার vault-এ কিছু নেই\n❌ Education background: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: booking flow আর design system ওপরে তুলে এনেছি\n• cover-letter.md: শুরু হচ্ছে booking flow redesign দিয়ে; motion আর education থাকলে ভালো, লাগবেই না, তাই letter-এ ওগুলো রাখা হয়নি\n• form-answers.md: ওদের portfolio প্রশ্ন, booking flow case দিয়ে উত্তর দেওয়া\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
                   },
                 ],
               },
@@ -335,7 +346,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "claude",
-                    text: "Pack save করেছি career-vault/applications/routewise-senior-backend/-এ।\n\n**Fit**\n✅ 5+ বছর backend: 2020 থেকে Paystream, তার আগে agency-র কাজ\n✅ Distributed systems: monolith আলাদা করা আর event pipeline\n✅ On-call: আপনার চালানো settlement outage\n✅ Kubernetes: payments service আপনি এতেই deploy করেন\n❌ Go: আপনার vault-এ শুধু Java আর Python আছে\n\n**File**\n• resume.md আর resume.pdf: latency-র result আর outage ওপরে তুলে এনেছি\n• cover-letter.md: সোজাসুজি বলা আছে যে production-এ আপনি Go ship করেননি\n• form-answers.md: ওদের \"hardest bug\" প্রশ্ন, outage দিয়ে উত্তর দেওয়া\n• interview-prep.md: সম্ভাব্য system design প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
+                    text: "Pack save করেছি career-vault/applications/routewise-senior-backend/-এ।\n\n**Fit**\n✅ 5+ বছর backend: 2020 থেকে Paystream, তার আগে agency-র কাজ\n✅ Distributed systems: monolith আলাদা করা আর event pipeline\n✅ On-call: আপনার চালানো settlement outage\n✅ Kubernetes: payments service আপনি এতেই deploy করেন\n❌ Go: আপনার vault-এ শুধু Java আর Python আছে\n\n**File**\n• resume.md আর resume.pdf: latency-র result আর outage ওপরে তুলে এনেছি\n• cover-letter.md: শুরু হচ্ছে আপনার চালানো settlement outage দিয়ে; Go থাকলে ভালো, লাগবেই না, তাই এটার কথা বলা হয়নি\n• form-answers.md: ওদের \"hardest bug\" প্রশ্ন, outage দিয়ে উত্তর দেওয়া\n• interview-prep.md: সম্ভাব্য system design প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
                   },
                 ],
               },
@@ -349,7 +360,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "claude",
-                    text: "Pack save করেছি career-vault/applications/finmark-senior-pm/-এ।\n\n**Fit**\n✅ B2B SaaS: Ledgerly-র SMB customer\n✅ Data-তে comfort: onboarding-এর পেছনের ticket analysis\n⚠️ Product-এ 5+ বছর: আপনার চার বছর, সঙ্গে support-এ দুই বছর\n❌ Financial services: Ledgerly-র invoicing ছাড়া কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: onboarding launch আর বাদ দেওয়া feature ওপরে তুলে এনেছি\n• cover-letter.md: support-এর বছরগুলো টেনে বাড়ানো হয়নি, সৎভাবে গোনা হয়েছে\n• form-answers.md: ওদের \"product you admire\" প্রশ্ন, আপনার note থেকে draft করা\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
+                    text: "Pack save করেছি career-vault/applications/finmark-senior-pm/-এ।\n\n**Fit**\n✅ B2B SaaS: Ledgerly-র SMB customer\n✅ Data-তে comfort: onboarding-এর পেছনের ticket analysis\n⚠️ Product-এ 5+ বছর: আপনার চার বছর, সঙ্গে support-এ দুই বছর\n❌ Financial services: Ledgerly-র invoicing ছাড়া কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: onboarding launch আর বাদ দেওয়া feature ওপরে তুলে এনেছি\n• cover-letter.md: শুরু হচ্ছে onboarding launch দিয়ে, আর মাঝখানে এক লাইনে আপনার চার বছর product আর দুই বছর support গোনা আছে, কিছু টেনে বাড়ানো ছাড়া\n• form-answers.md: ওদের \"product you admire\" প্রশ্ন, আপনার note থেকে draft করা\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
                   },
                 ],
               },
@@ -363,7 +374,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                   },
                   {
                     role: "claude",
-                    text: "Pack save করেছি career-vault/applications/harbour-international-head-of-science/-এ।\n\n**Fit**\n✅ Science পড়ানোয় 5+ বছর: Riverside-এ ছয় বছর\n✅ Curriculum development: Year 9-এর lab curriculum\n⚠️ Team lead করা: সহকর্মীদের train করেছেন, কিন্তু কাউকে manage করেননি\n❌ IB experience: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: catch-up club-এর result আর lab curriculum ওপরে তুলে এনেছি\n• cover-letter.md: leadership-এর gap আর সেদিকে আপনি কী করেছেন, দুটোই বলা আছে\n• form-answers.md: ওদের safeguarding আর teaching philosophy-র প্রশ্ন\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর panel-কে করার মতো তিনটা প্রশ্ন",
+                    text: "Pack save করেছি career-vault/applications/harbour-international-head-of-science/-এ।\n\n**Fit**\n✅ Science পড়ানোয় 5+ বছর: Riverside-এ ছয় বছর\n✅ Curriculum development: Year 9-এর lab curriculum\n⚠️ Team lead করা: সহকর্মীদের train করেছেন, কিন্তু কাউকে manage করেননি\n❌ IB experience: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: catch-up club-এর result আর lab curriculum ওপরে তুলে এনেছি\n• cover-letter.md: শুরু হচ্ছে Year 9-এর lab curriculum দিয়ে, আর মাঝখানে এক লাইনে বলা আছে team lead করার দিকে আপনি কী কী করেছেন\n• form-answers.md: ওদের safeguarding আর teaching philosophy-র প্রশ্ন\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর panel-কে করার মতো তিনটা প্রশ্ন",
                   },
                 ],
               },
@@ -373,16 +384,16 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
         {
           title: "পাঠানোর আগে gap-গুলো পড়ুন",
           description:
-            "পাঠানোর আগে প্রতিটা file পড়ুন। আপনার master file আপনাকে যতটা strong candidate বলে, Claude আপনাকে তার চেয়ে বেশি strong বানাতে পারবে না, আর আপনি সেটা চানও না: বানানো লাইনটা নিয়েই interviewer সবসময় প্রশ্ন করেন। Fit দুর্বল হলেও pack চান, আর gap-গুলো সামনে রেখে decision নিন।",
+            "পাঠানোর আগে প্রতিটা file পড়ুন। আপনার master file আপনাকে যতটা strong candidate বলে, Claude আপনাকে তার চেয়ে বেশি strong বানাতে পারবে না, আর আপনি সেটা চানও না: বানানো লাইনটা নিয়েই interviewer সবসময় প্রশ্ন করেন। Fit দুর্বল হলেও pack চান, আর gap-গুলো সামনে রেখে decision নিন। Cover letter তবু আপনার সবচেয়ে strong match দিয়েই শুরু হয়: যেটা লাগবেই সেটা না থাকলে মাঝখানে এক লাইনে সৎভাবে বলা থাকে, আর যেটা থাকলে ভালো সেটা না থাকলে কিছুই বলা থাকে না। Interview prep-ও একইভাবে check করুন, কারণ মুখস্থ করা উত্তরেই বানানো detail আবার ঢুকে পড়ে।",
           appDemo: {
             steps: [
               {
                 role: "user",
-                text: "Fit যতটা আশা করেছিলাম তার চেয়ে দুর্বল। তবু pack-টা বানান, কিন্তু gap ঢাকতে কিছু টেনে বাড়াবেন না। Cover letter-এর শুরুটা দেখান।",
+                text: "Fit যতটা আশা করেছিলাম তার চেয়ে দুর্বল। তবু pack-টা বানান, কিন্তু gap ঢাকতে কিছু টেনে বাড়াবেন না। Cover letter শুরু করুন আমার সবচেয়ে strong match দিয়ে, যেটা লাগবেই সেটা না থাকলে মাঝখানে এক লাইনে বলুন, আর শুরুটা আমাকে দেখান।",
               },
               {
                 role: "claude",
-                text: "হয়ে গেছে। Pack-এর কিছুই আপনার master file-এর বাইরে যায়নি। Cover letter শুরু হচ্ছে এভাবে:\n\n\"আপনাদের posting-টা আমি আমার নিজের record-এর সঙ্গে মিলিয়ে পড়েছি, আর নিজের পক্ষে কথা বলার আগে gap-টা নিয়ে সোজাসুজি বলতে চাই। আপনারা এমন experience চেয়েছেন যা আমার এখনো নেই। আমার যা আছে, আর কেন মনে করি সেটা এখানে কাজে লাগবে, তা নিচে বলছি।\"\n\nপাঠানোর আগে তিনটা জিনিস check করুন:\n1. resume.md-র প্রতিটা number যেন আপনি ব্যাখ্যা করতে পারেন\n2. Gap-এর paragraph-টা যেন আপনার মতো শোনায়, আমার মতো না\n3. Form-এর উত্তরগুলো যেন ওদের word limit-এর মধ্যে থাকে",
+                text: "হয়ে গেছে। Pack-এর কিছুই আপনার master file-এর বাইরে যায়নি। Cover letter শুরু হচ্ছে এভাবে:\n\n\"Northline-এ আমি regional returns process নতুন করে সাজিয়েছি আর গড় refund time 9 দিন থেকে 4 দিনে নামিয়েছি, আর যে courier contract-এর cost case আমি বানিয়েছিলাম, সেটা return shipping-এ 12% সাশ্রয় করেছে। আপনাদের coordinator role-টা একই কাজ, শুধু আরও বড় পরিসরে।\"\n\nSQL আর perishables দুটোই থাকলে ভালো, লাগবেই না, তাই letter-এ ওগুলো রাখা হয়নি। পাঠানোর আগে তিনটা জিনিস check করুন:\n1. resume.md আর interview-prep.md-র প্রতিটা number যেন আপনি ব্যাখ্যা করতে পারেন\n2. Letter-টা যেন আপনার মতো শোনায়, আমার মতো না\n3. Form-এর উত্তরগুলো যেন ওদের word limit-এর মধ্যে থাকে",
               },
             ],
           },
