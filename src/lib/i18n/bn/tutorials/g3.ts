@@ -14,9 +14,9 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
       folder: "job-search",
       personas: [
         { id: "general", label: "যেকোনো role" },
-        { id: "designer", label: "Designer" },
-        { id: "engineer", label: "Engineer" },
-        { id: "pm", label: "Product manager" },
+        { id: "designer", label: "ডিজাইনার" },
+        { id: "engineer", label: "ইঞ্জিনিয়ার" },
+        { id: "pm", label: "প্রোডাক্ট ম্যানেজার" },
         { id: "teacher", label: "শিক্ষক" },
       ],
       description:

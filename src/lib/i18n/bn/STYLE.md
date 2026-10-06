@@ -19,6 +19,10 @@ These rules cover every page under `/bn`. The readers are Bangladeshi designers 
 - Claude's UI chrome in mocks: tool names, tool results, thinking verbs and status lines such as "Reading file...". User input and Claude's prose replies are in Bangla.
 - Number of steps, field order and object shape. A Bangla entry must mirror its English entry key for key.
 
+## Persona labels
+
+- Write role names in Bangla script: ডিজাইনার, ইঞ্জিনিয়ার, প্রোডাক্ট ম্যানেজার, শিক্ষক. "যেকোনো role" stays as it is.
+
 ## Output language in prompts
 
 - When a prompt asks Claude to write something the reader will send to an employer or client (a CV, cover letter, application pack), say it should be written in English (ইংরেজিতে). A Bangla prompt otherwise gets a Bangla CV back.

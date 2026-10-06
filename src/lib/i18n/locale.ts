@@ -80,7 +80,7 @@ const UI = {
     prompt: "Prompt",
     promptNofM: (i: number, n: number) => `Prompt ${i} / ${n}`,
     whatYouShouldSee: "আপনি যা দেখবেন",
-    markComplete: "Complete হিসেবে mark করুন",
+    markComplete: "Mark as complete",
     doneNiceWork: "Done! দারুণ কাজ করেছেন।",
     inEnglish: "(English)",
     switchLanguage: "Read in English",
