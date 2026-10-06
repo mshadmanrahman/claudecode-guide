@@ -82,7 +82,10 @@ interface TutorialArticleProps {
 export function TutorialArticle({ tutorial, locale, alternateHref, stale }: TutorialArticleProps) {
   const t = ui(locale);
   const slug = tutorial.slug;
-  const routes = tutorial.availableRoutes ?? ["terminal"];
+  const authored = tutorial.availableRoutes ?? ["terminal"];
+  // Every step with an IDE chat can play in the desktop app's Code tab, so offer that route first.
+  const canUseApp = !authored.includes("app") && tutorial.steps.every((s) => s.ideDemo);
+  const routes = canUseApp ? (["app", ...authored] as typeof authored) : authored;
   const personaIds = tutorial.personas?.map((p) => p.id) ?? [];
   const position = findTrackPosition(slug);
   const total = tutorial.steps.length;
@@ -212,7 +215,7 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
                 availableRoutes={routes}
                 code={step.code}
                 demo={step.demo}
-                appDemo={step.appDemo}
+                appDemo={step.appDemo ?? (canUseApp ? step.ideDemo : undefined)}
                 ideDemo={step.ideDemo}
                 cliDemo={step.cliDemo}
                 personaIds={personaIds}
