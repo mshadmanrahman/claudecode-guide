@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Copy, Check, Share2 } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
+import { localePrefix, type Locale } from '@/lib/i18n/locale';
 
 const SITE_URL = 'https://claudecodeguide.dev';
 
@@ -10,16 +11,20 @@ interface ShareCardProps {
   tutorialTitle: string;
   tutorialSlug: string;
   duration: string;
+  locale?: Locale;
 }
 
 const focusRing =
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]';
 
-export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardProps) {
+export function ShareCard({ tutorialTitle, tutorialSlug, duration, locale = 'en' }: ShareCardProps) {
   const [copied, setCopied] = useState(false);
 
-  const tutorialUrl = `${SITE_URL}/tutorials/${tutorialSlug}`;
-  const shareText = `Just finished "${tutorialTitle}" on Claude Code Guide. Took about ${duration}, and it's free:`;
+  const tutorialUrl = `${SITE_URL}${localePrefix(locale)}/tutorials/${tutorialSlug}`;
+  const shareText =
+    locale === 'bn'
+      ? `Claude Code Guide-এ "${tutorialTitle}" শেষ করলাম। সময় লাগল প্রায় ${duration}, আর এটা ফ্রি:`
+      : `Just finished "${tutorialTitle}" on Claude Code Guide. Took about ${duration}, and it's free:`;
   const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(tutorialUrl)}`;
 
   async function handleCopy() {
@@ -37,7 +42,7 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
     <div className="glass space-y-4 rounded-xl p-5 sm:p-6">
       <div className="flex items-center gap-2">
         <Share2 className="h-4 w-4 text-[var(--muted)]" aria-hidden="true" />
-        <p className="m-0 text-sm font-medium">Tell someone what you built</p>
+        <p className="m-0 text-sm font-medium">{locale === 'bn' ? 'আপনি কী বানালেন, কাউকে জানান' : 'Tell someone what you built'}</p>
       </div>
 
       <div className="rounded-lg border border-[var(--line)] bg-[var(--glass2)] px-4 py-3">
@@ -69,7 +74,7 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration }: ShareCardPr
           ) : (
             <Copy className="h-4 w-4" aria-hidden="true" />
           )}
-          <span aria-live="polite">{copied ? 'Copied' : 'Copy post'}</span>
+          <span aria-live="polite">{copied ? (locale === 'bn' ? 'Copy হয়েছে' : 'Copied') : locale === 'bn' ? 'Post copy করুন' : 'Copy post'}</span>
         </button>
       </div>
     </div>

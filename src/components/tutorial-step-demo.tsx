@@ -7,6 +7,7 @@ import { useTutorialRoute, type TutorialRoute } from '@/components/route-switche
 import { ClaudeCodeMock, type CliStep } from '@/components/claude-code-mock';
 import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
 import { chatToSession } from '@/lib/chat-session';
+import { ui, type Locale } from '@/lib/i18n/locale';
 
 interface DemoData {
   title?: string;
@@ -31,6 +32,7 @@ interface TutorialStepBodyProps {
   cliDemo?: { steps: CliStep[] };
   /** Used as the desktop mock's session title. */
   title?: string;
+  locale?: Locale;
 }
 
 /**
@@ -49,7 +51,9 @@ export function TutorialStepBody({
   ideDemo,
   cliDemo,
   title,
+  locale = 'en',
 }: TutorialStepBodyProps) {
+  const t = ui(locale);
   const route = useTutorialRoute(availableRoutes);
   const chat = route === 'app' ? appDemo : route === 'ide' ? ideDemo : undefined;
   const prompts = chat ? chat.steps.filter((s) => s.role === 'user').map((s) => s.text) : [];
@@ -80,7 +84,7 @@ export function TutorialStepBody({
             key={i}
             code={text}
             language="prompt"
-            title={prompts.length > 1 ? `Prompt ${i + 1} of ${prompts.length}` : 'Prompt'}
+            title={prompts.length > 1 ? t.promptNofM(i + 1, prompts.length) : t.prompt}
           />
         ))}
       {showCode && code && (
@@ -90,7 +94,7 @@ export function TutorialStepBody({
       )}
       {preview && (
         <div className="min-w-0">
-          <p className="m-0 mb-2 font-mono text-xs text-[var(--muted)]">what you should see</p>
+          <p className="m-0 mb-2 font-mono text-xs text-[var(--muted)]">{t.whatYouShouldSee}</p>
           {preview}
         </div>
       )}

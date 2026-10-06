@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "check:bn": "node --no-warnings scripts/check-bn-sync.ts",
+    "prebuild": "npm run check:bn",
     "build": "next build",
     "start": "next start",
     "postinstall": "fumadocs-mdx"

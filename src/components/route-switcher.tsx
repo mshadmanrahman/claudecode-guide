@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { MessageSquare, Terminal, Code2 } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
+import { ui, type Locale } from '@/lib/i18n/locale';
 
 export type TutorialRoute = 'app' | 'terminal' | 'ide';
 
@@ -59,25 +60,28 @@ export function useTutorialRoute(availableRoutes: TutorialRoute[]): TutorialRout
   return route;
 }
 
-const NEEDS: Record<TutorialRoute, React.ReactNode> = {
-  app: <>A Claude account. Open claude.ai in a browser, or the Claude desktop app.</>,
-  terminal: (
+function needs(route: TutorialRoute, locale: Locale): React.ReactNode {
+  const t = ui(locale);
+  if (route === 'app') return t.needApp;
+  if (route === 'ide') return t.needIde;
+  return (
     <>
-      Claude Code installed on your computer.{' '}
+      {t.needTerminal}{' '}
       <Link href="/docs/foundations/installation" className="text-[var(--acc)] underline underline-offset-4">
-        Install guide
+        {t.installGuide}
       </Link>
+      {locale !== 'en' && ` ${t.inEnglish}`}
     </>
-  ),
-  ide: <>VS Code or Cursor with the Claude Code extension.</>,
-};
+  );
+}
 
 interface RouteSwitcherProps {
   /** Routes that have content authored. Only these are offered. */
   availableRoutes?: TutorialRoute[];
+  locale?: Locale;
 }
 
-export function RouteSwitcher({ availableRoutes = ['app'] }: RouteSwitcherProps) {
+export function RouteSwitcher({ availableRoutes = ['app'], locale = 'en' }: RouteSwitcherProps) {
   const active = useTutorialRoute(availableRoutes);
   const tabs = TABS.filter((t) => availableRoutes.includes(t.id));
 
@@ -90,7 +94,7 @@ export function RouteSwitcher({ availableRoutes = ['app'] }: RouteSwitcherProps)
   return (
     <div>
       <p id="route-label" className="m-0 mb-2 font-mono text-xs text-[var(--muted)]">
-        follow along in
+        {ui(locale).followAlongIn}
       </p>
       <div
         role="group"
@@ -118,8 +122,8 @@ export function RouteSwitcher({ availableRoutes = ['app'] }: RouteSwitcherProps)
         })}
       </div>
       <p className="m-0 mt-3 text-sm leading-relaxed text-[var(--muted)]">
-        <span className="font-medium text-[var(--ink)]">You need: </span>
-        {NEEDS[active]}
+        <span className="font-medium text-[var(--ink)]">{ui(locale).youNeed}</span>
+        {needs(active, locale)}
       </p>
     </div>
   );

@@ -2279,3 +2279,16 @@ figure.ccg-code button:focus-visible {
   color: var(--muted);
   text-align: center;
 }
+
+/* Bangla pages: matras sit above and below the line, so text needs more
+   leading than Latin, and the negative tracking used on headings crowds
+   conjuncts. Overrides the tracking/leading utilities inside lang="bn". */
+:lang(bn) {
+  letter-spacing: normal !important;
+}
+:lang(bn) :is(p, li) {
+  line-height: 1.85 !important;
+}
+:lang(bn) :is(h1, h2, h3) {
+  line-height: 1.4 !important;
+}
