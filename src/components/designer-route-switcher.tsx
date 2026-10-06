@@ -3,21 +3,25 @@
 import { useEffect, useState } from 'react';
 import { Globe, Monitor } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
+import { ui, type Locale } from '@/lib/i18n/locale';
 
 export type DesignerRoute = 'web' | 'desktop';
 
 export const DESIGNER_ROUTE_CHANGE_EVENT = 'designer-route-change';
 const STORAGE_KEY = 'designer-journey';
 
-const TABS: Array<{ id: DesignerRoute; label: string; icon: React.ReactNode }> = [
-  { id: 'web', label: 'On the web', icon: <Globe className="h-3.5 w-3.5" aria-hidden="true" /> },
-  { id: 'desktop', label: 'In the desktop app', icon: <Monitor className="h-3.5 w-3.5" aria-hidden="true" /> },
-];
+function tabs(locale: Locale): Array<{ id: DesignerRoute; label: string; icon: React.ReactNode }> {
+  const t = ui(locale);
+  return [
+    { id: 'web', label: t.onTheWeb, icon: <Globe className="h-3.5 w-3.5" aria-hidden="true" /> },
+    { id: 'desktop', label: t.inDesktopApp, icon: <Monitor className="h-3.5 w-3.5" aria-hidden="true" /> },
+  ];
+}
 
-const NEEDS: Record<DesignerRoute, string> = {
-  web: 'A Claude account. Open claude.ai in any browser.',
-  desktop: 'The Claude desktop app for Mac or Windows. It can read a folder of your files.',
-};
+function needs(route: DesignerRoute, locale: Locale): string {
+  const t = ui(locale);
+  return route === 'web' ? t.needWeb : t.needDesktop;
+}
 
 /** Reads the saved surface. Older saves ('claude-ai', 'co-work', 'claude-code') map onto the two current ones. */
 export function readSavedDesignerRoute(): DesignerRoute | null {
@@ -33,9 +37,10 @@ export function readSavedDesignerRoute(): DesignerRoute | null {
 
 interface DesignerRouteSwitcherProps {
   availableRoutes?: DesignerRoute[];
+  locale?: Locale;
 }
 
-export function DesignerRouteSwitcher({ availableRoutes = ['web', 'desktop'] }: DesignerRouteSwitcherProps) {
+export function DesignerRouteSwitcher({ availableRoutes = ['web', 'desktop'], locale = 'en' }: DesignerRouteSwitcherProps) {
   const [active, setActive] = useState<DesignerRoute>(availableRoutes[0] ?? 'web');
   const key = availableRoutes.join(',');
 
@@ -56,19 +61,19 @@ export function DesignerRouteSwitcher({ availableRoutes = ['web', 'desktop'] }: 
     trackEvent('designer_route_switcher_select', { route: id });
   }
 
-  const tabs = TABS.filter((t) => availableRoutes.includes(t.id));
+  const visibleTabs = tabs(locale).filter((t) => availableRoutes.includes(t.id));
 
   return (
     <div className="mb-8">
       <p id="designer-route-label" className="m-0 mb-2 text-xs font-medium text-fd-muted-foreground">
-        Follow along:
+        {ui(locale).followAlong}
       </p>
       <div
         role="group"
         aria-labelledby="designer-route-label"
         className="inline-flex max-w-full flex-wrap items-center gap-1 rounded-lg border border-fd-border bg-[var(--code)] p-1"
       >
-        {tabs.map(({ id, label, icon }) => {
+        {visibleTabs.map(({ id, label, icon }) => {
           const isActive = active === id;
           return (
             <button
@@ -89,8 +94,8 @@ export function DesignerRouteSwitcher({ availableRoutes = ['web', 'desktop'] }: 
         })}
       </div>
       <p className="m-0 mt-3 text-sm leading-relaxed text-fd-muted-foreground">
-        <span className="font-medium text-fd-foreground">You need: </span>
-        {NEEDS[active]}
+        <span className="font-medium text-fd-foreground">{ui(locale).youNeed}</span>
+        {needs(active, locale)}
       </p>
     </div>
   );

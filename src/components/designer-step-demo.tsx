@@ -10,6 +10,7 @@ import {
   readSavedDesignerRoute,
   type DesignerRoute,
 } from '@/components/designer-route-switcher';
+import { ui, type Locale } from '@/lib/i18n/locale';
 
 interface ChatDemoData {
   steps: ChatStep[];
@@ -22,9 +23,11 @@ interface DesignerStepDemoProps {
   desktopDemo?: ChatDemoData;
   /** The step already shows its own copyable prompt, so do not repeat it. */
   skipPrompts?: boolean;
+  locale?: Locale;
 }
 
-export function DesignerStepDemo({ appDemo, desktopDemo, skipPrompts = false }: DesignerStepDemoProps) {
+export function DesignerStepDemo({ appDemo, desktopDemo, skipPrompts = false, locale = 'en' }: DesignerStepDemoProps) {
+  const t = ui(locale);
   const [route, setRoute] = useState<DesignerRoute>('web');
 
   useEffect(() => {
@@ -52,11 +55,11 @@ export function DesignerStepDemo({ appDemo, desktopDemo, skipPrompts = false }: 
           key={i}
           code={text}
           language="prompt"
-          title={prompts.length > 1 ? `Prompt ${i + 1} of ${prompts.length}` : 'Prompt'}
+          title={prompts.length > 1 ? t.promptNofM(i + 1, prompts.length) : t.prompt}
         />
       ))}
       <div>
-      <p className="m-0 mb-2 font-mono text-xs text-[var(--muted)]">what you should see</p>
+      <p className="m-0 mb-2 font-mono text-xs text-[var(--muted)]">{t.whatYouShouldSee}</p>
       <ClaudeDesktopCodeMock steps={chatToSession(demo.steps)} folder={demo.folder} />
       </div>
     </div>

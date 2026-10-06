@@ -15,6 +15,12 @@
  * English and flag the translation as stale when they differ.
  */
 import type { Tutorial } from "@/lib/tutorials";
+import { BN_TUTORIALS_G1 } from "./tutorials/g1.ts";
+import { BN_TUTORIALS_G2 } from "./tutorials/g2.ts";
+import { BN_TUTORIALS_G3 } from "./tutorials/g3.ts";
+import { BN_TUTORIALS_G4 } from "./tutorials/g4.ts";
+import { BN_TUTORIALS_G5 } from "./tutorials/g5.ts";
+import { BN_TUTORIALS_G6 } from "./tutorials/g6.ts";
 
 export interface Translation<T> {
   sourceHash: string;
@@ -40,7 +46,7 @@ export const BN_TUTORIALS: Partial<Record<string, Translation<Tutorial>>> = {
         {
           title: "সবচেয়ে বড় পার্থক্য: Claude কোথায় থাকে",
           description:
-            "ChatGPT থাকে আপনার browser-এ। এটি আপনার আগের conversation-গুলোর list রাখে এবং এক session থেকে আরেক session-এ সেগুলো কাজে লাগাতে পারে। Claude Code থাকে আপনার কম্পিউটারে। এটি চলে আপনার terminal-এ (বা Claude.ai web app-এ), কিন্তু এর এমন কোনো built-in memory নেই যা সব জায়গায় আপনার সঙ্গে থাকে। প্রতিটি নতুন session শুরু হয় একদম নতুন করে। এটা কোনো bug নয়। আসলে এ কারণেই real কাজে Claude এত useful: এটি সরাসরি আপনার ফাইল, ফোল্ডার আর কোডের ওপর কাজ করে। তবে এর মানে, আপনি কে, সেটা Claude-কে আপনাকেই জানাতে হবে। ভালো খবর হলো, কাজটা একবারই করতে হয়।",
+            "ChatGPT থাকে আপনার browser-এ। এটি আপনার আগের conversation-গুলোর list রাখে এবং এক session থেকে আরেক session-এ সেগুলো কাজে লাগাতে পারে। Claude Code থাকে আপনার কম্পিউটারে। এটি চলে আপনার terminal-এ (বা Claude.ai web app-এ), কিন্তু এর এমন কোনো built-in memory নেই যা সব জায়গায় আপনার সঙ্গে থাকে। প্রতিটি নতুন session শুরু হয় একদম নতুন করে। এটা কোনো bug নয়। আসলে এ কারণেই real কাজে Claude এত useful: এটি সরাসরি আপনার file, folder আর কোডের ওপর কাজ করে। তবে এর মানে, আপনি কে, সেটা Claude-কে আপনাকেই জানাতে হবে। ভালো খবর হলো, কাজটা একবারই করতে হয়।",
           demo: {
             title: "নতুন Claude session দেখতে কেমন",
             steps: [
@@ -57,7 +63,7 @@ export const BN_TUTORIALS: Partial<Record<string, Translation<Tutorial>>> = {
               { kind: "thinking", ms: 1100 },
               {
                 kind: "say",
-                text: "আমি এক session থেকে আরেক session-এ কিছু মনে রাখি না। তবে প্রতিবার\nশুরুর সময় আমি একটা ফাইল পড়ি, যার নাম CLAUDE.md।\n\nএই ফোল্ডারে এখনও সেটা নেই, তাই আপনার সম্পর্কে আমি কিছুই জানি না।\n/init চালান, অথবা আমাকে বলুন, আমরা একসঙ্গে লিখে ফেলি।",
+                text: "আমি এক session থেকে আরেক session-এ কিছু মনে রাখি না। তবে প্রতিবার\nশুরুর সময় আমি একটা file পড়ি, যার নাম CLAUDE.md।\n\nএই folder-এ এখনও সেটা নেই, তাই আপনার সম্পর্কে আমি কিছুই জানি না।\n/init চালান, অথবা আমাকে বলুন, আমরা একসঙ্গে লিখে ফেলি।",
               },
             ],
           },
@@ -69,7 +75,7 @@ export const BN_TUTORIALS: Partial<Record<string, Translation<Tutorial>>> = {
               },
               {
                 role: "claude",
-                text: "শুরুতে অনেকেরই এমন মনে হয়, আর কথাটা ঠিক। Claude-এর এমন কোনো built-in memory নেই যা এক conversation থেকে পরেরটায় আপনার সঙ্গে যায়।\n\nসমাধান হলো CLAUDE.md নামের একটা ফাইল। আপনি একবার লিখবেন, আর প্রতিটি session-এর শুরুতে Claude সেটা পড়ে নেবে। অনেকটা নিজের জন্য একটা briefing note রেখে যাওয়ার মতো, যেটা Claude নিজে থেকেই তুলে নেয়।\n\nএকটা বানাতে সাহায্য করব? মোটামুটি পাঁচ মিনিট লাগবে।",
+                text: "শুরুতে অনেকেরই এমন মনে হয়, আর কথাটা ঠিক। Claude-এর এমন কোনো built-in memory নেই যা এক conversation থেকে পরেরটায় আপনার সঙ্গে যায়।\n\nসমাধান হলো CLAUDE.md নামের একটা file। আপনি একবার লিখবেন, আর প্রতিটি session-এর শুরুতে Claude সেটা পড়ে নেবে। অনেকটা নিজের জন্য একটা briefing note রেখে যাওয়ার মতো, যেটা Claude নিজে থেকেই তুলে নেয়।\n\nএকটা বানাতে সাহায্য করব? মোটামুটি পাঁচ মিনিট লাগবে।",
               },
             ],
           },
@@ -77,7 +83,7 @@ export const BN_TUTORIALS: Partial<Record<string, Translation<Tutorial>>> = {
         {
           title: "Claude যেভাবে আপনাকে মনে রাখবে: CLAUDE.md",
           description:
-            "\"Claude কেন বারবার আমাকে ভুলে যায়?\" এই প্রশ্নের উত্তর হলো CLAUDE.md নামের একটা ফাইল। এটি আপনার project ফোল্ডারে রাখুন (অথবা সব কাজে একই preference চাইলে home directory-তে), আর প্রতিটি session-এর শুরুতে Claude নিজে থেকেই এটা পড়বে। কোনো plugin লাগবে না, কোনো setting না, কোনো subscription upgrade না। শুধু একটা text ফাইল। এখনই কীভাবে একটা বানাবেন, নিচে দেখুন।",
+            "\"Claude কেন বারবার আমাকে ভুলে যায়?\" এই প্রশ্নের উত্তর হলো CLAUDE.md নামের একটা file। এটি আপনার project folder-এ রাখুন (অথবা সব কাজে একই preference চাইলে home directory-তে), আর প্রতিটি session-এর শুরুতে Claude নিজে থেকেই এটা পড়বে। কোনো plugin লাগবে না, কোনো setting না, কোনো subscription upgrade না। শুধু একটা text file। এখনই কীভাবে একটা বানাবেন, নিচে দেখুন।",
           code: {
             snippet: `# home directory-তে একটা CLAUDE.md বানান
 # এটি আপনার কম্পিউটারের প্রতিটি Claude session-এ কাজ করবে
@@ -138,7 +144,7 @@ EOF`,
                   "- বাড়তি কথা নয়",
                 ],
               },
-              { kind: "say", text: "হয়ে গেছে। এখন থেকে প্রতিটি নতুন session এই ফাইল পড়ে শুরু হবে।" },
+              { kind: "say", text: "হয়ে গেছে। এখন থেকে প্রতিটি নতুন session এই file পড়ে শুরু হবে।" },
             ],
           },
           appDemo: {
@@ -149,7 +155,7 @@ EOF`,
               },
               {
                 role: "claude",
-                text: "এই নিন আপনার CLAUDE.md। এটি `CLAUDE.md` নামে আপনার home directory-তে (অথবা project ফোল্ডারে) save করুন:\n\n```\n# আমার সম্পর্কে\nআমি একজন product manager।\nআমি short, সরাসরি উত্তর পছন্দ করি, কোনো intro ছাড়া।\nউত্তর বাংলায় দিন, technical term ইংরেজিতে রাখুন।\n\n# লেখার style\n- লম্বা paragraph-এর বদলে bullet point\n- আগে উত্তর, পরে explanation\n- বাড়তি কথা নয়: 'অবশ্যই!', 'দারুণ প্রশ্ন!' বাদ দিন\n```\n\nফাইলটি থাকলে প্রতিটি নতুন session-এর শুরুতে Claude এটা পড়ে নেবে। আপনার preference-গুলো নিজে থেকেই থেকে যাবে।",
+                text: "এই নিন আপনার CLAUDE.md। এটি `CLAUDE.md` নামে আপনার home directory-তে (অথবা project folder-এ) save করুন:\n\n```\n# আমার সম্পর্কে\nআমি একজন product manager।\nআমি short, সরাসরি উত্তর পছন্দ করি, কোনো intro ছাড়া।\nউত্তর বাংলায় দিন, technical term ইংরেজিতে রাখুন।\n\n# লেখার style\n- লম্বা paragraph-এর বদলে bullet point\n- আগে উত্তর, পরে explanation\n- বাড়তি কথা নয়: 'অবশ্যই!', 'দারুণ প্রশ্ন!' বাদ দিন\n```\n\nfile-টা থাকলে প্রতিটি নতুন session-এর শুরুতে Claude এটা পড়ে নেবে। আপনার preference-গুলো নিজে থেকেই থেকে যাবে।",
               },
             ],
           },
@@ -157,7 +163,7 @@ EOF`,
         {
           title: "এখন আপনার preference-গুলো থেকে যায়",
           description:
-            "CLAUDE.md তৈরি হয়ে গেলে একটা নতুন session শুরু করে দেখুন। আপনার প্রথম message লেখার আগেই Claude ফাইলটা পড়ে নেবে। \"মনে রাখবেন, আমি short answer পছন্দ করি\" এ কথা আর কখনো বলতে হবে না। এখনই test করে দেখুন: Claude-কে কিছু লিখতে বলুন, তারপর দেখুন সেটা আপনার বলে দেওয়া style-এর সঙ্গে মেলে কি না।",
+            "CLAUDE.md তৈরি হয়ে গেলে একটা নতুন session শুরু করে দেখুন। আপনার প্রথম message লেখার আগেই Claude file-টা পড়ে নেবে। \"মনে রাখবেন, আমি short answer পছন্দ করি\" এ কথা আর কখনো বলতে হবে না। এখনই test করে দেখুন: Claude-কে কিছু লিখতে বলুন, তারপর দেখুন সেটা আপনার বলে দেওয়া style-এর সঙ্গে মেলে কি না।",
           code: {
             snippet: `# নতুন Claude session শুরু করে test করুন
 claude "product roadmap কী? আমাকে short তিনটা bullet-এ বুঝিয়ে দিন"`,
@@ -200,9 +206,9 @@ claude "product roadmap কী? আমাকে short তিনটা bullet-এ
         {
           title: "যে project-এর context থেকে যায়: project-level CLAUDE.md",
           description:
-            "home directory-র CLAUDE.md আপনার general preference-গুলো ধরে রাখে। কিন্তু নির্দিষ্ট কোনো project-এর জন্য সেই project ফোল্ডারের ভেতরেই দ্বিতীয় একটা CLAUDE.md রাখতে পারেন। Claude দুটোই একসঙ্গে ব্যবহার করে: home directory থেকে আপনার general preference, project ফোল্ডার থেকে project-এর context। এভাবেই আপনি ChatGPT-র মতো continuity পান, আপনার context রাখার জন্য কোনো cloud service ছাড়াই।",
+            "home directory-র CLAUDE.md আপনার general preference-গুলো ধরে রাখে। কিন্তু নির্দিষ্ট কোনো project-এর জন্য সেই project folder-এর ভেতরেই দ্বিতীয় একটা CLAUDE.md রাখতে পারেন। Claude দুটোই একসঙ্গে ব্যবহার করে: home directory থেকে আপনার general preference, project folder থেকে project-এর context। এভাবেই আপনি ChatGPT-র মতো continuity পান, আপনার context রাখার জন্য কোনো cloud service ছাড়াই।",
           code: {
-            snippet: `# project ফোল্ডারের ভেতরে এই project-এর জন্য আলাদা CLAUDE.md বানান
+            snippet: `# project folder-এর ভেতরে এই project-এর জন্য আলাদা CLAUDE.md বানান
 
 cd ~/my-product-work
 cat > CLAUDE.md << 'EOF'
@@ -254,7 +260,7 @@ EOF`,
               },
               {
                 role: "claude",
-                text: "আপনার project ফোল্ডারের ভেতরে একটা `CLAUDE.md` ফাইলে এটা যোগ করুন:\n\n```\n# Project: Q3 Strategy Decision\n\n## Context\nQ3-এর জন্য তিনটা strategic bet থেকে একটা বেছে নেওয়া।\nDecision deadline: শুক্রবার।\n\n## যা আগেই ঠিক হয়ে গেছে\n- Mobile-first-ই priority\n- এই cycle-এ কোনো native app নয়\n\n## যে ফাইলগুলো দেখতে হবে\n- roadmap-draft.md\n- user-research-notes.md\n```\n\nএই ফোল্ডারের ভেতরে যখনই নতুন Claude session খুলবেন, Claude আগে এই context পড়ে নেবে। পরিস্থিতি আর কখনো নতুন করে বুঝিয়ে বলতে হবে না।",
+                text: "আপনার project folder-এর ভেতরে একটা `CLAUDE.md` file-এ এটা যোগ করুন:\n\n```\n# Project: Q3 Strategy Decision\n\n## Context\nQ3-এর জন্য তিনটা strategic bet থেকে একটা বেছে নেওয়া।\nDecision deadline: শুক্রবার।\n\n## যা আগেই ঠিক হয়ে গেছে\n- Mobile-first-ই priority\n- এই cycle-এ কোনো native app নয়\n\n## যে file-গুলো দেখতে হবে\n- roadmap-draft.md\n- user-research-notes.md\n```\n\nএই folder-এর ভেতরে যখনই নতুন Claude session খুলবেন, Claude আগে এই context পড়ে নেবে। পরিস্থিতি আর কখনো নতুন করে বুঝিয়ে বলতে হবে না।",
               },
             ],
           },
@@ -273,8 +279,8 @@ EOF`,
               { type: "out", text: "  - GPT plugin বা DALL-E দিয়ে ছবি বানাচ্ছেন" },
               { type: "out", text: "" },
               { type: "out", text: "Claude Code ব্যবহার করুন যখন:", delay: 300 },
-              { type: "out", text: "  - real কোনো project বা ফোল্ডারের ভেতরে কাজ করছেন" },
-              { type: "out", text: "  - চান Claude আসল ফাইল পড়ুক, লিখুক আর edit করুক" },
+              { type: "out", text: "  - real কোনো project বা folder-এর ভেতরে কাজ করছেন" },
+              { type: "out", text: "  - চান Claude আসল file পড়ুক, লিখুক আর edit করুক" },
               { type: "out", text: "  - repeatable workflow চান (skill, automation)" },
               { type: "out", text: "  - চান context আপনার নিজের কম্পিউটার থেকে load হোক" },
               { type: "success", text: "চিরকালের জন্য একটা বেছে নিতে হবে না। দুটোই ব্যবহার করুন।" },
@@ -286,7 +292,7 @@ EOF`,
               { kind: "thinking", ms: 1100 },
               {
                 kind: "say",
-                text: "ফোনে দ্রুত chat করতে, বা কোনো setup ছাড়া memory চাইলে ChatGPT নিন।\nকাজ যখন কোনো ফোল্ডারে থাকে, তখন Claude Code নিন:\nপড়ার আর edit করার মতো আসল ফাইল, আর CLAUDE.md থেকে load হওয়া context।\n\nবেশিরভাগ মানুষ দুটোই ব্যবহার করেন।",
+                text: "ফোনে দ্রুত chat করতে, বা কোনো setup ছাড়া memory চাইলে ChatGPT নিন।\nকাজ যখন কোনো folder-এ থাকে, তখন Claude Code নিন:\nপড়ার আর edit করার মতো আসল file, আর CLAUDE.md থেকে load হওয়া context।\n\nবেশিরভাগ মানুষ দুটোই ব্যবহার করেন।",
               },
             ],
           },
@@ -298,7 +304,7 @@ EOF`,
               },
               {
                 role: "claude",
-                text: "প্রশ্নটা fair। Honestly ভাগ করলে এমন দাঁড়ায়:\n\nChatGPT নিন যখন:\n- কোনো setup ছাড়াই memory কাজ করুক, এমন চান\n- ডেস্কে নয়, phone-এ বা browser-এ আছেন\n- ছবি বানানো বা browsing-এর জন্য GPT-4o ব্যবহার করেন\n- project context ছাড়াই দ্রুত chat-এ help চান\n\nClaude নিন যখন:\n- আসল ফাইলসহ কোনো project ফোল্ডারের ভেতরে কাজ করছেন\n- চান Claude শুধু লেখা তৈরি না করে ফাইল পড়ুক আর লিখুক\n- চান CLAUDE.md দিয়ে আপনার preference আর project context নিজে থেকেই load হোক\n- repeatable workflow বানাচ্ছেন (skill, automation, structured output)\n\nসংক্ষেপে: chat-এর জন্য ChatGPT ভালো। আপনার কম্পিউটারে থাকা কাজের জন্য Claude Code ভালো। অনেকেই দুটোই ব্যবহার করেন।",
+                text: "প্রশ্নটা fair। Honestly ভাগ করলে এমন দাঁড়ায়:\n\nChatGPT নিন যখন:\n- কোনো setup ছাড়াই memory কাজ করুক, এমন চান\n- ডেস্কে নয়, phone-এ বা browser-এ আছেন\n- ছবি বানানো বা browsing-এর জন্য GPT-4o ব্যবহার করেন\n- project context ছাড়াই দ্রুত chat-এ help চান\n\nClaude নিন যখন:\n- আসল file সহ কোনো project folder-এর ভেতরে কাজ করছেন\n- চান Claude শুধু লেখা তৈরি না করে file পড়ুক আর লিখুক\n- চান CLAUDE.md দিয়ে আপনার preference আর project context নিজে থেকেই load হোক\n- repeatable workflow বানাচ্ছেন (skill, automation, structured output)\n\nসংক্ষেপে: chat-এর জন্য ChatGPT ভালো। আপনার কম্পিউটারে থাকা কাজের জন্য Claude Code ভালো। অনেকেই দুটোই ব্যবহার করেন।",
               },
             ],
           },
@@ -310,4 +316,10 @@ EOF`,
       },
     },
   },
+  ...BN_TUTORIALS_G1,
+  ...BN_TUTORIALS_G2,
+  ...BN_TUTORIALS_G3,
+  ...BN_TUTORIALS_G4,
+  ...BN_TUTORIALS_G5,
+  ...BN_TUTORIALS_G6,
 };

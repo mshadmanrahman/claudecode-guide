@@ -10,6 +10,7 @@ import { MICROSOFT_GUIDES } from "@/lib/microsoft-guides";
 import { TEACHER_GUIDES } from "@/lib/teacher-guides";
 import { TUTORIALS } from "@/lib/tutorials";
 import { BN_TUTORIALS } from "@/lib/i18n/bn/tutorials";
+import { BN_DESIGNER_GUIDES } from "@/lib/i18n/bn/designer-guides";
 
 const baseUrl = "https://claudecodeguide.dev";
 
@@ -109,6 +110,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...Object.keys(BN_TUTORIALS).map((slug) => ({
       url: `${baseUrl}/bn/tutorials/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...Object.keys(BN_DESIGNER_GUIDES).map((slug) => ({
+      url: `${baseUrl}/bn/for-designers/${slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
