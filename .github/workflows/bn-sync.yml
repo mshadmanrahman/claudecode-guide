@@ -22,7 +22,20 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # claude-code-action rejects push events, so a push only re-dispatches this
+  # workflow; the sync job below runs on workflow_dispatch.
+  dispatch:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - run: gh workflow run bn-sync.yml --repo "$GITHUB_REPOSITORY" --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}
+
   sync:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
