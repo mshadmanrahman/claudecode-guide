@@ -194,7 +194,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
             steps: [
               {
                 role: "user",
-                text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান, ইংরেজিতে। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
               },
               {
                 role: "claude",
@@ -217,7 +217,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                 steps: [
                   {
                     role: "user",
-                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান, ইংরেজিতে। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
                   },
                   {
                     role: "claude",
@@ -240,7 +240,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                 steps: [
                   {
                     role: "user",
-                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান, ইংরেজিতে। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
                   },
                   {
                     role: "claude",
@@ -263,7 +263,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                 steps: [
                   {
                     role: "user",
-                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান, ইংরেজিতে। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
                   },
                   {
                     role: "claude",
@@ -286,7 +286,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                 steps: [
                   {
                     role: "user",
-                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান, ইংরেজিতে। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
                   },
                   {
                     role: "claude",
@@ -314,7 +314,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
             steps: [
               {
                 role: "user",
-                text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা grocery delivery কোম্পানিতে Supply Chain Coordinator। লাগবেই: logistics-এ 3+ বছর, vendor management, Excel। থাকলে ভালো: SQL, perishable goods নিয়ে experience।]",
+                text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান, সব ফাইল ইংরেজিতে: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা grocery delivery কোম্পানিতে Supply Chain Coordinator। লাগবেই: logistics-এ 3+ বছর, vendor management, Excel। থাকলে ভালো: SQL, perishable goods নিয়ে experience।]",
               },
               {
                 role: "claude",
@@ -328,7 +328,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                 steps: [
                   {
                     role: "user",
-                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা online learning platform-এ Product Designer। লাগবেই: 3+ বছর product design, design system, usability testing। থাকলে ভালো: motion design, education background।]",
+                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান, সব ফাইল ইংরেজিতে: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা online learning platform-এ Product Designer। লাগবেই: 3+ বছর product design, design system, usability testing। থাকলে ভালো: motion design, education background।]",
                   },
                   {
                     role: "claude",
@@ -342,7 +342,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                 steps: [
                   {
                     role: "user",
-                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা logistics startup-এ Senior Backend Engineer। লাগবেই: 5+ বছর backend, distributed systems, on-call experience। থাকলে ভালো: Go, Kubernetes।]",
+                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান, সব ফাইল ইংরেজিতে: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা logistics startup-এ Senior Backend Engineer। লাগবেই: 5+ বছর backend, distributed systems, on-call experience। থাকলে ভালো: Go, Kubernetes।]",
                   },
                   {
                     role: "claude",
@@ -356,7 +356,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                 steps: [
                   {
                     role: "user",
-                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা fintech কোম্পানিতে Senior Product Manager। লাগবেই: product-এ 5+ বছর, B2B SaaS, data-তে comfort। থাকলে ভালো: financial services experience।]",
+                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান, সব ফাইল ইংরেজিতে: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা fintech কোম্পানিতে Senior Product Manager। লাগবেই: product-এ 5+ বছর, B2B SaaS, data-তে comfort। থাকলে ভালো: financial services experience।]",
                   },
                   {
                     role: "claude",
@@ -370,7 +370,7 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
                 steps: [
                   {
                     role: "user",
-                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা international school-এ Head of Science। লাগবেই: science পড়ানোয় 5+ বছর, curriculum development, একটা team lead করা। থাকলে ভালো: IB experience।]",
+                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান, সব ফাইল ইংরেজিতে: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা international school-এ Head of Science। লাগবেই: science পড়ানোয় 5+ বছর, curriculum development, একটা team lead করা। থাকলে ভালো: IB experience।]",
                   },
                   {
                     role: "claude",
