@@ -217,6 +217,8 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
                 cliDemo={step.cliDemo}
                 personaIds={personaIds}
                 variants={step.variants}
+                files={step.files}
+                folder={tutorial.folder}
                 title={step.title}
                 locale={locale}
               />

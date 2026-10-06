@@ -49,6 +49,8 @@ export interface TutorialStep {
   cliDemo?: { steps: CliStep[] };
   /** Per-persona demos, keyed by persona id. The picked persona's demos replace appDemo/ideDemo on this step. */
   variants?: Record<string, Pick<TutorialStep, "appDemo" | "ideDemo">>;
+  /** A Files pane beside the Code tab mock. Each path (folders end in "/") appears once session step `at` has finished running. */
+  files?: Array<{ path: string; at: number }>;
 }
 
 export interface Tutorial {
@@ -64,6 +66,8 @@ export interface Tutorial {
   availableRoutes?: TutorialRoute[];
   /** Roles the reader can pick. Steps with `variants` show that role's demos. */
   personas?: TutorialPersona[];
+  /** The folder chip on every step's Code tab mock. Defaults to "my-project". */
+  folder?: string;
 }
 
 /* ------------------------------------------------------------------ */
@@ -3881,6 +3885,7 @@ When asked for "email format":
     duration: "1 evening",
     difficulty: "beginner",
     availableRoutes: ["app"],
+    folder: "job-search",
     personas: [
       { id: "general", label: "Any role" },
       { id: "designer", label: "Designer" },
@@ -3891,8 +3896,34 @@ When asked for "email format":
     description:
       "Spend one evening letting Claude interview you into a master file and a master CV. After that, every application is a tailored pack built from that boilerplate, in minutes.",
     intro:
-      "Most people tailor each application from scratch, so each one takes an hour and the CV drifts a little further from the truth every time. Turn it around. Give Claude one evening to interview you and write down everything you've done, then build one master CV you're happy with. Every job after that is the same move: paste the post, get a pack built only from your own record.\n\nBefore you start: this uses the Code tab in the Claude desktop app (download it at claude.ai/download), which needs a paid plan from $20 a month. Make an empty folder, call it job-search, and open it in the Code tab. Claude saves every file in this tutorial inside it.\n\nThat folder is the difference from pasting into ChatGPT. Your record lives in files on your computer, so application number seven reads the same master file as number one, and you never paste your CV or explain your career again. Pick your role below to see the examples in your field.",
+      "Most people tailor each application from scratch, so each one takes an hour and the CV drifts a little further from the truth every time. Turn it around. Give Claude one evening to interview you and write down everything you've done, then build one master CV you're happy with. Every job after that is the same move: paste the post, get a pack built only from your own record.\n\nBefore you start: this uses the Code tab in the Claude desktop app (download it at claude.ai/download), which needs a paid plan from $20 a month. Step 1 sets up the folder where Claude saves every file in this tutorial.\n\nThat folder is the difference from pasting into ChatGPT. Your record lives in files on your computer, so application number seven reads the same master file as number one, and you never paste your CV or explain your career again. Pick your role below to see the examples in your field.",
     steps: [
+      {
+        title: "Set up your folder",
+        description:
+          "Make an empty folder called job-search anywhere on your computer. Open the Code tab in the Claude desktop app, select Local, click Select folder and choose job-search. Then ask Claude to make the three folders below and watch them appear in the Files pane. Every later step saves into them, so your record stays in one place.",
+        appDemo: {
+          steps: [
+            { role: "user", text: "Set up this folder for my job search. Make a career-vault folder for my record, with a versions folder inside it for old CVs and samples, and an applications folder for one folder per job. Then tell me what each one is for." },
+            { role: "claude", text: "Done. Your job-search folder now has:\n\n• career-vault/: the master file of you and your master CV live here\n• career-vault/versions/: old CVs and any CV you like the look of\n• career-vault/applications/: one folder per job, each with its own pack\n\nNext, I'll interview you. Nothing gets written to career-vault/ until you say so." },
+          ],
+        },
+        cliDemo: {
+          steps: [
+            { kind: "prompt", text: "Set up this folder for my job search. Make a career-vault folder for my record, with a versions folder inside it for old CVs and samples, and an applications folder for one folder per job. Then tell me what each one is for." },
+            { kind: "thinking", verb: "Setting up", ms: 700 },
+            { kind: "tool", name: "Bash", arg: "mkdir career-vault", result: "" },
+            { kind: "tool", name: "Bash", arg: "mkdir career-vault/versions", result: "" },
+            { kind: "tool", name: "Bash", arg: "mkdir career-vault/applications", result: "" },
+            { kind: "say", text: "Done. Your job-search folder now has:\n\n• career-vault/: the master file of you and your master CV live here\n• career-vault/versions/: old CVs and any CV you like the look of\n• career-vault/applications/: one folder per job, each with its own pack\n\nNext, I'll interview you. Nothing gets written to career-vault/ until you say so." },
+          ],
+        },
+        files: [
+          { path: "career-vault/", at: 2 },
+          { path: "career-vault/versions/", at: 3 },
+          { path: "career-vault/applications/", at: 4 },
+        ],
+      },
       {
         title: "Let Claude interview you",
         description:
