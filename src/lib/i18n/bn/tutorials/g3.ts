@@ -3,154 +3,386 @@ import type { Translation } from "@/lib/i18n/bn/tutorials";
 
 export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
   "job-application-assistant": {
-    sourceHash: "1610bc9d26bb3a78",
+    sourceHash: "fa00c456f58d3fd1",
     translatedAt: "2026-10-06",
     content: {
-      title: "২০ মিনিটে একটা Job Application Assistant বানান",
+      title: "Claude দিয়ে একটা Job Application System বানান",
       slug: "job-application-assistant",
-      duration: "২০ মিনিট",
+      duration: "এক সন্ধ্যা",
       difficulty: "beginner",
-      availableRoutes: ["app", "ide"],
+      availableRoutes: ["app"],
+      personas: [
+        { id: "general", label: "যেকোনো role" },
+        { id: "designer", label: "Designer" },
+        { id: "engineer", label: "Engineer" },
+        { id: "pm", label: "Product manager" },
+        { id: "teacher", label: "শিক্ষক" },
+      ],
       description:
-        "Job description আর আপনার background paste করুন। যেকোনো role-এর জন্য পাবেন match analysis, tailored cover letter আর interview prep।",
+        "এক সন্ধ্যা সময় দিন। Claude আপনার interview নিয়ে একটা master file আর একটা master CV বানাবে। এরপর প্রতিটা application হবে সেই boilerplate থেকে বানানো একটা tailored pack, কয়েক মিনিটেই।",
       intro:
-        "বেশিরভাগ cover letter generic হয়, কারণ প্রতিটা application ঠিকমতো tailor করতে এক ঘণ্টা লেগে যায়। Matching, gap analysis আর first draft Claude কয়েক মিনিটেই করে দিতে পারে, তাই আপনার সময় যাবে interview-এ, কাগজপত্রে নয়। যেকোনো role, যেকোনো level-এ এটা কাজ করে।",
+        "বেশিরভাগ মানুষ প্রতিটা application একদম শুরু থেকে tailor করেন। তাই প্রতিটায় এক ঘণ্টা লাগে, আর প্রতিবার CV সত্যি থেকে একটু একটু করে সরে যায়। উল্টোভাবে করুন। Claude-কে এক সন্ধ্যা দিন: সে আপনার interview নেবে আর আপনার করা সবকিছু লিখে রাখবে। তারপর এমন একটা master CV বানান যেটা নিয়ে আপনি খুশি। এরপর প্রতিটা job-এ একই কাজ: post-টা paste করুন, আর শুধু আপনার নিজের record থেকে বানানো একটা pack নিন। নিচে আপনার role বেছে নিন, আপনার field-এর উদাহরণ দেখতে পাবেন।",
       steps: [
         {
-          title: "Job description paste করুন",
+          title: "Claude-কে আপনার interview নিতে দিন",
           description:
-            'পুরো job description copy করুন: requirement, responsibility, আর "about us" অংশ থাকলে সেটাও। Claude যত বেশি তথ্য পাবে, match analysis তত ভালো হবে।',
+            "CV দিয়ে শুরু করবেন না। শুরু করুন Claude-কে প্রশ্ন করতে দিয়ে, একবারে একটা করে, আপনার পড়াশোনা থেকে। হাতে dictation tool থাকলে মুখে বলে উত্তর দিন: মানুষ type করার চেয়ে বলে অনেক বেশি, আর মুখে বলা এই detail থেকেই পরের step-গুলো বানানো হয়। এর জন্য একটা সন্ধ্যা রাখুন।",
           appDemo: {
             steps: [
               {
                 role: "user",
-                text: "আমি একটা Senior Product Manager role-এ apply করতে চাই। আমার application-টা tailor করতে help করবেন?",
+                text: "আমি নতুন job খুঁজছি। আমার পুরো career নিয়ে আমার interview নিন, যাতে আমার একটা complete record বানাতে পারেন। একবারে একটা প্রশ্ন করুন, পড়াশোনা থেকে শুরু করে। Number, decision আর কোথায় কী ভুল হয়েছিল, সেগুলো চেপে ধরুন। এখনই কিছু লিখবেন না।",
               },
               {
                 role: "claude",
-                text: 'হ্যাঁ। শুধু আপনার এখনকার CV polish না করে, চলুন কাজটা ঠিকভাবে করি।\n\nআগে পুরো job description paste করুন ("about the company" অংশ থাকলে সেটাসহ)। আপনার background দেখার আগেই আমি বের করব ওরা আসলে কোন signal খুঁজছে। তাহলে আমি শুধু summary না করে সত্যিকারের matching করতে পারব।',
+                text: "একবারে একটা প্রশ্ন। আর প্রতিটা উত্তরে concrete কিছু না পাওয়া পর্যন্ত আমি প্রশ্ন করে যাব।\n\nপ্রথম প্রশ্ন: স্কুলের পর কী পড়েছেন, আর সেই সময়ের এমন কোনো project বা result আছে কি, যেটার কথা এখনো মানুষকে বলেন?",
+              },
+              {
+                role: "user",
+                text: "Business administration। তারপর একটা logistics কোম্পানির operations-এ চার বছর। পুরো southern region-এর returns process আমি চালাতাম।",
+              },
+              {
+                role: "claude",
+                text: "একটা region-এর returns চালানো বড় দায়িত্ব, তাই চলুন এর size-টা বের করি। মাসে মোটামুটি কয়টা return হতো, কতজনের সঙ্গে কাজ করতেন, আর আপনি যখন ছেড়েছেন তখন শুরুর তুলনায় কী আলাদা ছিল?",
               },
             ],
           },
-          ideDemo: {
+          variants: {
+            designer: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "আমি একজন product designer, নতুন job খুঁজছি। আমার পুরো career নিয়ে আমার interview নিন, যাতে আমার একটা complete record বানাতে পারেন। একবারে একটা প্রশ্ন করুন, পড়াশোনা থেকে শুরু করে। Number, decision আর কোথায় কী ভুল হয়েছিল, সেগুলো চেপে ধরুন। এখনই কিছু লিখবেন না।",
+                  },
+                  {
+                    role: "claude",
+                    text: "একবারে একটা প্রশ্ন। আর প্রতিটা উত্তরে concrete কিছু না পাওয়া পর্যন্ত আমি প্রশ্ন করে যাব।\n\nপ্রথম প্রশ্ন: কী পড়েছেন, আর প্রথম কবে কিছু design করে টাকা পেয়েছিলেন?",
+                  },
+                  {
+                    role: "user",
+                    text: "Fine arts, তারপর নিজে নিজে Figma শিখেছি। আমার সেরা project একটা clinic chain-এর booking flow redesign। Booking বেড়েছিল।",
+                  },
+                  {
+                    role: "claude",
+                    text: "\"Booking বেড়েছিল\", interviewer ঠিক এই অংশটা নিয়েই প্রশ্ন করবেন, তাই চলুন এটা পাকা করি। কতটা বেড়েছিল, কত দিনে, আর কীভাবে জানেন যে redesign-এর কারণেই বেড়েছে? তারপর ওই flow-এর এমন একটা design decision বলুন, যেটার পক্ষে আপনি তর্ক করেছিলেন আর জিতেছিলেন।",
+                  },
+                ],
+              },
+            },
+            engineer: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "আমি একজন backend engineer, নতুন job খুঁজছি। আমার পুরো career নিয়ে আমার interview নিন, যাতে আমার একটা complete record বানাতে পারেন। একবারে একটা প্রশ্ন করুন, পড়াশোনা থেকে শুরু করে। Number, decision আর কোথায় কী ভুল হয়েছিল, সেগুলো চেপে ধরুন। এখনই কিছু লিখবেন না।",
+                  },
+                  {
+                    role: "claude",
+                    text: "একবারে একটা প্রশ্ন। আর প্রতিটা উত্তরে concrete কিছু না পাওয়া পর্যন্ত আমি প্রশ্ন করে যাব।\n\nপ্রথম প্রশ্ন: কী পড়েছেন, আর আপনার বানানো প্রথম কোন system আসল মানুষ use করেছিল?",
+                  },
+                  {
+                    role: "user",
+                    text: "Computer science। এখনকার job-এ আমাদের payments service-টা monolith থেকে আলাদা করেছি। এখন অনেক fast।",
+                  },
+                  {
+                    role: "claude",
+                    text: "\"অনেক fast\"-এর একটা number লাগবে। আগে আর পরে p95 latency কত ছিল, কতটা traffic সামলায়, আর migration-এর সময় কিছু ভেঙেছিল কি? Interview-এ ঝামেলা ছাড়া শেষ হওয়া migration-এর চেয়ে ভালোভাবে সামলানো একটা outage-এর দাম বেশি।",
+                  },
+                ],
+              },
+            },
+            pm: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "আমি একজন product manager, নতুন job খুঁজছি। আমার পুরো career নিয়ে আমার interview নিন, যাতে আমার একটা complete record বানাতে পারেন। একবারে একটা প্রশ্ন করুন, পড়াশোনা থেকে শুরু করে। Number, decision আর কোথায় কী ভুল হয়েছিল, সেগুলো চেপে ধরুন। এখনই কিছু লিখবেন না।",
+                  },
+                  {
+                    role: "claude",
+                    text: "একবারে একটা প্রশ্ন। আর প্রতিটা উত্তরে concrete কিছু না পাওয়া পর্যন্ত আমি প্রশ্ন করে যাব।\n\nপ্রথম প্রশ্ন: কী পড়েছেন, আর product-এ এলেন কীভাবে?",
+                  },
+                  {
+                    role: "user",
+                    text: "Economics, তারপর customer support, তারপর product-এ এসেছি। একটা self-serve onboarding flow launch করেছিলাম, তাতে support ticket কমেছে।",
+                  },
+                  {
+                    role: "claude",
+                    text: "ভালো, এটা outcome-সহ একটা launch। তিনটা জিনিস বলুন: আগে আর পরে কয়টা ticket ছিল, কী বানাবেন না বলে ঠিক করেছিলেন, আর কে আপনার সঙ্গে একমত ছিলেন না। যা ship করেছেন তার চেয়ে যা বাদ দিয়েছেন, সেটাই সাধারণত interviewer-কে বেশি কিছু বলে।",
+                  },
+                ],
+              },
+            },
+            teacher: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "আমি একজন secondary school শিক্ষক, নতুন job খুঁজছি। আমার পুরো career নিয়ে আমার interview নিন, যাতে আমার একটা complete record বানাতে পারেন। একবারে একটা প্রশ্ন করুন, পড়াশোনা থেকে শুরু করে। Number, decision আর কোথায় কী ভুল হয়েছিল, সেগুলো চেপে ধরুন। এখনই কিছু লিখবেন না।",
+                  },
+                  {
+                    role: "claude",
+                    text: "একবারে একটা প্রশ্ন। আর প্রতিটা উত্তরে concrete কিছু না পাওয়া পর্যন্ত আমি প্রশ্ন করে যাব।\n\nপ্রথম প্রশ্ন: কী পড়েছেন, আর কোন কোন subject আর কোন কোন class পড়িয়েছেন?",
+                  },
+                  {
+                    role: "user",
+                    text: "Chemistry, তারপর একটা teaching qualification। ছয় বছর ধরে science পড়াচ্ছি। যে student-রা পিছিয়ে পড়ছিল, তাদের জন্য একটা lunchtime club শুরু করেছিলাম।",
+                  },
+                  {
+                    role: "claude",
+                    text: "স্কুলগুলো ঠিক এই ধরনের কাজের জন্যই মানুষ নেয়, তাই চলুন এটা concrete করি। কতজন student আসত, কত দিন ধরে, আর তাদের result-এ কী হয়েছিল? আর শুরু করলেন কেন: কেউ বলেছিল, নাকি সমস্যাটা আপনি নিজেই খেয়াল করেছিলেন?",
+                  },
+                ],
+              },
+            },
+          },
+        },
+        {
+          title: "আপনার master file save করুন",
+          description:
+            "Master file কোনো CV নয়। আপনি যা যা বলেছেন, সব গুছিয়ে রাখা, আর ইচ্ছা করেই এটা লম্বা। Claude-কে জিজ্ঞেস করুন file-টা কোথায় save করেছে, খুলুন, আর কোথাও ভুল থাকলে এখনই ঠিক করুন। পরে আপনার প্রতিটা application এই file-এ যা আছে তা-ই নেবে, ভুলসহ।",
+          appDemo: {
             steps: [
               {
                 role: "user",
-                text: "একটা Senior PM role-এ apply করতে help চাই। Job description দিয়ে শুরু করছি।",
+                text: "আজকের জন্য এটুকুই। আমি যা যা বলেছি সব career-vault/master-file.md-তে লিখে রাখুন: পড়াশোনা, তারিখসহ প্রতিটা role, project, number, tool, কী ভুল হয়েছিল আর কী শিখেছি। যেখানে পারেন আমার নিজের কথাগুলো রাখুন। এটা কোথায় রাখলেন?",
               },
               {
                 role: "claude",
-                text: "পুরো JD paste করুন: requirement, responsibility, about the company। আপনার background দেখার আগে আমি বের করব ওরা আসলে কী খুঁজছে।",
+                text: "career-vault/master-file.md-তে save করেছি। নয়টা section: পড়াশোনা, তারিখসহ চারটা role, ছয়টা project, tool, result, setback, আর এরপর আপনি কী চান বলে বলেছেন তার একটা list।\n\nতিনটা দাবির এখনো কোনো number নেই। আন্দাজ না করে ওগুলো gap হিসেবে mark করে রেখেছি:\n• দ্বিতীয় role-এ team size\n• আপনার চালানো internal training-এর result\n• আপনার promotion-এর তারিখ\n\nFile-টা খুলে দেখুন, আমি কোথাও ভুল করলে বলুন।",
+              },
+              {
+                role: "user",
+                text: "এখনকার কোম্পানিতে join করেছি March 2021-এ, 2022-এ না। আর training-টা ছিল 40 জনের জন্য।",
+              },
+              {
+                role: "claude",
+                text: "দুটোই ঠিক করেছি। Start date এখন March 2021, আর training-এর entry-তে লেখা 40 জন। আর দুটো gap বাকি।",
               },
             ],
           },
         },
         {
-          title: "Claude-কে job description decode করতে দিন",
+          title: "আপনার পছন্দের CV format Claude-কে দিন",
           description:
-            "আপনার CV দেওয়ার আগেই Claude JD পড়ে বের করে hiring manager আসলে কী নিয়ে ভাবেন, মানে bullet point-গুলোর আড়ালে লুকানো signal।",
+            "পছন্দের একটা CV layout খুঁজে Claude-কে template হিসেবে দিন। Simple রাখুন: এক column, standard font, শুধু bullet আর bold, কোনো table, icon বা sidebar নয়। Applicant tracking system text পড়ে, design না, আর fancy layout-এই ওরা সব গুলিয়ে ফেলে। ছোটও রাখুন। North America-তে সাধারণত এক page, Europe আর Australia-তে দুই page।",
           appDemo: {
             steps: [
               {
                 role: "user",
-                text: 'Series B fintech-এ Senior PM role। JD-তে লেখা: 5+ বছরের PM experience, B2B SaaS product-এ experience, 0→1 product launch lead করেছেন, data আর SQL basics-এ comfortable, strong stakeholder management, financial services client নিয়ে কাজের experience থাকলে plus। কোম্পানিতে 80 জন, কিছুদিন আগে $30M raise করেছে, নিজেদের বলে "fast-moving and scrappy"।',
+                text: "এই CV-টার look আমার ভালো লাগে: career-vault/versions/format-sample.pdf। এটাকে career-vault/resume-template.md-তে একটা template বানান। এক column, শুধু bullet আর bold, কোনো table না, কোনো icon না। বড়জোর দুই page।",
               },
               {
                 role: "claude",
-                text: 'লাইনগুলোর আড়ালে আমি যা পড়ছি:\n\n**ওরা আসলে যা চাইছে**:\n• "Led 0→1 launches" = ওদের এমন কাউকে দরকার যিনি ambiguity সামলাতে পারেন আর যার playbook লাগে না। Interview-এ এটা বারবার আসবে।\n• "Comfortable with SQL basics" = ওরা এমন PM চায় যিনি data-র প্রশ্নে bottleneck হবেন না। Analyst হওয়ার দরকার নেই, কিন্তু নিজের কাজ নিজে চালাতে পারতে হবে।\n• 80 জনের fintech-এ "Stakeholder management" = সম্ভবত strong opinion-ওয়ালা engineer আর founder সামলানো, বড় কোম্পানির hierarchy নয়।\n• "Financial services clients a plus" = domain knowledge নিয়ে ওরা চিন্তিত। আপনার থাকলে সেটা দিয়েই শুরু করুন। না থাকলে, ওরা খেয়াল করবে না ভেবে বসে না থেকে নিজে থেকেই বিষয়টা address করুন।\n\n**Vibe**: Series B-তে "fast-moving and scrappy" মানে ওরা growth mode-এ, কিন্তু এখনো process-এ ভারী হয়নি। ওরা এমন কাউকে চায় যিনি ship করেন, শুধু নিয়ম চালান না।\n\nএবার আপনার background paste করুন। আমি এই নির্দিষ্ট signal-গুলোর সঙ্গে মেলাব।',
-              },
-            ],
-          },
-          ideDemo: {
-            steps: [
-              {
-                role: "user",
-                text: 'JD: Series B fintech-এ Senior PM, 80 জন, $30M raise করেছে। Requirement: 5+ বছর PM, B2B SaaS, 0→1 launch lead করা, SQL basics, stakeholder management, fintech experience থাকলে plus। "Fast-moving and scrappy"।',
-              },
-              {
-                role: "claude",
-                text: 'লাইনগুলোর আড়ালে যা আছে:\n\n• **0→1 launches** = ambiguity সামলাতে পারা, playbook লাগবে না\n• **SQL basics** = data-তে নিজে চলতে পারা, query-র জন্য engineer-দের আটকে রাখবেন না\n• **80 জনের কোম্পানিতে stakeholder mgmt** = opinionated founder/engineer সামলানো, corporate hierarchy নয়\n• **Fintech a plus** = domain নিয়ে দুশ্চিন্তা, আপনার না থাকলে নিজে থেকেই address করুন\n• **"Scrappy"** = নিয়ম চালানোর চেয়ে ship করা বেশি জরুরি\n\nআপনার background paste করুন। আমি এই signal-গুলোর সঙ্গে মেলাব।',
+                text: "Template save করেছি career-vault/resume-template.md-তে। Section-গুলো, এই order-এ:\n\n1. নাম আর contact\n2. Summary (তিন লাইন)\n3. Experience\n4. বাছাই করা project\n5. Skill\n6. পড়াশোনা\n\nআপনার sample থেকে sidebar-টা বাদ দিয়েছি। Tracking system ভুল order-এ CV পড়ার সবচেয়ে common কারণ two-column layout।",
               },
             ],
           },
         },
         {
-          title: "আপনার background paste করুন",
+          title: "Master CV বানান, তারপর সেটাকে সত্যি করুন",
           description:
-            "আপনার CV, LinkedIn summary, বা শুধু আপনার role আর মূল achievement-গুলোর একটা list দিন। কোথায় strong match আর কোন gap address করতে হবে, Claude সেটা বের করবে।",
+            "এবার Claude master file থেকে template-টা পূরণ করবে। এই master CV-ই আপনার boilerplate: এখনো কোনো job-এর জন্য tailor করা না, কিন্তু এমন একটা version যেটা যেকোনো জায়গায় পাঠাতে আপনার আপত্তি নেই। প্রতিটা লাইন নিয়ে আপত্তি তুলুন, যতক্ষণ না সেটা এমন হয় যে interview-এ পাঁচ মিনিট ধরে defend করতে পারবেন।",
           appDemo: {
             steps: [
               {
                 role: "user",
-                text: "আমার background: product-এ 7 বছর। এখন একটা B2B HR tech কোম্পানিতে Senior PM (300 জন)। একদম শূন্য থেকে নতুন একটা employee engagement module launch lead করেছি, 18 মাসে 0 থেকে $2M ARR। Data-তে comfortable, রোজ Mixpanel আর Amplitude use করি, ad hoc query-র জন্য basic SQL করেছি। Fintech-এ সরাসরি experience নেই, তবে enterprise HR client নিয়ে কাজ করেছি (CHRO-level stakeholder)। আগের role ছিল একটা SaaS startup-এ PM (40 জন)।",
+                text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
               },
               {
                 role: "claude",
-                text: '**Match Analysis**\n\n✅ Strong match:\n• 7 বছরের PM experience (requirement: 5+)\n• আসল metric-সহ 0→1 launch (18 মাসে $2M ARR), এটাই আপনার মূল গল্প\n• Data-তে comfort (Mixpanel, Amplitude, SQL), data requirement সরাসরি পূরণ করে\n• আগের startup experience (40 জন), "scrappy" culture-এর সঙ্গে সরাসরি relevant\n\n⚠️ আংশিক match:\n• Stakeholder management: CHRO-level experience দারুণ, কিন্তু সেটা HR, fintech নয়। এভাবে reframe করুন: "প্রতিষ্ঠানের ভেতরে senior, non-technical buyer-দের কাছে জটিল software বিক্রি করা"। এই skill অন্য industry-তেও কাজে লাগে।\n\n❌ যে gap address করতে হবে:\n• Fintech experience নেই: ওদের "a plus"-এর মধ্যে শুধু এটাই আপনার নেই। Cover letter-এ নিজে থেকেই address করুন: আপনার enterprise client experience-কে এমনভাবে দেখান যে regulated, ঝুঁকি এড়িয়ে চলা buyer-দের আপনি সামলাতে পারেন। দুটো একই জিনিস, এমন ভান করবেন না। দেখান যে আপনি dynamic-টা বোঝেন।\n\n**সব মিলিয়ে**: Strong candidate। 0→1 গল্পটাই আপনার ভিত্তি। ওটা দিয়েই শুরু করুন।',
+                text: "career-vault/resume.md-তে save করেছি, দেড় page।\n\n**Operations Lead, Northline Logistics** (2021 থেকে এখন)\n• Regional returns process নতুন করে সাজিয়েছি, গড় refund time 9 দিন থেকে 4 দিনে নামিয়েছি\n• ছয় সপ্তাহে 40 জন warehouse staff-কে নতুন scanning workflow-এ train করেছি\n• একটা courier contract negotiate করেছি, যাতে return shipping-এ 12% সাশ্রয় হয়েছে\n\nসবচেয়ে কম নিশ্চিত: \"negotiate করেছি\"। Interview-এ আপনি বলেছিলেন number-গুলো আপনি তৈরি করেছিলেন আর sign করেছিলেন আপনার manager। এর বদলে সেটাই লিখব?",
+              },
+              {
+                role: "user",
+                text: "হ্যাঁ, লিখুন cost case-টা আমি বানিয়েছি।",
+              },
+              {
+                role: "claude",
+                text: "বদলে লিখেছি: \"নতুন একটা courier contract-এর cost case বানিয়েছি, যাতে return shipping-এ 12% সাশ্রয় হয়েছে।\" আপনার master file-এও এখন একই কথা লেখা, তাই ভবিষ্যতের প্রতিটা application-এও তা-ই থাকবে।",
               },
             ],
           },
-          ideDemo: {
-            steps: [
-              {
-                role: "user",
-                text: "আমার background: 7 বছর PM। এখন B2B HR tech-এ Sr PM (300 জন)। নতুন module 0→1 launch lead করেছি, 18 মাসে $2M ARR। Mixpanel/Amplitude/basic SQL use করি। Fintech নেই, তবে CHRO-level enterprise client নিয়ে কাজ করেছি। আগে: 40 জনের SaaS startup-এ PM।",
+          variants: {
+            designer: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                  },
+                  {
+                    role: "claude",
+                    text: "career-vault/resume.md-তে save করেছি, এক page।\n\n**Product Designer, Clinicly** (2022 থেকে এখন)\n• Appointment booking flow redesign করেছি, তিন মাসে completed booking 18% বাড়িয়েছি\n• Figma-তে প্রথম shared component library বানিয়েছি, 3টা product team use করে\n• Clinic staff tool-এর design system lead করেছি, অসামঞ্জস্যপূর্ণ 4টা admin screen বদলে দিয়েছি\n\nসবচেয়ে কম নিশ্চিত: \"design system lead করেছি\"। আপনি বলেছিলেন একজন senior designer এটা setup করেছিলেন আর আপনি সেটা extend করেছেন। \"Lead\"-এর বদলে \"extend\" লিখব?",
+                  },
+                  {
+                    role: "user",
+                    text: "হ্যাঁ। আমি extend করেছি।",
+                  },
+                  {
+                    role: "claude",
+                    text: "বদলে লিখেছি: \"Design system-টা clinic staff tool পর্যন্ত extend করেছি, অসামঞ্জস্যপূর্ণ 4টা admin screen বদলে দিয়েছি।\" master-file.md-তেও update করেছি।",
+                  },
+                ],
               },
-              {
-                role: "claude",
-                text: "**Match**:\n✅ 7 বছর (req: 5+)\n✅ Metric-সহ 0→1 (18 মাসে $2M ARR), এটাই আপনার headline\n✅ Data-তে comfort (Mixpanel, SQL)\n✅ ছোট startup-এর experience (scrappy culture-এ fit)\n⚠️ CHRO stakeholder = senior, non-technical buyer, অন্য জায়গায়ও কাজে লাগে কিন্তু reframe করতে হবে\n❌ Fintech নেই: নিজে থেকেই address করুন, এড়িয়ে যাবেন না\n\n**0→1 গল্প দিয়ে শুরু করুন। এটাই আপনার সবচেয়ে বড় শক্তি।**",
+            },
+            engineer: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                  },
+                  {
+                    role: "claude",
+                    text: "career-vault/resume.md-তে save করেছি, এক page।\n\n**Backend Engineer, Paystream** (2020 থেকে এখন)\n• Payments service-টা monolith থেকে আলাদা করেছি, p95 latency 820 ms থেকে 190 ms-এ নামিয়েছি\n• 40 মিনিটের একটা settlement outage-এর incident response চালিয়েছি, আর আবার যাতে না হয় সেই fix লিখেছি\n• দিনে 2 million transaction সামলানো event pipeline-টা architect করেছি\n\nসবচেয়ে কম নিশ্চিত: \"architect করেছি\"। আপনি বলেছিলেন এর পাঁচটা service-এর মধ্যে দুটো আপনি বানিয়েছেন। এর বদলে \"পাঁচটা service-এর মধ্যে দুটো বানিয়েছি\" লিখব?",
+                  },
+                  {
+                    role: "user",
+                    text: "হ্যাঁ, এটাই ঠিক।",
+                  },
+                  {
+                    role: "claude",
+                    text: "বদলে লিখেছি: \"দিনে 2 million transaction সামলানো event pipeline-এর পাঁচটা service-এর মধ্যে দুটো বানিয়েছি।\" master-file.md-তেও update করেছি।",
+                  },
+                ],
               },
-            ],
+            },
+            pm: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                  },
+                  {
+                    role: "claude",
+                    text: "career-vault/resume.md-তে save করেছি, এক page।\n\n**Product Manager, Ledgerly** (2021 থেকে এখন)\n• Self-serve onboarding launch করেছি, মাসে setup ticket 1,200 থেকে 450-এ নামিয়েছি\n• পাঁচটা customer interview-এর পর একটা reporting feature বাদ দিয়েছি, এক quarter-এর engineering সময় বাঁচিয়েছি\n• SMB plan-এর pricing strategy own করেছি\n\nসবচেয়ে কম নিশ্চিত: \"pricing strategy own করেছি\"। আপনি বলেছিলেন research আপনি চালিয়েছেন আর price ঠিক করেছেন CEO। এর বদলে \"pricing research চালিয়েছি\" লিখব?",
+                  },
+                  {
+                    role: "user",
+                    text: "হ্যাঁ। Research আমি চালিয়েছি।",
+                  },
+                  {
+                    role: "claude",
+                    text: "বদলে লিখেছি: \"SMB plan-এর পেছনের pricing research চালিয়েছি।\" master-file.md-তেও update করেছি।",
+                  },
+                ],
+              },
+            },
+            teacher: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "Template use করে আর শুধু master-file.md-তে যা আছে তা দিয়ে career-vault/resume.md-তে আমার master CV বানান। প্রতিটা bullet শুরু হবে একটা verb দিয়ে আর শেষ হবে একটা result দিয়ে। তারপর যে লাইনগুলো নিয়ে আপনি সবচেয়ে কম নিশ্চিত, সেগুলো দেখান।",
+                  },
+                  {
+                    role: "claude",
+                    text: "career-vault/resume.md-তে save করেছি, দুই page।\n\n**Science Teacher, Riverside Secondary School** (2019 থেকে এখন)\n• 25 জন student-এর জন্য সাপ্তাহিক একটা catch-up club শুরু করেছি; পরের term-এ তাদের 19 জন chemistry exam-এ pass করেছে\n• Year 9-এর practical lab curriculum নতুন করে লিখেছি, এখন science-এর 4 জন শিক্ষকই use করেন\n• Department-এর online homework-এ যাওয়া lead করেছি\n\nসবচেয়ে কম নিশ্চিত: \"online homework-এ যাওয়া lead করেছি\"। আপনি বলেছিলেন head of department platform-টা বেছে নেওয়ার পর আপনি সহকর্মীদের সেটায় train করেছেন। এর বদলে \"department-কে train করেছি\" লিখব?",
+                  },
+                  {
+                    role: "user",
+                    text: "হ্যাঁ, এটাই হয়েছিল।",
+                  },
+                  {
+                    role: "claude",
+                    text: "বদলে লিখেছি: \"Science department-কে নতুন online homework platform-এ train করেছি।\" master-file.md-তেও update করেছি।",
+                  },
+                ],
+              },
+            },
           },
         },
         {
-          title: "Tailored cover letter বানান",
+          title: "একটা job post paste করে pack চান",
           description:
-            "Claude এমন একটা cover letter লেখে যেটা আপনার সবচেয়ে strong signal-গুলোকে ওরা ঠিক যা খুঁজছে তার সঙ্গে মেলায়। Generic self-introduction নয়।",
+            "এখন থেকে প্রতিটা job-এ একই কাজ। পুরো post-টা copy করে paste করুন, আর একটা application pack চান। Claude post-টার সঙ্গে মিলিয়ে master CV tailor করবে আর বাকি সবকিছু আপনার career vault থেকে লিখবে। তাই আপনি শুধু edit করবেন, শূন্য থেকে শুরু করতে হবে না।",
           appDemo: {
             steps: [
-              { role: "user", text: "Cover letter-টা লিখে দিন।" },
+              {
+                role: "user",
+                text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা grocery delivery কোম্পানিতে Supply Chain Coordinator। লাগবেই: logistics-এ 3+ বছর, vendor management, Excel। থাকলে ভালো: SQL, perishable goods নিয়ে experience।]",
+              },
               {
                 role: "claude",
-                text: 'প্রিয় [Hiring Manager],\n\nআমি সাত বছর ধরে B2B SaaS product বানাচ্ছি, যার শেষ চার বছর 300 জনের একটা HR tech কোম্পানিতে product lead করছি। এই সময়ে যে কাজটা নিয়ে আমি সবচেয়ে গর্বিত, সেটা হলো একটা employee engagement module-কে একদম ফাঁকা whiteboard থেকে 18 মাসে $2M ARR-এ নিয়ে যাওয়া। সেই পুরো পথটা (কী বানানো ঠিক হবে তা বের করা, তারপর সেটা বানানোর জন্য ঠিক team গড়া) ঠিক সেই ধরনের কাজ, যা আমি [Company]-তে করতে চাই।\n\nকয়েকটা নির্দিষ্ট কারণে আমি এই role নিয়ে confident:\n\n**দ্রুত বদলানো পরিবেশে 0→1**: Engagement module-এর কোনো playbook ছিল না। আমরা দ্রুত discovery চালিয়েছি, কাজ না করা দুটো feature direction বাদ দিয়েছি, আর এমন একটা MVP ship করেছি যা প্রথম quarter-এ 40টা enterprise client adopt করেছে। Ambiguity-তে আমি comfortable, আর আগের কোনো উদাহরণ না থাকলেও "done" দেখতে কেমন, তা আমি জানি।\n\n**Data-driven, কিন্তু analyst-এর ওপর নির্ভরশীল নই**: আমি রোজ নিজেই Mixpanel আর Amplitude analysis চালাই, ad hoc প্রশ্নের জন্য basic SQL লিখি, আর prioritization decision নেওয়ার জন্য data pull-এর অপেক্ষায় খুব কমই বসে থাকি। Decision নিতে data ব্যবহার করা আর আগেই নেওয়া decision-কে justify করতে data ব্যবহার করার পার্থক্য আমি জানি।\n\n**Enterprise client experience**: বড় enterprise-এর CHRO-level buyer-দের সঙ্গে কাজ করেছি, যারা ঝুঁকি এড়িয়ে চলেন, compliance নিয়ে সচেতন, আর যাদের procurement cycle লম্বা। Fintech-এ সরাসরি এটা করিনি, কিন্তু dynamic-টা একই রকম: regulated industry-র buyer-দের trust জেতা একটা skill, আর সেটা আমি তৈরি করেছি।\n\n[Company]-তে এই experience কীভাবে কাজে লাগাতে পারি, তা নিয়ে কথা বলতে পারলে খুশি হব। আমি [তারিখ/সময়]-এ available।\n\n[আপনার নাম]',
+                text: "Pack save করেছি career-vault/applications/freshcart-supply-chain-coordinator/-এ।\n\n**Fit**\n✅ Logistics-এ 3+ বছর: Northline-এ চার বছর\n✅ Vendor management: courier contract-এর cost case\n✅ Excel: আপনার বানানো returns tracker\n❌ SQL: আপনার vault-এ কিছু নেই\n❌ Perishable goods: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: returns আর vendor-এর কাজ ওপরে তুলে এনেছি\n• cover-letter.md: প্রথম paragraph-এই perishables-এর gap-টা বলা আছে\n• form-answers.md: ওদের form-এর বাড়তি তিনটা প্রশ্ন\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
               },
             ],
           },
-          ideDemo: {
-            steps: [
-              { role: "user", text: "Cover letter-টা লিখে দিন।" },
-              {
-                role: "claude",
-                text: "প্রিয় [Hiring Manager],\n\nB2B SaaS product-এ সাত বছর, সবশেষে একটা 0→1 module launch lead করেছি, concept থেকে 18 মাসে $2M ARR। [Company]-তে আমি এই ধরনের কাজই করতে চাই।\n\nএই role-এ আমি সরাসরি তিনটা জিনিস নিয়ে আসি:\n\n**0→1 experience**: কোনো playbook ছিল না, ঠিক direction পাওয়ার আগে দুটো direction বাদ দিয়েছি, launch-এর প্রথম quarter-এ 40টা enterprise client। আগের উদাহরণ না থাকলেও কীভাবে বানাতে হয়, আমি জানি।\n\n**Data-তে নিজে চলতে পারা**: রোজ Mixpanel আর Amplitude, ad hoc query-র জন্য SQL। Decision নিতে আমি data pull-এর অপেক্ষায় থাকি না।\n\n**Enterprise buyer experience**: CHRO-level stakeholder, ঝুঁকি এড়িয়ে চলা, compliance-সচেতন, লম্বা cycle। Fintech-এ সরাসরি নয়, কিন্তু dynamic-টা একই রকম।\n\nকথা বলতে পারলে খুশি হব। Available [তারিখ]।\n\n[আপনার নাম]",
+          variants: {
+            designer: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা online learning platform-এ Product Designer। লাগবেই: 3+ বছর product design, design system, usability testing। থাকলে ভালো: motion design, education background।]",
+                  },
+                  {
+                    role: "claude",
+                    text: "Pack save করেছি career-vault/applications/learnloop-product-designer/-এ।\n\n**Fit**\n✅ 3+ বছর product design: 2022 থেকে Clinicly, তার আগে freelance\n✅ Design system: shared Figma library আর তার extension\n✅ Usability testing: booking flow-এর পাঁচ round test\n❌ Motion design: আপনার vault-এ কিছু নেই\n❌ Education background: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: booking flow আর design system ওপরে তুলে এনেছি\n• cover-letter.md: প্রথম paragraph-এই education-এর gap-টা বলা আছে\n• form-answers.md: ওদের portfolio প্রশ্ন, booking flow case দিয়ে উত্তর দেওয়া\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
+                  },
+                ],
               },
-            ],
+            },
+            engineer: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা logistics startup-এ Senior Backend Engineer। লাগবেই: 5+ বছর backend, distributed systems, on-call experience। থাকলে ভালো: Go, Kubernetes।]",
+                  },
+                  {
+                    role: "claude",
+                    text: "Pack save করেছি career-vault/applications/routewise-senior-backend/-এ।\n\n**Fit**\n✅ 5+ বছর backend: 2020 থেকে Paystream, তার আগে agency-র কাজ\n✅ Distributed systems: monolith আলাদা করা আর event pipeline\n✅ On-call: আপনার চালানো settlement outage\n✅ Kubernetes: payments service আপনি এতেই deploy করেন\n❌ Go: আপনার vault-এ শুধু Java আর Python আছে\n\n**File**\n• resume.md আর resume.pdf: latency-র result আর outage ওপরে তুলে এনেছি\n• cover-letter.md: সোজাসুজি বলা আছে যে production-এ আপনি Go ship করেননি\n• form-answers.md: ওদের \"hardest bug\" প্রশ্ন, outage দিয়ে উত্তর দেওয়া\n• interview-prep.md: সম্ভাব্য system design প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
+                  },
+                ],
+              },
+            },
+            pm: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা fintech কোম্পানিতে Senior Product Manager। লাগবেই: product-এ 5+ বছর, B2B SaaS, data-তে comfort। থাকলে ভালো: financial services experience।]",
+                  },
+                  {
+                    role: "claude",
+                    text: "Pack save করেছি career-vault/applications/finmark-senior-pm/-এ।\n\n**Fit**\n✅ B2B SaaS: Ledgerly-র SMB customer\n✅ Data-তে comfort: onboarding-এর পেছনের ticket analysis\n⚠️ Product-এ 5+ বছর: আপনার চার বছর, সঙ্গে support-এ দুই বছর\n❌ Financial services: Ledgerly-র invoicing ছাড়া কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: onboarding launch আর বাদ দেওয়া feature ওপরে তুলে এনেছি\n• cover-letter.md: support-এর বছরগুলো টেনে বাড়ানো হয়নি, সৎভাবে গোনা হয়েছে\n• form-answers.md: ওদের \"product you admire\" প্রশ্ন, আপনার note থেকে draft করা\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর ওদের করার মতো তিনটা প্রশ্ন",
+                  },
+                ],
+              },
+            },
+            teacher: {
+              appDemo: {
+                steps: [
+                  {
+                    role: "user",
+                    text: "আমি এই position-এ apply করতে চাই। career-vault/applications/-এ আমার জন্য একটা application pack বানান: একটা tailored resume, একটা cover letter, form-এর প্রশ্নগুলোর উত্তর, আর interview prep। শুধু আমার career vault-এ যা আছে তা-ই use করুন, আর কোথায় আমি fit করি না সেটা বলুন।\n\n[পুরো job post: একটা international school-এ Head of Science। লাগবেই: science পড়ানোয় 5+ বছর, curriculum development, একটা team lead করা। থাকলে ভালো: IB experience।]",
+                  },
+                  {
+                    role: "claude",
+                    text: "Pack save করেছি career-vault/applications/harbour-international-head-of-science/-এ।\n\n**Fit**\n✅ Science পড়ানোয় 5+ বছর: Riverside-এ ছয় বছর\n✅ Curriculum development: Year 9-এর lab curriculum\n⚠️ Team lead করা: সহকর্মীদের train করেছেন, কিন্তু কাউকে manage করেননি\n❌ IB experience: আপনার vault-এ কিছু নেই\n\n**File**\n• resume.md আর resume.pdf: catch-up club-এর result আর lab curriculum ওপরে তুলে এনেছি\n• cover-letter.md: leadership-এর gap আর সেদিকে আপনি কী করেছেন, দুটোই বলা আছে\n• form-answers.md: ওদের safeguarding আর teaching philosophy-র প্রশ্ন\n• interview-prep.md: সম্ভাব্য প্রশ্ন, আপনার উত্তর, আর panel-কে করার মতো তিনটা প্রশ্ন",
+                  },
+                ],
+              },
+            },
           },
         },
         {
-          title: "Interview-এর top ৩টা উত্তর prep করুন",
+          title: "পাঠানোর আগে gap-গুলো পড়ুন",
           description:
-            "Claude-কে বলুন কোন প্রশ্নগুলো আপনাকে নিশ্চিতভাবে করা হবে তা আন্দাজ করতে, আর আপনার আসল experience দিয়ে strong উত্তর সাজাতে help করতে।",
+            "পাঠানোর আগে প্রতিটা file পড়ুন। আপনার master file আপনাকে যতটা strong candidate বলে, Claude আপনাকে তার চেয়ে বেশি strong বানাতে পারবে না, আর আপনি সেটা চানও না: বানানো লাইনটা নিয়েই interviewer সবসময় প্রশ্ন করেন। Fit দুর্বল হলেও pack চান, আর gap-গুলো সামনে রেখে decision নিন।",
           appDemo: {
             steps: [
               {
                 role: "user",
-                text: "কোন তিনটা interview প্রশ্ন আমাকে নিশ্চিতভাবে করবে, আর সেগুলোর উত্তর কীভাবে দেব?",
+                text: "Fit যতটা আশা করেছিলাম তার চেয়ে দুর্বল। তবু pack-টা বানান, কিন্তু gap ঢাকতে কিছু টেনে বাড়াবেন না। Cover letter-এর শুরুটা দেখান।",
               },
               {
                 role: "claude",
-                text: '**প্রশ্ন 1: "আপনার launch করা একটা 0→1 product-এর কথা বলুন।"**\nএটাই আপনার সবচেয়ে বড় শক্তি। পুরোপুরি কাজে লাগান। Structure: Situation (ফাঁকা whiteboard, কোনো playbook নেই) → Discovery (কী শিখেছেন, কী বাদ দিয়েছেন) → Launch (কীভাবে ship করেছেন) → Outcome ($2M ARR, 40টা client)। যে detail-টা অবশ্যই রাখবেন: কী বাদ দিয়েছেন আর কেন। এটা শুধু execution না, আপনার judgment-এর signal দেয়।\n\n---\n\n**প্রশ্ন 2: "আপনি ঠিক বলে মনে হলে stakeholder-দের pushback কীভাবে সামলান?"**\nআসলে জানতে চাওয়া হচ্ছে: "Strong opinion-ওয়ালা founder আর engineer-দের আপনি কি সামলাতে পারবেন?" একটা নির্দিষ্ট গল্প দিয়ে উত্তর দিন। সবচেয়ে ভালো উত্তর মেনে নেয় যে আপনি সব সময় নিশ্চিত জানেন না আপনিই ঠিক, তবে decision-টাকে কীভাবে যুক্তি দিয়ে মজবুত করতে হয়, সেটা জানেন। Opinion-নির্ভর তর্ককে personal না বানিয়ে data আর user evidence দিয়ে কীভাবে ঠান্ডা করেন, সেটা বলুন।\n\n---\n\n**প্রশ্ন 3: "আপনার fintech experience নেই, কীভাবে দ্রুত শিখে নেবেন?"**\nএটা ওরা জিজ্ঞেস করবেই। Defensive হবেন না। উত্তর দিন: "আমি এর মধ্যেই শুরু করেছি, [আপনার করা নির্দিষ্ট কিছু, যেমন [regulation] নিয়ে পড়েছি, [person]-এর সঙ্গে কথা বলেছি]। তার চেয়েও বড় কথা, regulated industry-র enterprise buyer-দের সঙ্গে কাজের experience থাকায় আমি dynamic-টা বুঝি। ঝুঁকি এড়িয়ে চলা buyer-রা কীভাবে software যাচাই করেন, আমি জানি, আর এটাও জানি যে fintech customer-রা HR client-দের মতোই কাজ করেন, এমন ধরে নেওয়া যাবে না। শুরুতে নির্দিষ্ট কিছু বিষয়ে ভুল হবে; মূল বিষয়গুলোতে ভুল হবে না।"',
-              },
-            ],
-          },
-          ideDemo: {
-            steps: [
-              {
-                role: "user",
-                text: "যে তিনটা interview প্রশ্ন নিশ্চিতভাবে আসবে, আর সেগুলোর উত্তর কীভাবে দেব।",
-              },
-              {
-                role: "claude",
-                text: '**Q1: "একটা 0→1 launch-এর পুরো গল্পটা বলুন।"**\nEngagement module-টা ব্যবহার করুন। যা যা বলবেন: ফাঁকা শুরু → কী বাদ দিয়েছেন → কীভাবে ship করেছেন → $2M ARR। কী বাদ দিয়েছেন, সেটা অবশ্যই রাখুন। ওটাই judgment-এর signal।\n\n**Q2: "Engineer/founder-দের pushback কীভাবে সামলান?"**\nওরা জানতে চাইছে hierarchy-র আড়ালে না লুকিয়ে আপনি opinionated মানুষদের সামলাতে পারেন কি না। উত্তর: গল্প + data/evidence দিয়ে উত্তেজনা কমানো + বিষয়টা personal না রেখে যুক্তিনির্ভর করা।\n\n**Q3: "আপনার fintech experience নেই।"**\nএটা ওরা বলবেই। Defensive হবেন না। "আমি এর মধ্যেই [নির্দিষ্ট কাজ] শুরু করেছি। Enterprise client experience থাকায় regulated industry-র buyer-দের আমি বুঝি। শুরুতে খুঁটিনাটিতে ভুল হবে। মূল বিষয়ে ভুল হবে না।"',
+                text: "হয়ে গেছে। Pack-এর কিছুই আপনার master file-এর বাইরে যায়নি। Cover letter শুরু হচ্ছে এভাবে:\n\n\"আপনাদের posting-টা আমি আমার নিজের record-এর সঙ্গে মিলিয়ে পড়েছি, আর নিজের পক্ষে কথা বলার আগে gap-টা নিয়ে সোজাসুজি বলতে চাই। আপনারা এমন experience চেয়েছেন যা আমার এখনো নেই। আমার যা আছে, আর কেন মনে করি সেটা এখানে কাজে লাগবে, তা নিচে বলছি।\"\n\nপাঠানোর আগে তিনটা জিনিস check করুন:\n1. resume.md-র প্রতিটা number যেন আপনি ব্যাখ্যা করতে পারেন\n2. Gap-এর paragraph-টা যেন আপনার মতো শোনায়, আমার মতো না\n3. Form-এর উত্তরগুলো যেন ওদের word limit-এর মধ্যে থাকে",
               },
             ],
           },
