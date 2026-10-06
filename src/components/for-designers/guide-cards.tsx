@@ -111,20 +111,6 @@ const JOURNEY_DATA: Array<{
   clusters: JourneyCluster[];
 }> = [
   {
-    id: 'web',
-    label: 'On the web',
-    icon: <Globe className="h-4 w-4" />,
-    env: 'claude.ai',
-    tagline: 'Open claude.ai in any browser. Nothing to install.',
-    note: 'Paste or upload what you are working on. A Project keeps your working agreement and files together across conversations.',
-    clusters: [
-      { label: 'Foundation', slugs: ['set-up-claude'] },
-      { label: 'Brief work', slugs: ['decode-a-brief', 'write-a-sharper-brief'] },
-      { label: 'Evaluation', slugs: ['evaluate-your-designs', 'heuristic-evaluation'] },
-      { label: 'Research and automation', slugs: ['research-synthesis', 'get-started-with-claude-design', 'automate-design-tasks'] },
-    ],
-  },
-  {
     id: 'desktop',
     label: 'In the desktop app',
     icon: <Monitor className="h-4 w-4" />,
@@ -137,6 +123,20 @@ const JOURNEY_DATA: Array<{
       { label: 'Evaluation', slugs: ['evaluate-your-designs', 'heuristic-evaluation'] },
       { label: 'Production', slugs: ['figma-for-ai-handoff'] },
       { label: 'Research and automation', slugs: ['research-synthesis', 'automate-design-tasks'] },
+    ],
+  },
+  {
+    id: 'web',
+    label: 'On the web',
+    icon: <Globe className="h-4 w-4" />,
+    env: 'claude.ai',
+    tagline: 'Open claude.ai in any browser. Nothing to install.',
+    note: 'Paste or upload what you are working on. A Project keeps your working agreement and files together across conversations.',
+    clusters: [
+      { label: 'Foundation', slugs: ['set-up-claude'] },
+      { label: 'Brief work', slugs: ['decode-a-brief', 'write-a-sharper-brief'] },
+      { label: 'Evaluation', slugs: ['evaluate-your-designs', 'heuristic-evaluation'] },
+      { label: 'Research and automation', slugs: ['research-synthesis', 'get-started-with-claude-design', 'automate-design-tasks'] },
     ],
   },
 ];
@@ -179,7 +179,7 @@ function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
 
 export function DesignerGuideCards() {
   const [ref, inView] = useInView(0.05);
-  const [journey, setJourney] = useState<Journey>('web');
+  const [journey, setJourney] = useState<Journey>('desktop');
 
   const activeJourney = JOURNEY_DATA.find((j) => j.id === journey)!;
   const journeyGuideCount = activeJourney.clusters.reduce((sum, c) => sum + c.slugs.length, 0);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Globe, Monitor } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 import { ui, type Locale } from '@/lib/i18n/locale';
@@ -8,13 +8,12 @@ import { ui, type Locale } from '@/lib/i18n/locale';
 export type DesignerRoute = 'web' | 'desktop';
 
 export const DESIGNER_ROUTE_CHANGE_EVENT = 'designer-route-change';
-const STORAGE_KEY = 'designer-journey';
 
 function tabs(locale: Locale): Array<{ id: DesignerRoute; label: string; icon: React.ReactNode }> {
   const t = ui(locale);
   return [
-    { id: 'web', label: t.onTheWeb, icon: <Globe className="h-3.5 w-3.5" aria-hidden="true" /> },
     { id: 'desktop', label: t.inDesktopApp, icon: <Monitor className="h-3.5 w-3.5" aria-hidden="true" /> },
+    { id: 'web', label: t.onTheWeb, icon: <Globe className="h-3.5 w-3.5" aria-hidden="true" /> },
   ];
 }
 
@@ -23,40 +22,19 @@ function needs(route: DesignerRoute, locale: Locale): string {
   return route === 'web' ? t.needWeb : t.needDesktop;
 }
 
-/** Reads the saved surface. Older saves ('claude-ai', 'co-work', 'claude-code') map onto the two current ones. */
-export function readSavedDesignerRoute(): DesignerRoute | null {
-  try {
-    const v = localStorage.getItem(STORAGE_KEY);
-    if (v === 'web' || v === 'claude-ai') return 'web';
-    if (v === 'desktop' || v === 'co-work' || v === 'claude-code') return 'desktop';
-    return null;
-  } catch {
-    return null;
-  }
-}
-
 interface DesignerRouteSwitcherProps {
   availableRoutes?: DesignerRoute[];
   locale?: Locale;
 }
 
 export function DesignerRouteSwitcher({ availableRoutes = ['web', 'desktop'], locale = 'en' }: DesignerRouteSwitcherProps) {
-  const [active, setActive] = useState<DesignerRoute>(availableRoutes[0] ?? 'web');
-  const key = availableRoutes.join(',');
-
-  useEffect(() => {
-    const routes = key.split(',') as DesignerRoute[];
-    const saved = readSavedDesignerRoute();
-    setActive(saved && routes.includes(saved) ? saved : routes[0] ?? 'web');
-  }, [key]);
+  // Every guide opens on the desktop app; a pick applies to the current page only.
+  const [active, setActive] = useState<DesignerRoute>(
+    availableRoutes.includes('desktop') ? 'desktop' : (availableRoutes[0] ?? 'desktop'),
+  );
 
   function handleSelect(id: DesignerRoute) {
     setActive(id);
-    try {
-      localStorage.setItem(STORAGE_KEY, id);
-    } catch {
-      // Blocked storage: the choice still applies to this page.
-    }
     window.dispatchEvent(new CustomEvent(DESIGNER_ROUTE_CHANGE_EVENT, { detail: id }));
     trackEvent('designer_route_switcher_select', { route: id });
   }

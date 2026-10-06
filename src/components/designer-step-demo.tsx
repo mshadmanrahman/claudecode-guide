@@ -7,7 +7,6 @@ import { chatToSession } from '@/lib/chat-session';
 import { CopyBlock } from '@/components/guide/copy-block';
 import {
   DESIGNER_ROUTE_CHANGE_EVENT,
-  readSavedDesignerRoute,
   type DesignerRoute,
 } from '@/components/designer-route-switcher';
 import { ui, type Locale } from '@/lib/i18n/locale';
@@ -28,12 +27,9 @@ interface DesignerStepDemoProps {
 
 export function DesignerStepDemo({ appDemo, desktopDemo, skipPrompts = false, locale = 'en' }: DesignerStepDemoProps) {
   const t = ui(locale);
-  const [route, setRoute] = useState<DesignerRoute>('web');
+  const [route, setRoute] = useState<DesignerRoute>('desktop');
 
   useEffect(() => {
-    const saved = readSavedDesignerRoute();
-    if (saved) setRoute(saved);
-
     function onRouteChange(e: Event) {
       const detail = (e as CustomEvent<DesignerRoute>).detail;
       if (detail) setRoute(detail);
