@@ -6,6 +6,8 @@ import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
 import { ogImage } from '@/lib/og/image';
+import { BN_TUTORIALS } from '@/lib/i18n/bn/tutorials';
+import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
 /**
  * Search sends this page 564 impressions a month at position 8.7, its best
  * position on the site, against 9 clicks. The queries arrive in both scripts:
@@ -258,13 +260,53 @@ export default function BengaliGuidePage() {
       </section>
 
       {/* Next Steps */}
+      <section className="border-b border-fd-border px-6 py-12">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
+            বাংলা টিউটোরিয়াল
+          </h2>
+          <p className="mt-3 text-fd-muted-foreground">
+            প্রতিটা টিউটোরিয়াল বাংলায় পড়তে পারবেন। প্রতিটা পেজের উপরে English-এ যাওয়ার switch আছে।
+          </p>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {Object.entries(BN_TUTORIALS).map(([slug, t]) => (
+              <li key={slug}>
+                <Link
+                  href={`/bn/tutorials/${slug}`}
+                  className="block rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-colors hover:bg-[var(--code)]"
+                >
+                  <p className="font-medium text-fd-foreground">{t?.content.title}</p>
+                  <p className="text-sm text-fd-muted-foreground">{t?.content.duration}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <h2 className="mt-12 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
+            Designer-দের জন্য গাইড
+          </h2>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {Object.entries(BN_DESIGNER_GUIDES).map(([slug, g]) => (
+              <li key={slug}>
+                <Link
+                  href={`/bn/for-designers/${slug}`}
+                  className="block rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-4 transition-colors hover:bg-[var(--code)]"
+                >
+                  <p className="font-medium text-fd-foreground">{g?.content.title}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="px-6 py-12">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
             এরপর কী করবেন?
           </h2>
           <p className="mt-3 text-fd-muted-foreground">
-            বাকি গাইড ইংরেজিতে আছে। আমরা ধীরে ধীরে আরও বাংলা কন্টেন্ট যোগ করছি।
+            গাইডের বাকি অংশ এখনও ইংরেজিতে আছে। আমরা ধীরে ধীরে আরও বাংলা কন্টেন্ট যোগ করছি।
             নিচের লিংকগুলো দিয়ে শুরু করুন:
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -284,7 +326,7 @@ export default function BengaliGuidePage() {
             >
               <div>
                 <p className="font-medium text-fd-foreground">Tutorials</p>
-                <p className="text-sm text-fd-muted-foreground">১৫টি হাতে-কলমে টিউটোরিয়াল</p>
+                <p className="text-sm text-fd-muted-foreground">হাতে-কলমে টিউটোরিয়াল (English)</p>
               </div>
               <ArrowRight className="h-4 w-4 text-fd-muted-foreground transition-transform motion-reduce:transition-none group-hover:translate-x-1" />
             </Link>
