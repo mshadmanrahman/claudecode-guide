@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Clock, Globe, Monitor } from 'lucide-react';
 import { useInView } from '@/hooks/use-in-view';
@@ -152,6 +153,20 @@ const TAB_ACTIVE_BORDER: Record<Journey, string> = {
   desktop: 'border-[var(--acc)]',
 };
 
+function CardImage({ slug }: { slug: string }) {
+  return (
+    <span className="relative -mx-6 -mt-6 mb-5 block aspect-[2/1] overflow-hidden">
+      <Image
+        src={`/for-designers/${slug}.jpg`}
+        alt=""
+        fill
+        sizes="(min-width: 1024px) 470px, (min-width: 640px) 50vw, 100vw"
+        className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03] motion-reduce:transition-none"
+      />
+    </span>
+  );
+}
+
 function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
   const styles =
     level === 'beginner'
@@ -259,11 +274,12 @@ export function DesignerGuideCards() {
                             section: 'for-designers',
                           })
                         }
-                        className={`group flex flex-col glass rounded-xl p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] transition-all motion-reduce:transition-none hover:border-fd-muted-foreground/30  duration-500 ${
+                        className={`group flex flex-col overflow-hidden glass rounded-xl p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] transition-all motion-reduce:transition-none hover:border-fd-muted-foreground/30  duration-500 ${
                           inView ? 'animate-slide-up-fade' : 'opacity-0'
                         }`}
                         style={{ animationDelay: `${(ci * 3 + (num % 3)) * 80 + 100}ms` }}
                       >
+                        <CardImage slug={guide.slug} />
                         <div className="flex items-start justify-between mb-3">
                           <span className="font-mono text-2xl font-light text-[var(--muted)]">
                             {String(num).padStart(2, '0')}
@@ -324,8 +340,9 @@ export function DesignerGuideCards() {
                       section: 'for-designers',
                     })
                   }
-                  className="group flex flex-col glass rounded-xl p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] transition-colors motion-reduce:transition-none hover:border-fd-muted-foreground/30"
+                  className="group flex flex-col overflow-hidden glass rounded-xl p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] transition-colors motion-reduce:transition-none hover:border-fd-muted-foreground/30"
                 >
+                  <CardImage slug={guide.slug} />
                   <div className="mb-3 flex items-center justify-end gap-1.5">
                     <span className="flex items-center gap-1 text-xs text-fd-muted-foreground">
                       <Clock className="h-3 w-3" />
