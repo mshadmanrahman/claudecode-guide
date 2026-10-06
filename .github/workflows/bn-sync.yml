@@ -11,6 +11,11 @@ on:
       - src/lib/tutorials.ts
       - src/lib/designer-guides.ts
   workflow_dispatch:
+    inputs:
+      test_slug:
+        description: "Test only: treat this tutorial slug as stale to exercise the Claude step"
+        required: false
+        default: ""
 
 concurrency:
   group: bn-sync
@@ -39,6 +44,9 @@ jobs:
         id: drift
         run: |
           report=$(node --no-warnings scripts/check-bn-sync.ts --json)
+          if [ -n "${{ inputs.test_slug }}" ]; then
+            report=$(echo "$report" | jq -c --arg s "${{ inputs.test_slug }}" '.drifted=true | .tutorials.stale += [$s]')
+          fi
           echo "$report"
           echo "report=$report" >> "$GITHUB_OUTPUT"
           echo "drifted=$(echo "$report" | jq -r .drifted)" >> "$GITHUB_OUTPUT"
