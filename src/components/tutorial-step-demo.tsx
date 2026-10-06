@@ -67,7 +67,7 @@ export function TutorialStepBody({
   const appDemo = variant?.appDemo ?? baseAppDemo;
   const ideDemo = variant?.ideDemo ?? baseIdeDemo;
   const chat = route === 'app' ? appDemo : route === 'ide' ? ideDemo : undefined;
-  const prompts = chat ? chat.steps.filter((s) => s.role === 'user').map((s) => s.text) : [];
+  const prompts = chat ? chat.steps.filter((s) => s.role === 'user' && !s.example).map((s) => s.text) : [];
 
   const language = code?.language ?? 'bash';
   const codeIsPrompt = language === 'text';

@@ -164,7 +164,9 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
           aria-label={t.beforeYouStart}
           className="glass mb-8 flex flex-col gap-5 rounded-xl p-5 sm:p-6"
         >
-          <p className="m-0 text-ui leading-relaxed">{tutorial.intro}</p>
+          {tutorial.intro.split("\n\n").map((para, i) => (
+            <p key={i} className="m-0 text-ui leading-relaxed">{para}</p>
+          ))}
           {routes.length > 1 && (
             <div className="border-t border-[var(--line)] pt-5">
               <RouteSwitcher availableRoutes={routes} locale={locale} />

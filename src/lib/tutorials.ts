@@ -34,6 +34,8 @@ export interface TutorialStep {
       role: "user" | "claude";
       text: string;
       delay?: number;
+      /** A sample answer from the example person: shown in the demo, never offered as a prompt to copy. */
+      example?: boolean;
     }>;
   };
   ideDemo?: {
@@ -3889,12 +3891,12 @@ When asked for "email format":
     description:
       "Spend one evening letting Claude interview you into a master file and a master CV. After that, every application is a tailored pack built from that boilerplate, in minutes.",
     intro:
-      "Most people tailor each application from scratch, so each one takes an hour and the CV drifts a little further from the truth every time. Turn it around. Give Claude one evening to interview you and write down everything you've done, then build one master CV you're happy with. Every job after that is the same move: paste the post, get a pack built only from your own record. Pick your role below to see the examples in your field.",
+      "Most people tailor each application from scratch, so each one takes an hour and the CV drifts a little further from the truth every time. Turn it around. Give Claude one evening to interview you and write down everything you've done, then build one master CV you're happy with. Every job after that is the same move: paste the post, get a pack built only from your own record.\n\nBefore you start: this uses the Code tab in the Claude desktop app (download it at claude.ai/download), which needs a paid plan from $20 a month. Make an empty folder, call it job-search, and open it in the Code tab. Claude saves every file in this tutorial inside it.\n\nThat folder is the difference from pasting into ChatGPT. Your record lives in files on your computer, so application number seven reads the same master file as number one, and you never paste your CV or explain your career again. Pick your role below to see the examples in your field.",
     steps: [
       {
         title: "Let Claude interview you",
         description:
-          "Don't start with your CV. Start by letting Claude ask the questions, one at a time, from your education onward. Answer out loud with a dictation tool if you have one: people say far more than they type, and the detail you say out loud is what the later steps are built from. Budget an evening for this.",
+          "Don't start with your CV. Start by letting Claude ask the questions, one at a time, from your education onward. Answer out loud with a dictation tool if you have one: people say far more than they type, and the detail you say out loud is what the later steps are built from. Keep answering until Claude runs out of questions. That's dozens of turns, not one, so budget an evening.",
         appDemo: {
           steps: [
             {
@@ -3907,6 +3909,7 @@ When asked for "email format":
             },
             {
               role: "user",
+              example: true,
               text: "Business administration. Then I spent four years in operations at a logistics company. I ran the returns process for the whole southern region.",
             },
             {
@@ -3929,6 +3932,7 @@ When asked for "email format":
                 },
                 {
                   role: "user",
+                  example: true,
                   text: "Fine arts, then I taught myself Figma. My best project is the booking flow I redesigned for a clinic chain. Bookings went up.",
                 },
                 {
@@ -3951,6 +3955,7 @@ When asked for "email format":
                 },
                 {
                   role: "user",
+                  example: true,
                   text: "Computer science. At my current job I moved our payments service off a monolith. It's much faster now.",
                 },
                 {
@@ -3973,6 +3978,7 @@ When asked for "email format":
                 },
                 {
                   role: "user",
+                  example: true,
                   text: "Economics, then customer support, then I moved into product. I launched a self-serve onboarding flow that cut support tickets.",
                 },
                 {
@@ -3995,6 +4001,7 @@ When asked for "email format":
                 },
                 {
                   role: "user",
+                  example: true,
                   text: "Chemistry, then a teaching qualification. I've taught science for six years. I started a lunchtime club for students who were falling behind.",
                 },
                 {
@@ -4009,7 +4016,7 @@ When asked for "email format":
       {
         title: "Save the master file of you",
         description:
-          "The master file is not a CV. It's everything you said, organized, and it's long on purpose. Ask Claude where it saved the file, open it, and correct anything wrong now. Every application you make later inherits whatever is in this file, mistakes included.",
+          "The master file is not a CV. It's everything you said, organized, and it's long on purpose. Ask Claude where it saved the file, open it, and correct anything wrong now. Every application you make later inherits whatever is in this file, mistakes included. Leave out your national ID number, date of birth, home address and anything else you wouldn't print on a CV: the file stays on your computer, but Claude reads it every time you apply.",
         appDemo: {
           steps: [
             {
@@ -4022,6 +4029,7 @@ When asked for "email format":
             },
             {
               role: "user",
+              example: true,
               text: "I joined my current company in March 2021, not 2022. And the training was for 40 people.",
             },
             {
@@ -4034,7 +4042,7 @@ When asked for "email format":
       {
         title: "Give Claude the CV format you like",
         description:
-          "Find a CV layout you like and hand it to Claude as a template. Keep it plain: one column, a standard font, bullets and bold only, no tables, icons or sidebars. Applicant tracking systems read text, not design, and fancy layouts are where they scramble. Keep it short too. One page is the usual norm in North America, two in Europe and Australia.",
+          "Find a CV layout you like and hand it to Claude as a template. Keep it plain: one column, a standard font, bullets and bold only, no tables, icons or sidebars. Applicant tracking systems read text, not design, and fancy layouts are where they scramble. Keep it short too. One page is the usual norm in North America, two in Europe and Australia. Applying in Bangladesh? Local employers often expect a photo, two referees and a longer CV, while international and remote roles want the plain format above with no photo and no personal details such as father's name, religion or marital status. If you apply to both, ask Claude for two templates.",
         appDemo: {
           steps: [
             {
@@ -4064,6 +4072,7 @@ When asked for "email format":
             },
             {
               role: "user",
+              example: true,
               text: "Yes, say I built the cost case.",
             },
             {
@@ -4086,6 +4095,7 @@ When asked for "email format":
                 },
                 {
                   role: "user",
+                  example: true,
                   text: "Yes. I extended it.",
                 },
                 {
@@ -4108,6 +4118,7 @@ When asked for "email format":
                 },
                 {
                   role: "user",
+                  example: true,
                   text: "Yes, that's accurate.",
                 },
                 {
@@ -4130,6 +4141,7 @@ When asked for "email format":
                 },
                 {
                   role: "user",
+                  example: true,
                   text: "Yes. I ran the research.",
                 },
                 {
@@ -4152,6 +4164,7 @@ When asked for "email format":
                 },
                 {
                   role: "user",
+                  example: true,
                   text: "Yes, that's what happened.",
                 },
                 {
@@ -4175,7 +4188,7 @@ When asked for "email format":
             },
             {
               role: "claude",
-              text: "Pack saved to career-vault/applications/freshcart-supply-chain-coordinator/.\n\n**Fit**\n✅ 3+ years in logistics: four years at Northline\n✅ Vendor management: the courier contract cost case\n✅ Excel: the returns tracker you built\n❌ SQL: nothing in your vault\n❌ Perishable goods: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: returns and vendor work moved to the top\n• cover-letter.md: names the perishables gap in the first paragraph\n• form-answers.md: the three extra questions on their form\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
+              text: "Pack saved to career-vault/applications/freshcart-supply-chain-coordinator/.\n\n**Fit**\n✅ 3+ years in logistics: four years at Northline\n✅ Vendor management: the courier contract cost case\n✅ Excel: the returns tracker you built\n❌ SQL: nothing in your vault\n❌ Perishable goods: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: returns and vendor work moved to the top\n• cover-letter.md: opens on the Northline returns work; SQL and perishables are nice-to-haves, so it leaves them out\n• form-answers.md: the three extra questions on their form\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
             },
           ],
         },
@@ -4189,7 +4202,7 @@ When asked for "email format":
                 },
                 {
                   role: "claude",
-                  text: "Pack saved to career-vault/applications/learnloop-product-designer/.\n\n**Fit**\n✅ 3+ years product design: Clinicly since 2022, freelance before\n✅ Design systems: the shared Figma library and its extension\n✅ Usability testing: the five booking-flow test rounds\n❌ Motion design: nothing in your vault\n❌ Education background: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: booking flow and design system moved to the top\n• cover-letter.md: names the education gap in the first paragraph\n• form-answers.md: their portfolio question, answered with the booking flow case\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
+                  text: "Pack saved to career-vault/applications/learnloop-product-designer/.\n\n**Fit**\n✅ 3+ years product design: Clinicly since 2022, freelance before\n✅ Design systems: the shared Figma library and its extension\n✅ Usability testing: the five booking-flow test rounds\n❌ Motion design: nothing in your vault\n❌ Education background: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: booking flow and design system moved to the top\n• cover-letter.md: opens on the booking-flow redesign; motion and education are nice-to-haves, so it leaves them out\n• form-answers.md: their portfolio question, answered with the booking flow case\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
                 },
               ],
             },
@@ -4203,7 +4216,7 @@ When asked for "email format":
                 },
                 {
                   role: "claude",
-                  text: "Pack saved to career-vault/applications/routewise-senior-backend/.\n\n**Fit**\n✅ 5+ years backend: Paystream since 2020, agency work before\n✅ Distributed systems: the monolith split and the event pipeline\n✅ On-call: the settlement outage you ran\n✅ Kubernetes: you deploy the payments service on it\n❌ Go: your vault only lists Java and Python\n\n**Files**\n• resume.md and resume.pdf: the latency result and the outage moved to the top\n• cover-letter.md: says plainly you haven't shipped Go in production\n• form-answers.md: their \"hardest bug\" question, answered with the outage\n• interview-prep.md: likely system design questions, your answers, and three questions to ask them",
+                  text: "Pack saved to career-vault/applications/routewise-senior-backend/.\n\n**Fit**\n✅ 5+ years backend: Paystream since 2020, agency work before\n✅ Distributed systems: the monolith split and the event pipeline\n✅ On-call: the settlement outage you ran\n✅ Kubernetes: you deploy the payments service on it\n❌ Go: your vault only lists Java and Python\n\n**Files**\n• resume.md and resume.pdf: the latency result and the outage moved to the top\n• cover-letter.md: opens on the settlement outage you ran; Go is a nice-to-have, so it isn't mentioned\n• form-answers.md: their \"hardest bug\" question, answered with the outage\n• interview-prep.md: likely system design questions, your answers, and three questions to ask them",
                 },
               ],
             },
@@ -4217,7 +4230,7 @@ When asked for "email format":
                 },
                 {
                   role: "claude",
-                  text: "Pack saved to career-vault/applications/finmark-senior-pm/.\n\n**Fit**\n✅ B2B SaaS: Ledgerly's SMB customers\n✅ Data comfort: the ticket analysis behind onboarding\n⚠️ 5+ years in product: you have four, plus two in support\n❌ Financial services: nothing beyond Ledgerly's invoicing\n\n**Files**\n• resume.md and resume.pdf: onboarding launch and the killed feature moved to the top\n• cover-letter.md: counts your support years honestly instead of stretching them\n• form-answers.md: their \"product you admire\" question, drafted from your notes\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
+                  text: "Pack saved to career-vault/applications/finmark-senior-pm/.\n\n**Fit**\n✅ B2B SaaS: Ledgerly's SMB customers\n✅ Data comfort: the ticket analysis behind onboarding\n⚠️ 5+ years in product: you have four, plus two in support\n❌ Financial services: nothing beyond Ledgerly's invoicing\n\n**Files**\n• resume.md and resume.pdf: onboarding launch and the killed feature moved to the top\n• cover-letter.md: opens on the onboarding launch, and one line in the middle counts your four product years plus two in support without stretching them\n• form-answers.md: their \"product you admire\" question, drafted from your notes\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
                 },
               ],
             },
@@ -4231,7 +4244,7 @@ When asked for "email format":
                 },
                 {
                   role: "claude",
-                  text: "Pack saved to career-vault/applications/harbour-international-head-of-science/.\n\n**Fit**\n✅ 5+ years teaching science: six at Riverside\n✅ Curriculum development: the Year 9 lab curriculum\n⚠️ Leading a team: you trained colleagues but haven't managed anyone\n❌ IB experience: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: the catch-up club results and the lab curriculum moved to the top\n• cover-letter.md: names the leadership gap and what you've done toward it\n• form-answers.md: their safeguarding and teaching philosophy questions\n• interview-prep.md: likely questions, your answers, and three questions to ask the panel",
+                  text: "Pack saved to career-vault/applications/harbour-international-head-of-science/.\n\n**Fit**\n✅ 5+ years teaching science: six at Riverside\n✅ Curriculum development: the Year 9 lab curriculum\n⚠️ Leading a team: you trained colleagues but haven't managed anyone\n❌ IB experience: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: the catch-up club results and the lab curriculum moved to the top\n• cover-letter.md: opens on the Year 9 lab curriculum, and one line in the middle says what you've done toward leading a team\n• form-answers.md: their safeguarding and teaching philosophy questions\n• interview-prep.md: likely questions, your answers, and three questions to ask the panel",
                 },
               ],
             },
@@ -4241,16 +4254,16 @@ When asked for "email format":
       {
         title: "Read the gaps before you send",
         description:
-          "Read every file before it goes out. Claude can't make you a stronger candidate than your master file says you are, and you don't want it to: the invented line is always the one the interviewer asks about. When the fit is weak, ask for the pack anyway and decide with the gaps in front of you.",
+          "Read every file before it goes out. Claude can't make you a stronger candidate than your master file says you are, and you don't want it to: the invented line is always the one the interviewer asks about. When the fit is weak, ask for the pack anyway and decide with the gaps in front of you. The cover letter still opens on your strongest match: a missing must-have gets one honest line in the middle, and a missing nice-to-have gets nothing. Check the interview prep the same way, because rehearsed answers are where made-up detail creeps back in.",
         appDemo: {
           steps: [
             {
               role: "user",
-              text: "The fit is weaker than I hoped. Make me the pack anyway, but don't stretch anything to cover the gaps. Show me the start of the cover letter.",
+              text: "The fit is weaker than I hoped. Make me the pack anyway, but don't stretch anything to cover the gaps. Open the cover letter on my strongest match, handle any missing must-have in one line in the middle, and show me the opening.",
             },
             {
               role: "claude",
-              text: "Done. Nothing in the pack goes beyond your master file. The cover letter opens like this:\n\n\"I read your posting against my own record and want to be direct about the gap before I make my case. You list experience I don't have yet. Here is what I do have, and why I think it carries over.\"\n\nBefore you send, check three things:\n1. Every number in resume.md is one you can explain\n2. The gap paragraph sounds like you, not like me\n3. The form answers fit their word limits",
+              text: "Done. Nothing in the pack goes beyond your master file. The cover letter opens like this:\n\n\"At Northline I rebuilt the regional returns process and cut average refund time from 9 days to 4, and the courier contract I built the cost case for saved 12% on return shipping. Your coordinator role is the same work at a larger scale.\"\n\nSQL and perishables are both nice-to-haves, so the letter leaves them out. Before you send, check three things:\n1. Every number in resume.md and interview-prep.md is one you can explain\n2. The letter sounds like you, not like me\n3. The form answers fit their word limits",
             },
           ],
         },

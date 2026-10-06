@@ -57,6 +57,8 @@ export interface ChatStep {
   text: string;
   /** Delay in ms before this message appears. Defaults: user=600ms, claude=1200ms */
   delay?: number;
+  /** A sample answer: shown in the demo, not offered as a prompt to copy. */
+  example?: boolean;
 }
 
 interface AppChatDemoProps {
