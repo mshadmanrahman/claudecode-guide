@@ -109,4 +109,7 @@ jobs:
           git add src/lib/i18n/bn/
           git diff --cached --quiet && exit 0
           git commit -m "chore(i18n): sync Bangla with English" -m "Drift: ${{ steps.drift.outputs.report }}"
-          git push origin HEAD:main
+          # claude-code-action rewrites the git credentials, so push with the job token
+          git -c http.https://github.com/.extraheader= push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+        env:
+          GH_TOKEN: ${{ github.token }}
