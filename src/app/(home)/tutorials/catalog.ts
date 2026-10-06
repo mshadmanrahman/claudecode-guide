@@ -154,11 +154,11 @@ export const TRACKS: ReadonlyArray<Track> = [
       },
       {
         slug: "job-application-assistant",
-        title: "Build a Job Application Assistant",
+        title: "Build a Job Application System",
         description:
-          "Paste the job description and your background. Get a match analysis, tailored cover letter, and interview prep.",
-        outcome: "A tailored cover letter and answers to the top 3 interview questions, specific to the role.",
-        personas: ["new"],
+          "Let Claude interview you into a master file and master CV once, then turn every job post into a tailored application pack.",
+        outcome: "A master CV you trust, and a resume, cover letter, form answers and interview prep for each job you apply to.",
+        personas: EVERYONE,
       },
       {
         slug: "personal-finance-manager",

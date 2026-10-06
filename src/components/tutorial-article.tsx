@@ -6,6 +6,7 @@ import { TutorialTracker } from "@/components/tutorial-tracker";
 import { TutorialCompleteButton } from "@/components/tutorial-complete-button";
 import { TutorialStepBody } from "@/components/tutorial-step-demo";
 import { RouteSwitcher } from "@/components/route-switcher";
+import { PersonaSwitcher } from "@/components/persona-switcher";
 import { ShareCard } from "@/components/share-card";
 import { AuthorBio } from "@/components/author-bio";
 import { ArticleSchema } from "@/components/article-schema";
@@ -82,6 +83,7 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
   const t = ui(locale);
   const slug = tutorial.slug;
   const routes = tutorial.availableRoutes ?? ["terminal"];
+  const personaIds = tutorial.personas?.map((p) => p.id) ?? [];
   const position = findTrackPosition(slug);
   const total = tutorial.steps.length;
   const nextHref = position?.next ? resolveTutorial(position.next.slug, locale).href : undefined;
@@ -166,6 +168,11 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
           <div className="border-t border-[var(--line)] pt-5">
             <RouteSwitcher availableRoutes={routes} locale={locale} />
           </div>
+          {tutorial.personas && tutorial.personas.length > 0 && (
+            <div className="border-t border-[var(--line)] pt-5">
+              <PersonaSwitcher personas={tutorial.personas} locale={locale} />
+            </div>
+          )}
         </section>
 
         <nav aria-label={t.inThisTutorial} className="mb-14">
@@ -204,6 +211,8 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
                 appDemo={step.appDemo}
                 ideDemo={step.ideDemo}
                 cliDemo={step.cliDemo}
+                personaIds={personaIds}
+                variants={step.variants}
                 title={step.title}
                 locale={locale}
               />

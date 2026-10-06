@@ -12,6 +12,7 @@
  */
 import type { TutorialRoute } from "@/components/route-switcher";
 import type { CliStep } from "@/components/claude-code-mock";
+import type { TutorialPersona } from "@/components/persona-switcher";
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
 /* ------------------------------------------------------------------ */
@@ -44,6 +45,8 @@ export interface TutorialStep {
   };
   /** One Claude Code session, shown as the CLI (terminal route) or the desktop Code tab (app route). Without one, the app route replays appDemo as a session. */
   cliDemo?: { steps: CliStep[] };
+  /** Per-persona demos, keyed by persona id. The picked persona's demos replace appDemo/ideDemo on this step. */
+  variants?: Record<string, Pick<TutorialStep, "appDemo" | "ideDemo">>;
 }
 
 export interface Tutorial {
@@ -57,6 +60,8 @@ export interface Tutorial {
   nextLink: { label: string; href: string };
   /** Routes with authored content. Defaults to ['terminal'] for old tutorials, ['app'] for new. */
   availableRoutes?: TutorialRoute[];
+  /** Roles the reader can pick. Steps with `variants` show that role's demos. */
+  personas?: TutorialPersona[];
 }
 
 /* ------------------------------------------------------------------ */
@@ -3869,151 +3874,383 @@ When asked for "email format":
   },
 
   "job-application-assistant": {
-    title: "Build a Job Application Assistant in 20 Minutes",
+    title: "Build a Job Application System with Claude",
     slug: "job-application-assistant",
-    duration: "20 min",
+    duration: "1 evening",
     difficulty: "beginner",
-    availableRoutes: ["app", "ide"],
+    availableRoutes: ["app"],
+    personas: [
+      { id: "general", label: "Any role" },
+      { id: "designer", label: "Designer" },
+      { id: "engineer", label: "Engineer" },
+      { id: "pm", label: "Product manager" },
+      { id: "teacher", label: "Teacher" },
+    ],
     description:
-      "Paste the job description and your background. Get a match analysis, a tailored cover letter, and interview prep, for any role.",
+      "Spend one evening letting Claude interview you into a master file and a master CV. After that, every application is a tailored pack built from that boilerplate, in minutes.",
     intro:
-      "Most cover letters are generic because tailoring them properly takes an hour per application. Claude can do the matching, gap analysis, and first draft in minutes, so you spend your time on the interviews, not the paperwork. This works for any role, at any level.",
+      "Most people tailor each application from scratch, so each one takes an hour and the CV drifts a little further from the truth every time. Turn it around. Give Claude one evening to interview you and write down everything you've done, then build one master CV you're happy with. Every job after that is the same move: paste the post, get a pack built only from your own record. Pick your role below to see the examples in your field.",
     steps: [
       {
-        title: "Paste the job description",
+        title: "Let Claude interview you",
         description:
-          'Copy the full job description : including requirements, responsibilities, and any "about us" section. The more Claude has, the better the match analysis.',
+          "Don't start with your CV. Start by letting Claude ask the questions, one at a time, from your education onward. Answer out loud with a dictation tool if you have one: people say far more than they type, and the detail you say out loud is what the later steps are built from. Budget an evening for this.",
         appDemo: {
           steps: [
             {
               role: "user",
-              text: "I want to apply for a Senior Product Manager role. Can you help me tailor my application?",
+              text: "I'm looking for a new job. Interview me about my whole career so you can build a complete record of me. Ask one question at a time, starting from my education. Push for numbers, decisions and things that went wrong. Don't write anything yet.",
             },
             {
               role: "claude",
-              text: "Yes. Let's do this properly rather than just polishing your existing CV.\n\nPaste the full job description first (including the \"about the company\" section if there is one). I'll identify the key signals they're looking for before you paste your background, that way I'm matching rather than just summarising.",
+              text: "One question at a time, and I'll keep asking until each answer has something concrete in it.\n\nFirst: what did you study after school, and is there one project or result from that time you still mention to people?",
+            },
+            {
+              role: "user",
+              text: "Business administration. Then I spent four years in operations at a logistics company. I ran the returns process for the whole southern region.",
+            },
+            {
+              role: "claude",
+              text: "Running returns for a region is a real responsibility, so let's get its size. Roughly how many returns a month, how many people did you work with, and what was different when you left compared to when you started?",
             },
           ],
         },
-        ideDemo: {
+        variants: {
+          designer: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "I'm a product designer looking for a new job. Interview me about my whole career so you can build a complete record of me. Ask one question at a time, starting from my education. Push for numbers, decisions and things that went wrong. Don't write anything yet.",
+                },
+                {
+                  role: "claude",
+                  text: "One question at a time, and I'll keep asking until each answer has something concrete in it.\n\nFirst: what did you study, and when did you first get paid to design something?",
+                },
+                {
+                  role: "user",
+                  text: "Fine arts, then I taught myself Figma. My best project is the booking flow I redesigned for a clinic chain. Bookings went up.",
+                },
+                {
+                  role: "claude",
+                  text: "\"Bookings went up\" is the part an interviewer will ask about, so let's pin it down. By how much, over what period, and how do you know the redesign caused it? Then tell me one design decision in that flow you argued for and won.",
+                },
+              ],
+            },
+          },
+          engineer: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "I'm a backend engineer looking for a new job. Interview me about my whole career so you can build a complete record of me. Ask one question at a time, starting from my education. Push for numbers, decisions and things that went wrong. Don't write anything yet.",
+                },
+                {
+                  role: "claude",
+                  text: "One question at a time, and I'll keep asking until each answer has something concrete in it.\n\nFirst: what did you study, and what's the first system you built that real people used?",
+                },
+                {
+                  role: "user",
+                  text: "Computer science. At my current job I moved our payments service off a monolith. It's much faster now.",
+                },
+                {
+                  role: "claude",
+                  text: "\"Much faster\" needs a number. What was p95 latency before and after, how much traffic does it carry, and did anything break during the migration? An outage you handled well is worth more in an interview than a migration that went smoothly.",
+                },
+              ],
+            },
+          },
+          pm: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "I'm a product manager looking for a new job. Interview me about my whole career so you can build a complete record of me. Ask one question at a time, starting from my education. Push for numbers, decisions and things that went wrong. Don't write anything yet.",
+                },
+                {
+                  role: "claude",
+                  text: "One question at a time, and I'll keep asking until each answer has something concrete in it.\n\nFirst: what did you study, and how did you end up in product?",
+                },
+                {
+                  role: "user",
+                  text: "Economics, then customer support, then I moved into product. I launched a self-serve onboarding flow that cut support tickets.",
+                },
+                {
+                  role: "claude",
+                  text: "Good, that's a launch with an outcome. Three things: how many tickets before and after, what you decided not to build, and who disagreed with you. The thing you cut usually tells an interviewer more than the thing you shipped.",
+                },
+              ],
+            },
+          },
+          teacher: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "I'm a secondary school teacher looking for a new job. Interview me about my whole career so you can build a complete record of me. Ask one question at a time, starting from my education. Push for numbers, decisions and things that went wrong. Don't write anything yet.",
+                },
+                {
+                  role: "claude",
+                  text: "One question at a time, and I'll keep asking until each answer has something concrete in it.\n\nFirst: what did you study, and what subjects and year groups have you taught?",
+                },
+                {
+                  role: "user",
+                  text: "Chemistry, then a teaching qualification. I've taught science for six years. I started a lunchtime club for students who were falling behind.",
+                },
+                {
+                  role: "claude",
+                  text: "That club is the kind of thing schools hire for, so let's make it concrete. How many students came, for how long, and what happened to their results? And what made you start it: did someone ask, or did you notice the problem yourself?",
+                },
+              ],
+            },
+          },
+        },
+      },
+      {
+        title: "Save the master file of you",
+        description:
+          "The master file is not a CV. It's everything you said, organized, and it's long on purpose. Ask Claude where it saved the file, open it, and correct anything wrong now. Every application you make later inherits whatever is in this file, mistakes included.",
+        appDemo: {
           steps: [
             {
               role: "user",
-              text: "Help me apply for a Senior PM role. Starting with the job description.",
+              text: "That's enough for tonight. Write everything I've told you into career-vault/master-file.md: education, every role with dates, projects, numbers, tools, what went wrong and what I learned. Keep my own words where you can. Where have you stored this?",
             },
             {
               role: "claude",
-              text: "Paste the full JD : requirements, responsibilities, about the company. I'll extract what they're actually looking for before we look at your background.",
+              text: "Saved to career-vault/master-file.md. Nine sections: education, four roles with dates, six projects, tools, results, setbacks, and a list of what you said you want next.\n\nThree claims have no number yet, and I left them marked as gaps rather than guess:\n• the team size on your second role\n• the result of the internal training you ran\n• the date you were promoted\n\nOpen the file and tell me anything I got wrong.",
+            },
+            {
+              role: "user",
+              text: "I joined my current company in March 2021, not 2022. And the training was for 40 people.",
+            },
+            {
+              role: "claude",
+              text: "Fixed both. Start date is now March 2021, and the training entry says 40 people. Two gaps left.",
             },
           ],
         },
       },
       {
-        title: "Let Claude decode the job description",
+        title: "Give Claude the CV format you like",
         description:
-          "Before you share your CV, Claude reads the JD and extracts what the hiring manager actually cares about, the signals hidden between the bullet points.",
+          "Find a CV layout you like and hand it to Claude as a template. Keep it plain: one column, a standard font, bullets and bold only, no tables, icons or sidebars. Applicant tracking systems read text, not design, and fancy layouts are where they scramble. Keep it short too. One page is the usual norm in North America, two in Europe and Australia.",
         appDemo: {
           steps: [
             {
               role: "user",
-              text: 'Senior PM role at a Series B fintech. JD says: 5+ years PM experience, experience with B2B SaaS products, led 0→1 product launches, comfortable with data and SQL basics, strong stakeholder management, experience working with financial services clients a plus. Company is 80 people, recently raised $30M, described as "fast-moving and scrappy."',
+              text: "Here's a CV I like the look of: career-vault/versions/format-sample.pdf. Turn it into a template at career-vault/resume-template.md. One column, bullets and bold only, no tables, no icons. Two pages at most.",
             },
             {
               role: "claude",
-              text: "Here's what I'm reading between the lines:\n\n**What they're really asking for**:\n• \"Led 0→1 launches\" = they need someone who can handle ambiguity and doesn't need a playbook. This will be a theme in interviews.\n• \"Comfortable with SQL basics\" = they want a PM who won't be a bottleneck for data questions. You don't need to be an analyst, but you need to be self-sufficient.\n• \"Stakeholder management\" at an 80-person fintech = this likely means managing engineers and founders with strong opinions, not navigating a big corp hierarchy.\n• \"Financial services clients a plus\" = they're worried about domain knowledge. If you have any, lead with it. If you don't, address it proactively rather than hoping they don't notice.\n\n**The vibe**: \"Fast-moving and scrappy\" at Series B means they're in growth mode but not yet process-heavy. They want someone who ships, not someone who governs.\n\nNow paste your background. I'll match against these specific signals.",
-            },
-          ],
-        },
-        ideDemo: {
-          steps: [
-            {
-              role: "user",
-              text: 'JD: Senior PM at Series B fintech, 80 people, $30M raised. Requirements: 5+ years PM, B2B SaaS, led 0→1 launches, SQL basics, stakeholder management, fintech experience a plus. "Fast-moving and scrappy."',
-            },
-            {
-              role: "claude",
-              text: "Reading between the lines:\n\n• **0→1 launches** = handle ambiguity, no playbook needed\n• **SQL basics** = data self-sufficiency, won't block engineers on queries\n• **Stakeholder mgmt at 80 people** = manage opinionated founders/engineers, not corp hierarchy\n• **Fintech a plus** = domain anxiety, address proactively if you don't have it\n• **\"Scrappy\"** = ships over governs\n\nPaste your background. I'll match against these signals.",
+              text: "Template saved to career-vault/resume-template.md. Sections, in order:\n\n1. Name and contact\n2. Summary (three lines)\n3. Experience\n4. Selected projects\n5. Skills\n6. Education\n\nI dropped the sidebar from your sample. Two-column layouts are the most common reason a tracking system reads a CV in the wrong order.",
             },
           ],
         },
       },
       {
-        title: "Paste your background",
+        title: "Build your master CV, then make it true",
         description:
-          "Share your CV, LinkedIn summary, or just a list of your roles and key achievements. Claude will identify what matches strongly and what gaps to address.",
+          "Now Claude fills the template from the master file. This master CV is your boilerplate: not tailored to any job yet, but a version you'd be comfortable sending anywhere. Push back on every line until it's something you could defend for five minutes in an interview.",
         appDemo: {
           steps: [
             {
               role: "user",
-              text: "My background: 7 years in product. Currently Senior PM at a B2B HR tech company (300 people). Led the launch of a new employee engagement module from scratch, 0 to $2M ARR in 18 months. Comfortable with data, use Mixpanel and Amplitude daily, have done basic SQL for ad hoc queries. No fintech experience specifically, but worked with enterprise HR clients (CHRO-level stakeholders). Previous role was PM at a SaaS startup (40 people).",
+              text: "Build my master CV in career-vault/resume.md using the template and only what's in master-file.md. Every bullet starts with a verb and ends with a result. Then show me the lines you're least sure about.",
             },
             {
               role: "claude",
-              text: '**Match Analysis**\n\n✅ Strong matches:\n• 7 years PM experience (requirement: 5+)\n• 0→1 launch with real metrics ($2M ARR in 18 months), this is your headline story\n• Data comfort (Mixpanel, Amplitude, SQL), directly addresses the data requirement\n• Previous startup experience (40 people), directly relevant to "scrappy" culture\n\n⚠️ Partial matches:\n• Stakeholder management: CHRO-level experience is great but it\'s HR, not fintech. Reframe as "selling complex software internally to senior, non-technical buyers," that\'s transferable.\n\n❌ Gap to address:\n• No fintech experience: this is their only "a plus" that you\'re missing. Address it proactively in the cover letter: frame your enterprise client experience as evidence you can navigate regulated, risk-averse buyers. Don\'t pretend it\'s the same. Show you understand the dynamic.\n\n**Overall**: Strong candidate. The 0→1 story is the anchor. Lead with it.',
+              text: "Saved to career-vault/resume.md, one and a half pages.\n\n**Operations Lead, Northline Logistics** (2021 to now)\n• Rebuilt the regional returns process, cutting average refund time from 9 days to 4\n• Trained 40 warehouse staff on the new scanning workflow in six weeks\n• Negotiated a courier contract that saved 12% on return shipping\n\nLeast sure about: \"negotiated\". In the interview you said you prepared the numbers and your manager signed. Want me to say that instead?",
+            },
+            {
+              role: "user",
+              text: "Yes, say I built the cost case.",
+            },
+            {
+              role: "claude",
+              text: "Changed to: \"Built the cost case for a new courier contract that saved 12% on return shipping.\" Your master file says the same now, so every future application will too.",
             },
           ],
         },
-        ideDemo: {
-          steps: [
-            {
-              role: "user",
-              text: "My background: 7 years PM. Currently Sr PM at B2B HR tech (300 people). Led new module launch 0→1, $2M ARR in 18 months. Use Mixpanel/Amplitude/basic SQL. No fintech but worked with CHRO-level enterprise clients. Previous: PM at 40-person SaaS startup.",
+        variants: {
+          designer: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "Build my master CV in career-vault/resume.md using the template and only what's in master-file.md. Every bullet starts with a verb and ends with a result. Then show me the lines you're least sure about.",
+                },
+                {
+                  role: "claude",
+                  text: "Saved to career-vault/resume.md, one page.\n\n**Product Designer, Clinicly** (2022 to now)\n• Redesigned the appointment booking flow, raising completed bookings 18% in three months\n• Built the first shared component library in Figma, used by 3 product teams\n• Led the design system for clinic staff tools, replacing 4 inconsistent admin screens\n\nLeast sure about: \"led the design system\". You said a senior designer set it up and you extended it. Want \"extended\" instead of \"led\"?",
+                },
+                {
+                  role: "user",
+                  text: "Yes. I extended it.",
+                },
+                {
+                  role: "claude",
+                  text: "Changed to: \"Extended the design system to clinic staff tools, replacing 4 inconsistent admin screens.\" Updated in master-file.md too.",
+                },
+              ],
             },
-            {
-              role: "claude",
-              text: "**Match**:\n✅ 7 years (req: 5+)\n✅ 0→1 with metrics ($2M ARR 18 months), your headline\n✅ Data comfort (Mixpanel, SQL)\n✅ Small startup experience (scrappy culture fit)\n⚠️ CHRO stakeholders = senior, non-technical buyers, transferable but needs reframing\n❌ No fintech: address proactively, don't ignore it\n\n**Lead with the 0→1 story. It's your strongest card.**",
+          },
+          engineer: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "Build my master CV in career-vault/resume.md using the template and only what's in master-file.md. Every bullet starts with a verb and ends with a result. Then show me the lines you're least sure about.",
+                },
+                {
+                  role: "claude",
+                  text: "Saved to career-vault/resume.md, one page.\n\n**Backend Engineer, Paystream** (2020 to now)\n• Split the payments service out of the monolith, cutting p95 latency from 820 ms to 190 ms\n• Ran the incident response for a 40-minute settlement outage and wrote the fix that prevents a repeat\n• Architected the event pipeline that handles 2 million transactions a day\n\nLeast sure about: \"architected\". You said you built two of its five services. Want \"built two of the five services in\" instead?",
+                },
+                {
+                  role: "user",
+                  text: "Yes, that's accurate.",
+                },
+                {
+                  role: "claude",
+                  text: "Changed to: \"Built two of the five services in the event pipeline that handles 2 million transactions a day.\" Updated in master-file.md too.",
+                },
+              ],
             },
-          ],
+          },
+          pm: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "Build my master CV in career-vault/resume.md using the template and only what's in master-file.md. Every bullet starts with a verb and ends with a result. Then show me the lines you're least sure about.",
+                },
+                {
+                  role: "claude",
+                  text: "Saved to career-vault/resume.md, one page.\n\n**Product Manager, Ledgerly** (2021 to now)\n• Launched self-serve onboarding, cutting setup tickets from 1,200 to 450 a month\n• Killed a reporting feature after five customer interviews, saving a quarter of engineering time\n• Owned pricing strategy for the SMB plan\n\nLeast sure about: \"owned pricing strategy\". You said you ran the research and the CEO set the price. Want \"ran the pricing research for\" instead?",
+                },
+                {
+                  role: "user",
+                  text: "Yes. I ran the research.",
+                },
+                {
+                  role: "claude",
+                  text: "Changed to: \"Ran the pricing research behind the SMB plan.\" Updated in master-file.md too.",
+                },
+              ],
+            },
+          },
+          teacher: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "Build my master CV in career-vault/resume.md using the template and only what's in master-file.md. Every bullet starts with a verb and ends with a result. Then show me the lines you're least sure about.",
+                },
+                {
+                  role: "claude",
+                  text: "Saved to career-vault/resume.md, two pages.\n\n**Science Teacher, Riverside Secondary School** (2019 to now)\n• Started a weekly catch-up club for 25 students; 19 of them passed their chemistry exam the following term\n• Rewrote the Year 9 practical lab curriculum, now used by all 4 science teachers\n• Led the department's move to online homework\n\nLeast sure about: \"led the move to online homework\". You said you trained colleagues on the platform after the head of department chose it. Want \"trained the department on\" instead?",
+                },
+                {
+                  role: "user",
+                  text: "Yes, that's what happened.",
+                },
+                {
+                  role: "claude",
+                  text: "Changed to: \"Trained the science department on the new online homework platform.\" Updated in master-file.md too.",
+                },
+              ],
+            },
+          },
         },
       },
       {
-        title: "Generate the tailored cover letter",
+        title: "Paste a job post and ask for the pack",
         description:
-          "Claude writes a cover letter that matches your strongest signals to what they're specifically looking for, not a generic introduction.",
+          "From here on, every job gets the same treatment. Copy the full post, paste it in, and ask for an application pack. Claude tailors the master CV against the post and writes everything else from your career vault, so you're editing, not starting from zero.",
         appDemo: {
           steps: [
-            { role: "user", text: "Write the cover letter." },
+            {
+              role: "user",
+              text: "I want to apply to this position. Make me an application pack in career-vault/applications/: a tailored resume, a cover letter, answers to the form questions, and interview prep. Use only what's in my career vault, and tell me where I don't fit.\n\n[Full job post: Supply Chain Coordinator at a grocery delivery company. Must have: 3+ years in logistics, vendor management, Excel. Nice to have: SQL, experience with perishable goods.]",
+            },
             {
               role: "claude",
-              text: "Hi [Hiring Manager],\n\nI've spent seven years building B2B SaaS products, the last four leading product at a 300-person HR tech company. In that time, the work I'm most proud of is taking an employee engagement module from a blank whiteboard to $2M ARR in 18 months. That journey (figuring out the right thing to build, then building the right team to build it) is exactly the kind of work I want to do at [Company].\n\nA few specific things that make me confident about this role:\n\n**0→1 in a fast-moving environment**: The engagement module didn't have a playbook. We ran rapid discovery, killed two feature directions that weren't working, and shipped an MVP that 40 enterprise clients adopted in the first quarter. I'm comfortable with ambiguity and I know what \"done\" looks like when there's no precedent.\n\n**Data-driven without being analyst-dependent**: I run my own Mixpanel and Amplitude analyses daily, write basic SQL for ad hoc questions, and rarely wait for a data pull to inform a prioritisation decision. I know the difference between using data to make a decision and using data to justify one you've already made.\n\n**Enterprise client experience**: I've worked with CHRO-level buyers at large enterprises, risk-averse, compliance-conscious, with long procurement cycles. I haven't done this in fintech specifically, but the dynamics translate: building trust with regulated-industry buyers is a skill, and it's one I've developed.\n\nI'd love to talk about how I can bring this to [Company]. I'm available [dates/times].\n\n[Your name]",
+              text: "Pack saved to career-vault/applications/freshcart-supply-chain-coordinator/.\n\n**Fit**\n✅ 3+ years in logistics: four years at Northline\n✅ Vendor management: the courier contract cost case\n✅ Excel: the returns tracker you built\n❌ SQL: nothing in your vault\n❌ Perishable goods: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: returns and vendor work moved to the top\n• cover-letter.md: names the perishables gap in the first paragraph\n• form-answers.md: the three extra questions on their form\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
             },
           ],
         },
-        ideDemo: {
-          steps: [
-            { role: "user", text: "Write the cover letter." },
-            {
-              role: "claude",
-              text: "Hi [Hiring Manager],\n\nSeven years in B2B SaaS product, most recently leading a 0→1 module launch from concept to $2M ARR in 18 months. That's the kind of work I want to do at [Company].\n\nThree things I bring directly to this role:\n\n**0→1 experience**: No playbook, two killed directions before we found the right one, 40 enterprise clients in the first quarter of launch. I know how to build when there's no precedent.\n\n**Data self-sufficiency**: Mixpanel and Amplitude daily, SQL for ad hoc queries. I don't wait for data pulls to make decisions.\n\n**Enterprise buyer experience**: CHRO-level stakeholders, risk-averse, compliance-conscious, long cycles. No fintech specifically, but the dynamic translates.\n\nI'd love to talk. Available [dates].\n\n[Your name]",
+        variants: {
+          designer: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "I want to apply to this position. Make me an application pack in career-vault/applications/: a tailored resume, a cover letter, answers to the form questions, and interview prep. Use only what's in my career vault, and tell me where I don't fit.\n\n[Full job post: Product Designer at an online learning platform. Must have: 3+ years product design, design systems, usability testing. Nice to have: motion design, education background.]",
+                },
+                {
+                  role: "claude",
+                  text: "Pack saved to career-vault/applications/learnloop-product-designer/.\n\n**Fit**\n✅ 3+ years product design: Clinicly since 2022, freelance before\n✅ Design systems: the shared Figma library and its extension\n✅ Usability testing: the five booking-flow test rounds\n❌ Motion design: nothing in your vault\n❌ Education background: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: booking flow and design system moved to the top\n• cover-letter.md: names the education gap in the first paragraph\n• form-answers.md: their portfolio question, answered with the booking flow case\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
+                },
+              ],
             },
-          ],
+          },
+          engineer: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "I want to apply to this position. Make me an application pack in career-vault/applications/: a tailored resume, a cover letter, answers to the form questions, and interview prep. Use only what's in my career vault, and tell me where I don't fit.\n\n[Full job post: Senior Backend Engineer at a logistics startup. Must have: 5+ years backend, distributed systems, on-call experience. Nice to have: Go, Kubernetes.]",
+                },
+                {
+                  role: "claude",
+                  text: "Pack saved to career-vault/applications/routewise-senior-backend/.\n\n**Fit**\n✅ 5+ years backend: Paystream since 2020, agency work before\n✅ Distributed systems: the monolith split and the event pipeline\n✅ On-call: the settlement outage you ran\n✅ Kubernetes: you deploy the payments service on it\n❌ Go: your vault only lists Java and Python\n\n**Files**\n• resume.md and resume.pdf: the latency result and the outage moved to the top\n• cover-letter.md: says plainly you haven't shipped Go in production\n• form-answers.md: their \"hardest bug\" question, answered with the outage\n• interview-prep.md: likely system design questions, your answers, and three questions to ask them",
+                },
+              ],
+            },
+          },
+          pm: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "I want to apply to this position. Make me an application pack in career-vault/applications/: a tailored resume, a cover letter, answers to the form questions, and interview prep. Use only what's in my career vault, and tell me where I don't fit.\n\n[Full job post: Senior Product Manager at a fintech company. Must have: 5+ years in product, B2B SaaS, data comfort. Nice to have: financial services experience.]",
+                },
+                {
+                  role: "claude",
+                  text: "Pack saved to career-vault/applications/finmark-senior-pm/.\n\n**Fit**\n✅ B2B SaaS: Ledgerly's SMB customers\n✅ Data comfort: the ticket analysis behind onboarding\n⚠️ 5+ years in product: you have four, plus two in support\n❌ Financial services: nothing beyond Ledgerly's invoicing\n\n**Files**\n• resume.md and resume.pdf: onboarding launch and the killed feature moved to the top\n• cover-letter.md: counts your support years honestly instead of stretching them\n• form-answers.md: their \"product you admire\" question, drafted from your notes\n• interview-prep.md: likely questions, your answers, and three questions to ask them",
+                },
+              ],
+            },
+          },
+          teacher: {
+            appDemo: {
+              steps: [
+                {
+                  role: "user",
+                  text: "I want to apply to this position. Make me an application pack in career-vault/applications/: a tailored resume, a cover letter, answers to the form questions, and interview prep. Use only what's in my career vault, and tell me where I don't fit.\n\n[Full job post: Head of Science at an international school. Must have: 5+ years teaching science, curriculum development, leading a team. Nice to have: IB experience.]",
+                },
+                {
+                  role: "claude",
+                  text: "Pack saved to career-vault/applications/harbour-international-head-of-science/.\n\n**Fit**\n✅ 5+ years teaching science: six at Riverside\n✅ Curriculum development: the Year 9 lab curriculum\n⚠️ Leading a team: you trained colleagues but haven't managed anyone\n❌ IB experience: nothing in your vault\n\n**Files**\n• resume.md and resume.pdf: the catch-up club results and the lab curriculum moved to the top\n• cover-letter.md: names the leadership gap and what you've done toward it\n• form-answers.md: their safeguarding and teaching philosophy questions\n• interview-prep.md: likely questions, your answers, and three questions to ask the panel",
+                },
+              ],
+            },
+          },
         },
       },
       {
-        title: "Prep your top 3 interview answers",
+        title: "Read the gaps before you send",
         description:
-          "Ask Claude to predict the questions you'll definitely get asked and help you structure strong answers using your actual experience.",
+          "Read every file before it goes out. Claude can't make you a stronger candidate than your master file says you are, and you don't want it to: the invented line is always the one the interviewer asks about. When the fit is weak, ask for the pack anyway and decide with the gaps in front of you.",
         appDemo: {
           steps: [
             {
               role: "user",
-              text: "What are the top 3 interview questions I'll definitely get asked, and how should I answer them?",
+              text: "The fit is weaker than I hoped. Make me the pack anyway, but don't stretch anything to cover the gaps. Show me the start of the cover letter.",
             },
             {
               role: "claude",
-              text: '**Question 1: "Tell me about a 0→1 product you launched."**\nThis is your strongest card. Use it fully. Structure: Situation (blank whiteboard, no playbook) → Discovery (what you learned, what you killed) → Launch (how you shipped) → Outcome ($2M ARR, 40 clients). The key detail to include: what you killed and why. That signals judgment, not just execution.\n\n---\n\n**Question 2: "How do you handle stakeholder pushback when you believe you\'re right?"**\nThis is really asking: "Can you manage founders and engineers with strong opinions?" Answer with a specific story. The best answer acknowledges that you don\'t always know you\'re right, you know how to make the decision rigorous. Talk about how you use data and user evidence to defuse opinion-based arguments without making it personal.\n\n---\n\n**Question 3: "You don\'t have fintech experience : how will you get up to speed quickly?"**\nThey will ask this. Don\'t be defensive. Answer: "I\'ve already started, [specific thing you\'ve done, e.g., read about [regulation], talked to [person]]. More importantly, my experience with regulated-industry enterprise buyers means I understand the dynamics. I know how risk-averse buyers evaluate software, and I know not to assume fintech customers work the same way HR clients do. I\'ll be wrong about specific things early; I won\'t be wrong about the fundamentals."',
-            },
-          ],
-        },
-        ideDemo: {
-          steps: [
-            {
-              role: "user",
-              text: "Top 3 interview questions I'll definitely get, and how to answer them.",
-            },
-            {
-              role: "claude",
-              text: '**Q1: "Walk me through a 0→1 launch."**\nUse the engagement module. Hit: blank slate → what you killed → how you shipped → $2M ARR. Include what you killed. That\'s the judgment signal.\n\n**Q2: "How do you handle pushback from engineers/founders?"**\nThey\'re asking if you can manage opinionated people without a hierarchy to hide behind. Answer: story + data/evidence as the defuser + making it rigorous not personal.\n\n**Q3: "You don\'t have fintech experience."**\nThey will say this. Don\'t be defensive. "I\'ve already started [specific action]. My enterprise client experience means I understand regulated-industry buyers. I\'ll be wrong about specifics early. I won\'t be wrong about the fundamentals."',
+              text: "Done. Nothing in the pack goes beyond your master file. The cover letter opens like this:\n\n\"I read your posting against my own record and want to be direct about the gap before I make my case. You list experience I don't have yet. Here is what I do have, and why I think it carries over.\"\n\nBefore you send, check three things:\n1. Every number in resume.md is one you can explain\n2. The gap paragraph sounds like you, not like me\n3. The form answers fit their word limits",
             },
           ],
         },

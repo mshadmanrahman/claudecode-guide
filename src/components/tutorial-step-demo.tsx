@@ -4,6 +4,7 @@ import { DemoCard } from '@/components/demo-card';
 import { AppChatDemo, type ChatStep } from '@/components/app-chat-demo';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { useTutorialRoute, type TutorialRoute } from '@/components/route-switcher';
+import { useTutorialPersona } from '@/components/persona-switcher';
 import { ClaudeCodeMock, type CliStep } from '@/components/claude-code-mock';
 import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
 import { chatToSession } from '@/lib/chat-session';
@@ -30,6 +31,10 @@ interface TutorialStepBodyProps {
   ideDemo?: ChatDemoData;
   /** One scripted session, shown as the real CLI or the desktop Code tab. */
   cliDemo?: { steps: CliStep[] };
+  /** Persona ids offered on this tutorial, in order. */
+  personaIds?: string[];
+  /** Per-persona demos; the picked persona's replace appDemo/ideDemo. */
+  variants?: Record<string, { appDemo?: ChatDemoData; ideDemo?: ChatDemoData }>;
   /** Used as the desktop mock's session title. */
   title?: string;
   locale?: Locale;
@@ -47,14 +52,20 @@ export function TutorialStepBody({
   availableRoutes,
   code,
   demo,
-  appDemo,
-  ideDemo,
+  appDemo: baseAppDemo,
+  ideDemo: baseIdeDemo,
   cliDemo,
+  personaIds = [],
+  variants,
   title,
   locale = 'en',
 }: TutorialStepBodyProps) {
   const t = ui(locale);
   const route = useTutorialRoute(availableRoutes);
+  const persona = useTutorialPersona(personaIds);
+  const variant = persona ? variants?.[persona] : undefined;
+  const appDemo = variant?.appDemo ?? baseAppDemo;
+  const ideDemo = variant?.ideDemo ?? baseIdeDemo;
   const chat = route === 'app' ? appDemo : route === 'ide' ? ideDemo : undefined;
   const prompts = chat ? chat.steps.filter((s) => s.role === 'user').map((s) => s.text) : [];
 
