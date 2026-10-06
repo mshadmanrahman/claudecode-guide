@@ -1,0 +1,91 @@
+# Keeps the Bangla pages in step with English.
+# When an English tutorial or designer guide changes on main, Claude re-translates
+# only the drifted pages (stale, missing or orphaned) and this job commits the result.
+# Needs one repo secret: CLAUDE_CODE_OAUTH_TOKEN (run `claude setup-token` locally).
+name: bn-sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/lib/tutorials.ts
+      - src/lib/designer-guides.ts
+  workflow_dispatch:
+
+concurrency:
+  group: bn-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Find drift
+        id: drift
+        run: |
+          report=$(node --no-warnings scripts/check-bn-sync.ts --json)
+          echo "$report"
+          echo "report=$report" >> "$GITHUB_OUTPUT"
+          echo "drifted=$(echo "$report" | jq -r .drifted)" >> "$GITHUB_OUTPUT"
+
+      - name: Re-translate drifted pages
+        if: steps.drift.outputs.drifted == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: |
+            --model claude-opus-5-5
+            --max-turns 80
+            --allowedTools Read,Edit,Write,Grep,Glob,Bash(node:*),Bash(npm run check:bn:*),Bash(npx tsc:*),Bash(git diff:*)
+          prompt: |
+            The English pages of claudecodeguide.dev changed. Bring the Bangla translations back in sync.
+
+            Drift report (JSON): ${{ steps.drift.outputs.report }}
+
+            Sources:
+            - English tutorials: src/lib/tutorials.ts (TUTORIALS). English designer guides: src/lib/designer-guides.ts (DESIGNER_GUIDES).
+            - Bangla: src/lib/i18n/bn/tutorials/g1..g6.ts and src/lib/i18n/bn/designer-guides/d1..d2.ts. Find each slug with Grep.
+            - Style rules: src/lib/i18n/bn/STYLE.md. Read it first. Voice reference: the "coming-from-chatgpt" entry in src/lib/i18n/bn/tutorials.ts.
+
+            For each slug:
+            - stale: compare the English entry with the Bangla one and re-translate only what changed in English. Keep the existing Bangla wherever the English is unchanged.
+            - missing: translate the full English entry. Add tutorials to the end of g6.ts and designer guides to the end of d2.ts.
+            - orphan: delete the Bangla entry.
+            For every stale or missing entry, set translatedAt to today's date and set sourceHash to the output of:
+              node --no-warnings --input-type=module -e 'import {TUTORIALS} from "./src/lib/tutorials.ts"; import {DESIGNER_GUIDES} from "./src/lib/designer-guides.ts"; import {sourceHash} from "./src/lib/i18n/source-hash.ts"; console.log(sourceHash({...TUTORIALS,...DESIGNER_GUIDES}["SLUG"]))'
+
+            Edit only files under src/lib/i18n/bn/. Do not commit. Before finishing, run `npm run check:bn -- --strict` and `npx tsc --noEmit -p .`; both must pass.
+
+      - name: Verify
+        if: steps.drift.outputs.drifted == 'true'
+        run: |
+          node --no-warnings scripts/check-bn-sync.ts --strict
+          npx tsc --noEmit -p .
+          if git diff --name-only | grep -v '^src/lib/i18n/bn/'; then
+            echo "Claude edited files outside src/lib/i18n/bn/" && exit 1
+          fi
+
+      - name: Commit
+        if: steps.drift.outputs.drifted == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/lib/i18n/bn/
+          git diff --cached --quiet && exit 0
+          git commit -m "chore(i18n): sync Bangla with English" -m "Drift: ${{ steps.drift.outputs.report }}"
+          git push origin HEAD:main

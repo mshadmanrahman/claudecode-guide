@@ -16,3 +16,11 @@ npm run dev      # Dev server with Turbopack
 npm run build    # Production build
 vercel --prod    # Deploy to production
 ```
+
+## Bangla pages (`/bn`)
+
+Every tutorial and designer guide has a Bangla version in `src/lib/i18n/bn/`. Style rules: `src/lib/i18n/bn/STYLE.md`.
+
+- To change English content, edit it as usual. On push to main, `.github/workflows/bn-sync.yml` has Claude re-translate the drifted pages and commits the result.
+- To check drift locally, run `npm run check:bn`. It reports stale, missing and orphaned Bangla pages; add `--strict` to fail on any drift.
+- To add a new tutorial or guide, ship the English page; the Action adds the Bangla version.
