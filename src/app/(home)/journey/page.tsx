@@ -527,7 +527,7 @@ export default function JourneyPage() {
       {/* ── Hero ── */}
       <section className="relative mx-auto w-full max-w-4xl px-6 pt-16 pb-12 text-center">
         <div className="relative z-10">
-          <div className="animate-slide-up-fade mb-3 inline-flex items-center gap-2 rounded-full border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-1.5 text-sm">
+          <div className="animate-slide-up-fade mb-3 inline-flex items-center gap-2 rounded-full border border-fd-border bg-white/90 dark:bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-1.5 text-sm">
             <Map className="h-3.5 w-3.5 text-fd-muted-foreground" />
             <span className="text-fd-muted-foreground">The full learning path</span>
           </div>
@@ -580,7 +580,7 @@ export default function JourneyPage() {
               )}
 
               {/* Stage card */}
-              <div className="overflow-hidden rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
+              <div className="overflow-hidden rounded-xl border border-fd-border bg-white/90 dark:bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2]">
                 {/* Colored header */}
                 <div className={`border-b px-5 py-4 sm:px-6 ${stage.headerBg}`}>
                   <div className="flex items-center gap-3">
@@ -736,7 +736,7 @@ export default function JourneyPage() {
 
       {/* ── Bottom CTA ── */}
       <section className="mx-auto w-full max-w-3xl px-6 pb-24">
-        <div className="rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 text-center sm:p-10">
+        <div className="rounded-xl border border-fd-border bg-white/90 dark:bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-8 text-center sm:p-10">
           <h2 className="font-display text-2xl font-semibold tracking-[-0.035em] text-fd-foreground">
             Ready to start?
           </h2>
