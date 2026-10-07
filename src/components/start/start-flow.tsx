@@ -9,6 +9,7 @@ import {
   Sparkles, Globe, Code2, Mic, Map,
 } from 'lucide-react';
 import { ProgressiveStep } from '@/components/start/progressive-step';
+import { TrackPreview } from '@/components/start/track-previews';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { VocabBridge } from '@/components/vocab-bridge';
 import { useOsDetect } from '@/hooks/use-os-detect';
@@ -205,7 +206,7 @@ export function StartFlow() {
                   className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] animate-slide-up-fade group flex cursor-pointer items-start gap-6 glass rounded-xl p-8 text-left transition-all duration-200 hover:${t.border}`}
                   style={{ animationDelay: `${i * 100 + 200}ms` }}
                 >
-                  <Icon className={`mt-1 h-8 w-8 shrink-0 ${t.color}`} />
+                  <Icon className={`mt-1 h-8 w-8 shrink-0 sm:hidden ${t.color}`} />
                   <div className="flex-1">
                     <span className="text-sm text-[var(--muted)]">
                       {t.verb}
@@ -219,6 +220,9 @@ export function StartFlow() {
                         Let&apos;s go <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
+                  </div>
+                  <div className="hidden self-center sm:block">
+                    <TrackPreview track={t.id} />
                   </div>
                 </button>
               );
