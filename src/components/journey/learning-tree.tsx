@@ -52,7 +52,7 @@ const stageColors: Record<string, {
   glow: string;
 }> = {
   understand: {
-    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    node: 'bg-white/90 [background-image:linear-gradient(var(--chip),var(--chip))] dark:bg-[var(--chip)] dark:[background-image:none]',
     nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
     label: 'text-[var(--acc)] ',
     labelBg: 'bg-[var(--chip)] ',
@@ -63,7 +63,7 @@ const stageColors: Record<string, {
     glow: 'shadow-green-200/60 dark:shadow-green-900/40',
   },
   setup: {
-    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    node: 'bg-white/90 [background-image:linear-gradient(var(--chip),var(--chip))] dark:bg-[var(--chip)] dark:[background-image:none]',
     nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
     label: 'text-[var(--acc)] ',
     labelBg: 'bg-[var(--chip)] ',
@@ -74,7 +74,7 @@ const stageColors: Record<string, {
     glow: 'shadow-blue-200/60 dark:shadow-blue-900/40',
   },
   'first-win': {
-    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    node: 'bg-white/90 [background-image:linear-gradient(var(--chip),var(--chip))] dark:bg-[var(--chip)] dark:[background-image:none]',
     nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
     label: 'text-[var(--acc)] ',
     labelBg: 'bg-[var(--chip)] ',
@@ -85,7 +85,7 @@ const stageColors: Record<string, {
     glow: 'shadow-amber-200/60 dark:shadow-amber-900/40',
   },
   'build-habits': {
-    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    node: 'bg-white/90 [background-image:linear-gradient(var(--chip),var(--chip))] dark:bg-[var(--chip)] dark:[background-image:none]',
     nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
     label: 'text-[var(--acc)] ',
     labelBg: 'bg-[var(--chip)] ',
@@ -96,7 +96,7 @@ const stageColors: Record<string, {
     glow: 'shadow-purple-200/60 dark:shadow-purple-900/40',
   },
   'level-up': {
-    node: 'bg-[var(--code)]  hover:bg-[var(--code)] ',
+    node: 'bg-white/90 [background-image:linear-gradient(var(--code),var(--code))] dark:bg-[var(--code)] dark:[background-image:none]',
     nodeBorder: 'border-[var(--line)]  hover:border-[var(--line)] ',
     label: 'text-red-700 dark:text-red-300 ',
     labelBg: 'bg-[var(--code)] ',
@@ -107,7 +107,7 @@ const stageColors: Record<string, {
     glow: 'shadow-rose-200/60 dark:shadow-rose-900/40',
   },
   mastery: {
-    node: 'bg-[var(--chip)]  hover:bg-[var(--chip)] ',
+    node: 'bg-white/90 [background-image:linear-gradient(var(--chip),var(--chip))] dark:bg-[var(--chip)] dark:[background-image:none]',
     nodeBorder: 'border-[var(--line)]  hover:border-[var(--acc)] ',
     label: 'text-[var(--acc)] ',
     labelBg: 'bg-[var(--chip)] ',
