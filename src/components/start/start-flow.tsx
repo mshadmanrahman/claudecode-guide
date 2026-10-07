@@ -184,6 +184,12 @@ export function StartFlow() {
               Browse tutorials instead
             </Link>
           </p>
+          <p className="mt-3 text-center text-sm text-fd-muted-foreground">
+            Want to see the whole path first?{' '}
+            <Link href="/journey" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] font-medium text-fd-foreground hover:underline">
+              See all six stages
+            </Link>
+          </p>
         </section>
       </main>
     );
