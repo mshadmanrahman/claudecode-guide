@@ -45,6 +45,53 @@ interface SavedProgress {
   step: number;
 }
 
+const JOURNEY_STAGES = ['Understand', 'Set Up', 'First Win', 'Build Habits', 'Level Up', 'Mastery'];
+/** Stages this walk-through covers, highlighted on the strip. */
+const COVERED_STAGES = 3;
+
+function JourneyStrip() {
+  return (
+    <Link
+      href="/journey"
+      className="group mt-8 block rounded-xl border border-fd-border bg-white/90 p-5 text-left no-underline transition-colors hover:border-[var(--acc)] dark:bg-[var(--glass)] sm:p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+    >
+      <div className="flex items-baseline justify-between gap-4">
+        <p className="text-sm font-medium text-fd-foreground">The whole path, in six stages</p>
+        <span className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-[var(--acc)]">
+          See the map <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" />
+        </span>
+      </div>
+      <p className="mt-1 text-xs text-fd-muted-foreground">
+        This walk-through covers the first three. The map shows what comes after.
+      </p>
+      <ol className="relative mt-6 grid grid-cols-3 gap-x-1 gap-y-4 p-0 sm:grid-cols-6">
+        <span aria-hidden="true" className="absolute left-[8.33%] right-[8.33%] top-3.5 hidden h-px sm:block bg-[var(--line)]" />
+        <span aria-hidden="true" className="absolute left-[8.33%] top-3.5 hidden h-px w-[33.33%] sm:block bg-[var(--acc)]" />
+        {JOURNEY_STAGES.map((label, i) => {
+          const covered = i < COVERED_STAGES;
+          return (
+            <li key={label} className="relative flex list-none flex-col items-center gap-2 text-center">
+              <span
+                className={[
+                  'flex h-7 w-7 items-center justify-center rounded-full border font-mono text-xs font-semibold',
+                  covered
+                    ? 'border-[var(--acc)] bg-[var(--acc)] text-[var(--accInk)]'
+                    : 'border-[var(--line)] bg-[var(--bg)] text-fd-muted-foreground',
+                ].join(' ')}
+              >
+                {i + 1}
+              </span>
+              <span className={`text-xs leading-tight ${covered ? 'font-medium text-fd-foreground' : 'text-fd-muted-foreground'}`}>
+                {label}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+    </Link>
+  );
+}
+
 function loadProgress(): SavedProgress {
   if (typeof window === 'undefined') return { track: null, interfaceChoice: null, os: null, step: 0 };
   try {
@@ -184,12 +231,7 @@ export function StartFlow() {
               Browse tutorials instead
             </Link>
           </p>
-          <p className="mt-3 text-center text-sm text-fd-muted-foreground">
-            Want to see the whole path first?{' '}
-            <Link href="/journey" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] font-medium text-fd-foreground hover:underline">
-              See all six stages
-            </Link>
-          </p>
+          <JourneyStrip />
         </section>
       </main>
     );
