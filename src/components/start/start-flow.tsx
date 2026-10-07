@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
   Gamepad2, ClipboardList, BarChart3, ArrowRight, Check,
   Monitor, Laptop, Terminal as TerminalIcon, ChevronDown, ChevronRight,
-  Sparkles, Globe, Code2, Mic,
+  Sparkles, Globe, Code2, Mic, Map,
 } from 'lucide-react';
 import { ProgressiveStep } from '@/components/start/progressive-step';
 import { CopyBlock } from '@/components/guide/copy-block';
@@ -578,6 +578,17 @@ export function StartFlow() {
               What to try next
             </h3>
             <div className="grid gap-3 sm:grid-cols-2">
+              <Link
+                href="/journey"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex items-center gap-4 rounded-xl border border-[var(--acc)] bg-white/90 p-5 transition-all motion-reduce:transition-none hover:bg-white dark:bg-[var(--glass)] dark:hover:bg-[var(--glass2)] sm:col-span-2"
+              >
+                <Map className="h-5 w-5 shrink-0 text-[var(--acc)]" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-fd-foreground">See the whole path, step by step</p>
+                  <p className="mt-1 text-xs text-fd-muted-foreground">Six stages from your first win to running Claude on its own</p>
+                </div>
+                <ArrowRight className="h-4 w-4 shrink-0 text-[var(--acc)]" />
+              </Link>
               {TRACK_OPTIONS.filter((t) => t.id !== track).map((t) => {
                 const Icon = t.icon;
                 return (
@@ -744,6 +755,17 @@ export function StartFlow() {
               What to try next
             </h3>
             <div className="grid gap-3 sm:grid-cols-2">
+              <Link
+                href="/journey"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex items-center gap-4 rounded-xl border border-[var(--acc)] bg-white/90 p-5 transition-all motion-reduce:transition-none hover:bg-white dark:bg-[var(--glass)] dark:hover:bg-[var(--glass2)] sm:col-span-2"
+              >
+                <Map className="h-5 w-5 shrink-0 text-[var(--acc)]" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-fd-foreground">See the whole path, step by step</p>
+                  <p className="mt-1 text-xs text-fd-muted-foreground">Six stages from your first win to running Claude on its own</p>
+                </div>
+                <ArrowRight className="h-4 w-4 shrink-0 text-[var(--acc)]" />
+              </Link>
               {TRACK_OPTIONS.filter((t) => t.id !== track).map((t) => {
                 const Icon = t.icon;
                 return (
