@@ -25,7 +25,7 @@ That exchange is one session. CLAUDE.md shaped the reply without being mentioned
 A command-line tool that lets you work with Claude AI directly in your terminal. Unlike ChatGPT (browser) or Claude.ai (also browser), Claude Code runs right next to your code, your files, and your tools. It reads files, writes code, runs commands, and actually does things in your project. Not just advice. Action.
 
 ### CLAUDE.md
-A file at the root of your project that tells Claude Code how to behave. Think of it as a "house rules" document: your coding standards, communication preferences, workflow patterns. Claude Code reads it at the start of every session. Skip it and Claude Code is guessing. Write a good one and it's like a new team member who read the entire onboarding doc.
+A file that tells Claude Code how to behave. It usually sits at the root of your project (`./CLAUDE.md` or `./.claude/CLAUDE.md`), and you can add a personal one at `~/.claude/CLAUDE.md`. Claude Code loads every one it finds. Think of it as a "house rules" document: your coding standards, communication preferences, workflow patterns. Claude Code reads it at the start of every session. Skip it and Claude Code is guessing. Write a good one and it's like a new team member who read the entire onboarding doc.
 
 ### Session
 One conversation with Claude Code. You open it, do some work, close it. That's a session. The key thing: without memory and handoffs, every session starts from scratch. With them, sessions build on each other.
@@ -183,4 +183,4 @@ The index file for your memory system. Lists all memory files with one-line summ
 Configuration file that defines which MCP servers Claude Code connects to. Where you set up your "plugins" for GitHub, Slack, and so on.
 
 ### `settings.json`
-Claude Code's configuration file at `.claude/settings.json`. Defines hooks, permissions, and tool settings. The mechanical config, as opposed to CLAUDE.md which is the behavioral config.
+Claude Code's configuration file. The shared project copy lives at `.claude/settings.json`, your personal defaults at `~/.claude/settings.json`, and machine-only project overrides at `.claude/settings.local.json`. Defines hooks, permissions, and tool settings. The mechanical config, as opposed to CLAUDE.md which is the behavioral config.

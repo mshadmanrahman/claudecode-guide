@@ -23,7 +23,9 @@ Think of them like git hooks, but for Claude Code. And frankly, they're more use
 
 The Prettier and ESLint hooks also ran after the Write; they print nothing when they pass.
 
-## The three hook types
+## The hook events you'll use first
+
+Claude Code has more than two dozen hook events. These three cover most of what you need on day one.
 
 ### PreToolUse
 
@@ -43,9 +45,11 @@ Fires **when a session begins**. This is your context loader.
 
 Remind Claude Code to read memory files. Check that env vars are set. Load the latest handoff so you never start a session cold. This one is criminally underused.
 
+Two more worth knowing early: **Stop** fires when Claude finishes responding, and **UserPromptSubmit** fires before Claude reads each prompt you send.
+
 ## How to configure them
 
-Hooks live in your `.claude/settings.json`. Each one says when to fire and what to run.
+Hooks live in your `.claude/settings.json`. Each event holds a list of groups. A group has a `matcher` that says which tools it applies to, and a `hooks` list that says what to run.
 
 ```json
 {
@@ -53,18 +57,24 @@ Hooks live in your `.claude/settings.json`. Each one says when to fire and what 
     "PreToolUse": [
       {
         "matcher": "Write|Edit",
-        "hook": "echo 'Checking file write...'"
+        "hooks": [
+          { "type": "command", "command": "echo 'Checking file write...'" }
+        ]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
-        "hook": "npx prettier --write $CLAUDE_FILE_PATH"
+        "hooks": [
+          { "type": "command", "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write" }
+        ]
       }
     ],
     "SessionStart": [
       {
-        "hook": "echo 'Remember: Read MEMORY.md and check handoffs/ for context.'"
+        "hooks": [
+          { "type": "command", "command": "echo 'Remember: Read MEMORY.md and check handoffs/ for context.'" }
+        ]
       }
     ]
   }
@@ -72,6 +82,10 @@ Hooks live in your `.claude/settings.json`. Each one says when to fire and what 
 ```
 
 The `matcher` field controls which tools trigger the hook. Pipe-separate tool names like `"Write|Edit"` to match multiple. Leave it out and the hook fires on every tool call.
+
+Your hook gets the details of the tool call as JSON on stdin, not as environment variables. That's why the Prettier hook pipes through `jq` to pull out `tool_input.file_path`.
+
+If your settings file already has a `hooks` key, add the new event next to the existing ones. Don't replace the whole object.
 
 ## Your first hook (30 seconds, huge payoff)
 
@@ -82,14 +96,16 @@ The single highest-value hook ensures Claude Code never starts a session cold. I
   "hooks": {
     "SessionStart": [
       {
-        "hook": "cat ~/.claude/session-reminder.txt 2>/dev/null || echo 'No session reminder found.'"
+        "hooks": [
+          { "type": "command", "command": "cat ~/.claude/session-reminder.txt 2>/dev/null || echo 'No session reminder found.'" }
+        ]
       }
     ]
   }
 }
 ```
 
-Create `~/.claude/session-reminder.txt` with your startup checklist:
+Whatever a SessionStart hook prints goes to Claude as context, so the checklist below lands in front of Claude before your first message. Create `~/.claude/session-reminder.txt` with your startup checklist:
 
 ```text
 Session startup checklist:
@@ -111,7 +127,9 @@ The second hook everyone should have. Prettier runs after every file edit so for
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
-        "hook": "npx prettier --write $CLAUDE_FILE_PATH 2>/dev/null || true"
+        "hooks": [
+          { "type": "command", "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null || true" }
+        ]
       }
     ]
   }
@@ -138,6 +156,8 @@ The SessionStart hook's checklist told Claude to open the latest handoff, so it 
 
 **Don't go overboard.** Three or four well-chosen hooks beat twenty noisy ones. Start with a SessionStart reminder and one PostToolUse formatter. Add more only when you feel actual friction.
 
-**Scope them right.** Hooks in `.claude/settings.json` at the project level only fire for that project. Hooks in `~/.claude/settings.json` fire globally. Project-specific formatting goes at the project level. Universal safety checks go global.
+**Scope them right.** Hooks in `~/.claude/settings.json` fire in every project. Hooks in `.claude/settings.json` fire only in that project and can be committed for your team. Hooks in `.claude/settings.local.json` fire only in that project and stay on your machine. Project-specific formatting goes at the project level. Universal safety checks go global.
 
-**Handle failures gracefully.** A crashing hook can block your entire workflow. Always add `2>/dev/null || true` for non-critical hooks. Test commands independently before adding them to config.
+**Know the exit codes.** Exit 0 means success. Exit 2 means block: on a PreToolUse hook, the tool call doesn't run and Claude sees your stderr message. Any other exit code doesn't block for most events. That's how the secrets check in the demo above stopped the commit.
+
+**Handle failures gracefully.** Add `2>/dev/null || true` to non-critical hooks like formatters, so a file type Prettier can't handle doesn't throw an error after every edit. Test commands on their own before adding them to config.

@@ -14,9 +14,9 @@ Sub-agents fix this. They're separate Claude Code instances that handle focused 
 <ClaudeCodeMock steps={[
   { kind: 'prompt', text: 'ship the new auth feature' },
   { kind: 'thinking', verb: 'Planning', ms: 900 },
-  { kind: 'tool', name: 'Task', arg: 'code-reviewer: review auth changes', result: 'Done (12 tool uses · 31.4k tokens · 38s)' },
-  { kind: 'tool', name: 'Task', arg: 'security-reviewer: check auth', result: 'Done (9 tool uses · 24.8k tokens · 33s)' },
-  { kind: 'tool', name: 'Task', arg: 'tdd-guide: write missing tests', result: 'Done (17 tool uses · 42.1k tokens · 51s)' },
+  { kind: 'tool', name: 'Agent', arg: 'code-reviewer: review auth changes', result: 'Done (12 tool uses · 31.4k tokens · 38s)' },
+  { kind: 'tool', name: 'Agent', arg: 'security-reviewer: check auth', result: 'Done (9 tool uses · 24.8k tokens · 33s)' },
+  { kind: 'tool', name: 'Agent', arg: 'tdd-guide: write missing tests', result: 'Done (17 tool uses · 42.1k tokens · 51s)' },
   { kind: 'say', text: 'All three agents are done.\nReviewer applied 2 style fixes, security found no issues, 8 tests added and passing.\nReady to commit.' },
 ]} />
 
@@ -28,31 +28,39 @@ Sub-agents fix this. They're separate Claude Code instances that handle focused 
 
 **Specialization that holds.** Each agent carries instructions tuned for exactly one job. A code-reviewer knows your team's standards. A tdd-guide enforces test-first. Better instructions, better output, every time.
 
-## Built-in agent types
+## Built-in agents
 
-Claude Code ships with several agent patterns ready to go:
+Claude Code ships with a few built-in subagents and uses them on its own when a task fits:
 
-| Agent | What It Does | When to Use |
+| Agent | What it does | When Claude uses it |
 |---|---|---|
-| **code-reviewer** | Reviews code for quality, patterns, bugs | After writing or modifying code |
-| **tdd-guide** | Enforces test-driven development | New features, bug fixes |
-| **planner** | Creates implementation plans | Complex features, refactoring |
-| **security-reviewer** | Scans for vulnerabilities | Before commits, auth changes |
-| **build-error-resolver** | Diagnoses and fixes build failures | When the build breaks |
+| **Explore** | Fast, read-only search through your codebase | Finding files and understanding code |
+| **Plan** | Researches the codebase while you're in plan mode | Gathering context before a plan |
+| **General-purpose** | Handles multi-step tasks with the full tool set | Complex work that needs both reading and changes |
 
-These spawn automatically when the task calls for it. You can also be explicit: "Run the code-reviewer on the files I just changed."
+The code-reviewer, security-reviewer and tdd-guide agents in the demo above are custom agents. You write those yourself, as shown below. Once they exist, you can be explicit: "Run the code-reviewer on the files I just changed."
+
+The tool that launches an agent is called `Agent`. It was called `Task` before version 2.1.63, and old `Task(...)` references still work.
 
 <ClaudeCodeMock steps={[
   { kind: 'prompt', text: 'use the pr-writer agent for this branch' },
-  { kind: 'tool', name: 'Task', arg: 'pr-writer: describe this branch', result: 'Done (6 tool uses · 14.2k tokens · 22s)' },
+  { kind: 'tool', name: 'Agent', arg: 'pr-writer: describe this branch', result: 'Done (6 tool uses · 14.2k tokens · 22s)' },
   { kind: 'say', text: 'Here is the PR description:\nAdds rate limiting to auth endpoints with Redis backing.\nChanges: 2 features, 1 fix, 5 tests.' },
 ]} />
 
 ## Building your own agents
 
-Custom agents are markdown files in `.claude/agents/`. Each one defines a role, behavior, and constraints. Here's one I use constantly:
+Custom agents are markdown files with YAML frontmatter. Put them in `.claude/agents/` for one project, or in `~/.claude/agents/` to use them in every project. Only `name` and `description` are required, and the description matters most: Claude reads it to decide when to hand a task to the agent. Without a `name`, Claude Code treats the file as plain documentation and never loads it as an agent.
+
+Here's one I use constantly:
 
 ```markdown
+---
+name: pr-writer
+description: Writes pull request descriptions from the current branch's git diff. Use when asked to describe a branch or draft a PR.
+tools: Read, Bash
+---
+
 # PR Description Writer
 
 ## Role
@@ -114,6 +122,6 @@ Each works independently, uses its own context, returns a focused report. This i
 
 **Trust but verify.** Agents are good, not perfect. Skim the output before acting on it. False positives happen. Edge cases get missed.
 
-**Start with the built-ins.** Use code-reviewer and tdd-guide for a week before writing custom agents. You'll learn what you actually need, not what you think you need.
+**Start with the built-ins.** Let Explore and General-purpose handle delegation for a week before writing custom agents. You'll learn what you actually need, not what you think you need.
 
 **Keep agent files short.** 20-40 lines is the sweet spot. If your agent file hits 200 lines, you've encoded multiple agents into one. Break it up.

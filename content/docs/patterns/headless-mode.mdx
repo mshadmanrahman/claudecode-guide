@@ -33,7 +33,9 @@ claude -p "generate a changelog from recent commits" > CHANGELOG.md
 git diff | claude -p "review this diff" | claude -p "format as markdown table"
 ```
 
-Key differences from interactive mode: no approval prompts, no tool permission dialogs, output goes to stdout, errors to stderr. Exit code 0 on success, non-zero on failure. You can script around it like any other Unix tool.
+Key differences from interactive mode: nobody is there to click Allow, so any tool call that would have asked for permission is denied. Pre-approve what the job needs with `--allowedTools`, for example `claude -p "fix the failing test" --allowedTools "Read,Edit,Bash(npm test *)"`. Output goes to stdout, and that includes failures such as missing authentication, which print as the result. You can script around it like any other Unix tool.
+
+For CI, add `--bare`. It skips auto-discovery of hooks, skills, plugins, MCP servers, auto memory and `CLAUDE.md`, so the run starts faster and behaves the same on every machine. Without it, a `-p` run in a cloned repo runs that repo's hooks and connects its MCP servers, even in a folder you never trusted. Bare mode needs `ANTHROPIC_API_KEY` set.
 
 ## CI/CD integration
 

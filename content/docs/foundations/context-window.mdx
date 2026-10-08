@@ -7,7 +7,7 @@ import { FaqSchema } from '@/components/faq-schema';
 
 ## What Is the Context Window?
 
-Think of it like working memory. Everything in your current session (your messages, Claude's responses, file contents it has read, command outputs) occupies space in this window. When it fills up, earlier parts of the conversation start getting pushed out. Claude Code begins forgetting things you said or files it already read.
+Think of it like working memory. Everything in your current session (your messages, Claude's responses, file contents it has read, command outputs) occupies space in this window. When it gets close to full, Claude Code compacts automatically: it clears old tool output first, then summarizes the conversation. Your session keeps going, but the summary is lossy, so details you said early on can get dropped.
 
 ## How Big Is It?
 
@@ -82,7 +82,9 @@ Checking first takes five seconds and stops you compacting a session whose real 
 
 ## The /compact Command
 
-When context gets large, run `/compact`. This summarizes the entire conversation so far and starts fresh with just the summary. Think of it as taking notes from a meeting, then starting a new meeting with only the notes.
+When context gets large, run `/compact`. This summarizes the conversation so far and continues from the summary. Think of it as taking notes from a meeting, then starting a new meeting with only the notes.
+
+You can steer the summary. `/compact focus on the auth bug fix` keeps what you name, instead of what the automatic pass guesses is important. If you're switching to unrelated work, `/clear` is the better tool: it starts clean instead of carrying a summary you don't need.
 
 **When to use it:**
 - After completing a task, before starting a new one
@@ -92,7 +94,9 @@ When context gets large, run `/compact`. This summarizes the entire conversation
 
 **What it preserves:** Key decisions, file modifications, current state of work.
 
-**What it loses:** Exact file contents, detailed error messages, nuanced back-and-forth reasoning. If you need to reference specific details after compaction, Claude Code will re-read the relevant files.
+**What comes back automatically:** your project-root `CLAUDE.md`, auto memory, and up to five of the files Claude read or edited, most recently modified first. A file over 5,000 tokens comes back as a path only.
+
+**What it loses:** Exact file contents beyond those, detailed error messages, nuanced back-and-forth reasoning. Path-scoped rules and `CLAUDE.md` files in subfolders reload only when Claude works on a matching file again, so put anything that must survive compaction in the project-root `CLAUDE.md`.
 
 ## Strategies to Stay Under the Limit
 
@@ -169,7 +173,7 @@ Opus 5.5, Sonnet 5.5 and Haiku 5.5 give you a million tokens of working memory, 
     {
       question: 'Why does Claude Code forget things I said earlier?',
       answer:
-        'The context window filled up and the earliest parts of the conversation were pushed out. The symptoms come before any warning: answers get less accurate, constraints you set earlier stop being honoured, and files already read get read again. Run /context to confirm, then compact or start a fresh session with a handoff.',
+        'The window got full and Claude Code compacted it, so earlier details now live only in a summary, or the window is so full that accuracy is slipping. The symptoms come before any warning: answers get less accurate, constraints you set earlier stop being honored, and files already read get read again. Run /context to confirm, then compact with a focus or start a fresh session with a handoff.',
     },
     {
       question: 'Does a bigger context window mean I can stop worrying about this?',
@@ -201,8 +205,8 @@ wrong thing.
 
 ### Why does Claude Code forget things I said earlier?
 
-The window filled and the oldest turns were pushed out. You notice it as drifting accuracy before
-you ever see a warning.
+The window filled and Claude Code compacted it, so early details now live only in a summary. You
+notice it as drifting accuracy before you ever see a warning.
 
 ### Does a bigger window mean I can stop worrying?
 

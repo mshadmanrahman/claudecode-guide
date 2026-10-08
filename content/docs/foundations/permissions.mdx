@@ -19,9 +19,9 @@ The fix takes five minutes. You configure it once. Then it just works.
   { kind: 'say', text: 'The test expected 401, but a missing role correctly returns 403.\nFixed the assertion. All tests pass.' },
 ]} />
 
-With `allowedTools` set, none of those steps stopped to ask. On a default setup, each one waits for your approval first.
+With permission rules set, none of those steps stopped to ask. On a default setup, each one waits for your approval first.
 
-## Setting Up allowedTools
+## Setting up permission rules
 
 The config lives in `settings.json`. Two places to put it:
 
@@ -38,24 +38,29 @@ Here's a solid starting config:
       "Read",
       "Glob",
       "Grep",
-      "LS",
-      "Bash(npm test*)",
-      "Bash(npm run lint*)",
-      "Bash(npx tsc*)",
-      "Bash(git status*)",
-      "Bash(git diff*)",
-      "Bash(git log*)"
+      "Bash(npm test *)",
+      "Bash(npm run lint *)",
+      "Bash(npx tsc *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)"
     ],
     "deny": [
-      "Bash(rm -rf*)",
-      "Bash(git push --force*)",
-      "Bash(git reset --hard*)"
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)"
     ]
   }
 }
 ```
 
 Read operations are always safe. Your test and lint commands are safe. Anything that deletes files or pushes to remote: always keep human review on those.
+
+Mind the space before the `*`. `Bash(ls *)` matches `ls -la` but not `lsof`. `Bash(ls*)` with no space matches both.
+
+When rules overlap, deny wins, then ask, then allow. A deny rule like `Bash(rm -rf *)` blocks the command even if a broader allow rule also matches it.
+
+There's a third place for rules too: `.claude/settings.local.json` applies to one project and stays on your machine, out of git.
 
 ## The /permissions Command
 
@@ -69,22 +74,21 @@ It opens your allow, ask and deny rules, where you can add or remove a rule with
 - `Read`: reading files literally never changes anything
 - `Glob`: searching file names, harmless
 - `Grep`: searching file contents, harmless
-- `LS`: listing directories, harmless
-- `Bash(git status*)`, `Bash(git diff*)`, `Bash(git log*)`: read-only git commands
+- `Bash(git status *)`, `Bash(git diff *)`, `Bash(git log *)`: read-only git commands
 
 **Auto-accept with patterns (mostly safe):**
-- `Bash(npm test*)`: running your tests
-- `Bash(npm run lint*)`: running linters
-- `Bash(npx tsc*)`: type checking
+- `Bash(npm test *)`: running your tests
+- `Bash(npm run lint *)`: running linters
+- `Bash(npx tsc *)`: type checking
 - `Edit`: once you've used Claude Code for a week and trust the edit quality, most people add this
 
 **Always review:**
 - `Bash(rm *)`: file deletion
-- `Bash(git push*)`: pushing to remote
-- `Bash(git checkout*)`: branch switching
-- `Bash(git reset*)`: resetting changes
-- `Bash(npm publish*)`: publishing packages
-- `Bash(curl*)`: making network requests
+- `Bash(git push *)`: pushing to remote
+- `Bash(git checkout *)`: branch switching
+- `Bash(git reset *)`: resetting changes
+- `Bash(npm publish *)`: publishing packages
+- `Bash(curl *)`: making network requests
 - Anything touching production
 
 ## The Progressive Trust Approach
@@ -102,19 +106,19 @@ Week 4+: You're reviewing only destructive operations and network calls. That's 
 ```json
 {
   "permissions": {
-    "allow": ["Read", "Glob", "Grep", "Edit", "Bash(npm test*)", "Bash(npm run lint*)"],
-    "ask": ["Bash(git push*)", "Bash(rm*)", "Bash(curl*)", "WebFetch"]
+    "allow": ["Read", "Glob", "Grep", "Edit", "Bash(npm test *)", "Bash(npm run lint *)"],
+    "ask": ["Bash(git push *)", "Bash(rm *)", "Bash(curl *)", "WebFetch"]
   }
 }
 ```
 
 ## One More Thing: The Accept Button
 
-When a permission prompt does appear, you've got more options than just Y:
+When a permission prompt does appear, you've got more options than just yes:
 
-- **y**: Allow this once
-- **a**: Allow this tool for the entire session (use this during exploratory work)
-- **n**: Deny this request
-- **Escape**: Cancel the current operation
+- **Yes**: allow this once
+- **Yes, and don't ask again**: allow it and save a rule, so Claude Code stops asking for this command in this project
+- **No**: deny this request
+- **Escape**: cancel the current operation
 
-The `a` option is underused. When you're in an exploratory session and trust the general direction but didn't pre-configure permissions, `a` gets you out of the click loop fast.
+"Don't ask again" is underused. For a shell command, Claude Code writes the rule to `.claude/settings.local.json`, so you build your allow list just by working. Check that file now and then to see what you've approved.

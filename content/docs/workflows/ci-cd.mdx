@@ -29,7 +29,7 @@ git diff main...HEAD | claude -p "review this diff for bugs"
 claude -p --output-format json "list all TODO comments in src/"
 ```
 
-No permission prompts. No interactive UI. Input, processing, output. Simple as that.
+No interactive UI and nobody to click Allow, so any tool that would normally ask is denied. Pre-approve what the job needs with `--allowedTools` (for example `--allowedTools "Read,Bash(git diff *)"`), and add `--bare` in CI so the run skips the repo's hooks, plugins and MCP servers.
 
 ## GitHub Actions: The Starter Workflow
 
@@ -107,7 +107,7 @@ Running Claude Code in CI uses API tokens. Be intentional about it.
 - **Use Sonnet for code review**: worth the cost for actual bug detection
 - **Set the effort level**: `claude -p --effort low` for routine jobs; thinking bills as output tokens
 - **Cache aggressively**: don't re-review unchanged files
-- **Set token limits**: `--max-tokens 4096` prevents runaway usage
+- **Cap the spend**: `--max-budget-usd 1.00` stops a run at a dollar limit, and `--max-turns 10` stops it after ten agentic turns
 
 A small PR review measured $0.01 to $0.02 on Haiku 5.5 (2026-10-08) and about $0.24 on Sonnet 5 (2026-09-27), and bigger diffs cost more. That's cheaper than one missed production bug.
 
