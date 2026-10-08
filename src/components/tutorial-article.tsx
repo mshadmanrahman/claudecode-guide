@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Languages } from "lucide-react";
-import { SceneBackdrop } from "@/components/scene-backdrop";
 import { EmailCapture } from "@/components/email-capture";
 import { TutorialTracker } from "@/components/tutorial-tracker";
 import { TutorialCompleteButton } from "@/components/tutorial-complete-button";
@@ -98,7 +97,6 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
 
   return (
     <div lang={locale} className="flex flex-col text-[var(--ink)]">
-      <SceneBackdrop variant="faded" scene="workshop" className="scene--reading" />
       <ArticleSchema
         headline={tutorial.title}
         description={tutorial.description}

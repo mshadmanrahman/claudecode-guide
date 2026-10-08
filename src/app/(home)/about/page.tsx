@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { AuthorBio } from '@/components/author-bio';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
 import { ogImage } from '@/lib/og/image';
@@ -28,7 +27,6 @@ const personJsonLd = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
-      <SceneBackdrop variant="faded" scene="archipelago" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

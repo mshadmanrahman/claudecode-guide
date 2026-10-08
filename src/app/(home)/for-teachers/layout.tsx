@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { SceneBackdrop } from '@/components/scene-backdrop';
-import { SceneFooterBand } from '@/components/scene-footer-band';
 import { ogImage } from '@/lib/og/image';
 
 const ogTitle = 'Claude for Teachers: Lesson Plans, Quiz Questions, Rubrics, and More';
@@ -21,11 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function ForTeachersLayout({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <SceneBackdrop variant="faded" scene="schoolhouse" />
-      {children}
-      <SceneFooterBand scene="schoolhouse" />
-    </>
-  );
+  return children;
 }

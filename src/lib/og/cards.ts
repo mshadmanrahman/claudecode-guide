@@ -8,7 +8,7 @@ import { MARKETER_GUIDES } from "@/lib/marketer-guides";
 import { MICROSOFT_GUIDES } from "@/lib/microsoft-guides";
 import { TEACHER_GUIDES } from "@/lib/teacher-guides";
 import { TUTORIALS } from "@/lib/tutorials";
-import type { SceneName } from "@/components/scene-backdrop";
+import type { SceneName } from "@/lib/scenes";
 
 /**
  * Per-page social cards. Every sitemap route resolves to one card here, from

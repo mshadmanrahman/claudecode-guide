@@ -3,7 +3,6 @@ import { DayFlow } from '@/components/workflow/day-flow';
 import { WorkflowTracker } from '@/components/workflow/workflow-tracker';
 import { OsMapLink } from '@/components/workflow/os-map-link';
 import { LoopDiagram } from '@/components/workflow/loop-diagram';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
 import { ogImage } from '@/lib/og/image';
@@ -50,7 +49,6 @@ export default function WorkflowPage() {
   return (
     <>
       <style>{connectorCss}</style>
-      <SceneBackdrop variant="faded" scene="watermills" />
       <WorkflowTracker />
       <main className="mx-auto max-w-4xl overflow-x-clip px-4 py-16 text-[var(--ink)] sm:px-6 sm:py-20">
         <div className="mb-12" data-workflow-intro>

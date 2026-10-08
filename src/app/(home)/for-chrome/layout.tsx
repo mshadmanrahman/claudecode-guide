@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { SceneBackdrop } from '@/components/scene-backdrop';
-import { SceneFooterBand } from '@/components/scene-footer-band';
 import { ogImage } from '@/lib/og/image';
 
 const ogTitle = 'Claude for Chrome: Practical Guides for Browser Users';
@@ -21,11 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function ForChromeLayout({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <SceneBackdrop variant="faded" scene="signposts" />
-      {children}
-      <SceneFooterBand scene="signposts" />
-    </>
-  );
+  return children;
 }

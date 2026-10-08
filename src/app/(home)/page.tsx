@@ -3,12 +3,15 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { FieldNotes } from "@/components/home/field-notes";
 import { getLatestPosts, SUBSTACK_NAME } from "@/lib/substack";
-import { SceneBackdrop } from "@/components/scene-backdrop";
 import { AuthorPhoto } from "@/components/author-photo";
 import { SayHiPill } from "@/components/say-hi-pill";
 import { CountUp } from "@/components/home/count-up";
 import { KineticText } from "@/components/kinetic-text";
 import { ogImage } from "@/lib/og/image";
+import { EngravingPanel } from "@/components/engraving";
+import { ICONS } from "@/lib/engraving-manifest";
+import { AudienceDemoPanel } from "@/components/audience-demo-panel";
+import type { SceneName } from "@/lib/scenes";
 
 const heroTagline = "The Claude Code setup I actually run.";
 const heroMetaDescription =
@@ -130,16 +133,40 @@ const JOURNEY_STEPS = [
   { title: "Paste a prompt, watch it go", text: "Start with a prompt that already works and change it once you see the result." },
 ] as const;
 
-const PATHS: ReadonlyArray<{ href: string; label: string }> = [
-  { href: "/for-teachers", label: "Teachers" },
-  { href: "/for-designers", label: "Designers" },
-  { href: "/for-marketers", label: "Marketers" },
-  { href: "/for-hr", label: "HR teams" },
-  { href: "/pm-pilot", label: "Product managers" },
-  { href: "/for-chrome", label: "Claude in Chrome" },
-  { href: "/for-microsoft", label: "Claude in Office" },
-  { href: "/certification", label: "Certification" },
+interface PathCard {
+  href: string;
+  label: string;
+  blurb: string;
+  /** The landscape the path's own pages use, so the card previews where it leads. */
+  scene: SceneName;
+}
+
+const PATHS: ReadonlyArray<PathCard> = [
+  { href: "/for-teachers", label: "Teachers", blurb: "Lesson plans, quiz questions, rubrics and parent emails.", scene: "schoolhouse" },
+  { href: "/for-designers", label: "Designers", blurb: "Briefs, heuristic evaluations, research synthesis and prototypes.", scene: "swatches" },
+  { href: "/for-marketers", label: "Marketers", blurb: "Social posts, blogs, email campaigns and ad copy in your brand voice.", scene: "market" },
+  { href: "/for-hr", label: "HR teams", blurb: "Job descriptions, interview questions, onboarding plans and reviews.", scene: "green" },
+  { href: "/pm-pilot", label: "Product managers", blurb: "PM Pilot: status updates and product admin, free and open source.", scene: "harbor" },
+  { href: "/for-chrome", label: "Claude in Chrome", blurb: "From claude.ai to the extension, next to Gmail and Google Docs.", scene: "signposts" },
+  { href: "/for-microsoft", label: "Claude in Office", blurb: "Word, Excel and PowerPoint, with no plugins or Claude Code needed.", scene: "lakeside" },
+  { href: "/certification", label: "Certification", blurb: "The four Claude certifications: cost, format and passing score.", scene: "summit" },
 ];
+
+/** The card's engraved icon, named after the last segment of its link, once rendered. */
+function CardIcon({ href, size }: { href: string; size: number }) {
+  const name = href.split("/").pop() ?? "";
+  const file = ICONS.get(name);
+  if (!file) return null;
+  return (
+    <Image
+      src={`/engraving/icons/${file}`}
+      alt=""
+      width={size}
+      height={size}
+      className="engr-ink -ml-1 object-contain"
+    />
+  );
+}
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
@@ -176,83 +203,102 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <SceneBackdrop variant="full" />
 
       {/* 1. Hero */}
-      <section className="flex flex-col items-center gap-6 px-4 pt-12 text-center md:gap-[26px] md:pt-[70px]">
-        <h1 className="m-0 max-w-[14ch] text-display font-semibold leading-[1.04] tracking-[-0.045em]">
-          <KineticText>{heroTagline}</KineticText>
-        </h1>
+      <section className="mx-auto grid max-w-[1440px] items-center gap-10 px-4 pt-12 md:grid-cols-2 md:gap-12 md:px-16 md:pt-[70px]">
+        <div className="flex flex-col items-start gap-6 md:gap-[26px]">
+          <h1 className="m-0 max-w-[14ch] text-display font-semibold leading-[1.04] tracking-[-0.045em]">
+            <KineticText>{heroTagline}</KineticText>
+          </h1>
 
-        <p className="hm-rise m-0 max-w-[600px] text-body leading-[1.55] text-[var(--ink)] md:text-lead">
-          I&apos;m a principal PM and I use Claude Code every day at work, backed by <CountUp to={966} delay={700} duration={1300} /> memory files. This guide is
-          that setup, page by page, written for teachers, designers, marketers and HR teams as much as for engineers.
-        </p>
+          <p className="hm-rise m-0 max-w-[600px] text-body leading-[1.55] text-[var(--ink)] md:text-lead">
+            I&apos;m a principal PM and I use Claude Code every day at work, backed by <CountUp to={966} delay={700} duration={1300} /> memory files. This guide is
+            that setup, page by page, written for teachers, designers, marketers and HR teams as much as for engineers.
+          </p>
 
-        <SayHiPill
-          href="https://www.linkedin.com/in/shadmanrahman/"
-          target="_blank"
-          rel="noopener noreferrer"
-          hoverText="Let's connect"
-          label="Shadman Rahman, principal PM, writes every page. Connect on LinkedIn."
-          className={`hm-rise [--d:0.75s] !w-[272px] ${focusRing}`}
-          idleClassName="justify-start gap-3 pl-1.5 pr-4 text-left"
-          idle={
-            <>
-              <AuthorPhoto variant="avatar" size={36} priority />
-              <span className="flex flex-col leading-tight">
-                <span className="text-ui font-medium">Shadman Rahman</span>
-                <span className="text-caption font-normal text-[var(--muted)]">Principal PM, writes every page</span>
-              </span>
-            </>
-          }
-        />
-
-        <div className="hm-rise [--d:0.9s] flex w-full max-w-[520px] flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
-          <Link
-            href={DOCS_START}
-            className={`flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-ui font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 ${focusRing}`}
-          >
-            Start with CLAUDE.md
-          </Link>
-          <Link
-            href={JOURNEY_HREF}
-            className={`glass flex h-12 items-center justify-center rounded-lg px-6 text-ui font-medium transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
-          >
-            New to Claude? Start here
-          </Link>
-        </div>
-
-        <nav aria-label="Pick your path" className="hm-rise [--d:0.95s] flex max-w-[640px] flex-col items-center gap-2.5">
-          <span className="text-caption text-[var(--muted)]">Or pick your path</span>
-          <ul className="m-0 flex list-none flex-wrap justify-center gap-2 p-0">
-            {PATHS.map((path) => (
-              <li key={path.href}>
-                <Link
-                  href={path.href}
-                  className={`glass inline-flex min-h-9 items-center rounded-full px-3.5 py-1.5 text-ui font-medium transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
-                >
-                  {path.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {latest ? (
-          <a
-            href={latest.link}
+          <SayHiPill
+            href="https://www.linkedin.com/in/shadmanrahman/"
             target="_blank"
             rel="noopener noreferrer"
-            className={`hm-rise [--d:1.05s] glass max-w-[560px] rounded-lg px-4 py-2 text-ui leading-snug transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
-          >
-            <span className="text-[var(--muted)]">New on {SUBSTACK_NAME}: </span>
-            <span className="font-medium underline underline-offset-4">{latest.title}</span>
-          </a>
-        ) : null}
+            hoverText="Let's connect"
+            label="Shadman Rahman, principal PM, writes every page. Connect on LinkedIn."
+            className={`hm-rise [--d:0.75s] !w-[272px] ${focusRing}`}
+            idleClassName="justify-start gap-3 pl-1.5 pr-4 text-left"
+            idle={
+              <>
+                <AuthorPhoto variant="avatar" size={36} priority />
+                <span className="flex flex-col leading-tight">
+                  <span className="text-ui font-medium">Shadman Rahman</span>
+                  <span className="text-caption font-normal text-[var(--muted)]">Principal PM, writes every page</span>
+                </span>
+              </>
+            }
+          />
+
+          <div className="hm-rise [--d:0.9s] flex w-full max-w-[520px] flex-col items-stretch gap-3 sm:flex-row">
+            <Link
+              href={DOCS_START}
+              className={`flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-ui font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 ${focusRing}`}
+            >
+              Start with CLAUDE.md
+            </Link>
+            <Link
+              href={JOURNEY_HREF}
+              className={`glass flex h-12 items-center justify-center rounded-lg px-6 text-ui font-medium transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
+            >
+              New to Claude? Start here
+            </Link>
+          </div>
+
+          {latest ? (
+            <a
+              href={latest.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`hm-rise [--d:1.05s] glass max-w-[560px] rounded-lg px-4 py-2 text-ui leading-snug transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
+            >
+              <span className="text-[var(--muted)]">New on {SUBSTACK_NAME}: </span>
+              <span className="font-medium underline underline-offset-4">{latest.title}</span>
+            </a>
+          ) : null}
+        </div>
+
+        <AudienceDemoPanel
+          audience="home"
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="hm-rise [--d:0.6s] h-[560px] rounded-3xl border border-[var(--line)] md:h-[540px]"
+        />
       </section>
 
-      {/* 2. Docs entry */}
+      {/* 2. Paths by audience */}
+      <section
+        aria-labelledby="home-paths"
+        className="mx-auto mt-16 flex max-w-[1440px] flex-col gap-[22px] px-4 md:mt-[88px] md:px-16"
+      >
+        <SectionHead id="home-paths" title="Pick your path" sub="Guides written for the work you already do." />
+        <ul className="m-0 grid list-none gap-3.5 p-0 sm:grid-cols-2 lg:grid-cols-4">
+          {PATHS.map((path) => (
+            <li key={path.href} className="engr-rise">
+              <Link
+                href={path.href}
+                className={`glass hm-card flex h-full flex-col overflow-hidden rounded-xl ${focusRing}`}
+              >
+                <EngravingPanel
+                  scene={path.scene}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="h-40 border-b border-[var(--line)] sm:h-32"
+                />
+                <span className="flex flex-col gap-1.5 p-5">
+                  <span className="text-title font-semibold leading-[1.15] tracking-[-0.02em]">{path.label}</span>
+                  <span className="text-ui leading-normal text-[var(--muted)]">{path.blurb}</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* 3. Docs entry */}
       <section
         aria-labelledby="home-docs"
         className="mx-auto mt-16 flex max-w-[1440px] flex-col gap-[22px] px-4 md:mt-[88px] md:px-16"
@@ -270,6 +316,7 @@ export default async function HomePage() {
               href={doc.href}
               className={`glass hm-card flex min-h-[150px] flex-col gap-2.5 rounded-xl p-6 ${focusRing}`}
             >
+              <CardIcon href={doc.href} size={56} />
               <span className="text-title font-semibold leading-[1.15] tracking-[-0.02em]">{doc.title}</span>
               <span className="text-ui leading-normal text-[var(--muted)]">{doc.blurb}</span>
             </Link>
@@ -277,7 +324,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3. Tutorials and workflows */}
+      {/* 4. Tutorials and workflows */}
       <section
         aria-labelledby="home-practice"
         className="mx-auto mt-16 flex max-w-[1440px] flex-col gap-[22px] px-4 md:px-16"
@@ -290,6 +337,7 @@ export default async function HomePage() {
               href={item.href}
               className={`glass hm-card flex flex-col gap-2.5 rounded-xl p-6 md:p-8 ${focusRing}`}
             >
+              <CardIcon href={item.href} size={72} />
               <span className="text-2xl font-semibold leading-[1.15] tracking-[-0.02em]">{item.title}</span>
               <span className="text-ui leading-normal text-[var(--muted)]">{item.blurb}</span>
             </Link>
@@ -297,7 +345,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4. Journey for newcomers */}
+      {/* 5. Journey for newcomers */}
       <section aria-labelledby="home-journey" className="mx-auto mt-16 max-w-[1440px] px-4 md:px-16">
         <div className="glass flex flex-col gap-6 rounded-2xl px-6 py-8 md:px-9 md:py-10">
           <div className="flex flex-wrap items-end justify-between gap-4">

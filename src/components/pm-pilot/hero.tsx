@@ -1,19 +1,10 @@
 import Link from 'next/link';
-import type { ChatStep } from '@/components/app-chat-demo';
-import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
-import { chatToSession } from '@/lib/chat-session';
+import { AudienceDemoPanel } from '@/components/audience-demo-panel';
 import { FloatingCard } from '@/components/floating-card';
 import { Clock, FileText, BarChart3, ArrowRight } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
 
 import { KineticText } from '@/components/kinetic-text';
-const HERO_STEPS: ChatStep[] = [
-  { role: 'user', text: 'Prep me for my 1:1 with Sarah.' },
-  {
-    role: 'claude',
-    text: "I checked Jira, Slack and your calendar. Sarah has 3 open tickets, 2 unresolved threads in #product, and your last 1:1 on March 28 left 2 action items open.\n\n**Her focus:** migrating the auth service, blocked on DevOps.\n**You owe her:** the API spec review you promised on March 28.\n**She owes you:** an updated timeline for the Q2 roadmap.\n\n**Talking points**\n1. Unblock the auth migration. Offer to escalate with DevOps.\n2. API spec review. Share status or ask for more time.\n3. Q2 roadmap. Get her latest estimate.",
-  },
-];
 
 export function PmPilotHero() {
   return (
@@ -87,7 +78,7 @@ export function PmPilotHero() {
             </div>
           </FloatingCard>
 
-          <ClaudeDesktopCodeMock steps={chatToSession(HERO_STEPS)} loop />
+          <AudienceDemoPanel audience="pm-pilot" priority={false} />
         </div>
       </div>
     </section>

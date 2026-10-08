@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import { StartFlow } from '@/components/start/start-flow';
 import type { Metadata } from 'next';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 import { ogImage } from '@/lib/og/image';
 
 export const metadata: Metadata = {
@@ -13,7 +12,6 @@ export const metadata: Metadata = {
 export default function StartPage() {
   return (
     <>
-      <SceneBackdrop variant="faded" scene="trailhead" />
       <Suspense
       fallback={
         <main className="flex min-h-screen items-center justify-center">

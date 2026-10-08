@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { SceneBackdrop } from "@/components/scene-backdrop";
-import { SceneFooterBand } from "@/components/scene-footer-band";
 import { ogImage } from '@/lib/og/image';
 
 const ogTitle =
@@ -23,11 +21,5 @@ export const metadata: Metadata = {
 };
 
 export default function ForHrLayout({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <SceneBackdrop variant="faded" scene="green" />
-      {children}
-      <SceneFooterBand scene="green" />
-    </>
-  );
+  return children;
 }

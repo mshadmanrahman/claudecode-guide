@@ -4,7 +4,11 @@ description: "The five things a CLAUDE.md needs, a full worked example for a rea
 image: /claude-md/hero.png
 ---
 
+<div className="ink-diagram">
+
 ![A robot points along a blue line to a CLAUDE.md folder, which fans out in muted gray to memory, skills, agents, and rules](/claude-md/hero.png)
+
+</div>
 
 This guide is for developers setting up Claude Code on an existing project. After reading it, you'll know what to put in a CLAUDE.md, what to leave out, and how to keep it accurate as the project evolves.
 
@@ -149,7 +153,11 @@ You just told CLAUDE.md what it routes to: memory, skills, agents, rules. That w
 
 The picture changes the moment other agents start reading it too. A cron job fires at 6am with no human watching. A subagent spins up, does its job, and reports back. CLAUDE.md stops being a file you read and becomes the dispatcher for a system that runs without you. Its job is to route each request to the right place: the memory shard that has the context, the skill that owns the workflow, the specialist subagent that does the heavy lifting, the rules file that sets the constraints. Then it takes back a short, summarized answer instead of the full mess each agent waded through.
 
+<div className="ink-diagram">
+
 ![A fine-line blueprint sketch with CLAUDE.md at the center, a calm-blue line routing outward to four labeled nodes (memory shards, skills, specialist subagents, rules), and a returning arrow labeled "summarized return" flowing from the subagents back to the center](/claude-md/router-diagram.png)
+
+</div>
 
 <ClaudeMdRouterDiagram />
 

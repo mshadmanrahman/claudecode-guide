@@ -539,95 +539,81 @@ h3.font-display {
   backdrop-filter: var(--glass-blur);
 }
 
-/* SceneBackdrop: binds to the nearest positioned ancestor (or the viewport when fixed). */
-.scene {
-  inset: 0;
+/* Engravings: grey ink on white, multiplied onto the light page so the paper
+   disappears. In dark mode they invert into dimmed light strokes (screen), and
+   stay muted: at full strength an inverted engraving reads as a photo negative. */
+.engr-ink {
+  mix-blend-mode: multiply;
+}
+.dark .engr-ink {
+  filter: invert(1) brightness(0.75);
+  mix-blend-mode: screen;
+}
+/* Footer band: the bottom of the page's landscape at 30%, faded in at the top. */
+.engr-band {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
   z-index: -1;
+  height: 440px;
   overflow: hidden;
   pointer-events: none;
+  opacity: 0.3;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 45%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 45%, #000 100%);
 }
-.scene-drift {
-  /* Width-driven at the image's own 2:3 ratio, so a tall page never stretches it. */
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  aspect-ratio: 2 / 3;
-  -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 88%, transparent 100%);
-  animation: scene-drift 60s ease-in-out infinite alternate;
-  will-change: transform;
-}
-.scene-img {
+.engr-band .engr-ink {
   object-fit: cover;
-  object-position: center top;
-  transition: opacity 1.2s ease;
+  object-position: center bottom;
 }
-.scene-night {
-  opacity: 0;
-}
-.dark .scene-night {
-  opacity: 1;
-}
-.dark .scene-day {
-  opacity: 0;
-}
-.scene--faded .scene-drift {
-  opacity: var(--fade);
-  filter: saturate(0.7) blur(1px);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0,
-    rgba(0, 0, 0, 0.35) 30%,
-    rgba(0, 0, 0, 0.15) 55%,
-    rgba(0, 0, 0, 0.35) 80%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0,
-    rgba(0, 0, 0, 0.35) 30%,
-    rgba(0, 0, 0, 0.15) 55%,
-    rgba(0, 0, 0, 0.35) 80%,
-    transparent 100%
-  );
-}
-/* Landing pages carry their own scene, so they show it more strongly than the docs wash. */
-.scene--faded:not([data-scene="valley"]) .scene-drift {
-  opacity: var(--fade-landing);
-  filter: saturate(0.85);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0.75) 40%, rgba(0, 0, 0, 0.55) 70%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0.75) 40%, rgba(0, 0, 0, 0.55) 70%, transparent 100%);
-}
-/* Phones: the full scene is width-driven, so the hero copy lands on the busiest
-   part of the painting. A static wash of the page color keeps it readable. */
-@media (max-width: 767px) {
-  .scene--full::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--bg) 80%, transparent) 0,
-      color-mix(in srgb, var(--bg) 72%, transparent) 560px,
-      color-mix(in srgb, var(--bg) 40%, transparent) 820px,
-      transparent 1000px
-    );
+@media (min-width: 640px) {
+  .engr-band {
+    height: 640px;
   }
 }
-/* Long-read pages (tutorial detail): the scene shows behind the header, then
-   fades to the plain page color before the first step, so body text never sits
-   on the painting. */
-.scene--faded.scene--reading .scene-drift {
-  -webkit-mask-image: linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0.6) 420px, transparent 820px);
-  mask-image: linear-gradient(to bottom, #000 0, rgba(0, 0, 0, 0.6) 420px, transparent 820px);
+.dark .engr-band {
+  opacity: 0.22;
 }
-@keyframes scene-drift {
+/* Light line diagrams in docs: in dark mode they flip to light lines on the
+   page. hue-rotate turns the inverted colors back to their own hue. */
+.dark .ink-diagram img {
+  filter: invert(1) hue-rotate(180deg) brightness(0.85);
+  mix-blend-mode: screen;
+}
+/* Framed panel: page-colored fades on the inner edges so the art sits in the frame. */
+.engr-panel {
+  background: #fff;
+}
+.dark .engr-panel {
+  background: var(--bg);
+}
+.dark .engr-panel .engr-ink {
+  opacity: 0.5;
+}
+.engr-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 48px 8px color-mix(in srgb, var(--bg) 70%, transparent);
+}
+/* Path cards rise once as they scroll in. No JS; browsers without
+   scroll-driven animations show them in place. */
+@supports (animation-timeline: view()) {
+  .engr-rise {
+    animation: engr-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+@keyframes engr-rise {
   from {
-    transform: scale(1);
+    opacity: 0;
+    transform: translateY(24px);
   }
   to {
-    transform: scale(1.03) translateY(-8px);
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -790,7 +776,7 @@ h3.font-display {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scene-drift,
+  .engr-rise,
   .hm-word > span,
   .hm-rise,
   .hm-rot,
@@ -811,8 +797,7 @@ h3.font-display {
   .hm-bar {
     width: 100%;
   }
-  .hm-card,
-  .scene-img {
+  .hm-card {
     transition: none;
   }
   .hm-card:hover {
@@ -827,7 +812,7 @@ h3.font-display {
  * wins over Tailwind utilities; `html` prefixes beat the older sidebar rules above.
  */
 
-/* Shell: let the faded scene show through the layout, keep the mobile drawer opaque */
+/* Shell: let the footer band show through the layout, keep the mobile drawer opaque */
 html #nd-docs-layout #nd-sidebar,
 html #nd-docs-layout aside#nd-sidebar {
   background: transparent !important;
@@ -1262,7 +1247,7 @@ figure.ccg-code button:focus-visible {
  * diagram reflows the same way in a narrow article column as on a phone.
  */
 
-/* Solid panels inside a docs article become glass so the faded scene reads through */
+/* Solid panels inside a docs article become glass, matching the rest of the site */
 #nd-page
   :is(
     [class~="bg-fd-card"],

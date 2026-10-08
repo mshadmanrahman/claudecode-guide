@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Globe, Puzzle, LayoutGrid } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
+import { AudienceDemoPanel } from '@/components/audience-demo-panel';
 import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
@@ -41,6 +42,11 @@ export function ChromeHero() {
       <p className="hm-rise mt-8 max-w-lg text-lg text-fd-muted-foreground leading-relaxed">
         No code. No installs required to start. Claude.ai works in Chrome like any other website, but most people use 5% of what it can do. These guides cover the other 95%, from browser basics to the Chrome extension to running Claude alongside Gmail and Google Docs.
       </p>
+
+      <AudienceDemoPanel
+        audience="chrome"
+        className="hm-rise mt-12 h-[560px] rounded-3xl border border-[var(--line)] md:h-[460px]"
+      />
 
       <div className="mt-12 grid gap-4 sm:grid-cols-3">
         {JOURNEYS.map((j) => {

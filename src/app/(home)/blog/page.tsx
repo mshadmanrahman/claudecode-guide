@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 import { EmailCapture } from '@/components/email-capture';
 import { DemoCard } from '@/components/demo-card';
 import { useState, useMemo } from 'react';
@@ -159,7 +158,6 @@ export default function BlogPage() {
 
   return (
     <div className="flex flex-col">
-      <SceneBackdrop variant="faded" scene="cabin" position="fixed" />
       {/* Header */}
       <section className="mx-auto w-full max-w-6xl px-4 pt-14 pb-4 sm:px-6 sm:pt-20">
         <h1 className="ccg-title">

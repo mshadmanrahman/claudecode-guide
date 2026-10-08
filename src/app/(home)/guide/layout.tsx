@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 import { ogImage } from '@/lib/og/image';
 
 export const metadata: Metadata = {
@@ -10,10 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function GuideLayout({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <SceneBackdrop variant="faded" scene="gorge" />
-      {children}
-    </>
-  );
+  return children;
 }

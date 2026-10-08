@@ -23,7 +23,7 @@ function ClaudeMascot({ className = 'h-6 w-6' }: { className?: string }) {
 }
 
 /** Render **bold**, `inline code`, and \n line breaks from chat text. */
-function renderChatText(text: string): ReactNode {
+export function renderChatText(text: string): ReactNode {
   const lines = text.split('\n');
   return lines.map((line, li) => {
     const parts = line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);

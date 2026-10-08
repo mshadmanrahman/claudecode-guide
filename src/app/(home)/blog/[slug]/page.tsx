@@ -15,7 +15,6 @@ import { getPostBySlug, getRelatedPosts, blogPosts } from "@/data/blog-posts";
 import type { Metadata } from "next";
 import { ArticleSchema } from "@/components/article-schema";
 import { ArticleHeader } from "@/components/docs/article-header";
-import { SceneBackdrop } from "@/components/scene-backdrop";
 import { ogImage } from "@/lib/og/image";
 
 const DESIGNER_RELEVANT_SLUGS = new Set([
@@ -110,7 +109,6 @@ export default async function BlogPostPage(props: PageProps) {
 
   return (
     <div className="flex flex-col">
-      <SceneBackdrop variant="faded" position="fixed" />
       <ArticleSchema
         headline={post.title}
         description={post.description}

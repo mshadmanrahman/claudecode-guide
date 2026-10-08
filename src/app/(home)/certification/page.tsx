@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Award, ShieldCheck, Building2, BookOpen, ExternalLink } from 'lucide-react';
 import { FaqSchema } from '@/components/faq-schema';
 import { EmailCapture } from '@/components/email-capture';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
 import { ogImage } from '@/lib/og/image';
@@ -155,7 +154,6 @@ const FAQ = [
 export default function CertificationPage() {
   return (
     <main className="min-h-screen">
-      <SceneBackdrop variant="faded" scene="summit" />
       <FaqSchema items={FAQ} />
 
       <section className="px-6 py-16 sm:py-24">

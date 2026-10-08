@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { ArrowRight, Check, Lock, ChevronDown } from 'lucide-react';
 import { DemoCard } from '@/components/demo-card';
 import { DeprecationBanner } from '@/components/deprecation-banner';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
 // metadata handled by layout
@@ -72,7 +71,6 @@ function Stage({ number, title, subtitle, color, items }: StageProps) {
 export default function RoadmapPage() {
   return (
     <div className="flex flex-col">
-      <SceneBackdrop variant="faded" scene="viaduct" />
       <DeprecationBanner
         message="The learning path got a full redesign. The new Docs section has everything organized, with progress tracking built in."
         linkText="Browse the new Docs"

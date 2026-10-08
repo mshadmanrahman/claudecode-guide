@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FileText, BarChart2, Monitor } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
+import { AudienceDemoPanel } from '@/components/audience-demo-panel';
 import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
@@ -47,6 +48,11 @@ export function MicrosoftHero() {
         workflow is faster than you&apos;d think, and it works for Word, Excel, PowerPoint, and
         Outlook. These guides walk you through it.
       </p>
+
+      <AudienceDemoPanel
+        audience="microsoft"
+        className="hm-rise mt-12 h-[560px] rounded-3xl border border-[var(--line)] md:h-[460px]"
+      />
 
       <div className="mt-12 grid gap-4 sm:grid-cols-3">
         {JOURNEYS.map((j) => {

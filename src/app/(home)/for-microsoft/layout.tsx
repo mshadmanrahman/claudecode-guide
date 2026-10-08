@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { SceneBackdrop } from '@/components/scene-backdrop';
-import { SceneFooterBand } from '@/components/scene-footer-band';
 import { ogImage } from '@/lib/og/image';
 
 const ogTitle = 'Claude AI for Microsoft Office: Word, Excel, and PowerPoint Guides';
@@ -21,11 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function ForMicrosoftLayout({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <SceneBackdrop variant="faded" scene="lakeside" />
-      {children}
-      <SceneFooterBand scene="lakeside" />
-    </>
-  );
+  return children;
 }

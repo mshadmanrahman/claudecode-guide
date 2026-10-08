@@ -19,7 +19,7 @@ export function FieldNotes({ posts }: { posts: SubstackPost[] }) {
       className="mx-auto mt-16 flex max-w-[1440px] flex-col gap-[22px] px-4 md:px-16"
     >
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="glass flex max-w-full flex-col gap-1.5 rounded-lg px-5 py-3.5">
+        <div className="flex max-w-full flex-col gap-1.5">
           <h2 id="home-field-notes" className="m-0 text-headline font-semibold tracking-[-0.035em]">
             Latest from {SUBSTACK_NAME}
           </h2>

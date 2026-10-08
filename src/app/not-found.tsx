@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { SceneBackdrop } from '@/components/scene-backdrop';
+import { EngravingBand } from '@/components/engraving';
 
 export const metadata: Metadata = {
   title: 'Page Not Found',
@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <div className="relative isolate flex min-h-screen flex-col items-center justify-center px-6 text-center">
-      <SceneBackdrop variant="faded" />
       <p className="font-mono text-display leading-[1.1] font-semibold text-[var(--acc)]">404</p>
       <h1 className="mt-4 font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
         Page not found
@@ -38,6 +37,7 @@ export default function NotFound() {
           Back to home
         </Link>
       </div>
+      <EngravingBand />
     </div>
   );
 }

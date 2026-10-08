@@ -1,6 +1,6 @@
 export function PmPilotFooter() {
   return (
-    <footer className="border-t border-fd-border">
+    <footer className="relative border-t border-fd-border bg-[var(--bg)]">
       <div className="mx-auto max-w-5xl px-6 py-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-fd-muted-foreground">
           <span className="font-mono font-semibold text-fd-foreground">PM Pilot</span>

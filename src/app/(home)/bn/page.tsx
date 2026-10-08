@@ -7,8 +7,6 @@ import { ArrowRight, Terminal, FileText, Zap, Globe } from 'lucide-react';
 import type { ChatStep } from '@/components/app-chat-demo';
 import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
 import { chatToSession } from '@/lib/chat-session';
-import { SceneFooterBand } from '@/components/scene-footer-band';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 
 import { KineticText } from '@/components/kinetic-text';
 import { ogImage } from '@/lib/og/image';
@@ -99,7 +97,6 @@ function GuideCard({
 export default function BengaliGuidePage() {
   return (
     <main lang="bn" className="min-h-screen">
-      <SceneBackdrop variant="faded" scene="delta" className="scene--reading" />
       {/* Hero */}
       <section className="border-b border-fd-border px-6 py-16 text-center sm:py-24">
         <div className="mx-auto max-w-3xl">
@@ -424,7 +421,6 @@ export default function BengaliGuidePage() {
           </div>
         </div>
       </section>
-      <SceneFooterBand scene="delta" />
     </main>
   );
 }

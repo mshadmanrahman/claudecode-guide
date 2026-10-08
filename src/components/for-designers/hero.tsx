@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { trackEvent } from '@/lib/analytics';
 
+import { AudienceDemoPanel } from '@/components/audience-demo-panel';
 import { KineticText } from '@/components/kinetic-text';
 const JOURNEYS = [
   {
@@ -55,6 +56,11 @@ export function DesignerHero() {
         price-sensitive market. It knows you&apos;re a person with a question. These guides fix
         that.
       </p>
+
+      <AudienceDemoPanel
+        audience="designers"
+        className="hm-rise mt-12 h-[560px] rounded-3xl border border-[var(--line)] md:h-[460px]"
+      />
 
       {/* Journey cards */}
       <div className="mt-14 grid gap-4 sm:grid-cols-2">

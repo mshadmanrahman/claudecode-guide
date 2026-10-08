@@ -1,6 +1,5 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { SceneBackdrop } from '@/components/scene-backdrop';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
@@ -53,7 +52,6 @@ export default function TutorialsPage() {
 
   return (
     <div className="flex flex-col text-[var(--ink)]">
-      <SceneBackdrop variant="faded" scene="workshop" />
       <section className="mx-auto w-full max-w-3xl px-4 pt-12 pb-8 sm:px-6 md:pt-16">
         <p className="m-0 font-mono text-xs text-[var(--muted)]">tutorials / {total} projects</p>
         <h1 className="mt-3 text-display-article font-semibold leading-[1.06] tracking-[-0.04em]">
