@@ -100,7 +100,11 @@ Two habits follow:
 
 ## Check your hit rate
 
-Both checks below are written for a terminal session. In the Mac app, press Ctrl+` to open its terminal pane and start `claude` there.
+### In the Mac app
+
+Type `/usage` in the prompt box. A Usage card opens, and its **This session** block shows **Cache hit** as a percentage, next to the session cost. If that number keeps falling as the session goes on, something in your prefix keeps changing, and the cache-breaker table above is the list to check.
+
+The card's Breakdown block also lists cache read and cache write tokens for the session, so you can see how much was reused against how much was written fresh.
 
 ### From the terminal
 
