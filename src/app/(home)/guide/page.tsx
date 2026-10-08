@@ -38,11 +38,13 @@ export default function GuidePage() {
         linkText="Try the new Start Here"
         linkHref="/start"
       />
-      <ProgressBar
-        percent={progress.progressPercent}
-        completed={progress.completedCount}
-        total={progress.totalSteps}
-      />
+      {progress.completedCount > 0 && (
+        <ProgressBar
+          percent={progress.progressPercent}
+          completed={progress.completedCount}
+          total={progress.totalSteps}
+        />
+      )}
 
       {/* Header */}
       <header className="mx-auto max-w-3xl px-6 pt-12 pb-8">
