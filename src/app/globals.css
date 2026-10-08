@@ -559,8 +559,8 @@ h3.font-display {
   overflow: hidden;
   pointer-events: none;
   opacity: 0.3;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 45%, #000 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 45%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 45%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 45%, #000 82%, transparent 100%);
 }
 .engr-band .engr-ink {
   object-fit: cover;

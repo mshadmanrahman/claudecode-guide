@@ -11,6 +11,7 @@ export const ENGRAVED: ReadonlyMap<SceneName, string> = new Map<SceneName, strin
   ["lakeside", "lakeside.5158fbf7.jpg"],
   ["market", "market.69bc4486.jpg"],
   ["overlook", "overlook.c957967d.jpg"],
+  ["portrait", "portrait.51814029.jpg"],
   ["schoolhouse", "schoolhouse.9ee84a80.jpg"],
   ["signposts", "signposts.0581e4f4.jpg"],
   ["standingstones", "standingstones.d26a50ea.jpg"],

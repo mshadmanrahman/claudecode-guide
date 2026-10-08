@@ -21,19 +21,18 @@ interface EngravingBandProps {
 
 /**
  * The muted ink landscape above the footer, on every page. It is anchored to the
- * bottom of the nearest `relative isolate` wrapper (the (home) and docs layouts),
- * so it runs on behind the footer whatever height the footer wraps to. The spacer
- * gives the band room to show above the footer before the footer covers it.
- * Ink and opacity live in globals.css (`.engr-band`), including the dark swap.
+ * bottom of its spacer, so it ends where the footer starts and fades out there
+ * instead of being cut by the footer's solid background. It rises behind the
+ * content above, under the nearest `relative isolate` wrapper. Ink and opacity
+ * live in globals.css (`.engr-band`), including the dark swap.
  */
 export function EngravingBand({ scene = "valley" }: EngravingBandProps) {
   return (
-    <>
-      <div aria-hidden="true" className="h-[180px] sm:h-[280px]" />
-      <div aria-hidden="true" className="engr-band">
+    <div aria-hidden="true" className="relative h-[180px] sm:h-[280px]">
+      <div className="engr-band">
         <Image src={bandSrc(scene)} alt="" fill sizes="100vw" quality={75} className="engr-ink" />
       </div>
-    </>
+    </div>
   );
 }
 

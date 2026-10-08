@@ -102,7 +102,7 @@ const STANDALONE: Record<string, OgCard> = {
     section: ["Free guide"],
     description:
       "CLAUDE.md patterns, a 966-file memory system, hooks, skills and workflows. Written so non-engineers can follow too.",
-    scene: "valley",
+    scene: "portrait",
   },
   start: {
     title: "Start here",

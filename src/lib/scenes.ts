@@ -1,10 +1,11 @@
 /**
- * Each scene is a landscape matched to a page's audience. The paintings live in
- * public/scene/ (day and night, used by the OG cards); the ink engravings drawn
- * from them live in public/engraving/ (used by the page panels and footer band).
+ * Each scene is an ink engraving matched to a page's audience, in
+ * public/engraving/ (page panels, footer band and OG cards). "portrait" is the
+ * author, on the homepage share card.
  */
 export type SceneName =
   | "valley"
+  | "portrait"
   | "harbor"
   | "schoolhouse"
   | "swatches"
