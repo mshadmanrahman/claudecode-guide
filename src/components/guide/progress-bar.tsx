@@ -8,8 +8,8 @@ interface ProgressBarProps {
 
 export function ProgressBar({ percent, completed, total }: ProgressBarProps) {
   return (
-    <div className="sticky top-[68px] z-40 px-4 md:top-[88px] md:px-6">
-      <div className="mx-auto flex max-w-3xl items-center gap-4 rounded-full border border-fd-border bg-[var(--glass2)] px-4 py-2 backdrop-blur-sm">
+    <div className="sticky top-[68px] z-40 mx-auto mt-4 max-w-3xl px-4 md:top-[88px]">
+      <div className="flex items-center gap-4 rounded-full border border-fd-border bg-[var(--glass2)] px-4 py-2 backdrop-blur-sm">
         <div className="flex-1">
           <div className="h-2 overflow-hidden rounded-full bg-[var(--code)]">
             <div
