@@ -5,7 +5,7 @@ interface FloatingCardProps {
 
 export function FloatingCard({ children, className = '' }: FloatingCardProps) {
   return (
-    <div className={`glass rounded-xl px-4 py-3 ${className}`}>
+    <div className={`rounded-xl border border-fd-border bg-white/90 dark:bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] px-4 py-3 ${className}`}>
       {children}
     </div>
   );
