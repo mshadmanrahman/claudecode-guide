@@ -575,7 +575,11 @@ h3.font-display {
   opacity: 0.22;
 }
 /* Light line diagrams in docs: in dark mode they flip to light lines on the
-   page. hue-rotate turns the inverted colors back to their own hue. */
+   page. hue-rotate turns the inverted colors back to their own hue. The layout
+   wrapper is `isolate`, so the blend needs the page color painted right here. */
+.dark .ink-diagram {
+  background: var(--bg);
+}
 .dark .ink-diagram img {
   filter: invert(1) hue-rotate(180deg) brightness(0.85);
   mix-blend-mode: screen;
