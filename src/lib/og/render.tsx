@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { ENGRAVED } from "@/lib/engraving-manifest";
 import type { OgCard } from "@/lib/og/cards";
 
 /** Tokens from DESIGN.md (light theme), the same values globals.css ships. */
@@ -9,12 +10,6 @@ const C = {
   muted: "#454b5a",
   accent: "#4f3fd0",
   line: "rgba(15, 17, 21, 0.12)",
-  glass: "rgba(250, 250, 248, 0.9)",
-  glassStrong: "rgba(255, 255, 255, 0.86)",
-  codeWash: "rgba(15, 17, 21, 0.05)",
-  red: "#ff5f57",
-  yellow: "#febc2e",
-  green: "#28c840",
 } as const;
 
 const OG_DIR = path.join(process.cwd(), "src", "lib", "og");
@@ -36,14 +31,15 @@ export async function ogFonts() {
   ];
 }
 
-/**
- * The page's day scene, pre-cropped to 1200x630 JPEG from public/scene (the
- * card renderer cannot decode WebP and the source files are 2048x3072).
- */
-async function sceneDataUrl(scene: OgCard["scene"]): Promise<string> {
-  const buf = await readFile(path.join(OG_DIR, "scenes", `${scene}.jpg`));
+/** The page's own engraving, the same file its hero panel shows. */
+async function engravingDataUrl(scene: OgCard["scene"]): Promise<string> {
+  const file = ENGRAVED.get(scene) ?? ENGRAVED.get("valley");
+  const buf = await readFile(path.join(process.cwd(), "public", "engraving", `${file}`));
   return `data:image/jpeg;base64,${buf.toString("base64")}`;
 }
+
+/** Where the 420px crop sits across the 813px-wide engraving: 0 left, 1 right. */
+const CROP: Partial<Record<OgCard["scene"], number>> = { swatches: 1 };
 
 /** Cut at a word boundary and add an ellipsis. */
 function clip(text: string, max: number): string {
@@ -54,12 +50,12 @@ function clip(text: string, max: number): string {
 }
 
 /**
- * Title size by length, so three lines always fit the 644px column. The
- * budget is roughly 2970 / size characters at Geist semibold.
+ * Title size by length, so three lines always fit the 600px column. The
+ * budget is roughly 2770 / size characters at Geist semibold.
  */
 function titleSize(title: string): number {
-  for (const size of [76, 68, 60, 54, 48, 44, 40]) {
-    if (title.length <= 2970 / size) return size;
+  for (const size of [72, 64, 58, 52, 48, 44, 40]) {
+    if (title.length <= 2770 / size) return size;
   }
   return 38;
 }
@@ -74,47 +70,8 @@ function Logo() {
   );
 }
 
-function Terminal() {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        right: 44,
-        bottom: 44,
-        width: 316,
-        display: "flex",
-        flexDirection: "column",
-        background: C.glassStrong,
-        border: `1px solid ${C.line}`,
-        borderRadius: 14,
-        overflow: "hidden",
-      }}
-    >
-      <div style={{ display: "flex", gap: 8, padding: "12px 14px", background: C.codeWash }}>
-        <div style={{ width: 12, height: 12, borderRadius: 6, background: C.red }} />
-        <div style={{ width: 12, height: 12, borderRadius: 6, background: C.yellow }} />
-        <div style={{ width: 12, height: 12, borderRadius: 6, background: C.green }} />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "16px 18px 18px",
-          fontFamily: "Geist Mono",
-          fontSize: 22,
-          color: C.ink,
-        }}
-      >
-        <div style={{ display: "flex", color: C.muted }}>$</div>
-        <div style={{ display: "flex", fontWeight: 500, marginLeft: 12 }}>claude</div>
-        <div style={{ display: "flex", width: 12, height: 24, background: C.ink, marginLeft: 8 }} />
-      </div>
-    </div>
-  );
-}
-
 export async function renderCard(card: OgCard, pagePath: string) {
-  const scene = await sceneDataUrl(card.scene);
+  const art = await engravingDataUrl(card.scene);
   const title = clip(card.title, 92);
   const size = titleSize(title);
   const description = card.description ? clip(card.description, 108) : null;
@@ -122,7 +79,23 @@ export async function renderCard(card: OgCard, pagePath: string) {
 
   return (
     <div style={{ display: "flex", position: "relative", width: "100%", height: "100%", background: C.paper }}>
-      <img alt="" src={scene} width={1200} height={630} style={{ position: "absolute", left: 0, top: 0 }} />
+      {/* The engraving stays inside its frame, as on the page itself. */}
+      <div
+        style={{
+          position: "absolute",
+          right: 44,
+          top: 44,
+          bottom: 44,
+          width: 420,
+          display: "flex",
+          overflow: "hidden",
+          background: "#fff",
+          border: `1px solid ${C.line}`,
+          borderRadius: 18,
+        }}
+      >
+        <img alt="" src={art} width={813} height={542} style={{ position: "absolute", left: -393 * (CROP[card.scene] ?? 0.5), top: 0 }} />
+      </div>
 
       <div
         style={{
@@ -130,14 +103,11 @@ export async function renderCard(card: OgCard, pagePath: string) {
           left: 44,
           top: 44,
           bottom: 44,
-          width: 740,
+          width: 664,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "40px 48px 38px",
-          background: C.glass,
-          border: `1px solid ${C.line}`,
-          borderRadius: 18,
+          padding: "40px 32px 38px 16px",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
@@ -189,8 +159,6 @@ export async function renderCard(card: OgCard, pagePath: string) {
 
         <div style={{ display: "flex", fontFamily: "Geist Mono", fontSize: 19, color: C.muted }}>{url}</div>
       </div>
-
-      <Terminal />
     </div>
   );
 }
