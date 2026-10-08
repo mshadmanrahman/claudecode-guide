@@ -337,3 +337,71 @@ export function PersonaFlowDiagram({ persona }: { persona: PersonaKey }) {
     </Fig>
   );
 }
+
+/* ── Foundations: prompt caching ── */
+
+export function PromptCachePrefixDiagram() {
+  const layers = ['system prompt', 'project context', 'conversation so far'];
+  return (
+    <Fig label="the cached prefix" caption="The cache matches from the top. Change one layer and everything below it is reprocessed.">
+      <div className="dv-cols">
+        <section className="dv-col">
+          <p className="dv-col-head">
+            <span className="dv-acc-text">01</span> a normal turn
+          </p>
+          <div className="dv-stack dv-mt-sm">
+            {layers.map((l) => (
+              <Node key={l} title={l} tag="cached" />
+            ))}
+            <Node title="your new message" tag="new" tone="acc" pulse />
+          </div>
+        </section>
+        <section className="dv-col">
+          <p className="dv-col-head">
+            <span className="dv-acc-text">02</span> after a model switch
+          </p>
+          <div className="dv-stack dv-mt-sm">
+            {layers.map((l) => (
+              <Node key={l} title={l} tag="reprocessed" tone="ghost" />
+            ))}
+            <Node title="your new message" tag="new" tone="acc" />
+          </div>
+        </section>
+      </div>
+    </Fig>
+  );
+}
+
+/* ── Foundations: environment variables ── */
+
+export function EnvVarScopesDiagram() {
+  return (
+    <Fig label="where an env block lives" caption="The same env block means something different in each file. Managed settings override the rest.">
+      <Branch
+        parent={<Node title={'"env": { ... }'} sub="inside a settings.json file" lines={2} />}
+        items={[
+          { title: '~/.claude/settings.json', sub: 'you, in every project' },
+          { title: '.claude/settings.json', sub: 'the whole team, committed to git' },
+          { title: '.claude/settings.local.json', sub: 'you, in this project only' },
+          { title: 'managed settings', sub: 'everyone in the org, set by an admin', tag: 'wins', tone: 'acc' },
+        ]}
+      />
+    </Fig>
+  );
+}
+
+/* ── Foundations: changelog ── */
+
+export function ReleaseCheckDiagram() {
+  return (
+    <Fig label="keeping up in one minute" caption="Check your version, open the notes, and read the Added and Changed lines. The Fixed lines rarely change how you work.">
+      <div className="dv-row">
+        <Node title="claude --version" sub="what you are running" />
+        <Arrow />
+        <Node title="/release-notes" sub="pick a version" />
+        <Arrow acc />
+        <Node title="Added + Changed" sub="what changes your habits" tone="acc" pulse />
+      </div>
+    </Fig>
+  );
+}

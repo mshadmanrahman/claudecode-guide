@@ -43,6 +43,9 @@ import {
   FiveCLoopDiagram,
   CheckPanelDiagram,
   PersonaFlowDiagram,
+  PromptCachePrefixDiagram,
+  EnvVarScopesDiagram,
+  ReleaseCheckDiagram,
 } from "@/components/docs/doc-diagrams";
 import { getAffiliateCtasForPage } from "@/lib/affiliate-cta-config";
 import { getComparisonArticleMetadata } from "@/lib/comparison-article";
@@ -84,6 +87,9 @@ const mdxComponents = {
   FiveCLoopDiagram,
   CheckPanelDiagram,
   PersonaFlowDiagram,
+  PromptCachePrefixDiagram,
+  EnvVarScopesDiagram,
+  ReleaseCheckDiagram,
 };
 
 interface PageProps {

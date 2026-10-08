@@ -1,0 +1,119 @@
+---
+title: "Claude Code Prompt Caching: What Breaks the Cache and What Keeps It"
+description: "Claude Code re-sends your whole session on every turn, and the cache is why that stays cheap. Which actions throw the cache away, which keep it, and how to check your hit rate."
+---
+
+## Every message re-sends the whole session
+
+The model remembers nothing between messages. So each time you press Enter, Claude Code sends everything again: the system prompt, your `CLAUDE.md`, every earlier message and tool result, and then your new message at the end.
+
+That sounds expensive, and it would be without prompt caching. The API compares the start of each request (the prefix) with what it processed recently. Whatever matches is read from the cache at a fraction of the price, and only the new part gets processed in full.
+
+The match is exact and runs from the top. Change something early in the request and everything after it is reprocessed, even if the rest is identical. There is no caching per file or per section.
+
+<PromptCachePrefixDiagram />
+
+## How much cheaper a cache hit is
+
+On Claude Opus 5.5 and Sonnet 5.5, a cache hit costs 0.05x the normal input price. Writing to the cache costs a little more than normal input.
+
+| Opus 5.5, per million tokens | Price | How it is derived |
+|---|---|---|
+| Normal input | $4.00 | base price |
+| Cache hit | $0.20 | $4 x 0.05 |
+| Cache write, 5-minute lifetime | $5.00 | $4 x 1.25 |
+| Cache write, 1-hour lifetime | $8.00 | $4 x 2 |
+
+Sonnet 5.5 follows the same multipliers from a $2 base, so a hit costs $0.10 ($2 x 0.05). Other models use 0.1x for a hit.
+
+On a subscription you don't see these prices directly, but the same math decides how fast you use up your plan. A session that keeps hitting the cache is the cheap kind of long session.
+
+## The three layers
+
+Claude Code orders each request so the parts that rarely change come first:
+
+| Layer | What is in it | Changes when |
+|---|---|---|
+| System prompt | Core instructions, tool definitions | The set of loaded tools changes |
+| Project context | `CLAUDE.md`, auto memory, unscoped rules | The session starts, or after `/clear` or `/compact` |
+| Conversation | Your messages, Claude's replies, tool results | Every turn |
+
+A change to the conversation leaves the top two layers cached. A change to the system prompt throws away everything below it.
+
+## Actions that break the cache
+
+Each of these costs you one slower, more expensive turn. After that the new prefix is cached again.
+
+| Action | What actually happens |
+|---|---|
+| Switching models with `/model` | Each model has its own cache, so the next turn rereads the whole session. Claude Code asks you to confirm while the cache is still warm. |
+| Changing effort level | On most models, a full reread. On Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.1 with an API key or a Claude subscription, the cache survives. On Bedrock and Google Cloud it does not. |
+| Turning on fast mode | One full reread the first time in a conversation. Turning it off and on again later keeps the cache. |
+| Connecting or removing an MCP server | Usually free: tool search is on by default and keeps the tool list fixed for the conversation. Without tool search, adding or removing tools breaks the cache. |
+| Enabling a plugin | Free for skills, commands, agents and hooks. A plugin that brings MCP servers follows the MCP rules above. |
+| Denying a whole tool, such as `Bash` | Free while tool search is on. Scoped rules like `Bash(rm *)` never touch the cache. |
+| `/compact` | Breaks the conversation layer by design, then rebuilds a much shorter one. |
+| Piling up screenshots | When a request would pass the image limit, the oldest batch is dropped, and the session is reprocessed from the earliest dropped image onward. |
+| Upgrading Claude Code | The first session after the update starts a fresh cache. Updates apply on the next launch, never mid-session. |
+
+<Callout type="tip" title="Pick model and effort before you start">
+The two cache breakers you control most often are `/model` and `/effort`. Choose both at the top of the session, then leave them alone until a natural break.
+</Callout>
+
+## Actions that keep the cache
+
+These append to the end of the conversation or don't touch the request at all:
+
+- Editing files in your repo. Claude gets a short notice that the file changed and rereads it if it needs to.
+- Changing permission mode, except plan mode with the `opusplan` model setting, which switches models.
+- Changing output style.
+- Running a skill or slash command, unless its frontmatter names a different model.
+- `/recap`, which adds a summary without replacing your history.
+- `/rewind`, which goes back to a prefix that is already cached.
+- Starting a subagent. It builds its own cache and leaves yours alone.
+
+<Callout type="warn" title="Editing CLAUDE.md mid-session keeps the cache, and does nothing">
+Your project-root and user `CLAUDE.md` are read once when the session starts. Edit them halfway through and Claude keeps working from the old version. The new text loads on the next `/clear`, `/compact` or restart. Nested `CLAUDE.md` files and path-scoped rules are the exception: they load on demand, so an edit made before they load does count.
+</Callout>
+
+## How long the cache lasts
+
+Cached prefixes expire after a stretch of inactivity, and every hit resets the timer. The API offers two lifetimes, 5 minutes and 1 hour. The 1-hour one costs more to write and pays off when you step away and come back.
+
+| Requests | Claude subscription, within plan usage | API key, cloud provider, or usage credits |
+|---|---|---|
+| Your main conversation | 1 hour | 5 minutes |
+| Subagents, compaction, session titles | 5 minutes (a few helper requests get 1 hour) | 5 minutes |
+
+This is why the first message after a long coffee break feels slow: the cache has expired and the whole session is processed again.
+
+To choose the lifetime yourself, set `CLAUDE_CODE_PROMPT_CACHE_TTL` to `5m` or `1h` (or the `promptCacheTtl` setting). Subagents have their own control, `CLAUDE_CODE_SUBAGENT_PROMPT_CACHE_TTL`. Both need Claude Code 2.1.242 or later. If you use an API key, `1h` is the one to try for sessions you leave idle.
+
+## When /compact is cheap and when it isn't
+
+While the cache is warm, `/compact` reads your session from the cache and spends most of its time writing the summary. After a break longer than the cache lifetime, there is nothing left to read, so the summary request processes the whole history at full price. That is why compacting an old session you just resumed is the expensive case.
+
+Two habits follow:
+
+- Run `/compact` between tasks, while you are still active, instead of waiting for auto-compaction to fire in the middle of something.
+- To abandon a dead end, use `/rewind` instead. It goes back to a prefix that is already cached, where compaction would build a new one.
+
+## Check your hit rate
+
+Run `/usage`. After the first reply, the Session block shows a **Prompt cache (main)** line with the hit ratio, the miss count, whether the cache is warm right now, and, when Claude Code can tell, the likely cause of the last miss (for example, tool definitions changed).
+
+The hit-ratio line needs version 2.1.251 or later, and the likely-cause text needs 2.1.260. If cache writes stay high turn after turn, something in your prefix keeps changing. The table of cache breakers above is the list to check.
+
+To confirm which lifetime your writes used, run `claude -p "hello" --output-format json` and look at `usage.cache_creation`. One-hour writes show up as `ephemeral_1h_input_tokens`, five-minute writes as `ephemeral_5m_input_tokens`.
+
+## Turning caching off
+
+You almost never want this. It is a debugging switch. `DISABLE_PROMPT_CACHING=1` turns it off for every model, and there are per-family versions (`DISABLE_PROMPT_CACHING_OPUS`, `_SONNET`, `_HAIKU`, `_FABLE`). Leave caching on for normal work.
+
+## Related
+
+- [Context window](/docs/foundations/context-window): what fills the window and when `/compact` helps
+- [Cost optimization](/docs/foundations/cost-optimization): where the money goes beyond caching
+- [Environment variables](/docs/foundations/environment-variables): how to set the TTL variables above
+
+Source: Anthropic's [prompt caching page for Claude Code](https://code.claude.com/docs/en/prompt-caching) and the [API pricing table](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), checked October 8, 2026.

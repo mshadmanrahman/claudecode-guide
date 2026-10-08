@@ -1,0 +1,176 @@
+---
+title: "Claude Code Environment Variables: How to Set Them, and the 25 Worth Knowing"
+description: "Set Claude Code environment variables in your shell or in settings.json, see which value wins, and look up the ones people search for, from CLAUDE_CODE_DISABLE_1M_CONTEXT to BASH_DEFAULT_TIMEOUT_MS."
+---
+
+import { FaqSchema } from '@/components/faq-schema';
+
+## Most settings have a variable, and some only have a variable
+
+Environment variables control which model Claude Code uses, which account it bills, where its requests go, how long it waits, and a long list of on/off switches. Many of them overlap with a `settings.json` key, a CLI flag or a slash command. A few exist only as a variable.
+
+Anthropic's [full list](https://code.claude.com/docs/en/env-vars) runs to well over a hundred entries, most of them for gateways, cloud providers and enterprise setups. This page covers how to set them, which value wins when two places disagree, and the 25 a working practitioner actually reaches for.
+
+## Two places to set them
+
+**In your shell**, for one terminal session. Set it before you launch `claude`:
+
+```bash
+# macOS, Linux, WSL
+export BASH_DEFAULT_TIMEOUT_MS=300000
+claude
+```
+
+```powershell
+# Windows PowerShell
+$env:BASH_DEFAULT_TIMEOUT_MS = "300000"
+claude
+```
+
+To make it permanent, put the `export` line in `~/.zshrc` or `~/.bashrc`. Claude Code reads shell variables once at startup, so a change applies the next time you launch it.
+
+**In a settings file**, for every run. Add an `env` block:
+
+```json
+{
+  "env": {
+    "BASH_DEFAULT_TIMEOUT_MS": "300000",
+    "MCP_TIMEOUT": "60000"
+  }
+}
+```
+
+Claude Code reads this straight from the file, however you launched it. A running session picks up new and changed values when you save. Removing a line does not unset it until the next launch.
+
+<Callout type="warn" title="No shell runs over the env block">
+Values are copied exactly as written. `~` and `$HOME` stay as literal text, so a path like `CLAUDE_CONFIG_DIR` needs the full absolute path: `"/Users/you/.claude-work"`.
+</Callout>
+
+## Which settings file
+
+The file you pick decides who the variable applies to.
+
+<EnvVarScopesDiagram />
+
+| File | Applies to |
+|---|---|
+| `~/.claude/settings.json` | You, in every project |
+| `.claude/settings.json` | Everyone on the project, committed to git |
+| `.claude/settings.local.json` | You, in this project only. Add it to `.gitignore` if you create it by hand. |
+| Managed settings | Everyone in your organization, deployed by an admin |
+
+A personal API key or a machine-specific path belongs in your user file or the local file, never in the committed project file.
+
+## Which value wins
+
+- **Settings file beats shell.** When the same variable is in both, the `env` block value applies in most sessions.
+- **Managed beats everything.** A managed settings entry overrides the same variable in user or project settings.
+- **Some files can't set some variables.** Project and local settings ignore `CLAUDE_CONFIG_DIR` and the OpenTelemetry export variables, among others.
+- **Flags and variables vary by feature.** `--model` and `/model` override `ANTHROPIC_MODEL`. `CLAUDE_CODE_EFFORT_LEVEL` goes the other way and overrides `--effort` and `/effort`.
+
+You can set a variable in a settings file, but you can't delete one. To cancel a stale variable that a shell profile exports, set it to an empty string, for example `"CLAUDE_CODE_USE_VERTEX": ""`.
+
+### On, off, and the odd ones
+
+For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `no` and `off` turn it off. A handful only check whether the variable is set at all. For `DISABLE_TELEMETRY` and `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`, even `0` counts as on. To turn those back off, unset them.
+
+## The 25 worth knowing
+
+### Account and model
+
+| Variable | What it does |
+|---|---|
+| `ANTHROPIC_API_KEY` | Bills an API key instead of your Pro, Max, Team or Enterprise plan, even while you're logged in. In `-p` mode it's always used when present. Run `unset ANTHROPIC_API_KEY` to go back to your subscription. |
+| `CLAUDE_CODE_OAUTH_TOKEN` | Signs in with your claude.ai account without `/login`, for scripts and CI. Generate one with `claude setup-token`. |
+| `ANTHROPIC_MODEL` | Default model for the session. `--model` and `/model` still override it. |
+| `CLAUDE_CODE_SUBAGENT_MODEL` | Default model for subagents that aren't given one another way, such as `haiku`. |
+| `CLAUDE_CODE_EFFORT_LEVEL` | `low`, `medium`, `high`, `xhigh`, `max` or `auto`. Overrides `--effort` and `/effort`. |
+
+### Context and output
+
+| Variable | What it does |
+|---|---|
+| `CLAUDE_CODE_DISABLE_1M_CONTEXT` | Set to `1` to hold sessions to a 200K window and hide the 1M model variants. Mostly for compliance setups. |
+| `CLAUDE_CODE_AUTO_COMPACT_WINDOW` | The window, in tokens, that auto-compaction works against: `100000` to `1000000`. Plain digits only. `500k` reads as 500 and gets clamped to the 100K minimum. |
+| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | Compact earlier, at a percentage of that window, such as `50`. It can lower the trigger, never raise it. |
+| `CLAUDE_CODE_MAX_OUTPUT_TOKENS` | Cap on output per request. Raising it leaves less room before auto-compaction kicks in. |
+| `MAX_THINKING_TOKENS` | Fixed thinking budget. `0` turns thinking off on the API, except on Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable, where it can't be turned off. |
+| `CLAUDE_CODE_DISABLE_AUTO_MEMORY` | `1` stops Claude from creating or loading auto memory files. |
+
+### Timeouts and limits
+
+| Variable | Default | What it does |
+|---|---|---|
+| `BASH_DEFAULT_TIMEOUT_MS` | 120000 (2 min) | How long a foreground shell command runs before it's stopped |
+| `BASH_MAX_TIMEOUT_MS` | 600000 (10 min) | The longest timeout Claude may ask for on one command |
+| `API_TIMEOUT_MS` | 600000 (10 min) | How long to wait on an API request. Raise it on slow networks or proxies. |
+| `MCP_TIMEOUT` | 30000 (30 s) | How long an MCP server gets to start |
+| `MAX_MCP_OUTPUT_TOKENS` | 25000 | The largest MCP tool response Claude accepts. A warning shows past 10,000. |
+
+If your test suite takes four minutes, `BASH_DEFAULT_TIMEOUT_MS` is the one that has been killing it at two.
+
+### Network, privacy and updates
+
+| Variable | What it does |
+|---|---|
+| `ANTHROPIC_BASE_URL` | Sends requests through a proxy or gateway. On a non-Anthropic host, MCP tool search turns off by default. |
+| `HTTPS_PROXY` | HTTPS proxy for all network connections |
+| `DISABLE_TELEMETRY` | Opts out of telemetry. Events never include your code, file paths or commands. Any non-empty value counts. |
+| `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` | One switch for auto-updates, telemetry, error reporting, `/feedback` and release notes |
+| `DISABLE_AUTOUPDATER` | Stops background updates. `claude update` still works by hand. |
+| `DISABLE_UPDATES` | Blocks every update, including `claude update`. For teams that ship Claude Code through their own channel. |
+
+### Setup
+
+| Variable | What it does |
+|---|---|
+| `CLAUDE_CONFIG_DIR` | Moves the config folder from `~/.claude`. Handy for two accounts side by side, for example `alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work claude'`. |
+| `CLAUDE_CODE_SHELL` | The shell for the Bash tool. Must be a bash or zsh binary. fish isn't supported. |
+| `CLAUDE_CODE_PROMPT_CACHE_TTL` | `5m` or `1h` cache lifetime for your main conversation. See [prompt caching](/docs/foundations/prompt-caching). |
+
+## Common questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'How do I disable the 1M context window in Claude Code?',
+      answer:
+        'Set CLAUDE_CODE_DISABLE_1M_CONTEXT=1 in your shell or in the env block of settings.json. The 1M model variants disappear from the model picker and sessions are held to a 200K window. If you only want compaction to happen earlier, set CLAUDE_CODE_AUTO_COMPACT_WINDOW instead and keep the bigger window.',
+    },
+    {
+      question: 'Where do I put environment variables for Claude Code?',
+      answer:
+        'Either export them in your shell before running claude, which lasts for that terminal session, or add them under the env key in a settings.json file, which applies every time. Use ~/.claude/settings.json for yourself everywhere, .claude/settings.local.json for yourself in one project, and .claude/settings.json only for values the whole team should share.',
+    },
+    {
+      question: 'Why is my Claude Code environment variable being ignored?',
+      answer:
+        'Four usual causes. A shell variable was changed after launch, and those are read only at startup. The same variable is set in a settings file, which wins over the shell. A managed setting overrides it. Or it is a variable such as CLAUDE_CONFIG_DIR that project and local settings files are not allowed to set.',
+    },
+    {
+      question: 'Why is Claude Code billing my API key instead of my subscription?',
+      answer:
+        'ANTHROPIC_API_KEY is set somewhere, usually in a shell profile. When it is present it takes priority over your Pro or Max login, and in -p mode it is always used. Run unset ANTHROPIC_API_KEY and remove it from your profile to go back to your subscription.',
+    },
+  ]}
+/>
+
+### How do I disable the 1M context window?
+
+Set `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`. Sessions are held to 200K. If you only want compaction to fire sooner, set `CLAUDE_CODE_AUTO_COMPACT_WINDOW` instead and keep the bigger window.
+
+### Why is my variable being ignored?
+
+Usually one of four things: you changed a shell variable after launching, a settings file sets the same one and wins, a managed setting overrides it, or it's a variable that project and local files aren't allowed to set.
+
+### Why is Claude Code billing my API key?
+
+`ANTHROPIC_API_KEY` is set, usually in a shell profile, and it takes priority over your login. Unset it.
+
+## Related
+
+- [Permissions](/docs/foundations/permissions): the other half of `settings.json`
+- [Prompt caching](/docs/foundations/prompt-caching): the TTL variables in context
+- [Headless mode](/docs/patterns/headless-mode): variables matter most in scripts and CI
+
+Source: Anthropic's [environment variables reference](https://code.claude.com/docs/en/env-vars), checked October 8, 2026.

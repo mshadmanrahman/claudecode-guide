@@ -1,0 +1,77 @@
+---
+title: "Claude Code Changelog: What Changed Recently and How to Keep Up"
+description: "Claude Code ships a new version most days. How to check yours, where the official release notes live, and the changes from the last two weeks that change how you work."
+---
+
+## A new version most days
+
+Claude Code updates fast. Between September 24 and October 7, 2026 it shipped twelve versions, from 2.1.282 to 2.1.293. Most lines in each release are bug fixes you'll never notice. A few change a default you rely on, and those are easy to miss.
+
+This page does two things: shows you how to keep up in about a minute, and pulls out the recent changes that matter for day-to-day work.
+
+<ReleaseCheckDiagram />
+
+## Check your version and read the notes
+
+```bash
+claude --version
+```
+
+Inside a session, `/release-notes` opens a version picker. Choose a version to read its notes, or show them all. The notes appear in your transcript without being sent to Claude.
+
+Updates download in the background and apply the next time you launch, never in the middle of a session. To update by hand, run `claude update`.
+
+The full history lives on Anthropic's [changelog page](https://code.claude.com/docs/en/changelog), generated from `CHANGELOG.md` on GitHub.
+
+<Callout type="tip" title="Read Added and Changed, skim Fixed">
+Every line in a release starts with a verb. **Added** is new capability. **Changed** is where a default you depend on moves. **Fixed** is usually safe to skip unless you hit that bug.
+</Callout>
+
+## What changed recently, by what it affects
+
+Checked against the official changelog on October 8, 2026, up to version 2.1.293.
+
+### Models
+
+- **Haiku 5.5 is the default Haiku** on the Anthropic API, with a 1M context window (2.1.293, October 7).
+- **Sonnet 5.5 is the default Sonnet** on the Anthropic API, also with 1M context (2.1.284, September 28).
+
+If you pin a model by its full ID, nothing changed for you. If you use the `haiku` or `sonnet` alias, you're on the new model now. See [model selection](/docs/foundations/model-selection).
+
+### Permissions
+
+- **New sessions start in auto mode when you haven't picked a permission mode.** This now applies in the terminal and VS Code on every plan and provider (2.1.284). `permissions.defaultMode` in your settings still overrides it. See [permissions](/docs/foundations/permissions).
+- **Chrome can no longer be switched on by a project's settings files.** Use `--chrome`, `/chrome`, or your user settings (2.1.290).
+- **More shell commands ask first.** `pyright` and more forms of `ps` now ask for permission instead of running as read-only (2.1.290).
+
+### Context and compaction
+
+- **`/autocompact` remembers its setting per model**, so switching models no longer carries one model's window over to another (2.1.288).
+- **1M context reaches more setups.** Opus 4.7 and later and Fable now get 1M by default on Bedrock, Vertex, Foundry and the Claude apps gateway (2.1.287), and so do sessions behind a custom `ANTHROPIC_BASE_URL` (2.1.285). If your gateway stops at 200K, run `/autocompact 200k` or set `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`.
+- **Path-scoped rules and nested `CLAUDE.md` files now load** when Claude looks at a file with `cat`, `head`, `tail`, `sed -n` or `grep` through Bash, not only through the Read tool (2.1.293).
+
+### Agents and automation
+
+- **Subagents can run at their own effort level.** The Agent tool takes an effort parameter (2.1.292).
+- **`--bare` got stricter.** It connects only the MCP servers named on the command line, sends no system reminders and starts no background tasks (2.1.286). See [headless mode](/docs/patterns/headless-mode).
+- **Background shell commands have a time limit only in unattended runs**: `-p`, the Agent SDK, CI and cloud sessions. In the terminal, desktop app and VS Code they run without one (2.1.288).
+
+### Handy new tools
+
+- **`/doctor prompt-audit`** checks your `CLAUDE.md` files, skills, agents and commands for prompting patterns written for older models (2.1.283). Worth one run if your setup predates the 5.5 models.
+- **`/mcp reconnect all`** retries every MCP server that failed to connect or needs sign-in, in one go (2.1.284).
+- **Cleared a long prompt with Ctrl+C by accident?** Press Up on the empty prompt to bring it back, pasted text and images included (2.1.288).
+- **`claude --desktop`** opens the Claude desktop app on the current folder (2.1.285).
+- **`CLAUDE_CODE_DISABLE_WEB_FETCH`** turns off the WebFetch tool (2.1.285). More in [environment variables](/docs/foundations/environment-variables).
+- **Claude Mods** let plugins modify deeper parts of Claude Code's behavior (2.1.287). See [how to mod Claude Code](/blog/how-to-mod-claude-code).
+
+## Upgrades and your cache
+
+An upgrade usually changes the system prompt or tool list, so the first session after it starts with a cold cache. That first turn is slower and costs more, then things settle. If you need upgrades to land at a time you choose, set `DISABLE_AUTOUPDATER=1` and run `claude update` yourself. More on what breaks the cache in [prompt caching](/docs/foundations/prompt-caching).
+
+## Related
+
+- [Troubleshooting](/docs/foundations/troubleshooting): when an update breaks something
+- [Environment variables](/docs/foundations/environment-variables): the update switches and more
+
+Source: Anthropic's [Claude Code changelog](https://code.claude.com/docs/en/changelog), versions 2.1.282 to 2.1.293, read October 8, 2026.

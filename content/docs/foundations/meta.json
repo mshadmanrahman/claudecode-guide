@@ -16,11 +16,14 @@
     "subagent-context-isolation",
     "plan-mode",
     "permissions",
+    "environment-variables",
     "prompting",
     "working-with-claude-5",
     "shortcuts",
     "cost-optimization",
+    "prompt-caching",
     "glossary",
+    "changelog",
     "troubleshooting",
     "alternative-models"
   ]
