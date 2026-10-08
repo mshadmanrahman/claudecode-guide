@@ -1,6 +1,6 @@
 ---
 title: "Claude Code Changelog: What Changed Recently and How to Keep Up"
-description: "Claude Code ships a new version most days. How to check yours, where the official release notes live, and the changes from the last two weeks that change how you work."
+description: "Claude Code ships a new version most days. How to check yours in the Mac app or the terminal, where the official release notes live, and the changes from the last two weeks that change how you work."
 ---
 
 ## A new version most days
@@ -13,15 +13,23 @@ This page does two things: shows you how to keep up in about a minute, and pulls
 
 ## Check your version and read the notes
 
+### In the Mac app
+
+- **Your version:** click **Claude** in the menu bar, then **About Claude**. Click the number to copy it. The app has its own version number, separate from the 2.1.x Claude Code versions in the changelog.
+- **Updates:** the app updates itself when you launch it. To check by hand, choose **Claude → Check for Updates**, then restart the app.
+- **Release notes:** Anthropic's weekly [What's new](https://code.claude.com/docs/en/whats-new) digest calls out Desktop features by name. Every fix and change, app or not, is on the [changelog page](https://code.claude.com/docs/en/changelog), generated from `CHANGELOG.md` on GitHub.
+
+### From the terminal
+
+These work in any terminal, including the one inside the Mac app (press Ctrl+` to open it).
+
 ```bash
 claude --version
 ```
 
-Inside a session, `/release-notes` opens a version picker. Choose a version to read its notes, or show them all. The notes appear in your transcript without being sent to Claude.
+Inside a terminal session, `/release-notes` opens a version picker. Choose a version to read its notes, or show them all. The notes appear in your transcript without being sent to Claude.
 
 Updates download in the background and apply the next time you launch, never in the middle of a session. To update by hand, run `claude update`.
-
-The full history lives on Anthropic's [changelog page](https://code.claude.com/docs/en/changelog), generated from `CHANGELOG.md` on GitHub.
 
 <Callout type="tip" title="Read Added and Changed, skim Fixed">
 Every line in a release starts with a verb. **Added** is new capability. **Changed** is where a default you depend on moves. **Fixed** is usually safe to skip unless you hit that bug.
@@ -67,7 +75,7 @@ If you pin a model by its full ID, nothing changed for you. If you use the `haik
 
 ## Upgrades and your cache
 
-An upgrade usually changes the system prompt or tool list, so the first session after it starts with a cold cache. That first turn is slower and costs more, then things settle. If you need upgrades to land at a time you choose, set `DISABLE_AUTOUPDATER=1` and run `claude update` yourself. More on what breaks the cache in [prompt caching](/docs/foundations/prompt-caching).
+An upgrade usually changes the system prompt or tool list, so the first session after it starts with a cold cache. That first turn is slower and costs more, then things settle. The Mac app updates when you launch it, so that launch is when the cold start happens. In the terminal, if you need upgrades to land at a time you choose, set `DISABLE_AUTOUPDATER=1` and run `claude update` yourself. More on what breaks the cache in [prompt caching](/docs/foundations/prompt-caching).
 
 ## Related
 

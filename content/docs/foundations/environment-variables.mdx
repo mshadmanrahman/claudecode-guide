@@ -1,6 +1,6 @@
 ---
 title: "Claude Code Environment Variables: How to Set Them, and the 25 Worth Knowing"
-description: "Set Claude Code environment variables in your shell or in settings.json, see which value wins, and look up the ones people search for, from CLAUDE_CODE_DISABLE_1M_CONTEXT to BASH_DEFAULT_TIMEOUT_MS."
+description: "Set Claude Code environment variables in settings.json, the Mac app or your shell, see which value wins, and look up the ones people search for, from CLAUDE_CODE_DISABLE_1M_CONTEXT to BASH_DEFAULT_TIMEOUT_MS."
 ---
 
 import { FaqSchema } from '@/components/faq-schema';
@@ -11,25 +11,11 @@ Environment variables control which model Claude Code uses, which account it bil
 
 Anthropic's [full list](https://code.claude.com/docs/en/env-vars) runs to well over a hundred entries, most of them for gateways, cloud providers and enterprise setups. This page covers how to set them, which value wins when two places disagree, and the 25 a working practitioner actually reaches for.
 
-## Two places to set them
+## Where to set them
 
-**In your shell**, for one terminal session. Set it before you launch `claude`:
+### In the Mac app
 
-```bash
-# macOS, Linux, WSL
-export BASH_DEFAULT_TIMEOUT_MS=300000
-claude
-```
-
-```powershell
-# Windows PowerShell
-$env:BASH_DEFAULT_TIMEOUT_MS = "300000"
-claude
-```
-
-To make it permanent, put the `export` line in `~/.zshrc` or `~/.bashrc`. Claude Code reads shell variables once at startup, so a change applies the next time you launch it.
-
-**In a settings file**, for every run. Add an `env` block:
+**In a settings file**, for every session. Add an `env` block to `~/.claude/settings.json`:
 
 ```json
 {
@@ -45,6 +31,30 @@ Claude Code reads this straight from the file, however you launched it. A runnin
 <Callout type="warn" title="No shell runs over the env block">
 Values are copied exactly as written. `~` and `$HOME` stay as literal text, so a path like `CLAUDE_CONFIG_DIR` needs the full absolute path: `"/Users/you/.claude-work"`.
 </Callout>
+
+**In the local environment editor**, when your dev server needs the value too. Open the environment dropdown in the prompt box, hover over **Local**, and click the gear icon. Variables saved there are stored encrypted on your Mac and apply to every local session and every preview server the app starts. The `env` block reaches Claude's sessions only, not your dev server.
+
+<Callout type="info" title="An export in ~/.zshrc mostly doesn't reach the app">
+When you open the Mac app from the Dock or Finder, it reads your shell profile only for `PATH` and a fixed set of Claude Code variables. Anything else you export there is ignored. Use the `env` block or the environment editor instead, and restart the app after changing `PATH`.
+</Callout>
+
+### From the terminal
+
+**In your shell**, for one terminal session. Set it before you launch `claude`:
+
+```bash
+# macOS, Linux, WSL
+export BASH_DEFAULT_TIMEOUT_MS=300000
+claude
+```
+
+```powershell
+# Windows PowerShell
+$env:BASH_DEFAULT_TIMEOUT_MS = "300000"
+claude
+```
+
+To make it permanent, put the `export` line in `~/.zshrc` or `~/.bashrc`. Claude Code reads shell variables once at startup, so a change applies the next time you launch it. The `env` block above works here too.
 
 ## Which settings file
 
@@ -135,17 +145,17 @@ If your test suite takes four minutes, `BASH_DEFAULT_TIMEOUT_MS` is the one that
     {
       question: 'How do I disable the 1M context window in Claude Code?',
       answer:
-        'Set CLAUDE_CODE_DISABLE_1M_CONTEXT=1 in your shell or in the env block of settings.json. The 1M model variants disappear from the model picker and sessions are held to a 200K window. If you only want compaction to happen earlier, set CLAUDE_CODE_AUTO_COMPACT_WINDOW instead and keep the bigger window.',
+        'Set CLAUDE_CODE_DISABLE_1M_CONTEXT=1 in the env block of settings.json, or export it in your shell if you run Claude Code in a terminal. The 1M model variants disappear from the model picker and sessions are held to a 200K window. If you only want compaction to happen earlier, set CLAUDE_CODE_AUTO_COMPACT_WINDOW instead and keep the bigger window.',
     },
     {
       question: 'Where do I put environment variables for Claude Code?',
       answer:
-        'Either export them in your shell before running claude, which lasts for that terminal session, or add them under the env key in a settings.json file, which applies every time. Use ~/.claude/settings.json for yourself everywhere, .claude/settings.local.json for yourself in one project, and .claude/settings.json only for values the whole team should share.',
+        'Add them under the env key in a settings.json file, which applies every time, in the Mac app and the terminal alike. Use ~/.claude/settings.json for yourself everywhere, .claude/settings.local.json for yourself in one project, and .claude/settings.json only for values the whole team should share. In the Mac app, the local environment editor also reaches your dev server. In a terminal, you can also export them in your shell before running claude.',
     },
     {
       question: 'Why is my Claude Code environment variable being ignored?',
       answer:
-        'Four usual causes. A shell variable was changed after launch, and those are read only at startup. The same variable is set in a settings file, which wins over the shell. A managed setting overrides it. Or it is a variable such as CLAUDE_CONFIG_DIR that project and local settings files are not allowed to set.',
+        'Five usual causes. You exported it in your shell profile and opened the Mac app from the Dock, which picks up only PATH and a fixed set of Claude Code variables from that profile. A shell variable was changed after launch, and those are read only at startup. The same variable is set in a settings file, which wins over the shell. A managed setting overrides it. Or it is a variable such as CLAUDE_CONFIG_DIR that project and local settings files are not allowed to set.',
     },
     {
       question: 'Why is Claude Code billing my API key instead of my subscription?',
@@ -161,7 +171,7 @@ Set `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`. Sessions are held to 200K. If you only w
 
 ### Why is my variable being ignored?
 
-Usually one of four things: you changed a shell variable after launching, a settings file sets the same one and wins, a managed setting overrides it, or it's a variable that project and local files aren't allowed to set.
+Usually one of five things: you exported it in `~/.zshrc` and opened the Mac app from the Dock (use the `env` block instead), you changed a shell variable after launching, a settings file sets the same one and wins, a managed setting overrides it, or it's a variable that project and local files aren't allowed to set.
 
 ### Why is Claude Code billing my API key?
 

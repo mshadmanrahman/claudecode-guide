@@ -100,11 +100,17 @@ Two habits follow:
 
 ## Check your hit rate
 
+Both checks below are written for a terminal session. In the Mac app, press Ctrl+` to open its terminal pane and start `claude` there.
+
+### From the terminal
+
 Run `/usage`. After the first reply, the Session block shows a **Prompt cache (main)** line with the hit ratio, the miss count, whether the cache is warm right now, and, when Claude Code can tell, the likely cause of the last miss (for example, tool definitions changed).
 
 The hit-ratio line needs version 2.1.251 or later, and the likely-cause text needs 2.1.260. If cache writes stay high turn after turn, something in your prefix keeps changing. The table of cache breakers above is the list to check.
 
-To confirm which lifetime your writes used, run `claude -p "hello" --output-format json` and look at `usage.cache_creation`. One-hour writes show up as `ephemeral_1h_input_tokens`, five-minute writes as `ephemeral_5m_input_tokens`.
+### Advanced: confirm the cache lifetime
+
+This one is for scripting. The Mac app is interactive only and has no equivalent of `-p` or `--output-format`. Run `claude -p "hello" --output-format json` and look at `usage.cache_creation`. One-hour writes show up as `ephemeral_1h_input_tokens`, five-minute writes as `ephemeral_5m_input_tokens`.
 
 ## Turning caching off
 

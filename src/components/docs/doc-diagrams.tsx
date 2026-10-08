@@ -394,11 +394,11 @@ export function EnvVarScopesDiagram() {
 
 export function ReleaseCheckDiagram() {
   return (
-    <Fig label="keeping up in one minute" caption="Check your version, open the notes, and read the Added and Changed lines. The Fixed lines rarely change how you work.">
+    <Fig label="keeping up in one minute" caption="In the Mac app, check About Claude, open the weekly digest, and read the Added and Changed lines. From the terminal, claude --version and /release-notes do the same job.">
       <div className="dv-row">
-        <Node title="claude --version" sub="what you are running" />
+        <Node title="About Claude" sub="your app version" />
         <Arrow />
-        <Node title="/release-notes" sub="pick a version" />
+        <Node title="What's new" sub="weekly digest" />
         <Arrow acc />
         <Node title="Added + Changed" sub="what changes your habits" tone="acc" pulse />
       </div>
