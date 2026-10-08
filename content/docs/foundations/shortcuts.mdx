@@ -44,7 +44,7 @@ Type these directly into the Claude Code prompt.
 | `/model` | Switch the active model (opus, sonnet, haiku) |
 | `/model opus` | Switch to Opus 5.5 (most capable, default) |
 | `/model sonnet` | Switch to Sonnet 5.5 (fast and capable) |
-| `/model haiku` | Switch to Haiku 4.5 (fastest, cheapest) |
+| `/model haiku` | Switch to Haiku 5.5 (fastest, cheapest; v2.1.293 or later) |
 | `/init` | Generate a CLAUDE.md file for your project |
 | `/config` | View and edit Claude Code configuration |
 | `/permissions` | View and manage tool permissions |
@@ -123,7 +123,7 @@ claude --resume              # Resume last conversation (pick up where you left 
 ```bash
 claude --model opus          # Start with Opus 5.5 (default)
 claude --model sonnet        # Start with Sonnet 5.5
-claude --model haiku         # Start with Haiku 4.5
+claude --model haiku         # Start with Haiku 5.5
 claude --verbose             # Show tool calls and internal reasoning
 claude --bare                # Minimal output (for scripted calls)
 ```

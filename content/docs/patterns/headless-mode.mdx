@@ -85,7 +85,7 @@ npm test 2>&1 | claude -p "Analyze these test results.
 Use the `--model` flag to match the model to the job:
 
 ```bash
-# Haiku for fast, cheap tasks (linting, formatting checks)
+# Haiku 5.5 for fast, cheap tasks (linting, formatting checks)
 claude -p --model haiku "check this file for style issues"
 
 # Sonnet for standard tasks (code review, analysis)
@@ -95,7 +95,7 @@ git diff | claude -p --model sonnet "review this diff"
 claude -p --model opus "audit this codebase for security vulnerabilities"
 ```
 
-Haiku for high-volume automated checks. Sonnet for standard CI tasks. Opus only when the stakes justify the cost. Measured on 2026-09-27, one short diff review cost about $0.08 on Haiku 4.5 and $0.24 on Sonnet 5. Most of that is Claude Code writing its own system prompt and tools into the cache, not your diff. So a pipeline with 2 Haiku calls and 1 Sonnet call runs about $0.40 ($0.08 x 2 + $0.24). Fewer tools and MCP servers in the runner means a smaller prompt and a smaller bill.
+Haiku for high-volume automated checks. Sonnet for standard CI tasks. Opus only when the stakes justify the cost. Measured on 2026-10-08 with Claude Code v2.1.293, one short diff review cost $0.01 to $0.02 on Haiku 5.5 ($0.0121 and $0.0204 over two runs). On 2026-09-27 the same kind of review cost about $0.08 on Haiku 4.5 and $0.24 on Sonnet 5. Most of that is Claude Code writing its own system prompt and tools into the cache, not your diff. So a pipeline with 2 Haiku calls and 1 Sonnet call runs about $0.28 ($0.02 x 2 + $0.24). Use v2.1.293 or later: on older versions `--model haiku` still runs Haiku 4.5. Fewer tools and MCP servers in the runner means a smaller prompt and a smaller bill.
 
 ```bash
 # Three steps in a GitHub Actions workflow

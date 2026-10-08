@@ -39,7 +39,7 @@ You can run it inside Claude Code via `ANTHROPIC_BASE_URL`.
 
 Claude Opus 5.5 via API costs $4/M input, $20/M output. DeepSeek V4 Pro costs $0.44/M input, $0.87/M output. That is approximately 9x cheaper on input ($4 / $0.44) and 23x cheaper on output ($20 / $0.87) for a model that matches Opus on most coding benchmarks.
 
-DeepSeek V4 Flash cuts that further to $0.14/$0.28 — closer to Haiku pricing with V4 Pro capability for a large class of tasks.
+DeepSeek V4 Flash cuts that further to $0.14/$0.28. Claude's own budget model now sits close to it: Haiku 5.5 costs $0.10/$0.50 for prompts up to 100K tokens, cheaper on input and dearer on output.
 
 If you are building on top of Claude Code's API surface and your primary bottleneck is cost, DeepSeek V4 is a serious option to evaluate. Many teams use DeepSeek for high-volume automated tasks (CI pipelines, code review bots, documentation generation) and reserve Claude for interactive developer sessions where the agent behavior matters.
 

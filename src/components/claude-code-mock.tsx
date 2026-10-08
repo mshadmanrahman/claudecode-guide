@@ -19,7 +19,7 @@ export type CliStep =
   | { kind: 'say'; text: string }
   /** A tool call: "⏺ Write(CLAUDE.md)" then "⎿ result", then optional file lines. */
   | { kind: 'tool'; name: string; arg: string; result: string; lines?: string[] }
-  /** What a slash command prints under its prompt: "⎿ Set model to Haiku 4.5". */
+  /** What a slash command prints under its prompt: "⎿ Set model to Haiku 5.5". */
   | { kind: 'output'; text: string };
 
 interface ClaudeCodeMockProps {

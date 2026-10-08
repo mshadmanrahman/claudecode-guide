@@ -58,7 +58,7 @@ Learn more: [Full CLAUDE.md Guide](/docs/foundations/claude-md)
   { kind: 'tool', name: 'Write', arg: 'CLAUDE.md', result: 'Wrote 38 lines to CLAUDE.md' },
   { kind: 'say', text: 'Created CLAUDE.md with your stack, scripts and folder layout.' },
   { kind: 'prompt', text: '/model haiku' },
-  { kind: 'output', text: 'Set model to Haiku 4.5' },
+  { kind: 'output', text: 'Set model to Haiku 5.5' },
   { kind: 'prompt', text: '/compact' },
   { kind: 'output', text: 'Compacted (ctrl+o to see full summary)' },
 ]} />
@@ -183,7 +183,7 @@ Learn more: [Context Window Deep Dive](/docs/foundations/context-window)
 |---|---|---|
 | **Opus 5.5** | Moderate | Complex decisions, architecture, cross-file refactors. The default. |
 | **Sonnet 5.5** | Fast | Most daily work at half the Opus price |
-| **Haiku 4.5** | Fastest | Quick edits, simple questions, linting |
+| **Haiku 5.5** | Fastest | Quick edits, simple questions, linting |
 
 Claude Code starts on Opus 5.5 at `medium` effort. Drop to Sonnet for routine work if you want it cheaper, and raise the effort with `/effort` when the problem is genuinely hard. Switch to Haiku when the task is trivial and speed matters more than depth.
 

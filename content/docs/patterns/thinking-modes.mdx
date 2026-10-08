@@ -33,7 +33,7 @@ Thinking means Claude reasons internally before giving you an answer. It works t
 
 **What it costs:** Thinking is billed as output tokens, even when Claude Code collapses or redacts it on screen. You pay for the thinking. For complex tasks, the quality improvement is usually worth it. For a simple bug fix, it's overkill.
 
-On Opus 5.5 and the Fable models thinking is always on: `Option+T` (`Alt+T` on Windows and Linux) and `MAX_THINKING_TOKENS=0` have no effect there, so effort is your only dial. Sonnet 5 always uses adaptive thinking too. Haiku 4.5 uses the older extended thinking mode and has no effort levels.
+On Opus 5.5 and the Fable models thinking is always on: `Option+T` (`Alt+T` on Windows and Linux) and `MAX_THINKING_TOKENS=0` have no effect there, so effort is your only dial. Sonnet 5 always uses adaptive thinking too. Haiku 5.5 uses adaptive thinking with effort levels, the first Haiku to have them. Haiku 4.5 used the older extended thinking mode and had none.
 
 ## Plan mode
 
@@ -78,7 +78,7 @@ Some tasks need deep thinking. Others just need a quick answer. Effort levels le
 | **xhigh** | Deeper reasoning for long agentic and coding runs | "Migrate this service end to end" |
 | **max** | Deepest. Diminishing returns, prone to overthinking | A problem `xhigh` already failed |
 
-Opus 4.7 and later, Sonnet 5, and the Fable models support all five levels. Opus 4.6 and Sonnet 4.6 stop at `max` without `xhigh`. Haiku has none. Pick a level a model lacks and Claude Code drops to the highest one it supports below it.
+Opus 4.7 and later, Sonnet 5, and the Fable models support all five levels. Opus 4.6 and Sonnet 4.6 stop at `max` without `xhigh`. Haiku 5.5 defaults to `medium`, and Anthropic's launch charts plot it from `low` to `max`. Haiku 4.5 has none. Pick a level a model lacks and Claude Code drops to the highest one it supports below it.
 
 **How to set it:**
 
@@ -112,7 +112,7 @@ The real power is mixing these together.
   { kind: 'thinking', verb: 'Planning', ms: 1000 },
   { kind: 'say', text: 'Plan: Zod schemas, a middleware chain, typed errors, then tests.\nSix steps across 12 files.' },
   { kind: 'prompt', text: '/model haiku' },
-  { kind: 'output', text: 'Set model to Haiku 4.5' },
+  { kind: 'output', text: 'Set model to Haiku 5.5' },
   { kind: 'prompt', text: 'what does validateUser do?' },
   { kind: 'say', text: 'It checks the email format and password length, then returns a boolean.' },
 ]} />

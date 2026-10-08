@@ -38,7 +38,7 @@ export interface PickerState {
   slider?: number;
 }
 
-const MODELS = ['Fable 5.1', 'Opus 5.5', 'Sonnet 5.5', 'Haiku 4.5'];
+const MODELS = ['Fable 5.1', 'Opus 5.5', 'Sonnet 5.5', 'Haiku 5.5'];
 const EFFORTS = ['low', 'medium', 'high', 'xhigh', 'max'];
 
 function Picker({ p }: { p: PickerState }) {

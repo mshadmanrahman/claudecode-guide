@@ -37,7 +37,9 @@ export CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1
 export CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS=3
 ```
 
-They need Claude Code 2.1.217 or later. The values above are examples; pick your own. Background on why subagents cost what they do: [subagent context isolation](/docs/foundations/subagent-context-isolation).
+They need Claude Code 2.1.217 or later. The values above are examples; pick your own.
+
+When a subagent's job is scoped and mechanical, such as reading logs or summarizing test output, run it on Haiku 5.5. Anthropic's launch post says it "pairs well with Opus 5.5 and Sonnet 5.5 as a subagent on coding work," and it costs $0.10 / $0.50 per million tokens for prompts up to 100K. Set `model: haiku` in the subagent's frontmatter, on Claude Code v2.1.293 or later; older versions still map `haiku` to Haiku 4.5. Background on why subagents cost what they do: [subagent context isolation](/docs/foundations/subagent-context-isolation).
 
 ## Don't add verification steps
 
@@ -70,4 +72,4 @@ On the API, thinking counts toward `max_tokens` even when you don't see the thin
 
 Anthropic says prompts written for Opus 5 "should perform well without changes" on Opus 5.5. None of this is urgent. Lower effort first, since that saves money today, then clean out the verification lines and subagent habits when you next touch the file. The prompt-level changes are in [prompting](/docs/foundations/prompting).
 
-Sources: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5), [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5), [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5), [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview).
+Sources: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5), [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5), [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5), [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview), [Introducing Claude Haiku 5.5](https://www.anthropic.com/claude-haiku-5-5).

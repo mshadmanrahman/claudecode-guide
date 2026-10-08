@@ -132,7 +132,7 @@ export function ModsAgentPanelMock() {
         const done = endOf(agentSteps, starts, 4);
         const agents: Agent[] = [
           { key: 'ex', description: 'Find Sonnet 5 mentions', role: 'explore', model: 'Opus 5.5', effort: ['light', '#3BB8A0'], start: open + 200, end: open + 4300, tokens: 48_200, ctx: 31_000, steps: 14, cost: 0.21 },
-          { key: 'sc', description: 'Check each match', role: 'scout', model: 'Haiku 4.5', effort: ['light', '#3BB8A0'], start: open + 700, end: open + 5400, tokens: 31_500, ctx: 22_400, steps: 9, cost: 0.04 },
+          { key: 'sc', description: 'Check each match', role: 'scout', model: 'Haiku 5.5', effort: ['light', '#3BB8A0'], start: open + 700, end: open + 5400, tokens: 31_500, ctx: 22_400, steps: 9, cost: 0.01 },
         ];
         const live = agents.filter((a) => t >= a.start);
         const running = live.filter((a) => t < a.end);

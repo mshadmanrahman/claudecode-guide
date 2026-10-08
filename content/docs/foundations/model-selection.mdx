@@ -9,14 +9,14 @@ This page used to say "Sonnet for doing, Opus for deciding." The Claude 5.5 mode
 
 So the dial you reach for first is effort, not the model. If a task is simple, `/effort low` on Opus 5.5 thinks less and costs less, and Anthropic says `low` comes close to Opus 5 at `high` on several coding evaluations. Switch to Sonnet 5.5 when you need speed or you're running a lot of the same small job, since it costs half as much per token.
 
-| | Fable 5.1 | Opus 5.5 | Sonnet 5.5 | Haiku 4.5 |
+| | Fable 5.1 | Opus 5.5 | Sonnet 5.5 | Haiku 5.5 |
 |---|---|---|---|---|
-| Price per million tokens (input / output) | $10 / $50 | $4 / $20 | $2 / $10 | $1 / $5 |
-| Default effort | `high` | `medium` | `high` | none |
-| Context window | 1M | 1M | 1M | 200K |
+| Price per million tokens (input / output) | $10 / $50 | $4 / $20 | $2 / $10 | $0.10 / $0.50 (prompts up to 100K) |
+| Default effort | `high` | `medium` | `high` | `medium` |
+| Context window | 1M | 1M | 1M | 1M |
 | Speed | Slower | Moderate | Fast | Fastest |
 
-From Anthropic's [models overview](https://platform.claude.com/docs/en/about-claude/models/overview), checked 4 October 2026. Opus costs 2x Sonnet ($4 / $2 = 2), and Fable costs 2.5x Opus ($10 / $4 = 2.5).
+From Anthropic's [models overview](https://platform.claude.com/docs/en/about-claude/models/overview), checked 8 October 2026. Opus costs 2x Sonnet ($4 / $2 = 2), Fable costs 2.5x Opus ($10 / $4 = 2.5), and on prompts up to 100K tokens Haiku costs a twentieth of Sonnet ($2 / $0.10 = 20).
 
 <ModelPickerMock />
 
@@ -59,7 +59,7 @@ Two things to know. Sonnet 5.5's guide says it tends to add tests and docs nobod
 
 ## When to Use the Haiku Class
 
-Haiku is for volume work where you don't need deep reasoning. Think of it like the intern who types really fast.
+Haiku 5.5 is the cheap default for scoped, mechanical work where you don't need deep reasoning. Think of it like the intern who types really fast. Anthropic's launch post names compaction, summarization and subagent work, and says Sonnet 5.5 and Opus 5.5 "remain better choices for complex agentic coding tasks." On Terminal-Bench 4.0, Haiku 5.5 scored 39.2% against 70.6% for Sonnet 5.5.
 
 - Quick code formatting
 - Simple lookups ("what does this function do?")
@@ -69,7 +69,13 @@ Haiku is for volume work where you don't need deep reasoning. Think of it like t
 
 The real use case is sub-agents. When you're running background code review or spinning up a test-execution agent, Haiku is fast and cheap enough that you can run several in parallel without watching your bill climb.
 
-**Pricing:** $1 / $5 per million tokens, the cheapest. Check before you build on it: Anthropic lists Haiku 4.5's retirement as "not sooner than October 15, 2026," and its knowledge cutoff is February 2025, much older than the 5.x models.
+**Pricing:** $0.10 input / $0.50 output per million tokens for prompts up to 100,000 tokens, the cheapest Claude model. A prompt over 100,000 tokens bills at $0.50 / $2.50, which is 5x more per token ($0.50 / $0.10 = 5), so keep Haiku jobs small. Against Haiku 4.5 ($1 / $5) that is 10x cheaper per token under 100K ($1 / $0.10 = 10). Anthropic puts the average saving at around 75%, not 90%, because Haiku 5.5's newer tokenizer counts the same text as about 30% more tokens.
+
+Haiku 5.5 is also the first Haiku with an effort setting (default `medium`), and it holds the same 1M context window as Opus and Sonnet. Haiku 4.5 is no longer in Anthropic's current lineup. Sources: [Introducing Claude Haiku 5.5](https://www.anthropic.com/claude-haiku-5-5) and the [Haiku 5.5 model page](https://platform.claude.com/docs/en/models/haiku-5-5/overview), both read 8 October 2026.
+
+**Use Claude Code v2.1.293 or later.** From that version, `/model haiku` and `--model haiku` run Haiku 5.5. On v2.1.288 we tested the alias and it still ran Haiku 4.5. The full ID `claude-haiku-5-5` worked there, but it printed an `unrecognized_model` warning and billed the cache writes at Opus's $8 per million tokens instead of Haiku's $0.20, a cost report 40x too high ($8 / $0.20 = 40).
+
+**Run an eval before you move a job that has to catch things.** We moved five scheduled background jobs from Sonnet with an eval each. Three passed twice on Haiku 5.5: a log alerter, a yield sweep and a weekly action list. Two stayed on Sonnet. A meeting coach on Haiku raised 4 false alarms on a full-meeting replay, against 2 on Sonnet. A Microsoft 365 sync on Haiku dropped a `[truncated]` marker in 3 of 5 runs, while Sonnet kept it in 5 of 5.
 
 ## How Claude Code Picks For You
 
