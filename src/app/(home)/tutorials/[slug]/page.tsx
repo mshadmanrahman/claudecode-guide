@@ -4,6 +4,7 @@ import { TutorialArticle } from "@/components/tutorial-article";
 import { TUTORIALS } from "@/lib/tutorials";
 import { BN_TUTORIALS } from "@/lib/i18n/bn/tutorials";
 import { ogImage } from "@/lib/og/image";
+import { seoTitle } from "@/lib/seo-title";
 
 const ALL_SLUGS = Object.keys(TUTORIALS);
 
@@ -29,12 +30,12 @@ export async function generateMetadata({
   if (!tutorial) return { title: "Tutorial not found" };
 
   const canonicalUrl = `https://claudecodeguide.dev/tutorials/${slug}`;
-  const seoTitle = tutorial.title.includes("Claude Code")
+  const metaTitle = tutorial.title.includes("Claude Code")
     ? tutorial.title
-    : `${tutorial.title} | Claude Code Tutorial`;
+    : seoTitle(tutorial.title, "Claude Code Tutorial");
 
   return {
-    title: { absolute: seoTitle },
+    title: { absolute: metaTitle },
     description: tutorial.description,
     alternates: {
       canonical: canonicalUrl,
@@ -43,7 +44,7 @@ export async function generateMetadata({
         : undefined,
     },
     openGraph: {
-      title: seoTitle,
+      title: metaTitle,
       description: tutorial.description,
       type: "article",
       url: canonicalUrl,
@@ -51,7 +52,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: seoTitle,
+      title: metaTitle,
       description: tutorial.description,
     },
   };

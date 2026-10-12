@@ -52,6 +52,7 @@ import { getComparisonArticleMetadata } from "@/lib/comparison-article";
 import { getPageNavigation, getSections } from "@/lib/docs-navigation";
 import type { Metadata } from "next";
 import { ogImage } from "@/lib/og/image";
+import { seoTitle } from "@/lib/seo-title";
 
 const mdxComponents = {
   ...defaultMdxComponents,
@@ -288,7 +289,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
 
   return {
-    title: page.data.title,
+    title: { absolute: seoTitle(page.data.title, "Claude Code Guide") },
     description: page.data.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {

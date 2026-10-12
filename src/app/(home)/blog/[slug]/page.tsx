@@ -16,6 +16,7 @@ import type { Metadata } from "next";
 import { ArticleSchema } from "@/components/article-schema";
 import { ArticleHeader } from "@/components/docs/article-header";
 import { ogImage } from "@/lib/og/image";
+import { seoTitle } from "@/lib/seo-title";
 
 const DESIGNER_RELEVANT_SLUGS = new Set([
   "claude-code-for-non-engineers",
@@ -66,11 +67,11 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   if (!post) return { title: "Post Not Found" };
 
   const canonicalUrl = `https://claudecodeguide.dev/blog/${post.slug}`;
-  const seoTitle = post.seoTitle ?? post.title;
+  const metaTitle = post.seoTitle ?? post.title;
   const seoDescription = post.seoDescription ?? post.description;
 
   return {
-    title: { absolute: `${seoTitle} | Claude Code Guide` },
+    title: { absolute: seoTitle(metaTitle, "Claude Code Guide") },
     description: seoDescription,
     alternates: { canonical: canonicalUrl },
     openGraph: {

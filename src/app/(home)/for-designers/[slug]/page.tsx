@@ -4,6 +4,7 @@ import { DESIGNER_GUIDES } from '@/lib/designer-guides';
 import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
 import { DesignerGuideArticle } from '@/components/designer-guide-article';
 import { ogImage } from '@/lib/og/image';
+import { seoTitle } from '@/lib/seo-title';
 
 /* ------------------------------------------------------------------ */
 /*  Metadata                                                           */
@@ -22,7 +23,7 @@ export async function generateMetadata({
   const canonicalUrl = `https://claudecodeguide.dev/for-designers/${slug}`;
 
   return {
-    title: { absolute: `${guide.title} | Claude for Designers` },
+    title: { absolute: seoTitle(guide.title, 'Claude for Designers') },
     description: guide.description,
     alternates: {
       canonical: canonicalUrl,

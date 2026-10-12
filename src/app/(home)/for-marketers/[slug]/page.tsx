@@ -10,6 +10,7 @@ import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
 import { AuthorBio } from '@/components/author-bio';
 import { ogImage } from '@/lib/og/image';
+import { seoTitle } from '@/lib/seo-title';
 
 /* ------------------------------------------------------------------ */
 /*  Metadata                                                           */
@@ -28,7 +29,7 @@ export async function generateMetadata({
   const canonicalUrl = `https://claudecodeguide.dev/for-marketers/${slug}`;
 
   return {
-    title: { absolute: `${guide.title} | Claude for Marketers` },
+    title: { absolute: seoTitle(guide.title, 'Claude for Marketers') },
     description: guide.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {

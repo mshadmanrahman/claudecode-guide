@@ -9,6 +9,7 @@ import { PersonaGuideTracker } from "@/components/persona-guide-tracker";
 import { ArticleSchema } from "@/components/article-schema";
 import { AuthorBio } from "@/components/author-bio";
 import { ogImage } from '@/lib/og/image';
+import { seoTitle } from '@/lib/seo-title';
 
 export async function generateMetadata({
   params,
@@ -22,7 +23,7 @@ export async function generateMetadata({
   const canonicalUrl = `https://claudecodeguide.dev/for-hr/${slug}`;
 
   return {
-    title: { absolute: `${guide.title} | Claude for HR` },
+    title: { absolute: seoTitle(guide.title, 'Claude for HR') },
     description: guide.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
