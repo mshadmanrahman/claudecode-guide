@@ -8,9 +8,10 @@ const ogDescription =
   'Practical Claude guides for marketers. Social posts, blog drafts, email campaigns, ad copy, and market research.';
 
 export const metadata: Metadata = {
-  title: 'Claude for Marketers: Social Media, Blog Posts, Email Campaigns, and Ad Copy',
+  title: 'Claude for Marketers: Practical Guides',
   description:
-    'Practical Claude guides for marketers and content creators. Write social media posts, blog posts, email campaigns, and ad copy faster. Brand voice setup included.',
+    'Practical Claude guides for marketers: social media posts, blog posts, email campaigns and ad copy, written faster. Brand voice setup included.',
+  alternates: { canonical: 'https://claudecodeguide.dev/for-marketers' },
   openGraph: {
     title: ogTitle,
     description: ogDescription,

@@ -7,9 +7,10 @@ const ogDescription =
   'Practical guides for using Claude AI chat with Microsoft Word, Excel, and PowerPoint. No add-ins needed.';
 
 export const metadata: Metadata = {
-  title: 'Claude AI for Microsoft Office: Word, Excel, and PowerPoint Guides',
+  title: 'Claude for Word, Excel and PowerPoint',
   description:
-    'Learn how to use Claude AI chat with Microsoft Word, Excel, and PowerPoint. Practical guides for drafting documents, building formulas, analyzing data, and creating presentations. No plugins or Claude Code required.',
+    'Use Claude chat with Word, Excel and PowerPoint: draft documents, build formulas, analyze data and create presentations. No plugins or Claude Code required.',
+  alternates: { canonical: 'https://claudecodeguide.dev/for-microsoft' },
   openGraph: {
     title: ogTitle,
     description: ogDescription,

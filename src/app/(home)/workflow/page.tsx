@@ -12,6 +12,7 @@ const description =
 export const metadata: Metadata = {
   title: 'Claude in Your Day',
   description,
+  alternates: { canonical: 'https://claudecodeguide.dev/workflow' },
   openGraph: {
     images: [ogImage('workflow', 'Claude in Your Day')],
     title: 'Claude in Your Day',

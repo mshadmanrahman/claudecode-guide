@@ -7,9 +7,10 @@ const ogDescription =
   'Learn how to use Claude in Chrome: browser basics, Chrome extension setup, and Google Workspace workflows.';
 
 export const metadata: Metadata = {
-  title: 'Claude for Chrome: Practical Guides for Browser Users',
+  title: 'Claude for Chrome: Practical Guides',
   description:
-    'Learn how to use Claude in Chrome, from opening claude.ai for the first time to installing a Chrome extension and running Claude alongside Gmail and Google Docs. Free, beginner-friendly guides.',
+    'Use Claude in Chrome: open claude.ai, install a Chrome extension, and run Claude alongside Gmail and Google Docs. Free, beginner-friendly guides.',
+  alternates: { canonical: 'https://claudecodeguide.dev/for-chrome' },
   openGraph: {
     title: ogTitle,
     description: ogDescription,

@@ -15,7 +15,7 @@ import type { SceneName } from "@/lib/scenes";
 
 const heroTagline = "The Claude Code setup I actually run.";
 const heroMetaDescription =
-  "The practitioner's guide to Claude Code, from the setup Shadman Rahman runs daily at work: CLAUDE.md patterns, a 966-file memory system, hooks, skills and workflows. Written so non-engineers can follow too. Free.";
+  "The practitioner's guide to Claude Code: CLAUDE.md patterns, a 966-file memory system, hooks, skills and workflows from a setup run daily. Free, no jargon.";
 const homeOg = ogImage("", heroTagline);
 
 export const metadata: Metadata = {
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     absolute: "Claude Code Guide: The Setup I Actually Run",
   },
   description: heroMetaDescription,
+  alternates: { canonical: "https://claudecodeguide.dev/" },
   openGraph: {
     title: heroTagline,
     description: heroMetaDescription,

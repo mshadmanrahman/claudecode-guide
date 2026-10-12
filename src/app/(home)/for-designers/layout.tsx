@@ -7,9 +7,10 @@ const ogDescription =
   'Practical Claude guides for UX and UI designers. Set up your working agreement, decode briefs, run heuristic evaluations, synthesize research, and build prototypes.';
 
 export const metadata: Metadata = {
-  title: 'Claude for Designers: Practical Guides for UX and UI Work',
+  title: 'Claude for Designers: UX and UI Guides',
   description:
-    'Practical Claude guides for UX and UI designers. Set up your working agreement, decode briefs, run heuristic evaluations, synthesize research, and build prototypes. Free, task-oriented, beginner-friendly.',
+    'Practical Claude guides for UX and UI designers: decode briefs, run heuristic evaluations, synthesize research and build prototypes. Free, task-oriented.',
+  alternates: { canonical: 'https://claudecodeguide.dev/for-designers' },
   openGraph: {
     title: ogTitle,
     description: ogDescription,

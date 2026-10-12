@@ -15,9 +15,9 @@ import { ogImage } from '@/lib/og/image';
 const siteUrl = 'https://claudecodeguide.dev';
 
 export const metadata: Metadata = {
-  title: 'PM Pilot - Meeting Prep, PRDs, and Status Reports on Autopilot',
+  title: 'PM Pilot: PM Workflows on Autopilot',
   description:
-    'I built PM Pilot because I was tired of spending half my day on status updates instead of actual product work. Works with ChatGPT, Claude, Gemini. Gets way more powerful with Claude Code. Free and open source.',
+    'Meeting prep, PRDs and status reports on autopilot. Works with ChatGPT, Claude and Gemini, and gets more powerful with Claude Code. Free and open source.',
   openGraph: {
     title: 'PM Pilot - Meeting Prep, PRDs, and Status Reports on Autopilot',
     description:

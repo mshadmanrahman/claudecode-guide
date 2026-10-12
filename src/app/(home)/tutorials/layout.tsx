@@ -3,9 +3,10 @@ import type { ReactNode } from 'react';
 import { ogImage } from '@/lib/og/image';
 
 export const metadata: Metadata = {
-  title: 'Claude Code Tutorials: Step-by-Step Guides for Every Skill Level',
+  title: 'Claude Code Tutorials, Step by Step',
   description:
-    'Learn Claude Code through hands-on tutorials. From your first CLAUDE.md to shipping landing pages, building skills, and automating workflows. Free, beginner-friendly, and project-based.',
+    'Hands-on Claude Code tutorials: write your first CLAUDE.md, ship a landing page, build skills and automate workflows. Free, beginner-friendly.',
+  alternates: { canonical: 'https://claudecodeguide.dev/tutorials' },
   openGraph: {
     images: [ogImage('tutorials', 'Claude Code Tutorials')],
     title: 'Claude Code Tutorials: Step-by-Step Guides for Every Skill Level',

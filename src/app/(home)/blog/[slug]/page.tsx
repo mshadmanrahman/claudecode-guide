@@ -70,7 +70,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const seoDescription = post.seoDescription ?? post.description;
 
   return {
-    title: { absolute: `${seoTitle} | Claude Code Guide Blog` },
+    title: { absolute: `${seoTitle} | Claude Code Guide` },
     description: seoDescription,
     alternates: { canonical: canonicalUrl },
     openGraph: {

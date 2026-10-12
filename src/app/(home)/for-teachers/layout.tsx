@@ -7,9 +7,10 @@ const ogDescription =
   'Practical Claude guides for teachers. Lesson plans, quiz questions, rubrics, student feedback, and parent emails.';
 
 export const metadata: Metadata = {
-  title: 'Claude for Teachers: Lesson Plans, Quiz Questions, Rubrics, and More',
+  title: 'Claude for Teachers: Lesson Plan Guides',
   description:
-    'Practical Claude guides for teachers. Write lesson plans, generate quiz questions, create grading rubrics, give student feedback, and draft parent emails, all faster than doing it manually.',
+    'Practical Claude guides for teachers: write lesson plans, generate quiz questions, build grading rubrics, give student feedback and draft parent emails.',
+  alternates: { canonical: 'https://claudecodeguide.dev/for-teachers' },
   openGraph: {
     title: ogTitle,
     description: ogDescription,
