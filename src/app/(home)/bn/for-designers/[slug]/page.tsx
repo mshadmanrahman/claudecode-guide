@@ -5,6 +5,7 @@ import { DESIGNER_GUIDES } from '@/lib/designer-guides';
 import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
 import { sourceHash } from '@/lib/i18n/source-hash';
 import { ogImage } from '@/lib/og/image';
+import { seoTitle } from '@/lib/seo-title';
 
 /** Bangla designer guides. Only translated slugs get a page. */
 export const dynamicParams = false;
@@ -29,7 +30,7 @@ export async function generateMetadata({
   if (!guide) return {};
 
   const url = `https://claudecodeguide.dev/bn/for-designers/${slug}`;
-  const title = `${guide.title} | Designer-দের জন্য Claude`;
+  const title = seoTitle(guide.title, 'Designer-দের জন্য Claude');
 
   return {
     title: { absolute: title },

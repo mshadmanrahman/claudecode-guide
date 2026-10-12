@@ -5,6 +5,7 @@ import { TUTORIALS } from "@/lib/tutorials";
 import { BN_TUTORIALS } from "@/lib/i18n/bn/tutorials";
 import { sourceHash } from "@/lib/i18n/source-hash";
 import { ogImage } from "@/lib/og/image";
+import { seoTitle } from "@/lib/seo-title";
 
 /**
  * Bangla tutorials. Only slugs with a translation get a page; the rest have
@@ -32,7 +33,7 @@ export async function generateMetadata({
   if (!tutorial) return { title: "Tutorial not found" };
 
   const url = `https://claudecodeguide.dev/bn/tutorials/${slug}`;
-  const title = `${tutorial.title} | Claude Code টিউটোরিয়াল`;
+  const title = seoTitle(tutorial.title, "Claude Code টিউটোরিয়াল");
 
   return {
     title: { absolute: title },
