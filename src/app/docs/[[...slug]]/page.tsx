@@ -289,7 +289,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
 
   return {
-    title: { absolute: seoTitle(page.data.title, "Claude Code Guide") },
+    title: { absolute: seoTitle(page.data.seoTitle ?? page.data.title, "Claude Code Guide") },
     description: page.data.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {

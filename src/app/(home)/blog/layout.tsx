@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { ogImage } from '@/lib/og/image';
 
 export const metadata: Metadata = {
-  title: 'Claude Code Blog: Tips, Workflows, and Guides',
+  title: { absolute: 'Claude Code Blog: Tips, Workflows, and Guides' },
   description:
     'Practical articles on Claude Code for designers, product managers, and developers. Workflows, setup guides, and real-world patterns updated regularly.',
   alternates: { canonical: 'https://claudecodeguide.dev/blog' },

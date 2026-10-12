@@ -25,7 +25,7 @@ export async function generateMetadata({
   const canonicalUrl = `https://claudecodeguide.dev/for-microsoft/${slug}`;
 
   return {
-    title: { absolute: seoTitle(guide.title, 'Claude for Microsoft Office') },
+    title: { absolute: seoTitle(guide.seoTitle ?? guide.title, 'Claude for Microsoft Office') },
     description: guide.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {

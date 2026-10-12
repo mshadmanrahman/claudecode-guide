@@ -10,6 +10,8 @@ export interface MicrosoftGuideStep {
 
 export interface MicrosoftGuide {
   title: string;
+  /** Search-result title when `title` is too long for one. */
+  seoTitle?: string;
   slug: string;
   duration: string;
   difficulty: 'beginner' | 'intermediate';
@@ -191,6 +193,7 @@ Format your edits as "Before:" and "After:" with a one-line explanation for each
 
   'create-excel-formulas-with-claude': {
     title: 'Create Excel Formulas with Claude (No Formula Knowledge Required)',
+    seoTitle: 'Create Excel Formulas With Claude, No Formula Skills Needed',
     slug: 'create-excel-formulas-with-claude',
     duration: '10 min',
     difficulty: 'beginner',

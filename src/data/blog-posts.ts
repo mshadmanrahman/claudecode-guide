@@ -987,6 +987,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "8-ways-pms-use-claude-code-without-writing-code",
     title: "8 Ways PMs Use Claude Code Without Writing a Single Line of Code",
+    seoTitle: "Claude Code for PMs: 8 Ways to Use It Without Writing Code",
     description: "Claude Code isn't just for developers. Here are 8 workflows product managers use daily that don't involve touching code.",
     date: "2026-03-27",
     author: "Shadman Rahman",
@@ -1234,7 +1235,7 @@ export const blogPosts: BlogPost[] = [
     // Search sends this page ~116 impressions a month for the literal env var
     // CLAUDE_CODE_DISABLE_1M_CONTEXT at position 7.7, and it converted zero
     // clicks, because the authored headline names none of what was searched.
-    seoTitle: "CLAUDE_CODE_DISABLE_1M_CONTEXT and 3 Other settings.json Flags",
+    seoTitle: "CLAUDE_CODE_DISABLE_1M_CONTEXT + 3 Other settings.json Flags",
     seoDescription:
       "What CLAUDE_CODE_DISABLE_1M_CONTEXT, CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING and the other viral settings.json flags actually do, which of them change anything, and what to fix instead.",
     date: "2026-04-14",
@@ -1456,6 +1457,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-use-claude-to-write-excel-formulas",
     title: "How to Use Claude to Write Excel Formulas (No Syntax Knowledge Required)",
+    seoTitle: "Write Excel Formulas With Claude, No Syntax Knowledge Needed",
     description: "You describe what you want to calculate in plain English. Claude writes the formula. It works every time, including debugging errors you don't understand.",
     date: "2026-05-16",
     author: "Shadman Rahman",
@@ -1672,6 +1674,7 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
   {
     slug: "claude-5-prompting-rules-fact-check",
     title: "I Fact-Checked the Viral Claude 5 Prompting Video Against Anthropic's Docs",
+    seoTitle: "Claude 5 Prompting Rules Fact-Checked Against Anthropic Docs",
     description: "A video called these \"the secret rules Anthropic's team uses\" for Opus 5 and Fable 5. I read the actual docs. Five rules held up word for word. Two didn't.",
     date: "2026-09-03",
     author: "Shadman Rahman",
@@ -1711,7 +1714,7 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
     slug: "claude-code-memory-at-scale-966-files",
     title: "966 Memory Files: What It Took to Keep Claude Code Reading the Right One",
     description: "Anthropic's docs explain CLAUDE.md and auto memory well, and they stop at about the point where the folder gets big. This is what broke in mine after that point, with the numbers.",
-    seoTitle: "Claude Code Memory at Scale: 966 Topic Files, a Sharded Router and a Decay Rule",
+    seoTitle: "Claude Code Memory at Scale: 966 Files and a Sharded Router",
     date: "2026-09-20",
     author: "Shadman Rahman",
     tags: ["claude-code", "memory", "claude-md", "hooks", "productivity"],
@@ -1773,7 +1776,7 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
     slug: "how-to-mod-claude-code",
     title: "How to Mod Claude Code: The Seven Mods I Built in Four Days",
     description: "Claude Code 2.1.287 added mods: TypeScript handlers that run inside Claude Code and can rewrite tool calls and draw their own panes. I built seven with Claude in four days. Here's what they do, what broke, and how to write your first one in 25 lines.",
-    seoTitle: "How to Mod Claude Code: Writing Claude Code Mods in TypeScript, With 7 Real Examples",
+    seoTitle: "How to Mod Claude Code: TypeScript Mods With 7 Real Examples",
     date: "2026-10-04",
     author: "Shadman Rahman",
     tags: ["claude-code", "mods", "plugins", "hooks", "productivity"],

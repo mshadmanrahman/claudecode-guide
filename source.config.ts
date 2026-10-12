@@ -12,6 +12,8 @@ export const docs = defineDocs({
   docs: {
     schema: frontmatterSchema.extend({
       image: z.string().optional(),
+      // Search-result title when the visible title is too long for one.
+      seoTitle: z.string().optional(),
     }),
   },
 });
