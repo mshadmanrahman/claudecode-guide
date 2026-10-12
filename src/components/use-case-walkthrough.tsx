@@ -26,9 +26,10 @@ export function UseCaseWalkthrough({
 }: UseCaseWalkthroughProps) {
   return (
     <section aria-label={title} className="not-prose my-10">
-      <p className="mb-4 font-mono text-xs text-fd-muted-foreground">
+      {/* h2 so the step h3s don't skip a level; `!` beats the .prose.ccg-prose h2 rule */}
+      <h2 className="!mt-0 !mb-4 !font-mono !text-xs !font-normal !tracking-normal !text-fd-muted-foreground">
         {title.toLowerCase()}
-      </p>
+      </h2>
       <ol className="space-y-4">
         {steps.map((step, i) => (
           <WalkthroughFrame
