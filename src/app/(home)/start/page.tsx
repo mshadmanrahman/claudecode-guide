@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { StartFlow } from '@/components/start/start-flow';
+import { StartHero } from '@/components/start/start-hero';
 import type { Metadata } from 'next';
 import { ogImage } from '@/lib/og/image';
 
@@ -13,13 +14,7 @@ export const metadata: Metadata = {
 export default function StartPage() {
   return (
     <>
-      <Suspense
-      fallback={
-        <main className="flex min-h-screen items-center justify-center">
-          <p className="text-fd-muted-foreground">Loading...</p>
-        </main>
-      }
-    >
+      <Suspense fallback={<StartHero />}>
       <StartFlow />
     </Suspense>
     </>

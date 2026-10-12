@@ -23,21 +23,69 @@ export default function GuidePage() {
   const midBannerCta = ctas.find((cta) => cta.placement === 'mid-banner');
   const endCardCta = ctas.find((cta) => cta.placement === 'end-card');
 
+  // Banner and header render before progress loads so the server HTML has the h1.
+  const banner = (
+    <DeprecationBanner
+      message="There's a better way to start now. The new guided setup walks you through everything, step by step, in under 5 minutes."
+      linkText="Try the new Start Here"
+      linkHref="/start"
+    />
+  );
+
+  const header = (
+    <header className="mx-auto max-w-3xl px-6 pt-12 pb-8">
+      <div className="flex items-center justify-end gap-4">
+        <Link href="/docs/foundations/claude-md" className="flex items-center gap-1.5 text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors">
+          <BookOpen className="h-3.5 w-3.5" />
+          Full docs
+        </Link>
+        <button
+          type="button"
+          onClick={progress.resetProgress}
+          className="flex items-center gap-1.5 text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors"
+        >
+          <RotateCcw className="h-3.5 w-3.5" />
+          Reset
+        </button>
+      </div>
+      <div className="mt-8 text-center">
+        <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
+          <KineticText>Let&apos;s get you running.</KineticText>
+        </h1>
+        <p className="hm-rise mt-4 text-lead text-fd-muted-foreground">
+          9 steps. Check each one off as you go.
+          <br />
+          Progress saves automatically so you can come back anytime.
+        </p>
+        <p className="mt-3 text-sm text-fd-muted-foreground">
+          Works with VS Code, Cursor, JetBrains, or just the terminal.
+          <br />
+          Not ready for any of that?{' '}
+          <a href="https://lovable.link/4IOZkKK" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground transition-colors">
+            Start without a terminal
+          </a>{' '}
+          (visual AI builder, no code needed, 20% off).
+        </p>
+      </div>
+    </header>
+  );
+
   if (!progress.loaded) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="font-mono text-sm text-fd-muted-foreground">Loading your progress...</div>
+      <div className="min-h-screen">
+        {banner}
+        {null /* progress bar slot: keeps header mounted once progress loads */}
+        {header}
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="font-mono text-sm text-fd-muted-foreground">Loading your progress...</div>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen">
-      <DeprecationBanner
-        message="There's a better way to start now. The new guided setup walks you through everything, step by step, in under 5 minutes."
-        linkText="Try the new Start Here"
-        linkHref="/start"
-      />
+      {banner}
       {progress.completedCount > 0 && (
         <ProgressBar
           percent={progress.progressPercent}
@@ -47,42 +95,7 @@ export default function GuidePage() {
       )}
 
       {/* Header */}
-      <header className="mx-auto max-w-3xl px-6 pt-12 pb-8">
-        <div className="flex items-center justify-end gap-4">
-          <Link href="/docs/foundations/claude-md" className="flex items-center gap-1.5 text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors">
-            <BookOpen className="h-3.5 w-3.5" />
-            Full docs
-          </Link>
-          <button
-            type="button"
-            onClick={progress.resetProgress}
-            className="flex items-center gap-1.5 text-xs text-fd-muted-foreground hover:text-fd-foreground transition-colors"
-          >
-            <RotateCcw className="h-3.5 w-3.5" />
-            Reset
-          </button>
-        </div>
-
-        <div className="mt-8 text-center">
-          <h1 className="font-display text-display-article leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
-            <KineticText>Let&apos;s get you running.</KineticText>
-          </h1>
-          <p className="hm-rise mt-4 text-lead text-fd-muted-foreground">
-            9 steps. Check each one off as you go.
-            <br />
-            Progress saves automatically so you can come back anytime.
-          </p>
-          <p className="mt-3 text-sm text-fd-muted-foreground">
-            Works with VS Code, Cursor, JetBrains, or just the terminal.
-            <br />
-            Not ready for any of that?{' '}
-            <a href="https://lovable.link/4IOZkKK" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground transition-colors">
-              Start without a terminal
-            </a>{' '}
-            (visual AI builder, no code needed, 20% off).
-          </p>
-        </div>
-      </header>
+      {header}
 
       {/* Guide Content */}
       <main className="mx-auto max-w-3xl space-y-16 px-6 pb-24">

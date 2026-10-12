@@ -9,6 +9,7 @@ import {
   Sparkles, Globe, Code2, Mic, Map,
 } from 'lucide-react';
 import { ProgressiveStep } from '@/components/start/progressive-step';
+import { StartHero } from '@/components/start/start-hero';
 import { TrackPreview } from '@/components/start/track-previews';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { VocabBridge } from '@/components/vocab-bridge';
@@ -167,13 +168,7 @@ export function StartFlow() {
   const isNonTerminalPath = interfaceChoice && interfaceChoice !== 'terminal';
   const interfaceConfig = interfaceChoice ? INTERFACE_CONFIGS[interfaceChoice] : null;
 
-  if (!loaded) {
-    return (
-      <main className="flex min-h-screen items-center justify-center">
-        <p className="text-fd-muted-foreground">Loading your progress...</p>
-      </main>
-    );
-  }
+  if (!loaded) return <StartHero />;
 
   const osConfig = os ? OS_CONFIGS[os] : null;
   const trackConfig = track ? TRACK_CONFIGS[track] : null;
