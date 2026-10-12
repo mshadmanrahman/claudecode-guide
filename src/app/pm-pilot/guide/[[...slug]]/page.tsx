@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { SkillExample } from '@/components/pm-pilot-docs/skill-example';
 import { GitHubCta } from '@/components/pm-pilot-docs/github-cta';
 import { ogImage } from '@/lib/og/image';
+import { ArticleSchema } from '@/components/article-schema';
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
@@ -37,6 +38,11 @@ export default async function PmPilotGuidePage(props: PageProps) {
 
   return (
     <article className="mx-auto w-full max-w-2xl">
+      <ArticleSchema
+        headline={data.title as string}
+        description={(data.description as string | undefined) ?? ''}
+        url={`https://claudecodeguide.dev${currentUrl}`}
+      />
       <header className="mb-10">
         {data.command && (
           <div className="mb-3">
