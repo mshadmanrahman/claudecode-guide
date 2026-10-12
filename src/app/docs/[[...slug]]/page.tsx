@@ -274,9 +274,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
   if (!params.slug || params.slug.length === 0) {
     return {
-      title: "Documentation",
+      title: "Claude Code Docs and Guides",
       description:
-        "Everything you need to know about Claude Code, organized by topic.",
+        "Claude Code docs in plain English: setup, CLAUDE.md, memory, skills, hooks, MCP servers, thinking modes, and honest comparisons with Cursor and Copilot.",
       alternates: { canonical: "https://claudecodeguide.dev/docs" },
       openGraph: { images: [ogImage("docs", "Documentation")] },
     };
