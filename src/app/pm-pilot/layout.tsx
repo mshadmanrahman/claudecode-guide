@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { SiteHeader } from '@/components/site-header';
+import { SiteFooter } from '@/components/site-footer';
 import { RouteEngravingBand } from '@/components/route-engraving-band';
 
 export default function PmPilotLayout({ children }: { children: ReactNode }) {
@@ -8,6 +9,7 @@ export default function PmPilotLayout({ children }: { children: ReactNode }) {
       <SiteHeader />
       <main className="flex-1">{children}</main>
       <RouteEngravingBand />
+      <SiteFooter />
     </div>
   );
 }
