@@ -6,7 +6,7 @@ import { ogImage } from '@/lib/og/image';
 export const metadata: Metadata = {
   title: { absolute: 'About Shadman Rahman' },
   description:
-    'Shadman Rahman writes the Claude Code Guide. Principal Product Manager at Keystone Education Group in Stockholm, designer by training, and a daily Claude Code user.',
+    'Shadman Rahman writes the Claude Code Guide. Principal PM at Keystone Education Group in Stockholm, designer by training, daily Claude Code user.',
   alternates: { canonical: 'https://claudecodeguide.dev/about' },
   openGraph: { images: [ogImage('about', 'About Shadman Rahman')] },
 };

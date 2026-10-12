@@ -18,7 +18,7 @@ const VERIFIED_DATE = '2 September 2026';
 export const metadata: Metadata = {
   title: { absolute: 'Claude Certification: 4 Credentials, Prices, and Eligibility' },
   description:
-    'The four Claude certifications cost $99 to $175, run 120 minutes through Pearson, and need a passing score of 720. Registration requires a partner email address.',
+    'The four Claude certifications cost $99 to $175, run 120 minutes through Pearson, and need a score of 720. You register with a partner email.',
   alternates: { canonical: 'https://claudecodeguide.dev/certification' },
   openGraph: {
     images: [ogImage('certification', 'Claude Certification')],

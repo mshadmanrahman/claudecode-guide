@@ -370,7 +370,7 @@ vercel --prod`,
   },
 
   "debug-and-refactor": {
-    sourceHash: "35854526ce01919d",
+    sourceHash: "c2480d8e90186eef",
     translatedAt: "2026-10-06",
     content: {
       title: "Senior dev-এর মতো debug আর refactor করুন",
@@ -379,7 +379,7 @@ vercel --prod`,
       difficulty: "intermediate",
       availableRoutes: ["terminal", "ide"],
       description:
-        "Senior engineer-রা আসলে যেভাবে Claude Code ব্যবহার করেন, আপনিও সেভাবে করুন। আসল stack trace দিন, test green রেখে component refactor করুন, আর debugging-এর এমন একটা systematic অভ্যাস তৈরি করুন যা project বড় হলেও কাজ করে।",
+        "Senior engineer-দের মতো Claude Code ব্যবহার করুন: আসল stack trace দিন, test green রেখে refactor করুন, আর debugging-এর systematic অভ্যাস গড়ুন।",
       intro:
         "Claude Code কোনো জাদুর কাঠি নয়। এটা একজন pair programmer, যে আপনার codebase পড়ে, data flow trace করে, git history দেখে, আর একবারে একটা করে hypothesis দাঁড় করায়। Team-এ সদ্য join করা একজন senior engineer-এর সঙ্গে যেভাবে কাজ করতেন, ঠিক সেভাবে ভেবেচিন্তে এই process কীভাবে চালাবেন, এই tutorial-এ সেটা দেখবেন।",
       steps: [

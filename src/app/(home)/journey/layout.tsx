@@ -5,7 +5,7 @@ import { ogImage } from '@/lib/og/image';
 export const metadata: Metadata = {
   title: 'Your Journey to Claude Code',
   description:
-    'Interactive, persona-based learning path for Claude Code. Pick your role, follow the steps, check off your progress. From ChatGPT user to Claude Code power user.',
+    'A persona-based learning path for Claude Code. Pick your role, follow the steps, and check off your progress, from ChatGPT user to power user.',
   alternates: { canonical: 'https://claudecodeguide.dev/journey' },
   openGraph: {
     images: [ogImage('journey', 'Your Journey to Claude Code')],

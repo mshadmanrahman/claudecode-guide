@@ -838,7 +838,7 @@ EOF`,
       difficulty: "beginner",
       availableRoutes: ["app", "terminal", "ide"],
       description:
-        'Claude Code এখন আপনার screen দেখতে পারে, button-এ click করতে পারে, app-এর ভেতরে navigate করতে পারে। কোনো setup লাগে না। এই feature দেখেই non-coder-রা বলে ওঠেন "দাঁড়ান, কী?!"',
+        'Claude Code এখন আপনার screen দেখতে পারে, button-এ click করতে পারে, app-এর ভেতরে navigate করতে পারে। কোনো setup লাগে না।',
       intro:
         'মার্চ ২০২৬-এ Anthropic Claude Code-এর জন্য Computer Use ship করেছে। মানে Claude সত্যি সত্যি আপনার screen-এ কী আছে দেখতে পারে, mouse নাড়াতে পারে, click করতে পারে, form-এ type করতে পারে, আর app-এর মধ্যে navigate করতে পারে। বাড়তি কিছু install করতে হয় না। শুধু বলবেন "আমার screen-টা দেখুন", আর Claude দেখবে। non-technical user-দের জন্য এটা অনেক কিছু বদলে দেয়, কারণ আপনি কোনো কিছু দেখিয়ে বলতে পারেন "এটা ঠিক করে দিন।"',
       steps: [

@@ -282,7 +282,7 @@ Padding একটু বাড়ান, আর checkmark icon-টা 4px বড
   },
 
   'get-started-with-claude-design': {
-    sourceHash: "7d90ea165386a46f",
+    sourceHash: "69bf3f6d6cf0c50d",
     translatedAt: "2026-10-06",
     content: {
       title: 'Claude Design দিয়ে শুরু করুন',
@@ -291,7 +291,7 @@ Padding একটু বাড়ান, আর checkmark icon-টা 4px বড
       difficulty: 'beginner',
       availableRoutes: ['web', 'desktop'],
       description:
-        'Claude Design হলো Anthropic-এর text-to-prototype tool। একটা screen describe করুন, ফেরত পাবেন চালু interactive prototype। এটাকে কীভাবে ঠিকমতো prompt করবেন, এই guide-এ তা দেখানো হয়েছে।',
+        'Claude Design হলো Anthropic-এর text-to-prototype tool। Screen describe করুন, ফেরত পাবেন interactive prototype। ঠিকমতো prompt করার উপায় এই guide-এ।',
       intro:
         'এই guide সেই UX আর UI designer-দের জন্য, যারা Claude Design দিয়ে একটা screen description-কে চালু interactive prototype-এ বদলাতে চান। পড়া শেষে আপনি এমন prompt লিখতে পারবেন যা কাজের, specific output দেয়, targeted change দিয়ে prototype-এ iterate করতে পারবেন, আর result-টা developer-দের জন্য একটা লেখা component specification (reference spec) হিসেবে export করতে পারবেন। Claude Design (launch হয়েছে এপ্রিল ২০২৬-এ) দিয়ে একটা UI describe করলে ফেরত পান চালু prototype: mockup নয়, wireframe নয়, browser-এ render হওয়া আসল interactive code। Designer-দের জন্য Figma না খুলে বা এক line code না লিখে কোনো idea test করার এটাই সবচেয়ে দ্রুত উপায়। কোন prompt pattern থেকে কাজের output আসে আর কোনটা থেকে generic জিনিস আসে, এই guide-এ সেটাই দেখানো হয়েছে।',
       situation: {
@@ -376,7 +376,7 @@ placeholder, একটা headline ("Save a little every day"), এক line-এ�
   },
 
   'research-synthesis': {
-    sourceHash: "0086d67c3c8b8771",
+    sourceHash: "c11f8948ff79eda0",
     translatedAt: "2026-10-06",
     content: {
       title: 'Claude দিয়ে user research synthesize করুন',
@@ -385,7 +385,7 @@ placeholder, একটা headline ("Save a little every day"), এক line-এ�
       difficulty: 'beginner',
       availableRoutes: ['web', 'desktop'],
       description:
-        'Raw interview note, session recording আর survey response থেকে এক session-এই priority অনুযায়ী সাজানো finding বের করুন। Pattern খোঁজার কাজ Claude করে; কোনটা ঠিক, সেই judgment আপনার।',
+        'Interview note, recording আর survey response থেকে এক session-এই priority অনুযায়ী finding বের করুন। Pattern খোঁজে Claude, judgment আপনার।',
       intro:
         'এই guide সেই UX আর UI designer-দের জন্য, যারা user interview শেষ করেছেন আর এখন raw note থেকে একটা গোছানো findings report বানাতে হবে। পড়া শেষে আপনি synthesis-এর জন্য note format করতে পারবেন, Claude-কে দিয়ে একটা structured thematic analysis চালাতে পারবেন, আর present করার আগে output-কে challenge করতে পারবেন। আপনি পাঁচটা user interview নিয়েছেন। হাতে 40 পাতার raw note। শুক্রবারের মধ্যে findings report দিতে হবে। Claude ছাড়া এটা ঘণ্টার পর ঘণ্টা হাতে affinity mapping (একই রকম observation-গুলোকে theme-এ group করা) আর theme বের করার কাজ। Claude থাকলে এটা একটা focused session: raw material paste করবেন, synthesis চালাবেন, তারপর output review করে challenge করবেন। Review-এর ধাপটা জরুরি: Claude pattern খুঁজে বের করে, কিন্তু কোন pattern সত্যি আর কোনটা শুধু আপনি কাদের recruit করেছেন তার ফল, সেটা আপনি জানেন।',
       situation: {

@@ -508,7 +508,7 @@ The message should be honest about the difficulty of the situation without being
     difficulty: "intermediate",
     availableRoutes: ["people-ops"],
     description:
-      "Turn a collection of exit interview notes into a structured analysis: the recurring themes, the honest signal vs. the noise, and what the data suggests about retention risk.",
+      "Turn exit interview notes into a structured analysis: recurring themes, real signal versus noise, and what the data says about retention risk.",
     intro:
       "Exit interview notes are one of the most underused sources of organizational signal. Most teams collect them and do nothing — the notes sit in a folder, the themes stay invisible. Claude can read a batch of exit notes and find patterns quickly, but the output is only as good as the notes. This guide shows how to structure the analysis.",
     situation: {

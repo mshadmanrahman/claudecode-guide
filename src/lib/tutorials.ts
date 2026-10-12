@@ -3894,7 +3894,7 @@ When asked for "email format":
       { id: "teacher", label: "Teacher" },
     ],
     description:
-      "Spend one evening letting Claude interview you into a master file and a master CV. After that, every application is a tailored pack built from that boilerplate, in minutes.",
+      "Spend one evening letting Claude interview you into a master file and CV. After that, each application is a tailored pack built in minutes.",
     intro:
       "Most people tailor each application from scratch, so each one takes an hour and the CV drifts a little further from the truth every time. Turn it around. Give Claude one evening to interview you and write down everything you've done, then build one master CV you're happy with. Every job after that is the same move: paste the post, get a pack built only from your own record.\n\nBefore you start: this uses the Code tab in the Claude desktop app (download it at claude.ai/download), which needs a paid plan from $20 a month. Step 1 sets up the folder where Claude saves every file in this tutorial.\n\nThat folder is the difference from pasting into ChatGPT. Your record lives in files on your computer, so application number seven reads the same master file as number one, and you never paste your CV or explain your career again. Pick your role below to see the examples in your field.",
     steps: [
@@ -5079,7 +5079,7 @@ EOF`,
     difficulty: "intermediate",
     availableRoutes: ["terminal", "ide"],
     description:
-      "Use Claude Code the way senior engineers actually do. Feed it real stack traces, refactor components with tests staying green, and build a systematic debugging habit that scales.",
+      "Use Claude Code the way senior engineers do: feed it real stack traces, refactor with tests staying green, and build a debugging habit that scales.",
     intro:
       "Claude Code is not a magic wand. It is a pair programmer who reads your codebase, traces data flow, checks your git history, and forms one hypothesis at a time. This tutorial shows you how to drive that process deliberately, the way you would with a senior engineer who just joined the team.",
     steps: [

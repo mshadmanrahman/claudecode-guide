@@ -347,7 +347,7 @@ Professional tone। ছোট। প্রতিটা প্রশ্নের
   },
 
   "write-a-sharper-brief": {
-    sourceHash: "5d1a449af524960e",
+    sourceHash: "c6f01977a6abcd8f",
     translatedAt: "2026-10-06",
     content: {
       title: "আরও ধারালো brief লিখুন",
@@ -356,7 +356,7 @@ Professional tone। ছোট। প্রতিটা প্রশ্নের
       difficulty: "beginner",
       availableRoutes: ["web", "desktop"],
       description:
-        "Vague একটা creative brief-কে এমন কিছুতে বদলে নিন, যেটা থেকে সত্যিই design করা যায়। Claude-কে একজন skeptical product manager (PM)-এর role দিন, আর critic-এর মতো নয়, collaborator-এর মতো আপত্তি তুলতে ওর সাহায্য নিন।",
+        "Vague creative brief-কে design করার মতো brief-এ বদলে নিন। Claude-কে skeptical PM-এর role দিন, আর collaborator-এর মতো আপত্তি তুলুন।",
       intro:
         "এই guide তাদের জন্য, যে UX আর UI designer-রা এত vague brief পান যে design করা যায় না, আর friction তৈরি না করে আপত্তি জানাতে চান। পড়া শেষে আপনি vague কথাগুলো flag করতে পারবেন, একটা professional pushback message বানাতে পারবেন, আর উত্তর পেলে brief নতুন করে লিখতে পারবেন। ভালো designer-রা product manager (PM)-দের মতো ভাবেন। তাঁরা শুধু brief নেন না: প্রশ্ন করেন, আরও ধারালো করেন, আর কিছু বাদ পড়লে আপত্তি তোলেন। সমস্যা হলো, আপত্তি তোলা risky মনে হয়, বিশেষ করে client যখন আপনার চেয়ে senior। Friction নয়, collaboration-এর মতো শোনায় এমন একটা reframe Claude দিয়ে কীভাবে বানাবেন, আর এমন একটা design brief কীভাবে পাবেন যেটা থেকে সত্যিই কাজ করা যায়, এই guide তা দেখায়।",
       situation: {
@@ -706,7 +706,7 @@ Flow-এ এই screen-টা কি থাকার মতো?
       difficulty: "intermediate",
       availableRoutes: ["web", "desktop"],
       description:
-        "Claude-কে evaluation partner বানিয়ে যেকোনো interface-এ Nielsen-এর ১০টা usability heuristic চালান। হাতে পাবেন priority অনুযায়ী সাজানো একটা findings report, যেটা ধরে কাজ করা যায়।",
+        "Claude-কে partner বানিয়ে যেকোনো interface-এ Nielsen-এর ১০টা usability heuristic চালান, আর পান priority অনুযায়ী সাজানো findings report।",
       intro:
         "এই guide তাদের জন্য, যে UX আর UI designer-দের একটা interface-এর usability সমস্যা evaluate করতে হয়, আর এমন findings report বানাতে হয় যেটা ধরে কাজ করা যায় বা team-এর সামনে দেখানো যায়। পড়া শেষে আপনি Claude-কে একজন consistent evaluation partner হিসেবে ব্যবহার করে পুরো ১০-heuristic evaluation চালাতে পারবেন, আর severity অনুযায়ী ভাগ করা একটা findings report বানাতে পারবেন। Heuristic evaluation একজন designer-এর হাতের সবচেয়ে কাজের tool-গুলোর একটা, আবার হাতে করতে সবচেয়ে একঘেয়েগুলোরও একটা। একটা interface-এ Nielsen-এর ১০টা heuristic-ই চালানো, violation লিখে রাখা, আর finding-গুলো priority অনুযায়ী সাজাতে সাধারণত কয়েক ঘণ্টা লাগে। এই guide দেখায় কীভাবে ২৫ মিনিটে করবেন। যে ১০টা heuristic ধরে evaluate করবেন: Visibility of system status, Match between system and real world, User control and freedom, Consistency and standards, Error prevention, Recognition rather than recall, Flexibility and efficiency of use, Aesthetic and minimalist design, Help users recognise and recover from errors, Help and documentation। Severity tier: Critical (task শেষ করতে দেয় না), Major (বড় confusion বা error তৈরি করে), Minor (বিরক্ত করে বা ধীর করে দেয়), Cosmetic (শুধু দেখতে কেমন, সেই পছন্দের ব্যাপার)।",
       situation: {

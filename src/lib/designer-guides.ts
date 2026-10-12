@@ -297,7 +297,7 @@ Professional tone. Short. Each question has a one-line explanation of why it mat
     difficulty: 'beginner',
     availableRoutes: ['web', 'desktop'],
     description:
-      'Turn a vague creative brief into something you can actually design from. Get Claude to act as a skeptical product manager (PM) and help you push back like a collaborator, not a critic.',
+      'Turn a vague creative brief into one you can design from. Have Claude play a skeptical PM and help you push back like a collaborator, not a critic.',
     intro:
       'This guide is for UX and UI designers who receive briefs that are too vague to design from and need to push back without creating friction. After reading it, you will be able to flag vague language, generate a professional pushback message, and rewrite the brief once you have answers. The best designers think like product managers (PMs). They do not just receive briefs: they interrogate them, sharpen them, and push back when something is missing. The problem is that pushback feels risky, especially when the client outranks you. This guide shows you how to use Claude to generate a reframe that sounds like collaboration, not friction, and gives you a design brief you can actually work from.',
     situation: {
@@ -942,7 +942,7 @@ Increase the padding and make the checkmark icon 4px larger.`,
     difficulty: 'beginner',
     availableRoutes: ['web', 'desktop'],
     description:
-      'Claude Design is Anthropic\'s text-to-prototype tool. Describe a screen, get a working interactive prototype back. This guide shows you how to prompt it effectively.',
+      'Claude Design is Anthropic\'s text-to-prototype tool. Describe a screen and get a working interactive prototype back. How to prompt it well.',
     intro:
       'This guide is for UX and UI designers who want to use Claude Design to turn a screen description into a working interactive prototype. After reading it, you will be able to write prompts that produce useful, specific output, iterate on a prototype with targeted changes, and export the result as a written component specification (reference spec) for developers. Claude Design (launched April 2026) lets you describe a UI and get back a running prototype, not a mockup, not a wireframe, but actual interactive code rendered in the browser. For designers, it is the fastest way to test an idea without opening Figma or writing a line of code. This guide covers the prompt patterns that produce useful output versus generic filler.',
     situation: {
@@ -1032,7 +1032,7 @@ agreement for the token names), and the mobile breakpoint assumptions.`,
     difficulty: 'beginner',
     availableRoutes: ['web', 'desktop'],
     description:
-      'Turn raw interview notes, session recordings, and survey responses into prioritised findings in one session. Claude handles the pattern-matching; you handle the judgment.',
+      'Turn interview notes, session recordings and survey responses into prioritized findings in one session. Claude finds the patterns; you make the calls.',
     intro:
       'This guide is for UX and UI designers who have completed user interviews and need to turn raw notes into a structured findings report. After reading it, you will be able to format notes for synthesis, run a structured thematic analysis with Claude, and challenge the output before presenting it. You ran five user interviews. You have 40 pages of raw notes. You need a findings report by Friday. Without Claude, this is hours of manual affinity mapping (grouping related observations into themes) and theme extraction. With Claude, it is a focused session where you paste the raw material, run the synthesis, and then review and challenge the output. The review step matters: Claude finds patterns, but you know which patterns are real and which are artifacts of who you recruited.',
     situation: {

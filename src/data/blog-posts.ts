@@ -1237,7 +1237,7 @@ export const blogPosts: BlogPost[] = [
     // clicks, because the authored headline names none of what was searched.
     seoTitle: "CLAUDE_CODE_DISABLE_1M_CONTEXT + 3 Other settings.json Flags",
     seoDescription:
-      "What CLAUDE_CODE_DISABLE_1M_CONTEXT, CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING and the other viral settings.json flags actually do, which of them change anything, and what to fix instead.",
+      "What CLAUDE_CODE_DISABLE_1M_CONTEXT and the other viral settings.json flags actually do, which ones change anything, and what to fix instead.",
     date: "2026-04-14",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "productivity", "settings", "tutorial"],
@@ -1505,7 +1505,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-use-claude-in-chrome-browser",
     title: "I Run Claude in Chrome All Day. Here's My Exact Workflow.",
-    description: "You don't need an extension or a setup. Claude.ai runs in a browser tab. Here's how I use it throughout the day alongside Gmail, Google Docs, and everything else.",
+    description: "No extension or setup needed: Claude.ai runs in a browser tab. How I use it through the day alongside Gmail, Google Docs and everything else.",
     date: "2026-05-16",
     author: "Shadman Rahman",
     tags: ["productivity", "workflow"],
@@ -1566,7 +1566,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "stating-a-rule-twice-does-not-help",
     title: "Stating a Rule Twice Does Not Make Claude Follow It",
-    description: "I counted rule violations across 745 of my own Claude Code sessions. Repetition changed nothing. Conflict between rules explained almost everything. Here is the script so you can count your own.",
+    description: "I counted rule violations across 745 of my Claude Code sessions. Repetition changed nothing; conflict between rules explained almost everything.",
     date: "2026-08-17",
     author: "Shadman Rahman",
     tags: ["claude-code", "claude-md", "hooks", "productivity"],
@@ -1713,7 +1713,7 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
   {
     slug: "claude-code-memory-at-scale-966-files",
     title: "966 Memory Files: What It Took to Keep Claude Code Reading the Right One",
-    description: "Anthropic's docs explain CLAUDE.md and auto memory well, and they stop at about the point where the folder gets big. This is what broke in mine after that point, with the numbers.",
+    description: "Anthropic's docs explain CLAUDE.md and auto memory well, then stop where the folder gets big. What broke in mine after that point, with numbers.",
     seoTitle: "Claude Code Memory at Scale: 966 Files and a Sharded Router",
     date: "2026-09-20",
     author: "Shadman Rahman",
@@ -1775,7 +1775,7 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
   {
     slug: "how-to-mod-claude-code",
     title: "How to Mod Claude Code: The Seven Mods I Built in Four Days",
-    description: "Claude Code 2.1.287 added mods: TypeScript handlers that run inside Claude Code and can rewrite tool calls and draw their own panes. I built seven with Claude in four days. Here's what they do, what broke, and how to write your first one in 25 lines.",
+    description: "Claude Code 2.1.287 added mods, TypeScript handlers that rewrite tool calls and draw panes. I built seven in four days. What they do and how to write one.",
     seoTitle: "How to Mod Claude Code: TypeScript Mods With 7 Real Examples",
     date: "2026-10-04",
     author: "Shadman Rahman",
