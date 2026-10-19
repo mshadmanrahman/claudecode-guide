@@ -98,6 +98,8 @@ You can steer the summary. `/compact focus on the auth bug fix` keeps what you n
 
 **What it loses:** Exact file contents beyond those, detailed error messages, nuanced back-and-forth reasoning. Path-scoped rules and `CLAUDE.md` files in subfolders reload only when Claude works on a matching file again, so put anything that must survive compaction in the project-root `CLAUDE.md`.
 
+**Idle compaction can happen while you're away.** In a terminal session on the one-hour prompt cache, a conversation of 200K tokens or more that sits idle for about 54 minutes gets compacted just before its cache expires, so your next message doesn't pay to reprocess all of it. `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` moves that 200K threshold (100,000 is the lowest it goes), and `"idleCompaction": false` in `settings.json` turns it off. Since v2.1.302 there's also an Idle compaction row in `/config`. If you come back to a shorter summary than you expected, this is why. See [prompt caching](/docs/foundations/prompt-caching) for how the one-hour cache works.
+
 ## Strategies to Stay Under the Limit
 
 ### 1. One session, one task

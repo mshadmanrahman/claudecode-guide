@@ -138,4 +138,5 @@ Headless mode runs with whatever API key is in the environment. In CI:
 - **Use secrets management.** Never hardcode API keys in workflow files.
 - **Scope permissions.** Use project-level API keys with limited access.
 - **Review outputs.** Automated Claude output should be reviewed before merging or deploying.
+- **Cap how long retries wait.** With unattended retry mode on (`CLAUDE_CODE_RETRY_WATCHDOG`), set `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` (v2.1.301 or later) so a run that hits a usage limit resetting hours away ends instead of sitting there waiting.
 - **Watch your costs.** Automated pipelines can spend fast. Use Haiku for high-frequency checks, set spend alerts in the Anthropic console.

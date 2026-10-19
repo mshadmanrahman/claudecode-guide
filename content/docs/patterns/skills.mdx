@@ -133,6 +133,8 @@ There is no registry and no install step. A skill exists because its folder exis
 is ordinary file and folder work: move a folder to move a skill, delete a folder to remove it, and
 commit `.claude/skills/` to share it.
 
+Folder names matter, though. Since v2.1.299, Claude Code won't offer a skill or command whose file or folder name contains hidden, direction-changing or blank-looking characters, or `<` or `>`, until you rename it. A `name:` field with those characters is ignored.
+
 ## Built-in vs custom: the real power is custom
 
 Claude Code ships with some built-in capabilities for generic tasks like code review and test generation. They're fine for getting started.

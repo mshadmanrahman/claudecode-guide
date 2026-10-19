@@ -63,6 +63,8 @@ Before you close the session:
 
 2. **Save corrections** to memory if Claude Code made mistakes you had to fix. These become permanent rules.
 
+Two things happen when you exit that are easy to miss. Since v2.1.300, background commands that are still running 1.5 seconds after Claude Code asks them to stop get force-killed, so a dev server or watcher you started from the session won't outlive it (in fullscreen mode they could be left running before). And the local transcript now records each API request's system prompt, tools and parameters too, so a transcript you share can reproduce a request exactly. Read it before you send it to anyone.
+
 Here's a handoff template:
 
 ```markdown

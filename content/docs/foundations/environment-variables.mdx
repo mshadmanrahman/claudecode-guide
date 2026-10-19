@@ -1,6 +1,6 @@
 ---
-title: "Claude Code Environment Variables: How to Set Them, and the 25 Worth Knowing"
-seoTitle: "Claude Code Environment Variables: Setup and 25 Key Ones"
+title: "Claude Code Environment Variables: How to Set Them, and the 28 Worth Knowing"
+seoTitle: "Claude Code Environment Variables: Setup and 28 Key Ones"
 description: "Where to set Claude Code environment variables, which value wins, and what CLAUDE_CODE_DISABLE_1M_CONTEXT and BASH_DEFAULT_TIMEOUT_MS do."
 ---
 
@@ -10,7 +10,7 @@ import { FaqSchema } from '@/components/faq-schema';
 
 Environment variables control which model Claude Code uses, which account it bills, where its requests go, how long it waits, and a long list of on/off switches. Many of them overlap with a `settings.json` key, a CLI flag or a slash command. A few exist only as a variable.
 
-Anthropic's [full list](https://code.claude.com/docs/en/env-vars) runs to well over a hundred entries, most of them for gateways, cloud providers and enterprise setups. This page covers how to set them, which value wins when two places disagree, and the 25 a working practitioner actually reaches for.
+Anthropic's [full list](https://code.claude.com/docs/en/env-vars) runs to well over a hundred entries, most of them for gateways, cloud providers and enterprise setups. This page covers how to set them, which value wins when two places disagree, and the 28 a working practitioner actually reaches for.
 
 ## Where to set them
 
@@ -85,7 +85,7 @@ You can set a variable in a settings file, but you can't delete one. To cancel a
 
 For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `no` and `off` turn it off. A handful only check whether the variable is set at all. For `DISABLE_TELEMETRY` and `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`, even `0` counts as on. To turn those back off, unset them.
 
-## The 25 worth knowing
+## The 28 worth knowing
 
 ### Account and model
 
@@ -107,6 +107,7 @@ For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `
 | `CLAUDE_CODE_MAX_OUTPUT_TOKENS` | Cap on output per request. Raising it leaves less room before auto-compaction kicks in. |
 | `MAX_THINKING_TOKENS` | Fixed thinking budget. `0` turns thinking off on the API, except on Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable, where it can't be turned off. |
 | `CLAUDE_CODE_DISABLE_AUTO_MEMORY` | `1` stops Claude from creating or loading auto memory files. |
+| `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | `1` stops `@` mentions of files and folders from being expanded into the prompt. Claude gets the paths with a note to read them with its file tools. Project and local settings can't set it. Since v2.1.299. |
 
 ### Timeouts and limits
 
@@ -117,6 +118,7 @@ For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `
 | `API_TIMEOUT_MS` | 600000 (10 min) | How long to wait on an API request. Raise it on slow networks or proxies. |
 | `MCP_TIMEOUT` | 30000 (30 s) | How long an MCP server gets to start |
 | `MAX_MCP_OUTPUT_TOKENS` | 25000 | The largest MCP tool response Claude accepts. A warning shows past 10,000. |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | 32000 (32 s) | Ceiling on the backoff between retries of a `529` overloaded error. Whole milliseconds from 32000 to 64000. No effect in fast mode or with the retry watchdog on. |
 
 If your test suite takes four minutes, `BASH_DEFAULT_TIMEOUT_MS` is the one that has been killing it at two.
 
@@ -130,6 +132,7 @@ If your test suite takes four minutes, `BASH_DEFAULT_TIMEOUT_MS` is the one that
 | `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` | One switch for auto-updates, telemetry, error reporting, `/feedback` and release notes |
 | `DISABLE_AUTOUPDATER` | Stops background updates. `claude update` still works by hand. |
 | `DISABLE_UPDATES` | Blocks every update, including `claude update`. For teams that ship Claude Code through their own channel. |
+| `CLAUDE_CODE_GZIP_REQUEST_BODIES` | Since v2.1.300, large requests to api.anthropic.com are gzip-compressed even with telemetry off. Set to `0` to turn that off. |
 
 ### Setup
 

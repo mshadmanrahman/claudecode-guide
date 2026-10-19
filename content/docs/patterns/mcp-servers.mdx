@@ -130,6 +130,18 @@ MCP servers have real access to your tools. They run as processes on your machin
 
 Using `$GITHUB_TOKEN` reads from your shell environment. The actual secret stays out of the file. Add `.mcp.json` to `.gitignore` and share a `.mcp.json.example` template with your team.
 
+**Allow rules name the whole server.** Since v2.1.299, a permission rule like `mcp__github` covers only the server named `github`, not one named `github__internal`. Write `mcp__<server>__*` with the server's full name. The same goes for the `tools:` list in a subagent definition.
+
+## When a server misbehaves
+
+**A tool shows in `/mcp` but Claude can't call it.** Check the tool's full name, `mcp__<server>__<tool>`. Claude Code leaves out any tool whose full name is over 128 characters, because the Claude API rejects it, and the server's other tools keep working. A shorter server name in your config shortens every tool name on that server.
+
+**A remote server drops.** Claude Code retries a dropped HTTP or SSE server up to five times, starting at one second and doubling the wait. In an interactive session it then marks the server as failed, and you reconnect it from `/mcp`. In `claude -p` and Agent SDK runs, a server that keeps failing with transient errors goes on retrying in the background for up to about half an hour. Stdio servers run on your machine and don't reconnect on their own.
+
+**Long tool descriptions get cut.** Server instructions and tool descriptions sent up front stop at 4,096 characters. Descriptions Claude loads through tool search stop at 16,384. `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` replaces both limits with one number, so setting it to `8192` raises the first limit and lowers the second. Some servers Anthropic hosts at `api.anthropic.com` send theirs in full.
+
+**Building your own stdio server?** Claude Code gives it little time to clean up when it disconnects. On macOS and Linux it sends `SIGINT`, then `SIGTERM` 100 milliseconds later, then `SIGKILL` after another 400. On Windows it closes stdin and ends the process tree 300 milliseconds later. Save state and remove lock files inside that window.
+
 ## Getting started
 
 **Start with GitHub.** It's the easiest to set up and the most immediately useful. Get it working before adding more.

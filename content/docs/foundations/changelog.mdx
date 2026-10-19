@@ -6,7 +6,7 @@ description: "Claude Code ships a new version most days. How to check yours, whe
 
 ## A new version most days
 
-Claude Code updates fast. Between September 24 and October 7, 2026 it shipped twelve versions, from 2.1.282 to 2.1.293. Most lines in each release are bug fixes you'll never notice. A few change a default you rely on, and those are easy to miss.
+Claude Code updates fast. Between October 8 and October 18, 2026 it shipped eight versions, from 2.1.294 to 2.1.303 (there was no 2.1.297 or 2.1.298). Most lines in each release are bug fixes you'll never notice. A few change a default you rely on, and those are easy to miss.
 
 This page does two things: shows you how to keep up in about a minute, and pulls out the recent changes that matter for day-to-day work.
 
@@ -38,7 +38,7 @@ Every line in a release starts with a verb. **Added** is new capability. **Chang
 
 ## What changed recently, by what it affects
 
-Checked against the official changelog on October 8, 2026, up to version 2.1.293.
+Checked against the official changelog on October 19, 2026, up to version 2.1.303 (October 18).
 
 ### Models
 
@@ -49,24 +49,45 @@ If you pin a model by its full ID, nothing changed for you. If you use the `haik
 
 ### Permissions
 
+- **`claude -p` and the Agent SDK start in `default` mode on third-party providers** when you pick no permission mode and telemetry is off or the install is fresh. Pass `--permission-mode auto` to keep auto (2.1.302).
+- **MCP allow rules now reach only the server they name.** `mcp__a` no longer allows a server called `a__b`. Write `mcp__<server>__*` with the server's whole name (2.1.299).
+- **`CLAUDE_CODE_AUTO_MODE_MODEL`** picks the model the client-side auto mode classifier uses. It doesn't change server-side auto mode (2.1.302).
 - **New sessions start in auto mode when you haven't picked a permission mode.** This now applies in the terminal and VS Code on every plan and provider (2.1.284). `permissions.defaultMode` in your settings still overrides it. See [permissions](/docs/foundations/permissions).
 - **Chrome can no longer be switched on by a project's settings files.** Use `--chrome`, `/chrome`, or your user settings (2.1.290).
 - **More shell commands ask first.** `pyright` and more forms of `ps` now ask for permission instead of running as read-only (2.1.290).
 
 ### Context and compaction
 
+- **Idle compaction.** In the terminal, a conversation of 200K tokens or more that sits idle for about 54 minutes is compacted before its one-hour cache expires, so your next message doesn't reprocess it all (2.1.299). `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` moves the 200K minimum, `"idleCompaction": false` in `settings.json` turns it off, and `/config` has an **Idle compaction** row (2.1.302). See [context window](/docs/foundations/context-window).
+- **The Read tool can take a whole large file in one call** with its `allow_large` option, when the context has room (2.1.296).
 - **`/autocompact` remembers its setting per model**, so switching models no longer carries one model's window over to another (2.1.288).
 - **1M context reaches more setups.** Opus 4.7 and later and Fable now get 1M by default on Bedrock, Vertex, Foundry and the Claude apps gateway (2.1.287), and so do sessions behind a custom `ANTHROPIC_BASE_URL` (2.1.285). If your gateway stops at 200K, run `/autocompact 200k` or set `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`.
 - **Path-scoped rules and nested `CLAUDE.md` files now load** when Claude looks at a file with `cat`, `head`, `tail`, `sed -n` or `grep` through Bash, not only through the Read tool (2.1.293).
 
 ### Agents and automation
 
+- **Fork subagents are on by default everywhere.** `claude -p`, the Agent SDK, the desktop app and VS Code now offer `subagent_type: "fork"` as the terminal already did. `CLAUDE_CODE_FORK_SUBAGENT=0` turns them off (2.1.302). See [agents](/docs/patterns/agents).
+- **The desktop app and VS Code always run the main conversation's subagents in the background**, as the terminal does. A subagent's own Agent calls in `-p`, the SDK, the desktop app and VS Code run in the foreground (2.1.302).
+- **Subagents can compact earlier than the main conversation.** Set `autoCompactWindow` in subagent frontmatter or `--agents` (2.1.296). `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` puts every workflow agent on one model (2.1.296).
 - **Subagents can run at their own effort level.** The Agent tool takes an effort parameter (2.1.292).
 - **`--bare` got stricter.** It connects only the MCP servers named on the command line, sends no system reminders and starts no background tasks (2.1.286). See [headless mode](/docs/patterns/headless-mode).
 - **Background shell commands have a time limit only in unattended runs**: `-p`, the Agent SDK, CI and cloud sessions. In the terminal, desktop app and VS Code they run without one (2.1.288).
 
+### Hooks and MCP
+
+- **A hook can fail closed.** `onFailure: "block"` on a command or HTTP hook blocks the action when the hook can't start, times out or exits with an unexpected code (2.1.295). See [hooks](/docs/patterns/hooks).
+- **`UserPromptSubmit` hooks run before a skill or custom slash command expands**, so blocking the prompt also stops the command's embedded shell commands (2.1.299).
+- **`updatedInput` from PreToolUse and PermissionRequest hooks is validated** like Claude's own input: unknown keys are dropped, and input the tool rejects denies the call (2.1.300).
+- **At most 12 prompt or agent hooks of one event run at a time.** The rest wait their turn (2.1.302).
+- **MCP tool descriptions and server instructions get 4,096 characters up front**, up from 2,048 (2.1.296). Descriptions loaded through tool search are cut at 16,384 (2.1.295). See [MCP servers](/docs/patterns/mcp-servers).
+
 ### Handy new tools
 
+- **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** makes `@` file mentions pass the path for Claude to read, not the file's contents (2.1.299).
+- **`/usage` warns about max effort, workflows, always-on context and large tool results** (2.1.299).
+- **Unattended runs can stop waiting.** `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` caps how long retry mode waits out 429 and 529 errors (2.1.295), and `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` ends a request at a usage limit that resets too far away (2.1.301). See [headless mode](/docs/patterns/headless-mode).
+- **Vim mode has `%`** to jump to the matching bracket, alone or with `d`, `c` or `y` (2.1.301).
+- **Standalone Claude Design (claude.ai/design) closes by December 14, 2026.** `/design-sync` and `/design-login` now say so (2.1.302).
 - **`/doctor prompt-audit`** checks your `CLAUDE.md` files, skills, agents and commands for prompting patterns written for older models (2.1.283). Worth one run if your setup predates the 5.5 models.
 - **`/mcp reconnect all`** retries every MCP server that failed to connect or needs sign-in, in one go (2.1.284).
 - **Cleared a long prompt with Ctrl+C by accident?** Press Up on the empty prompt to bring it back, pasted text and images included (2.1.288).

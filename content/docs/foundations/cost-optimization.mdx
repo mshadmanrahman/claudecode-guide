@@ -57,6 +57,8 @@ Costs depend on the model: Opus 5.5 is $4 input / $20 output per million tokens,
 
 Here's the thing nobody tells you: most people burn through their quota way faster than they need to. Not because they're using Claude Code too much, but because they're using it inefficiently.
 
+Run `/usage` first. Since v2.1.299 it warns about the usual suspects: max effort, workflows, always-on context and large tool results.
+
 ### The #1 waste: Monster sessions
 
 You open Claude Code Monday morning and don't close it until Tuesday. By the afternoon, the context window is stuffed with 15 different tasks, old code, abandoned ideas, and a bunch of context that has nothing to do with what you're working on right now. Claude Code is spending tokens processing all of it just to answer your next question.

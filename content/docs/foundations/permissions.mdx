@@ -112,6 +112,15 @@ Week 4+: You're reviewing only destructive operations and network calls. That's 
 }
 ```
 
+## Auto mode, plan mode and headless runs
+
+Rules decide single tool calls. The permission mode decides what happens when no rule matches. Four recent changes are worth knowing:
+
+- **Headless runs on third-party providers start in `default` mode.** Since v2.1.302, `claude -p` and Agent SDK sessions with no permission mode start in `default` on a third-party provider, with telemetry off, or on a fresh install. Before that they started in auto. Pass `--permission-mode auto` to keep auto. Anthropic's permission modes page still shows the older auto default for these sessions, so go by the changelog.
+- **You can pick the classifier model.** `CLAUDE_CODE_AUTO_MODE_MODEL` (v2.1.302) sets the model the client-side auto mode classifier uses. It doesn't change the model for server-side auto mode.
+- **Long conversations no longer lock auto mode.** With the server-side classifier, a conversation too long for the safety check is now compacted (v2.1.302). Before, every checked tool call was denied.
+- **Plan mode warns you once when it won't ask.** If bypass permissions is available, plan mode won't ask before most edits or commands, and since v2.1.299 Claude Code tells you so the first time.
+
 ## One More Thing: The Accept Button
 
 When a permission prompt does appear, you've got more options than just yes:

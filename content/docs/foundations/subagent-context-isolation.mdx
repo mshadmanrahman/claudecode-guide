@@ -30,6 +30,8 @@ Three kinds of wall, doing three different jobs.
 
 **Wall two is between agents.** A subagent runs in its own context window. It reads what it needs, does the work, and returns a short summary. The parent never sees the forty files the subagent opened. That is the point: you spend a fresh window on the messy part and pay only the summary back into the main thread. Research, log triage, a wide grep sweep, a code review. Anything that produces a lot of intermediate noise belongs behind this wall.
 
+The wall isn't sealed against your instructions, though. Explore, Plan and any custom subagent with `omitClaudeMd: true` start without your user, project and local CLAUDE.md files, but when they work with files in a subdirectory, that folder's `CLAUDE.md` and any matching path-scoped rules still load. Leaving CLAUDE.md out shapes where a subagent starts, not everything it can end up reading.
+
 **Wall three is between personas and their state.** If you run scheduled agents, each one accumulates state: caches, logs, outputs, last-run markers. That state has to be scoped to the agent that owns it, or every agent ends up reading every other agent's clutter. One namespace per persona. No shared dumping ground.
 
 <Callout type="info" title="Wall two is the one people skip">

@@ -114,6 +114,12 @@ Launch 3 agents in parallel:
 
 Each works independently, uses its own context, returns a focused report. This is where sub-agents go from "nice to have" to "I can't work without this."
 
+Since v2.1.302 the desktop app and VS Code always run the main conversation's subagents in the background, as the terminal already did, so you can keep talking while they work. An Agent call that a subagent makes itself runs in the foreground by default in `claude -p`, the Agent SDK, the desktop app and VS Code.
+
+## Forks: agents that keep your conversation
+
+A normal subagent starts with an empty context and only the brief Claude writes for it. A fork (`subagent_type: "fork"`) inherits the conversation so far instead, which suits a side task that needs everything you've already discussed. Claude could spawn forks on its own in the terminal before; since v2.1.302 it can in `claude -p`, the Agent SDK, the desktop app and VS Code too. Set `CLAUDE_CODE_FORK_SUBAGENT=0` to turn them off everywhere. Anthropic's environment variable reference still describes the older terminal-only default, so trust the changelog entry on this one.
+
 ## Things I learned the hard way
 
 **One task per agent.** An agent that does code review AND writes tests is two agents crammed into one file. Split them. You'll thank yourself later.

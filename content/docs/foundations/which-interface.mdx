@@ -156,7 +156,9 @@ Research preview. Pro and Max only. Launched March 17. Small feature, big qualit
 
 This is the surface this guide was originally written for. If you're a developer, you already know. If you're not: Claude Code is Anthropic's agentic coding tool, available in the terminal, in VS Code and JetBrains, in the Claude desktop app's Code tab, and on the web at claude.ai/code. It reads your entire repo, writes code, runs tests, debugs, and commits. It's the power-user surface.
 
-Start with the [CLI](/docs/foundations/installation) if you're comfortable in a terminal, or the [web version](https://claude.ai/code) if you want to try it without installing anything. If you live in VS Code or JetBrains, the IDE extension is probably what you want.
+Start with the [CLI](/docs/foundations/installation) if you're comfortable in a terminal, or the [web version](https://claude.ai/code) if you want to try it without installing anything. If you live in VS Code or JetBrains, the IDE extension is probably what you want. The VS Code panel typesets LaTeX math in Claude's answers (v2.1.301), and the `claudeCode.attachSelection` setting stops text you've selected in the editor from riding along with your messages (v2.1.300).
+
+The desktop app's Code tab can also run a session on a remote machine over SSH. On macOS and Linux it uses your own OpenSSH client, so host aliases, keys, certificates and `ProxyJump` from `~/.ssh/config` all work. If the route takes longer than 30 seconds to connect, set `ConnectTimeout` in that host entry and restart Desktop. The remote machine needs an SSH server with SFTP turned on, `MaxSessions` above 1, and a home folder that isn't mounted `noexec`, because Desktop installs its helpers under `~/.claude/remote/`. A task there can keep going while Desktop is disconnected, but with a Claude account it stops when the sign-in expires. Windows remote machines need Desktop v2.31226.0 or later and Microsoft's OpenSSH Server, and they get less testing: the terminal won't open in a Windows-path folder, for one.
 
 </JobBlock>
 
@@ -357,4 +359,4 @@ Anthropic ships fast. Three new surfaces shipped in Q1 alone. I update this page
 
 ---
 
-*Last updated September 20, 2026. If I missed a surface or got a detail wrong, tell me. This page lives by the reports from the people actually using these things.*
+*Last updated October 19, 2026. If I missed a surface or got a detail wrong, tell me. This page lives by the reports from the people actually using these things.*

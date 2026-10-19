@@ -94,6 +94,7 @@ Any `.md` file in `~/.claude/skills/` or your project's `.claude/skills/` become
 | **`!`** | Prefix to run a shell command directly (e.g., `! git status`) |
 | **`\`** | Multi-line input mode (type across multiple lines before sending) |
 | **`@`** | Reference a file or context (e.g., `@src/api.ts explain this`) |
+| **`%`** (vim mode) | Jump to the matching bracket, alone or with `d`, `c` or `y` (v2.1.301 or later) |
 
 <TerminalMock steps={[
   { kind: 'prompt', text: 'refactor the API layer to use one fetch client' },
@@ -176,6 +177,8 @@ Learn more in the [Hooks guide](/docs/patterns/hooks).
 **Escape is not Ctrl+C.** Escape gracefully stops the current operation. Claude Code keeps your conversation and any partial work. Ctrl+C is the hard kill. Use it only when things are truly stuck. The difference matters.
 
 **`!` for quick shell commands.** Need to check `git status` without leaving the Claude Code session? Just type `! git status`. The output lands right in your conversation, and Claude Code can reference it.
+
+**"You should know" catches what you missed.** It's a built-in mod, off by default. Turn it on with `/plugin enable cc-plugin-you-should-know@builtin`, and a side agent rereads the conversation now and then and posts one short note above the prompt, like a tradeoff Claude made without saying so. It runs on your session's model with no tools, and each check counts toward your usage. `/plugin` lists it only when you connect to the Claude API directly and your organization has it; set `CLAUDE_CODE_YOU_SHOULD_KNOW_DEBUG=1` to watch the checks run.
 
 ## Headless & CI Mode
 
