@@ -152,7 +152,7 @@ The SessionStart hook's checklist told Claude to open the latest handoff, so it 
 
 ## Tips that actually matter
 
-**Keep hooks fast.** They block the action they're attached to. A 10-second hook means Claude Code pauses 10 seconds before every tool call. Under 1 second is the target. Profile your hooks if they feel slow. Prompt and agent hooks (`"type": "prompt"` and `"type": "agent"`) run at most 12 per event at a time since v2.1.302, and the rest wait their turn.
+**Keep hooks fast.** They block the action they're attached to. A 10-second hook means Claude Code pauses 10 seconds before every tool call. Under 1 second is the target. Profile your hooks if they feel slow. Prompt and agent hooks (`"type": "prompt"` and `"type": "agent"`) run at most 12 per event at a time since v2.1.302, and the rest wait their turn. A waiting hook's timeout starts only when that hook starts.
 
 **Test with echo first.** Before wiring up a real script, use `echo` to verify the hook fires when you expect. Confirm the timing, then swap in the real command.
 
@@ -161,6 +161,8 @@ The SessionStart hook's checklist told Claude to open the latest handoff, so it 
 **Scope them right.** Hooks in `~/.claude/settings.json` fire in every project. Hooks in `.claude/settings.json` fire only in that project and can be committed for your team. Hooks in `.claude/settings.local.json` fire only in that project and stay on your machine. Project-specific formatting goes at the project level. Universal safety checks go global.
 
 **Know the exit codes.** Exit 0 means success. Exit 2 means block: on a PreToolUse hook, the tool call doesn't run and Claude sees your stderr message. Any other exit code doesn't block for most events. That's how the secrets check in the demo above stopped the commit.
+
+**A broken hook lets the action through.** If your hook can't start, crashes, or prints JSON that Claude Code can't parse, that counts as a non-blocking error: the action goes ahead and you see a hook error notice. Exit 0 with broken JSON gets the same treatment. That's fine for a formatter and bad for a secrets check. On a hook that guards something, set `"onFailure": "block"` (v2.1.295 or later) next to `"type"` and `"command"`, so a hook that fails to start, times out, or exits with an unexpected code blocks the action instead.
 
 **Decide before you go to the background.** If a hook hands its decision to a background process and exits, a deny that process prints later doesn't block anything, because Claude Code has already stopped reading. Make the policy check in the foreground, keep its exit code, and only then start background work with both output streams redirected (`> /dev/null 2>&1 &`). A hook that prints an allow and leaves a background process attached to its output gets the tool call blocked, with `refusing to honor the suspect capture` in the error. To test it, feed the hook a call it should deny and confirm the call is blocked.
 
