@@ -102,7 +102,7 @@ For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `
 | Variable | What it does |
 |---|---|
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | Set to `1` to hold sessions to a 200K window and hide the 1M model variants. Mostly for compliance setups. |
-| `CLAUDE_CODE_AUTO_COMPACT_WINDOW` | The window, in tokens, that auto-compaction works against: `100000` to `1000000`. Plain digits only. `500k` reads as 500 and gets clamped to the 100K minimum. |
+| `CLAUDE_CODE_AUTO_COMPACT_WINDOW` | The window, in tokens, that auto-compaction works against: `100000` to `1000000`. Suffixed values such as `200k` work on v2.1.304 or later; on older versions use plain digits, because `500k` reads as 500 and gets clamped to the 100K minimum. |
 | `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | Compact earlier, at a percentage of that window, such as `50`. It can lower the trigger, never raise it. |
 | `CLAUDE_CODE_MAX_OUTPUT_TOKENS` | Cap on output per request. Raising it leaves less room before auto-compaction kicks in. |
 | `MAX_THINKING_TOKENS` | Fixed thinking budget. `0` turns thinking off on the API, except on Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable, where it can't be turned off. |

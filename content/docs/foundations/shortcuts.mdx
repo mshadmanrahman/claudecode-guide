@@ -172,7 +172,7 @@ Learn more in the [Hooks guide](/docs/patterns/hooks).
 
 **/cost for awareness.** Check it every 30 minutes during long sessions. Shows per-model and cache-hit breakdown so you know exactly where your tokens are going. Most people are surprised by the breakdown.
 
-**/rewind is your undo button.** Sent Claude Code in the wrong direction? `/rewind` takes you back one turn. Way more useful than `/clear`, which nukes everything.
+**/rewind is your undo button.** Sent Claude Code in the wrong direction? `/rewind` takes you back one turn. Way more useful than `/clear`, which nukes everything. It only restores Claude's own file edits, though. Anything changed through a shell command, `sed -i` included, stays changed.
 
 **Escape is not Ctrl+C.** Escape gracefully stops the current operation. Claude Code keeps your conversation and any partial work. Ctrl+C is the hard kill. Use it only when things are truly stuck. The difference matters.
 
