@@ -85,7 +85,7 @@ You can set a variable in a settings file, but you can't delete one. To cancel a
 
 For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `no` and `off` turn it off. A handful only check whether the variable is set at all. For `DISABLE_TELEMETRY` and `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`, even `0` counts as on. To turn those back off, unset them.
 
-## The 28 worth knowing
+## The 31 worth knowing
 
 ### Account and model
 
@@ -96,6 +96,8 @@ For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `
 | `ANTHROPIC_MODEL` | Default model for the session. `--model` and `/model` still override it. |
 | `CLAUDE_CODE_SUBAGENT_MODEL` | Default model for subagents that aren't given one another way, such as `haiku`. |
 | `CLAUDE_CODE_EFFORT_LEVEL` | `low`, `medium`, `high`, `xhigh`, `max` or `auto`. Overrides `--effort` and `/effort`. |
+| `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | `1` stops Claude Code from switching models automatically after a flagged message. Since v2.1.312 the switch also covers custom deployment names on Bedrock, Vertex and Foundry. |
+| `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | Since v2.1.312, Bedrock, Vertex, Foundry and Mantle use a shorter system prompt for model names Claude Code doesn't recognize, such as inference profile ARNs. Set to `0` to keep the full prompt. |
 
 ### Context and output
 
@@ -141,6 +143,7 @@ If your test suite takes four minutes, `BASH_DEFAULT_TIMEOUT_MS` is the one that
 | `CLAUDE_CONFIG_DIR` | Moves the config folder from `~/.claude`. Handy for two accounts side by side, for example `alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work claude'`. |
 | `CLAUDE_CODE_SHELL` | The shell for the Bash tool. Must be a bash or zsh binary. fish isn't supported. |
 | `CLAUDE_CODE_PROMPT_CACHE_TTL` | `5m` or `1h` cache lifetime for your main conversation. See [prompt caching](/docs/foundations/prompt-caching). |
+| `CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS` | `1` lets `rm` and `rmdir` on critical paths run with no prompt in `bypassPermissions` mode. Set it in the shell that launches Claude Code: a settings `env` block is ignored. Only for environments you can afford to lose. See [permissions](/docs/foundations/permissions). Since v2.1.311. |
 
 ## Common questions
 

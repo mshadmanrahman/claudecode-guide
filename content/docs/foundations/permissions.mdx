@@ -114,12 +114,13 @@ Week 4+: You're reviewing only destructive operations and network calls. That's 
 
 ## Auto mode, plan mode and headless runs
 
-Rules decide single tool calls. The permission mode decides what happens when no rule matches. Four recent changes are worth knowing:
+Rules decide single tool calls. The permission mode decides what happens when no rule matches. Five recent changes are worth knowing:
 
 - **Headless runs start in Manual mode.** Since v2.1.302, every `claude -p` and Agent SDK run with no permission mode set starts in Manual mode, which settings and SDK options call `default`. Before that, runs on a third-party provider or with telemetry off started in auto. In Manual mode nobody is there to click Allow, so a call that needs approval is denied unless an allow rule, a hook, a `canUseTool` callback or `--permission-prompt-tool` approves it. For a script or cron job, pass `--allowedTools "Bash(npm test)"` for the calls you expect, or `--permission-mode auto` to let the classifier decide.
 - **You can pick the classifier model.** `CLAUDE_CODE_AUTO_MODE_MODEL` (v2.1.302) sets the model the client-side auto mode classifier uses. It doesn't change the model for server-side auto mode.
 - **Long conversations no longer lock auto mode.** With the server-side classifier, a conversation too long for the safety check is now compacted (v2.1.302). Before, every checked tool call was denied.
 - **Plan mode warns you once when it won't ask.** If bypass permissions is available, plan mode won't ask before most edits or commands, and since v2.1.299 Claude Code tells you so the first time.
+- **Bypass mode still stops `rm` on critical paths, unless you switch that off.** Even in `bypassPermissions` mode, `rm` and `rmdir` aimed at a critical path such as your home folder get a prompt, and no allow rule or PreToolUse hook can approve them. In the desktop app and VS Code the command is denied at once with a hint to rewrite it (v2.1.309). Since v2.1.311 you can turn the prompt off by starting Claude Code with `CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS=1` set in your shell. It only works from the launch environment: Claude Code ignores it in a settings file's `env` block, and in the desktop app or the VS Code chat panel it has no effect. With it on, a command like `rm -rf ~` can run without asking, so keep it to throwaway containers and VMs.
 
 ## One More Thing: The Accept Button
 
