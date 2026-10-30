@@ -1,7 +1,7 @@
 ---
 created: 2026-10-30
 type: plan
-status: in-progress
+status: complete
 tags: [ccg, for-teachers, ostad, long-task]
 related: "[[reference_ostad_class_feedback_sheet]]"
 ---
@@ -29,3 +29,7 @@ LIMIT:  Ask before naming any student or quoting a comment word for word; stop i
 ## Log
 
 - Step 1: extracted changes from Batch 2 comments (two 6s, 2026-08-12) and handoff [[2026-08-19-ostad-batch3-design-decisions]]. Result: change list ready. Next: Shadman approves it.
+- Step 2: change list approved by Shadman (honest framing: low scores arrived night of Class 1; no causal claim). Next: build.
+- Step 3: guide entry, download field, card key, public/skills/lesson-retro/SKILL.md (3014 bytes). tsc clean, npm run build exit 0. Next: verify.
+- Step 4: dev server, card opacity 1 at 390px (342 wide) and 1280px (480 wide), no horizontal scroll, 0 console errors, skill fetch 200. Next: ship.
+- Step 5: pushed db79446. Live guide 200 with "166/18" and "135/14"; live skill 200, no /Users/ or private names; /for-teachers hub links the card. All 5 checks pass.
