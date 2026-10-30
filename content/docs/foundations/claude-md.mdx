@@ -1,7 +1,7 @@
 ---
 title: "CLAUDE.md Guide: Include This, Skip That"
 seoTitle: "CLAUDE.md File Guide: What to Put In It"
-description: "What a CLAUDE.md file is, the five sections it needs, a worked example, and what to leave out so Claude Code follows your project rules."
+description: "CLAUDE.md best practices: what the file is, the five sections it needs, a worked example, and what to leave out so Claude Code follows your rules."
 image: /claude-md/hero.png
 ---
 
@@ -210,6 +210,17 @@ You don't define start/end protocols. Every session starts cold. You spend 10 mi
 "Write clean code" is not a rule. It's a wish. Claude Code reads that and goes "sure, clean code, got it" and then writes whatever it was going to write anyway.
 
 **Fix:** Be specific. "Functions under 50 lines. Files under 800 lines. No mutation. Handle errors explicitly. Use early returns." Now Claude Code has actual constraints to follow.
+
+## CLAUDE.md Best Practices: The Short Checklist
+
+Everything above, in one list you can check your own file against:
+
+1. Keep it under 100 lines, and point to other files for detail instead of pasting them in.
+2. Write rules Claude can follow and you can check. "Functions under 50 lines" works; "write clean code" doesn't.
+3. Cover the five things: what Claude is working with, how sessions start and end, how you communicate, the rules for how it works, and your tools.
+4. Leave out project explanations, anything that changes weekly, your full style guide, and whatever Claude can read in the code.
+5. Start with `claude /init`, then add rules only when you catch yourself repeating an instruction.
+6. Review it now and then. A rule that never changes Claude's behavior is taking up space.
 
 ## How to Tell Which Rules Are Actually Working
 

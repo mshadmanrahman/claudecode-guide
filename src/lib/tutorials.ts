@@ -6797,13 +6797,13 @@ Use only HTML and CSS. No external libraries. I want to open it in my browser ri
   },
 
   "quiz-game": {
-    title: "Build a Quiz Game About Anything",
+    title: "Make a Quiz with Claude: Any Topic, No Coding",
     slug: "quiz-game",
     duration: "10 min",
     difficulty: "beginner",
     availableRoutes: ["app", "terminal"],
     description:
-      "Tell Claude a topic. Get a fully playable quiz with scoring, hints, and multiple choice. No coding and no setup needed.",
+      "Use Claude as a quiz maker: tell it a topic and get a playable quiz with scoring, hints and multiple choice. No coding and no setup needed.",
     intro:
       "You are going to build a real game. Not a prototype, not a mockup: an actual playable quiz you can open in your browser right now. Pick literally any topic (world history, Taylor Swift albums, Premier League trivia, your favorite TV show, whatever) and Claude will write all the code for you. Ten minutes from now, you will be playing something you built.",
     steps: [

@@ -96,12 +96,12 @@ export const MARKETER_GUIDES: Record<string, MarketerGuide> = {
   },
 
   'write-social-media-posts-with-claude': {
-    title: 'Write Social Media Posts with Claude',
+    title: 'How to Use Claude for Social Media Posts',
     slug: 'write-social-media-posts-with-claude',
     duration: '5 min',
     difficulty: 'beginner',
     description:
-      'Generate LinkedIn, Twitter/X, and Instagram posts that sound human, get engagement, and stay on brand.',
+      'How to use Claude for social media: draft LinkedIn, X and Instagram posts that sound human, then save your brief as a skill so every post starts on brand.',
     intro:
       'Social drafting should take 5 minutes, not 45. Claude gets you there if you brief it with your angle, not just your topic.',
     situation: {
@@ -153,6 +153,11 @@ export const MARKETER_GUIDES: Record<string, MarketerGuide> = {
         title: 'Test the hook before you publish',
         description:
           'Paste just the first line of your chosen post into a new Claude message and ask: "Would you stop scrolling for this?" Claude will tell you honestly if the opener is weak. This single check catches more bad posts than any other review step. A post with a weak hook fails before anyone reads the substance.',
+      },
+      {
+        title: 'Save your brief as a skill',
+        description:
+          'Once a brief works, stop pasting it every time. A skill is a saved set of instructions Claude loads when the task matches, so "write a LinkedIn post about our launch" starts from your angle, platform rules and banned openers. Skills work on every Claude plan, including Free. Turn on code execution in Settings > Capabilities, then add the skill under Customize > Skills.',
       },
     ],
     nextLink: {
