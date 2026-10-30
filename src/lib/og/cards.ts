@@ -158,6 +158,12 @@ const STANDALONE: Record<string, OgCard> = {
     description: "25 skills for product managers. Works with ChatGPT, Claude, and Gemini. Free and open source.",
     scene: "harbor",
   },
+  skills: {
+    title: "Free skills for thinking before you commit",
+    section: ["Skills"],
+    description: "Grill Me asks one hard question at a time. Crucible runs your idea past a council of critics.",
+    scene: "overlook",
+  },
   bn: {
     title: "Claude Code in Bangla",
     section: ["বাংলা"],

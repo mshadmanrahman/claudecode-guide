@@ -47,6 +47,7 @@ const STANDALONE: ReadonlyArray<{ path: string; priority: number }> = [
   { path: "primitives", priority: 0.8 },
   { path: "capabilities", priority: 0.8 },
   { path: "pm-pilot", priority: 0.8 },
+  { path: "skills", priority: 0.7 },
   { path: "bn", priority: 0.8 },
   { path: "about", priority: 0.6 },
   { path: "roadmap", priority: 0.6 },
