@@ -6,6 +6,7 @@ export interface TeacherGuideStep {
   list?: string[];
   code?: { snippet: string; language?: string };
   appDemo?: { steps: Array<{ role: 'user' | 'claude'; text: string; delay?: number }> };
+  download?: { label: string; href: string };
 }
 
 export interface TeacherGuide {
@@ -556,6 +557,108 @@ The student should still produce a written response. No more than 50 words of ad
     nextLink: {
       label: 'Back to all teacher guides',
       href: '/for-teachers',
+    },
+  },
+
+  'improve-your-course-batch-by-batch': {
+    title: 'Improve Your Course Batch by Batch with Claude',
+    slug: 'improve-your-course-batch-by-batch',
+    duration: '15 min',
+    difficulty: 'intermediate',
+    availableRoutes: ['lesson-planning'],
+    description:
+      'Feed last batch\'s student feedback back into next batch\'s lesson plan. Claude counts the scores, you check each complaint, and the plan changes only where the evidence says it should.',
+    intro:
+      'I teach a design course on Ostad, an online learning platform in Bangladesh. My second batch averaged 9.22 out of 10 (166/18), but two students gave me a 6 after the first class. Both said roughly the same thing: class ran long and drifted off topic. Before changing anything I checked whether that was true. It was. One class had run 178 minutes against a 90-minute plan. I rebuilt the third batch around that finding, and it averaged 9.64 (135/14), with no score below 8. This guide is that loop, written so you can run it on your own course.',
+    situation: {
+      scene:
+        'A term or batch has just ended. You have a feedback export, a lesson plan that did not quite go to plan, and a few comments that stung.',
+      outcome:
+        'After this guide you will have a checked list of changes for the next run, and a skill that repeats the process every time.',
+    },
+    outcomes: [
+      'Scores counted with the working shown, so nobody argues about the numbers',
+      'Each complaint checked against evidence before it changes your plan',
+      'A change table you can hand to a co-teacher or program lead',
+    ],
+    promptContrast: {
+      bad: 'here is my student feedback, how can I improve my course?',
+      good: 'Here is the feedback export from my last batch, the lesson plan they got, and the things I cannot change (90-minute classes, the platform requires quizzes). Give me the average as a sum over a count, list every score below 7 with its comment and date, and for each complaint ask me one question that would prove or disprove it. Do not suggest changes yet.',
+      why: 'The vague prompt gets generic advice like "add more interaction". The specific one makes Claude count first, look at the worst scores, and check each complaint before proposing anything.',
+    },
+    steps: [
+      {
+        title: 'Collect three things before you start',
+        description:
+          'Claude cannot tell you what to change without knowing what students got and what you are stuck with.',
+        list: [
+          'The feedback: a spreadsheet export, pasted survey rows, or your own notes',
+          'The last plan: the lesson plan or schedule students actually received',
+          'What cannot change: class length, platform rules, required quizzes, dates',
+        ],
+      },
+      {
+        title: 'Ask Claude to count, and to show the working',
+        description:
+          'An average with no working invites argument. A sum over a count does not. Ask for the low scores and their dates too, because when they arrived matters.',
+        code: {
+          snippet: `Here is my feedback export. For each batch, give the average rating as a sum over a count (for example 9.22 = 166/18), the lowest score, and how many people gave it. Then list every score below 7 with its date and comment. Do not include names or phone numbers.`,
+          language: 'text',
+        },
+        appDemo: {
+          steps: [
+            {
+              role: 'user',
+              text: 'Here is my feedback export. For each batch, give the average rating as a sum over a count, the lowest score, and how many people gave it. Then list every score below 7 with its date and comment.',
+            },
+            {
+              role: 'claude',
+              text: 'Batch 2: 9.22 = 166/18. Lowest score 6, given by 2 people.\nBatch 3: 9.64 = 135/14. Lowest score 8, given by 2 people.\n\nScores below 7 (both Batch 2, both on 12 August, the night of Class 1):\n1. 6: class drifts off the module and runs too long; wants it more direct.\n2. 6: would prefer all questions answered at the end of class.\n\nBoth low scores arrived on the first day. Do you want to check whether later classes had the same problem?',
+              delay: 800,
+            },
+          ],
+        },
+      },
+      {
+        title: 'Check each complaint before you change anything',
+        description:
+          'A complaint is a lead, not a verdict. For each one, find the one fact that proves or disproves it. In my case "class runs too long" was checked against real start and end times, and one class had run 178 minutes against a 90-minute plan. That made it a real problem, not one student\'s mood.',
+        code: {
+          snippet: `For each complaint, ask me one question that would prove or disprove it. Wait for my answer, then mark each one as confirmed, not confirmed, or can't tell yet, with the evidence.`,
+          language: 'text',
+        },
+      },
+      {
+        title: 'Turn confirmed complaints into a change table',
+        description:
+          'Only confirmed complaints become changes. Each change needs a way to tell, next time, whether it worked.',
+        code: {
+          snippet: `Make a table with three columns: What the evidence showed | Change for next batch | How we'll know it worked. One row per confirmed complaint. Every change must fit inside the things I said cannot change. Then rewrite only the parts of my lesson plan that the table changes.`,
+          language: 'text',
+        },
+        list: [
+          'Classes ran nearly double the plan, so troubleshooting moved out of class into a written "problem, cause, fix" sheet for every lesson',
+          'Almost nobody finished the first assignment because setup blocked them, so setup became homework and the first assignment needs only a browser',
+          'Students answered quizzes with AI, so quiz questions now ask about the student\'s own work instead of facts about the tool',
+        ],
+      },
+      {
+        title: 'Save the loop as a skill so it runs the same way every time',
+        description:
+          'A skill is a saved set of instructions Claude follows whenever the task comes up. This one walks through the four steps above, refuses to skip the checking step, and never repeats student names. To install it, open the Code tab in the Claude desktop app and paste the prompt below. Using Claude in the browser instead? Open the file and paste its contents at the start of your chat.',
+        code: {
+          snippet: `Download https://claudecodeguide.dev/skills/lesson-retro/SKILL.md and save it as ~/.claude/skills/lesson-retro/SKILL.md, then tell me when it is ready.`,
+          language: 'text',
+        },
+        download: {
+          label: 'Download the lesson-retro skill (SKILL.md, 3 KB)',
+          href: '/skills/lesson-retro/SKILL.md',
+        },
+      },
+    ],
+    nextLink: {
+      label: 'Write lesson plans with Claude',
+      href: '/for-teachers/write-lesson-plans-with-claude',
     },
   },
 };

@@ -227,6 +227,19 @@ export default async function TeacherGuidePage({
                   />
                 </div>
               )}
+
+              {step.download && (
+                <div className="ml-12 mt-4">
+                  <a
+                    href={step.download.href}
+                    download
+                    className="inline-flex items-center gap-2 text-fd-foreground font-medium underline underline-offset-4"
+                  >
+                    {step.download.label}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                </div>
+              )}
             </section>
           ))}
         </div>

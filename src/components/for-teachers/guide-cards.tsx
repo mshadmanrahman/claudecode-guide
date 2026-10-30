@@ -29,7 +29,7 @@ const JOURNEY_DATA: Array<{
     tagline: 'Plans and activities',
     note: 'Give Claude the topic, year group, and learning objective. It builds the plan.',
     clusters: [
-      { cluster: 'Planning', guideKeys: ['write-lesson-plans-with-claude', 'differentiate-instruction-with-claude'] },
+      { cluster: 'Planning', guideKeys: ['write-lesson-plans-with-claude', 'differentiate-instruction-with-claude', 'improve-your-course-batch-by-batch'] },
     ],
   },
   {
