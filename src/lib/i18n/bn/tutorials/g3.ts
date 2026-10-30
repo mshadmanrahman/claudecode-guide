@@ -599,16 +599,16 @@ export const BN_TUTORIALS_G3: Partial<Record<string, Translation<Tutorial>>> = {
     },
   },
   "quiz-game": {
-    sourceHash: "06e2605ec177139f",
-    translatedAt: "2026-10-06",
+    sourceHash: "fdbc82cd14a3809e",
+    translatedAt: "2026-10-30",
     content: {
-      title: "যেকোনো বিষয়ে একটা Quiz Game বানান",
+      title: "Claude দিয়ে Quiz বানান: যেকোনো Topic, কোনো Coding ছাড়াই",
       slug: "quiz-game",
       duration: "১০ মিনিট",
       difficulty: "beginner",
       availableRoutes: ["app", "terminal"],
       description:
-        "Claude-কে একটা topic বলুন। পেয়ে যাবেন scoring, hint আর multiple choice-সহ পুরোপুরি খেলার মতো একটা quiz। কোনো coding বা setup লাগবে না।",
+        "Claude-কে quiz maker হিসেবে use করুন: একটা topic বলুন, পেয়ে যাবেন scoring, hint আর multiple choice-সহ পুরোপুরি খেলার মতো একটা quiz। কোনো coding বা setup লাগবে না।",
       intro:
         "আপনি একটা সত্যিকারের game বানাতে যাচ্ছেন। Prototype না, mockup না: এমন একটা quiz যা এখনই browser-এ খুলে খেলতে পারবেন। যেকোনো topic বেছে নিন (বিশ্ব ইতিহাস, Taylor Swift-এর album, Premier League trivia, আপনার প্রিয় TV show, যা খুশি), আর Claude আপনার জন্য সব code লিখে দেবে। দশ মিনিট পরে আপনি নিজের বানানো একটা জিনিস খেলবেন।",
       steps: [
