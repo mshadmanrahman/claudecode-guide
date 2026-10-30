@@ -4,6 +4,9 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { DESIGNERS_HUB } from "@/lib/hubs/designers";
+import { TEACHERS_HUB } from "@/lib/hubs/teachers";
+import { ui, type Locale } from "@/lib/i18n/locale";
 
 type PersonaKey =
   | "designers"
@@ -13,7 +16,7 @@ type PersonaKey =
   | "microsoft"
   | "hr";
 
-type SlotData = {
+export type SlotData = {
   time: string;
   label: string;
   title: string;
@@ -23,36 +26,7 @@ const PERSONA_STRIPS: Record<
   PersonaKey,
   { heading: string; slots: SlotData[] }
 > = {
-  designers: {
-    heading: "A designer's day with Claude",
-    slots: [
-      {
-        time: "08:00",
-        label: "Brief",
-        title: "Interrogate the brief before touching Figma",
-      },
-      {
-        time: "10:00",
-        label: "Research",
-        title: "Synthesize competitors and user quotes into patterns",
-      },
-      {
-        time: "12:00",
-        label: "Critique",
-        title: "Get a second opinion on your wireframes",
-      },
-      {
-        time: "14:00",
-        label: "Handoff",
-        title: "Write the developer specs in minutes",
-      },
-      {
-        time: "17:00",
-        label: "Prep",
-        title: "Anticipate tomorrow's client feedback",
-      },
-    ],
-  },
+  designers: DESIGNERS_HUB.strip,
   chrome: {
     heading: "A browser user's day with Claude",
     slots: [
@@ -113,36 +87,7 @@ const PERSONA_STRIPS: Record<
       },
     ],
   },
-  teachers: {
-    heading: "A teacher's day with Claude",
-    slots: [
-      {
-        time: "08:00",
-        label: "Morning",
-        title: "Anticipate where students will get stuck today",
-      },
-      {
-        time: "10:00",
-        label: "Assessment",
-        title: "Create quiz questions and rubrics in minutes",
-      },
-      {
-        time: "12:00",
-        label: "Comms",
-        title: "Write compassionate, clear parent updates",
-      },
-      {
-        time: "14:00",
-        label: "Planning",
-        title: "Differentiate activities for every learner",
-      },
-      {
-        time: "17:00",
-        label: "Feedback",
-        title: "Give better essay feedback, faster",
-      },
-    ],
-  },
+  teachers: TEACHERS_HUB.strip,
   marketers: {
     heading: "A marketer's day with Claude",
     slots: [
@@ -207,12 +152,16 @@ const PERSONA_STRIPS: Record<
 
 interface PersonaWorkflowStripProps {
   persona: PersonaKey;
+  locale?: Locale;
+  /** Translated heading and slots; defaults to the English strip for the persona. */
+  copy?: { heading: string; slots: SlotData[] };
 }
 
-export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
+export function PersonaWorkflowStrip({ persona, locale = "en", copy }: PersonaWorkflowStripProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const viewFired = useRef(false);
-  const data = PERSONA_STRIPS[persona];
+  const data = copy ?? PERSONA_STRIPS[persona];
+  const t = ui(locale);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -254,7 +203,7 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
               })
             }
           >
-            See prompts
+            {t.seePrompts}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -277,7 +226,7 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
         </div>
 
         <p className="mt-4 text-center text-xs text-fd-muted-foreground">
-          One habit at a time.{" "}
+          {t.oneHabit}{" "}
           <Link
             href="/workflow"
             className="rounded-sm underline underline-offset-2 hover:text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
@@ -288,7 +237,7 @@ export function PersonaWorkflowStrip({ persona }: PersonaWorkflowStripProps) {
               })
             }
           >
-            See the full workflow with prompts you can copy
+            {t.fullWorkflow}
           </Link>
         </p>
       </div>

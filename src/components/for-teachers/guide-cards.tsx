@@ -5,54 +5,32 @@ import Link from 'next/link';
 import { ArrowRight, Clock, BookOpen, CheckSquare, MessageCircle } from 'lucide-react';
 import { useInView } from '@/hooks/use-in-view';
 import { trackEvent } from '@/lib/analytics';
-import { TEACHER_GUIDES } from '@/lib/teacher-guides';
+import { TEACHER_GUIDES, type TeacherGuide } from '@/lib/teacher-guides';
+import { TEACHERS_HUB, type TeachersHubCopy } from '@/lib/hubs/teachers';
+import { localePrefix, type Locale } from '@/lib/i18n/locale';
 
 type Journey = 'lesson-planning' | 'assessment' | 'communication';
 
-interface JourneyCluster {
-  cluster: string;
-  guideKeys: string[];
-}
+/** The fields a card needs, so a page can pass translated guides. */
+export type TeacherCardGuide = Pick<TeacherGuide, 'slug' | 'title' | 'description' | 'duration' | 'difficulty'>;
 
-const JOURNEY_DATA: Array<{
-  id: Journey;
-  label: string;
-  icon: React.ReactNode;
-  tagline: string;
-  note: string;
-  clusters: JourneyCluster[];
-}> = [
-  {
-    id: 'lesson-planning',
-    label: 'Lesson planning',
-    icon: <BookOpen className="h-4 w-4" />,
-    tagline: 'Plans and activities',
-    note: 'Give Claude the topic, year group, and learning objective. It builds the plan.',
-    clusters: [
-      { cluster: 'Planning', guideKeys: ['write-lesson-plans-with-claude', 'differentiate-instruction-with-claude', 'improve-your-course-batch-by-batch'] },
-    ],
-  },
-  {
-    id: 'assessment',
-    label: 'Assessment',
-    icon: <CheckSquare className="h-4 w-4" />,
-    tagline: 'Questions, rubrics, feedback',
-    note: 'Question banks, marking rubrics, and written feedback from your bullet-point notes.',
-    clusters: [
-      { cluster: 'Assessment', guideKeys: ['create-quiz-questions-with-claude', 'write-grading-rubrics-with-claude', 'give-student-feedback-with-claude'] },
-    ],
-  },
-  {
-    id: 'communication',
-    label: 'Communication',
-    icon: <MessageCircle className="h-4 w-4" />,
-    tagline: 'Emails and reports',
-    note: 'Parent emails, sensitive messages, and report comments drafted in under a minute.',
-    clusters: [
-      { cluster: 'Communication', guideKeys: ['write-parent-emails-with-claude', 'give-student-feedback-with-claude'] },
-    ],
-  },
-];
+const JOURNEY_ICONS: Record<Journey, React.ReactNode> = {
+  'lesson-planning': <BookOpen className="h-4 w-4" aria-hidden="true" />,
+  assessment: <CheckSquare className="h-4 w-4" aria-hidden="true" />,
+  communication: <MessageCircle className="h-4 w-4" aria-hidden="true" />,
+};
+
+const JOURNEY_GUIDES: Record<Journey, string[]> = {
+  'lesson-planning': ['write-lesson-plans-with-claude', 'differentiate-instruction-with-claude', 'improve-your-course-batch-by-batch'],
+  assessment: ['create-quiz-questions-with-claude', 'write-grading-rubrics-with-claude', 'give-student-feedback-with-claude'],
+  communication: ['write-parent-emails-with-claude', 'give-student-feedback-with-claude'],
+};
+
+interface TeacherGuideCardsProps {
+  locale?: Locale;
+  copy?: TeachersHubCopy['cards'];
+  guides?: Record<string, TeacherCardGuide>;
+}
 
 const TAB_ACTIVE_BORDER: Record<Journey, string> = {
   'lesson-planning': 'border-[var(--acc)]',
@@ -66,22 +44,24 @@ const ENV_BADGE_STYLES: Record<Journey, string> = {
   'communication': 'bg-[var(--chip)] text-[var(--acc)]  ',
 };
 
-function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
+function DifficultyBadge({ level, label }: { level: 'beginner' | 'intermediate'; label: string }) {
   const styles =
     level === 'beginner'
       ? 'bg-[var(--chip)] text-[var(--acc)] '
       : 'bg-[var(--chip)] text-[var(--acc)] ';
   return (
-    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${styles}`}>{level}</span>
+    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${styles}`}>{label}</span>
   );
 }
 
-export function TeacherGuideCards() {
+export function TeacherGuideCards({ locale = 'en', copy = TEACHERS_HUB.cards, guides = TEACHER_GUIDES }: TeacherGuideCardsProps) {
   const [ref, inView] = useInView(0.05);
   const [journey, setJourney] = useState<Journey>('lesson-planning');
+  const prefix = localePrefix(locale);
 
-  const activeJourney = JOURNEY_DATA.find((j) => j.id === journey)!;
-  const journeyGuideCount = activeJourney.clusters.reduce((sum, c) => sum + c.guideKeys.length, 0);
+  const activeJourney = copy.journeys.find((j) => j.id === journey) ?? copy.journeys[0];
+  const clusters = [{ cluster: activeJourney.cluster, guideKeys: JOURNEY_GUIDES[journey] }];
+  const journeyGuideCount = JOURNEY_GUIDES[journey].length;
   let guideIndex = 0;
 
   return (
@@ -91,12 +71,12 @@ export function TeacherGuideCards() {
           className={`mb-12 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
-            Pick your focus
+            {copy.heading}
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Three areas where Claude saves the most teacher time. Select one to see the{' '}
-            <span className="font-medium text-fd-foreground">{journeyGuideCount} guides</span>{' '}
-            for that area.
+            {copy.introBefore}{' '}
+            <span className="font-medium text-fd-foreground">{copy.introCount.replace('{n}', String(journeyGuideCount))}</span>{' '}
+            {copy.introAfter}
           </p>
         </div>
 
@@ -105,20 +85,20 @@ export function TeacherGuideCards() {
           className={`mb-8 transition-all motion-reduce:transition-none duration-500 delay-100 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <div className="flex flex-wrap gap-1 border-b border-fd-border">
-            {JOURNEY_DATA.map((j) => (
+            {copy.journeys.map((j) => (
               <button
                 key={j.id}
                 onClick={() => {
-                  setJourney(j.id);
+                  setJourney(j.id as Journey);
                   trackEvent('teacher_journey_tab_click', { journey: j.id, section: 'for-teachers' });
                 }}
                 className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
                   journey === j.id
-                    ? `${TAB_ACTIVE_BORDER[j.id]} text-fd-foreground`
+                    ? `${TAB_ACTIVE_BORDER[j.id as Journey]} text-fd-foreground`
                     : 'border-transparent text-fd-muted-foreground hover:text-fd-foreground'
                 }`}
               >
-                {j.icon}
+                {JOURNEY_ICONS[j.id as Journey]}
                 {j.label}
               </button>
             ))}
@@ -133,7 +113,7 @@ export function TeacherGuideCards() {
             <span
               className={`mt-0.5 inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${ENV_BADGE_STYLES[journey]}`}
             >
-              {activeJourney.icon}
+              {JOURNEY_ICONS[journey]}
               {activeJourney.tagline}
             </span>
             <div>
@@ -144,9 +124,9 @@ export function TeacherGuideCards() {
 
         {/* Guide clusters */}
         <div className="space-y-12">
-          {activeJourney.clusters.map((cluster, ci) => {
+          {clusters.map((cluster, ci) => {
             const clusterGuides = cluster.guideKeys
-              .map((key) => TEACHER_GUIDES[key])
+              .map((key) => guides[key])
               .filter(Boolean);
 
             return (
@@ -161,7 +141,7 @@ export function TeacherGuideCards() {
                     return (
                       <Link
                         key={guide.slug}
-                        href={`/for-teachers/${guide.slug}`}
+                        href={`${prefix}/for-teachers/${guide.slug}`}
                         onClick={() =>
                           trackEvent('teacher_guide_card_click', {
                             guide_slug: guide.slug,
@@ -186,7 +166,7 @@ export function TeacherGuideCards() {
                               <Clock className="h-3 w-3" />
                               {guide.duration}
                             </span>
-                            <DifficultyBadge level={guide.difficulty} />
+                            <DifficultyBadge level={guide.difficulty} label={copy.difficulty[guide.difficulty]} />
                           </div>
                         </div>
                         <h3 className="mb-2 font-display text-base font-semibold text-fd-foreground leading-snug group-hover:text-fd-primary transition-colors">
@@ -196,7 +176,7 @@ export function TeacherGuideCards() {
                           {guide.description}
                         </p>
                         <div className="mt-4 flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity motion-reduce:transition-none group-hover:opacity-100">
-                          Open <ArrowRight className="h-3.5 w-3.5" />
+                          {copy.open} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                         </div>
                       </Link>
                     );

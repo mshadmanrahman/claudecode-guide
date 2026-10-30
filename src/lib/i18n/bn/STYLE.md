@@ -2,6 +2,8 @@
 
 These rules cover every page under `/bn`. The readers are Bangladeshi designers and PMs studying with Ostad. The reference page is `coming-from-chatgpt` in `tutorials.ts`, so match its voice.
 
+The teacher guides and `/bn/for-teachers` also reach Bangladeshi school teachers. Say শিক্ষক and ছাত্রছাত্রী, write "Class 7" for "Year 7", and pick local examples a classroom in Dhaka would recognise.
+
 ## Voice
 
 - Address the reader with formal আপনি. Casual applies to vocabulary, not to register.

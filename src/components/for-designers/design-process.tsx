@@ -1,39 +1,38 @@
 'use client';
 
 import { useInView } from '@/hooks/use-in-view';
+import { DESIGNERS_HUB, type DesignersHubCopy } from '@/lib/hubs/designers';
 
+/** Stage ids, in the same order as `DESIGNERS_HUB.process.stages`, which holds their labels. */
 const STAGES = ['Brief', 'Research', 'Direction', 'Frames', 'Critique', 'Handoff', 'Build', 'Ship'];
 
-const LAYERS = [
-  {
-    id: 'web',
-    label: 'Web',
-    sublabel: 'claude.ai',
-    addedLabel: 'Baseline',
+/** Coverage and colors per layer. The words live in `DESIGNERS_HUB.process.layers`. */
+const LAYER_STYLE: Record<
+  string,
+  { addedBadgeStyle: string; addedStages: string[]; allCoveredStages: string[]; newDotStyle: string; inheritedDotStyle: string }
+> = {
+  web: {
     addedBadgeStyle: 'bg-[var(--code)] text-[var(--ink)]',
     addedStages: ['Brief', 'Research', 'Critique'],
     allCoveredStages: ['Brief', 'Research', 'Critique'],
     newDotStyle: 'bg-[var(--muted)]',
     inheritedDotStyle: 'bg-[var(--code)]',
-    description:
-      'Everything in conversation. Interrogates briefs, synthesizes research, critiques designs. Claude sees what you paste or upload.',
   },
-  {
-    id: 'desktop',
-    label: 'Desktop app',
-    sublabel: 'Mac or Windows',
-    addedLabel: '+ Direction, Handoff',
+  desktop: {
     addedBadgeStyle: 'bg-[var(--chip)] text-[var(--acc)]',
     addedStages: ['Direction', 'Handoff'],
     allCoveredStages: ['Brief', 'Research', 'Direction', 'Critique', 'Handoff'],
     newDotStyle: 'bg-[var(--acc)]',
     inheritedDotStyle: 'bg-[var(--code)]',
-    description:
-      'Reads files from a folder on your computer. Challenges direction before you commit to frames. Reads Figma exports for handoff prep.',
   },
-];
+};
 
-export function DesignerProcessMap() {
+interface DesignerProcessMapProps {
+  copy?: DesignersHubCopy['process'];
+}
+
+export function DesignerProcessMap({ copy = DESIGNERS_HUB.process }: DesignerProcessMapProps) {
+  const layers = copy.layers.map((l) => ({ ...l, ...(LAYER_STYLE[l.id] ?? LAYER_STYLE.web) }));
   const [ref, inView] = useInView(0.05);
 
   return (
@@ -43,10 +42,10 @@ export function DesignerProcessMap() {
           className={`mb-16 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
-            What each one covers
+            {copy.heading}
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            The desktop app covers everything the web does, and adds Direction and Handoff because it can read your files. Build and Ship need Claude Code, which runs in the Code tab of the desktop app.
+            {copy.lead}
           </p>
         </div>
 
@@ -58,15 +57,15 @@ export function DesignerProcessMap() {
           <div className="flex flex-wrap items-center gap-5 mb-6">
             <div className="flex items-center gap-1.5">
               <div className="h-3 w-3 rounded-full bg-[var(--acc)]" />
-              <span className="text-xs text-fd-muted-foreground">New in the desktop app</span>
+              <span className="text-xs text-fd-muted-foreground">{copy.legend.added}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="h-3 w-3 rounded-full bg-[var(--code)] border border-fd-border" />
-              <span className="text-xs text-fd-muted-foreground">Also on the web</span>
+              <span className="text-xs text-fd-muted-foreground">{copy.legend.inherited}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="h-1.5 w-1.5 rounded-full bg-fd-border" />
-              <span className="text-xs text-fd-muted-foreground">Not covered</span>
+              <span className="text-xs text-fd-muted-foreground">{copy.legend.none}</span>
             </div>
           </div>
 
@@ -78,17 +77,17 @@ export function DesignerProcessMap() {
                 style={{ gridTemplateColumns: '180px repeat(8, 1fr)' }}
               >
                 <div />
-                {STAGES.map((stage) => (
+                {STAGES.map((stage, si) => (
                   <div key={stage} className="text-center">
                     <span className="text-xs font-semibold text-[var(--muted)]">
-                      {stage}
+                      {copy.stages[si] ?? stage}
                     </span>
                   </div>
                 ))}
               </div>
 
               {/* Journey rows */}
-              {LAYERS.map((layer, ji) => (
+              {layers.map((layer, ji) => (
                 <div
                   key={layer.id}
                   className={`grid items-center border-b border-fd-border py-4 transition-all motion-reduce:transition-none duration-500 ${
@@ -138,7 +137,7 @@ export function DesignerProcessMap() {
 
         {/* Descriptions */}
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          {LAYERS.map((layer, ji) => (
+          {layers.map((layer, ji) => (
             <div
               key={layer.id}
               className={`transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}

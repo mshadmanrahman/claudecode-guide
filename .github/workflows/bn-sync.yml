@@ -10,6 +10,8 @@ on:
     paths:
       - src/lib/tutorials.ts
       - src/lib/designer-guides.ts
+      - src/lib/teacher-guides.ts
+      - src/lib/hubs/**
   workflow_dispatch:
     inputs:
       test_slug:
@@ -81,16 +83,16 @@ jobs:
             Drift report (JSON): ${{ steps.drift.outputs.report }}
 
             Sources:
-            - English tutorials: src/lib/tutorials.ts (TUTORIALS). English designer guides: src/lib/designer-guides.ts (DESIGNER_GUIDES).
-            - Bangla: src/lib/i18n/bn/tutorials/g1..g6.ts and src/lib/i18n/bn/designer-guides/d1..d2.ts. Find each slug with Grep.
+            - English tutorials: src/lib/tutorials.ts (TUTORIALS). English designer guides: src/lib/designer-guides.ts (DESIGNER_GUIDES). English teacher guides: src/lib/teacher-guides.ts (TEACHER_GUIDES). English hub pages: src/lib/hubs/teachers.ts (TEACHERS_HUB) and src/lib/hubs/designers.ts (DESIGNERS_HUB).
+            - Bangla: src/lib/i18n/bn/tutorials/g1..g6.ts src/lib/i18n/bn/designer-guides/d1..d2.ts, src/lib/i18n/bn/teacher-guides/t1..t2.ts, and the hubs in src/lib/i18n/bn/hubs/{teachers,designers}.ts (one Translation per file; mirror the English keys exactly). Find each slug with Grep.
             - Style rules: src/lib/i18n/bn/STYLE.md. Read it first. Voice reference: the "coming-from-chatgpt" entry in src/lib/i18n/bn/tutorials.ts.
 
             For each slug:
             - stale: compare the English entry with the Bangla one and re-translate only what changed in English. Keep the existing Bangla wherever the English is unchanged.
-            - missing: translate the full English entry. Add tutorials to the end of g6.ts and designer guides to the end of d2.ts.
+            - missing: translate the full English entry. Add tutorials to the end of g6.ts and designer guides to the end of d2.ts, teacher guides to the end of t2.ts.
             - orphan: delete the Bangla entry.
             For every stale or missing entry, set translatedAt to today's date and set sourceHash to the output of:
-              node --no-warnings --input-type=module -e 'import {TUTORIALS} from "./src/lib/tutorials.ts"; import {DESIGNER_GUIDES} from "./src/lib/designer-guides.ts"; import {sourceHash} from "./src/lib/i18n/source-hash.ts"; console.log(sourceHash({...TUTORIALS,...DESIGNER_GUIDES}["SLUG"]))'
+              node --no-warnings --input-type=module -e 'import {TUTORIALS} from "./src/lib/tutorials.ts"; import {DESIGNER_GUIDES} from "./src/lib/designer-guides.ts"; import {TEACHER_GUIDES} from "./src/lib/teacher-guides.ts"; import {TEACHERS_HUB} from "./src/lib/hubs/teachers.ts"; import {DESIGNERS_HUB} from "./src/lib/hubs/designers.ts"; import {sourceHash} from "./src/lib/i18n/source-hash.ts"; console.log(sourceHash({...TUTORIALS,...DESIGNER_GUIDES,...TEACHER_GUIDES,teachers:TEACHERS_HUB,designers:DESIGNERS_HUB}["SLUG"]))'
 
             Edit only files under src/lib/i18n/bn/. Do not commit. Before finishing, run `npm run check:bn -- --strict` and `npx tsc --noEmit -p .`; both must pass.
 

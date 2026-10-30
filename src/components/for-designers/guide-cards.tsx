@@ -6,10 +6,13 @@ import Link from 'next/link';
 import { ArrowRight, Clock, Globe, Monitor } from 'lucide-react';
 import { useInView } from '@/hooks/use-in-view';
 import { trackEvent } from '@/lib/analytics';
+import { DESIGNERS_HUB, type DesignersHubCopy } from '@/lib/hubs/designers';
+import { localePrefix, type Locale } from '@/lib/i18n/locale';
 
 type Journey = 'web' | 'desktop';
 
-interface GuideEntry {
+/** The fields a card needs, so a page can pass translated guides. */
+export interface GuideEntry {
   slug: string;
   title: string;
   duration: string;
@@ -99,47 +102,35 @@ const ALL_GUIDES: Record<string, GuideEntry> = {
   },
 };
 
-type JourneyCluster = { label: string; slugs: string[] };
-
-const JOURNEY_DATA: Array<{
-  id: Journey;
-  label: string;
-  icon: React.ReactNode;
-  env: string;
-  tagline: string;
-  note: string;
-  clusters: JourneyCluster[];
-}> = [
-  {
-    id: 'desktop',
-    label: 'In the desktop app',
+/** Icon and guide slugs per journey, clusters in the same order as `DESIGNERS_HUB.cards.journeys[].clusters`. */
+const JOURNEY_SHAPE: Record<Journey, { icon: React.ReactNode; clusters: string[][] }> = {
+  desktop: {
     icon: <Monitor className="h-4 w-4" />,
-    env: 'Mac or Windows',
-    tagline: 'The Claude desktop app. It can read a folder of your files.',
-    note: 'Point Claude at a folder of briefs, interview notes and Figma exports, and it reads them directly instead of waiting for you to paste.',
     clusters: [
-      { label: 'Foundation', slugs: ['set-up-claude'] },
-      { label: 'Brief work', slugs: ['decode-a-brief', 'write-a-sharper-brief'] },
-      { label: 'Evaluation', slugs: ['evaluate-your-designs', 'heuristic-evaluation'] },
-      { label: 'Production', slugs: ['figma-for-ai-handoff'] },
-      { label: 'Research and automation', slugs: ['research-synthesis', 'automate-design-tasks'] },
+      ['set-up-claude'],
+      ['decode-a-brief', 'write-a-sharper-brief'],
+      ['evaluate-your-designs', 'heuristic-evaluation'],
+      ['figma-for-ai-handoff'],
+      ['research-synthesis', 'automate-design-tasks'],
     ],
   },
-  {
-    id: 'web',
-    label: 'On the web',
+  web: {
     icon: <Globe className="h-4 w-4" />,
-    env: 'claude.ai',
-    tagline: 'Open claude.ai in any browser. Nothing to install.',
-    note: 'Paste or upload what you are working on. A Project keeps your working agreement and files together across conversations.',
     clusters: [
-      { label: 'Foundation', slugs: ['set-up-claude'] },
-      { label: 'Brief work', slugs: ['decode-a-brief', 'write-a-sharper-brief'] },
-      { label: 'Evaluation', slugs: ['evaluate-your-designs', 'heuristic-evaluation'] },
-      { label: 'Research and automation', slugs: ['research-synthesis', 'get-started-with-claude-design', 'automate-design-tasks'] },
+      ['set-up-claude'],
+      ['decode-a-brief', 'write-a-sharper-brief'],
+      ['evaluate-your-designs', 'heuristic-evaluation'],
+      ['research-synthesis', 'get-started-with-claude-design', 'automate-design-tasks'],
     ],
   },
-];
+};
+
+interface DesignerGuideCardsProps {
+  locale?: Locale;
+  copy?: DesignersHubCopy['cards'];
+  /** Per-slug overrides for title, description and duration, used by the Bangla hub. */
+  guides?: Partial<Record<string, Pick<GuideEntry, 'title' | 'description' | 'duration'>>>;
+}
 
 const CODE_TAB_SLUGS = ['git-for-designers', 'build-your-first-flow'];
 
@@ -167,21 +158,33 @@ function CardImage({ slug }: { slug: string }) {
   );
 }
 
-function DifficultyBadge({ level }: { level: 'beginner' | 'intermediate' }) {
+function DifficultyBadge({ level, label }: { level: 'beginner' | 'intermediate'; label: string }) {
   const styles =
     level === 'beginner'
       ? 'bg-[var(--chip)] text-[var(--acc)] '
       : 'bg-[var(--chip)] text-[var(--acc)] ';
   return (
-    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${styles}`}>{level}</span>
+    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${styles}`}>{label}</span>
   );
 }
 
-export function DesignerGuideCards() {
+export function DesignerGuideCards({ locale = 'en', copy = DESIGNERS_HUB.cards, guides = {} }: DesignerGuideCardsProps) {
   const [ref, inView] = useInView(0.05);
   const [journey, setJourney] = useState<Journey>('desktop');
+  const prefix = localePrefix(locale);
 
-  const activeJourney = JOURNEY_DATA.find((j) => j.id === journey)!;
+  const guideFor = (slug: string): GuideEntry | undefined =>
+    ALL_GUIDES[slug] && { ...ALL_GUIDES[slug], ...guides[slug] };
+  const journeyData = copy.journeys.map((j) => {
+    const shape = JOURNEY_SHAPE[j.id as Journey];
+    return {
+      ...j,
+      id: j.id as Journey,
+      icon: shape.icon,
+      clusters: shape.clusters.map((slugs, i) => ({ label: j.clusters[i] ?? '', slugs })),
+    };
+  });
+  const activeJourney = journeyData.find((j) => j.id === journey)!;
   const journeyGuideCount = activeJourney.clusters.reduce((sum, c) => sum + c.slugs.length, 0);
   let guideIndex = 0;
 
@@ -192,12 +195,14 @@ export function DesignerGuideCards() {
           className={`mb-12 transition-all motion-reduce:transition-none duration-500 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
-            Pick your path
+            {copy.heading}
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Two places to work with Claude. Pick yours to see the{' '}
-            <span className="font-medium text-fd-foreground">{journeyGuideCount} guides</span>{' '}
-            that work there.
+            {copy.introBefore}{' '}
+            <span className="font-medium text-fd-foreground">
+              {copy.introCount.replace('{n}', String(journeyGuideCount))}
+            </span>{' '}
+            {copy.introAfter}
           </p>
         </div>
 
@@ -206,7 +211,7 @@ export function DesignerGuideCards() {
           className={`mb-8 transition-all motion-reduce:transition-none duration-500 delay-100 ${inView ? 'animate-slide-up-fade' : 'opacity-0'}`}
         >
           <div className="flex flex-wrap gap-1 border-b border-fd-border">
-            {JOURNEY_DATA.map((j) => (
+            {journeyData.map((j) => (
               <button
                 key={j.id}
                 onClick={() => {
@@ -248,8 +253,8 @@ export function DesignerGuideCards() {
         <div className="space-y-12">
           {activeJourney.clusters.map((cluster, ci) => {
             const clusterGuides = cluster.slugs
-              .map((slug) => ALL_GUIDES[slug])
-              .filter(Boolean);
+              .map(guideFor)
+              .filter((g): g is GuideEntry => Boolean(g));
 
             return (
               <div key={cluster.label}>
@@ -263,7 +268,7 @@ export function DesignerGuideCards() {
                     return (
                       <Link
                         key={guide.slug}
-                        href={`/for-designers/${guide.slug}`}
+                        href={`${prefix}/for-designers/${guide.slug}`}
                         onClick={() =>
                           trackEvent('designer_guide_card_click', {
                             guide_slug: guide.slug,
@@ -287,14 +292,14 @@ export function DesignerGuideCards() {
                           <div className="flex items-center gap-1.5">
                             {guide.isNew && (
                               <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 text-xs font-semibold text-[var(--acc)] ">
-                                new
+                                {copy.isNew}
                               </span>
                             )}
                             <span className="flex items-center gap-1 text-xs text-fd-muted-foreground">
                               <Clock className="h-3 w-3" />
                               {guide.duration}
                             </span>
-                            <DifficultyBadge level={guide.difficulty} />
+                            <DifficultyBadge level={guide.difficulty} label={copy.difficulty[guide.difficulty]} />
                           </div>
                         </div>
                         <h3 className="mb-2 font-display text-base font-semibold text-fd-foreground leading-snug group-hover:text-fd-primary transition-colors">
@@ -304,7 +309,7 @@ export function DesignerGuideCards() {
                           {guide.description}
                         </p>
                         <div className="mt-4 flex items-center gap-1 text-sm font-medium text-fd-foreground opacity-0 transition-opacity motion-reduce:transition-none group-hover:opacity-100">
-                          Open <ArrowRight className="h-3.5 w-3.5" />
+                          {copy.open} <ArrowRight className="h-3.5 w-3.5" />
                         </div>
                       </Link>
                     );
@@ -318,19 +323,18 @@ export function DesignerGuideCards() {
         {/* Code tab group */}
         <div className="mt-16 border-t border-fd-border pt-10">
           <h3 className="font-display text-xl font-semibold text-fd-foreground">
-            When you want to ship code
+            {copy.codeTabHeading}
           </h3>
           <p className="mt-2 max-w-xl text-sm text-fd-muted-foreground">
-            These two build real code, so they run in the Code tab of the Claude desktop app
-            (Claude Code), not in a regular conversation. Start with Git if you have not used it.
+            {copy.codeTabLead}
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {CODE_TAB_SLUGS.map((slug) => ALL_GUIDES[slug])
-              .filter(Boolean)
+            {CODE_TAB_SLUGS.map(guideFor)
+              .filter((g): g is GuideEntry => Boolean(g))
               .map((guide) => (
                 <Link
                   key={guide.slug}
-                  href={`/for-designers/${guide.slug}`}
+                  href={`${prefix}/for-designers/${guide.slug}`}
                   onClick={() =>
                     trackEvent('designer_guide_card_click', {
                       guide_slug: guide.slug,
@@ -348,7 +352,7 @@ export function DesignerGuideCards() {
                       <Clock className="h-3 w-3" />
                       {guide.duration}
                     </span>
-                    <DifficultyBadge level={guide.difficulty} />
+                    <DifficultyBadge level={guide.difficulty} label={copy.difficulty[guide.difficulty]} />
                   </div>
                   <h4 className="mb-2 font-display text-base font-semibold leading-snug text-fd-foreground transition-colors group-hover:text-fd-primary">
                     {guide.title}

@@ -58,7 +58,7 @@ export function DesignerGuideArticle({ guide, locale, alternateHref, stale }: De
       <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-24">
         {/* Back link */}
         <Link
-          href="/for-designers"
+          href={`${prefix}/for-designers`}
           className="mb-8 inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />

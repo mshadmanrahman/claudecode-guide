@@ -7,6 +7,8 @@ import { ClaudeMobileMock } from '@/components/claude-mobile-mock';
 import { EngravingPanel } from '@/components/engraving';
 import { chatToSession } from '@/lib/chat-session';
 import type { SceneName } from '@/lib/scenes';
+import { DESIGNERS_HUB } from '@/lib/hubs/designers';
+import { TEACHERS_HUB } from '@/lib/hubs/teachers';
 
 export type Audience = 'home' | 'teachers' | 'designers' | 'marketers' | 'hr' | 'chrome' | 'microsoft' | 'pm-pilot';
 
@@ -55,19 +57,13 @@ const DEMOS: Record<Audience, AudienceDemo> = {
   },
   teachers: {
     scene: 'schoolhouse',
-    folder: 'Year 7 Science',
-    chat: exchange(
-      'Plan a 45-minute lesson on the water cycle for Year 7',
-      '**Starter (5 min):** where did the rain on the window come from?\n**Main (25 min):** label the cycle, then act it out in four groups.\n**Check (10 min):** five quick questions, answers attached.\n**Exit (5 min):** one sentence each on evaporation.',
-    ),
+    folder: TEACHERS_HUB.demo.folder,
+    chat: exchange(TEACHERS_HUB.demo.prompt, TEACHERS_HUB.demo.reply),
   },
   designers: {
     scene: 'swatches',
-    folder: 'Checkout redesign',
-    chat: exchange(
-      'Read this brief. Who is the user, and what is it missing?',
-      '**User:** first-time buyers on mid-range Android phones.\n**Missing:** a success metric, the payment methods in scope, and what happens offline.\nI drafted three questions for the PM in questions.md.',
-    ),
+    folder: DESIGNERS_HUB.demo.folder,
+    chat: exchange(DESIGNERS_HUB.demo.prompt, DESIGNERS_HUB.demo.reply),
   },
   marketers: {
     scene: 'market',
@@ -113,6 +109,8 @@ const DEMOS: Record<Audience, AudienceDemo> = {
 
 interface AudienceDemoPanelProps {
   audience: Audience;
+  /** A translated task for the audience's scene; defaults to the English demo. */
+  copy?: { folder: string; prompt: string; reply: string };
   /** Size, radius and entrance motion of the frame. */
   className?: string;
   sizes?: string;
@@ -122,11 +120,13 @@ interface AudienceDemoPanelProps {
 /** A framed engraving for the audience, with Claude running their first task on top: the Mac app, or the iPhone app on small screens. */
 export function AudienceDemoPanel({
   audience,
+  copy,
   className = 'h-[560px] rounded-3xl border border-[var(--line)] md:h-[520px]',
   sizes = '(min-width: 1024px) 1024px, 100vw',
   priority = true,
 }: AudienceDemoPanelProps) {
-  const demo = DEMOS[audience];
+  const base = DEMOS[audience];
+  const demo = copy ? { ...base, folder: copy.folder, chat: exchange(copy.prompt, copy.reply), session: undefined } : base;
   const session = demo.session ?? chatToSession(demo.chat);
   return (
     <EngravingPanel scene={demo.scene} priority={priority} sizes={sizes} className={className}>

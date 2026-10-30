@@ -11,6 +11,7 @@ import { TEACHER_GUIDES } from "@/lib/teacher-guides";
 import { TUTORIALS } from "@/lib/tutorials";
 import { BN_TUTORIALS } from "@/lib/i18n/bn/tutorials";
 import { BN_DESIGNER_GUIDES } from "@/lib/i18n/bn/designer-guides";
+import { BN_TEACHER_GUIDES } from "@/lib/i18n/bn/teacher-guides";
 
 const baseUrl = "https://claudecodeguide.dev";
 
@@ -117,6 +118,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...Object.keys(BN_DESIGNER_GUIDES).map((slug) => ({
       url: `${baseUrl}/bn/for-designers/${slug}`,
       changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...Object.keys(BN_TEACHER_GUIDES).map((slug) => ({
+      url: `${baseUrl}/bn/for-teachers/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...["for-designers", "for-teachers"].map((hub) => ({
+      url: `${baseUrl}/bn/${hub}`,
+      changeFrequency: "weekly" as const,
       priority: 0.6,
     })),
   ];

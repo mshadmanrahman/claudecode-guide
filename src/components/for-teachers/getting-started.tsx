@@ -3,21 +3,15 @@
 import Link from 'next/link';
 import { useInView } from '@/hooks/use-in-view';
 import { trackEvent } from '@/lib/analytics';
+import { TEACHERS_HUB, type TeachersHubCopy } from '@/lib/hubs/teachers';
+import { localePrefix, type Locale } from '@/lib/i18n/locale';
 
-const WHAT_YOU_NEED = [
-  'A free Claude account at claude.ai',
-  'A browser',
-  'No technical setup: it works in any browser',
-];
+interface TeacherGettingStartedProps {
+  locale?: Locale;
+  copy?: TeachersHubCopy['gettingStarted'];
+}
 
-const HOW_IT_WORKS = [
-  { num: '01', text: 'Open Claude.ai alongside your work.' },
-  { num: '02', text: 'Describe what you need to create.' },
-  { num: '03', text: "Copy Claude's output." },
-  { num: '04', text: 'Edit and use it as you would any other resource.' },
-];
-
-export function TeacherGettingStarted() {
+export function TeacherGettingStarted({ locale = 'en', copy = TEACHERS_HUB.gettingStarted }: TeacherGettingStartedProps) {
   const [ref, inView] = useInView(0.1);
 
   return (
@@ -29,10 +23,10 @@ export function TeacherGettingStarted() {
           }`}
         >
           <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
-            Getting started
+            {copy.heading}
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            No installation. No configuration. It works in a browser tab you open next to your planning doc.
+            {copy.lead}
           </p>
         </div>
 
@@ -44,10 +38,10 @@ export function TeacherGettingStarted() {
             }`}
           >
             <h3 className="font-display text-lg font-semibold text-fd-foreground mb-5">
-              What you need
+              {copy.needHeading}
             </h3>
             <ul className="space-y-3">
-              {WHAT_YOU_NEED.map((item, i) => (
+              {copy.need.map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-fd-muted-foreground">
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-fd-primary/10 text-xs font-semibold text-fd-primary">
                     {i + 1}
@@ -58,7 +52,7 @@ export function TeacherGettingStarted() {
             </ul>
             <div className="mt-6 glass rounded-xl p-4">
               <p className="text-xs text-fd-muted-foreground leading-relaxed">
-                {"Claude's free tier is enough to follow all guides here. If you use Claude daily, Pro ($20/month) removes the rate limits."}
+                {copy.tierNote}
               </p>
             </div>
           </div>
@@ -70,21 +64,21 @@ export function TeacherGettingStarted() {
             }`}
           >
             <h3 className="font-display text-lg font-semibold text-fd-foreground mb-5">
-              How it works
+              {copy.howHeading}
             </h3>
             <div className="glass rounded-xl p-5 space-y-4">
-              {HOW_IT_WORKS.map((step) => (
-                <div key={step.num} className="flex items-start gap-3">
+              {copy.how.map((text, i) => (
+                <div key={text} className="flex items-start gap-3">
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-fd-border bg-[var(--code)] font-mono text-xs text-fd-muted-foreground">
-                    {step.num}
+                    {String(i + 1).padStart(2, '0')}
                   </span>
-                  <p className="text-sm text-fd-muted-foreground leading-relaxed pt-0.5">{step.text}</p>
+                  <p className="text-sm text-fd-muted-foreground leading-relaxed pt-0.5">{text}</p>
                 </div>
               ))}
             </div>
             <div className="mt-4">
               <Link
-                href="/for-teachers/write-lesson-plans-with-claude"
+                href={`${localePrefix(locale)}/for-teachers/write-lesson-plans-with-claude`}
                 onClick={() =>
                   trackEvent('teacher_getting_started_click', {
                     step: 'cta',
@@ -93,7 +87,7 @@ export function TeacherGettingStarted() {
                 }
                 className="inline-flex items-center text-sm font-medium text-fd-foreground hover:underline rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               >
-                Start with Guide 1: Lesson plans &rarr;
+                {copy.cta} &rarr;
               </Link>
             </div>
           </div>

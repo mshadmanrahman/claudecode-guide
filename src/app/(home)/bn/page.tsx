@@ -12,6 +12,9 @@ import { KineticText } from '@/components/kinetic-text';
 import { ogImage } from '@/lib/og/image';
 import { BN_TUTORIALS } from '@/lib/i18n/bn/tutorials';
 import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
+import { BN_TEACHER_GUIDES } from '@/lib/i18n/bn/teacher-guides';
+import { BN_DESIGNERS_HUB } from '@/lib/i18n/bn/hubs/designers';
+import { BN_TEACHERS_HUB } from '@/lib/i18n/bn/hubs/teachers';
 /**
  * Search sends this page 564 impressions a month at position 8.7, its best
  * position on the site, against 9 clicks. The queries arrive in both scripts:
@@ -49,7 +52,7 @@ function AppDemo({ folder, steps }: { folder: string; steps: ChatStep[] }) {
 }
 
 /** A card gets the painted scene only when public/<dir>/<slug>.jpg exists, same rule as /tutorials. */
-function cardImage(dir: 'tutorials' | 'for-designers', slug: string): string | undefined {
+function cardImage(dir: 'tutorials' | 'for-designers' | 'for-teachers', slug: string): string | undefined {
   const file = path.join(process.cwd(), 'public', dir, `${slug}.jpg`);
   return existsSync(file) ? `/${dir}/${slug}.jpg` : undefined;
 }
@@ -92,6 +95,11 @@ function GuideCard({
       </Link>
     </li>
   );
+}
+
+/** Number of translated guides, in Bangla digits. */
+function guideCount(guides: Record<string, unknown>): string {
+  return `${Object.values(guides).filter(Boolean).length.toLocaleString('bn-BD')}টা গাইড`;
 }
 
 export default function BengaliGuidePage() {
@@ -334,6 +342,27 @@ export default function BengaliGuidePage() {
           </ul>
 
           <h2 className="mt-12 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
+            আপনার কাজের জন্য
+          </h2>
+          <p className="mt-3 text-fd-muted-foreground">
+            ডিজাইনার আর শিক্ষকদের জন্য আলাদা হাব, প্রতিটায় সেই কাজের সব গাইড এক জায়গায়।
+          </p>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            <GuideCard
+              href="/bn/for-designers"
+              title="ডিজাইনারদের জন্য Claude"
+              duration={guideCount(BN_DESIGNER_GUIDES)}
+              description={BN_DESIGNERS_HUB.content.hero.lead}
+            />
+            <GuideCard
+              href="/bn/for-teachers"
+              title="শিক্ষকদের জন্য Claude"
+              duration={guideCount(BN_TEACHER_GUIDES)}
+              description={BN_TEACHERS_HUB.content.hero.lead}
+            />
+          </ul>
+
+          <h2 className="mt-12 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
             Designer-দের জন্য গাইড
           </h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -343,6 +372,24 @@ export default function BengaliGuidePage() {
                   key={slug}
                   href={`/bn/for-designers/${slug}`}
                   image={cardImage('for-designers', slug)}
+                  title={g.content.title}
+                  duration={g.content.duration}
+                  description={g.content.description}
+                />
+              ) : null,
+            )}
+          </ul>
+
+          <h2 className="mt-12 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
+            শিক্ষকদের জন্য গাইড
+          </h2>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            {Object.entries(BN_TEACHER_GUIDES).map(([slug, g]) =>
+              g ? (
+                <GuideCard
+                  key={slug}
+                  href={`/bn/for-teachers/${slug}`}
+                  image={cardImage('for-teachers', slug)}
                   title={g.content.title}
                   duration={g.content.duration}
                   description={g.content.description}

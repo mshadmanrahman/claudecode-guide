@@ -8,8 +8,14 @@
  */
 import { TUTORIALS } from "../src/lib/tutorials.ts";
 import { DESIGNER_GUIDES } from "../src/lib/designer-guides.ts";
+import { TEACHER_GUIDES } from "../src/lib/teacher-guides.ts";
+import { TEACHERS_HUB } from "../src/lib/hubs/teachers.ts";
+import { DESIGNERS_HUB } from "../src/lib/hubs/designers.ts";
 import { BN_TUTORIALS } from "../src/lib/i18n/bn/tutorials.ts";
 import { BN_DESIGNER_GUIDES } from "../src/lib/i18n/bn/designer-guides.ts";
+import { BN_TEACHER_GUIDES } from "../src/lib/i18n/bn/teacher-guides.ts";
+import { BN_TEACHERS_HUB } from "../src/lib/i18n/bn/hubs/teachers.ts";
+import { BN_DESIGNERS_HUB } from "../src/lib/i18n/bn/hubs/designers.ts";
 import { sourceHash } from "../src/lib/i18n/source-hash.ts";
 
 interface Drift {
@@ -30,10 +36,18 @@ function diff(source: Record<string, unknown>, bn: Record<string, { sourceHash: 
   return d;
 }
 
-const report = {
-  tutorials: diff(TUTORIALS, BN_TUTORIALS),
-  designerGuides: diff(DESIGNER_GUIDES, BN_DESIGNER_GUIDES),
+/** English source and its Bangla translations, per content type. Hubs are keyed by hub name. */
+const sources: Record<string, [Record<string, unknown>, Record<string, { sourceHash: string } | undefined>]> = {
+  tutorials: [TUTORIALS, BN_TUTORIALS],
+  designerGuides: [DESIGNER_GUIDES, BN_DESIGNER_GUIDES],
+  teacherGuides: [TEACHER_GUIDES, BN_TEACHER_GUIDES],
+  hubs: [
+    { teachers: TEACHERS_HUB, designers: DESIGNERS_HUB },
+    { teachers: BN_TEACHERS_HUB, designers: BN_DESIGNERS_HUB },
+  ],
 };
+
+const report = Object.fromEntries(Object.entries(sources).map(([label, [en, bn]]) => [label, diff(en, bn)]));
 const drifted = Object.values(report).some((d) => d.stale.length + d.missing.length + d.orphan.length > 0);
 
 if (process.argv.includes("--json")) {
@@ -43,7 +57,7 @@ if (process.argv.includes("--json")) {
     for (const kind of ["stale", "missing", "orphan"] as const) {
       for (const slug of d[kind]) console.warn(`bn-sync: ${label}/${slug} is ${kind}`);
     }
-    const total = Object.keys(label === "tutorials" ? TUTORIALS : DESIGNER_GUIDES).length;
+    const total = Object.keys(sources[label][0]).length;
     const ok = total - d.stale.length - d.missing.length;
     console.log(`bn-sync: ${ok}/${total} ${label} have an in-sync Bangla version`);
   }

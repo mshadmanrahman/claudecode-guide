@@ -3,28 +3,27 @@
 import Link from 'next/link';
 import { useInView } from '@/hooks/use-in-view';
 import { trackEvent } from '@/lib/analytics';
+import { DESIGNERS_HUB, type DesignersHubCopy } from '@/lib/hubs/designers';
+import { localePrefix, type Locale } from '@/lib/i18n/locale';
 
-const STEPS = [
-  {
-    num: '01',
-    title: 'Pick where you work',
-    body: 'claude.ai in any browser, with nothing to install. Or the Claude desktop app for Mac or Windows, if you want Claude reading a folder of your files. Both follow the same guides.',
-  },
-  {
-    num: '02',
-    title: 'Write your working agreement',
-    body: 'Guide 1 walks you through it in 10 minutes. One block of text that tells Claude who you are, who you design for, and how you want output delivered. Every session starts from there.',
-    href: '/for-designers/set-up-claude',
-  },
-  {
-    num: '03',
-    title: 'Pick any guide that matches today',
-    body: 'Got a brief kickoff tomorrow? Guide 2. Running a heuristic eval next week? Guide 5. Each one is self-contained. No order required after the first.',
-    href: '/for-designers',
-  },
-];
+/** Where each step's link goes, by index. The words live in `DESIGNERS_HUB.gettingStarted`. */
+const STEP_HREFS = [undefined, '/for-designers/set-up-claude', '/for-designers'];
 
-export function DesignerGettingStarted() {
+interface DesignerGettingStartedProps {
+  locale?: Locale;
+  copy?: DesignersHubCopy['gettingStarted'];
+}
+
+export function DesignerGettingStarted({
+  locale = 'en',
+  copy = DESIGNERS_HUB.gettingStarted,
+}: DesignerGettingStartedProps) {
+  const prefix = localePrefix(locale);
+  const steps = copy.steps.map((step, i) => ({
+    ...step,
+    num: String(i + 1).padStart(2, '0'),
+    href: STEP_HREFS[i] && `${prefix}${STEP_HREFS[i]}`,
+  }));
   const [ref, inView] = useInView(0.1);
 
   return (
@@ -36,15 +35,15 @@ export function DesignerGettingStarted() {
           }`}
         >
           <h2 className="font-display text-4xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-5xl">
-            Getting started
+            {copy.heading}
           </h2>
           <p className="mt-4 max-w-lg text-fd-muted-foreground">
-            Three steps, and the first one takes 10 minutes.
+            {copy.lead}
           </p>
         </div>
 
         <div className="space-y-6">
-          {STEPS.map((step, i) => (
+          {steps.map((step, i) => (
             <div
               key={step.num}
               className={`flex gap-6 transition-all motion-reduce:transition-none duration-500 ${
@@ -72,7 +71,7 @@ export function DesignerGettingStarted() {
                     }
                     className="mt-3 inline-flex items-center text-sm font-medium text-fd-foreground hover:underline rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
                   >
-                    {step.num === '02' ? 'Start Guide 1' : 'Browse all guides'} &rarr;
+                    {'cta' in step && step.cta} &rarr;
                   </Link>
                 )}
               </div>

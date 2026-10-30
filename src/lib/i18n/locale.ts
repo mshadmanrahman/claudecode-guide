@@ -55,6 +55,11 @@ const UI = {
     inDesktopApp: "In the desktop app",
     needWeb: "A Claude account. Open claude.ai in any browser.",
     needDesktop: "The Claude desktop app for Mac or Windows. It can read a folder of your files.",
+    allTeacherGuides: "All teacher guides",
+    forTeachers: "For Teachers",
+    seePrompts: "See prompts",
+    oneHabit: "One habit at a time.",
+    fullWorkflow: "See the full workflow with prompts you can copy",
   },
   bn: {
     tutorials: "টিউটোরিয়াল",
@@ -102,6 +107,11 @@ const UI = {
     inDesktopApp: "Desktop app-এ",
     needWeb: "একটা Claude account। যেকোনো browser-এ claude.ai খুলুন।",
     needDesktop: "Mac বা Windows-এর জন্য Claude desktop app। এটা আপনার file-এর একটা folder পড়তে পারে।",
+    allTeacherGuides: "সব teacher guide",
+    forTeachers: "শিক্ষকদের জন্য",
+    seePrompts: "Prompt দেখুন",
+    oneHabit: "একবারে একটা অভ্যাস।",
+    fullWorkflow: "Copy করার মতো prompt-সহ পুরো workflow দেখুন (English)",
   },
 } as const;
 
