@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Link from "next/link";
+import { FooterArt } from "@/components/footer-art";
 import { FooterLanguageLink } from "@/components/footer-language-link";
 
 interface FooterLink {
@@ -30,7 +31,7 @@ const linkClass =
 
 export function SiteFooter() {
   return (
-    <footer className="relative mt-auto border-t border-[var(--line)] bg-[var(--bg)] px-4 pb-9 pt-10 font-mono text-caption md:px-16">
+    <footer className="relative mt-auto bg-[var(--bg)] px-4 pt-10 font-mono text-caption md:px-16">
       <div className="mx-auto flex max-w-[1312px] flex-col gap-3">
         <nav aria-label="Site" className="glass flex flex-wrap gap-x-5 gap-y-2 self-start rounded-lg px-3.5 py-2.5">
           {SITE_LINKS.map((link) => (
@@ -58,6 +59,7 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
+      <FooterArt />
     </footer>
   );
 }

@@ -574,6 +574,31 @@ h3.font-display {
 .dark .engr-band {
   opacity: 0.22;
 }
+/* Footer art: the engraving sits under the footer links and runs to the page
+   bottom, edge to edge, faded in at the top. The top of the art is open sky, so
+   the crop keeps the bottom; on phones the whole 3:2 picture shows. */
+.footer-art {
+  position: relative;
+  margin: 24px -1rem 0;
+  height: min(600px, 66.67vw);
+  overflow: hidden;
+  pointer-events: none;
+}
+/* The mask sits on the image, not the wrapper, so the blend still reaches the page. */
+.footer-art .engr-ink {
+  object-fit: cover;
+  object-position: center bottom;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
+}
+@media (min-width: 768px) {
+  .footer-art {
+    margin-inline: -4rem;
+  }
+}
+.dark .footer-art .engr-ink {
+  opacity: 0.5;
+}
 /* Light line diagrams in docs: in dark mode they flip to light lines on the
    page. hue-rotate turns the inverted colors back to their own hue. The layout
    wrapper is `isolate`, so the blend needs the page color painted right here. */

@@ -3,7 +3,6 @@ import type { CSSProperties } from 'react';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
-import { RouteEngravingBand } from '@/components/route-engraving-band';
 import { source } from '@/lib/source';
 
 // `relative isolate` keeps the footer band (z-index -1) above the body
@@ -21,7 +20,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       >
         {children}
       </DocsLayout>
-      <RouteEngravingBand />
       <SiteFooter />
     </div>
   );

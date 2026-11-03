@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { EngravingBand } from "@/components/engraving";
+import { FOOTER_ART } from "@/lib/footer-art-manifest";
 import type { SceneName } from "@/lib/scenes";
 
 /**
  * Which landscape each section of the site ends on. Longest prefix wins, so
- * /bn/for-designers beats /bn. Anything unlisted (docs, 404) gets the valley.
+ * /bn/for-designers beats /bn. Anything unlisted (home, docs) gets the valley.
  */
 const ROUTE_SCENES: ReadonlyArray<readonly [string, SceneName]> = [
   ["/about", "archipelago"],
@@ -45,7 +46,14 @@ export function sceneForPath(path: string): SceneName {
   return best;
 }
 
-/** The footer band for whatever page is showing. Lives in the shared layouts. */
-export function RouteEngravingBand() {
-  return <EngravingBand scene={sceneForPath(usePathname() ?? "/")} />;
+/** Engraved landscape under the footer links, one per section, down to the page bottom. */
+export function FooterArt() {
+  const scene = sceneForPath(usePathname() ?? "/");
+  const src = FOOTER_ART[scene] ?? FOOTER_ART.valley;
+  if (!src) return null;
+  return (
+    <div aria-hidden="true" className="footer-art" data-scene={scene}>
+      <Image key={src} src={src} alt="" fill sizes="100vw" quality={85} className="engr-ink" />
+    </div>
+  );
 }
