@@ -17,6 +17,7 @@ export const FOOTER_ART: Partial<Record<SceneName, string>> = {
   steppingstones: "/engraving/footer/steppingstones.53c7944d.jpg",
   summit: "/engraving/footer/summit.0af90c95.jpg",
   swatches: "/engraving/footer/swatches.89873bdb.jpg",
+  trailhead: "/engraving/footer/trailhead.8f861d5c.jpg",
   valley: "/engraving/footer/valley-traveller.04337cc7.jpg",
   viaduct: "/engraving/footer/viaduct.f5a210bb.jpg",
   watermills: "/engraving/footer/watermills.3a3ffb03.jpg",
