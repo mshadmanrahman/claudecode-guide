@@ -2375,3 +2375,23 @@ figure.ccg-code button:focus-visible {
 :lang(bn) :is(h1, h2, h3) {
   line-height: 1.4 !important;
 }
+
+/* Engraved card objects (/blog grid cards, /skills sections). Ink-alpha PNGs; inverted on dark. */
+.ccg-card-object {
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+}
+.ccg-card-object--blog {
+  width: 96px;
+  height: 96px;
+  margin: -6px 0 2px -6px;
+}
+.ccg-card-object--skill {
+  width: 112px;
+  height: 112px;
+  margin: 0 0 8px -8px;
+}
+.dark .ccg-card-object {
+  filter: invert(1) brightness(0.8);
+}

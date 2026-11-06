@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ArrowRight } from 'lucide-react';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { ogImage } from '@/lib/og/image';
+import { skillObjectSrc } from '@/data/card-objects';
 
 const title = 'Free Claude Skills: Crucible and Grill Me';
 const description =
@@ -93,6 +94,19 @@ export default function SkillsPage() {
         <div className="space-y-16">
           {SKILLS.map((skill) => (
             <section key={skill.name} id={skill.name} className="scroll-mt-24">
+              {skillObjectSrc(skill.name) && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={skillObjectSrc(skill.name)!}
+                  alt=""
+                  aria-hidden="true"
+                  width={112}
+                  height={112}
+                  loading="lazy"
+                  decoding="async"
+                  className="ccg-card-object ccg-card-object--skill"
+                />
+              )}
               <h2 className="font-display text-2xl font-semibold tracking-[-0.02em] text-fd-foreground">
                 {skill.name}: {skill.tagline.toLowerCase()}
               </h2>

@@ -7,6 +7,7 @@ import { DemoCard } from '@/components/demo-card';
 import { useState, useMemo } from 'react';
 import { getSortedPosts, getAllTags } from '@/data/blog-posts';
 import type { BlogPost } from '@/data/blog-posts';
+import { blogObjectSrc } from '@/data/card-objects';
 
 import { KineticText } from '@/components/kinetic-text';
 // ---------- Helpers ----------
@@ -116,11 +117,25 @@ function FeaturedHero({ post }: { post: BlogPost }) {
 // ---------- Blog Card (grid item) ----------
 
 function BlogCard({ post }: { post: BlogPost }) {
+  const objectSrc = blogObjectSrc(post.slug);
   return (
     <Link
       href={`/blog/${post.slug}`}
       className="glass hm-card group flex flex-col gap-3 rounded-xl p-5 sm:p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
     >
+      {objectSrc && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={objectSrc}
+          alt=""
+          aria-hidden="true"
+          width={96}
+          height={96}
+          loading="lazy"
+          decoding="async"
+          className="ccg-card-object ccg-card-object--blog"
+        />
+      )}
       <div className="ccg-card-meta">
         <time dateTime={post.date}>{formatDate(post.date)}</time>
       </div>
