@@ -1,8 +1,8 @@
 'use client';
 
-import { Code2, Terminal, Laptop } from 'lucide-react';
+import { AppWindow, Code2, Terminal, Laptop } from 'lucide-react';
 
-export type IdeChoice = 'vscode' | 'cursor' | 'jetbrains' | 'terminal';
+export type IdeChoice = 'app' | 'vscode' | 'cursor' | 'jetbrains' | 'terminal';
 
 interface IdeSelectorProps {
   selected: IdeChoice | null;
@@ -15,7 +15,8 @@ const options: ReadonlyArray<{
   icon: typeof Terminal;
   desc: string;
 }> = [
-  { id: 'vscode', label: 'VS Code', icon: Code2, desc: 'Most popular' },
+  { id: 'app', label: 'Claude app', icon: AppWindow, desc: 'No coding needed' },
+  { id: 'vscode', label: 'VS Code', icon: Code2, desc: 'Code editor' },
   { id: 'cursor', label: 'Cursor', icon: Laptop, desc: 'AI-first editor' },
   { id: 'jetbrains', label: 'JetBrains', icon: Code2, desc: 'IntelliJ, WebStorm...' },
   { id: 'terminal', label: 'Terminal', icon: Terminal, desc: 'CLI power user' },
@@ -23,7 +24,7 @@ const options: ReadonlyArray<{
 
 export function IdeSelector({ selected, onSelect }: IdeSelectorProps) {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
       {options.map((ide) => (
         <button
           key={ide.id}

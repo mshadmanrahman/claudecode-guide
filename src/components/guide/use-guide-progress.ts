@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 const STORAGE_KEY = 'claudecodeguide-progress';
 
-type IdeChoice = 'vscode' | 'cursor' | 'jetbrains' | 'terminal';
+type IdeChoice = 'app' | 'vscode' | 'cursor' | 'jetbrains' | 'terminal';
 
 interface GuideState {
   completedSteps: string[];

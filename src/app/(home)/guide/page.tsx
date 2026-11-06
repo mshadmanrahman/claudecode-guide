@@ -10,14 +10,22 @@ import { IdeSelector } from '@/components/guide/ide-selector';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { Collapsible } from '@/components/guide/collapsible';
 import { Checkpoint } from '@/components/guide/checkpoint';
-import { DemoCard } from '@/components/demo-card';
+import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
+import { ClaudeCodeMock, type CliStep } from '@/components/claude-code-mock';
 import { AffiliateCTA } from '@/components/affiliate-cta';
 import { DeprecationBanner } from '@/components/deprecation-banner';
 import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 
 import { KineticText } from '@/components/kinetic-text';
+
 export default function GuidePage() {
   const progress = useGuideProgress();
+  // Most readers never open a terminal, so the Claude app is the default path.
+  const ide = progress.selectedIde ?? 'app';
+  const usesTerminal = ide === 'terminal' || ide === 'cursor';
+  // One script per step: the app's Code tab by default, the CLI only for readers who chose it.
+  const session = (steps: CliStep[], title: string) =>
+    usesTerminal ? <ClaudeCodeMock steps={steps} cwd="~/my-first-project" /> : <ClaudeDesktopCodeMock steps={steps} title={title} folder="my-first-project" />;
   const ctas = getAffiliateCtasForPage('guide');
   const inlineCta = ctas.find((cta) => cta.placement === 'inline');
   const midBannerCta = ctas.find((cta) => cta.placement === 'mid-banner');
@@ -58,7 +66,7 @@ export default function GuidePage() {
           Progress saves automatically so you can come back anytime.
         </p>
         <p className="mt-3 text-sm text-fd-muted-foreground">
-          Works with VS Code, Cursor, JetBrains, or just the terminal.
+          Works in the Claude app, VS Code, Cursor, JetBrains, or the terminal.
           <br />
           Not ready for any of that?{' '}
           <a href="https://lovable.link/4IOZkKK" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground transition-colors">
@@ -121,10 +129,33 @@ export default function GuidePage() {
                 How do you write code? Pick your setup and I&apos;ll show you the fastest path.
               </p>
 
-              <IdeSelector selected={progress.selectedIde} onSelect={progress.setIde} />
+              <IdeSelector selected={ide} onSelect={progress.setIde} />
+
+              {/* Claude app path, the default: download, sign in, open the Code tab */}
+              {ide === 'app' && (
+                <div className="mt-6 space-y-4">
+                  <div className="rounded-lg border-2 border-[var(--line)] bg-[var(--chip)] p-4">
+                    <p className="text-sm font-medium text-fd-foreground">
+                      The easiest way in. No terminal, nothing to type into a black window.
+                    </p>
+                    <p className="mt-1 text-xs text-fd-muted-foreground">
+                      Claude Code lives in the Code tab of the Claude desktop app, on Mac and Windows.
+                    </p>
+                  </div>
+                  <ol className="list-decimal space-y-2 pl-5 text-sm text-fd-muted-foreground">
+                    <li>
+                      Go to{' '}
+                      <a href="https://claude.ai/download" target="_blank" rel="noopener noreferrer" className="underline hover:text-fd-foreground">claude.ai/download</a>{' '}
+                      and download the app for Mac or Windows.
+                    </li>
+                    <li>Install it, open it and sign in.</li>
+                    <li>Click the <strong>Code</strong> tab at the top of the window.</li>
+                  </ol>
+                </div>
+              )}
 
               {/* VS Code path, extension install, no terminal needed */}
-              {progress.selectedIde === 'vscode' && (
+              {ide === 'vscode' && (
                 <div className="mt-6 space-y-4">
                   <div className="rounded-lg border-2 border-[var(--line)] bg-[var(--chip)] p-4">
                     <p className="text-sm font-medium text-fd-foreground">
@@ -152,7 +183,7 @@ export default function GuidePage() {
               )}
 
               {/* Cursor path */}
-              {progress.selectedIde === 'cursor' && (
+              {ide === 'cursor' && (
                 <div className="mt-6 space-y-4">
                   <div className="rounded-lg border-2 border-[var(--line)] bg-[var(--chip)] p-4">
                     <p className="text-sm font-medium text-fd-foreground">
@@ -176,7 +207,7 @@ export default function GuidePage() {
               )}
 
               {/* JetBrains path */}
-              {progress.selectedIde === 'jetbrains' && (
+              {ide === 'jetbrains' && (
                 <div className="mt-6 space-y-4">
                   <div className="rounded-lg border-2 border-[var(--line)] bg-[var(--chip)] p-4">
                     <p className="text-sm font-medium text-fd-foreground">
@@ -203,7 +234,7 @@ export default function GuidePage() {
               )}
 
               {/* Terminal path, the original flow with OS selector */}
-              {progress.selectedIde === 'terminal' && (
+              {ide === 'terminal' && (
                 <div className="mt-6 space-y-4">
                   <p className="text-sm text-fd-muted-foreground">
                     Pick your operating system:
@@ -269,27 +300,13 @@ export default function GuidePage() {
                 </div>
               )}
 
-              {!progress.selectedIde && (
-                <p className="mt-4 text-center text-sm text-fd-muted-foreground">
-                  Pick how you code above to see your install path
-                </p>
-              )}
-
-              {progress.selectedIde && (
-                <DemoCard title="What you'll see" loop={false} steps={[
-                  ...(progress.selectedIde === 'vscode' || progress.selectedIde === 'jetbrains'
-                    ? [
-                        { type: 'success' as const, text: '✓ Extension installed' },
-                        { type: 'out' as const, text: 'Open the Claude Code panel in your sidebar' },
-                      ]
-                    : [
-                        { type: 'cmd' as const, text: 'npm install -g @anthropic-ai/claude-code' },
-                        { type: 'out' as const, text: 'added 1 package in 12s' },
-                      ]),
-                  { type: 'cmd' as const, text: 'claude --version', delay: 800 },
-                  { type: 'success' as const, text: '✓ claude-code v1.0.24' },
-                  { type: 'warn' as const, text: '→ You\'re installed. Move to step 2.' },
-                ]} />
+              {session(
+                [
+                  { kind: 'prompt', text: 'Hi! Are you working?' },
+                  { kind: 'thinking', ms: 900 },
+                  { kind: 'say', text: "Yes, I'm ready. I can see the my-first-project folder.\nWhat would you like to build?" },
+                ],
+                'First hello',
               )}
             </GuideStep>
 
@@ -356,10 +373,16 @@ export default function GuidePage() {
               completed={progress.isCompleted('first-prompt')}
               onToggle={progress.toggleStep}
             >
-              {(progress.selectedIde === 'vscode' || progress.selectedIde === 'jetbrains') ? (
+              {ide === 'app' ? (
                 <div className="mb-4 space-y-3">
                   <p className="text-sm text-fd-muted-foreground">
-                    Open any project folder in {progress.selectedIde === 'vscode' ? 'VS Code' : 'your JetBrains IDE'}, then open the Claude Code panel from the sidebar.
+                    Make an empty folder called <strong>my-first-project</strong> anywhere you like. In the Code tab, choose that folder, then type your first prompt:
+                  </p>
+                </div>
+              ) : (ide === 'vscode' || ide === 'jetbrains') ? (
+                <div className="mb-4 space-y-3">
+                  <p className="text-sm text-fd-muted-foreground">
+                    Open any project folder in {ide === 'vscode' ? 'VS Code' : 'your JetBrains IDE'}, then open the Claude Code panel from the sidebar.
                   </p>
                   <p className="text-sm text-fd-muted-foreground">
                     Type your first prompt:
@@ -377,19 +400,22 @@ export default function GuidePage() {
                 </div>
               )}
               <CopyBlock code='"Create a simple HTML page that says Hello World with a nice design"' language="prompt" />
-              <DemoCard title="What happens when you run it" loop={false} steps={[
-                { type: 'cmd', text: 'claude' },
-                { type: 'success', text: '✓ Welcome to Claude Code!' },
-                { type: 'cmd', text: '"Create a simple HTML page that says Hello World with a nice design"', delay: 1000 },
-                { type: 'out', text: 'Creating index.html...' },
-                { type: 'out', text: 'Writing HTML with gradient background and centered text...' },
-                { type: 'success', text: '✓ Created index.html (42 lines)' },
-                { type: 'out', text: 'Open index.html in your browser to see it.' },
-                { type: 'warn', text: '→ You just built something with AI. That\'s it.' },
-              ]} />
+              {session(
+                [
+                  { kind: 'prompt', text: 'Create a simple HTML page that says Hello World with a nice design' },
+                  { kind: 'thinking', ms: 1200 },
+                  { kind: 'tool', name: 'Write', arg: 'index.html', result: 'Wrote 42 lines to index.html' },
+                  { kind: 'say', text: 'Done. index.html has a soft gradient background and centered text.\nOpen it in your browser to see it.' },
+                ],
+                'Hello World page',
+              )}
 
               <Collapsible title="Stuck? Claude Code won't start?">
-                <p>Make sure you&apos;re logged in. Run <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">claude auth login</code> and follow the prompts to connect your Anthropic account.</p>
+                {usesTerminal ? (
+                  <p>Make sure you&apos;re logged in. Run <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">claude auth login</code> and follow the prompts to connect your Anthropic account.</p>
+                ) : (
+                  <p>Make sure you&apos;re signed in with a Pro or Max account. The Code tab needs a paid plan (step 2), and it only works once you&apos;ve picked a folder.</p>
+                )}
               </Collapsible>
 
               <Collapsible title="Claude suggested a command I don't understand. Is it safe?">
@@ -433,7 +459,7 @@ export default function GuidePage() {
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Think of CLAUDE.md as <strong>a letter to Claude</strong>. It tells Claude who you are, what your project is, and how you want it to work. Without it, Claude guesses. With it, Claude just knows. Create one in your project root:
+                Think of CLAUDE.md as <strong>a letter to Claude</strong>. It tells Claude who you are, what your project is, and how you want it to work. Without it, Claude guesses. With it, Claude just knows. Paste this into Claude and ask it to save the file as <strong>CLAUDE.md</strong> in your project folder:
               </p>
               <CopyBlock code={`# CLAUDE.md
 
@@ -455,21 +481,15 @@ npm run test   # Run tests
 ## Communication
 - Be direct. Show code, not explanations.
 - When suggesting changes, edit the file directly.`} language="markdown" />
-              <div className="engr-backdrop" style={{ '--engr-art': 'url(/engraving/backdrop/footbridge.6a97ca1d.jpg)' } as React.CSSProperties}>
-              <DemoCard title="The difference CLAUDE.md makes" loop={false} steps={[
-                { type: 'out', text: '── Without CLAUDE.md ──' },
-                { type: 'cmd', text: '"Add a login form"' },
-                { type: 'error', text: '  Created LoginForm.jsx (wrong, you use .tsx)' },
-                { type: 'error', text: '  Used inline styles (wrong, you use Tailwind)' },
-                { type: 'out', text: '' },
-                { type: 'out', text: '── With CLAUDE.md ──' },
-                { type: 'cmd', text: '"Add a login form"', delay: 1000 },
-                { type: 'success', text: '  Created LoginForm.tsx (correct)' },
-                { type: 'success', text: '  Used Tailwind classes (correct)' },
-                { type: 'success', text: '  Added "use client" directive (correct)' },
-                { type: 'warn', text: '→ Same prompt. Night and day difference.' },
-              ]} />
-              </div>
+              {session(
+                [
+                  { kind: 'prompt', text: 'Add a login form' },
+                  { kind: 'thinking', ms: 1100 },
+                  { kind: 'tool', name: 'Write', arg: 'LoginForm.tsx', result: 'Wrote 58 lines to LoginForm.tsx' },
+                  { kind: 'say', text: 'Followed your CLAUDE.md: TypeScript, Tailwind classes, and a "use client" directive.\nWithout it, I would have guessed .jsx and inline styles.' },
+                ],
+                'The difference CLAUDE.md makes',
+              )}
 
               <p className="mt-4 text-sm text-fd-muted-foreground">
                 This is a starter. You&apos;ll customize it over time.{' '}
@@ -486,23 +506,25 @@ npm run test   # Run tests
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Memory lets Claude Code remember you between sessions. Without it, you start from scratch every time. Create a memory index:
+                Memory lets Claude Code remember you between sessions. Without it, you start from scratch every time. Ask Claude to create a memory index:
               </p>
-              <CopyBlock code={'mkdir -p .claude/memory\ntouch .claude/memory/MEMORY.md'} />
+              <CopyBlock code={'"Create a .claude/memory folder with an empty MEMORY.md index file in it."'} language="prompt" />
               <p className="my-4 text-sm text-fd-muted-foreground">
-                Now tell Claude Code about yourself. Start a session and say:
+                Now tell Claude Code about yourself:
               </p>
               <CopyBlock code={'"Remember that I\'m a [your role] working on [your project]. I prefer [your communication style]."'} language="prompt" />
-              <DemoCard title="Memory in action" loop={false} steps={[
-                { type: 'cmd', text: '"Remember that I\'m a PM who prefers direct, short answers"' },
-                { type: 'success', text: '✓ Saved to memory/user_role.md' },
-                { type: 'out', text: '' },
-                { type: 'out', text: '── Next session ──' },
-                { type: 'cmd', text: 'claude', delay: 1000 },
-                { type: 'success', text: '✓ Loading memory... 1 user preference found' },
-                { type: 'out', text: 'Welcome back. You\'re a PM. Keeping answers direct.' },
-                { type: 'warn', text: '→ It remembers you. Zero re-explanation.' },
-              ]} />
+              {session(
+                [
+                  { kind: 'prompt', text: "Remember that I'm a PM who prefers direct, short answers" },
+                  { kind: 'thinking', ms: 900 },
+                  { kind: 'tool', name: 'Write', arg: '.claude/memory/user_role.md', result: 'Wrote 4 lines to .claude/memory/user_role.md' },
+                  { kind: 'say', text: 'Saved. Next session, I will already know this.' },
+                  { kind: 'prompt', text: 'What do you know about me?' },
+                  { kind: 'thinking', ms: 800 },
+                  { kind: 'say', text: "You're a PM, and you want direct, short answers." },
+                ],
+                'Memory in action',
+              )}
 
               <p className="mt-2 text-sm text-fd-muted-foreground">
                 <Link href="/docs/foundations/memory-system" className="underline hover:text-fd-foreground">Learn more about memory</Link>.
@@ -521,19 +543,18 @@ npm run test   # Run tests
                 At the end of each session, write a short handoff. That way the next session picks up exactly where you left off instead of starting cold. Just tell Claude Code:
               </p>
               <CopyBlock code={'"Write a handoff for this session. What did we do, what\'s next, and any key decisions."'} language="prompt" />
-              <DemoCard title="Handoff → warm start" loop={false} steps={[
-                { type: 'cmd', text: '"Write a handoff for this session"' },
-                { type: 'out', text: 'Writing handoff...' },
-                { type: 'success', text: '✓ Saved to handoffs/2026-03-29.md' },
-                { type: 'out', text: '  - Built login form with validation' },
-                { type: 'out', text: '  - Next: connect to auth API' },
-                { type: 'out', text: '' },
-                { type: 'out', text: '── Tomorrow ──' },
-                { type: 'cmd', text: 'claude', delay: 1000 },
-                { type: 'success', text: '✓ Reading handoff... resuming context' },
-                { type: 'out', text: 'Picking up: connect login form to auth API' },
-                { type: 'warn', text: '→ 30 seconds to write. 10 minutes saved tomorrow.' },
-              ]} />
+              {session(
+                [
+                  { kind: 'prompt', text: 'Write a handoff for this session' },
+                  { kind: 'thinking', ms: 900 },
+                  { kind: 'tool', name: 'Write', arg: 'handoffs/2026-03-29.md', result: 'Wrote 6 lines to handoffs/2026-03-29.md', lines: ['- Built login form with validation', '- Next: connect to auth API'] },
+                  { kind: 'say', text: 'Saved. Tomorrow, ask me to pick up where we left off.' },
+                  { kind: 'prompt', text: 'Pick up where we left off' },
+                  { kind: 'thinking', ms: 900 },
+                  { kind: 'say', text: 'Read your handoff. Next up: connect the login form to the auth API.' },
+                ],
+                'Handoff to warm start',
+              )}
 
               <p className="mt-2 text-sm text-fd-muted-foreground">
                 <Link href="/docs/foundations/session-lifecycle" className="underline hover:text-fd-foreground">Learn about session lifecycle</Link>.
@@ -598,11 +619,7 @@ npm run test   # Run tests
               onToggle={progress.toggleStep}
             >
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                A skill turns a multi-step task into a single command. Think about something you explain to Claude Code over and over. That&apos;s your first skill. Encode it once, run it forever:
-              </p>
-              <CopyBlock code={'mkdir -p .claude/skills/code-review'} />
-              <p className="my-4 text-sm text-fd-muted-foreground">
-                Create a simple skill file. Here&apos;s an example &quot;code review&quot; skill:
+                A skill turns a multi-step task into a single command. Think about something you explain to Claude Code over and over. That&apos;s your first skill. Encode it once, run it forever. Here&apos;s an example &quot;code review&quot; skill:
               </p>
               <CopyBlock code={`---
 name: code-review
@@ -622,19 +639,19 @@ Review the code I just changed for quality, bugs, and style.
 ## Output Format
 List each finding with the file, line, severity, and a one-line fix.`} language="markdown" />
               <p className="mb-4 text-sm text-fd-muted-foreground">
-                Save this as <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">.claude/skills/code-review/SKILL.md</code>. Then try it:
+                Paste it into Claude and ask it to save the file as <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">.claude/skills/code-review/SKILL.md</code>. Then try it:
               </p>
 
-              <DemoCard title="Your skill in action" loop={false} steps={[
-                { type: 'cmd', text: 'claude "review my recent changes"' },
-                { type: 'out', text: 'Matched skill: code-review' },
-                { type: 'out', text: 'Running git diff...' },
-                { type: 'out', text: 'Reviewing 3 changed files...' },
-                { type: 'error', text: '  CRITICAL: SQL injection in query.ts:23' },
-                { type: 'warn', text: '  WARNING: Missing null check in user.ts:41' },
-                { type: 'success', text: '  SUGGESTION: Extract helper in utils.ts:15' },
-                { type: 'warn', text: '→ One command. Full review. That\'s a skill.' },
-              ]} />
+              {session(
+                [
+                  { kind: 'prompt', text: 'Review my recent changes' },
+                  { kind: 'thinking', ms: 900 },
+                  { kind: 'say', text: 'Using the code-review skill.' },
+                  { kind: 'tool', name: 'Bash', arg: 'git diff', result: '3 files changed' },
+                  { kind: 'say', text: 'Critical: SQL injection in query.ts:23\nWarning: missing null check in user.ts:41\nSuggestion: extract a helper in utils.ts:15' },
+                ],
+                'Your skill in action',
+              )}
 
               <p className="mt-2 text-sm text-fd-muted-foreground">
                 <Link href="/docs/patterns/skills" className="underline hover:text-fd-foreground">Learn more about skills</Link>.
@@ -664,17 +681,17 @@ List each finding with the file, line, severity, and a one-line fix.`} language=
   }
 }`} language="json" />
               <p className="my-4 text-sm text-fd-muted-foreground">
-                Save this as <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project root. Set your <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable (think of it as <strong>saving a password your computer remembers</strong>, so Claude Code can use it without you typing it every time). Then try:
+                Ask Claude to save this as <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">.mcp.json</code> in your project folder. Set your <code className="rounded bg-[var(--code)] px-1.5 py-0.5 font-mono text-xs">GITHUB_TOKEN</code> environment variable (think of it as <strong>saving a password your computer remembers</strong>, so Claude Code can use it without you typing it every time). Then try:
               </p>
-              <DemoCard title="MCP in action: talking to GitHub" loop={false} steps={[
-                { type: 'cmd', text: '"List my open pull requests"' },
-                { type: 'out', text: '[MCP: github] Querying pull requests...' },
-                { type: 'success', text: '✓ Connected to your-username/my-project' },
-                { type: 'out', text: '2 PRs open:' },
-                { type: 'out', text: '  #12: Add user dashboard (you, 2 days ago)' },
-                { type: 'out', text: '  #14: Fix login redirect (you, today)' },
-                { type: 'warn', text: '→ Claude Code just talked to GitHub. No browser needed.' },
-              ]} />
+              {session(
+                [
+                  { kind: 'prompt', text: 'List my open pull requests' },
+                  { kind: 'thinking', ms: 900 },
+                  { kind: 'tool', name: 'github', arg: 'list_pull_requests', result: '2 open pull requests' },
+                  { kind: 'say', text: '#12: Add user dashboard (you, 2 days ago)\n#14: Fix login redirect (you, today)' },
+                ],
+                'Talking to GitHub',
+              )}
 
               <Collapsible title="Don't use GitHub? Skip this step.">
                 <p>MCP is optional. You can always add it later. The guide continues without it. Just check the box above to move on.</p>
