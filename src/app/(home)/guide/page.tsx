@@ -455,6 +455,7 @@ npm run test   # Run tests
 ## Communication
 - Be direct. Show code, not explanations.
 - When suggesting changes, edit the file directly.`} language="markdown" />
+              <div className="engr-backdrop" style={{ '--engr-art': 'url(/engraving/backdrop/footbridge.6a97ca1d.jpg)' } as React.CSSProperties}>
               <DemoCard title="The difference CLAUDE.md makes" loop={false} steps={[
                 { type: 'out', text: '── Without CLAUDE.md ──' },
                 { type: 'cmd', text: '"Add a login form"' },
@@ -468,6 +469,7 @@ npm run test   # Run tests
                 { type: 'success', text: '  Added "use client" directive (correct)' },
                 { type: 'warn', text: '→ Same prompt. Night and day difference.' },
               ]} />
+              </div>
 
               <p className="mt-4 text-sm text-fd-muted-foreground">
                 This is a starter. You&apos;ll customize it over time.{' '}

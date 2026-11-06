@@ -599,6 +599,75 @@ h3.font-display {
 .dark .footer-art .engr-ink {
   opacity: 0.5;
 }
+/* Backdrop: one engraved landscape behind the single key demo or code block on a
+   tutorial or post. The frame breaks out of the reading column into the gutter
+   (up to 96px a side; edge to edge on phones). The art fades in from clear at
+   the top, and the block keeps an opaque surface so no ink shows through text.
+   Set the picture with style="--engr-art:url(...)". */
+.engr-backdrop {
+  --engr-out: min(96px, max(0px, (100vw - 100%) / 2 - 24px));
+  position: relative;
+  isolation: isolate;
+  margin-block: 28px;
+  margin-inline: calc(-1 * var(--engr-out));
+  padding: 52px 52px 76px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+}
+.engr-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--engr-art) center 70% / cover no-repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 100%);
+}
+.engr-backdrop > *,
+.engr-backdrop > figure.ccg-code {
+  position: relative;
+  margin: 0;
+  box-shadow: 0 18px 48px -12px rgba(30, 25, 20, 0.35), 0 2px 6px rgba(30, 25, 20, 0.12);
+}
+.engr-backdrop > figure.ccg-code {
+  background: var(--bg);
+}
+/* --below: the scene's figure sits low in the picture, so the art keeps the
+   frame's full width (no cover crop), pins to the bottom, and the frame leaves
+   a band a third of the picture's height under the block for it. */
+.engr-backdrop--below {
+  padding-bottom: max(76px, (100% + 2 * var(--engr-out)) * 0.24);
+}
+.engr-backdrop--below::before {
+  inset: auto 0 0;
+  aspect-ratio: 3 / 2;
+  background-position: center bottom;
+  background-size: 100% auto;
+}
+@media (max-width: 767px) {
+  .engr-backdrop {
+    --engr-out: max(0px, (100vw - 100%) / 2);
+    padding: 12px 12px 36px;
+    border-inline: 0;
+    border-radius: 0;
+  }
+  .engr-backdrop--below {
+    padding-bottom: max(36px, (100% + 2 * var(--engr-out)) * 0.24);
+  }
+}
+.dark .engr-backdrop {
+  background: var(--bg);
+}
+.dark .engr-backdrop::before {
+  filter: invert(1) brightness(0.75);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
 /* Light line diagrams in docs: in dark mode they flip to light lines on the
    page. hue-rotate turns the inverted colors back to their own hue. The layout
    wrapper is `isolate`, so the blend needs the page color painted right here. */

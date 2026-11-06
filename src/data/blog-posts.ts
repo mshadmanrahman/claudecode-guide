@@ -1803,7 +1803,7 @@ print(f"{hits} of {total} assistant replies ({hits/total:.1%})")</code></pre>
 
 <h2>The 25-line example: em-dash-fixer</h2>
 <p>Here's the mod that replaced my blocking hook, unedited:</p>
-<pre><code class="language-ts">import type { Register } from 'claude-code'
+<div class="engr-backdrop engr-backdrop--below" style="--engr-art:url(/engraving/backdrop/fencerail.ac4c1376.jpg)"><pre><code class="language-ts">import type { Register } from 'claude-code'
 
 const DASH = '\\u2014'
 // Files that talk about the character on purpose (the guard hooks, this mod).
@@ -1827,7 +1827,7 @@ export const register: Register = on =&gt; {
     $.ui.toast(\`em-dash-fixer: rewrote dashes in \${e.file_path.split('/').at(-1)}\`)
     return next({ ...e, new_string: fix(e.new_string) })
   })
-}</code></pre>
+}</code></pre></div>
 <p>Two handlers, one for <code>Write</code> and one for <code>Edit</code>. Each checks whether the content has a dash, and if not, passes the call through untouched. If it does, it shows a toast saying which file it fixed and passes on a copy with the dashes replaced. The <code>SKIP</code> line keeps it away from the files that need to contain a literal dash, like the hook that used to block them.</p>
 <p>The retry is gone. Claude writes once, the file lands clean, and a small toast tells me it happened.</p>
 
