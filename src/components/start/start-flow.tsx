@@ -7,6 +7,7 @@ import {
   Gamepad2, ClipboardList, BarChart3, ArrowRight, Check,
   Monitor, Laptop, Terminal as TerminalIcon, ChevronDown, ChevronRight,
   Sparkles, Globe, Code2, Mic, Map,
+  ListChecks,
 } from 'lucide-react';
 import { ProgressiveStep } from '@/components/start/progressive-step';
 import { StartHero } from '@/components/start/start-hero';
@@ -636,6 +637,16 @@ export function StartFlow() {
                 </div>
                 <ArrowRight className="h-4 w-4 shrink-0 text-[var(--acc)]" />
               </Link>
+              <Link
+                href="/guide"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex items-start gap-4 glass rounded-xl p-5 transition-all motion-reduce:transition-none hover:bg-[var(--glass2)]"
+              >
+                <ListChecks className="mt-0.5 h-5 w-5 shrink-0 text-[var(--acc)]" />
+                <div>
+                  <p className="text-sm font-medium text-fd-foreground">Set up memory, skills and tools</p>
+                  <p className="mt-1 text-xs text-fd-muted-foreground">9-step checklist that saves your progress</p>
+                </div>
+              </Link>
               {TRACK_OPTIONS.filter((t) => t.id !== track).map((t) => {
                 const Icon = t.icon;
                 return (
@@ -812,6 +823,16 @@ export function StartFlow() {
                   <p className="mt-1 text-xs text-fd-muted-foreground">Six stages from your first win to running Claude on its own</p>
                 </div>
                 <ArrowRight className="h-4 w-4 shrink-0 text-[var(--acc)]" />
+              </Link>
+              <Link
+                href="/guide"
+                className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] flex items-start gap-4 glass rounded-xl p-5 transition-all motion-reduce:transition-none hover:bg-[var(--glass2)]"
+              >
+                <ListChecks className="mt-0.5 h-5 w-5 shrink-0 text-[var(--acc)]" />
+                <div>
+                  <p className="text-sm font-medium text-fd-foreground">Set up memory, skills and tools</p>
+                  <p className="mt-1 text-xs text-fd-muted-foreground">9-step checklist that saves your progress</p>
+                </div>
               </Link>
               {TRACK_OPTIONS.filter((t) => t.id !== track).map((t) => {
                 const Icon = t.icon;

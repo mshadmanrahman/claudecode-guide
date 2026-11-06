@@ -13,7 +13,6 @@ import { Checkpoint } from '@/components/guide/checkpoint';
 import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
 import { ClaudeCodeMock, type CliStep } from '@/components/claude-code-mock';
 import { AffiliateCTA } from '@/components/affiliate-cta';
-import { DeprecationBanner } from '@/components/deprecation-banner';
 import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 
 import { KineticText } from '@/components/kinetic-text';
@@ -31,15 +30,7 @@ export default function GuidePage() {
   const midBannerCta = ctas.find((cta) => cta.placement === 'mid-banner');
   const endCardCta = ctas.find((cta) => cta.placement === 'end-card');
 
-  // Banner and header render before progress loads so the server HTML has the h1.
-  const banner = (
-    <DeprecationBanner
-      message="There's a better way to start now. The new guided setup walks you through everything, step by step, in under 5 minutes."
-      linkText="Try the new Start Here"
-      linkHref="/start"
-    />
-  );
-
+  // Header renders before progress loads so the server HTML has the h1.
   const header = (
     <header className="mx-auto max-w-3xl px-6 pt-12 pb-8">
       <div className="flex items-center justify-end gap-4">
@@ -81,7 +72,6 @@ export default function GuidePage() {
   if (!progress.loaded) {
     return (
       <div className="min-h-screen">
-        {banner}
         {null /* progress bar slot: keeps header mounted once progress loads */}
         {header}
         <div className="flex min-h-screen items-center justify-center">
@@ -93,7 +83,6 @@ export default function GuidePage() {
 
   return (
     <div className="min-h-screen">
-      {banner}
       {progress.completedCount > 0 && (
         <ProgressBar
           percent={progress.progressPercent}
