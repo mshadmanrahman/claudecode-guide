@@ -13,7 +13,7 @@ export const FOOTER_ART: Partial<Record<FooterScene, string>> = {
   harbor: "/engraving/footer/harbor.19a075a0.jpg",
   haze: "/engraving/footer/haze.36e8eee9.jpg",
   hut: "/engraving/footer/hut.46948777.jpg",
-  meadow: "/engraving/footer/meadow.c7310ab3.jpg",
+  meadow: "/engraving/footer/meadow.aaf78cc4.jpg",
   overlook: "/engraving/footer/overlook.1916eb26.jpg",
   ridges: "/engraving/footer/ridges.3ed18224.jpg",
   sailboat: "/engraving/footer/sailboat.3e39cc3f.jpg",

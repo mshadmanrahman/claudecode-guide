@@ -180,7 +180,7 @@ export function StartFlow() {
   // ─── Step 0: Pick your track ───
   if (!track || step === 0) {
     return (
-      <main className="flex min-h-screen flex-col">
+      <main className="flex flex-col">
         <section className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 pt-28 pb-8 text-center">
           <h1 className="font-display tracking-[-0.035em] text-display-article font-semibold text-fd-foreground leading-[1.08]">
             <KineticText>What do you want to make?</KineticText>
@@ -240,7 +240,7 @@ export function StartFlow() {
   // ─── Step 1: How do you want to use Claude? ───
   if (step === 1) {
     return (
-      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
+      <main className="flex flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={1}
           totalSteps={totalSteps}
@@ -299,7 +299,7 @@ export function StartFlow() {
   // ─── Step 2 (Terminal path): What computer are you on? ───
   if (step === 2 && interfaceChoice === 'terminal') {
     return (
-      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
+      <main className="flex flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={2}
           totalSteps={totalSteps}
@@ -348,7 +348,7 @@ export function StartFlow() {
   // ─── Step 3 (Terminal path): Open your terminal ───
   if (step === 3 && osConfig) {
     return (
-      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
+      <main className="flex flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={3}
           totalSteps={totalSteps}
@@ -397,7 +397,7 @@ export function StartFlow() {
   // ─── Step 4 (Terminal path): Install Claude Code ───
   if (step === 4 && osConfig) {
     return (
-      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
+      <main className="flex flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={4}
           totalSteps={totalSteps}
@@ -466,7 +466,7 @@ export function StartFlow() {
   // ─── Step 5 (Terminal path): Sign in ───
   if (step === 5) {
     return (
-      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
+      <main className="flex flex-col px-6 pt-24 pb-16">
         <ProgressiveStep
           stepNumber={5}
           totalSteps={totalSteps}
@@ -528,7 +528,7 @@ export function StartFlow() {
   // ─── Step 10: Non-terminal path (Web/Desktop/VSCode) ───
   if (step === 10 && trackConfig && interfaceConfig && !interfaceConfig.needsTerminal) {
     return (
-      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
+      <main className="flex flex-col px-6 pt-24 pb-16">
         <div className="animate-slide-up-fade w-full max-w-2xl mx-auto">
           {/* Progress bar */}
           <div className="mb-8">
@@ -719,7 +719,7 @@ export function StartFlow() {
   // ─── Step 6 (Terminal path): The Win! ───
   if (step === 6 && trackConfig && osConfig) {
     return (
-      <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
+      <main className="flex flex-col px-6 pt-24 pb-16">
         <div className="animate-slide-up-fade w-full max-w-2xl mx-auto">
           {/* Progress bar - complete */}
           <div className="mb-8">
@@ -897,7 +897,7 @@ export function StartFlow() {
 
   // Fallback
   return (
-    <main className="flex min-h-screen flex-col px-6 pt-24 pb-16">
+    <main className="flex flex-col px-6 pt-24 pb-16">
       <div className="mx-auto text-center">
         <p className="text-fd-muted-foreground">Something went wrong. Let&apos;s try again from the start.</p>
         <button

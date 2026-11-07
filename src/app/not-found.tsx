@@ -39,7 +39,7 @@ export default function NotFound() {
         </Link>
       </div>
       </div>
-      <SiteFooter scene="valley" />
+      <SiteFooter />
     </div>
   );
 }

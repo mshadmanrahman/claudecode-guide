@@ -599,7 +599,7 @@ h3.font-display {
 }
 .footer-art {
   position: relative;
-  margin-top: 56px;
+  margin-top: 8px;
   height: min(600px, 66.67vw);
   overflow: hidden;
 }

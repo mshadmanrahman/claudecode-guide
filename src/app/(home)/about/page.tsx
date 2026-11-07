@@ -23,7 +23,7 @@ const personJsonLd = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen">
+    <main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
