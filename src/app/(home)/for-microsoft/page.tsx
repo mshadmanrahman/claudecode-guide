@@ -1,4 +1,5 @@
 import { MicrosoftHero } from '@/components/for-microsoft/hero';
+import { FrameworkLink } from '@/components/framework-link';
 import { MicrosoftGuideCards } from '@/components/for-microsoft/guide-cards';
 import { MicrosoftGettingStarted } from '@/components/for-microsoft/getting-started';
 import { PersonaWorkflowStrip } from '@/components/persona-workflow-strip';
@@ -13,6 +14,7 @@ export default function ForMicrosoftPage() {
         <MicrosoftGuideCards />
       </div>
       <MicrosoftGettingStarted />
+      <FrameworkLink href="/docs/frameworks/for-microsoft" audience="Office users" />
       <div className="mx-auto max-w-3xl px-6 py-24">
         <EmailCapture placement="for-microsoft-footer" />
       </div>

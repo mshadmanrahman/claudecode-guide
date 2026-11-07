@@ -31,6 +31,12 @@ const nextConfig: NextConfig = {
         destination: '/docs/comparisons/vs-cursor',
         permanent: false,
       },
+      // No Bangla tutorials index yet; only /bn/tutorials/[slug] exists.
+      {
+        source: '/bn/tutorials',
+        destination: '/bn',
+        permanent: false,
+      },
     ];
   },
 };

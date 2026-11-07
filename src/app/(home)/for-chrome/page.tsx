@@ -1,4 +1,5 @@
 import { ChromeHero } from '@/components/for-chrome/hero';
+import { FrameworkLink } from '@/components/framework-link';
 import { ChromeGuideCards } from '@/components/for-chrome/guide-cards';
 import { ChromeGettingStarted } from '@/components/for-chrome/getting-started';
 import { PersonaWorkflowStrip } from '@/components/persona-workflow-strip';
@@ -13,6 +14,7 @@ export default function ForChromePage() {
         <ChromeGuideCards />
       </div>
       <ChromeGettingStarted />
+      <FrameworkLink href="/docs/frameworks/for-chrome" audience="Chrome users" />
       <div className="mx-auto max-w-3xl px-6 py-24">
         <EmailCapture placement="for-chrome-footer" />
       </div>

@@ -10,6 +10,7 @@ import { PmPilotMemorySystem } from '@/components/pm-pilot/memory-system';
 import { PmPilotWhyExists } from '@/components/pm-pilot/why-exists';
 import { PmPilotGuideCta } from '@/components/pm-pilot/guide-cta';
 import { PmPilotFooter } from '@/components/pm-pilot/footer';
+import { FrameworkLink } from '@/components/framework-link';
 import { ogImage } from '@/lib/og/image';
 import { X_HANDLE } from "@/lib/site";
 
@@ -68,6 +69,7 @@ export default function PmPilotPage() {
       <PmPilotIntegrations />
       <PmPilotMemorySystem />
       <PmPilotWhyExists />
+      <FrameworkLink href="/docs/frameworks/for-pms" audience="product managers" />
       <PmPilotFooter />
     </main>
   );

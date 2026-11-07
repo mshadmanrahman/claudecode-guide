@@ -1,4 +1,5 @@
 import { TeacherHero } from '@/components/for-teachers/hero';
+import { FrameworkLink } from '@/components/framework-link';
 import { TeacherGuideCards } from '@/components/for-teachers/guide-cards';
 import { TeacherGettingStarted } from '@/components/for-teachers/getting-started';
 import { PersonaWorkflowStrip } from '@/components/persona-workflow-strip';
@@ -13,6 +14,7 @@ export default function ForTeachersPage() {
         <TeacherGuideCards />
       </div>
       <TeacherGettingStarted />
+      <FrameworkLink href="/docs/frameworks/for-teachers" audience="teachers" />
       <div className="mx-auto max-w-3xl px-6 py-24">
         <EmailCapture placement="for-teachers-footer" />
       </div>

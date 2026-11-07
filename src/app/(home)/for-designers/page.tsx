@@ -1,4 +1,5 @@
 import { DesignerHero } from '@/components/for-designers/hero';
+import { FrameworkLink } from '@/components/framework-link';
 import { DesignerBeforeAfter } from '@/components/for-designers/before-after';
 import { DesignerProcessMap } from '@/components/for-designers/design-process';
 import { DesignerGuideCards } from '@/components/for-designers/guide-cards';
@@ -19,6 +20,7 @@ export default function ForDesignersPage() {
       </div>
       <DesignerGettingStarted />
       <DesignerWhyExists />
+      <FrameworkLink href="/docs/frameworks/for-designers" audience="designers" />
       <div className="mx-auto max-w-3xl px-6 py-24">
         <EmailCapture placement="for-designers-footer" />
       </div>

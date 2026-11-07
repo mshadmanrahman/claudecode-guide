@@ -20,27 +20,36 @@ interface FooterColumn {
 
 const COLUMNS: ReadonlyArray<FooterColumn> = [
   {
-    heading: "Learn",
+    heading: "Start",
     links: [
       { label: "Start here", href: "/start" },
+      { label: "What it is", href: "/journey" },
+      { label: "Set up", href: "/guide" },
+      { label: "Roadmap", href: "/roadmap" },
+    ],
+  },
+  {
+    heading: "Learn",
+    links: [
       { label: "Docs", href: "/docs" },
       { label: "Tutorials", href: "/tutorials" },
+      { label: "Recipes", href: "/docs/workflows" },
+      { label: "Primitives", href: "/primitives" },
+      { label: "Skills", href: "/skills" },
       { label: "Certification", href: "/certification" },
     ],
   },
   {
     heading: "Read",
     links: [
-      { label: "Essays", href: "/blog" },
-      { label: "Roadmap", href: "/roadmap" },
-      { label: "Journey", href: "/journey" },
+      { label: "Blog", href: "/blog" },
+      { label: "Field notes", href: SOCIAL.substack, external: true },
       { label: "About", href: "/about" },
     ],
   },
   {
     heading: "Elsewhere",
     links: [
-      { label: "Field notes", href: SOCIAL.substack, external: true },
       { label: "X", href: SOCIAL.x, external: true },
       { label: "LinkedIn", href: SOCIAL.linkedin, external: true },
       { label: "GitHub", href: SOCIAL.repo, external: true },
@@ -57,7 +66,7 @@ const SECTION_TITLES: Readonly<Record<string, string>> = {
   frameworks: "Frameworks",
   patterns: "Patterns",
   templates: "Templates",
-  workflows: "Workflows",
+  workflows: "Recipes",
 };
 
 /** Docs pages in sidebar order, for the "Keep reading" bridge. */
@@ -93,7 +102,7 @@ export function SiteFooter({ scene }: SiteFooterProps) {
               .
             </p>
           </div>
-          <nav aria-label="Site" className="grid grid-cols-2 gap-6 sm:grid-cols-3">
+          <nav aria-label="Site" className="grid grid-cols-2 gap-6 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4">
             {COLUMNS.map((col) => (
               <div key={col.heading}>
                 <h2 className="mb-2.5 text-[13px] font-medium text-[var(--muted)]">{col.heading}</h2>
