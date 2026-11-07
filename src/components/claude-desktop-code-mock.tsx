@@ -108,6 +108,8 @@ interface ClaudeDesktopCodeMockProps {
   tailMs?: number;
   /** Draws the model and effort picker as a scripted state instead of the plain model label. */
   picker?: (c: DesktopClock) => PickerState;
+  /** Drops the sidebar, for narrow slots such as a card. */
+  compact?: boolean;
 }
 
 const LINE_MS = 110;
@@ -210,10 +212,12 @@ export function ClaudeDesktopCodeMock({
   fill,
   tailMs = 0,
   picker,
+  compact = false,
 }: ClaudeDesktopCodeMockProps) {
   const { t, starts, containerRef, viewportRef, contentRef, offset } = useSessionClock(steps, loop, tailMs);
   const clock = { t, starts };
   const openPane = pane?.(clock) ?? null;
+  const noSidebar = Boolean(pane) || compact;
   const bandNode = band?.(clock);
 
   let inputText = '';
@@ -329,14 +333,14 @@ export function ClaudeDesktopCodeMock({
       aria-label="A Claude Code session in the Code tab of the Claude desktop app"
     >
       <div className="flex">
-        <div className={`hidden w-[184px] shrink-0 items-center gap-2 border-r border-[var(--cm-line)] bg-[var(--cm-side)] px-3.5 h-10 ${pane ? '' : 'sm:flex'}`}>
+        <div className={`hidden w-[184px] shrink-0 items-center gap-2 border-r border-[var(--cm-line)] bg-[var(--cm-side)] px-3.5 h-10 ${noSidebar ? '' : 'sm:flex'}`}>
           <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
           <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
           <span className="h-3 w-3 rounded-full bg-[#28c840]" />
         </div>
         {/* Top bar: session title, folder chip, then the right-hand actions. */}
         <div className="flex h-10 min-w-0 flex-1 items-center gap-2 border-b border-[var(--cm-line)] px-3 text-[12.5px]">
-          <span className={`mr-1 flex items-center gap-1.5 ${pane ? '' : 'sm:hidden'}`}>
+          <span className={`mr-1 flex items-center gap-1.5 ${noSidebar ? '' : 'sm:hidden'}`}>
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
@@ -351,7 +355,7 @@ export function ClaudeDesktopCodeMock({
       </div>
       <div className={pane ? 'flex flex-col sm:flex-row' : 'flex'}>
         {/* A pane takes the sidebar's room, so the transcript keeps its width. */}
-        {pane ? null : <Sidebar title={title} />}
+        {noSidebar ? null : <Sidebar title={title} />}
         <div className="flex min-w-0 flex-1 flex-col text-[14px] leading-[20px]">
           <div ref={viewportRef} className="relative overflow-hidden px-4 sm:px-6" style={{ height }}>
             <div

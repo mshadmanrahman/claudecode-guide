@@ -1,4 +1,5 @@
 import type { DesignerRoute } from '@/components/designer-route-switcher';
+import type { CliStep } from '@/components/claude-code-mock';
 
 export interface DesignerGuideStep {
   title: string;
@@ -11,6 +12,8 @@ export interface DesignerGuideStep {
   };
   appDemo?: { steps: Array<{ role: 'user' | 'claude'; text: string; delay?: number }> };
   desktopDemo?: { steps: Array<{ role: 'user' | 'claude'; text: string; delay?: number }>; folder?: string };
+  /** A Code tab session, for guides that build or ship code. Wins over demo. */
+  session?: { folder?: string; steps: CliStep[] };
 }
 
 export interface DesignerGuideContrast {
@@ -852,13 +855,13 @@ CTA
 States: default, field-error, loading, success`,
           language: 'markdown',
         },
-        demo: {
+        session: {
+          folder: 'bkash-flow',
           steps: [
-            { type: 'cmd', text: 'mkdir bkash-flow && cd bkash-flow' },
-            { type: 'cmd', text: 'touch DESIGN.md' },
-            { type: 'cmd', text: 'claude' },
-            { type: 'out', text: 'Reading DESIGN.md...' },
-            { type: 'success', text: 'Claude Code session started. DESIGN.md loaded.' },
+            { kind: 'prompt', text: 'Read DESIGN.md and tell me what we are building' },
+            { kind: 'thinking', ms: 900 },
+            { kind: 'tool', name: 'Read', arg: 'DESIGN.md', result: 'Read 21 lines' },
+            { kind: 'say', text: 'The bKash Send Money screen: amount and phone fields, inline errors,\nand a pink Send Money button that stays disabled until both are valid.\nReady when you are.' },
           ],
         },
         desktopDemo: {
@@ -878,13 +881,15 @@ Show active step highlighted, completed steps with a checkmark,
 upcoming steps dimmed. No framework preferences yet.`,
           language: 'text',
         },
-        demo: {
+        session: {
+          folder: 'bkash-flow',
           steps: [
-            { type: 'cmd', text: 'claude "Scaffold SendMoneyForm.tsx with amount and phone fields. No validation yet. Use DESIGN.md for layout and token values."' },
-            { type: 'out', text: 'Scaffolding SendMoneyForm.tsx...', delay: 600 },
-            { type: 'out', text: 'Created: src/components/SendMoneyForm.tsx' },
-            { type: 'out', text: 'Created: src/components/SendMoneyForm.css' },
-            { type: 'success', text: 'Shell ready. Run: npm start to preview.' },
+            { kind: 'prompt', text: 'Scaffold SendMoneyForm.tsx with amount and phone fields. No validation yet. Use DESIGN.md for layout and token values.' },
+            { kind: 'thinking', ms: 900 },
+            { kind: 'tool', name: 'Read', arg: 'DESIGN.md', result: 'Read 21 lines' },
+            { kind: 'tool', name: 'Write', arg: 'src/components/SendMoneyForm.tsx', result: 'Wrote 58 lines' },
+            { kind: 'tool', name: 'Write', arg: 'src/components/SendMoneyForm.css', result: 'Wrote 34 lines' },
+            { kind: 'say', text: 'The form shell is ready. Open the preview to see it.' },
           ],
         },
         desktopDemo: {
@@ -903,12 +908,13 @@ upcoming steps dimmed. No framework preferences yet.`,
 Increase the padding and make the checkmark icon 4px larger.`,
           language: 'text',
         },
-        demo: {
+        session: {
+          folder: 'bkash-flow',
           steps: [
-            { type: 'cmd', text: 'claude "Add validation to SendMoneyForm: amount min 10 max 5000, phone 11 digits starting 01. Show inline errors. Disable button until both valid."' },
-            { type: 'out', text: 'Adding validation...', delay: 400 },
-            { type: 'out', text: 'Updated: src/components/SendMoneyForm.tsx' },
-            { type: 'success', text: 'Validation added. Test in browser before continuing.' },
+            { kind: 'prompt', text: 'Add validation to SendMoneyForm: amount min 10 max 5000, phone 11 digits starting 01. Show inline errors. Disable button until both valid.' },
+            { kind: 'thinking', ms: 900 },
+            { kind: 'tool', name: 'Update', arg: 'src/components/SendMoneyForm.tsx', result: 'Updated with 24 additions' },
+            { kind: 'say', text: 'Validation added. Test it in the browser before we continue.' },
           ],
         },
         desktopDemo: {
@@ -1302,15 +1308,14 @@ git remote add origin https://github.com/your-username/my-design-project.git
 claude`,
           language: 'bash',
         },
-        demo: {
-          title: 'git : init-and-connect',
+        session: {
+          folder: 'my-design-project',
           steps: [
-            { type: 'cmd', text: 'git init' },
-            { type: 'out', text: 'Initialized empty Git repository in ./my-design-project/.git/' },
-            { type: 'cmd', text: 'git remote add origin https://github.com/you/my-design-project.git', delay: 300 },
-            { type: 'success', text: 'Remote connected. Commits will push here.' },
-            { type: 'cmd', text: 'claude', delay: 300 },
-            { type: 'success', text: 'Claude Code ready. Git is live.' },
+            { kind: 'prompt', text: 'Set up Git in this folder and connect it to github.com/you/my-design-project' },
+            { kind: 'thinking', ms: 900 },
+            { kind: 'tool', name: 'Bash', arg: 'git init', result: 'Initialized empty Git repository' },
+            { kind: 'tool', name: 'Bash', arg: 'git remote add origin https://github.com/you/my-design-project.git', result: 'Remote added' },
+            { kind: 'say', text: 'Git is set up and connected to GitHub. Your commits will push there.' },
           ],
         },
       },
@@ -1324,14 +1329,12 @@ claude`,
 git log --oneline`,
           language: 'bash',
         },
-        demo: {
-          title: 'git : what-is-a-commit',
+        session: {
+          folder: 'my-design-project',
           steps: [
-            { type: 'cmd', text: 'git log --oneline' },
-            { type: 'out', text: 'a3f92c1  Add mobile nav hover states' },
-            { type: 'out', text: 'b19e44d  Fix checkout button spacing' },
-            { type: 'out', text: 'c880f2a  Initial design system setup' },
-            { type: 'success', text: 'Each line is a commit. Short ID + message.' },
+            { kind: 'prompt', text: 'Show me the commit history' },
+            { kind: 'tool', name: 'Bash', arg: 'git log --oneline', result: '3 commits' },
+            { kind: 'say', text: 'Three commits so far:\na3f92c1  Add mobile nav hover states\nb19e44d  Fix checkout button spacing\nc880f2a  Initial design system setup\nEach line is a commit: a short ID and a message.' },
           ],
         },
       },
@@ -1350,15 +1353,14 @@ git add .
 git commit -m "Update button component spacing"`,
           language: 'bash',
         },
-        demo: {
-          title: 'git : making-a-commit',
+        session: {
+          folder: 'my-design-project',
           steps: [
-            { type: 'cmd', text: 'git status' },
-            { type: 'out', text: 'Modified: src/components/Button.tsx' },
-            { type: 'out', text: 'Modified: src/styles/tokens.css' },
-            { type: 'cmd', text: 'git add .' },
-            { type: 'cmd', text: 'git commit -m "Update button component spacing"' },
-            { type: 'success', text: 'Committed. Changes saved to history.' },
+            { kind: 'prompt', text: 'Commit these changes' },
+            { kind: 'thinking', ms: 900 },
+            { kind: 'tool', name: 'Bash', arg: 'git status', result: '2 files modified' },
+            { kind: 'tool', name: 'Bash', arg: 'git add . && git commit -m "Update button component spacing"', result: '1 file changed' },
+            { kind: 'say', text: 'Committed Button.tsx and tokens.css as "Update button component spacing".\nChanges saved to history.' },
           ],
         },
       },
@@ -1377,14 +1379,15 @@ git push
 git pull`,
           language: 'bash',
         },
-        demo: {
-          title: 'git : push-and-pull',
+        session: {
+          folder: 'my-design-project',
           steps: [
-            { type: 'cmd', text: 'git push -u origin main' },
-            { type: 'out', text: 'Writing objects: 100% (5/5)' },
-            { type: 'success', text: 'Pushed. Branch linked to GitHub.' },
-            { type: 'cmd', text: 'git pull', delay: 300 },
-            { type: 'success', text: 'Already up to date.' },
+            { kind: 'prompt', text: 'Push my work to GitHub' },
+            { kind: 'tool', name: 'Bash', arg: 'git push -u origin main', result: 'Writing objects: 100% (5/5)' },
+            { kind: 'say', text: 'Pushed. Your branch is linked to GitHub.' },
+            { kind: 'prompt', text: 'Anything new from the team?' },
+            { kind: 'tool', name: 'Bash', arg: 'git pull', result: 'Already up to date.' },
+            { kind: 'say', text: 'Nothing new. You are up to date.' },
           ],
         },
       },
@@ -1403,15 +1406,14 @@ git revert a3f92c1 --no-edit
 git push`,
           language: 'bash',
         },
-        demo: {
-          title: 'git : undo-a-commit',
+        session: {
+          folder: 'my-design-project',
           steps: [
-            { type: 'cmd', text: 'git log --oneline' },
-            { type: 'out', text: 'a3f92c1  Add mobile nav hover states  ← want to undo this' },
-            { type: 'out', text: 'b19e44d  Fix checkout button spacing' },
-            { type: 'cmd', text: 'git revert a3f92c1 --no-edit', delay: 300 },
-            { type: 'out', text: 'Revert "Add mobile nav hover states"', delay: 200 },
-            { type: 'success', text: 'Reverted. Files restored. History preserved.' },
+            { kind: 'prompt', text: 'Undo the commit that added the mobile nav hover states' },
+            { kind: 'thinking', ms: 900 },
+            { kind: 'tool', name: 'Bash', arg: 'git log --oneline', result: '3 commits' },
+            { kind: 'tool', name: 'Bash', arg: 'git revert a3f92c1 --no-edit', result: 'Revert "Add mobile nav hover states"' },
+            { kind: 'say', text: 'Reverted. The files are back to how they were,\nand the history keeps both commits.' },
           ],
         },
       },
@@ -1429,15 +1431,16 @@ git checkout -b feature/new-checkout-flow
 gh pr create --title "New checkout flow" --body "Built with Claude Code"`,
           language: 'bash',
         },
-        demo: {
-          title: 'git : pull-request-flow',
+        session: {
+          folder: 'my-design-project',
           steps: [
-            { type: 'cmd', text: 'git checkout -b feature/new-checkout-flow' },
-            { type: 'out', text: 'Switched to new branch "feature/new-checkout-flow"' },
-            { type: 'out', text: 'Claude Code working on this branch...' },
-            { type: 'success', text: 'Changes committed to branch.' },
-            { type: 'cmd', text: 'gh pr create --title "New checkout flow" --body "Built with Claude Code"' },
-            { type: 'success', text: 'PR created. Share the link with your dev for review.' },
+            { kind: 'prompt', text: 'Build the new checkout flow on its own branch, then open a pull request' },
+            { kind: 'thinking', ms: 900 },
+            { kind: 'tool', name: 'Bash', arg: 'git checkout -b feature/new-checkout-flow', result: 'Switched to a new branch' },
+            { kind: 'tool', name: 'Write', arg: 'src/components/CheckoutFlow.tsx', result: 'Wrote 112 lines' },
+            { kind: 'tool', name: 'Bash', arg: 'git commit -am "New checkout flow"', result: '1 file changed' },
+            { kind: 'tool', name: 'Bash', arg: 'gh pr create --title "New checkout flow" --body "Built with Claude Code"', result: 'Pull request created' },
+            { kind: 'say', text: 'Pull request opened: "New checkout flow".\nShare the link with your developer for review.' },
           ],
         },
       },

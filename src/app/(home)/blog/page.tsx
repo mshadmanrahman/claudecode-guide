@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { EmailCapture } from '@/components/email-capture';
-import { DemoCard } from '@/components/demo-card';
+import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
 import { useState, useMemo } from 'react';
 import { getSortedPosts, getAllTags } from '@/data/blog-posts';
 import type { BlogPost } from '@/data/blog-posts';
@@ -92,21 +92,22 @@ function FeaturedHero({ post }: { post: BlogPost }) {
       {/* Demo card on right side (desktop only) */}
       <div className="hidden border-t border-fd-border p-6 lg:flex lg:w-[380px] lg:shrink-0 lg:items-center lg:border-l lg:border-t-0 lg:p-8">
         <div className="w-full" onClick={(e) => e.preventDefault()}>
-          <DemoCard
-            title="claude-code"
-            steps={[
-              { type: 'cmd', text: 'claude', delay: 600 },
-              { type: 'out', text: 'Loading CLAUDE.md...' },
-              { type: 'success', text: 'Context loaded: 5 layers active' },
-              { type: 'cmd', text: 'fix the auth bug in login.tsx', delay: 1000 },
-              { type: 'out', text: 'Reading login.tsx...' },
-              { type: 'out', text: 'Found: missing await on verifyToken()' },
-              { type: 'success', text: 'Fixed and saved login.tsx' },
-              { type: 'cmd', text: '/commit', delay: 800 },
-              { type: 'success', text: 'Committed: fix(auth): await token verification' },
-            ]}
+          <ClaudeDesktopCodeMock
+            compact
             loop
-            loopDelay={4000}
+            height={250}
+            title="Fix the auth bug"
+            folder="my-app"
+            steps={[
+              { kind: 'prompt', text: 'Fix the auth bug in login.tsx' },
+              { kind: 'thinking', ms: 900 },
+              { kind: 'tool', name: 'Read', arg: 'src/login.tsx', result: 'Read 84 lines' },
+              { kind: 'say', text: 'Found it: verifyToken() is missing an await.' },
+              { kind: 'tool', name: 'Update', arg: 'src/login.tsx', result: 'Updated with 1 addition' },
+              { kind: 'prompt', text: 'Commit it' },
+              { kind: 'tool', name: 'Bash', arg: 'git commit -m "fix(auth): await token verification"', result: '1 file changed' },
+              { kind: 'say', text: 'Committed: fix(auth): await token verification' },
+            ]}
           />
         </div>
       </div>

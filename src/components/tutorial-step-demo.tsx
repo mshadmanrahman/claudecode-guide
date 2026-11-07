@@ -82,7 +82,9 @@ export function TutorialStepBody({
   const showPrompts = route !== 'terminal' && prompts.length > 0 && !(code && codeIsPrompt);
   const showCode = Boolean(code) && (route === 'terminal' || !codeIsShell || !showPrompts);
 
-  const session = cliDemo?.steps ?? (appDemo ? chatToSession(appDemo.steps) : undefined);
+  // No app script: replay the IDE chat in the app mock rather than show an IDE panel.
+  const chatForSession = appDemo ?? ideDemo;
+  const session = cliDemo?.steps ?? (chatForSession ? chatToSession(chatForSession.steps) : undefined);
 
   const pane = files ? filesPane(files, folder) : undefined;
   const desktop = session ? (

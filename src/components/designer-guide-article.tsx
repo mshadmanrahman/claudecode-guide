@@ -4,7 +4,8 @@ import type { DesignerGuide } from '@/lib/designer-guides';
 import { EmailCapture } from '@/components/email-capture';
 import { CopyBlock } from '@/components/guide/copy-block';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
-import { DemoCard } from '@/components/demo-card';
+import { ClaudeDesktopCodeMock } from '@/components/claude-desktop-code-mock';
+import { demoToSession } from '@/lib/chat-session';
 import { DesignerRouteSwitcher } from '@/components/designer-route-switcher';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
@@ -225,9 +226,13 @@ export function DesignerGuideArticle({ guide, locale, alternateHref, stale }: De
                 </div>
               )}
 
-              {guide.usesCodeTab && step.demo ? (
+              {guide.usesCodeTab && (step.session ?? step.demo) ? (
                 <div className="mt-4">
-                  <DemoCard title={step.demo.title} steps={step.demo.steps} loop={false} />
+                  <ClaudeDesktopCodeMock
+                    title={step.title}
+                    folder={step.session?.folder ?? guide.slug}
+                    steps={step.session?.steps ?? demoToSession(step.demo?.steps ?? [])}
+                  />
                 </div>
               ) : (step.appDemo ?? step.desktopDemo) ? (
                 <div className="mt-4">
