@@ -90,7 +90,7 @@ export function AffiliateCTA(props: AffiliateCTAProps) {
       <a
         href={props.destination}
         onClick={onClick}
-        className="mt-4 inline-flex items-center gap-2 rounded-lg bg-fd-primary px-4 py-2 text-sm font-medium text-fd-primary-foreground transition-opacity hover:opacity-90"
+        className="btn-primary mt-4 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium"
         target={isExternal ? '_blank' : undefined}
         rel={isExternal ? 'noopener noreferrer' : undefined}
       >

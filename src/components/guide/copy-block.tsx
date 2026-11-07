@@ -57,7 +57,7 @@ export function CopyBlock({ code, language = 'bash', title = 'Prompt', hint = 'P
           <button
             type="button"
             onClick={handleCopy}
-            className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-lg bg-[var(--acc)] px-3 text-xs font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+            className="btn-primary ml-auto inline-flex h-8 items-center gap-1.5 px-3 text-xs font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span

@@ -49,7 +49,7 @@ export function DesignerRouteSwitcher({ availableRoutes = ['web', 'desktop'], lo
       <div
         role="group"
         aria-labelledby="designer-route-label"
-        className="inline-flex max-w-full flex-wrap items-center gap-1 rounded-lg border border-fd-border bg-[var(--code)] p-1"
+        className="seg max-w-full flex-wrap items-center"
       >
         {visibleTabs.map(({ id, label, icon }) => {
           const isActive = active === id;
@@ -59,10 +59,10 @@ export function DesignerRouteSwitcher({ availableRoutes = ['web', 'desktop'], lo
               type="button"
               aria-pressed={isActive}
               onClick={() => handleSelect(id)}
-              className={`flex shrink-0 items-center gap-1.5 rounded-md border px-3 py-2 text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
+              className={`flex shrink-0 items-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
                 isActive
-                  ? 'border-fd-border bg-[var(--glass2)] text-fd-foreground'
-                  : 'border-transparent text-fd-muted-foreground hover:text-fd-foreground'
+                  ? 'btn-secondary'
+                  : 'border border-transparent text-fd-muted-foreground hover:text-fd-foreground'
               }`}
             >
               {icon}

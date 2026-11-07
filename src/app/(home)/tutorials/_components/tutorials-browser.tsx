@@ -61,10 +61,8 @@ function Pill({
       type="button"
       aria-pressed={pressed}
       onClick={onClick}
-      className={`rounded-full border px-3 py-1.5 text-compact font-medium transition-colors ${focusRing} ${
-        pressed
-          ? 'border-[var(--acc)] bg-[var(--acc)] text-[var(--accInk)]'
-          : 'border-[var(--line)] bg-[var(--glass2)] text-[var(--ink)] hover:bg-[var(--chip)]'
+      className={`rounded-full px-3 py-1.5 text-compact ${focusRing} ${
+        pressed ? 'btn-primary' : 'btn-secondary'
       }`}
     >
       {children}

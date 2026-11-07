@@ -475,10 +475,10 @@ export default function CapabilitiesPage() {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+                className={`rounded-full px-3 py-1.5 text-xs ${
                   filter === cat
-                    ? 'bg-fd-primary text-fd-primary-foreground'
-                    : 'bg-fd-accent text-fd-muted-foreground hover:text-fd-foreground'
+                    ? 'btn-primary'
+                    : 'btn-secondary text-fd-muted-foreground hover:text-fd-foreground'
                 }`}
               >
                 {categoryLabels[cat]}
@@ -532,7 +532,7 @@ export default function CapabilitiesPage() {
               <div className="mt-6 flex gap-3">
                 <Link
                   href="/tutorials/your-first-skill"
-                  className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-4 py-2 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+                  className="btn-primary inline-flex items-center gap-2 px-4 py-2 text-sm font-medium"
                 >
                   Build your first skill
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -618,7 +618,7 @@ export default function CapabilitiesPage() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/journey"
-              className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+              className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm font-medium"
             >
               Start the journey
               <ArrowRight className="h-4 w-4" />

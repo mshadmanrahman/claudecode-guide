@@ -74,7 +74,7 @@ export function PersonaSwitcher({ personas, locale = 'en' }: PersonaSwitcherProp
       <div
         role="group"
         aria-labelledby="persona-label"
-        className="flex max-w-full flex-wrap gap-1 rounded-lg border border-[var(--line)] bg-[var(--code)] p-1 sm:inline-flex"
+        className="seg flex max-w-full flex-wrap sm:inline-flex"
       >
         {personas.map(({ id, label }) => {
           const isActive = active === id;
@@ -84,10 +84,10 @@ export function PersonaSwitcher({ personas, locale = 'en' }: PersonaSwitcherProp
               type="button"
               aria-pressed={isActive}
               onClick={() => handleSelect(id)}
-              className={`rounded-md border px-3 py-2 text-compact font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
+              className={`rounded-md px-3 py-2 text-compact font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${
                 isActive
-                  ? 'border-[var(--line)] bg-[var(--glass2)] text-[var(--ink)]'
-                  : 'border-transparent text-[var(--muted)] hover:text-[var(--ink)]'
+                  ? 'btn-secondary'
+                  : 'border border-transparent text-[var(--muted)] hover:text-[var(--ink)]'
               }`}
             >
               {label}

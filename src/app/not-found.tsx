@@ -21,7 +21,7 @@ export default function NotFound() {
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <Link
           href="/guide"
-          className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-5 py-2.5 text-sm font-medium text-fd-primary-foreground hover:opacity-90"
+          className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium"
         >
           Start the guided setup
         </Link>

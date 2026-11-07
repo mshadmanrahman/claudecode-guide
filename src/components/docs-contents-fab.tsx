@@ -25,7 +25,7 @@ export function DocsContentsFab({ sections }: DocsContentsFabProps) {
       {/* Floating button pinned to left side of content area */}
       <button
         onClick={() => setDrawerOpen(true)}
-        className="fixed left-4 bottom-6 z-30 flex items-center gap-2 rounded-full border border-fd-border bg-fd-background/90 px-4 py-2.5 shadow-lg backdrop-blur-md text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent transition-all hover:shadow-xl md:left-6 md:bottom-8"
+        className="btn-secondary fixed left-4 bottom-6 z-30 gap-2 rounded-full px-4 py-2.5 text-sm text-fd-muted-foreground hover:text-fd-foreground md:left-6 md:bottom-8"
         aria-label="Open documentation contents"
       >
         <BookOpen className="h-4 w-4" />

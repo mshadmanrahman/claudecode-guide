@@ -705,7 +705,7 @@ export default function JourneyPage() {
                             <div className="mt-3 flex flex-wrap items-center gap-3">
                               <Link
                                 href={node.href}
-                                className="inline-flex items-center gap-1.5 rounded-lg bg-fd-primary px-4 py-2 text-xs font-medium text-fd-primary-foreground hover:opacity-90"
+                                className="btn-primary inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium"
                               >
                                 {node.duration ? `${node.duration} read` : 'Read more'}
                                 <ArrowRight className="h-3 w-3" />
@@ -750,7 +750,7 @@ export default function JourneyPage() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/guide"
-              className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground hover:opacity-90"
+              className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm font-medium"
             >
               Start the guided setup
               <ArrowRight className="h-4 w-4" />

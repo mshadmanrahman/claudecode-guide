@@ -19,7 +19,7 @@ export function Checkpoint({ title, description, nextLabel, nextHref }: Checkpoi
       {nextLabel && nextHref && (
         <Link
           href={nextHref}
-          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-fd-primary px-5 py-2.5 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+          className="btn-primary mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium"
         >
           {nextLabel}
           <ArrowRight className="h-4 w-4" />

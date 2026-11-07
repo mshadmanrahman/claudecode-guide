@@ -59,7 +59,7 @@ export function ChromeGettingStarted() {
                     cta: 'start_guide_1',
                   })
                 }
-                className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-[15px] font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+                className="btn-primary inline-flex h-12 items-center justify-center px-6 text-[15px] font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               >
                 Start with Guide 1
               </Link>

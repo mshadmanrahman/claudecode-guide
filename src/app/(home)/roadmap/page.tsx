@@ -277,7 +277,7 @@ export default function RoadmapPage() {
           </p>
           <Link
             href="/docs/foundations/claude-md"
-            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+            className="btn-primary mt-6 inline-flex items-center gap-2 px-6 py-3 text-sm font-medium"
           >
             Start from zero
             <ArrowRight className="h-4 w-4" />

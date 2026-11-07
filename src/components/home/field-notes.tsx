@@ -31,7 +31,7 @@ export function FieldNotes({ posts }: { posts: SubstackPost[] }) {
           href={SUBSTACK_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className={`glass flex h-11 items-center gap-1.5 rounded-lg px-4 text-ui font-medium transition-colors hover:bg-[var(--chip)] ${focusRing}`}
+          className={`btn-secondary flex h-11 items-center gap-1.5 px-4 text-ui font-medium ${focusRing}`}
         >
           All posts <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
         </a>

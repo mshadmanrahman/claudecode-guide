@@ -67,14 +67,14 @@ export function TeacherHero({ locale = 'en', copy = TEACHERS_HUB }: TeacherHeroP
         <Link
           href={`${prefix}/for-teachers/write-lesson-plans-with-claude`}
           onClick={() => trackEvent('teacher_hero_cta_click', { cta: 'start_lesson_planning', section: 'for-teachers' })}
-          className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+          className="btn-primary inline-flex h-12 items-center justify-center px-6 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           {hero.ctaPrimary}
         </Link>
         <Link
           href="#guides"
           onClick={() => trackEvent('teacher_hero_cta_click', { cta: 'browse_guides', section: 'for-teachers' })}
-          className="glass inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-sm font-medium transition-colors hover:bg-[var(--glass2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+          className="btn-secondary inline-flex h-12 items-center justify-center gap-2 px-6 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           {hero.ctaSecondary}
         </Link>

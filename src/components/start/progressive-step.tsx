@@ -59,7 +59,7 @@ export function ProgressiveStep({
           <button
             type="button"
             onClick={onPrev}
-            className="glass inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-lg px-6 text-[15px] font-medium transition-colors hover:bg-[var(--glass2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+            className="btn-secondary inline-flex h-12 cursor-pointer items-center justify-center gap-2 px-6 text-[15px] font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
           >
             <ArrowLeft className="h-4 w-4" />
             Back
@@ -71,7 +71,7 @@ export function ProgressiveStep({
           <button
             type="button"
             onClick={onNext}
-            className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[var(--acc)] px-6 text-[15px] font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+            className="btn-primary inline-flex h-12 cursor-pointer items-center justify-center gap-2 px-6 text-[15px] font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
           >
             {showConfetti ? (
               <>

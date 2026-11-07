@@ -71,7 +71,7 @@ export function MarketerHero() {
           onClick={() =>
             trackEvent('marketer_hero_cta_click', { cta: 'start_guide_1', section: 'for-marketers' })
           }
-          className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+          className="btn-primary inline-flex h-12 items-center justify-center px-6 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           Start with brand voice
         </Link>
@@ -80,7 +80,7 @@ export function MarketerHero() {
           onClick={() =>
             trackEvent('marketer_hero_cta_click', { cta: 'browse_guides', section: 'for-marketers' })
           }
-          className="glass inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-sm font-medium transition-colors hover:bg-[var(--glass2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+          className="btn-secondary inline-flex h-12 items-center justify-center gap-2 px-6 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           Browse all guides
         </Link>

@@ -21,10 +21,10 @@ export function OsSelector({ selected, onSelect }: OsSelectorProps) {
           key={os.id}
           type="button"
           onClick={() => onSelect(os.id)}
-          className={`flex flex-col items-center gap-2 rounded-lg border-2 p-4 transition-all ${
+          className={`btn-secondary flex flex-col items-center gap-2 p-4 ${
             selected === os.id
-              ? 'border-fd-foreground bg-fd-accent text-fd-foreground'
-              : 'border-fd-border text-fd-muted-foreground hover:border-fd-muted-foreground hover:text-fd-foreground'
+              ? 'border-[var(--acc)] bg-[var(--chip)] text-[var(--ink)]'
+              : 'text-[var(--muted)] hover:text-[var(--ink)]'
           }`}
         >
           <os.icon className="h-6 w-6" />

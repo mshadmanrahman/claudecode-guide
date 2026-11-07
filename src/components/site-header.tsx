@@ -172,7 +172,7 @@ export function SiteHeader() {
             <ThemeToggle />
             <Link
               href="/start"
-              className={`glass hidden h-10 items-center rounded-lg px-4 text-sm font-medium transition-colors hover:bg-[var(--glass2)] sm:flex ${focusRing}`}
+              className={`btn-secondary hidden h-10 items-center px-4 text-sm font-medium sm:flex ${focusRing}`}
             >
               Start free
             </Link>

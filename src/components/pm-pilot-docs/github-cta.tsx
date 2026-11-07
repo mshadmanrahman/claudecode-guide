@@ -42,7 +42,7 @@ export function GitHubCta({ skill }: GitHubCtaProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent('pm_pilot_github_click', { source: 'skill_page', skill })}
-          className="inline-flex items-center gap-2 rounded-lg bg-[var(--acc)] px-4 py-2.5 text-sm font-semibold text-[var(--accInk)] hover:opacity-80 transition-opacity"
+          className="btn-primary inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold"
         >
           Star PM Pilot on GitHub
           <ExternalLink className="h-3.5 w-3.5" />

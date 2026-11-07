@@ -346,7 +346,7 @@ function CopyPrompt({ prompt, persona, time }: { prompt: string; persona: Person
     <button
       type="button"
       onClick={handleCopy}
-      className={`flex shrink-0 items-center gap-1.5 rounded-md border border-[var(--line)] px-2 py-1 font-mono text-xs text-[var(--muted)] transition-colors hover:text-[var(--ink)] ${focusRing}`}
+      className={`btn-secondary shrink-0 gap-1.5 rounded-md px-2 py-1 font-mono text-xs text-[var(--muted)] hover:text-[var(--ink)] ${focusRing}`}
     >
       {copied ? <Check className="h-3 w-3" aria-hidden="true" /> : <Copy className="h-3 w-3" aria-hidden="true" />}
       <span aria-live="polite">{copied ? 'copied' : 'copy'}</span>
@@ -378,10 +378,8 @@ export function DayFlow() {
                 setActive(p.id);
                 trackEvent('workflow_persona_switch', { persona: p.id });
               }}
-              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${focusRing} ${
-                current
-                  ? 'bg-[var(--acc)] text-[var(--accInk)]'
-                  : 'glass text-[var(--muted)] hover:text-[var(--ink)]'
+              className={`rounded-full px-4 py-1.5 text-sm ${focusRing} ${
+                current ? 'btn-primary' : 'btn-secondary text-[var(--muted)] hover:text-[var(--ink)]'
               }`}
             >
               {p.label}
@@ -442,7 +440,7 @@ export function DayFlow() {
         </p>
         <Link
           href={persona.pathHref}
-          className={`inline-flex shrink-0 items-center gap-2 rounded-lg bg-[var(--acc)] px-5 py-2.5 text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 ${focusRing}`}
+          className={`btn-primary inline-flex shrink-0 items-center gap-2 px-5 py-2.5 text-sm font-medium ${focusRing}`}
           onClick={() => trackEvent('workflow_cta_click', { persona: active, href: persona.pathHref })}
         >
           {persona.pathLabel}

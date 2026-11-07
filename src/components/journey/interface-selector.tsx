@@ -28,10 +28,10 @@ export function InterfaceSelector({ selected, onSelect }: InterfaceSelectorProps
           key={opt.id}
           type="button"
           onClick={() => onSelect(opt.id)}
-          className={`flex flex-col items-center gap-1.5 rounded-lg border-2 p-3 transition-all ${
+          className={`btn-secondary flex flex-col items-center gap-1.5 p-3 ${
             selected === opt.id
-              ? 'border-fd-foreground bg-fd-accent text-fd-foreground'
-              : 'border-fd-border text-fd-muted-foreground hover:border-fd-muted-foreground hover:text-fd-foreground'
+              ? 'border-[var(--acc)] bg-[var(--chip)] text-[var(--ink)]'
+              : 'text-[var(--muted)] hover:text-[var(--ink)]'
           }`}
         >
           <opt.icon className="h-5 w-5" />

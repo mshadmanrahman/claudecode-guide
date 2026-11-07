@@ -67,7 +67,7 @@ export function ShareCard({ tutorialTitle, tutorialSlug, duration, locale = 'en'
         <button
           type="button"
           onClick={handleCopy}
-          className={`flex items-center gap-1.5 rounded-lg border border-[var(--line)] bg-[var(--code)] px-4 py-2.5 text-sm font-medium text-[var(--muted)] transition-colors hover:text-[var(--ink)] ${focusRing}`}
+          className={`btn-secondary gap-1.5 px-4 py-2.5 text-sm text-[var(--muted)] hover:text-[var(--ink)] ${focusRing}`}
         >
           {copied ? (
             <Check className="h-4 w-4 text-[var(--acc)]" aria-hidden="true" />

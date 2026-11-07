@@ -21,7 +21,7 @@ export function ThemeToggle({ className = '' }: ThemeToggleProps) {
       type="button"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label={mounted ? `Theme: ${label}. Switch to ${isDark ? 'light' : 'dark'}` : 'Switch light or dark'}
-      className={`inline-flex h-10 cursor-pointer items-center gap-2 rounded-lg border border-[var(--line)] bg-transparent px-3.5 font-mono text-xs text-[var(--ink)] transition-colors hover:bg-[var(--chip)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${className}`}
+      className={`btn-secondary h-10 px-3.5 font-mono text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] ${className}`}
     >
       <svg
         width="14"

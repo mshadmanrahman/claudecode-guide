@@ -122,12 +122,12 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
           onInvalid={handleInvalid}
           placeholder="you@example.com"
           required
-          className="h-12 min-w-0 flex-1 rounded-lg border border-[var(--line)] bg-[var(--glass2)] px-4 text-sm text-fd-foreground placeholder:text-fd-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+          className="field h-12 min-w-0 sm:flex-1 px-4 text-sm"
         />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-[var(--acc)] px-6 text-sm font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+          className="btn-primary inline-flex h-12 shrink-0 items-center justify-center gap-2 px-6 text-sm font-medium disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
         >
           <AnimatePresence mode="wait" initial={false}>
             {status === 'loading' ? (

@@ -35,6 +35,16 @@
   /* Opaque surfaces for popovers, menus and cards that sit on plain --bg */
   --surface: #ffffff;
   --surface2: #f1f1ee;
+  /* Raised controls (buttons, selects, inputs): see .btn-primary below */
+  --btn-acc-top: color-mix(in oklch, var(--acc), white 12%);
+  --btn-acc-edge: color-mix(in oklch, var(--acc), black 34%);
+  --ctl-bg: var(--surface);
+  --ctl-hover: #f6f6f3;
+  --ctl-press: #efefec;
+  --ctl-line: rgba(15, 17, 21, 0.14);
+  --ctl-edge: rgba(15, 17, 21, 0.26);
+  --ctl-hi: rgba(255, 255, 255, 0);
+  --ctl-drop: rgba(15, 17, 21, 0.14);
   /* Sticky site header footprint: top gap + bar height */
   --site-header-h: 4rem;
 }
@@ -55,6 +65,15 @@
   --fade-landing: 0.65;
   --surface: #11141f;
   --surface2: #171b28;
+  --btn-acc-top: color-mix(in oklch, var(--acc), white 14%);
+  --btn-acc-edge: color-mix(in oklch, var(--acc), black 45%);
+  --ctl-bg: #181c29;
+  --ctl-hover: #1e2333;
+  --ctl-press: #141824;
+  --ctl-line: rgba(255, 255, 255, 0.12);
+  --ctl-edge: rgba(0, 0, 0, 0.7);
+  --ctl-hi: rgba(255, 255, 255, 0.06);
+  --ctl-drop: rgba(0, 0, 0, 0.55);
 }
 
 @media (min-width: 768px) {
@@ -537,6 +556,136 @@ h3.font-display {
   border: 1px solid var(--line);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
+}
+
+/* ── Raised controls ──
+   One shared look for every button, select and input. Each control rests on a
+   darker bottom edge (a 0-blur box-shadow, so it takes no layout space). Hover
+   sinks it 1px and halves the edge; press sinks it 2px and the edge is gone.
+   In @layer components so call-site utilities (h-12, px-6, w-full) still win. */
+@layer components {
+  .btn-primary,
+  .btn-secondary {
+    --edge: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-md, 8px);
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    transition:
+      transform 90ms ease-out,
+      box-shadow 90ms ease-out,
+      background-color 120ms ease-out;
+  }
+  .btn-primary {
+    color: var(--accInk);
+    background: linear-gradient(to bottom, var(--btn-acc-top), var(--acc));
+    border: 1px solid var(--btn-acc-edge);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      0 var(--edge) 0 0 var(--btn-acc-edge);
+  }
+  .btn-secondary {
+    --edge: 1px;
+    color: var(--ink);
+    background: var(--ctl-bg);
+    border: 1px solid var(--ctl-line);
+    border-bottom-color: var(--ctl-edge);
+    box-shadow:
+      inset 0 1px 0 var(--ctl-hi),
+      0 var(--edge) 0 0 var(--ctl-drop);
+  }
+  .btn-secondary:hover {
+    background: var(--ctl-hover);
+  }
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    --edge: 1px;
+    transform: translateY(1px);
+  }
+  .btn-secondary:hover {
+    --edge: 0px;
+  }
+  .btn-primary:active,
+  .btn-primary[aria-expanded='true'],
+  .btn-secondary:active,
+  .btn-secondary[aria-expanded='true'] {
+    --edge: 0px;
+    transform: translateY(2px);
+  }
+  .btn-secondary:active,
+  .btn-secondary[aria-expanded='true'] {
+    background: var(--ctl-press);
+  }
+  .btn-secondary:active {
+    transform: translateY(1px);
+  }
+  .btn-primary:focus-visible,
+  .btn-secondary:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 2px;
+  }
+  .btn-primary:disabled,
+  .btn-secondary:disabled,
+  .btn-primary[aria-disabled='true'],
+  .btn-secondary[aria-disabled='true'] {
+    opacity: 0.5;
+    transform: none;
+    cursor: not-allowed;
+  }
+
+  /* Text inputs and native selects: same surface and edge, no sink. */
+  .field {
+    color: var(--ink);
+    background: var(--ctl-bg);
+    border: 1px solid var(--ctl-line);
+    border-bottom-color: var(--ctl-edge);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: inset 0 1px 0 var(--ctl-hi);
+    transition:
+      border-color 120ms ease-out,
+      box-shadow 120ms ease-out;
+  }
+  .field::placeholder {
+    color: var(--muted);
+  }
+  .field:hover {
+    border-color: var(--ctl-edge);
+  }
+  .field:focus-visible,
+  .field:focus-within {
+    outline: none;
+    border-color: var(--acc);
+    box-shadow: 0 0 0 3px var(--chip);
+  }
+
+  /* Segmented control: a recessed track holding raised options. */
+  .seg {
+    display: inline-flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: var(--radius-lg, 10px);
+    background: var(--code);
+    border: 1px solid var(--ctl-line);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary,
+    .btn-secondary,
+    .field {
+      transition: none;
+    }
+    .btn-primary:hover,
+    .btn-primary:active,
+    .btn-secondary:hover,
+    .btn-secondary:active {
+      transform: none;
+    }
+  }
 }
 
 /* Engravings: grey ink on white, multiplied onto the light page so the paper
@@ -1340,22 +1489,29 @@ figure.ccg-code button:focus-visible {
 }
 .ccg-filter {
   padding: 6px 12px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--ctl-line);
+  border-bottom-color: var(--ctl-edge);
   border-radius: 999px;
-  background: var(--glass);
+  background: var(--ctl-bg);
+  box-shadow: inset 0 1px 0 var(--ctl-hi), 0 1px 0 0 var(--ctl-drop);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   color: var(--muted);
   cursor: pointer;
-  transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s, transform 90ms ease-out, box-shadow 90ms ease-out;
 }
 .ccg-filter:hover {
   color: var(--ink);
+  background: var(--ctl-hover);
+  box-shadow: inset 0 1px 0 var(--ctl-hi);
+  transform: translateY(1px);
 }
 .ccg-filter[aria-pressed="true"] {
   background: var(--ink);
   border-color: var(--ink);
   color: var(--bg);
+  box-shadow: none;
+  transform: translateY(1px);
 }
 .ccg-filter:focus-visible,
 .ccg-back:focus-visible,

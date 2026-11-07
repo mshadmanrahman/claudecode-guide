@@ -315,10 +315,10 @@ export default function GuidePage() {
                 <button
                   type="button"
                   onClick={() => progress.setPlan('pro')}
-                  className={`rounded-lg border-2 p-4 text-left transition-all ${
+                  className={`btn-secondary block p-4 text-left ${
                     progress.selectedPlan === 'pro'
-                      ? 'border-fd-foreground bg-fd-accent'
-                      : 'border-fd-border hover:border-fd-muted-foreground'
+                      ? 'border-[var(--acc)] bg-[var(--chip)]'
+                      : ''
                   }`}
                 >
                   <div className="font-medium text-fd-foreground">Pro</div>
@@ -328,10 +328,10 @@ export default function GuidePage() {
                 <button
                   type="button"
                   onClick={() => progress.setPlan('max')}
-                  className={`rounded-lg border-2 p-4 text-left transition-all ${
+                  className={`btn-secondary block p-4 text-left ${
                     progress.selectedPlan === 'max'
-                      ? 'border-fd-foreground bg-fd-accent'
-                      : 'border-fd-border hover:border-fd-muted-foreground'
+                      ? 'border-[var(--acc)] bg-[var(--chip)]'
+                      : ''
                   }`}
                 >
                   <div className="font-medium text-fd-foreground">Max</div>
@@ -347,7 +347,7 @@ export default function GuidePage() {
 
               <a
                 href="/docs/comparisons/pro-vs-max"
-                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-fd-primary px-5 py-2.5 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+                className="btn-primary mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium"
               >
                 Compare Pro vs Max
                 <ArrowRight className="h-4 w-4" />

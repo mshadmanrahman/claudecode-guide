@@ -104,21 +104,19 @@ components:
   button-primary:
     backgroundColor: "{colors.accent}"
     textColor: "{colors.accent-ink}"
-    rounded: "{rounded.lg}"
+    rounded: "{rounded.md}"
     padding: "0 24px"
     height: "48px"
-  button-glass:
-    backgroundColor: "{colors.glass}"
+  button-secondary:
+    backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.lg}"
+    rounded: "{rounded.md}"
     padding: "0 24px"
     height: "48px"
-  button-glass-hover:
-    backgroundColor: "{colors.glass-strong}"
   button-header:
-    backgroundColor: "{colors.glass}"
+    backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.lg}"
+    rounded: "{rounded.md}"
     padding: "0 16px"
     height: "40px"
   nav-item-active:
@@ -238,7 +236,9 @@ Depth comes from the scene and the glass, not from shadows. The generated valley
 The scene has two variants. **Full** (homepage) shows the image at full strength. **Faded** (docs, blog, tutorials, persona pages) drops it to 26% opacity in light and 34% in dark, desaturates it, blurs it 1px, and masks the middle of the page down to 15% so long text reads on a near-plain ground. The day/night swap is a pure CSS crossfade on the `.dark` class (1.2s), so there is no hydration flash. Under `prefers-reduced-motion` the drift, the crossfade, and every homepage animation stop.
 
 ### Named Rules
-**The Glass Surface Rule.** Glass is the default surface wherever content sits over the scene: header, section-head panels, cards, buttons that are not primary, code blocks, callouts, blockquotes, diagram figures, and pager cards. A glass panel is always the translucent fill plus a 1px line border plus a backdrop blur, never the blur alone. Anything that must stay legible over other glass (dropdown menus, the mobile drawer) goes opaque on Surface instead.
+**The Glass Surface Rule.** Glass is the default surface wherever content sits over the scene: header, section-head panels, cards, code blocks, callouts, blockquotes, diagram figures, and pager cards. A glass panel is always the translucent fill plus a 1px line border plus a backdrop blur, never the blur alone. Anything that must stay legible over other glass (dropdown menus, the mobile drawer) goes opaque on Surface instead. Controls are the exception: secondary buttons, inputs, selectors and segmented tabs sit on an opaque control surface (see Buttons), so they read as objects you press rather than panels you read.
+
+**The Raised Control Rule.** Buttons and form controls carry a 0-blur bottom edge (`box-shadow: 0 var(--edge) 0 0`), 2px on primary and 1px on secondary. This is a physical edge, not a cast shadow, and it is the only shadow a resting element may carry. Hover shrinks the edge and moves the control down 1px; press removes the edge and moves it down 2px (1px on secondary). Defined once in `globals.css` as `.btn-primary`, `.btn-secondary`, `.field` and `.seg`; never restyle a control per page.
 
 **The One Scene Rule.** The valley scene is the only image-based atmosphere on redesigned pages. It is rendered once per page by the scene backdrop component, full on the homepage and faded everywhere else. No page adds a second background texture, pattern, or gradient on top of it.
 
@@ -248,10 +248,12 @@ Plain, high-contrast type on frosted panels. The terminal cards stay literal, be
 
 ### Buttons
 - **Shape:** Gently rounded (lg, 10px). The radius scale is `--radius` (0.625rem) multiplied: xs 4px for tags inside diagrams, sm 6px for tags and small controls, md 8px for diagram nodes and sidebar links, lg 10px for buttons, nav items, section-head panels, code blocks, and callouts, xl 14px for every card (homepage, docs section cards, diagram figures), the header, and menus, 2xl 18px for the large feature panels, full for pills, filters, and the byline chip. Every radius comes from this scale; there is no separate 12px card radius.
-- **Primary:** Violet fill with accent-ink text, 48px tall on the homepage (44px in panels), 24px horizontal padding, 15px medium label. One per view region. This is the only filled button style on the site.
-- **Glass (secondary):** The glass surface at the same size, ink text; hover steps to Strong Glass or the violet chip tint.
+- **Primary (`.btn-primary`):** Violet with a soft vertical gradient (12% lighter at the top, `--btn-acc-top`), a 1px darker violet border and a 2px darker violet bottom edge (`--btn-acc-edge`), plus a 1px inner top highlight. Accent-ink text, 8px radius, 48px tall on the homepage (44px in panels), 24px horizontal padding, 15px medium label. One per view region. This is the only filled button style on the site.
+- **Secondary (`.btn-secondary`):** Opaque control surface (`--ctl-bg`: white in light, #181c29 in dark), a soft 1px border (`--ctl-line`) with a heavier bottom border (`--ctl-edge`) and a 1px drop edge (`--ctl-drop`). Ink text, 8px radius. Hover steps to `--ctl-hover`, press to `--ctl-press`. Selected tiles (OS, IDE, plan pickers) add a violet border on the chip tint.
+- **Inputs (`.field`):** The secondary surface and borders without the drop edge; hover darkens the border to the edge tone, focus turns it violet with a 3px chip ring.
+- **Segmented tabs (`.seg`):** A recessed track on the code fill; the active option is a `.btn-secondary`, inactive options are flat text.
 - **Outline:** A 1px line border on transparent, used for the essay call to action; hover fills with the chip tint.
-- **Hover / Focus:** The primary button shifts opacity only (0.9); glass buttons shift fill. Focus is a 2px violet outline at 2px offset on every interactive element.
+- **Hover / Press / Focus:** Hover and press follow the Raised Control Rule; `prefers-reduced-motion` drops the movement and keeps the color change. Focus is a 2px violet outline at 2px offset on every interactive element.
 
 ### Chips
 - **Style:** Pills in Geist Mono at 11.5px to 12px, muted text, a 1px line border, full radius, 2px by 10px padding.
@@ -266,7 +268,7 @@ Plain, high-contrast type on frosted panels. The terminal cards stay literal, be
 
 ### Navigation
 - **Header:** A floating glass bar, sticky with an 8px top gap on mobile and 20px on desktop, 56px tall (60px desktop), xl radius, capped at 1312px wide. The wordmark is an SVG valley-line logo plus "Claude Code Guide" in 16px semibold. Nav items are 14px medium; active items take the violet chip fill with violet text. A "Paths" dropdown and the mobile drawer open as opaque Surface menus with `shadow-lg`.
-- **Header action:** "Start free" is a secondary glass button (glass fill, 1px line border, ink text, 40px tall, hover steps to Strong Glass). In the opaque mobile drawer it becomes the outline button. It never competes with the violet primary.
+- **Header action:** "Start free" is a `.btn-secondary`, 40px tall. In the opaque mobile drawer it becomes the outline button. It never competes with the violet primary.
 - **Docs sidebar:** Transparent over the faded scene. Links are 14px muted with a 6px radius and a hair fill on hover; the active link is violet on the chip tint. The right TOC uses a 2px line rail that fills violet from the top down to the active heading.
 
 ### Terminal / Demo Cards

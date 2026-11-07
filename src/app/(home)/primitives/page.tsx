@@ -427,7 +427,7 @@ export default function PrimitivesPage() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/capabilities"
-              className="inline-flex items-center gap-2 rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-all hover:opacity-90"
+              className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm font-medium"
             >
               Browse capabilities
               <ArrowRight className="h-4 w-4" />

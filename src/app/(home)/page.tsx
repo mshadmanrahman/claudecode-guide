@@ -190,7 +190,7 @@ function SectionHead({ id, title, sub, more }: { id: string; title: string; sub?
       {more ? (
         <Link
           href={more.href}
-          className={`glass flex h-11 items-center rounded-lg px-4 text-ui font-medium transition-colors hover:bg-[var(--chip)] ${focusRing}`}
+          className={`btn-secondary flex h-11 items-center px-4 text-ui font-medium ${focusRing}`}
         >
           {more.label}
         </Link>
@@ -243,13 +243,13 @@ export default async function HomePage() {
           <div className="hm-rise [--d:0.9s] flex w-full max-w-[520px] flex-col items-stretch gap-3 sm:flex-row">
             <Link
               href={DOCS_START}
-              className={`flex h-12 items-center justify-center rounded-lg bg-[var(--acc)] px-6 text-ui font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 ${focusRing}`}
+              className={`btn-primary flex h-12 items-center justify-center px-6 text-ui font-medium ${focusRing}`}
             >
               Start with CLAUDE.md
             </Link>
             <Link
               href={JOURNEY_HREF}
-              className={`glass flex h-12 items-center justify-center rounded-lg px-6 text-ui font-medium transition-colors hover:bg-[var(--glass2)] ${focusRing}`}
+              className={`btn-secondary flex h-12 items-center justify-center px-6 text-ui font-medium ${focusRing}`}
             >
               New to Claude? Start here
             </Link>
@@ -364,7 +364,7 @@ export default async function HomePage() {
             </div>
             <Link
               href={JOURNEY_HREF}
-              className={`flex h-11 items-center rounded-lg bg-[var(--acc)] px-5 text-ui font-medium text-[var(--accInk)] transition-opacity hover:opacity-90 ${focusRing}`}
+              className={`btn-primary flex h-11 items-center px-5 text-ui font-medium ${focusRing}`}
             >
               Open the guided setup
             </Link>
