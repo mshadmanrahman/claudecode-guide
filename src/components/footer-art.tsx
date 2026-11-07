@@ -8,6 +8,8 @@ import type { FooterScene } from "@/lib/footer-scenes";
 /** Exact-match routes. "/" can't be a prefix, or it would match everything. */
 const EXACT_SCENES: Readonly<Record<string, FooterScene>> = {
   "/": "twinpeaks",
+  // Vercel's ISR regenerates the home page under "/index".
+  "/index": "twinpeaks",
   "/bn": "delta",
 };
 
