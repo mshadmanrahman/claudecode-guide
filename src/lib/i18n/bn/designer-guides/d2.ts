@@ -147,7 +147,7 @@ input/bkash-number/default
   },
 
   'build-your-first-flow': {
-    sourceHash: "3e8bb33c7d874099",
+    sourceHash: "b4f54c6abdaa87e4",
     translatedAt: "2026-11-07",
     content: {
       title: 'Claude Code দিয়ে আপনার প্রথম flow বানান',
@@ -157,11 +157,11 @@ input/bkash-number/default
       availableRoutes: ['desktop'],
       usesCodeTab: true,
       description:
-        'Claude Code দিয়ে একটা design-কে চালু UI prototype-এ বদলে ফেলুন। Frontend-এর অভিজ্ঞতা লাগবে না। শুধু একটা Figma file, একটা description আর একটা terminal।',
+        'Claude Code দিয়ে একটা design-কে চালু UI prototype-এ বদলে ফেলুন। Frontend-এর অভিজ্ঞতা লাগবে না। শুধু একটা Figma file, একটা description আর Claude app।',
       intro:
-        'এই guide সেই UX আর UI designer-দের জন্য, যারা একটা finished Figma screen developer-কে না দিয়ে নিজেই সেটাকে চালু, interactive code-এ বদলাতে চান। পড়া শেষে আপনি একটা design description থেকে reusable React component (UI code-এর একটা আলাদা, নিজে নিজে চলা অংশ) scaffold করতে পারবেন, validation আর interaction state যোগ করতে পারবেন, আর সহজ ভাষার prompt দিয়ে বারবার iterate করতে পারবেন। আপনি একটা flow design করেছেন। এখন সেটা কাজ করতে দেখতে চান, শুধু static prototype হিসেবে নয়, browser-এ আসল code হিসেবে। Developer-কে দিয়ে অপেক্ষা করার চেয়ে Claude Code এই দূরত্ব অনেক দ্রুত পার করে দিতে পারে। এই guide আপনাকে একটা finished Figma screen থেকে চালু একটা React component পর্যন্ত ধাপে ধাপে নিয়ে যাবে, শুধু সহজ ভাষা আর একটা terminal দিয়ে।',
+        'এই guide সেই UX আর UI designer-দের জন্য, যারা একটা finished Figma screen developer-কে না দিয়ে নিজেই সেটাকে চালু, interactive code-এ বদলাতে চান। পড়া শেষে আপনি একটা design description থেকে reusable React component (UI code-এর একটা আলাদা, নিজে নিজে চলা অংশ) scaffold করতে পারবেন, validation আর interaction state যোগ করতে পারবেন, আর সহজ ভাষার prompt দিয়ে বারবার iterate করতে পারবেন। আপনি একটা flow design করেছেন। এখন সেটা কাজ করতে দেখতে চান, শুধু static prototype হিসেবে নয়, browser-এ আসল code হিসেবে। Developer-কে দিয়ে অপেক্ষা করার চেয়ে Claude Code এই দূরত্ব অনেক দ্রুত পার করে দিতে পারে। এই guide আপনাকে একটা finished Figma screen থেকে চালু একটা React component পর্যন্ত ধাপে ধাপে নিয়ে যাবে, শুধু সহজ ভাষা আর Claude app দিয়ে।',
       situation: {
-        scene: 'আপনার কাছে একটা finished Figma screen আছে, আর আপনি সেটাকে browser-এ কাজ করতে দেখতে চান। Static prototype নয়। আসল interactive code। কিন্তু আপনি কখনো terminal খোলেননি, আর কোথা থেকে শুরু করবেন জানেন না।',
+        scene: 'আপনার কাছে একটা finished Figma screen আছে, আর আপনি সেটাকে browser-এ কাজ করতে দেখতে চান। Static prototype নয়। আসল interactive code। কিন্তু আপনি কখনো code লেখেননি, আর কোথা থেকে শুরু করবেন জানেন না।',
         outcome: 'আপনার design-এর সহজ ভাষার description থেকে আপনি একটা চালু React component বানাবেন, validation আর loading state সহ, নিজে একটা line code-ও edit না করে।',
       },
       outcomes: [
@@ -624,7 +624,7 @@ ARIA label, keyboard nav, focus order।
   },
 
   'git-for-designers': {
-    sourceHash: "b69a419ab9a914df",
+    sourceHash: "d3d20cdbfaf3c7c7",
     translatedAt: "2026-11-07",
     content: {
       title: 'Designer-দের জন্য Git',
@@ -650,21 +650,10 @@ ARIA label, keyboard nav, focus order।
         {
           title: 'নতুন project repo শুরু করুন',
           description:
-            'Claude Code আপনার কাজ save করার আগে একটা Git repository লাগবে। Terminal খুলুন (Mac: Command + Space চাপুন, Terminal লিখুন, Enter চাপুন। Windows: Windows key চাপুন, PowerShell লিখুন, Enter চাপুন)। এই guide-এর প্রতিটা command ওখানেই লিখে Enter চেপে চালাতে হবে। এছাড়া github.com-এ একটা free GitHub account লাগবে, আর git remote add চালানোর আগে সেখানে একটা নতুন খালি repo বানিয়ে রাখতে হবে (github.com/new-এ যান, New repository-তে click করুন, খালি রাখুন)। শেষ command, claude, আপনার Claude Code session শুরু করে। "command not found" দেখালে আগে claude.ai/download থেকে Claude Code install করে নিন।',
+            'Claude Code আপনার কাজ save করার আগে একটা Git repository লাগবে। Claude app খুলুন (claude.ai/download থেকে download করে নিন), Code tab-এ যান, আর আপনার project-এর জন্য একটা খালি folder বেছে নিন। এছাড়া github.com-এ একটা free GitHub account লাগবে, আর সেখানে একটা নতুন খালি repo (github.com/new-এ যান, New repository-তে click করুন, খালি রাখুন)। তারপর Claude-কে Git setup করে দিতে বলুন। git init আর git remote add Claude-ই আপনার হয়ে চালাবে। এই guide-এর প্রতিটা step এভাবেই কাজ করে: আপনি সহজ ভাষায় বলবেন, Claude Git command চালাবে।',
           code: {
-            snippet: `# 1. Project folder বানান আর তার ভেতরে ঢুকুন
-mkdir my-design-project
-cd my-design-project
-
-# 2. Git initialise করুন (.git folder তৈরি হয়)
-git init
-
-# 3. github.com/new-এ গিয়ে একটা খালি repo বানান, তারপর নিচে তার URL paste করুন
-git remote add origin https://github.com/your-username/my-design-project.git
-
-# 4. Claude Code চালু করুন (দরকার হলে claude.ai/download থেকে install করুন)
-claude`,
-            language: 'bash',
+            snippet: `এই folder-এ Git setup করুন, আর https://github.com/your-username/my-design-project.git-এর সঙ্গে connect করে দিন`,
+            language: 'prompt',
           },
           session: {
             folder: 'my-design-project',
@@ -680,12 +669,10 @@ claude`,
         {
           title: 'Commit কী',
           description:
-            'Commit হলো নাম দেওয়া একটা save point। Claude কোনো file edit করে change commit করলে, সেই save point আপনার project history-তে স্থায়ীভাবে থেকে যায়। Google Docs-এর version history-র কথা ভাবুন, পার্থক্য শুধু এটুকু যে এটা স্থায়ী, আর যেকোনো point-এ ফিরে গিয়ে দেখা যায়। আগে কোনো commit করে থাকলে, দেখতে git log --oneline চালান। একদম নতুন project-এ এটা এখনো কিছু দেখাবে না, এটাই স্বাভাবিক।',
+            'Commit হলো নাম দেওয়া একটা save point। Claude কোনো file edit করে change commit করলে, সেই save point আপনার project history-তে স্থায়ীভাবে থেকে যায়। Google Docs-এর version history-র কথা ভাবুন, পার্থক্য শুধু এটুকু যে এটা স্থায়ী, আর যেকোনো point-এ ফিরে গিয়ে দেখা যায়। আপনার save point-গুলো দেখতে Claude-এর কাছে history চান। Claude git log --oneline চালাবে। একদম নতুন project-এ এখনো কিছু থাকবে না, এটাই স্বাভাবিক।',
           code: {
-            snippet: `# আপনার commit history দেখুন (প্রতিটা commit এক line-এ)
-# একদম নতুন project-এ এটা কিছুই দেখাবে না, এটা স্বাভাবিক
-git log --oneline`,
-            language: 'bash',
+            snippet: `Commit history-টা দেখান`,
+            language: 'prompt',
           },
           session: {
             folder: 'my-design-project',
@@ -699,17 +686,10 @@ git log --oneline`,
         {
           title: 'একটা commit করুন',
           description:
-            'Claude আপনার file edit করার পর, change-গুলো history-তে save করতে commit করুন। তিনটা command: কী বদলেছে দেখুন, যে file save করতে চান সেগুলো stage করুন, message দিয়ে commit করুন।',
+            'Claude আপনার file edit করার পর, change-গুলো history-তে save করতে commit করুন। Claude-কে commit করতে বলুন। Claude দেখে নেবে কী বদলেছে (git status), file-গুলো stage করবে (git add), আর একটা message দিয়ে commit করবে (git commit)।',
           code: {
-            snippet: `# Claude কী বদলেছে দেখুন
-git status
-
-# বদলানো সব file stage করুন
-git add .
-
-# Message দিয়ে commit করুন
-git commit -m "Update button component spacing"`,
-            language: 'bash',
+            snippet: `এই change-গুলো commit করে দিন, short একটা message দিয়ে যেটায় বলা থাকবে কী বদলেছে`,
+            language: 'prompt',
           },
           session: {
             folder: 'my-design-project',
@@ -725,17 +705,10 @@ git commit -m "Update button component spacing"`,
         {
           title: 'Push আর pull',
           description:
-            'আপনার local commit-গুলো push না করা পর্যন্ত শুধু আপনার কম্পিউটারেই থাকে। নতুন project প্রথমবার push করার সময় git push -u origin main ব্যবহার করুন। -u আপনার local branch-কে GitHub-এর সঙ্গে link করে দেয়, তাই এই project-এ পরের সব push শুধু git push দিয়েই চলবে। Pull GitHub থেকে commit নিয়ে আসে। একা কাজ করলে: প্রতিটা session-এর পর push করুন, আর নতুন session শুরুর সময় pull করুন।',
+            'আপনার local commit-গুলো push না করা পর্যন্ত শুধু আপনার কম্পিউটারেই থাকে। Claude-কে push করতে বলুন। প্রথমবার Claude git push -u origin main চালাবে, যেটা আপনার local branch-কে GitHub-এর সঙ্গে link করে দেয়; এরপর শুধু git push-ই যথেষ্ট। Pull GitHub থেকে commit নিয়ে আসে। একা কাজ করলে: প্রতিটা session-এর পর push করুন, আর নতুন session শুরুর সময় pull করুন।',
           code: {
-            snippet: `# নতুন project-এ প্রথম push (-u দিয়ে branch-কে GitHub-এর সঙ্গে link করুন)
-git push -u origin main
-
-# একই project-এ পরের সব push
-git push
-
-# GitHub থেকে সর্বশেষ commit নিয়ে আসুন
-git pull`,
-            language: 'bash',
+            snippet: `আমার কাজ GitHub-এ push করে দিন`,
+            language: 'prompt',
           },
           session: {
             folder: 'my-design-project',
@@ -752,17 +725,10 @@ git pull`,
         {
           title: 'একটা commit undo করুন',
           description:
-            'Claude-এর করা কোনো change ফিরিয়ে নিতে চাইলে, git revert একটা নতুন commit বানায় যা আগের একটা commit-কে undo করে। এটা history মোছে না। উপরে একটা undo যোগ করে। GitHub-এ আগেই push হয়ে গেছে এমন কিছুর জন্য git reset-এর চেয়ে এটা নিরাপদ। --no-edit flag commit message editor বাদ দেয় (নইলে Git vim খুলে বসে, যেখান থেকে বের হতে :wq লিখতে হয়)।',
+            'Claude-এর করা কোনো change ফিরিয়ে নিতে চাইলে, git revert একটা নতুন commit বানায় যা আগের একটা commit-কে undo করে। এটা history মোছে না। উপরে একটা undo যোগ করে। GitHub-এ আগেই push হয়ে গেছে এমন কিছুর জন্য git reset-এর চেয়ে এটা নিরাপদ। কোন change undo করতে চান, নিজের ভাষায় Claude-কে বলুন; Claude commit-টা খুঁজে revert করে দেবে।',
           code: {
-            snippet: `# সাম্প্রতিক commit দেখুন আর কোনটা undo করবেন খুঁজে নিন
-git log --oneline
-
-# ওই commit undo করুন (ID-টা নিজেরটা দিয়ে বদলে নিন, --no-edit editor বাদ দেয়)
-git revert a3f92c1 --no-edit
-
-# Undo-টা GitHub-এ push করুন
-git push`,
-            language: 'bash',
+            snippet: `Button-এর spacing যে commit-এ বদলেছিল, সেটা undo করুন, তারপর undo-টা GitHub-এ push করে দিন`,
+            language: 'prompt',
           },
           session: {
             folder: 'my-design-project',
@@ -778,16 +744,10 @@ git push`,
         {
           title: 'Pull request কী',
           description:
-            'Branch হলো আপনার project-এর একটা আলাদা copy, যেখানে change হলেও main version-এ কোনো প্রভাব পড়ে না। Claude Code-এর সঙ্গে নতুন কোনো feature নিয়ে কাজ করলে Claude একটা branch বানায়। কাজ ready হলে আপনি একটা pull request খোলেন: branch-এর change-গুলো main version-এ merge করার একটা proposal। একজন developer সেটা review করে merge করেন। "Claude এটা বানিয়েছে" থেকে "এটা এখন product-এ আছে" পর্যন্ত change এভাবেই পৌঁছায়। gh pr create command-এর জন্য GitHub CLI লাগবে (cli.github.com থেকে install করুন)।',
+            'Branch হলো আপনার project-এর একটা আলাদা copy, যেখানে change হলেও main version-এ কোনো প্রভাব পড়ে না। Claude Code-এর সঙ্গে নতুন কোনো feature নিয়ে কাজ করলে Claude একটা branch বানায়। কাজ ready হলে আপনি একটা pull request খোলেন: branch-এর change-গুলো main version-এ merge করার একটা proposal। একজন developer সেটা review করে merge করেন। "Claude এটা বানিয়েছে" থেকে "এটা এখন product-এ আছে" পর্যন্ত change এভাবেই পৌঁছায়। Claude pull request খোলে GitHub CLI (gh) দিয়ে, তাই cli.github.com থেকে একবার install করে নিন।',
           code: {
-            snippet: `# নতুন feature-এর জন্য একটা branch বানান
-git checkout -b feature/new-checkout-flow
-
-# ... Claude Code এখানে কাজ করে change commit করে ...
-
-# একটা pull request খুলুন (GitHub CLI লাগবে: cli.github.com)
-gh pr create --title "New checkout flow" --body "Built with Claude Code"`,
-            language: 'bash',
+            snippet: `feature/new-checkout-flow নামে একটা branch বানান, সেখানে checkout flow-টা বানান, তারপর একটা pull request খুলে দিন`,
+            language: 'prompt',
           },
           session: {
             folder: 'my-design-project',
