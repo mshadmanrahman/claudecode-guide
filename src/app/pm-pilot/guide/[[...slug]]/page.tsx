@@ -4,10 +4,13 @@ import defaultMdxComponents from 'fumadocs-ui/mdx';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
+import type { ComponentProps } from 'react';
 import { SkillExample } from '@/components/pm-pilot-docs/skill-example';
 import { GitHubCta } from '@/components/pm-pilot-docs/github-cta';
 import { ogImage } from '@/lib/og/image';
 import { ArticleSchema } from '@/components/article-schema';
+import { PromptCard } from '@/components/prompt-card';
+import { DocPre } from '@/components/docs/doc-pre';
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
@@ -17,6 +20,8 @@ const mdxComponents = {
   ...defaultMdxComponents,
   SkillExample,
   GitHubCta,
+  PromptCard,
+  pre: (props: ComponentProps<typeof DocPre>) => <DocPre {...props} wrap />,
 };
 
 export default async function PmPilotGuidePage(props: PageProps) {

@@ -68,7 +68,7 @@ function FeaturedHero({ post }: { post: BlogPost }) {
       href={`/blog/${post.slug}`}
       className="glass hm-card group flex flex-col overflow-hidden rounded-2xl lg:flex-row focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
     >
-      <div className="flex flex-1 flex-col gap-4 p-6 sm:p-8 lg:p-10">
+      <div className="flex flex-1 flex-col gap-4 p-6 sm:p-8 lg:w-1/2 lg:p-10">
         <div className="ccg-card-meta">
           <span className="ccg-pill">latest</span>
           <time dateTime={post.date}>{formatDate(post.date)}</time>
@@ -90,7 +90,7 @@ function FeaturedHero({ post }: { post: BlogPost }) {
       </div>
 
       {/* Demo card on right side (desktop only) */}
-      <div className="hidden border-t border-fd-border p-6 lg:flex lg:w-[380px] lg:shrink-0 lg:items-center lg:border-l lg:border-t-0 lg:p-8">
+      <div className="hidden border-t border-fd-border p-6 lg:flex lg:w-1/2 lg:shrink-0 lg:items-center lg:border-l lg:border-t-0 lg:p-8">
         <div className="w-full" onClick={(e) => e.preventDefault()}>
           <ClaudeDesktopCodeMock
             compact
