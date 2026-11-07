@@ -24,4 +24,10 @@ export type SceneName =
   | "gorge"
   | "overlook"
   | "standingstones"
-  | "viaduct";
+  | "viaduct"
+  | "room-teachers"
+  | "room-designers"
+  | "room-marketers"
+  | "room-hr"
+  | "room-chrome"
+  | "room-microsoft";

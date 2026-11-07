@@ -46,7 +46,7 @@ export function MarketerHero() {
 
       <AudienceDemoPanel
         audience="marketers"
-        className="hm-rise mt-12 h-[560px] rounded-3xl border border-[var(--line)] md:h-[460px]"
+        className="hm-rise mt-12 h-[660px] rounded-3xl border border-[var(--line)] md:h-[460px]"
       />
 
       <div className="mt-12 grid gap-4 sm:grid-cols-3">

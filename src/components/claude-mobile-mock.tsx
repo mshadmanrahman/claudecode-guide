@@ -76,7 +76,7 @@ export function ClaudeMobileMock({ steps, loop = true, loopDelay = 4000 }: Claud
   return (
     <div
       ref={containerRef}
-      className="mx-auto flex h-[520px] w-[300px] max-w-full flex-col overflow-hidden rounded-[40px] border-[6px] border-[#1c1c1e] bg-[var(--bg)]"
+      className="mx-auto flex h-[620px] w-[300px] max-w-full flex-col overflow-hidden rounded-[40px] border-[6px] border-[#1c1c1e] bg-[var(--bg)]"
     >
       {/* Status bar */}
       <div className="flex items-center justify-between px-6 pb-1 pt-2.5 text-[11px] font-semibold text-fd-foreground" aria-hidden="true">

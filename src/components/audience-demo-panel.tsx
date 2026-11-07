@@ -56,17 +56,17 @@ const DEMOS: Record<Audience, AudienceDemo> = {
     ],
   },
   teachers: {
-    scene: 'schoolhouse',
+    scene: 'room-teachers',
     folder: TEACHERS_HUB.demo.folder,
     chat: exchange(TEACHERS_HUB.demo.prompt, TEACHERS_HUB.demo.reply),
   },
   designers: {
-    scene: 'swatches',
+    scene: 'room-designers',
     folder: DESIGNERS_HUB.demo.folder,
     chat: exchange(DESIGNERS_HUB.demo.prompt, DESIGNERS_HUB.demo.reply),
   },
   marketers: {
-    scene: 'market',
+    scene: 'room-marketers',
     folder: 'Autumn launch',
     chat: exchange(
       'Turn this product update into a LinkedIn post and a newsletter blurb',
@@ -74,7 +74,7 @@ const DEMOS: Record<Audience, AudienceDemo> = {
     ),
   },
   hr: {
-    scene: 'green',
+    scene: 'room-hr',
     folder: 'Hiring',
     chat: exchange(
       'Write a job description for a junior data analyst from my intake notes',
@@ -82,7 +82,7 @@ const DEMOS: Record<Audience, AudienceDemo> = {
     ),
   },
   chrome: {
-    scene: 'signposts',
+    scene: 'room-chrome',
     folder: 'Vendor research',
     chat: exchange(
       'Compare the three vendor pages I have open in Chrome',
@@ -90,7 +90,7 @@ const DEMOS: Record<Audience, AudienceDemo> = {
     ),
   },
   microsoft: {
-    scene: 'lakeside',
+    scene: 'room-microsoft',
     folder: 'Quarterly review',
     chat: exchange(
       'Turn last quarter’s sales sheet into five slides for Monday',
@@ -121,7 +121,7 @@ interface AudienceDemoPanelProps {
 export function AudienceDemoPanel({
   audience,
   copy,
-  className = 'h-[560px] rounded-3xl border border-[var(--line)] md:h-[520px]',
+  className = 'h-[660px] rounded-3xl border border-[var(--line)] md:h-[520px]',
   sizes = '(min-width: 1024px) 1024px, 100vw',
   priority = true,
 }: AudienceDemoPanelProps) {

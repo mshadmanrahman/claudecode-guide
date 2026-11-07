@@ -267,7 +267,7 @@ export default async function HomePage() {
         <AudienceDemoPanel
           audience="home"
           sizes="(min-width: 768px) 50vw, 100vw"
-          className="hm-rise [--d:0.6s] h-[560px] rounded-3xl border border-[var(--line)] md:h-[540px]"
+          className="hm-rise [--d:0.6s] h-[660px] rounded-3xl border border-[var(--line)] md:h-[540px]"
         />
       </section>
 

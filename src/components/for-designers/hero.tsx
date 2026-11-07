@@ -56,7 +56,7 @@ export function DesignerHero({ locale = 'en', copy = DESIGNERS_HUB }: DesignerHe
       <AudienceDemoPanel
         audience="designers"
         copy={locale === 'en' ? undefined : copy.demo}
-        className="hm-rise mt-12 h-[560px] rounded-3xl border border-[var(--line)] md:h-[460px]"
+        className="hm-rise mt-12 h-[660px] rounded-3xl border border-[var(--line)] md:h-[460px]"
       />
 
       {/* Journey cards */}
