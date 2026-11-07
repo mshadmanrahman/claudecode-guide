@@ -574,27 +574,53 @@ h3.font-display {
 .dark .engr-band {
   opacity: 0.22;
 }
-/* Footer art: the engraving sits under the footer links and runs to the page
-   bottom, edge to edge, faded in at the top. The top of the art is open sky, so
-   the crop keeps the bottom; on phones the whole 3:2 picture shows. */
+/* Footer (Hashi): optional "Keep reading" bridge, quiet link columns, then the
+   section's engraving closes the page, edge to edge, faded in at the top. The
+   top of the art is open sky, so the crop keeps the bottom; on phones the whole
+   3:2 picture shows. The copyright line sits on the art's bottom edge. */
+.footer-bridge {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.footer-next {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 639px) {
+  .footer-next {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
 .footer-art {
   position: relative;
-  margin: 24px -1rem 0;
+  margin-top: 56px;
   height: min(600px, 66.67vw);
   overflow: hidden;
-  pointer-events: none;
 }
 /* The mask sits on the image, not the wrapper, so the blend still reaches the page. */
 .footer-art .engr-ink {
+  pointer-events: none;
   object-fit: cover;
   object-position: center bottom;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
   mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
 }
-@media (min-width: 768px) {
-  .footer-art {
-    margin-inline: -4rem;
-  }
+.footer-legal {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 16px;
+}
+.footer-legal > span {
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--ink);
 }
 .dark .footer-art .engr-ink {
   opacity: 0.5;

@@ -1,65 +1,131 @@
-import { Fragment } from "react";
 import Link from "next/link";
+import { flattenTree } from "fumadocs-core/page-tree";
 import { FooterArt } from "@/components/footer-art";
+import { FooterBridge, type BridgePage } from "@/components/footer-bridge";
 import { FooterLanguageLink } from "@/components/footer-language-link";
+import type { FooterScene } from "@/lib/footer-scenes";
+import { source } from "@/lib/source";
 
 interface FooterLink {
   label: string;
   href: string;
+  external?: boolean;
 }
 
-const SITE_LINKS: ReadonlyArray<FooterLink> = [
-  { label: "docs", href: "/docs" },
-  { label: "tutorials", href: "/tutorials" },
-  { label: "essays", href: "/blog" },
-  { label: "certification", href: "/certification" },
-  { label: "roadmap", href: "/roadmap" },
-  { label: "journey", href: "/journey" },
-  { label: "about", href: "/about" },
-  { label: "sitemap", href: "/sitemap.xml" },
-  { label: "llms.txt", href: "/llms.txt" },
-];
+interface FooterColumn {
+  heading: string;
+  links: ReadonlyArray<FooterLink>;
+}
 
-const SOCIAL_LINKS: ReadonlyArray<FooterLink> = [
-  { label: "linkedin", href: "https://www.linkedin.com/in/shadmanrahman" },
-  { label: "product field notes", href: "https://shadmanrahman.substack.com/" },
-  { label: "github", href: "https://github.com/mshadmanrahman/claudecode-guide" },
+const COLUMNS: ReadonlyArray<FooterColumn> = [
+  {
+    heading: "Learn",
+    links: [
+      { label: "Start here", href: "/start" },
+      { label: "Docs", href: "/docs" },
+      { label: "Tutorials", href: "/tutorials" },
+      { label: "Certification", href: "/certification" },
+    ],
+  },
+  {
+    heading: "Read",
+    links: [
+      { label: "Essays", href: "/blog" },
+      { label: "Roadmap", href: "/roadmap" },
+      { label: "Journey", href: "/journey" },
+      { label: "About", href: "/about" },
+    ],
+  },
+  {
+    heading: "Elsewhere",
+    links: [
+      { label: "Field notes", href: "https://shadmanrahman.substack.com/", external: true },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/shadmanrahman", external: true },
+      { label: "GitHub", href: "https://github.com/mshadmanrahman/claudecode-guide", external: true },
+    ],
+  },
 ];
 
 const linkClass =
-  "rounded-sm text-[var(--ink)] transition-opacity hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
+  "block rounded-sm py-[3px] text-[14px] text-[var(--ink)] transition-colors hover:text-[var(--acc)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
 
-export function SiteFooter() {
+const SECTION_TITLES: Readonly<Record<string, string>> = {
+  comparisons: "Comparisons",
+  foundations: "Foundations",
+  frameworks: "Frameworks",
+  patterns: "Patterns",
+  templates: "Templates",
+  workflows: "Workflows",
+};
+
+/** Docs pages in sidebar order, for the "Keep reading" bridge. */
+function docsReadingOrder(): BridgePage[] {
+  const titles = new Map(source.getPages().map((p) => [p.url, p.data.title]));
+  return flattenTree(source.pageTree.children).flatMap((item) => {
+    const section = SECTION_TITLES[item.url.split("/")[2] ?? ""];
+    const title = titles.get(item.url);
+    return section && title ? [{ url: item.url, title, section }] : [];
+  });
+}
+
+interface SiteFooterProps {
+  /** Pin the closing landscape (the 404 page has no route to read it from). */
+  scene?: FooterScene;
+}
+
+export function SiteFooter({ scene }: SiteFooterProps) {
   return (
-    <footer className="relative mt-auto bg-[var(--bg)] px-4 pt-10 font-mono text-caption md:px-16">
-      <div className="mx-auto flex max-w-[1312px] flex-col gap-3">
-        <nav aria-label="Site" className="glass flex flex-wrap gap-x-5 gap-y-2 self-start rounded-lg px-3.5 py-2.5">
-          {SITE_LINKS.map((link) => (
-            <Fragment key={link.href}>
-              <Link href={link.href} className={linkClass}>
-                {link.label}
-              </Link>
-              {link.href === "/about" && <FooterLanguageLink className={linkClass} />}
-            </Fragment>
-          ))}
-        </nav>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="glass m-0 self-start rounded-lg px-3.5 py-2.5 text-[var(--ink)]">
-            kept by{" "}
-            <Link href="/about" className={linkClass}>
-              Shadman Rahman
+    <footer className="relative mt-auto bg-[var(--bg)] text-[var(--ink)]">
+      <div className="mx-auto max-w-[1312px] px-4 md:px-16">
+        <FooterBridge pages={docsReadingOrder()} />
+        <div className="grid gap-7 pt-20 md:grid-cols-[1.3fr_2fr] md:gap-12 md:pt-24">
+          <div>
+            <Link href="/" className="rounded-sm text-[15px] font-semibold text-[var(--ink)]">
+              Claude Code Guide
             </Link>
-          </p>
-          <div className="glass flex gap-5 self-start rounded-lg px-3.5 py-2.5 sm:self-auto">
-            {SOCIAL_LINKS.map((link) => (
-              <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                {link.label}
-              </a>
-            ))}
+            <p className="mt-2 mb-0 max-w-[280px] text-[14px] leading-[1.6] text-[var(--muted)]">
+              A field guide for people who build with Claude Code. Kept by{" "}
+              <Link href="/about" className="text-[var(--muted)] underline underline-offset-2 hover:text-[var(--acc)]">
+                Shadman Rahman
+              </Link>
+              .
+            </p>
           </div>
+          <nav aria-label="Site" className="grid grid-cols-2 gap-6 sm:grid-cols-3">
+            {COLUMNS.map((col) => (
+              <div key={col.heading}>
+                <h2 className="mb-2.5 text-[13px] font-medium text-[var(--muted)]">{col.heading}</h2>
+                {col.links.map((link) =>
+                  link.external ? (
+                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link key={link.href} href={link.href} className={linkClass}>
+                      {link.label}
+                    </Link>
+                  ),
+                )}
+                {col.heading === "Elsewhere" && <FooterLanguageLink className={linkClass} />}
+              </div>
+            ))}
+          </nav>
         </div>
       </div>
-      <FooterArt />
+      <FooterArt scene={scene}>
+        <div className="footer-legal mx-auto flex max-w-[1312px] justify-between gap-3 px-4 text-[12px] md:px-16">
+          <span>© 2026 Claude Code Guide</span>
+          <span>
+            <a href="/sitemap.xml" className="hover:text-[var(--acc)]">
+              sitemap
+            </a>
+            {" · "}
+            <a href="/llms.txt" className="hover:text-[var(--acc)]">
+              llms.txt
+            </a>
+          </span>
+        </div>
+      </FooterArt>
     </footer>
   );
 }

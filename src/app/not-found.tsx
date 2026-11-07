@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { EngravingBand } from '@/components/engraving';
+import { SiteFooter } from '@/components/site-footer';
 
 export const metadata: Metadata = {
   title: 'Page Not Found',
@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="relative isolate flex min-h-screen flex-col items-center justify-center px-6 text-center">
+    <div className="relative isolate flex min-h-screen flex-col">
+      <div className="flex flex-1 flex-col items-center justify-center px-6 pt-24 text-center">
       <p className="font-mono text-display leading-[1.1] font-semibold text-[var(--acc)]">404</p>
       <h1 className="mt-4 font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
         Page not found
@@ -37,7 +38,8 @@ export default function NotFound() {
           Back to home
         </Link>
       </div>
-      <EngravingBand />
+      </div>
+      <SiteFooter scene="valley" />
     </div>
   );
 }
