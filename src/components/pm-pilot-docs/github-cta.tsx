@@ -7,8 +7,29 @@ interface GitHubCtaProps {
   skill: string;
 }
 
+/** Skills live in per-plugin folders in the pm-pilot repo; pm-core is the default. */
+const PLUGIN_BY_SKILL: Readonly<Record<string, string>> = {
+  'market-research': 'pm-content',
+  'writing-style': 'pm-content',
+  'writing-substack': 'pm-content',
+  'search-first': 'pm-dev',
+  'security-review': 'pm-dev',
+  'tdd-workflow': 'pm-dev',
+  'verification-loop': 'pm-dev',
+  'handoff-doc': 'pm-productivity',
+  'manifest-reader': 'pm-productivity',
+  'meta-observer': 'pm-productivity',
+  orchestrator: 'pm-productivity',
+  'session-init': 'pm-productivity',
+  'strategic-compact': 'pm-productivity',
+};
+
+function pluginFor(skill: string): string {
+  return PLUGIN_BY_SKILL[skill] ?? 'pm-core';
+}
+
 export function GitHubCta({ skill }: GitHubCtaProps) {
-  const href = `https://github.com/mshadmanrahman/pm-pilot/blob/main/skills/pm-core/${skill}/SKILL.md`;
+  const href = `https://github.com/mshadmanrahman/pm-pilot/blob/main/plugins/${pluginFor(skill)}/skills/${skill}/SKILL.md`;
   return (
     <div className="not-prose mt-10 rounded-xl border border-fd-border bg-[var(--glass)] backdrop-blur-[16px] backdrop-saturate-[1.2] p-6">
       <p className="text-xs font-semibold uppercase tracking-wide text-fd-muted-foreground mb-2 font-mono">Ready to install?</p>

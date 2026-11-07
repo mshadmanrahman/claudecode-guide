@@ -20,7 +20,7 @@ export function PmPilotFooter() {
             GitHub
           </a>
           <a
-            href="https://github.com/mshadmanrahman/pm-pilot/blob/main/CONTRIBUTING.md"
+            href="https://github.com/mshadmanrahman/pm-pilot/blob/main/.github/CONTRIBUTING.md"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-sm hover:text-fd-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"

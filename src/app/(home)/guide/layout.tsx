@@ -5,6 +5,7 @@ import { ogImage } from '@/lib/og/image';
 export const metadata: Metadata = {
   title: 'Interactive Claude Code Setup Guide',
   description: '9-step guided setup for Claude Code. Install, authenticate, write your first CLAUDE.md, and build your first feature. Progress saved automatically.',
+  alternates: { canonical: 'https://claudecodeguide.dev/guide' },
   openGraph: { images: [ogImage('guide', 'Interactive setup guide')] },
 };
 

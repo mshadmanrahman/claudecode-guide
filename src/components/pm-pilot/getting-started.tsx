@@ -3,7 +3,7 @@
 import { useInView } from '@/hooks/use-in-view';
 
 const MEETING_PREP_SKILL =
-  'https://github.com/mshadmanrahman/pm-pilot/blob/main/skills/pm-core/meeting-prep/SKILL.md';
+  'https://github.com/mshadmanrahman/pm-pilot/blob/main/plugins/pm-core/skills/meeting-prep/SKILL.md';
 const CLAUDE_DESKTOP_URL = 'https://claude.ai/download';
 const GUIDE_URL = 'https://claudecodeguide.dev';
 const GIT_DOWNLOAD_URL = 'https://git-scm.com/downloads';
@@ -128,7 +128,7 @@ export function PmPilotGettingStarted() {
               <li>
                 Paste any{' '}
                 <a
-                  href="https://github.com/mshadmanrahman/pm-pilot/tree/main/skills"
+                  href="https://github.com/mshadmanrahman/pm-pilot/tree/main/plugins"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-sm font-medium text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"

@@ -917,9 +917,9 @@ export const blogPosts: BlogPost[] = [
 <p>Write a handoff at the end of each session and load it at the start of the next. Zero cold starts. Your Tuesday session picks up exactly where Monday left off.</p>
 
 <h2>10. MCP Server Connections</h2>
-<p>Connect to external tools (databases, APIs, browser automation) through the <a href="/docs/advanced/mcp">Model Context Protocol</a>. Claude Code stops being just a coding assistant and becomes an orchestration layer.</p>
+<p>Connect to external tools (databases, APIs, browser automation) through the <a href="/docs/patterns/mcp-servers">Model Context Protocol</a>. Claude Code stops being just a coding assistant and becomes an orchestration layer.</p>
 
-<p>Most people use maybe 3 of these. Start using all 10 and the productivity gap gets embarrassing. Read the full <a href="/docs/getting-started/basic-usage">Basic Usage Guide</a> for more.</p>`,
+<p>Most people use maybe 3 of these. Start using all 10 and the productivity gap gets embarrassing. Read the full <a href="/docs/foundations/basics-quick-reference">Basic Usage Guide</a> for more.</p>`,
   },
   {
     slug: "7-claude-md-sections-every-project-needs",
@@ -982,7 +982,7 @@ export const blogPosts: BlogPost[] = [
 <h2>The Math</h2>
 <p>Max is $100/month more than Pro. If it saves you 2 hours per week (it will), that's roughly $12.50 per hour saved. Most developers bill 10x that. It's not even close.</p>
 
-<p>Check the <a href="/docs/getting-started/installation">installation guide</a> for setup details and the <a href="/docs/advanced/cost-management">cost management guide</a> for tips on maximizing your plan.</p>`,
+<p>Check the <a href="/docs/foundations/installation">installation guide</a> for setup details and the <a href="/docs/foundations/cost-optimization">cost management guide</a> for tips on maximizing your plan.</p>`,
   },
   {
     slug: "8-ways-pms-use-claude-code-without-writing-code",
@@ -1100,7 +1100,7 @@ export const blogPosts: BlogPost[] = [
 <h2>12. /cleanup</h2>
 <p>Finds dead code, unused imports, and orphaned files. Keeps your repo lean without the fear of accidentally deleting something important.</p>
 
-<p>Building these is trivial. Just markdown files in <code>.claude/commands/</code>. The <a href="/docs/patterns/slash-commands">slash commands guide</a> shows you exactly how.</p>`,
+<p>Building these is trivial. Just markdown files in <code>.claude/commands/</code>. The <a href="/docs/patterns/skills">slash commands guide</a> shows you exactly how.</p>`,
   },
   {
     slug: "4-mcp-servers-every-developer-should-connect",
@@ -1127,7 +1127,7 @@ export const blogPosts: BlogPost[] = [
 <h2>Setting Up Your First MCP Server</h2>
 <p>Add a <code>.mcp.json</code> file to your project root with the server configuration. Claude Code detects it automatically on next session start. No restart, no install, no drama.</p>
 
-<p>Once you have these 4 connected, Claude Code becomes the single interface for your entire development workflow. Read the full <a href="/docs/advanced/mcp">MCP deep dive</a> for configuration examples and advanced patterns.</p>`,
+<p>Once you have these 4 connected, Claude Code becomes the single interface for your entire development workflow. Read the full <a href="/docs/patterns/mcp-servers">MCP deep dive</a> for configuration examples and advanced patterns.</p>`,
   },
   {
     slug: "9-mistakes-killing-your-claude-code-productivity",
@@ -1161,7 +1161,7 @@ export const blogPosts: BlogPost[] = [
 <p>Claude Code shows you diffs for a reason. Blindly accepting everything is how you get subtle bugs, wrong imports, and style violations. Spend 30 seconds reviewing. It's worth it.</p>
 
 <h2>8. Not Using Custom Commands</h2>
-<p>If you type the same prompt pattern more than twice, it should be a <a href="/docs/patterns/slash-commands">slash command</a>. "Write tests for this file" becomes <code>/test</code>. "Review my staged changes" becomes <code>/review</code>.</p>
+<p>If you type the same prompt pattern more than twice, it should be a <a href="/docs/patterns/skills">slash command</a>. "Write tests for this file" becomes <code>/test</code>. "Review my staged changes" becomes <code>/review</code>.</p>
 
 <h2>9. Treating It Like a Search Engine</h2>
 <p>Claude Code is a pair programmer, not Google. Give it context, not keywords. Share the file, explain the constraint, describe the outcome you want. The better you brief it, the better it performs.</p>
@@ -1196,7 +1196,7 @@ export const blogPosts: BlogPost[] = [
 <h2>The Pattern</h2>
 <p>Every skill follows the same structure: describe what Claude Code should do, what inputs to use, and how to format the output. Once you build 3, you'll start seeing skill opportunities everywhere.</p>
 
-<p>The <a href="/docs/patterns/slash-commands">slash commands guide</a> covers the full syntax and more advanced patterns like parameterized skills and multi-step workflows.</p>`,
+<p>The <a href="/docs/patterns/skills">slash commands guide</a> covers the full syntax and more advanced patterns like parameterized skills and multi-step workflows.</p>`,
   },
   {
     slug: "top-5-claude-code-workflows-for-solo-founders",
@@ -1895,7 +1895,7 @@ export const register: Register = on =&gt; {
 
 <h2>One thing to take seriously</h2>
 <p>A mod is your code running with your permissions. Anthropic's docs are direct about it: mods "aren't sandboxed," and a mod can read your environment variables and every prompt you send. Turning on sandboxing doesn't cover a process a mod starts. Read a mod before you install it, the same as you would a shell script from a stranger. All seven of mine are short enough to read in a few minutes, except agent-panel, and I wrote that one.</p>
-<p>Full reference: <a href="https://code.claude.com/docs/en/plugins/mods/overview">Mods overview</a> in the Claude Code docs. For the older, settings-file kind of hook, see <a href="/docs/automation/hooks">hooks</a> in this guide.</p>
+<p>Full reference: <a href="https://code.claude.com/docs/en/plugins/mods/overview">Mods overview</a> in the Claude Code docs. For the older, settings-file kind of hook, see <a href="/docs/patterns/hooks">hooks</a> in this guide.</p>
 `,
   },
 ];
