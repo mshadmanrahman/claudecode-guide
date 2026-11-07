@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Award, ShieldCheck, Building2, BookOpen, ExternalLink } from 'lucide-react';
+import { Award, ShieldCheck, Building2, BookOpen, ChevronDown, ExternalLink } from 'lucide-react';
 import { FaqSchema } from '@/components/faq-schema';
 import { EmailCapture } from '@/components/email-capture';
 
 import { KineticText } from '@/components/kinetic-text';
+import { EngravingPanel } from '@/components/engraving';
+import { RegistrationPath } from '@/components/certification/registration-path';
 import { ogImage } from '@/lib/og/image';
 const ANNOUNCEMENT_URL = 'https://claude.com/blog/four-role-based-claude-certifications';
 const ANNOUNCEMENT_DATE = '23 July 2026';
@@ -171,6 +173,12 @@ export default function CertificationPage() {
             a recognized company domain, and a personal address will not work.
           </p>
         </div>
+        <EngravingPanel
+          scene="still-certification"
+          priority
+          sizes="(min-width: 1024px) 1024px, 100vw"
+          className="hm-rise mx-auto mt-10 h-56 max-w-5xl rounded-3xl border border-[var(--line)] sm:h-80"
+        />
       </section>
 
       <section className="px-6 py-14">
@@ -185,6 +193,35 @@ export default function CertificationPage() {
             Three roles, four exams. Each links straight to its own registration page and its free
             prep track on Anthropic Partner Academy.
           </p>
+
+          <div className="mb-8 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <caption className="mt-3 caption-bottom text-left text-fd-muted-foreground">
+                All four run 120 minutes through Pearson and pass at 720 out of 1,000. Prices are list, before
+                partner-tier discounts.
+              </caption>
+              <thead>
+                <tr className="border-b border-fd-border text-left">
+                  <th scope="col" className="py-2.5 pr-4 font-medium text-fd-foreground">Credential</th>
+                  <th scope="col" className="py-2.5 pr-4 font-medium text-fd-foreground">Level</th>
+                  <th scope="col" className="py-2.5 pr-4 text-right font-medium text-fd-foreground">Price</th>
+                  <th scope="col" className="py-2.5 font-medium text-fd-foreground">Partner tier</th>
+                </tr>
+              </thead>
+              <tbody>
+                {CREDENTIALS.map((c) => (
+                  <tr key={c.name} className="border-b border-fd-border last:border-0">
+                    <th scope="row" className="py-2.5 pr-4 text-left align-top font-medium text-fd-foreground">
+                      {c.name.replace('Claude Certified ', '').replace(/: .*/, '')}
+                    </th>
+                    <td className="py-2.5 pr-4 align-top text-fd-muted-foreground">{c.level}</td>
+                    <td className="py-2.5 pr-4 text-right align-top font-mono text-fd-foreground">{c.price.replace(' USD', '')}</td>
+                    <td className="py-2.5 align-top text-fd-muted-foreground">{c.countsToward ? 'Yes' : 'No'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           <div className="space-y-3">
             {CREDENTIALS.map((c) => (
@@ -309,6 +346,7 @@ export default function CertificationPage() {
               the record yet, adding it takes 7 to 10 working days, so start that before you book a
               date.
             </p>
+            <RegistrationPath />
             <p>
               Price follows the same record. Registered-tier partners pay list price. Select,
               Preferred and Global Premier partners get 50% off automatically, and Global Premier
@@ -415,16 +453,20 @@ export default function CertificationPage() {
       <section className="px-6 py-14">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">Common questions</h2>
-          <dl className="mt-6 space-y-6">
+          <div className="mt-6 border-t border-fd-border">
             {FAQ.map((f) => (
-              <div key={f.question}>
-                <dt className="font-display text-body font-semibold text-fd-foreground">
+              <details key={f.question} className="group border-b border-fd-border">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-sm py-4 font-display text-body font-semibold text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)] [&::-webkit-details-marker]:hidden">
                   {f.question}
-                </dt>
-                <dd className="mt-2 text-fd-muted-foreground leading-relaxed">{f.answer}</dd>
-              </div>
+                  <ChevronDown
+                    className="h-4 w-4 shrink-0 text-fd-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                    aria-hidden="true"
+                  />
+                </summary>
+                <p className="pb-5 text-fd-muted-foreground leading-relaxed">{f.answer}</p>
+              </details>
             ))}
-          </dl>
+          </div>
         </div>
       </section>
 
