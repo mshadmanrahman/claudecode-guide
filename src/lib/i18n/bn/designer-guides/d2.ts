@@ -147,8 +147,8 @@ input/bkash-number/default
   },
 
   'build-your-first-flow': {
-    sourceHash: "98723a7e07281bd3",
-    translatedAt: "2026-10-06",
+    sourceHash: "3e8bb33c7d874099",
+    translatedAt: "2026-11-07",
     content: {
       title: 'Claude Code দিয়ে আপনার প্রথম flow বানান',
       slug: 'build-your-first-flow',
@@ -197,13 +197,13 @@ CTA
 States: default, field-error, loading, success`,
             language: 'markdown',
           },
-          demo: {
+          session: {
+            folder: 'bkash-flow',
             steps: [
-              { type: 'cmd', text: 'mkdir bkash-flow && cd bkash-flow' },
-              { type: 'cmd', text: 'touch DESIGN.md' },
-              { type: 'cmd', text: 'claude' },
-              { type: 'out', text: 'Reading DESIGN.md...' },
-              { type: 'success', text: 'Claude Code session started. DESIGN.md loaded.' },
+              { kind: 'prompt', text: 'DESIGN.md পড়ুন, আর বলুন আমরা কী বানাচ্ছি' },
+              { kind: 'thinking', ms: 900 },
+              { kind: 'tool', name: 'Read', arg: 'DESIGN.md', result: 'Read 21 lines' },
+              { kind: 'say', text: 'bKash Send Money screen: amount আর phone field, inline error,\nআর একটা pink Send Money button, দুটো field valid না হওয়া পর্যন্ত যেটা disabled থাকবে।\nআপনি বললেই শুরু করব।' },
             ],
           },
           desktopDemo: {
@@ -223,13 +223,15 @@ Active step highlight করা থাকবে, শেষ হওয়া step-
 সামনের step-গুলো dim থাকবে। Framework নিয়ে এখনো কোনো preference নেই।`,
             language: 'text',
           },
-          demo: {
+          session: {
+            folder: 'bkash-flow',
             steps: [
-              { type: 'cmd', text: 'claude "SendMoneyForm.tsx scaffold করুন, amount আর phone field দিয়ে। Validation এখনই লাগবে না। Layout আর token value DESIGN.md থেকে নিন।"' },
-              { type: 'out', text: 'Scaffolding SendMoneyForm.tsx...', delay: 600 },
-              { type: 'out', text: 'Created: src/components/SendMoneyForm.tsx' },
-              { type: 'out', text: 'Created: src/components/SendMoneyForm.css' },
-              { type: 'success', text: 'Shell ready। Preview দেখতে চালান: npm start' },
+              { kind: 'prompt', text: 'SendMoneyForm.tsx scaffold করুন, amount আর phone field দিয়ে। Validation এখনই লাগবে না। Layout আর token value DESIGN.md থেকে নিন।' },
+              { kind: 'thinking', ms: 900 },
+              { kind: 'tool', name: 'Read', arg: 'DESIGN.md', result: 'Read 21 lines' },
+              { kind: 'tool', name: 'Write', arg: 'src/components/SendMoneyForm.tsx', result: 'Wrote 58 lines' },
+              { kind: 'tool', name: 'Write', arg: 'src/components/SendMoneyForm.css', result: 'Wrote 34 lines' },
+              { kind: 'say', text: 'Form-এর shell ready। দেখতে preview খুলুন।' },
             ],
           },
           desktopDemo: {
@@ -248,12 +250,13 @@ Active step highlight করা থাকবে, শেষ হওয়া step-
 Padding একটু বাড়ান, আর checkmark icon-টা 4px বড় করুন।`,
             language: 'text',
           },
-          demo: {
+          session: {
+            folder: 'bkash-flow',
             steps: [
-              { type: 'cmd', text: 'claude "SendMoneyForm-এ validation যোগ করুন: amount min 10 max 5000, phone 11 digit, শুরু 01 দিয়ে। Inline error দেখান। দুটো valid না হওয়া পর্যন্ত button disable রাখুন।"' },
-              { type: 'out', text: 'Adding validation...', delay: 400 },
-              { type: 'out', text: 'Updated: src/components/SendMoneyForm.tsx' },
-              { type: 'success', text: 'Validation যোগ হয়েছে। সামনে যাওয়ার আগে browser-এ test করে নিন।' },
+              { kind: 'prompt', text: 'SendMoneyForm-এ validation যোগ করুন: amount min 10 max 5000, phone 11 digit, শুরু 01 দিয়ে। Inline error দেখান। দুটো valid না হওয়া পর্যন্ত button disable রাখুন।' },
+              { kind: 'thinking', ms: 900 },
+              { kind: 'tool', name: 'Update', arg: 'src/components/SendMoneyForm.tsx', result: 'Updated with 24 additions' },
+              { kind: 'say', text: 'Validation যোগ হয়েছে। সামনে যাওয়ার আগে browser-এ test করে নিন।' },
             ],
           },
           desktopDemo: {
@@ -621,8 +624,8 @@ ARIA label, keyboard nav, focus order।
   },
 
   'git-for-designers': {
-    sourceHash: "9d85d780c294ef54",
-    translatedAt: "2026-10-06",
+    sourceHash: "b69a419ab9a914df",
+    translatedAt: "2026-11-07",
     content: {
       title: 'Designer-দের জন্য Git',
       slug: 'git-for-designers',
@@ -663,15 +666,14 @@ git remote add origin https://github.com/your-username/my-design-project.git
 claude`,
             language: 'bash',
           },
-          demo: {
-            title: 'git : init-and-connect',
+          session: {
+            folder: 'my-design-project',
             steps: [
-              { type: 'cmd', text: 'git init' },
-              { type: 'out', text: 'Initialized empty Git repository in ./my-design-project/.git/' },
-              { type: 'cmd', text: 'git remote add origin https://github.com/you/my-design-project.git', delay: 300 },
-              { type: 'success', text: 'Remote connect হয়েছে। Commit-গুলো এখানেই push হবে।' },
-              { type: 'cmd', text: 'claude', delay: 300 },
-              { type: 'success', text: 'Claude Code ready। Git চালু হয়ে গেছে।' },
+              { kind: 'prompt', text: 'এই folder-এ Git setup করুন, আর github.com/you/my-design-project-এর সঙ্গে connect করে দিন' },
+              { kind: 'thinking', ms: 900 },
+              { kind: 'tool', name: 'Bash', arg: 'git init', result: 'Initialized empty Git repository' },
+              { kind: 'tool', name: 'Bash', arg: 'git remote add origin https://github.com/you/my-design-project.git', result: 'Remote added' },
+              { kind: 'say', text: 'Git setup হয়ে গেছে, GitHub-এর সঙ্গেও connect করা হয়েছে। আপনার commit-গুলো ওখানেই push হবে।' },
             ],
           },
         },
@@ -685,14 +687,12 @@ claude`,
 git log --oneline`,
             language: 'bash',
           },
-          demo: {
-            title: 'git : what-is-a-commit',
+          session: {
+            folder: 'my-design-project',
             steps: [
-              { type: 'cmd', text: 'git log --oneline' },
-              { type: 'out', text: 'a3f92c1  Add mobile nav hover states' },
-              { type: 'out', text: 'b19e44d  Fix checkout button spacing' },
-              { type: 'out', text: 'c880f2a  Initial design system setup' },
-              { type: 'success', text: 'প্রতিটা line একটা commit। Short ID + message।' },
+              { kind: 'prompt', text: 'Commit history-টা দেখান' },
+              { kind: 'tool', name: 'Bash', arg: 'git log --oneline', result: '3 commits' },
+              { kind: 'say', text: 'এখন পর্যন্ত তিনটা commit:\na3f92c1  Add mobile nav hover states\nb19e44d  Fix checkout button spacing\nc880f2a  Initial design system setup\nপ্রতিটা line একটা commit: একটা short ID আর একটা message।' },
             ],
           },
         },
@@ -711,15 +711,14 @@ git add .
 git commit -m "Update button component spacing"`,
             language: 'bash',
           },
-          demo: {
-            title: 'git : making-a-commit',
+          session: {
+            folder: 'my-design-project',
             steps: [
-              { type: 'cmd', text: 'git status' },
-              { type: 'out', text: 'Modified: src/components/Button.tsx' },
-              { type: 'out', text: 'Modified: src/styles/tokens.css' },
-              { type: 'cmd', text: 'git add .' },
-              { type: 'cmd', text: 'git commit -m "Update button component spacing"' },
-              { type: 'success', text: 'Commit হয়ে গেছে। Change-গুলো history-তে save হয়েছে।' },
+              { kind: 'prompt', text: 'এই change-গুলো commit করে দিন' },
+              { kind: 'thinking', ms: 900 },
+              { kind: 'tool', name: 'Bash', arg: 'git status', result: '2 files modified' },
+              { kind: 'tool', name: 'Bash', arg: 'git add . && git commit -m "Update button component spacing"', result: '1 file changed' },
+              { kind: 'say', text: 'Button.tsx আর tokens.css commit করেছি, message "Update button component spacing"।\nChange-গুলো history-তে save হয়ে গেছে।' },
             ],
           },
         },
@@ -738,14 +737,15 @@ git push
 git pull`,
             language: 'bash',
           },
-          demo: {
-            title: 'git : push-and-pull',
+          session: {
+            folder: 'my-design-project',
             steps: [
-              { type: 'cmd', text: 'git push -u origin main' },
-              { type: 'out', text: 'Writing objects: 100% (5/5)' },
-              { type: 'success', text: 'Push হয়েছে। Branch GitHub-এর সঙ্গে link হয়ে গেছে।' },
-              { type: 'cmd', text: 'git pull', delay: 300 },
-              { type: 'success', text: 'Already up to date.' },
+              { kind: 'prompt', text: 'আমার কাজ GitHub-এ push করে দিন' },
+              { kind: 'tool', name: 'Bash', arg: 'git push -u origin main', result: 'Writing objects: 100% (5/5)' },
+              { kind: 'say', text: 'Push হয়েছে। আপনার branch GitHub-এর সঙ্গে link হয়ে গেছে।' },
+              { kind: 'prompt', text: 'Team থেকে নতুন কিছু এসেছে?' },
+              { kind: 'tool', name: 'Bash', arg: 'git pull', result: 'Already up to date.' },
+              { kind: 'say', text: 'নতুন কিছু নেই। আপনার কাছে সব update আছে।' },
             ],
           },
         },
@@ -764,15 +764,14 @@ git revert a3f92c1 --no-edit
 git push`,
             language: 'bash',
           },
-          demo: {
-            title: 'git : undo-a-commit',
+          session: {
+            folder: 'my-design-project',
             steps: [
-              { type: 'cmd', text: 'git log --oneline' },
-              { type: 'out', text: 'a3f92c1  Add mobile nav hover states  ← এটা undo করতে চাই' },
-              { type: 'out', text: 'b19e44d  Fix checkout button spacing' },
-              { type: 'cmd', text: 'git revert a3f92c1 --no-edit', delay: 300 },
-              { type: 'out', text: 'Revert "Add mobile nav hover states"', delay: 200 },
-              { type: 'success', text: 'Revert হয়েছে। File আগের অবস্থায় ফিরেছে। History যেমন ছিল তেমনই আছে।' },
+              { kind: 'prompt', text: 'যে commit-এ mobile nav-এর hover state যোগ হয়েছিল, সেটা undo করে দিন' },
+              { kind: 'thinking', ms: 900 },
+              { kind: 'tool', name: 'Bash', arg: 'git log --oneline', result: '3 commits' },
+              { kind: 'tool', name: 'Bash', arg: 'git revert a3f92c1 --no-edit', result: 'Revert "Add mobile nav hover states"' },
+              { kind: 'say', text: 'Revert হয়েছে। File-গুলো আগের অবস্থায় ফিরে গেছে,\nআর history-তে দুটো commit-ই থেকে গেছে।' },
             ],
           },
         },
@@ -790,15 +789,16 @@ git checkout -b feature/new-checkout-flow
 gh pr create --title "New checkout flow" --body "Built with Claude Code"`,
             language: 'bash',
           },
-          demo: {
-            title: 'git : pull-request-flow',
+          session: {
+            folder: 'my-design-project',
             steps: [
-              { type: 'cmd', text: 'git checkout -b feature/new-checkout-flow' },
-              { type: 'out', text: 'Switched to new branch "feature/new-checkout-flow"' },
-              { type: 'out', text: 'Claude Code working on this branch...' },
-              { type: 'success', text: 'Changes committed to branch.' },
-              { type: 'cmd', text: 'gh pr create --title "New checkout flow" --body "Built with Claude Code"' },
-              { type: 'success', text: 'PR তৈরি হয়েছে। Review-এর জন্য link-টা আপনার dev-কে পাঠান।' },
+              { kind: 'prompt', text: 'নতুন checkout flow-টা আলাদা একটা branch-এ বানান, তারপর একটা pull request খুলে দিন' },
+              { kind: 'thinking', ms: 900 },
+              { kind: 'tool', name: 'Bash', arg: 'git checkout -b feature/new-checkout-flow', result: 'Switched to a new branch' },
+              { kind: 'tool', name: 'Write', arg: 'src/components/CheckoutFlow.tsx', result: 'Wrote 112 lines' },
+              { kind: 'tool', name: 'Bash', arg: 'git commit -am "New checkout flow"', result: '1 file changed' },
+              { kind: 'tool', name: 'Bash', arg: 'gh pr create --title "New checkout flow" --body "Built with Claude Code"', result: 'Pull request created' },
+              { kind: 'say', text: 'Pull request খোলা হয়েছে: "New checkout flow"।\nReview-এর জন্য link-টা আপনার developer-কে পাঠান।' },
             ],
           },
         },
