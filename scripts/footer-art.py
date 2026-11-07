@@ -1,8 +1,8 @@
 """Write hashed footer JPGs + src/lib/footer-art-manifest.ts from whitened renders.
 
 Usage: python scripts/footer-art.py <scene>=<png> [...]
-Inputs are already on white paper (sky ~252), so the grain is kept: no
-clipping, no grayscale. Scenes must be listed in src/lib/footer-scenes.ts;
+Inputs are 2x Real-ESRGAN upscales (3072 wide), already greyscale black
+ink on warm paper (~250,250,248), so the grain is kept: no clipping. Scenes must be listed in src/lib/footer-scenes.ts;
 manifest entries and JPGs for scenes no longer listed are removed."""
 import hashlib, re, sys
 from pathlib import Path
@@ -19,8 +19,8 @@ for arg in sys.argv[1:]:
     if scene not in VALID:
         sys.exit(f"unknown scene {scene}: add it to src/lib/footer-scenes.ts")
     im = Image.open(png).convert("RGB")
-    if im.width > 1536:
-        im = im.resize((1536, round(im.height * 1536 / im.width)), Image.LANCZOS)
+    if im.width > 3072:
+        im = im.resize((3072, round(im.height * 3072 / im.width)), Image.LANCZOS)
     tmp = OUT / f"{scene}.tmp.jpg"
     im.save(tmp, "JPEG", quality=82, optimize=True, progressive=True)
     h = hashlib.md5(tmp.read_bytes()).hexdigest()[:8]
