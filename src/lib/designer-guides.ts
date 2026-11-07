@@ -815,11 +815,11 @@ input/bkash-number/default
     availableRoutes: ['desktop'],
     usesCodeTab: true,
     description:
-      'Turn a design into a working UI prototype using Claude Code. No frontend experience required. Just a Figma file, a description, and a terminal.',
+      'Turn a design into a working UI prototype using Claude Code. No frontend experience required. Just a Figma file, a description, and the Claude app.',
     intro:
-      'This guide is for UX and UI designers who want to turn a finished Figma screen into working, interactive code without handing it to a developer. After reading it, you will be able to scaffold a reusable React component (a self-contained piece of UI code) from a design description, add validation and interaction states, and iterate with plain English prompts. You designed a flow. Now you want to see it work, not just as a static prototype, but as actual code in a browser. Claude Code can bridge that gap faster than handing off to a developer and waiting. This guide takes you from a finished Figma screen to a running React component, step by step, using only plain English and a terminal.',
+      'This guide is for UX and UI designers who want to turn a finished Figma screen into working, interactive code without handing it to a developer. After reading it, you will be able to scaffold a reusable React component (a self-contained piece of UI code) from a design description, add validation and interaction states, and iterate with plain English prompts. You designed a flow. Now you want to see it work, not just as a static prototype, but as actual code in a browser. Claude Code can bridge that gap faster than handing off to a developer and waiting. This guide takes you from a finished Figma screen to a running React component, step by step, using only plain English and the Claude app.',
     situation: {
-      scene: 'You have a finished Figma screen and you want to see it work in a browser. Not a static prototype. Actual interactive code. But you have never opened a terminal and do not know where to start.',
+      scene: 'You have a finished Figma screen and you want to see it work in a browser. Not a static prototype. Actual interactive code. But you have never written code and do not know where to start.',
       outcome: 'You\'ll build a working React component from a plain English description of your design, with validation and loading states, without editing a single line of code yourself.',
     },
     outcomes: [
@@ -1292,21 +1292,10 @@ Flag any item that needs a design decision, not just a dev fix.
       {
         title: 'Start a new project repo',
         description:
-          'Before Claude Code can save your work, you need a Git repository. Open Terminal (Mac: press Command + Space, type Terminal, press Enter. Windows: press Windows key, type PowerShell, press Enter). Every command in this guide is typed there and run with Enter. You also need a free GitHub account at github.com and a new empty repo created there before running git remote add (go to github.com/new, click New repository, leave it empty). The last command, claude, starts your Claude Code session. If it shows "command not found", install Claude Code at claude.ai/download first.',
+          'Before Claude Code can save your work, you need a Git repository. Open the Claude app (download it at claude.ai/download), go to the Code tab, and pick an empty folder for your project. You also need a free GitHub account at github.com and a new empty repo there (go to github.com/new, click New repository, leave it empty). Then ask Claude to set up Git. It runs git init and git remote add for you. Every step in this guide works the same way: you ask in plain English, Claude runs the Git command.',
         code: {
-          snippet: `# 1. Create your project folder and enter it
-mkdir my-design-project
-cd my-design-project
-
-# 2. Initialise Git (creates the .git folder)
-git init
-
-# 3. Go to github.com/new, create an empty repo, then paste its URL below
-git remote add origin https://github.com/your-username/my-design-project.git
-
-# 4. Start Claude Code (install at claude.ai/download if needed)
-claude`,
-          language: 'bash',
+          snippet: `Set up Git in this folder and connect it to https://github.com/your-username/my-design-project.git`,
+          language: 'prompt',
         },
         session: {
           folder: 'my-design-project',
@@ -1322,12 +1311,10 @@ claude`,
       {
         title: 'What a commit is',
         description:
-          'A commit is a named save point. When Claude edits a file and commits the change, that save point exists permanently in your project history. Think of it like Google Docs version history, except permanent and navigable from any point. If you have made any commits already, run git log --oneline to see them. On a brand-new project, this returns nothing yet and that is expected.',
+          'A commit is a named save point. When Claude edits a file and commits the change, that save point exists permanently in your project history. Think of it like Google Docs version history, except permanent and navigable from any point. To see your save points, ask Claude for the history. It runs git log --oneline. On a brand-new project there is nothing yet, and that is expected.',
         code: {
-          snippet: `# See your commit history (one line per commit)
-# On a brand-new project this returns nothing -- that is normal
-git log --oneline`,
-          language: 'bash',
+          snippet: `Show me the commit history`,
+          language: 'prompt',
         },
         session: {
           folder: 'my-design-project',
@@ -1341,17 +1328,10 @@ git log --oneline`,
       {
         title: 'Make a commit',
         description:
-          'After Claude edits your files, you commit those changes to save them to history. Three commands: check what changed, stage the files you want to save, commit with a message.',
+          'After Claude edits your files, you commit those changes to save them to history. Ask Claude to commit. It checks what changed (git status), stages the files (git add) and commits them with a message (git commit).',
         code: {
-          snippet: `# See what Claude changed
-git status
-
-# Stage all changed files
-git add .
-
-# Commit with a message
-git commit -m "Update button component spacing"`,
-          language: 'bash',
+          snippet: `Commit these changes with a short message that says what changed`,
+          language: 'prompt',
         },
         session: {
           folder: 'my-design-project',
@@ -1367,17 +1347,10 @@ git commit -m "Update button component spacing"`,
       {
         title: 'Push and pull',
         description:
-          'Your local commits only exist on your machine until you push them. The first time you push a new project, use git push -u origin main. The -u links your local branch to GitHub so all future pushes in this project can use plain git push. Pull brings in commits from GitHub. Working solo: push after each session and pull when you start a new one.',
+          'Your local commits only exist on your machine until you push them. Ask Claude to push. The first time, it runs git push -u origin main, which links your local branch to GitHub; after that a plain git push is enough. Pulling brings in commits from GitHub. Working solo: push after each session and pull when you start a new one.',
         code: {
-          snippet: `# First push on a new project (use -u to link your branch to GitHub)
-git push -u origin main
-
-# All future pushes in the same project
-git push
-
-# Get the latest commits from GitHub
-git pull`,
-          language: 'bash',
+          snippet: `Push my work to GitHub`,
+          language: 'prompt',
         },
         session: {
           folder: 'my-design-project',
@@ -1394,17 +1367,10 @@ git pull`,
       {
         title: 'Undo a commit',
         description:
-          'If Claude made changes you want to reverse, git revert creates a new commit that undoes a previous one. It does not delete history. It adds an undo on top. Safer than git reset for anything already pushed to GitHub. The --no-edit flag skips the commit message editor (otherwise Git opens vim, which requires typing :wq to exit).',
+          'If Claude made changes you want to reverse, git revert creates a new commit that undoes a previous one. It does not delete history. It adds an undo on top. Safer than git reset for anything already pushed to GitHub. Tell Claude which change to undo in your own words; it finds the commit and reverts it.',
         code: {
-          snippet: `# See recent commits and find the one to undo
-git log --oneline
-
-# Undo that commit (replace the ID with yours, --no-edit skips the editor)
-git revert a3f92c1 --no-edit
-
-# Push the undo to GitHub
-git push`,
-          language: 'bash',
+          snippet: `Undo the commit that changed the button spacing, then push the undo to GitHub`,
+          language: 'prompt',
         },
         session: {
           folder: 'my-design-project',
@@ -1420,16 +1386,10 @@ git push`,
       {
         title: 'What a pull request is',
         description:
-          'A branch is an isolated copy of your project where changes happen without affecting the main version. When you work with Claude Code on a new feature, Claude creates a branch. When the work is ready, you open a pull request: a proposal to merge the branch\'s changes into the main version. A developer reviews it, then merges it. That is how changes move from "Claude built this" to "this is in the product". The gh pr create command requires the GitHub CLI (install at cli.github.com).',
+          'A branch is an isolated copy of your project where changes happen without affecting the main version. When you work with Claude Code on a new feature, Claude creates a branch. When the work is ready, you open a pull request: a proposal to merge the branch\'s changes into the main version. A developer reviews it, then merges it. That is how changes move from "Claude built this" to "this is in the product". Claude opens the pull request with the GitHub CLI (gh), so install it once at cli.github.com.',
         code: {
-          snippet: `# Create a branch for a new feature
-git checkout -b feature/new-checkout-flow
-
-# ... Claude Code works here and commits changes ...
-
-# Open a pull request (requires GitHub CLI: cli.github.com)
-gh pr create --title "New checkout flow" --body "Built with Claude Code"`,
-          language: 'bash',
+          snippet: `Create a branch called feature/new-checkout-flow, build the checkout flow there, then open a pull request`,
+          language: 'prompt',
         },
         session: {
           folder: 'my-design-project',
