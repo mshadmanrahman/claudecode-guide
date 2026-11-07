@@ -756,17 +756,58 @@ h3.font-display {
 .footer-art .engr-ink {
   pointer-events: none;
   object-fit: cover;
-  object-position: center bottom;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
-}
-/* Scenes whose summit sits high in the frame: anchor lower so the peak clears the fade. */
-.footer-art[data-scene="twinpeaks"] .engr-ink,
-.footer-art[data-scene="meadow"] .engr-ink {
-  object-position: center 40%;
+  object-position: center var(--art-y, 35%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 15%);
   mask-image: linear-gradient(to bottom, transparent 0, #000 15%);
 }
+/* Past 1920px the art stops growing: a wider crop would show only a thin band of
+   it and slice the subject. It stays centred at 1920px and fades out at both sides. */
+@media (min-width: 1921px) {
+  .footer-art .engr-ink {
+    left: 50% !important;
+    right: auto !important;
+    width: 1920px !important;
+    transform: translateX(-50%);
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0, #000 15%),
+      linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to bottom, transparent 0, #000 15%),
+      linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+    mask-composite: intersect;
+  }
+}
+/* Per-scene vertical anchor: the summit's height in the art, measured, so the peak
+   clears the fade at every width. */
+.footer-art[data-scene="boathouse"] { --art-y: 33%; }
+.footer-art[data-scene="bridge"] { --art-y: 33%; }
+.footer-art[data-scene="cabin"] { --art-y: 35%; }
+.footer-art[data-scene="cairn"] { --art-y: 45%; }
+.footer-art[data-scene="delta"] { --art-y: 57%; }
+.footer-art[data-scene="fork"] { --art-y: 35%; }
+.footer-art[data-scene="gorge"] { --art-y: 41%; }
+.footer-art[data-scene="green"] { --art-y: 35%; }
+.footer-art[data-scene="harbor"] { --art-y: 33%; }
+.footer-art[data-scene="haze"] { --art-y: 60%; }
+.footer-art[data-scene="hut"] { --art-y: 37%; }
+.footer-art[data-scene="meadow"] { --art-y: 38%; }
+.footer-art[data-scene="overlook"] { --art-y: 36%; }
+.footer-art[data-scene="ridges"] { --art-y: 57%; }
+.footer-art[data-scene="sailboat"] { --art-y: 34%; }
+.footer-art[data-scene="schoolhouse"] { --art-y: 32%; }
+.footer-art[data-scene="signpost"] { --art-y: 52%; }
+.footer-art[data-scene="standingstones"] { --art-y: 33%; }
+.footer-art[data-scene="summit"] { --art-y: 42%; }
+.footer-art[data-scene="switchbacks"] { --art-y: 43%; }
+.footer-art[data-scene="terraces"] { --art-y: 56%; }
+.footer-art[data-scene="traveler"] { --art-y: 31%; }
+.footer-art[data-scene="twinpeaks"] { --art-y: 35%; }
+.footer-art[data-scene="valley"] { --art-y: 35%; }
+.footer-art[data-scene="village"] { --art-y: 35%; }
+.footer-art[data-scene="watermill"] { --art-y: 37%; }
+.footer-art[data-scene="woodpile"] { --art-y: 35%; }
+.footer-art[data-scene="workshop"] { --art-y: 31%; }
 .footer-legal {
   position: absolute;
   inset-inline: 0;
