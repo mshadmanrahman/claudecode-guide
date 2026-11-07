@@ -5,6 +5,7 @@ import { BN_TEACHER_GUIDES } from '@/lib/i18n/bn/teacher-guides';
 import { TeacherGuideArticle } from '@/components/teacher-guide-article';
 import { ogImage } from '@/lib/og/image';
 import { seoTitle } from '@/lib/seo-title';
+import { X_HANDLE } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,8 @@ export async function generateMetadata({
       images: [ogImage(`for-teachers/${slug}`, guide.title)],
     },
     twitter: {
+      site: X_HANDLE,
+      creator: X_HANDLE,
       card: 'summary_large_image',
       title: guide.title,
       description: guide.description,

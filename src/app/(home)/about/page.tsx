@@ -3,6 +3,7 @@ import { AuthorBio } from '@/components/author-bio';
 
 import { KineticText } from '@/components/kinetic-text';
 import { ogImage } from '@/lib/og/image';
+import { SAME_AS, SOCIAL } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: 'About Shadman Rahman' },
   description:
@@ -17,11 +18,7 @@ const personJsonLd = {
   name: 'Shadman Rahman',
   jobTitle: 'Principal Product Manager',
   url: 'https://claudecodeguide.dev/about',
-  sameAs: [
-    'https://www.linkedin.com/in/shadmanrahman',
-    'https://shadmanrahman.substack.com/',
-    'https://github.com/mshadmanrahman',
-  ],
+  sameAs: SAME_AS,
 };
 
 export default function AboutPage() {
@@ -81,7 +78,7 @@ export default function AboutPage() {
             The Claude Code Guide is open source. Every page on this site, including this one, is
             on{' '}
             <a
-              href="https://github.com/mshadmanrahman/claudecode-guide"
+              href={SOCIAL.repo}
               className="underline underline-offset-4 hover:text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               target="_blank"
               rel="noopener noreferrer"
@@ -93,16 +90,25 @@ export default function AboutPage() {
           <p className="text-fd-foreground">
             The fastest way to reach him is{' '}
             <a
-              href="https://www.linkedin.com/in/shadmanrahman"
+              href={SOCIAL.linkedin}
               className="underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               target="_blank"
               rel="noopener noreferrer"
             >
               LinkedIn
+            </a>{' '}
+            or{' '}
+            <a
+              href={SOCIAL.x}
+              className="underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              X
             </a>
             . He also writes{' '}
             <a
-              href="https://shadmanrahman.substack.com/"
+              href={SOCIAL.substack}
               className="underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               target="_blank"
               rel="noopener noreferrer"
@@ -111,7 +117,7 @@ export default function AboutPage() {
             </a>{' '}
             on Substack and posts code on{' '}
             <a
-              href="https://github.com/mshadmanrahman"
+              href={SOCIAL.github}
               className="underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
               target="_blank"
               rel="noopener noreferrer"

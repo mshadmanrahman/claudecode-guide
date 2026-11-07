@@ -2,12 +2,14 @@ import "./globals.css";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Clarity } from "@/components/clarity";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { ogImage } from "@/lib/og/image";
+import { SAME_AS, SOCIAL, X_HANDLE } from "@/lib/site";
 
 const siteUrl = "https://claudecodeguide.dev";
 
@@ -34,6 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: X_HANDLE,
+    creator: X_HANDLE,
     title: "Claude Code Guide",
     description:
       "Claude Code is Anthropic's AI coding assistant. This guide is the calm on-ramp for everyone learning it from scratch.",
@@ -86,7 +90,8 @@ const jsonLd = {
   author: {
     "@type": "Person",
     name: "Shadman Rahman",
-    url: "https://github.com/mshadmanrahman",
+    url: SOCIAL.github,
+    sameAs: SAME_AS,
   },
   publisher: {
     "@type": "Person",
@@ -120,6 +125,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Analytics />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
+        {process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID && (
+          <Clarity projectId={process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID} />
         )}
       </body>
     </html>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Check, Mail, Loader2 } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
+import { SOCIAL } from "@/lib/site";
 
 interface EmailCaptureProps {
   placement?: string;
@@ -160,7 +161,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
         <p className="mt-2 text-xs text-red-700 dark:text-red-300">
           That didn&apos;t go through. Try again, or{' '}
           <a
-            href="https://shadmanrahman.substack.com/"
+            href={SOCIAL.substack}
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-red-700"
@@ -173,7 +174,7 @@ export function EmailCapture({ placement = 'unknown' }: EmailCaptureProps) {
       <p className="mt-3 text-center text-xs text-fd-muted-foreground">
         Or read{' '}
         <a
-          href="https://shadmanrahman.substack.com/"
+          href={SOCIAL.substack}
           target="_blank"
           rel="noopener noreferrer"
           className="underline hover:text-fd-foreground transition-colors"

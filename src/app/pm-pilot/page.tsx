@@ -11,6 +11,7 @@ import { PmPilotWhyExists } from '@/components/pm-pilot/why-exists';
 import { PmPilotGuideCta } from '@/components/pm-pilot/guide-cta';
 import { PmPilotFooter } from '@/components/pm-pilot/footer';
 import { ogImage } from '@/lib/og/image';
+import { X_HANDLE } from "@/lib/site";
 
 const siteUrl = 'https://claudecodeguide.dev';
 
@@ -28,6 +29,8 @@ export const metadata: Metadata = {
     images: [ogImage('pm-pilot', 'PM Pilot')],
   },
   twitter: {
+    site: X_HANDLE,
+    creator: X_HANDLE,
     card: 'summary_large_image',
     title: 'PM Pilot - Meeting Prep, PRDs, and Status Reports on Autopilot',
     description:

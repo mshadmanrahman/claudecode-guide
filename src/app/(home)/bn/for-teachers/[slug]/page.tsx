@@ -6,6 +6,7 @@ import { BN_TEACHER_GUIDES } from '@/lib/i18n/bn/teacher-guides';
 import { sourceHash } from '@/lib/i18n/source-hash';
 import { ogImage } from '@/lib/og/image';
 import { seoTitle } from '@/lib/seo-title';
+import { X_HANDLE } from "@/lib/site";
 
 /** Bangla teacher guides. Only translated slugs get a page. */
 export const dynamicParams = false;
@@ -47,7 +48,7 @@ export async function generateMetadata({
       locale: 'bn_BD',
       images: [ogImage(`for-teachers/${slug}`, TEACHER_GUIDES[slug]?.title ?? guide.title)],
     },
-    twitter: { card: 'summary_large_image', title, description: guide.description },
+    twitter: { card: 'summary_large_image', site: X_HANDLE, creator: X_HANDLE, title, description: guide.description },
   };
 }
 

@@ -53,6 +53,7 @@ import { getPageNavigation, getSections } from "@/lib/docs-navigation";
 import type { Metadata } from "next";
 import { ogImage } from "@/lib/og/image";
 import { seoTitle } from "@/lib/seo-title";
+import { X_HANDLE } from "@/lib/site";
 
 const mdxComponents = {
   ...defaultMdxComponents,
@@ -300,6 +301,8 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       images: [ogImage(`docs/${params.slug.join("/")}`, page.data.title)],
     },
     twitter: {
+      site: X_HANDLE,
+      creator: X_HANDLE,
       card: "summary_large_image",
       title: page.data.title,
       description: page.data.description,

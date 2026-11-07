@@ -5,6 +5,7 @@ import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
 import { DesignerGuideArticle } from '@/components/designer-guide-article';
 import { ogImage } from '@/lib/og/image';
 import { seoTitle } from '@/lib/seo-title';
+import { X_HANDLE } from "@/lib/site";
 
 /* ------------------------------------------------------------------ */
 /*  Metadata                                                           */
@@ -39,6 +40,8 @@ export async function generateMetadata({
       images: [ogImage(`for-designers/${slug}`, guide.title)],
     },
     twitter: {
+      site: X_HANDLE,
+      creator: X_HANDLE,
       card: 'summary_large_image',
       title: guide.title,
       description: guide.description,

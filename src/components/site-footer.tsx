@@ -5,6 +5,7 @@ import { FooterBridge, type BridgePage } from "@/components/footer-bridge";
 import { FooterLanguageLink } from "@/components/footer-language-link";
 import type { FooterScene } from "@/lib/footer-scenes";
 import { source } from "@/lib/source";
+import { SOCIAL } from "@/lib/site";
 
 interface FooterLink {
   label: string;
@@ -39,9 +40,10 @@ const COLUMNS: ReadonlyArray<FooterColumn> = [
   {
     heading: "Elsewhere",
     links: [
-      { label: "Field notes", href: "https://shadmanrahman.substack.com/", external: true },
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/shadmanrahman", external: true },
-      { label: "GitHub", href: "https://github.com/mshadmanrahman/claudecode-guide", external: true },
+      { label: "Field notes", href: SOCIAL.substack, external: true },
+      { label: "X", href: SOCIAL.x, external: true },
+      { label: "LinkedIn", href: SOCIAL.linkedin, external: true },
+      { label: "GitHub", href: SOCIAL.repo, external: true },
     ],
   },
 ];

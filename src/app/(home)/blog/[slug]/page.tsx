@@ -17,6 +17,7 @@ import { ArticleSchema } from "@/components/article-schema";
 import { ArticleHeader } from "@/components/docs/article-header";
 import { ogImage } from "@/lib/og/image";
 import { seoTitle } from "@/lib/seo-title";
+import { X_HANDLE } from "@/lib/site";
 
 const DESIGNER_RELEVANT_SLUGS = new Set([
   "claude-code-for-non-engineers",
@@ -85,6 +86,8 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       images: [ogImage(`blog/${post.slug}`, post.title)],
     },
     twitter: {
+      site: X_HANDLE,
+      creator: X_HANDLE,
       card: "summary_large_image",
       title: post.title,
       description: post.description,

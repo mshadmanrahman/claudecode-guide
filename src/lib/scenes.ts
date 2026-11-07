@@ -30,4 +30,12 @@ export type SceneName =
   | "room-marketers"
   | "room-hr"
   | "room-chrome"
-  | "room-microsoft";
+  | "room-microsoft"
+  | "still-teachers"
+  | "still-designers"
+  | "still-marketers"
+  | "still-hr"
+  | "still-pm"
+  | "still-chrome"
+  | "still-microsoft"
+  | "still-certification";

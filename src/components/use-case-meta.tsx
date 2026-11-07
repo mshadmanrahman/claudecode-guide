@@ -1,4 +1,5 @@
 import { Clock, Wrench, Cpu } from 'lucide-react';
+import { SOCIAL } from "@/lib/site";
 
 interface UseCaseMetaProps {
   time: string;
@@ -25,7 +26,7 @@ export function UseCaseMeta({
       <span className="ml-auto text-xs">
         By{' '}
         <a
-          href="https://www.linkedin.com/in/shadmanrahman"
+          href={SOCIAL.linkedin}
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium text-fd-foreground hover:underline"

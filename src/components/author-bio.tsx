@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import { AuthorPhoto } from '@/components/author-photo';
+import { SOCIAL } from "@/lib/site";
 
 export function AuthorBio() {
   return (
@@ -19,7 +20,7 @@ export function AuthorBio() {
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <a
-              href="https://www.linkedin.com/in/shadmanrahman"
+              href={SOCIAL.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 font-medium text-fd-foreground hover:underline"
@@ -27,7 +28,15 @@ export function AuthorBio() {
               LinkedIn <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
             </a>
             <a
-              href="https://shadmanrahman.substack.com/"
+              href={SOCIAL.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-medium text-fd-foreground hover:underline"
+            >
+              X <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+            </a>
+            <a
+              href={SOCIAL.substack}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 font-medium text-fd-foreground hover:underline"
@@ -35,7 +44,7 @@ export function AuthorBio() {
               Product Field Notes <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
             </a>
             <a
-              href="https://github.com/mshadmanrahman"
+              href={SOCIAL.github}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 font-medium text-fd-foreground hover:underline"

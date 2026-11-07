@@ -5,6 +5,7 @@ import { TUTORIALS } from "@/lib/tutorials";
 import { BN_TUTORIALS } from "@/lib/i18n/bn/tutorials";
 import { ogImage } from "@/lib/og/image";
 import { seoTitle } from "@/lib/seo-title";
+import { X_HANDLE } from "@/lib/site";
 
 const ALL_SLUGS = Object.keys(TUTORIALS);
 
@@ -51,6 +52,8 @@ export async function generateMetadata({
       images: [ogImage(`tutorials/${slug}`, tutorial.title)],
     },
     twitter: {
+      site: X_HANDLE,
+      creator: X_HANDLE,
       card: "summary_large_image",
       title: metaTitle,
       description: tutorial.description,

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
+import { SOCIAL } from "@/lib/site";
 
 interface NavLink {
   href: string;
@@ -26,7 +27,7 @@ const PRIMARY_NAV: NavLink[] = [
   { href: "/tutorials", label: "Tutorials" },
   { href: "/workflow", label: "Workflow", wideOnly: true },
   { href: "/about", label: "About", wideOnly: true },
-  { href: "https://shadmanrahman.substack.com/", label: "Product Field Notes", external: true },
+  { href: SOCIAL.substack, label: "Product Field Notes", external: true },
 ];
 
 const PATHS: DropdownLink[] = [

@@ -1,4 +1,6 @@
-export const SUBSTACK_URL = "https://shadmanrahman.substack.com/";
+import { SOCIAL } from "@/lib/site";
+
+export const SUBSTACK_URL = SOCIAL.substack;
 export const SUBSTACK_NAME = "Product Field Notes";
 
 const FEED_URL = `${SUBSTACK_URL}feed`;

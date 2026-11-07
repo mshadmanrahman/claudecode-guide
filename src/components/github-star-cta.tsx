@@ -2,13 +2,14 @@
 
 import { Star } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { SOCIAL } from "@/lib/site";
 
 export function GithubStarCta() {
   return (
     <div className="mt-10 flex items-center justify-center gap-2 text-sm text-fd-muted-foreground">
       <span>Found this useful?</span>
       <a
-        href="https://github.com/mshadmanrahman/claudecode-guide"
+        href={SOCIAL.repo}
         target="_blank"
         rel="noopener noreferrer"
         onClick={() =>

@@ -11,6 +11,7 @@ import { ArticleSchema } from '@/components/article-schema';
 import { AuthorBio } from '@/components/author-bio';
 import { ogImage } from '@/lib/og/image';
 import { seoTitle } from '@/lib/seo-title';
+import { X_HANDLE } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,8 @@ export async function generateMetadata({
       images: [ogImage(`for-microsoft/${slug}`, guide.title)],
     },
     twitter: {
+      site: X_HANDLE,
+      creator: X_HANDLE,
       card: 'summary_large_image',
       title: guide.title,
       description: guide.description,

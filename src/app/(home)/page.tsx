@@ -12,6 +12,8 @@ import { EngravingPanel } from "@/components/engraving";
 import { ICONS } from "@/lib/engraving-manifest";
 import { AudienceDemoPanel } from "@/components/audience-demo-panel";
 import type { SceneName } from "@/lib/scenes";
+import { SOCIAL } from "@/lib/site";
+import { X_HANDLE } from "@/lib/site";
 
 const heroTagline = "The Claude Code setup I actually run.";
 const heroMetaDescription =
@@ -33,6 +35,8 @@ export const metadata: Metadata = {
     images: [homeOg],
   },
   twitter: {
+    site: X_HANDLE,
+    creator: X_HANDLE,
     card: "summary_large_image",
     title: heroTagline,
     description: heroMetaDescription,
@@ -138,19 +142,19 @@ interface PathCard {
   href: string;
   label: string;
   blurb: string;
-  /** The landscape the path's own pages use, so the card previews where it leads. */
+  /** A close-up of the room on the path's own page, so the card previews where it leads. */
   scene: SceneName;
 }
 
 const PATHS: ReadonlyArray<PathCard> = [
-  { href: "/for-teachers", label: "Teachers", blurb: "Lesson plans, quiz questions, rubrics and parent emails.", scene: "schoolhouse" },
-  { href: "/for-designers", label: "Designers", blurb: "Briefs, heuristic evaluations, research synthesis and prototypes.", scene: "swatches" },
-  { href: "/for-marketers", label: "Marketers", blurb: "Social posts, blogs, email campaigns and ad copy in your brand voice.", scene: "market" },
-  { href: "/for-hr", label: "HR teams", blurb: "Job descriptions, interview questions, onboarding plans and reviews.", scene: "green" },
-  { href: "/pm-pilot", label: "Product managers", blurb: "PM Pilot: status updates and product admin, free and open source.", scene: "harbor" },
-  { href: "/for-chrome", label: "Claude in Chrome", blurb: "From claude.ai to the extension, next to Gmail and Google Docs.", scene: "signposts" },
-  { href: "/for-microsoft", label: "Claude in Office", blurb: "Word, Excel and PowerPoint, with no plugins or Claude Code needed.", scene: "lakeside" },
-  { href: "/certification", label: "Certification", blurb: "The four Claude certifications: cost, format and passing score.", scene: "summit" },
+  { href: "/for-teachers", label: "Teachers", blurb: "Lesson plans, quiz questions, rubrics and parent emails.", scene: "still-teachers" },
+  { href: "/for-designers", label: "Designers", blurb: "Briefs, heuristic evaluations, research synthesis and prototypes.", scene: "still-designers" },
+  { href: "/for-marketers", label: "Marketers", blurb: "Social posts, blogs, email campaigns and ad copy in your brand voice.", scene: "still-marketers" },
+  { href: "/for-hr", label: "HR teams", blurb: "Job descriptions, interview questions, onboarding plans and reviews.", scene: "still-hr" },
+  { href: "/pm-pilot", label: "Product managers", blurb: "PM Pilot: status updates and product admin, free and open source.", scene: "still-pm" },
+  { href: "/for-chrome", label: "Claude in Chrome", blurb: "From claude.ai to the extension, next to Gmail and Google Docs.", scene: "still-chrome" },
+  { href: "/for-microsoft", label: "Claude in Office", blurb: "Word, Excel and PowerPoint, with no plugins or Claude Code needed.", scene: "still-microsoft" },
+  { href: "/certification", label: "Certification", blurb: "The four Claude certifications: cost, format and passing score.", scene: "still-certification" },
 ];
 
 /** The card's engraved icon, named after the last segment of its link, once rendered. */
@@ -218,7 +222,7 @@ export default async function HomePage() {
           </p>
 
           <SayHiPill
-            href="https://www.linkedin.com/in/shadmanrahman/"
+            href={SOCIAL.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             hoverText="Let's connect"

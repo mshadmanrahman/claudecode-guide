@@ -6,6 +6,7 @@ import { BN_TUTORIALS } from "@/lib/i18n/bn/tutorials";
 import { sourceHash } from "@/lib/i18n/source-hash";
 import { ogImage } from "@/lib/og/image";
 import { seoTitle } from "@/lib/seo-title";
+import { X_HANDLE } from "@/lib/site";
 
 /**
  * Bangla tutorials. Only slugs with a translation get a page; the rest have
@@ -50,7 +51,7 @@ export async function generateMetadata({
       locale: "bn_BD",
       images: [ogImage(`tutorials/${slug}`, TUTORIALS[slug]?.title ?? tutorial.title)],
     },
-    twitter: { card: "summary_large_image", title, description: tutorial.description },
+    twitter: { card: "summary_large_image", site: X_HANDLE, creator: X_HANDLE, title, description: tutorial.description },
   };
 }
 
