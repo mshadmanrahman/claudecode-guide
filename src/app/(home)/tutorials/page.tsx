@@ -65,7 +65,7 @@ export default function TutorialsPage() {
 
       <TutorialsBrowser tracks={tracks} total={total} />
 
-      <section className="mx-auto w-full max-w-3xl space-y-4 px-4 pb-24 sm:px-6">
+      <section className="mx-auto w-full max-w-3xl space-y-4 px-4 pb-4 sm:px-6">
         <div className="glass rounded-xl p-5 sm:p-6">
           <p className="m-0 text-sm font-medium">Tip: speak your first prompt</p>
           <p className="mt-1 text-sm leading-relaxed text-[var(--muted)]">

@@ -129,7 +129,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-3xl px-6 py-14">
+      <div className="mx-auto max-w-3xl px-6 pt-14 [&>aside]:mb-4">
         <AuthorBio />
       </div>
     </main>

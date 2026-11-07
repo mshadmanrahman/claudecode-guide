@@ -98,7 +98,7 @@ const DEMOS: Record<Audience, AudienceDemo> = {
     ),
   },
   'pm-pilot': {
-    scene: 'harbor',
+    scene: 'still-pm',
     folder: 'PM Pilot',
     chat: exchange(
       'Prep me for my 1:1 with Sarah.',

@@ -611,6 +611,13 @@ h3.font-display {
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
   mask-image: linear-gradient(to bottom, transparent 0, #000 25%);
 }
+/* Scenes whose summit sits high in the frame: anchor lower so the peak clears the fade. */
+.footer-art[data-scene="twinpeaks"] .engr-ink,
+.footer-art[data-scene="meadow"] .engr-ink {
+  object-position: center 40%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 15%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 15%);
+}
 .footer-legal {
   position: absolute;
   inset-inline: 0;

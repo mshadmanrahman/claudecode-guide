@@ -190,7 +190,7 @@ export function StartFlow() {
           </p>
         </section>
 
-        <section className="mx-auto w-full max-w-2xl px-6 py-8">
+        <section className="mx-auto w-full max-w-2xl px-6 pt-8 pb-3">
           <div className="grid gap-4">
             {TRACK_OPTIONS.map((t, i) => {
               const Icon = t.icon;

@@ -51,7 +51,7 @@ export default function WorkflowPage() {
     <>
       <style>{connectorCss}</style>
       <WorkflowTracker />
-      <main className="mx-auto max-w-4xl overflow-x-clip px-4 py-16 text-[var(--ink)] sm:px-6 sm:py-20">
+      <main className="mx-auto max-w-4xl overflow-x-clip px-4 pt-16 pb-4 text-[var(--ink)] sm:px-6 sm:pt-20">
         <div className="mb-12" data-workflow-intro>
           <h1 className="font-display mb-5 text-display-article leading-[1.1] font-semibold tracking-[-0.035em]">
             <KineticText>Claude, quietly working through your day.</KineticText>
