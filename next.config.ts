@@ -1,6 +1,15 @@
 import { createMDX } from 'fumadocs-mdx/next';
 import type { NextConfig } from 'next';
 
+/** [vanity path, target page, utm_campaign] */
+const SHORTS_REDIRECTS: ReadonlyArray<readonly [string, string, string]> = [
+  ['/quiz', '/for-teachers/create-quiz-questions-with-claude', 'quiz'],
+  ['/plan', '/docs/foundations/plan-mode', 'plan'],
+  ['/context', '/docs/foundations/context-window', 'context'],
+  ['/rewind', '/docs/foundations/shortcuts', 'rewind'],
+  ['/shorts', '/videos', 'shorts'],
+];
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   trailingSlash: false,
@@ -10,6 +19,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Short vanity paths spoken in YouTube Shorts / TikTok / Reels. Temporary
+      // (307) so targets can change; UTM lets GA4 count Shorts traffic.
+      ...SHORTS_REDIRECTS.map(([source, target, campaign]) => ({
+        source,
+        destination: `${target}?utm_source=shorts&utm_medium=social&utm_campaign=${campaign}`,
+        permanent: false,
+      })),
       // Section-level redirects: send bare folder URLs to first page in section
       {
         source: '/docs/foundations',

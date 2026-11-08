@@ -77,6 +77,12 @@ const jsonLd = {
 
 const DOCS_START = "/docs/foundations/claude-md";
 const JOURNEY_HREF = "/start";
+/** Shorts viewers pick their path above the fold. */
+const PERSONA_CHIPS: ReadonlyArray<{ href: string; label: string }> = [
+  { href: "/for-teachers", label: "Teacher" },
+  { href: "/for-marketers", label: "Marketer" },
+  { href: "/start", label: "Just curious" },
+];
 const ESSAY_HREF = "/blog/claude-code-memory-at-scale-966-files";
 
 interface LinkCard {
@@ -221,6 +227,18 @@ export default async function HomePage() {
             that setup, page by page, written for teachers, designers, marketers and HR teams as much as for engineers.
           </p>
 
+          <nav aria-label="Pick your path" className="hm-rise [--d:0.4s] seg flex max-w-full flex-wrap">
+            {PERSONA_CHIPS.map(({ href, label }) => (
+              <Link
+                key={label}
+                href={href}
+                className={`btn-secondary rounded-md px-3 py-2 text-compact font-medium ${focusRing}`}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
           <SayHiPill
             href={SOCIAL.linkedin}
             target="_blank"
@@ -242,16 +260,16 @@ export default async function HomePage() {
 
           <div className="hm-rise [--d:0.9s] flex w-full max-w-[520px] flex-col items-stretch gap-3 sm:flex-row">
             <Link
-              href={DOCS_START}
+              href={JOURNEY_HREF}
               className={`btn-primary flex h-12 items-center justify-center px-6 text-ui font-medium ${focusRing}`}
             >
-              Start with CLAUDE.md
+              New to Claude? Start here
             </Link>
             <Link
-              href={JOURNEY_HREF}
+              href={DOCS_START}
               className={`btn-secondary flex h-12 items-center justify-center px-6 text-ui font-medium ${focusRing}`}
             >
-              New to Claude? Start here
+              Start with CLAUDE.md
             </Link>
           </div>
 

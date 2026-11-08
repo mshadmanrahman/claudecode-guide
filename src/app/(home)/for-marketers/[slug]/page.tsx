@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import { MARKETER_GUIDES } from '@/lib/marketer-guides';
 import { EmailCapture } from '@/components/email-capture';
 import { CopyBlock } from '@/components/guide/copy-block';
+import { WhereToPaste } from '@/components/guide/where-to-paste';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
@@ -118,6 +119,7 @@ export default async function MarketerGuidePage({
           <h1 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
             {guide.title}
           </h1>
+          <WhereToPaste />
 
           <p className="mt-4 text-lg text-fd-muted-foreground">
             {guide.description}

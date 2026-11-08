@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import type { TeacherGuide } from '@/lib/teacher-guides';
 import { EmailCapture } from '@/components/email-capture';
 import { CopyBlock } from '@/components/guide/copy-block';
+import { WhereToPaste } from '@/components/guide/where-to-paste';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
@@ -75,6 +76,7 @@ export function TeacherGuideArticle({ guide, locale, alternateHref, stale }: Tea
           <h1 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
             {guide.title}
           </h1>
+          <WhereToPaste locale={locale} />
 
           <p className="mt-4 text-lg text-fd-muted-foreground">
             {guide.description}

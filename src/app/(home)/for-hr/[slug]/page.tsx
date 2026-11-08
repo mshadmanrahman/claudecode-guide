@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { HR_GUIDES } from "@/lib/hr-guides";
 import { EmailCapture } from "@/components/email-capture";
 import { CopyBlock } from "@/components/guide/copy-block";
+import { WhereToPaste } from "@/components/guide/where-to-paste";
 import { PersonaGuideTracker } from "@/components/persona-guide-tracker";
 import { ArticleSchema } from "@/components/article-schema";
 import { AuthorBio } from "@/components/author-bio";
@@ -103,6 +104,7 @@ export default async function HrGuidePage({
           <h1 className="font-display text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
             {guide.title}
           </h1>
+          <WhereToPaste />
           <p className="mt-4 text-lg text-fd-muted-foreground">
             {guide.description}
           </p>

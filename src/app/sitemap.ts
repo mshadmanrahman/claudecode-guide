@@ -40,6 +40,7 @@ const VERTICALS: ReadonlyArray<{ path: string; guides: Record<string, unknown> }
 const STANDALONE: ReadonlyArray<{ path: string; priority: number }> = [
   { path: "", priority: 1 },
   { path: "start", priority: 0.95 },
+  { path: "videos", priority: 0.7 },
   { path: "guide", priority: 0.95 },
   { path: "docs", priority: 0.9 },
   { path: "workflow", priority: 0.85 },
