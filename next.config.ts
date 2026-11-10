@@ -59,6 +59,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async headers() {
+    return [
+      // Raw skill files (SKILL.md and its references) are downloads for
+      // Claude, not pages to rank.
+      {
+        source: '/skills/:path(.+\\.md)',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX();
