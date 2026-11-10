@@ -9,6 +9,7 @@ import { WhereToPaste } from '@/components/guide/where-to-paste';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
+import { RelatedGuides, pickRelated } from '@/components/related-guides';
 import { AuthorBio } from '@/components/author-bio';
 import { ogImage } from '@/lib/og/image';
 import { seoTitle } from '@/lib/seo-title';
@@ -94,6 +95,7 @@ export default async function MarketerGuidePage({
         headline={guide.title}
         description={guide.description}
         url={`https://claudecodeguide.dev/for-marketers/${slug}`}
+        crumbs={[{ name: "Home", path: "/" }, { name: "Claude for Marketers", path: "/for-marketers" }, { name: guide.title, path: `/for-marketers/${slug}` }]}
       />
       <PersonaGuideTracker slug={guide.slug} title={guide.title} section="for-marketers" />
       <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-24">
@@ -258,6 +260,24 @@ export default async function MarketerGuidePage({
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+
+          <RelatedGuides
+
+            heading="Related guides"
+
+            links={pickRelated(
+
+              Object.values(MARKETER_GUIDES),
+
+              slug,
+
+              (s) => `/for-marketers/${s}`,
+
+              [guide.nextLink.href],
+
+            )}
+
+          />
 
           <EmailCapture placement="for-marketers-guide" />
         </div>

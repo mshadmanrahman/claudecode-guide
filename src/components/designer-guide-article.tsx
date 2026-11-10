@@ -11,6 +11,8 @@ import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
 import { AuthorBio } from '@/components/author-bio';
 import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
+import { RelatedGuides, pickRelated } from '@/components/related-guides';
+import { DESIGNER_GUIDES } from '@/lib/designer-guides';
 import { BN_TUTORIALS } from '@/lib/i18n/bn/tutorials';
 import { localePrefix, ui, type Locale } from '@/lib/i18n/locale';
 
@@ -54,6 +56,7 @@ export function DesignerGuideArticle({ guide, locale, alternateHref, stale }: De
         headline={guide.title}
         description={guide.description}
         url={`https://claudecodeguide.dev${prefix}/for-designers/${slug}`}
+        crumbs={[{ name: "Home", path: `${prefix || "/"}` }, { name: "Claude for Designers", path: `${prefix}/for-designers` }, { name: guide.title, path: `${prefix}/for-designers/${slug}` }]}
       />
       <PersonaGuideTracker slug={guide.slug} title={guide.title} section="for-designers" />
       <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-24">
@@ -259,6 +262,20 @@ export function DesignerGuideArticle({ guide, locale, alternateHref, stale }: De
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+
+          <RelatedGuides
+            heading={t.relatedGuides}
+            links={pickRelated(
+              Object.values(DESIGNER_GUIDES).flatMap((g) => {
+              if (locale === 'en') return [g];
+              const bn = BN_DESIGNER_GUIDES[g.slug];
+              return bn ? [bn.content] : [];
+            }),
+              slug,
+              (s) => `${prefix}/for-designers/${s}`,
+              [next.href],
+            )}
+          />
 
           <EmailCapture placement="for-designers-guide" />
         </div>

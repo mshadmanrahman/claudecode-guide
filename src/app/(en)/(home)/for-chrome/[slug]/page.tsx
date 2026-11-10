@@ -8,6 +8,7 @@ import { CopyBlock } from '@/components/guide/copy-block';
 import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
+import { RelatedGuides, pickRelated } from '@/components/related-guides';
 import { AuthorBio } from '@/components/author-bio';
 import { ogImage } from '@/lib/og/image';
 import { seoTitle } from '@/lib/seo-title';
@@ -81,6 +82,7 @@ export default async function ChromeGuidePage({
         headline={guide.title}
         description={guide.description}
         url={`https://claudecodeguide.dev/for-chrome/${slug}`}
+        crumbs={[{ name: "Home", path: "/" }, { name: "Claude for Chrome", path: "/for-chrome" }, { name: guide.title, path: `/for-chrome/${slug}` }]}
       />
       <PersonaGuideTracker slug={guide.slug} title={guide.title} section="for-chrome" />
       <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-24">
@@ -246,6 +248,24 @@ export default async function ChromeGuidePage({
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+
+          <RelatedGuides
+
+            heading="Related guides"
+
+            links={pickRelated(
+
+              Object.values(CHROME_GUIDES),
+
+              slug,
+
+              (s) => `/for-chrome/${s}`,
+
+              [guide.nextLink.href],
+
+            )}
+
+          />
 
           <EmailCapture placement="for-chrome-guide" />
         </div>

@@ -43,6 +43,7 @@ const COLUMNS: ReadonlyArray<FooterColumn> = [
     heading: "Read",
     links: [
       { label: "Blog", href: "/blog" },
+      { label: "Videos", href: "/videos" },
       { label: "Field notes", href: SOCIAL.substack, external: true },
       { label: "About", href: "/about" },
     ],

@@ -8,6 +8,7 @@ import { CopyBlock } from "@/components/guide/copy-block";
 import { WhereToPaste } from "@/components/guide/where-to-paste";
 import { PersonaGuideTracker } from "@/components/persona-guide-tracker";
 import { ArticleSchema } from "@/components/article-schema";
+import { RelatedGuides, pickRelated } from "@/components/related-guides";
 import { AuthorBio } from "@/components/author-bio";
 import { ogImage } from '@/lib/og/image';
 import { seoTitle } from '@/lib/seo-title';
@@ -78,6 +79,7 @@ export default async function HrGuidePage({
         headline={guide.title}
         description={guide.description}
         url={`https://claudecodeguide.dev/for-hr/${slug}`}
+        crumbs={[{ name: "Home", path: "/" }, { name: "Claude for HR", path: "/for-hr" }, { name: guide.title, path: `/for-hr/${slug}` }]}
       />
       <PersonaGuideTracker
         slug={guide.slug}
@@ -243,6 +245,15 @@ export default async function HrGuidePage({
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+          <RelatedGuides
+            heading="Related guides"
+            links={pickRelated(
+              Object.values(HR_GUIDES),
+              slug,
+              (s) => `/for-hr/${s}`,
+              [guide.nextLink.href],
+            )}
+          />
           <EmailCapture placement="for-hr-guide" />
         </div>
 

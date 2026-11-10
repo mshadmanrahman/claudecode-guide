@@ -7,6 +7,8 @@ import { DesignerGettingStarted } from '@/components/for-designers/getting-start
 import { DesignerWhyExists } from '@/components/for-designers/why-exists';
 import { PersonaWorkflowStrip } from '@/components/persona-workflow-strip';
 import { EmailCapture } from '@/components/email-capture';
+import { HubGuideIndex } from '@/components/hub-guide-index';
+import { DESIGNER_GUIDES } from '@/lib/designer-guides';
 
 export default function ForDesignersPage() {
   return (
@@ -18,6 +20,12 @@ export default function ForDesignersPage() {
       <div id="guides">
         <DesignerGuideCards />
       </div>
+      <HubGuideIndex
+        hubPath="/for-designers"
+        hubName="Claude for Designers"
+        hubDescription="Practical Claude guides for UX and UI designers: decode briefs, run heuristic evaluations, synthesize research and build prototypes. Free, task-oriented."
+        guides={Object.values(DESIGNER_GUIDES).map((g) => ({ slug: g.slug, title: g.title }))}
+      />
       <DesignerGettingStarted />
       <DesignerWhyExists />
       <FrameworkLink href="/docs/frameworks/for-designers" audience="designers" />

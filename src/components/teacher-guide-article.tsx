@@ -8,6 +8,9 @@ import { DesignerStepDemo } from '@/components/designer-step-demo';
 import { PersonaGuideTracker } from '@/components/persona-guide-tracker';
 import { ArticleSchema } from '@/components/article-schema';
 import { AuthorBio } from '@/components/author-bio';
+import { RelatedGuides, pickRelated } from '@/components/related-guides';
+import { TEACHER_GUIDES } from '@/lib/teacher-guides';
+import { BN_TEACHER_GUIDES } from '@/lib/i18n/bn/teacher-guides';
 import { LanguageSwitch } from '@/components/language-switch';
 import { localePrefix, ui, type Locale } from '@/lib/i18n/locale';
 
@@ -40,6 +43,7 @@ export function TeacherGuideArticle({ guide, locale, alternateHref, stale }: Tea
         headline={guide.title}
         description={guide.description}
         url={`https://claudecodeguide.dev${prefix}/for-teachers/${slug}`}
+        crumbs={[{ name: "Home", path: `${prefix || "/"}` }, { name: "Claude for Teachers", path: `${prefix}/for-teachers` }, { name: guide.title, path: `${prefix}/for-teachers/${slug}` }]}
       />
       <PersonaGuideTracker slug={guide.slug} title={guide.title} section="for-teachers" />
       <article className="mx-auto w-full max-w-3xl px-6 pt-12 pb-24">
@@ -233,6 +237,20 @@ export function TeacherGuideArticle({ guide, locale, alternateHref, stale }: Tea
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+
+          <RelatedGuides
+            heading={t.relatedGuides}
+            links={pickRelated(
+              Object.values(TEACHER_GUIDES).flatMap((g) => {
+              if (locale === 'en') return [g];
+              const bn = BN_TEACHER_GUIDES[g.slug];
+              return bn ? [bn.content] : [];
+            }),
+              slug,
+              (s) => `${prefix}/for-teachers/${s}`,
+              [guide.nextLink.href],
+            )}
+          />
 
           {locale === 'en' && <EmailCapture placement="for-teachers-guide" />}
         </div>
