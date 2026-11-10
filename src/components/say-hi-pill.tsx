@@ -4,6 +4,7 @@
 // Restyled to the glass surface and the one-accent rule in DESIGN.md.
 
 import { motion, useReducedMotion } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import { type ComponentProps, type ReactNode, useEffect, useRef, useState } from 'react';
 
@@ -137,13 +138,7 @@ export function SayHiPill({
             }}
             transition={withMotion({ ...avatarSpring, delay: active ? 0.04 : 0 })}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={imageSrc}
-              alt=""
-              draggable={false}
-              className="absolute inset-0 size-full object-cover"
-            />
+            <Image src={imageSrc} alt="" fill sizes="36px" draggable={false} className="object-cover" />
           </motion.span>
 
           <motion.span
