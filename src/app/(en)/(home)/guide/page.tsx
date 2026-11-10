@@ -17,6 +17,19 @@ import { getAffiliateCtasForPage } from '@/lib/affiliate-cta-config';
 
 import { KineticText } from '@/components/kinetic-text';
 
+/** [step title, docs page that goes deeper], in guide order. */
+const GUIDE_STEP_DOCS: ReadonlyArray<readonly [string, string]> = [
+  ['Install Claude Code', '/docs/foundations/installation'],
+  ['Choose a plan', '/docs/comparisons/pro-vs-max'],
+  ['Write your first prompt', '/docs/foundations/prompting'],
+  ['Create your CLAUDE.md', '/docs/foundations/claude-md'],
+  ['Set up memory', '/docs/foundations/memory-system'],
+  ['Write your first handoff', '/docs/foundations/session-lifecycle'],
+  ['Establish your daily practice', '/docs/workflows/daily-practice'],
+  ['Create your first skill', '/docs/patterns/skills'],
+  ['Connect an external tool', '/docs/patterns/mcp-servers'],
+];
+
 export default function GuidePage() {
   const progress = useGuideProgress();
   // Most readers never open a terminal, so the Claude app is the default path.
@@ -66,6 +79,26 @@ export default function GuidePage() {
           (visual AI builder, no code needed, 20% off).
         </p>
       </div>
+      <nav aria-labelledby="guide-steps-heading" className="mt-10 text-left">
+        <h2 id="guide-steps-heading" className="text-sm font-medium text-fd-foreground">
+          What the 9 steps cover
+        </h2>
+        <p className="mt-2 text-sm text-fd-muted-foreground">
+          Steps 1 to 3 get Claude Code installed and answering your first prompt. Steps 4 to 6 give it a
+          CLAUDE.md, memory and a handoff habit so it remembers your project between sessions. Steps 7 to 9
+          build a daily practice, your first skill and a connection to an outside tool. Each step links to
+          the full docs page:
+        </p>
+        <ol className="mt-3 grid list-decimal gap-x-8 gap-y-1.5 pl-5 text-sm text-fd-muted-foreground sm:grid-cols-2">
+          {GUIDE_STEP_DOCS.map(([label, href]) => (
+            <li key={href}>
+              <Link href={href} className="underline hover:text-fd-foreground">
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </nav>
     </header>
   );
 

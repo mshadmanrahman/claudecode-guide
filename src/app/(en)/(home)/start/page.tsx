@@ -18,13 +18,42 @@ const PATH = [
   { href: '/tutorials', label: 'Tutorials', note: 'Build something real, one step at a time' },
 ] as const;
 
+/** Docs pages behind each choice in the flow above. */
+const REFERENCE = [
+  { href: '/docs/foundations/what-is-claude-code', label: 'What is Claude Code?' },
+  { href: '/docs/foundations/which-interface', label: 'Web, desktop app, terminal or VS Code: which to pick' },
+  { href: '/docs/foundations/installation', label: 'Install Claude Code on Mac, Windows or Linux' },
+  { href: '/docs/foundations/troubleshooting', label: 'Troubleshooting setup problems' },
+  { href: '/tutorials/quiz-game', label: 'Quiz game tutorial' },
+] as const;
+
 const linkFocus =
   'rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]';
 
 function StartPath() {
   return (
     <section aria-labelledby="start-path" className="mx-auto w-full max-w-2xl px-6 pb-24">
-      <h2 id="start-path" className="text-lg font-semibold text-fd-foreground">
+      <h2 id="start-how" className="text-lg font-semibold text-fd-foreground">
+        How this page works
+      </h2>
+      <p className="mt-3 text-sm text-fd-muted-foreground">
+        Pick one of three first projects: build a quiz game your friends can play (about 10 minutes), turn
+        messy notes into an action plan (about 5 minutes), or give Claude a spreadsheet and get insights and
+        charts (about 8 minutes). Then choose where you want to use Claude: the web at claude.ai, the desktop
+        app, the terminal or VS Code. The web needs no install. The terminal path adds steps for your
+        computer (Mac, Windows or Linux), installing Claude Code and signing in.
+      </p>
+      <ul className="mt-4 flex flex-col gap-1.5 text-sm">
+        {REFERENCE.map((ref) => (
+          <li key={ref.href}>
+            <Link href={ref.href} className={`text-fd-foreground underline underline-offset-2 hover:text-[var(--acc)] ${linkFocus}`}>
+              {ref.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      <h2 id="start-path" className="mt-12 text-lg font-semibold text-fd-foreground">
         The path from here
       </h2>
       <ol className="mt-4 flex flex-col gap-2">
