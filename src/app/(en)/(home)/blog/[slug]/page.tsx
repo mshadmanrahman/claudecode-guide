@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -105,6 +106,10 @@ export default async function BlogPostPage(props: PageProps) {
   if (!post) notFound();
 
   const relatedPosts = getRelatedPosts(params.slug, 3);
+  // Posts open with an inline hero <img>. Lift it out so next/image can size,
+  // compress and preload it (it is the LCP element).
+  const hero = post.content.match(/^\s*<img src="(\/blog-hero-[^"]+)" alt="([^"]*)"[^>]*\/>/);
+  const bodyHtml = hero ? post.content.slice(hero[0].length) : post.content;
   const wordCount = post.content
     .replace(/<[^>]+>/g, " ")
     .split(/\s+/)
@@ -140,7 +145,18 @@ export default async function BlogPostPage(props: PageProps) {
         </ArticleHeader>
 
         <div className="prose ccg-prose max-w-none">
-          <BlogContent html={post.content} />
+          {hero && (
+            <Image
+              src={hero[1]}
+              alt={hero[2]}
+              width={1200}
+              height={627}
+              sizes="(min-width: 728px) 680px, calc(100vw - 32px)"
+              priority
+              className="mt-0 mb-8 h-auto w-full rounded-[14px]"
+            />
+          )}
+          <BlogContent html={bodyHtml} />
         </div>
 
         {DESIGNER_RELEVANT_SLUGS.has(params.slug) && (

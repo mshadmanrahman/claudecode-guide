@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react";
 import { source } from "@/lib/source";
 import { DocsPage } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
@@ -56,8 +57,18 @@ import { seoTitle } from "@/lib/seo-title";
 import { X_HANDLE } from "@/lib/site";
 import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
 
+const DefaultImg = defaultMdxComponents.img;
+
+/** A page's opening hero.png is its LCP element, so it loads eagerly at high priority. */
+function DocImg(props: ComponentProps<typeof DefaultImg>) {
+  const src = typeof props.src === "string" ? props.src : (props.src as { src?: string } | undefined)?.src ?? "";
+  if (!/\/hero\.[^/]+$/.test(src)) return <DefaultImg {...props} />;
+  return <DefaultImg {...props} loading="eager" fetchPriority="high" />;
+}
+
 const mdxComponents = {
   ...defaultMdxComponents,
+  img: DocImg,
   pre: DocPre,
   Callout: DocCallout,
   // Scripted sessions render in the desktop app by default; TerminalMock keeps the CLI look.
