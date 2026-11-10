@@ -567,7 +567,7 @@ The student should still produce a written response. No more than 50 words of ad
     difficulty: 'intermediate',
     availableRoutes: ['lesson-planning'],
     description:
-      'Feed last batch\'s student feedback back into next batch\'s lesson plan. Claude counts the scores, you check each complaint, and the plan changes only where the evidence says it should.',
+      'Use last batch\'s feedback to fix the next lesson plan. Claude counts scores, you check each complaint, and the plan changes only where evidence says so.',
     intro:
       'I teach a design course on Ostad, an online learning platform in Bangladesh. My second batch averaged 9.22 out of 10 (166/18), but two students gave me a 6 after the first class. Both said roughly the same thing: class ran long and drifted off topic. Before changing anything I checked whether that was true. It was. One class had run 178 minutes against a 90-minute plan. I rebuilt the third batch around that finding, and it averaged 9.64 (135/14), with no score below 8. This guide is that loop, written so you can run it on your own course.',
     situation: {

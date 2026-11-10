@@ -4,9 +4,9 @@ import { CopyBlock } from '@/components/guide/copy-block';
 import { ogImage } from '@/lib/og/image';
 import { skillObjectSrc } from '@/data/card-objects';
 
-const title = 'Free Claude Skills: Crucible and Grill Me';
+const title = 'Free Claude Skills: Crucible, Grill Me';
 const description =
-  'Two free skills for thinking before you commit. Grill Me asks one hard question at a time. Crucible runs your idea past a council of critics and returns a verdict.';
+  'Two free skills for thinking before you commit. Grill Me asks one hard question at a time. Crucible runs your idea past a council of critics for a verdict.';
 
 export const metadata: Metadata = {
   title,

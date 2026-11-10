@@ -192,7 +192,7 @@ Learning objective এক রাখুন। চিন্তার কঠিন�
   },
 
   "improve-your-course-batch-by-batch": {
-    sourceHash: "9c4817ab9034b238",
+    sourceHash: "423c3bfccfc45adf",
     translatedAt: "2026-10-31",
     content: {
       title: "Claude দিয়ে batch-এর পর batch আপনার course আরও ভালো করুন",
@@ -201,7 +201,7 @@ Learning objective এক রাখুন। চিন্তার কঠিন�
       difficulty: "intermediate",
       availableRoutes: ["lesson-planning"],
       description:
-        "আগের batch-এর student feedback পরের batch-এর lesson plan-এ কাজে লাগান। Claude score গোনে, আপনি প্রতিটা অভিযোগ যাচাই করেন, আর plan শুধু সেখানেই বদলায় যেখানে প্রমাণ সেটা বলে।",
+        "আগের batch-এর student feedback পরের batch-এর lesson plan-এ কাজে লাগান। Claude score গোনে, আপনি প্রতিটা অভিযোগ যাচাই করেন।",
       intro:
         "আমি Ostad-এ একটা design course পড়াই, বাংলাদেশের একটা online learning platform। আমার দ্বিতীয় batch-এর গড় ছিল ১০-এ 9.22 (166/18), কিন্তু প্রথম ক্লাসের পর দুজন শিক্ষার্থী 6 দিয়েছিল। দুজনেই মোটামুটি একই কথা বলেছিল: ক্লাস অনেক লম্বা হয়েছে আর বিষয় থেকে সরে গেছে। কিছু বদলানোর আগে আমি যাচাই করে দেখলাম কথাটা সত্যি কি না। সত্যিই। একটা ক্লাস ৯০ মিনিটের plan-এর জায়গায় ১৭৮ মিনিট চলেছিল। সেই finding ধরে আমি তৃতীয় batch নতুন করে সাজালাম, আর তার গড় দাঁড়াল 9.64 (135/14), কোনো score 8-এর নিচে নয়। এই guide সেই loop-টাই, এমনভাবে লেখা যাতে আপনি নিজের course-এ চালাতে পারেন।",
       situation: {

@@ -283,7 +283,7 @@ Table আকারে দিন। Descriptor এমনভাবে লিখু
       difficulty: "intermediate",
       availableRoutes: ["assessment", "communication"],
       description:
-        "খাতার পাশে লেখা ছোট note আর আপনার মনের ধারণা থেকে পুরো লিখিত feedback বানিয়ে নিন। Claude draft করে, আপনি ঘষেমেজে ঠিক করেন। রচনা, project আর report-এর মন্তব্যে কাজ করে।",
+        "খাতার পাশে লেখা ছোট note আর আপনার মনের ধারণা থেকে পুরো লিখিত feedback বানিয়ে নিন। Claude draft করে, আপনি ঘষেমেজে ঠিক করেন।",
       intro:
         "প্রতিটা কাজ নিয়ে আপনি কী ভাবছেন, তা আপনি আগে থেকেই জানেন। ধীর অংশটা হলো সেটা লিখে ফেলা। এই guide আপনাকে এমন একটা workflow দেবে, যেখানে আপনার ছোট note-গুলো গোছানো feedback হয়ে যায়, আপনাকে শুরু থেকে পুরো বাক্য লিখতে হয় না।",
       situation: {
