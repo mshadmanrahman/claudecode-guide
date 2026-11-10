@@ -13,6 +13,10 @@ const SHORTS_REDIRECTS: ReadonlyArray<readonly [string, string, string]> = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   trailingSlash: false,
+  experimental: {
+    // Needed for app/global-not-found.tsx: English and Bangla have separate root layouts.
+    globalNotFound: true,
+  },
   images: {
     qualities: [75, 90],
     remotePatterns: [{ protocol: 'https', hostname: 'substackcdn.com' }],

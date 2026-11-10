@@ -1,16 +1,9 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
-import { SiteFooter } from '@/components/site-footer';
 
-export const metadata: Metadata = {
-  title: 'Page Not Found',
-  description: 'This page does not exist. Find Claude Code tutorials, setup guides, and workflow tips at Claude Code Guide.',
-};
-
-export default function NotFound() {
+/** The 404 message and its way-out links, shared by every not-found page. */
+export function NotFoundBody() {
   return (
-    <div className="relative isolate flex min-h-screen flex-col">
-      <div className="flex flex-1 flex-col items-center justify-center px-6 pt-24 text-center">
+    <div className="flex flex-1 flex-col items-center justify-center px-6 pt-24 text-center">
       <p className="font-mono text-display leading-[1.1] font-semibold text-[var(--acc)]">404</p>
       <h1 className="mt-4 font-display text-headline leading-[1.1] font-semibold tracking-[-0.035em] text-fd-foreground">
         Page not found
@@ -38,8 +31,6 @@ export default function NotFound() {
           Back to home
         </Link>
       </div>
-      </div>
-      <SiteFooter />
     </div>
   );
 }

@@ -12,7 +12,7 @@ import { ArticleSchema } from "@/components/article-schema";
 import { TUTORIALS, type Tutorial } from "@/lib/tutorials";
 import { BN_TUTORIALS } from "@/lib/i18n/bn/tutorials";
 import { BN_TRACK_TITLES, localePrefix, ui, type Locale } from "@/lib/i18n/locale";
-import { findTrackPosition, pad2, type CatalogEntry } from "@/app/(home)/tutorials/catalog";
+import { findTrackPosition, pad2, type CatalogEntry } from "@/app/(en)/(home)/tutorials/catalog";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";

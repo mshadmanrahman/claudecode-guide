@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@/app/globals.css";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -10,10 +10,12 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { ogImage } from "@/lib/og/image";
 import { SAME_AS, SOCIAL, X_HANDLE } from "@/lib/site";
+import type { Locale } from "@/lib/i18n/locale";
 
 const siteUrl = "https://claudecodeguide.dev";
 
-export const metadata: Metadata = {
+/** Site-wide defaults, exported by both root layouts: `app/(en)` and `app/(bn)`. */
+export const rootMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     template: "%s | Claude Code Guide",
@@ -99,10 +101,19 @@ const jsonLd = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+interface RootDocumentProps {
+  lang: Locale;
+  children: ReactNode;
+}
+
+/**
+ * The <html> shell. English and Bangla routes each have their own root layout
+ * so `/bn/*` prerenders `lang="bn"` instead of inheriting the English one.
+ */
+export function RootDocument({ lang, children }: RootDocumentProps) {
   return (
     <html
-      lang="en"
+      lang={lang}
       className={cn(GeistSans.variable, GeistMono.variable, "font-sans")}
       suppressHydrationWarning
     >
