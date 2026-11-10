@@ -147,7 +147,7 @@ export const blogPosts: BlogPost[] = [
 <h2>When to Use What</h2>
 <p>Use ChatGPT for brainstorming, explaining concepts, and quick questions. Use Claude Code for building features, debugging, refactoring, and anything that touches your actual codebase.</p>
 <p>They're complementary, not competitors. But if you're using Claude Code like a chatbot, you're using maybe 10% of what it can do.</p>
-<p>Check out the full <a href="/docs/comparisons">comparison guides</a> if you want the detailed breakdown. But the TL;DR is simple: Claude Code is a tool that <em>does</em> things. Treat it that way.</p>`,
+<p>Check out the full <a href="/docs/comparisons/vs-cursor">comparison guides</a> if you want the detailed breakdown. But the TL;DR is simple: Claude Code is a tool that <em>does</em> things. Treat it that way.</p>`,
   },
   {
     slug: "your-first-hour-with-claude-code",

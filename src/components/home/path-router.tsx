@@ -28,7 +28,7 @@ const CARDS: ReadonlyArray<RouterCard> = [
     title: "Compare Claude Code to other tools",
     blurb:
       "Honest takes on Cursor, Copilot, Aider, ChatGPT, and Gemini CLI. Pick what fits.",
-    href: "/docs/comparisons",
+    href: "/docs/comparisons/vs-cursor",
     audience: "Evaluating",
   },
   {

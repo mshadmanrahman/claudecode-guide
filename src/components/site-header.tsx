@@ -72,7 +72,7 @@ const DROPDOWNS: ReadonlyArray<Dropdown> = [
         links: [
           { href: "/docs", label: "Docs", description: "Foundations, patterns, templates" },
           { href: "/tutorials", label: "Tutorials", description: "Step-by-step builds you can follow" },
-          { href: "/docs/workflows", label: "Recipes", description: "Ready-made workflows for real tasks" },
+          { href: "/docs/workflows/daily-practice", label: "Recipes", description: "Ready-made workflows for real tasks" },
           { href: "/primitives", label: "Primitives", description: "When to use a rule, hook, skill or agent" },
           { href: "/certification", label: "Certification", description: "The 4 Claude credentials: prices, format, eligibility" },
         ],

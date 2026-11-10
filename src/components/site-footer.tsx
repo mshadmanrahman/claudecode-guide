@@ -33,7 +33,7 @@ const COLUMNS: ReadonlyArray<FooterColumn> = [
     links: [
       { label: "Docs", href: "/docs" },
       { label: "Tutorials", href: "/tutorials" },
-      { label: "Recipes", href: "/docs/workflows" },
+      { label: "Recipes", href: "/docs/workflows/daily-practice" },
       { label: "Primitives", href: "/primitives" },
       { label: "Skills", href: "/skills" },
       { label: "Certification", href: "/certification" },
