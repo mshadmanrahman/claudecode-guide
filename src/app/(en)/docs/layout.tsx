@@ -13,7 +13,8 @@ export default function Layout({ children }: { children: ReactNode }) {
       <SiteHeader />
       <DocsLayout
         tree={source.pageTree}
-        nav={{ enabled: false }}
+        // The sidebar still renders a home link from nav.title; give it a name.
+        nav={{ enabled: false, title: <span className="sr-only">Claude Code Guide home</span> }}
         containerProps={{
           style: { '--fd-banner-height': 'var(--site-header-h)' } as CSSProperties,
         }}
