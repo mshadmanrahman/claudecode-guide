@@ -96,6 +96,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   };
 }
 
+// Unknown slugs get the server-rendered 404 page (with links) instead of a client-rendered one.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }

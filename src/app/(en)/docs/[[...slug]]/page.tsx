@@ -286,8 +286,12 @@ export default async function Page(props: PageProps) {
   );
 }
 
+// Unknown slugs get the server-rendered 404 page (with links) instead of a client-rendered one.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
-  return source.generateParams();
+  // The empty slug is the /docs section index, which has no source page of its own.
+  return [{ slug: [] }, ...source.generateParams()];
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {

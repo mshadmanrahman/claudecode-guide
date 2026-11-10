@@ -13,6 +13,9 @@ const ALL_SLUGS = Object.keys(TUTORIALS);
 /*  Static params for pre-rendering                                    */
 /* ------------------------------------------------------------------ */
 
+// Unknown slugs get the server-rendered 404 page (with links) instead of a client-rendered one.
+export const dynamicParams = false;
+
 export function generateStaticParams(): Array<{ slug: string }> {
   return ALL_SLUGS.map((slug) => ({ slug }));
 }

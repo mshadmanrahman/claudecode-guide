@@ -98,6 +98,9 @@ export default async function PmPilotGuidePage(props: PageProps) {
   );
 }
 
+// Unknown slugs get the server-rendered 404 page (with links) instead of a client-rendered one.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return pmPilotSource.generateParams();
 }

@@ -47,6 +47,9 @@ export async function generateMetadata({
   };
 }
 
+// Unknown slugs get the server-rendered 404 page (with links) instead of a client-rendered one.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return Object.keys(CHROME_GUIDES).map((slug) => ({ slug }));
 }
