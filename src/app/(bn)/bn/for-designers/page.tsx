@@ -12,6 +12,7 @@ import { BN_DESIGNERS_HUB } from '@/lib/i18n/bn/hubs/designers';
 import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
 import { sourceHash } from '@/lib/i18n/source-hash';
 import { ogImage } from '@/lib/og/image';
+import { CollectionSchema } from '@/components/breadcrumb-schema';
 
 const url = 'https://claudecodeguide.dev/bn/for-designers';
 const title = 'ডিজাইনারদের জন্য Claude: UX আর UI কাজের guide';
@@ -46,6 +47,12 @@ export default function BnForDesignersPage() {
   const stale = BN_DESIGNERS_HUB.sourceHash !== sourceHash(DESIGNERS_HUB);
   return (
     <main lang="bn" className="overflow-x-clip">
+      <CollectionSchema
+        name={title}
+        description={description}
+        path="/bn/for-designers"
+        items={Object.entries(guides).map(([slug, g]) => ({ name: g.title, path: `/bn/for-designers/${slug}` }))}
+      />
       {stale && <StaleNotice englishHref="/for-designers" />}
       <DesignerHero locale="bn" copy={copy} />
       <DesignerBeforeAfter locale="bn" copy={copy.beforeAfter} />

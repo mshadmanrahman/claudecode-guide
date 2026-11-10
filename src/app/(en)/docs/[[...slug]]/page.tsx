@@ -54,6 +54,7 @@ import type { Metadata } from "next";
 import { ogImage } from "@/lib/og/image";
 import { seoTitle } from "@/lib/seo-title";
 import { X_HANDLE } from "@/lib/site";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
 
 const mdxComponents = {
   ...defaultMdxComponents,
@@ -162,6 +163,13 @@ export default async function Page(props: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BreadcrumbSchema
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Docs", path: "/docs" },
+          { name: data.title, path: `/docs/${params.slug.join("/")}` },
+        ]}
       />
       <DocsPage
         toc={toc}

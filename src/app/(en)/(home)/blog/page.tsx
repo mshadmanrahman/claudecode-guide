@@ -10,6 +10,7 @@ import type { BlogPost } from '@/data/blog-posts';
 import { blogObjectSrc } from '@/data/card-objects';
 
 import { KineticText } from '@/components/kinetic-text';
+import { CollectionSchema } from '@/components/breadcrumb-schema';
 // ---------- Helpers ----------
 
 function formatDate(dateStr: string): string {
@@ -174,6 +175,12 @@ export default function BlogPage() {
 
   return (
     <div className="flex flex-col">
+      <CollectionSchema
+        name="Claude Code Blog"
+        description="Practical articles on Claude Code for designers, product managers, and developers. Workflows, setup guides, and real-world patterns updated regularly."
+        path="/blog"
+        items={allPosts.map((post) => ({ name: post.title, path: `/blog/${post.slug}` }))}
+      />
       {/* Header */}
       <section className="mx-auto w-full max-w-6xl px-4 pt-14 pb-4 sm:px-6 sm:pt-20">
         <h1 className="ccg-title">

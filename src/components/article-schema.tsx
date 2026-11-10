@@ -6,12 +6,16 @@
  * data until 2026-08-17, so search engines had no author, publisher or
  * publication date for roughly two thirds of the site's indexable routes.
  */
+import { BreadcrumbSchema, type Crumb } from "@/components/breadcrumb-schema";
+
 interface ArticleSchemaProps {
   headline: string;
   description: string;
   url: string;
   /** ISO date string. Omit when the page has no meaningful publication date. */
   datePublished?: string;
+  /** Trail from home to this page, emitted as BreadcrumbList JSON-LD. */
+  crumbs?: Crumb[];
 }
 
 export function ArticleSchema({
@@ -19,6 +23,7 @@ export function ArticleSchema({
   description,
   url,
   datePublished,
+  crumbs,
 }: ArticleSchemaProps) {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -36,9 +41,12 @@ export function ArticleSchema({
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {crumbs ? <BreadcrumbSchema crumbs={crumbs} /> : null}
+    </>
   );
 }

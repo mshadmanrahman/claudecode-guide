@@ -15,6 +15,7 @@ import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
 import { BN_TEACHER_GUIDES } from '@/lib/i18n/bn/teacher-guides';
 import { BN_DESIGNERS_HUB } from '@/lib/i18n/bn/hubs/designers';
 import { BN_TEACHERS_HUB } from '@/lib/i18n/bn/hubs/teachers';
+import { CollectionSchema } from '@/components/breadcrumb-schema';
 /**
  * Search sends this page 564 impressions a month at position 8.7, its best
  * position on the site, against 9 clicks. The queries arrive in both scripts:
@@ -112,6 +113,16 @@ function guideCount(guides: Record<string, unknown>): string {
 export default function BengaliGuidePage() {
   return (
     <main lang="bn" className="min-h-screen">
+      <CollectionSchema
+        name="Claude Code গাইড : বাংলায়"
+        description="Claude Code শিখুন বাংলায়। ইনস্টলেশন, সেটআপ, এবং প্রথম প্রজেক্ট তৈরি করুন।"
+        path="/bn"
+        items={[
+          ...Object.entries(BN_TUTORIALS).flatMap(([slug, t]) => (t ? [{ name: t.content.title, path: `/bn/tutorials/${slug}` }] : [])),
+          { name: 'ডিজাইনারদের জন্য Claude', path: '/bn/for-designers' },
+          { name: 'শিক্ষকদের জন্য Claude', path: '/bn/for-teachers' },
+        ]}
+      />
       {/* Hero */}
       <section className="border-b border-fd-border px-6 py-16 text-center sm:py-24">
         <div className="mx-auto max-w-3xl">

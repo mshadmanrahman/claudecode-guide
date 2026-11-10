@@ -8,6 +8,7 @@ import { TRACKS, ROUTE_LABELS } from './catalog';
 import { TutorialsBrowser, type BrowserTrack } from './_components/tutorials-browser';
 
 import { KineticText } from '@/components/kinetic-text';
+import { CollectionSchema } from '@/components/breadcrumb-schema';
 const focusRing =
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]';
 
@@ -64,6 +65,12 @@ export default function TutorialsPage() {
       </section>
 
       <TutorialsBrowser tracks={tracks} total={total} />
+      <CollectionSchema
+        name="Claude Code Tutorials"
+        description="Hands-on Claude Code tutorials: write your first CLAUDE.md, ship a landing page, build skills and automate workflows. Free, beginner-friendly."
+        path="/tutorials"
+        items={[...new Map(tracks.flatMap((t) => t.cards).map((c) => [c.slug, { name: c.title, path: `/tutorials/${c.slug}` }])).values()]}
+      />
 
       <section className="mx-auto w-full max-w-3xl space-y-4 px-4 pb-4 sm:px-6">
         <div className="glass rounded-xl p-5 sm:p-6">

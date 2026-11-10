@@ -101,6 +101,7 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
         headline={tutorial.title}
         description={tutorial.description}
         url={`https://claudecodeguide.dev${prefix}/tutorials/${slug}`}
+        crumbs={[{ name: "Home", path: `${prefix || "/"}` }, ...(prefix ? [] : [{ name: "Tutorials", path: "/tutorials" }]), { name: tutorial.title, path: `${prefix}/tutorials/${slug}` }]}
       />
       <article className="mx-auto w-full max-w-3xl px-4 pt-10 pb-24 sm:px-6 md:pt-12">
         <TutorialTracker slug={tutorial.slug} title={tutorial.title} />

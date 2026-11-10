@@ -118,6 +118,7 @@ export default async function BlogPostPage(props: PageProps) {
         description={post.description}
         url={`https://claudecodeguide.dev/blog/${post.slug}`}
         datePublished={post.date}
+        crumbs={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }, { name: post.title, path: `/blog/${post.slug}` }]}
       />
       <article className="ccg-post mx-auto w-full px-4 pt-10 pb-16 sm:px-6 sm:pt-14">
         <Link href="/blog" className="ccg-back">

@@ -7,6 +7,7 @@ import { TEACHERS_HUB } from '@/lib/hubs/teachers';
 import { BN_TEACHERS_HUB } from '@/lib/i18n/bn/hubs/teachers';
 import { BN_TEACHER_GUIDES } from '@/lib/i18n/bn/teacher-guides';
 import { sourceHash } from '@/lib/i18n/source-hash';
+import { CollectionSchema } from '@/components/breadcrumb-schema';
 
 const guides: Record<string, TeacherCardGuide> = Object.fromEntries(
   Object.entries(BN_TEACHER_GUIDES).flatMap(([slug, t]) =>
@@ -19,6 +20,12 @@ export default function BnForTeachersPage() {
   const stale = BN_TEACHERS_HUB.sourceHash !== sourceHash(TEACHERS_HUB);
   return (
     <main lang="bn" className="overflow-x-clip">
+      <CollectionSchema
+        name="শিক্ষকদের জন্য Claude: Lesson plan, quiz আর rubric-এর guide"
+        description="শিক্ষকদের জন্য Claude-এর practical guide: lesson plan লেখা, quiz-এর প্রশ্ন বানানো, rubric তৈরি, ছাত্রছাত্রীদের feedback আর অভিভাবকের email।"
+        path="/bn/for-teachers"
+        items={Object.values(guides).map((g) => ({ name: g.title, path: `/bn/for-teachers/${g.slug}` }))}
+      />
       {stale && <StaleNotice englishHref="/for-teachers" />}
       <TeacherHero locale="bn" copy={copy} />
       <PersonaWorkflowStrip persona="teachers" locale="bn" copy={copy.strip} />
