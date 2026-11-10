@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: url,
-    languages: { en: 'https://claudecodeguide.dev/for-designers', bn: url },
+    languages: { 'x-default': 'https://claudecodeguide.dev/for-designers', en: 'https://claudecodeguide.dev/for-designers', bn: url },
   },
   openGraph: {
     title,

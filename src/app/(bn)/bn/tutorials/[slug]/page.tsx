@@ -41,7 +41,7 @@ export async function generateMetadata({
     description: tutorial.description,
     alternates: {
       canonical: url,
-      languages: { en: `https://claudecodeguide.dev/tutorials/${slug}`, bn: url },
+      languages: { "x-default": `https://claudecodeguide.dev/tutorials/${slug}`, en: `https://claudecodeguide.dev/tutorials/${slug}`, bn: url },
     },
     openGraph: {
       title,

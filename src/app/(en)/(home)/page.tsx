@@ -25,7 +25,14 @@ export const metadata: Metadata = {
     absolute: "Claude Code Guide: The Setup I Actually Run",
   },
   description: heroMetaDescription,
-  alternates: { canonical: "https://claudecodeguide.dev/" },
+  alternates: {
+    canonical: "https://claudecodeguide.dev/",
+    languages: {
+      "x-default": "https://claudecodeguide.dev/",
+      en: "https://claudecodeguide.dev/",
+      bn: "https://claudecodeguide.dev/bn",
+    },
+  },
   openGraph: {
     title: heroTagline,
     description: heroMetaDescription,

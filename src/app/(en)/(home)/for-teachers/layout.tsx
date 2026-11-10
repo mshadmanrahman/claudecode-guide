@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     'Practical Claude guides for teachers: write lesson plans, generate quiz questions, build grading rubrics, give student feedback and draft parent emails.',
   alternates: {
     canonical: 'https://claudecodeguide.dev/for-teachers',
-    languages: { en: 'https://claudecodeguide.dev/for-teachers', bn: 'https://claudecodeguide.dev/bn/for-teachers' },
+    languages: { 'x-default': 'https://claudecodeguide.dev/for-teachers', en: 'https://claudecodeguide.dev/for-teachers', bn: 'https://claudecodeguide.dev/bn/for-teachers' },
   },
   openGraph: {
     title: ogTitle,

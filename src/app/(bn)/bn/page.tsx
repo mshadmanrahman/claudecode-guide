@@ -26,7 +26,14 @@ export const metadata: Metadata = {
   title: { absolute: 'Claude Code গাইড : বাংলায় | Claude Code in Bangla' },
   description:
     'Claude Code শিখুন বাংলায়। ইনস্টলেশন, সেটআপ, এবং প্রথম প্রজেক্ট তৈরি করুন। কোনো পূর্ব অভিজ্ঞতা লাগবে না। A complete Claude Code guide in Bangla.',
-  alternates: { canonical: 'https://claudecodeguide.dev/bn' },
+  alternates: {
+    canonical: 'https://claudecodeguide.dev/bn',
+    languages: {
+      'x-default': 'https://claudecodeguide.dev/',
+      en: 'https://claudecodeguide.dev/',
+      bn: 'https://claudecodeguide.dev/bn',
+    },
+  },
   openGraph: {
     images: [ogImage('bn', 'Claude Code in Bangla')],
     title: 'Claude Code গাইড : বাংলায় | Claude Code in Bangla',

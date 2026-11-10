@@ -29,7 +29,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl,
       ...(BN_DESIGNER_GUIDES[slug] && {
-        languages: { en: canonicalUrl, bn: `https://claudecodeguide.dev/bn/for-designers/${slug}` },
+        languages: { 'x-default': canonicalUrl, en: canonicalUrl, bn: `https://claudecodeguide.dev/bn/for-designers/${slug}` },
       }),
     },
     openGraph: {

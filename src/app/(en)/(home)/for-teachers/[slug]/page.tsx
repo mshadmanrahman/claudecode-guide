@@ -25,7 +25,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl,
       languages: BN_TEACHER_GUIDES[slug]
-        ? { en: canonicalUrl, bn: `https://claudecodeguide.dev/bn/for-teachers/${slug}` }
+        ? { 'x-default': canonicalUrl, en: canonicalUrl, bn: `https://claudecodeguide.dev/bn/for-teachers/${slug}` }
         : undefined,
     },
     openGraph: {

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     'Practical Claude guides for UX and UI designers: decode briefs, run heuristic evaluations, synthesize research and build prototypes. Free, task-oriented.',
   alternates: {
     canonical: 'https://claudecodeguide.dev/for-designers',
-    languages: { en: 'https://claudecodeguide.dev/for-designers', bn: 'https://claudecodeguide.dev/bn/for-designers' },
+    languages: { 'x-default': 'https://claudecodeguide.dev/for-designers', en: 'https://claudecodeguide.dev/for-designers', bn: 'https://claudecodeguide.dev/bn/for-designers' },
   },
   openGraph: {
     title: ogTitle,

@@ -38,7 +38,7 @@ export async function generateMetadata({
     description: guide.description,
     alternates: {
       canonical: url,
-      languages: { en: `https://claudecodeguide.dev/for-designers/${slug}`, bn: url },
+      languages: { 'x-default': `https://claudecodeguide.dev/for-designers/${slug}`, en: `https://claudecodeguide.dev/for-designers/${slug}`, bn: url },
     },
     openGraph: {
       title,

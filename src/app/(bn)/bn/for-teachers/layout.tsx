@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: url,
-    languages: { en: 'https://claudecodeguide.dev/for-teachers', bn: url },
+    languages: { 'x-default': 'https://claudecodeguide.dev/for-teachers', en: 'https://claudecodeguide.dev/for-teachers', bn: url },
   },
   openGraph: {
     title,
