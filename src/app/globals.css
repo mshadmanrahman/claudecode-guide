@@ -749,14 +749,14 @@ h3.font-display {
 .footer-art {
   position: relative;
   margin-top: 8px;
-  height: min(600px, 66.67vw);
+  height: min(720px, 66.67vw);
   overflow: hidden;
 }
 /* The mask sits on the image, not the wrapper, so the blend still reaches the page. */
 .footer-art .engr-ink {
   pointer-events: none;
   object-fit: cover;
-  object-position: center var(--art-y, 35%);
+  object-position: center var(--art-y, 50%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 15%);
   mask-image: linear-gradient(to bottom, transparent 0, #000 15%);
 }
@@ -778,36 +778,15 @@ h3.font-display {
     mask-composite: intersect;
   }
 }
-/* Per-scene vertical anchor: the summit's height in the art, measured, so the peak
-   clears the fade at every width. */
-.footer-art[data-scene="boathouse"] { --art-y: 35%; }
-.footer-art[data-scene="bridge"] { --art-y: 36%; }
-.footer-art[data-scene="cabin"] { --art-y: 37%; }
-.footer-art[data-scene="cairn"] { --art-y: 43%; }
-.footer-art[data-scene="delta"] { --art-y: 38%; }
-.footer-art[data-scene="fork"] { --art-y: 37%; }
-.footer-art[data-scene="gorge"] { --art-y: 39%; }
-.footer-art[data-scene="green"] { --art-y: 37%; }
-.footer-art[data-scene="harbor"] { --art-y: 36%; }
-.footer-art[data-scene="haze"] { --art-y: 43%; }
-.footer-art[data-scene="hut"] { --art-y: 39%; }
-.footer-art[data-scene="meadow"] { --art-y: 41%; }
-.footer-art[data-scene="overlook"] { --art-y: 39%; }
-.footer-art[data-scene="ridges"] { --art-y: 23%; }
-.footer-art[data-scene="sailboat"] { --art-y: 36%; }
-.footer-art[data-scene="schoolhouse"] { --art-y: 34%; }
-.footer-art[data-scene="signpost"] { --art-y: 33%; }
-.footer-art[data-scene="standingstones"] { --art-y: 35%; }
-.footer-art[data-scene="summit"] { --art-y: 32%; }
-.footer-art[data-scene="switchbacks"] { --art-y: 46%; }
-.footer-art[data-scene="terraces"] { --art-y: 39%; }
-.footer-art[data-scene="traveler"] { --art-y: 34%; }
-.footer-art[data-scene="twinpeaks"] { --art-y: 43%; }
-.footer-art[data-scene="valley"] { --art-y: 40%; }
-.footer-art[data-scene="village"] { --art-y: 37%; }
-.footer-art[data-scene="watermill"] { --art-y: 33%; }
-.footer-art[data-scene="woodpile"] { --art-y: 38%; }
-.footer-art[data-scene="workshop"] { --art-y: 33%; }
+/* Keep small landmarks low in the artwork inside the wide desktop crop. */
+.footer-art[data-scene="boathouse"],
+.footer-art[data-scene="harbor"],
+.footer-art[data-scene="sailboat"],
+.footer-art[data-scene="schoolhouse"],
+.footer-art[data-scene="signpost"],
+.footer-art[data-scene="watermill"],
+.footer-art[data-scene="woodpile"],
+.footer-art[data-scene="workshop"] { --art-y: 56%; }
 .footer-legal {
   position: absolute;
   inset-inline: 0;
