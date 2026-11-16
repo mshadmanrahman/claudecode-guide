@@ -20,11 +20,18 @@ import { GuideCard, cardImage } from './_components/guide-card';
  * `claude bangla` and `claude code` alongside `ক্লদ` and `claude কি`. The
  * title carried no Latin-script "Bangla", so half the demand saw nothing it
  * recognised. Canonical added at the same time; the page had none.
+ *
+ * 2026-11-16: the Bangla-script query `ক্লড` showed this page 161 times in 28
+ * days for 0 clicks, because neither the title nor the description carried
+ * the word. Both now open with it and answer "what is Claude" directly.
  */
+const tutorialCount = Object.values(BN_TUTORIALS).filter(Boolean).length.toLocaleString('bn-BD');
+const title = 'ক্লড (Claude) কী? Claude Code গাইড, বাংলায় | Claude in Bangla';
+const description = `ক্লড (Claude) হলো Anthropic-এর বানানো AI assistant। বাংলায় জানুন Claude আর Claude Code কী, কীভাবে install করবেন, আর ${tutorialCount}টা টিউটোরিয়ালে হাতে-কলমে প্রথম project বানান। Claude Code guide in Bangla.`;
+
 export const metadata: Metadata = {
-  title: { absolute: 'Claude Code গাইড : বাংলায় | Claude Code in Bangla' },
-  description:
-    'Claude Code শিখুন বাংলায়। ইনস্টলেশন, সেটআপ, এবং প্রথম প্রজেক্ট তৈরি করুন। কোনো পূর্ব অভিজ্ঞতা লাগবে না। A complete Claude Code guide in Bangla.',
+  title: { absolute: title },
+  description,
   alternates: {
     canonical: 'https://claudecodeguide.dev/bn',
     languages: {
@@ -35,8 +42,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     images: [ogImage('bn', 'Claude Code in Bangla')],
-    title: 'Claude Code গাইড : বাংলায় | Claude Code in Bangla',
-    description: 'Claude Code শিখুন বাংলায়। ইনস্টলেশন থেকে প্রথম প্রজেক্ট পর্যন্ত।',
+    title,
+    description,
     type: 'article',
     url: 'https://claudecodeguide.dev/bn',
   },
