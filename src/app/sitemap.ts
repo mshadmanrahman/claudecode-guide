@@ -126,7 +126,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
-    ...["for-designers", "for-teachers"].map((hub) => ({
+    ...["tutorials", "for-designers", "for-teachers"].map((hub) => ({
       url: `${baseUrl}/bn/${hub}`,
       changeFrequency: "weekly" as const,
       priority: 0.6,

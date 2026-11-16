@@ -102,21 +102,21 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
         headline={tutorial.title}
         description={tutorial.description}
         url={`https://claudecodeguide.dev${prefix}/tutorials/${slug}`}
-        crumbs={[{ name: "Home", path: `${prefix || "/"}` }, ...(prefix ? [] : [{ name: "Tutorials", path: "/tutorials" }]), { name: tutorial.title, path: `${prefix}/tutorials/${slug}` }]}
+        crumbs={[{ name: "Home", path: `${prefix || "/"}` }, { name: prefix ? t.tutorials : "Tutorials", path: `${prefix}/tutorials` }, { name: tutorial.title, path: `${prefix}/tutorials/${slug}` }]}
       />
       <article className="mx-auto w-full max-w-3xl px-4 pt-10 pb-24 sm:px-6 md:pt-12">
         <TutorialTracker slug={tutorial.slug} title={tutorial.title} />
 
         <div className="mb-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
           <nav aria-label="Breadcrumb" className="font-mono text-xs text-[var(--muted)]">
-            <Link href="/tutorials" className={`rounded-sm hover:text-[var(--ink)] ${focusRing}`}>
+            <Link href={`${prefix}/tutorials`} className={`rounded-sm hover:text-[var(--ink)] ${focusRing}`}>
               {t.tutorials}
             </Link>
             {position && (
               <>
                 <span aria-hidden="true"> / </span>
                 <Link
-                  href={`/tutorials#${position.track.id}`}
+                  href={`${prefix}/tutorials#${position.track.id}`}
                   className={`rounded-sm hover:text-[var(--ink)] ${focusRing}`}
                 >
                   {trackTitle(position.track.id, position.track.title, locale)}
@@ -247,7 +247,7 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
 
           {position && !position.next && (
             <Link
-              href="/tutorials"
+              href={`${prefix}/tutorials`}
               className={`glass flex flex-col gap-1.5 rounded-xl p-5 transition-colors hover:border-[var(--acc)] ${focusRing}`}
             >
               <span className="font-mono text-xs text-[var(--muted)]">{t.endOfTrack}</span>

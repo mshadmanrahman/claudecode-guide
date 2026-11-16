@@ -65,12 +65,6 @@ const nextConfig: NextConfig = {
         destination: '/docs/templates',
         permanent: true,
       },
-      // No Bangla tutorials index yet; only /bn/tutorials/[slug] exists.
-      {
-        source: '/bn/tutorials',
-        destination: '/bn',
-        permanent: false,
-      },
     ];
   },
   async headers() {

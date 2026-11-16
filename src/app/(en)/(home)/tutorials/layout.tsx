@@ -6,7 +6,14 @@ export const metadata: Metadata = {
   title: 'Claude Code Tutorials, Step by Step',
   description:
     'Hands-on Claude Code tutorials: write your first CLAUDE.md, ship a landing page, build skills and automate workflows. Free, beginner-friendly.',
-  alternates: { canonical: 'https://claudecodeguide.dev/tutorials' },
+  alternates: {
+    canonical: 'https://claudecodeguide.dev/tutorials',
+    languages: {
+      'x-default': 'https://claudecodeguide.dev/tutorials',
+      en: 'https://claudecodeguide.dev/tutorials',
+      bn: 'https://claudecodeguide.dev/bn/tutorials',
+    },
+  },
   openGraph: {
     images: [ogImage('tutorials', 'Claude Code Tutorials')],
     title: 'Claude Code Tutorials: Step-by-Step Guides for Every Skill Level',
