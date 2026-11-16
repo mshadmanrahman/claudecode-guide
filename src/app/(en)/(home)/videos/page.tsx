@@ -1,11 +1,17 @@
+import { SOCIAL } from "@/lib/site";
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { ogImage } from '@/lib/og/image';
+import { YouTubeEmbed } from '@/components/youtube-embed';
+import { getPublicVideos } from '@/data/youtube-videos';
+
+/** Rebuild hourly so a scheduled video appears soon after it goes public. */
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Videos: every Short, with its guide',
+  title: 'Videos: YouTube episodes and Shorts, with their guides',
   description:
-    'Saw a Claude Short on TikTok, Instagram or YouTube? Find the episode here and open the free step-by-step guide behind it.',
+    'Watch the Claude videos from YouTube, TikTok and Instagram, and open the free step-by-step guide behind each one.',
   alternates: { canonical: 'https://claudecodeguide.dev/videos' },
   openGraph: { images: [ogImage('videos', 'Videos')] },
 };
@@ -83,20 +89,72 @@ function EpisodeList({ id, heading, note, episodes }: { id: string; heading: str
   );
 }
 
+function LongForm() {
+  const videos = getPublicVideos();
+  if (videos.length === 0) return null;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': videos.map((v) => ({
+      '@type': 'VideoObject',
+      name: v.title,
+      description: v.summary,
+      thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
+      embedUrl: `https://www.youtube-nocookie.com/embed/${v.id}`,
+      contentUrl: `https://www.youtube.com/watch?v=${v.id}`,
+      ...(v.publishAt ? { uploadDate: v.publishAt } : {}),
+    })),
+  };
+  return (
+    <section aria-labelledby="youtube" className="mt-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <h2 id="youtube" className="text-xl font-semibold text-fd-foreground">
+        YouTube episodes
+      </h2>
+      <p className="mt-1 text-sm text-fd-muted-foreground">
+        Longer videos, including the &quot;When AI Gets It Wrong&quot; series. Plays here; nothing loads from YouTube until you press play.
+      </p>
+      <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+        <a href={`${SOCIAL.youtubePlaylist}&utm_source=claudecodeguide&utm_medium=videos-page&utm_campaign=when-ai-gets-it-wrong`} target="_blank" rel="noopener noreferrer" className="font-medium text-fd-foreground underline underline-offset-2 hover:text-fd-primary">
+          Watch the full &quot;When AI Gets It Wrong&quot; playlist
+        </a>
+        <a href={`${SOCIAL.youtube}?utm_source=claudecodeguide&utm_medium=videos-page`} target="_blank" rel="noopener noreferrer" className="font-medium text-fd-foreground underline underline-offset-2 hover:text-fd-primary">
+          Subscribe on YouTube
+        </a>
+      </p>
+      <ul className="mt-4 grid gap-8 sm:grid-cols-2">
+        {videos.map((v) => (
+          <li key={v.id}>
+            <YouTubeEmbed id={v.id} medium="videos-page" />
+            <p className="text-sm text-fd-muted-foreground">{v.summary}</p>
+            <Link
+              href={v.guide.href}
+              className="mt-1 inline-block text-sm font-medium text-fd-foreground underline underline-offset-4"
+            >
+              Read the guide: {v.guide.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export default function VideosPage() {
   return (
     <div className="mx-auto w-full max-w-4xl px-4 pb-24 pt-12 md:px-6 md:pt-16">
       <h1 className="m-0 text-3xl font-semibold tracking-[-0.035em] text-fd-foreground sm:text-4xl">
-        Saw a Short? Here&apos;s the guide.
+        Saw a video? Here&apos;s the guide.
       </h1>
       <p className="mt-4 max-w-2xl text-lg text-fd-muted-foreground">
-        Every episode from TikTok, Instagram and YouTube, newest habits at the bottom. Each one opens the free,
-        step-by-step page behind it. First time using Claude?{' '}
+        The longer YouTube episodes first, then every Short from TikTok, Instagram and YouTube. Each one links to
+        the free, step-by-step page behind it. First time using Claude?{' '}
         <Link href="/start" className="font-medium text-fd-foreground underline underline-offset-4">
           Start here
         </Link>
         .
       </p>
+
+      <LongForm />
 
       <EpisodeList
         id="build"

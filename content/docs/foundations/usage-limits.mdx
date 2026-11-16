@@ -1,0 +1,63 @@
+---
+title: "When You Run Out of Usage in Claude Code"
+seoTitle: "Claude Code Usage Limit Reached: What to Do Next"
+description: "Hit your 5-hour or weekly limit? What each message means, why switching models usually won't help, how auto-continue works, and when usage credits are worth turning on."
+---
+
+## Your plan has two clocks
+
+On Pro, Max, Ultra, Team and Enterprise, Claude Code draws from an allowance that resets on two windows: a rolling five-hour window and a weekly one. Claude chat and Cowork draw from the same allowance. When either window runs out, Claude stops mid-task and tells you which one.
+
+## Read the message first
+
+| Message | What it means | What helps |
+|---|---|---|
+| "You've hit your 5-hour limit" or "weekly limit" | Your plan allowance for that window is used up. It covers every model. | Wait for the reset, or turn on usage credits. Switching models won't help. |
+| "You've hit your Opus limit" or "Sonnet limit" | You've used up one model family's share. | Switch to a model outside that family with `/model` and keep going. |
+| "You've hit your individual spend limit" or "org's monthly spend limit" | You're on usage credits and they hit a cap. | Raise the cap, or wait for the plan reset if the message names one. |
+| A context or auto-compact warning | Not a usage limit. The conversation is nearly full. | See [context window](/docs/foundations/context-window). |
+
+Claude Code renamed the "session limit" to the "5-hour limit" in 2.1.312. Same window, clearer name. Source for the table: Anthropic's [manage costs](https://code.claude.com/docs/en/costs) page, read 16 November 2026.
+
+## Let it wait for you
+
+Since 2.1.234, Claude Code waits in the open session and picks the task back up after the reset. It's on by default in interactive sessions signed in with a claude.ai subscription. You'll see two lines at the bottom:
+
+```text
+Usage limit reached · limit resets 3:45pm
+Continuing automatically at 3:45pm · Esc to cancel
+```
+
+Keep the session open. At the reset, Claude continues where it stopped; it doesn't resend your last message. If the laptop slept through the reset for more than about 30 minutes, press Enter to continue.
+
+Three things to know:
+
+- **Permission prompts still stop it.** The continued task asks for permissions as usual, so it can sit on a prompt while you're away. [Why unattended runs stop](/docs/patterns/unattended-runs) covers how to avoid that.
+- **It gives up after three tries.** After three automatic continuations, run `/rate-limit-options` to choose what happens next.
+- **Esc cancels it.** So does `/rate-limit-options` and picking **Don't continue automatically**.
+
+## The options menu
+
+Since 2.1.323, when a model needs usage credits that are off or used up, Claude Code shows a menu: stop, switch to usage credits, or upgrade. [Fast mode](/docs/foundations/fast-mode) always needs credits, so this is where most people first see it.
+
+## Usage credits: pay to keep going
+
+Usage credits let you work past your plan's limit at API prices. Run `/usage-credits`:
+
+- **On Pro, Max or Ultra** it opens **Settings > Usage** on claude.ai, where you turn credits on and set a monthly spend limit.
+- **On Team or Enterprise with billing access** it opens your organization's usage settings.
+- **On Team or Enterprise without billing access** it asks you to confirm, then sends a request to your admins.
+
+Set a monthly spend limit when you turn them on. Without one, `/usage` shows "Unlimited".
+
+## Hit the limit less often
+
+Run `/usage`. On a subscription it shows what used your allowance (skills, subagents, plugins, MCP servers) and suggests changes for anything behind 10% or more of recent usage. Press `f` to have Claude Code apply the ones it can.
+
+The usual culprits are long sessions that never get cleared, a scheduled task firing every few minutes, and effort left at `max`. [Cost optimization](/docs/foundations/cost-optimization) and [prompt caching](/docs/foundations/prompt-caching) go deeper.
+
+## Related
+
+- [Pro vs Max](/docs/comparisons/pro-vs-max)
+- [Fast mode and what it costs](/docs/foundations/fast-mode)
+- [Which model should I use?](/docs/foundations/model-selection)

@@ -48,7 +48,7 @@ Each of these costs you one slower, more expensive turn. After that the new pref
 | Action | What actually happens |
 |---|---|
 | Switching models with `/model` | Each model has its own cache, so the next turn rereads the whole session. Claude Code asks you to confirm while the cache is still warm. |
-| Changing effort level | On most models, a full reread. On Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.1 with an API key or a Claude subscription, the cache survives. On Bedrock and Google Cloud it does not. |
+| Changing effort level | On most models, a full reread. On Opus 5.5, Sonnet 5.5, Haiku 5.5 and the Fable models with an API key or a Claude subscription, the cache survives. On Bedrock and Google Cloud it does not. |
 | Turning on fast mode | One full reread the first time in a conversation. Turning it off and on again later keeps the cache. |
 | Connecting or removing an MCP server | Usually free: tool search is on by default and keeps the tool list fixed for the conversation. Without tool search, adding or removing tools breaks the cache. |
 | Enabling a plugin | Free for skills, commands, agents and hooks. A plugin that brings MCP servers follows the MCP rules above. |

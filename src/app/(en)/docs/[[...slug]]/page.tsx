@@ -19,6 +19,7 @@ import { ArticleHeader } from "@/components/docs/article-header";
 import { PromptCard } from "@/components/prompt-card";
 import { FromClaude } from "@/components/from-claude";
 import { UseCaseMeta } from "@/components/use-case-meta";
+import { YouTubeEmbed } from "@/components/youtube-embed";
 import { AuthorBio } from "@/components/author-bio";
 import { UseCaseWalkthrough } from "@/components/use-case-walkthrough";
 import {
@@ -79,6 +80,7 @@ const mdxComponents = {
   PromptCard,
   FromClaude,
   UseCaseMeta,
+  YouTubeEmbed,
   AuthorBio,
   UseCaseWalkthrough,
   ProjectFolderIllustration,

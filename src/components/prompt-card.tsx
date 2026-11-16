@@ -16,7 +16,7 @@ export function PromptCard({
   id,
   variant = 'primary',
   kicker = 'Try this prompt',
-  model = 'Opus 4.7 or Sonnet 4.6',
+  model = 'Opus 5.5 or Sonnet 5.5',
 }: PromptCardProps) {
   return (
     <div className="not-prose my-8">

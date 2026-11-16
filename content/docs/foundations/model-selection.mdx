@@ -9,14 +9,14 @@ This page used to say "Sonnet for doing, Opus for deciding." The Claude 5.5 mode
 
 So the dial you reach for first is effort, not the model. If a task is simple, `/effort low` on Opus 5.5 thinks less and costs less, and Anthropic says `low` comes close to Opus 5 at `high` on several coding evaluations. Switch to Sonnet 5.5 when you need speed or you're running a lot of the same small job, since it costs half as much per token.
 
-| | Fable 5.1 | Opus 5.5 | Sonnet 5.5 | Haiku 5.5 |
+| | Fable 5.2 | Opus 5.5 | Sonnet 5.5 | Haiku 5.5 |
 |---|---|---|---|---|
-| Price per million tokens (input / output) | $10 / $50 | $4 / $20 | $2 / $10 | $0.10 / $0.50 (prompts up to 100K) |
+| Price per million tokens (input / output) | $8 / $40 | $4 / $20 | $2 / $10 | $0.10 / $0.50 (prompts up to 100K) |
 | Default effort | `high` | `medium` | `high` | `medium` |
 | Context window | 1M | 1M | 1M | 1M |
-| Speed | Slower | Moderate | Fast | Fastest |
+| Speed | Moderate | Moderate | Fast | Fastest |
 
-From Anthropic's [models overview](https://platform.claude.com/docs/en/about-claude/models/overview), checked 8 October 2026. Opus costs 2x Sonnet ($4 / $2 = 2), Fable costs 2.5x Opus ($10 / $4 = 2.5), and on prompts up to 100K tokens Haiku costs a twentieth of Sonnet ($2 / $0.10 = 20).
+From Anthropic's [models overview](https://platform.claude.com/docs/en/about-claude/models/overview), checked 16 November 2026. Opus costs 2x Sonnet ($4 / $2 = 2), Fable costs 2x Opus ($8 / $4 = 2), and on prompts up to 100K tokens Haiku costs a twentieth of Sonnet ($2 / $0.10 = 20).
 
 <ModelPickerMock />
 
@@ -26,9 +26,17 @@ In the terminal, `/model` and `/effort` do the same job.
 
 ## When to Use the Fable Class
 
-Fable 5.1 is Anthropic's top model. Its models page says to use it "for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short." In plain terms: try Opus 5.5 at `high` first, and move to Fable only when that still fails. It runs extra safety classifiers, so a small share of edge-case requests come back refused. Anthropic's own page: [anthropic.com/claude/fable](https://www.anthropic.com/claude/fable).
+Fable 5.2 is Anthropic's top model, released 9 November 2026. Its models page says to use it "for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short." In plain terms: try Opus 5.5 at `high` first, and move to Fable only when that still fails. It runs extra safety classifiers, so a small share of edge-case requests come back refused. Anthropic's own page: [anthropic.com/claude/fable](https://www.anthropic.com/claude/fable).
 
-**Pricing:** $10 / $50 per million tokens, the most expensive of the four.
+**Pricing:** $8 / $40 per million tokens, still the most expensive of the four, but cheaper than Fable 5.1 was ($10 / $50). Cache reads cost $0.20 per million, 2.5% of the input price.
+
+**If you picked Fable 5.1 before.** Claude Code 2.1.321 moved saved Fable 5.1 picks to the `fable` alias, which now points at Fable 5.2. To go back for a while, run `/model claude-fable-5-1`.
+
+**Fast mode on Fable** runs up to 2.5x faster at $16 / $80 and bills usage credits, not your plan. See [fast mode and what it costs](/docs/foundations/fast-mode).
+
+Prefer to watch? This video walks through Fable 5.2 and the 5.5 models and when each one is worth it.
+
+<YouTubeEmbed id="7HWB0ytfksY" medium="docs" />
 
 ## When to Use the Opus Class
 

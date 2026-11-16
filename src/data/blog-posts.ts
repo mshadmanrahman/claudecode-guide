@@ -1898,8 +1898,74 @@ export const register: Register = on =&gt; {
 <p>Full reference: <a href="https://code.claude.com/docs/en/plugins/mods/overview">Mods overview</a> in the Claude Code docs. For the older, settings-file kind of hook, see <a href="/docs/patterns/hooks">hooks</a> in this guide.</p>
 `,
   },
-];
+  {
+    slug: "prompting-fable-5-2",
+    title: "How Prompting Changed With Fable 5.2",
+    description: "Fable 5.2 is the new default in Claude Code. Some habits that worked on Fable 5.1 and Opus 5.5 now cost you time or tokens. What to change, from Anthropic's own prompting guide.",
+    seoTitle: "Prompting Claude Fable 5.2: What Changed and What to Remove",
+    date: "2026-11-16",
+    author: "Shadman Rahman",
+    tags: ["claude-code", "fable-5", "prompting", "claude-md"],
+    content: `<p><em>Fable 5.2 became the default model in Claude Code 2.1.321. It listens more closely than the models before it, and that changes which prompts help and which ones get in the way. Everything below comes from Anthropic's <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2">Prompting Claude Fable 5.2</a> guide, which I read in full on 16 November 2026.</em></p>
 
+<h2>Effort is now the main dial</h2>
+<p>On Fable 5.1 you could write "answer directly without deliberating" and get a quick reply. On Fable 5.2 that line no longer stops the model from thinking at medium effort and above. At high effort it thinks before almost every reply, including a reply to "hi". So if simple turns feel slow or expensive, lower the effort instead of asking it to think less.</p>
+<p>Anthropic's suggested ladder:</p>
+<ul>
+<li><strong>low</strong> for quick back-and-forth and well-specified tasks. On coding evaluations, Fable 5.2 at low scored close to what Fable 5.1 did at higher effort.</li>
+<li><strong>medium</strong> for interactive coding, chat and everyday work.</li>
+<li><strong>high</strong> (the default) for hard coding, research and long unattended runs.</li>
+<li><strong>xhigh</strong> and <strong>max</strong> only where you've measured a gain. They use many more tokens.</li>
+</ul>
+<p>One thing effort doesn't control is how long the answer is. Effort has little effect on reply length, so ask for the length you want in the prompt.</p>
+
+<h2>Tell it to finish</h2>
+<p>At low and medium effort, Fable 5.2 sometimes ends a turn early: it lists what's left, offers to continue, or stops at a timeout. Anthropic's guide has a "Finishing work" block for your system prompt or CLAUDE.md that tells it to work through ordinary errors and leave real blockers alone. In their replay test it halved the number of sessions that stopped with work left, at roughly 30 percent more output tokens.</p>
+<p>When you approve something, be specific. "Yes, run the migration on the staging database" works better than "go" or a thumbs-up.</p>
+
+<h2>Say who owns the code</h2>
+<p>This one surprised me. Fable 5.2 pays attention to whose code it's touching. Give it no ownership line and it tends to add to the existing structure, even when that duplicates code. Add this line and it starts cleaning up:</p>
+<pre><code>You are the owner and long-term maintainer of this codebase, and its design is up to you.</code></pre>
+<p>In Anthropic's tests on small coding tasks, the model merged duplicated code in under 10 percent of runs without that sentence and in about 75 percent with it. The cost is real, though: output tokens rose by about 70 to 80 percent, and it made changes nobody asked for, mostly new tests and docs. A "no drive-by refactors" rule earlier in the prompt doesn't cancel it. So use the line on your own projects, and leave it out when you're editing someone else's code and want a small diff.</p>
+
+<h2>Ask for progress lines</h2>
+<p>During long runs of tool calls, Fable 5.2 can go quiet for a while. If you're watching, one sentence fixes most of it:</p>
+<pre><code>Every few tool calls, give the user a one-line update on where things stand.</code></pre>
+<p>If nobody is watching, skip it. Anthropic recommends the model for long asynchronous work where nobody needs updates.</p>
+
+<h2>Clear out old caution</h2>
+<p>Fable 5.2 treats any rule with "never" in it as absolute. Over months, a CLAUDE.md and a memory folder pile up rules like "never retry" or "stop at the first error" that made sense once. The guide's advice:</p>
+<ul>
+<li>Delete notes whose reason no longer holds.</li>
+<li>List the routine steps that need no approval. "Act more freely" is too vague.</li>
+<li>Rewrite "never delete files" as "ask for approval before deleting files" if you want to keep a say.</li>
+</ul>
+<p>Keep your own confirmation step for risky or irreversible actions.</p>
+
+<h2>Review prompts written for older models</h2>
+<p>Go through your system prompts, skills, agent files and memory before you lean on Fable 5.2. The guide names these as worth removing or testing:</p>
+<ul>
+<li><strong>Lines that tell it to delegate.</strong> In a harness that invites subagents, it delegates readily, and subagents can be a large share of a session's cost.</li>
+<li><strong>A token budget shown in the prompt.</strong> Removing a large one lowered cost in Anthropic's coding tests with the same results.</li>
+<li><strong>Instructions to think less.</strong> They don't work anymore. Lower effort instead.</li>
+<li><strong>Strict writing rules.</strong> A limit like "one instruction per sentence, 20 words or fewer" makes its prose choppy, because it follows the rule closely.</li>
+<li><strong>Requests to write out its reasoning in the reply.</strong> These can trigger a safety refusal. Read the thinking blocks instead.</li>
+</ul>
+
+<h2>If you call the API directly</h2>
+<p>Fable 5.2 keeps its earlier thinking between turns. If your code edits the system prompt, the tools or an earlier message mid-conversation, the next request can fail with a 400 error. Put new instructions in the newest turn instead, and keep the history append-only. Check Anthropic's <a href="https://platform.claude.com/docs/en/models/fable-5-2/migration-guide">migration guide</a> for the other API changes.</p>
+
+<h2>Where to start</h2>
+<ol>
+<li>Pick your effort level on purpose. Medium for chatting, high for long jobs.</li>
+<li>Read your CLAUDE.md, skills and memory, and remove what the list above describes.</li>
+<li>Run your longest task and watch where it stops early, asks for approvals it doesn't need, goes quiet or adds code where you wanted it restructured.</li>
+<li>Add one fix at a time and check what it costs.</li>
+</ol>
+<p>Fable 5.2 costs $8 per million input tokens and $40 per million output, twice Opus 5.5. For when it's worth that, see <a href="/docs/foundations/model-selection">which model to use</a>, and if you want it faster, read <a href="/docs/foundations/fast-mode">what fast mode costs</a> first. I also made a short video on picking between Fable and the 5.5 models: <a href="https://www.youtube.com/watch?v=7HWB0ytfksY&amp;utm_source=claudecodeguide&amp;utm_medium=blog&amp;utm_campaign=claude-fable-5-2">Claude Fable 5.2 and 5.5 models explained</a>. More are on the <a href="/videos">videos page</a>.</p>
+`,
+  },
+];
 // Sorted newest first for display
 export function getSortedPosts(): BlogPost[] {
   return [...blogPosts].sort(

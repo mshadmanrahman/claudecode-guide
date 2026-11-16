@@ -38,7 +38,22 @@ Every line in a release starts with a verb. **Added** is new capability. **Chang
 
 ## What changed recently, by what it affects
 
-Checked against the official changelog on October 28, 2026, up to version 2.1.312 (October 27).
+The November items below were checked against the official changelog on November 16, 2026, versions 2.1.319 to 2.1.325. Everything under them was checked on October 28, up to version 2.1.312 (October 27).
+
+### New in November
+
+- **Fable 5.2 is the default Fable** (`claude-fable-5-2`), with 1M context at $8 / $40 per million tokens and $0.20 cache reads, down from Fable 5.1's $10 / $50. Saved Fable 5.1 picks move to the `fable` alias; `/model claude-fable-5-1` switches back (2.1.321). See [model selection](/docs/foundations/model-selection).
+- **Fast mode says which model it's on**, and when fast serving fails it tries standard speed on the same model before anything else (2.1.321). Vertex gets fast mode in the global, us and eu regions (2.1.322). See [fast mode](/docs/foundations/fast-mode).
+- **Running out of credits gives you a menu.** When a model needs usage credits that are off or used up, you can stop, switch to usage credits or upgrade (2.1.323). See [when you run out of usage](/docs/foundations/usage-limits).
+- **`permissions.denyInsteadOfPrompting`** denies any call that would wait on a prompt, and the turn carries on (2.1.319). Built for runs nobody is watching. See [why unattended runs stop](/docs/patterns/unattended-runs).
+- **Scheduled tasks and `/loop` ask before running a skill that declares `allowed-tools` or hooks.** Add `Skill(name)` to `permissions.allow` to keep them running on their own (2.1.325).
+- **Sandboxed Bash follows the normal permission flow by default.** Set `sandbox.autoAllowBashIfSandboxed: true` to get the old no-prompt behavior back (2.1.325).
+- **"Always allow" in the desktop app, IDE and SDK** offers a rule only when saving it would really allow that command next time (2.1.325).
+- **Self-paced `/loop` ends** when a turn finishes without scheduling the next one (2.1.319).
+- **`/security-review` and MCP sign-in now ask you first** before Claude runs them (2.1.323).
+- **Plugin errors explain themselves.** A plugin your repo's settings enable but you haven't installed now says so and gives the install command (2.1.323).
+- **Code Mode** is an experimental opt-in where Claude writes JavaScript to call its tools (2.1.323). Anthropic's [Code Mode page](https://code.claude.com/docs/en/code-mode) covers how to turn it on.
+- **`/logout` in a background session signs out every session**, deletes MCP logins and plugin secrets, and ends that session (2.1.323).
 
 ### Models
 
@@ -114,4 +129,4 @@ An upgrade usually changes the system prompt or tool list, so the first session 
 - [Troubleshooting](/docs/foundations/troubleshooting): when an update breaks something
 - [Environment variables](/docs/foundations/environment-variables): the update switches and more
 
-Source: Anthropic's [Claude Code changelog](https://code.claude.com/docs/en/changelog), versions 2.1.282 to 2.1.312, read October 28, 2026.
+Source: Anthropic's [Claude Code changelog](https://code.claude.com/docs/en/changelog), versions 2.1.282 to 2.1.312 read October 28, 2026, and versions 2.1.319 to 2.1.325 read November 16, 2026.

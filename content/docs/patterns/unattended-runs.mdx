@@ -1,0 +1,78 @@
+---
+title: "Why Unattended Claude Code Runs Stop (and How to Keep Them Going)"
+seoTitle: "Claude Code Unattended Runs: Stop Waiting on Permission Prompts"
+description: "You leave a loop, a scheduled task or an overnight run going, and come back to find it stuck on a prompt. The November 2026 settings that fix it: denyInsteadOfPrompting, Skill() rules and sandboxed Bash."
+---
+
+## The run didn't fail. It's waiting for you.
+
+Picture this. You start a `/loop` before lunch, or a scheduled task that tidies a folder every hour. You come back and almost nothing happened. Somewhere early on, Claude wanted to run a command that needed your OK, showed a permission prompt, and then sat there with nobody to answer it.
+
+A prompt is the right call when you're at the keyboard. In a run nobody is watching, it stalls everything behind it. Claude Code 2.1.319 to 2.1.325 added settings for exactly this case, and changed two defaults that can cause it.
+
+## Deny instead of waiting
+
+Set `permissions.denyInsteadOfPrompting` to `true`, and any call that would show a prompt is denied instead. Claude gets told no, and the turn carries on, usually by trying another route or reporting what it couldn't do.
+
+```json title="~/.claude/settings.json"
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "denyInsteadOfPrompting": true
+  }
+}
+```
+
+This is Anthropic's own example: start in auto mode, and deny whatever would still fall back to a prompt. A call still goes ahead when an allow rule, your permission mode, or auto mode approves it.
+
+Two details matter:
+
+- **A repository can't set it for you.** It works in your user settings, managed settings or `--settings`, not in a project's `.claude/settings.json`.
+- **For a single `-p` run**, pass `--permission-prompts none` instead of changing your settings.
+
+It needs Claude Code 2.1.319 or later. See [permissions](/docs/foundations/permissions) for how allow rules and modes work.
+
+## Scheduled tasks now ask before some skills
+
+Since 2.1.325, scheduled tasks and `/loop` ask before running a skill that declares `allowed-tools` or hooks. That's a safety change: a skill like that can grant itself tools, so Claude Code checks with you first.
+
+If a loop you rely on runs one of those skills, add it to your allow list by name:
+
+```json
+{
+  "permissions": {
+    "allow": ["Skill(weekly-report)"]
+  }
+}
+```
+
+Replace `weekly-report` with your skill's name. See [skills](/docs/patterns/skills).
+
+## Sandboxed Bash prompts again by default
+
+Before this change, a command running inside the sandbox ran without a prompt. Now sandboxed Bash follows the normal permission flow, so your allow rules and permission mode decide. A setup that ran quietly last month can start prompting.
+
+To get the old behavior back, keep the sandbox on and set:
+
+```json
+{
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  }
+}
+```
+
+`deny` rules and scoped `ask` rules such as `Bash(git push *)` still apply with this on.
+
+## "Always allow" offers fewer rules
+
+In the desktop app, VS Code and the Agent SDK, "Always allow" now offers to save a rule only when that rule would really allow the same command next time (2.1.325). Before, it could save a rule that didn't match, and a scheduled task would hit the same prompt again. If you see no rule offered, write the allow rule by hand.
+
+## Other things that stop a run
+
+- **A usage limit.** Claude Code can wait out the reset and continue on its own. See [when you run out of usage](/docs/foundations/usage-limits).
+- **Retries that never end.** `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` caps how long a run waits out 429 and 529 errors. See [headless mode](/docs/patterns/headless-mode).
+- **A self-paced `/loop` that forgot to reschedule.** Since 2.1.319 it ends when a turn finishes without scheduling the next one. See [autonomous loops](/docs/patterns/autonomous-loops).
+
+Sources: Anthropic's [settings reference](https://code.claude.com/docs/en/settings-reference) and [changelog](https://code.claude.com/docs/en/changelog), versions 2.1.319 to 2.1.325, read 16 November 2026.

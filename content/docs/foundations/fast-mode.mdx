@@ -1,0 +1,56 @@
+---
+title: "Fast Mode in Claude Code: What It Costs and When to Use It"
+seoTitle: "Claude Code Fast Mode: Price, Fable 5.2 and Usage Credits"
+description: "Fast mode makes Claude up to 2.5x faster at double the token price, and on Pro and Max it bills usage credits, not your plan. When it pays off and how to switch it on safely."
+---
+
+## Faster answers, billed separately
+
+Fast mode runs the same model on faster serving. Anthropic says it is up to 2.5x faster. You pay for that speed twice over: the token price doubles, and on a Pro, Max or Ultra plan every fast-mode request draws on usage credits, even when your plan still has usage left.
+
+That second part catches people out. You can have most of your weekly allowance unused and still see a bill for fast mode.
+
+| Model | Standard price (input / output) | Fast mode price |
+|---|---|---|
+| Fable 5.2 | $8 / $40 | $16 / $80 |
+| Opus 5.5 | $4 / $20 | $8 / $40 |
+| Opus 5 and Opus 4.8 | see the models page | $10 / $50 |
+
+Prices are per million tokens, from Anthropic's [fast mode page](https://code.claude.com/docs/en/fast-mode) and [models overview](https://platform.claude.com/docs/en/about-claude/models/overview), checked 16 November 2026. On Fable 5.2 and Opus 5.5 fast mode doubles the price ($8 x 2 = $16 on Fable input, $4 x 2 = $8 on Opus 5.5). Sonnet and Haiku have no fast mode.
+
+## When it pays off
+
+Use it when you are sitting there waiting and the wait is the cost: a live demo, a pairing session, a quick fix while someone watches your screen. Skip it for background work, long agent runs and anything you'll check later. Those jobs don't get better because they finished sooner, and they burn the most tokens.
+
+## Turn it on at the start of a conversation
+
+Type `/fast` to toggle it. A ↯ icon shows while it's on.
+
+Turn it on before your first message, not halfway through. Fast and standard modes keep separate prompt caches, so switching on mid-conversation charges the whole conversation so far at the uncached fast price. Turning it off and back on later keeps the cache. More on that in [prompt caching](/docs/foundations/prompt-caching).
+
+### On Fable 5.2
+
+Fable 5.2 fast mode needs Claude Code 2.1.321 or later. A saved `"fastMode": true` in your settings does nothing on Fable 5.2 until you run `/fast` once while you're on Fable 5.2. Anthropic set it up that way so nobody lands on the most expensive option by accident.
+
+### Turn on usage credits first
+
+On a subscription, fast mode only works with usage credits switched on. Run `/usage-credits`, or turn them on in **Settings > Usage** on claude.ai. On Team and Enterprise, an Owner has to enable fast mode for the organization first.
+
+If your credits run out mid-session, Claude Code shows "Fast mode disabled · Out of usage credits" and carries on at standard speed. Since 2.1.321, when fast serving fails for another reason it first retries the same model at standard speed.
+
+## Opus 4.8 fast mode ends November 30
+
+Anthropic deprecated fast mode on Opus 4.8 on October 30, 2026, and removes it on November 30, 2026. After that date the API rejects those requests. If you still run Opus 4.8 with fast mode, switch to Opus 5.5 or run `/fast off`.
+
+## Keep it from switching on by itself
+
+Normally `/fast` saves your choice, so new sessions start fast too. Two settings change that:
+
+- `"fastModePerSessionOptIn": true` makes every session start with fast mode off, so you choose it each time. Team and Enterprise owners can set it for the whole organization through managed settings.
+- `CLAUDE_CODE_DISABLE_FAST_MODE=1` turns fast mode off entirely. See [environment variables](/docs/foundations/environment-variables).
+
+## Related
+
+- [Which model should I use?](/docs/foundations/model-selection)
+- [When you run out of usage](/docs/foundations/usage-limits)
+- [Cost optimization](/docs/foundations/cost-optimization)

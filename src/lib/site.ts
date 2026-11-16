@@ -9,6 +9,8 @@ export const SOCIAL = {
   linkedin: "https://www.linkedin.com/in/shadmanrahman",
   substack: "https://shadmanrahman.substack.com/",
   github: "https://github.com/mshadmanrahman",
+  youtube: "https://www.youtube.com/@connectshadman",
+  youtubePlaylist: "https://www.youtube.com/playlist?list=PLAfBPbUc3RbA",
   repo: "https://github.com/mshadmanrahman/claudecode-guide",
 } as const;
 
@@ -18,4 +20,5 @@ export const SAME_AS: ReadonlyArray<string> = [
   SOCIAL.linkedin,
   SOCIAL.substack,
   SOCIAL.github,
+  SOCIAL.youtube,
 ];

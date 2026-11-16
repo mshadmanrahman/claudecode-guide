@@ -53,6 +53,7 @@ const COLUMNS: ReadonlyArray<FooterColumn> = [
     links: [
       { label: "X", href: SOCIAL.x, external: true },
       { label: "LinkedIn", href: SOCIAL.linkedin, external: true },
+      { label: "YouTube", href: SOCIAL.youtube, external: true },
       { label: "GitHub", href: SOCIAL.repo, external: true },
     ],
   },

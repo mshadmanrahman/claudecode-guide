@@ -10,7 +10,7 @@ interface UseCaseMetaProps {
 export function UseCaseMeta({
   time,
   tools,
-  model = 'Opus 4.7 or Sonnet 4.6',
+  model = 'Opus 5.5 or Sonnet 5.5',
 }: UseCaseMetaProps) {
   return (
     <div className="not-prose my-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-fd-border py-3 text-sm text-fd-muted-foreground">
