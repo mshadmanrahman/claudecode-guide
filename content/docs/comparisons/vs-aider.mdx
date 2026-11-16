@@ -17,6 +17,10 @@ relatedLinks:
     description: "Every Claude Code command, shortcut, and flag."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+Use Claude Code if you want a full agent that finds the files itself, runs your tests and remembers your project across sessions. Use Aider if you want a lean, open-source editor that works with any model and changes the files you point it at. Both run in your terminal, and they don't conflict, so some people keep both.
+
 ## Two terminal tools. Very different jobs.
 
 Aider and Claude Code both run in your terminal. Both help you write code with AI. But they're doing fundamentally different things.
@@ -102,3 +106,55 @@ Aider edits the file you added and leaves the tests to you; Claude Code finds th
 ## Can you use both?
 
 Yes, and some people do. Aider for quick edits where you want model choice. Claude Code for complex multi-step tasks where you want the full agent. They don't conflict. They're just different terminals you open depending on the job.
+
+## Claude Code vs Aider questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'Is Claude Code better than Aider?',
+      answer:
+        'It depends on the job. Claude Code is a full agent that plans, edits several files, runs tests and commits. Aider is a simpler code editor that is quick to learn and lets you pick the model.',
+    },
+    {
+      question: 'What is the difference between Aider and Claude Code?',
+      answer:
+        'Aider is an open-source, model-agnostic assistant: you add files to its context and it edits them. Claude Code runs only Claude models, reads your project structure on its own, runs commands and connects to outside tools through MCP.',
+    },
+    {
+      question: 'Can I use Aider and Claude Code together?',
+      answer:
+        'Yes. Use Aider for quick edits where you want model choice, and Claude Code for complex multi-step tasks. They are different tools you open depending on the job.',
+    },
+    {
+      question: 'Does Aider work with Claude models?',
+      answer:
+        'Yes. Aider works with any LLM, including Claude, GPT, Gemini and local models. Claude Code works with Claude models only.',
+    },
+    {
+      question: 'Is Aider or Claude Code better for non-coders?',
+      answer:
+        'Claude Code. It has a desktop app, a web app and IDE extensions, while Aider is terminal-only and aimed at developers.',
+    },
+  ]}
+/>
+
+### Is Claude Code better than Aider?
+
+It depends on the job. Claude Code is a full agent that plans, edits several files, runs tests and commits. Aider is a simpler code editor that is quick to learn and lets you pick the model.
+
+### What is the difference between Aider and Claude Code?
+
+Aider is an open-source, model-agnostic assistant: you add files to its context and it edits them. Claude Code runs only Claude models, reads your project structure on its own, runs commands and connects to outside tools through MCP.
+
+### Can I use Aider and Claude Code together?
+
+Yes. Use Aider for quick edits where you want model choice, and Claude Code for complex multi-step tasks. They are different tools you open depending on the job.
+
+### Does Aider work with Claude models?
+
+Yes. Aider works with any LLM, including Claude, GPT, Gemini and local models. Claude Code works with Claude models only.
+
+### Is Aider or Claude Code better for non-coders?
+
+Claude Code. It has a desktop app, a web app and IDE extensions, while Aider is terminal-only and aimed at developers.

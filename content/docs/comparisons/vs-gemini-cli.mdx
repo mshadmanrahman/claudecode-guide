@@ -17,6 +17,10 @@ relatedLinks:
     description: "Pick the right Claude plan for your workflow."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+Use Gemini CLI for exploring a new repo, quick one-off tasks, learning to code, or when you don't want to pay for anything yet. Use Claude Code for daily professional work on a codebase you touch every day, where `CLAUDE.md`, memory and hooks carry your conventions forward. Trying both is the best move.
+
 ## Free is a real argument. It's just not the only one.
 
 Gemini CLI launched in mid-2025 and the headline was hard to ignore: Gemini 2.5 Pro in your terminal, open source, no credit card required. 60 requests per minute, 1,000 per day on the free tier. Google wasn't messing around.
@@ -82,3 +86,55 @@ The best move is to try both. Gemini CLI costs nothing to test. But once you've 
 **Use Gemini CLI** when you're exploring a new repo, doing quick one-off tasks, learning to code, or don't want to pay for anything yet. It's a solid free tool and I mean that sincerely.
 
 **Use Claude Code** when you're working professionally on a codebase you'll touch every day. When conventions matter. When you want the AI to carry context forward instead of starting from scratch every session.
+
+## Claude Code vs Gemini CLI questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'Is Claude Code better than Gemini CLI?',
+      answer:
+        'For daily professional work on the same codebase, I think so. For exploring a repo, quick one-off tasks or learning, Gemini CLI is a solid choice and I recommend it.',
+    },
+    {
+      question: 'What is the difference between Gemini CLI and Claude Code?',
+      answer:
+        'Both are AI coding agents that run in your terminal. Claude Code is built around project configuration: CLAUDE.md rules, persistent memory, hooks, skills, MCP servers and sub-agents that carry context from one session to the next.',
+    },
+    {
+      question: 'Should I try Gemini CLI before Claude Code?',
+      answer:
+        'Trying both is the best move. Gemini CLI is easy to test on a new repo, and once you have a solid CLAUDE.md with memory and hooks behind it, the difference with Claude Code shows.',
+    },
+    {
+      question: 'Is Gemini CLI better for Google Cloud projects?',
+      answer:
+        'If you work deep in Google Cloud, Firebase or Vertex AI, Gemini CLI fits those services more naturally.',
+    },
+    {
+      question: 'Why use Claude Code on a long-running project?',
+      answer:
+        'Its context compounds. CLAUDE.md, persistent memory, hooks and MCP mean the longer you use it on one project, the more it knows about your conventions and past decisions.',
+    },
+  ]}
+/>
+
+### Is Claude Code better than Gemini CLI?
+
+For daily professional work on the same codebase, I think so. For exploring a repo, quick one-off tasks or learning, Gemini CLI is a solid choice and I recommend it.
+
+### What is the difference between Gemini CLI and Claude Code?
+
+Both are AI coding agents that run in your terminal. Claude Code is built around project configuration: CLAUDE.md rules, persistent memory, hooks, skills, MCP servers and sub-agents that carry context from one session to the next.
+
+### Should I try Gemini CLI before Claude Code?
+
+Trying both is the best move. Gemini CLI is easy to test on a new repo, and once you have a solid CLAUDE.md with memory and hooks behind it, the difference with Claude Code shows.
+
+### Is Gemini CLI better for Google Cloud projects?
+
+If you work deep in Google Cloud, Firebase or Vertex AI, Gemini CLI fits those services more naturally.
+
+### Why use Claude Code on a long-running project?
+
+Its context compounds. CLAUDE.md, persistent memory, hooks and MCP mean the longer you use it on one project, the more it knows about your conventions and past decisions.

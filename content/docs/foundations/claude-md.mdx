@@ -3,6 +3,12 @@ title: "CLAUDE.md Guide: Include This, Skip That"
 seoTitle: "CLAUDE.md File Guide: What to Put In It"
 description: "CLAUDE.md best practices: what the file is, the five sections it needs, a worked example, and what to leave out so Claude Code follows your rules."
 image: /claude-md/hero.png
+checkedOn: "2026-11-16"
+sources:
+  - title: "Claude Code memory docs"
+    url: "https://code.claude.com/docs/en/memory"
+  - title: "Claude Code commands"
+    url: "https://code.claude.com/docs/en/commands"
 ---
 
 <div className="ink-diagram">
@@ -54,7 +60,7 @@ First, what's a `.md` file? It's just a text file written in **Markdown**: a sim
 
 CLAUDE.md sits at the root of your project and tells Claude Code how to behave. Think of onboarding a new team member. You wouldn't hand someone a laptop and say "go write code." You'd tell them what the project is, what tech stack you use, how you like things done, and what mistakes to avoid.
 
-That's what CLAUDE.md does. Except this team member reads your instructions perfectly, every single time, and never forgets them.
+That's what CLAUDE.md does. Except this team member reads your instructions at the start of every session, without being reminded. Claude treats the file as context and can still drift from it, so a rule that must never be broken belongs in a [PreToolUse hook](/docs/patterns/hooks).
 
 ## The Five Things Your CLAUDE.md Needs
 
@@ -146,7 +152,7 @@ If CLAUDE.md doesn't point to a custom layout like this, Claude Code has no way 
 
 ### What else Claude Code reads on its own
 
-Beyond CLAUDE.md itself, Claude Code reads a few more files without being told to. `.claude/rules/` holds one topic per markdown file: a rule with no `paths` frontmatter loads at launch like CLAUDE.md, and a rule with `paths: [glob, ...]` loads only when Claude opens a file matching that glob. `CLAUDE.local.md` sits in the same directory as CLAUDE.md, stays out of git, and gets appended right after it. CLAUDE.md can also import other files with `@path/to/file`, resolved relative to the importing file rather than your working directory, nested up to four hops deep. Separate from all of this, Claude Code keeps an auto-memory folder at `~/.claude/projects/<project>/memory/`: a `MEMORY.md` index (up to its first 200 lines or 25KB) loads at session start, and a topic file per memory loads only when a task needs it. Run `/context` to see which of these actually loaded into your current session, and `/memory` to list every CLAUDE.md and memory location across scopes or turn auto memory off. Full reference: [Claude Code memory docs](https://code.claude.com/docs/en/memory).
+Beyond CLAUDE.md itself, Claude Code reads a few more files without being told to. `.claude/rules/` holds one topic per markdown file: a rule with no `paths` frontmatter loads at launch like CLAUDE.md, and a rule with `paths: [glob, ...]` loads only when Claude opens a file matching that glob. `CLAUDE.local.md` sits in the same directory as CLAUDE.md, holds your personal preferences (add it to `.gitignore` yourself), and gets appended right after it. CLAUDE.md can also import other files with `@path/to/file`, resolved relative to the importing file rather than your working directory, nested up to four hops deep. Separate from all of this, Claude Code keeps an auto-memory folder at `~/.claude/projects/<project>/memory/`: a `MEMORY.md` index (up to its first 200 lines or 25KB) loads at session start, and a topic file per memory loads only when a task needs it. Run `/context all` and check the Memory files list to see which of these actually loaded into your current session. `/memory` lists every CLAUDE.md and memory location across scopes, including files that don't exist yet, and lets you turn auto memory off. Full reference: [Claude Code memory docs](https://code.claude.com/docs/en/memory).
 
 ## CLAUDE.md as a Router, Not Just an Index
 
@@ -197,7 +203,7 @@ Not everything belongs in CLAUDE.md. These four categories actively hurt more th
 
 Your CLAUDE.md is 2000 lines long. It has your entire coding style guide, all your project history, and your life story. Claude Code reads it all at the start of every session, eats a chunk of your context window, and starts ignoring half of it anyway.
 
-**Fix:** Keep CLAUDE.md under 100 lines. Use it as a table of contents that points to other files. Let Claude Code read those on demand.
+**Fix:** Keep CLAUDE.md under 100 lines (Anthropic's own target is under 200 per file). Use it as a table of contents that points to other files. Let Claude Code read those on demand.
 
 ### Mistake 2: No session lifecycle
 

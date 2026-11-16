@@ -17,6 +17,10 @@ relatedLinks:
     description: "Pick the right Claude plan for your workflow."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+Pick Windsurf if you want a visual IDE with an agent built in and you don't mind switching editors. Pick Claude Code if you want to keep the editor you already use and shape the agent with `CLAUDE.md`, hooks, skills and MCP servers. Windsurf is friendlier on day one; Claude Code is the stronger long-term choice.
+
 Windsurf and Claude Code are both agentic. They can both plan, write code, and execute multi-step tasks. The difference is in the philosophy: Windsurf wraps everything in a visual IDE experience. Claude Code gives you a terminal and a configuration system that goes deep.
 
 ```bash
@@ -83,3 +87,55 @@ Windsurf is $5/month cheaper at the entry level. Frankly speaking, that's not th
 ## Recommendation
 
 If you want the easiest on-ramp and don't mind switching editors, Windsurf is friendlier on day one. The visual experience is genuinely nice. But if you want depth, extensibility, and the freedom to keep using the tools you already know, Claude Code is the stronger long-term choice. The terminal-native approach is less flashy. The configuration system is where the real power lives, and it compounds over time in a way Windsurf's approach doesn't.
+
+## Claude Code vs Windsurf questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'Is Claude Code better than Windsurf?',
+      answer:
+        'For depth, extensibility and keeping the tools you already know, yes. Windsurf is easier on day one if you want a visual IDE and do not want to configure anything.',
+    },
+    {
+      question: 'What is the difference between Windsurf and Claude Code?',
+      answer:
+        'Windsurf is a full IDE, a fork of VS Code, with its Cascade agent built in. Claude Code runs in any terminal, the desktop app, the web or an IDE extension, so your editor stays yours.',
+    },
+    {
+      question: 'Do I have to switch editors to use Windsurf?',
+      answer:
+        'Yes. Adopting Windsurf means leaving VS Code, Vim, Zed or whatever you use now. Claude Code runs alongside the editor you already have open.',
+    },
+    {
+      question: 'Is Windsurf easier for beginners than Claude Code?',
+      answer:
+        'Usually. Windsurf suits people who are newer to coding, find terminals intimidating or prefer seeing changes in a graphical diff view.',
+    },
+    {
+      question: 'Which is more customizable, Windsurf or Claude Code?',
+      answer:
+        'Claude Code. A CLAUDE.md file checked into your repo teaches it your conventions, hooks run scripts around tool use, MCP servers connect outside tools and skills package reusable workflows. The built-in features in Windsurf are more fixed.',
+    },
+  ]}
+/>
+
+### Is Claude Code better than Windsurf?
+
+For depth, extensibility and keeping the tools you already know, yes. Windsurf is easier on day one if you want a visual IDE and do not want to configure anything.
+
+### What is the difference between Windsurf and Claude Code?
+
+Windsurf is a full IDE, a fork of VS Code, with its Cascade agent built in. Claude Code runs in any terminal, the desktop app, the web or an IDE extension, so your editor stays yours.
+
+### Do I have to switch editors to use Windsurf?
+
+Yes. Adopting Windsurf means leaving VS Code, Vim, Zed or whatever you use now. Claude Code runs alongside the editor you already have open.
+
+### Is Windsurf easier for beginners than Claude Code?
+
+Usually. Windsurf suits people who are newer to coding, find terminals intimidating or prefer seeing changes in a graphical diff view.
+
+### Which is more customizable, Windsurf or Claude Code?
+
+Claude Code. A CLAUDE.md file checked into your repo teaches it your conventions, hooks run scripts around tool use, MCP servers connect outside tools and skills package reusable workflows. The built-in features in Windsurf are more fixed.

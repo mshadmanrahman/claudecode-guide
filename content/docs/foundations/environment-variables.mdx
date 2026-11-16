@@ -1,7 +1,13 @@
 ---
-title: "Claude Code Environment Variables: How to Set Them, and the 28 Worth Knowing"
-seoTitle: "Claude Code Environment Variables: Setup and 28 Key Ones"
+title: "Claude Code Environment Variables: How to Set Them, and the 31 Worth Knowing"
+seoTitle: "Claude Code Environment Variables: Setup and 31 Key Ones"
 description: "Where to set Claude Code environment variables, which value wins, and what CLAUDE_CODE_DISABLE_1M_CONTEXT and BASH_DEFAULT_TIMEOUT_MS do."
+checkedOn: "2026-11-16"
+sources:
+  - title: "Claude Code environment variables reference"
+    url: "https://code.claude.com/docs/en/env-vars"
+  - title: "Claude Code changelog"
+    url: "https://code.claude.com/docs/en/changelog"
 ---
 
 import { FaqSchema } from '@/components/faq-schema';
@@ -10,7 +16,7 @@ import { FaqSchema } from '@/components/faq-schema';
 
 Environment variables control which model Claude Code uses, which account it bills, where its requests go, how long it waits, and a long list of on/off switches. Many of them overlap with a `settings.json` key, a CLI flag or a slash command. A few exist only as a variable.
 
-Anthropic's [full list](https://code.claude.com/docs/en/env-vars) runs to well over a hundred entries, most of them for gateways, cloud providers and enterprise setups. This page covers how to set them, which value wins when two places disagree, and the 28 a working practitioner actually reaches for.
+Anthropic's [full list](https://code.claude.com/docs/en/env-vars) runs to well over a hundred entries, most of them for gateways, cloud providers and enterprise setups. This page covers how to set them, which value wins when two places disagree, and the 31 a working practitioner actually reaches for.
 
 ## Where to set them
 
@@ -96,7 +102,7 @@ For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `
 | `ANTHROPIC_MODEL` | Default model for the session. `--model` and `/model` still override it. |
 | `CLAUDE_CODE_SUBAGENT_MODEL` | Default model for subagents that aren't given one another way, such as `haiku`. |
 | `CLAUDE_CODE_EFFORT_LEVEL` | `low`, `medium`, `high`, `xhigh`, `max` or `auto`. Overrides `--effort` and `/effort`. |
-| `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | `1` stops Claude Code from switching models automatically after a flagged message. Since v2.1.312 the switch also covers custom deployment names on Bedrock, Vertex and Foundry. |
+| `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | `1` stops Claude Code from switching models automatically after a flagged message. Since v2.1.312 the switch also covers model names Claude Code doesn't recognize, such as custom deployment names. |
 | `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | Since v2.1.312, Bedrock, Vertex, Foundry and Mantle use a shorter system prompt for model names Claude Code doesn't recognize, such as inference profile ARNs. Set to `0` to keep the full prompt. |
 
 ### Context and output
@@ -117,10 +123,10 @@ For switches, `1`, `true`, `yes` and `on` turn a feature on, and `0`, `false`, `
 |---|---|---|
 | `BASH_DEFAULT_TIMEOUT_MS` | 120000 (2 min) | How long a foreground shell command runs before it's stopped |
 | `BASH_MAX_TIMEOUT_MS` | 600000 (10 min) | The longest timeout Claude may ask for on one command |
-| `API_TIMEOUT_MS` | 600000 (10 min) | How long to wait on an API request. Raise it on slow networks or proxies. |
+| `API_TIMEOUT_MS` | 600000 (10 min) | How long each API request attempt has to receive its response headers. It doesn't cap a streaming response after that. Raise it on slow networks or proxies; `0` removes the limit (v2.1.305 or later). |
 | `MCP_TIMEOUT` | 30000 (30 s) | How long an MCP server gets to start |
 | `MAX_MCP_OUTPUT_TOKENS` | 25000 | The largest MCP tool response Claude accepts. A warning shows past 10,000. |
-| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | 32000 (32 s) | Ceiling on the backoff between retries of a `529` overloaded error. Whole milliseconds from 32000 to 64000. No effect in fast mode or with the retry watchdog on. |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | 32000 (32 s) | Ceiling on the backoff between retries of a `529` overloaded error. Whole milliseconds from 32000 to 300000 (above 64000 needs v2.1.323 or later). No effect in fast mode or with the retry watchdog on. |
 
 If your test suite takes four minutes, `BASH_DEFAULT_TIMEOUT_MS` is the one that has been killing it at two.
 
@@ -189,5 +195,3 @@ Usually one of five things: you exported it in `~/.zshrc` and opened the Mac app
 - [Permissions](/docs/foundations/permissions): the other half of `settings.json`
 - [Prompt caching](/docs/foundations/prompt-caching): the TTL variables in context
 - [Headless mode](/docs/patterns/headless-mode): variables matter most in scripts and CI
-
-Source: Anthropic's [environment variables reference](https://code.claude.com/docs/en/env-vars), checked October 8, 2026.

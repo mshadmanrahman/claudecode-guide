@@ -17,6 +17,10 @@ relatedLinks:
     description: "For ChatGPT users wondering what's different."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+For most coding work, use Claude Code: it runs on your machine, shows you the plan and lets you steer each step. Use Devin when you have well-defined tasks you want to hand off and get back later as a pull request from a cloud sandbox. A large team with a clear task queue can use Devin for the defined tasks and Claude Code for interactive work.
+
 ## Devin is async. Claude Code is collaborative.
 
 Devin works like a contractor you've hired remotely. You hand off a task, it disappears into a cloud sandbox, and 30 minutes later there's a PR waiting for review. It's genuinely autonomous. You're not watching it work.
@@ -87,3 +91,55 @@ Claude Code's collaborative model fits that reality better. You're not doing the
 | Non-coder who wants to build things | **Claude Code** (Devin requires engineering context) |
 | Someone who wants to watch the AI work | **Claude Code** (real-time visibility) |
 | Someone who wants to assign and forget | **Devin** (async autonomous model) |
+
+## Claude Code vs Devin questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'Is Claude Code better than Devin?',
+      answer:
+        'For individual developers, small teams and ambiguous tasks, I think so, because you keep control and can build on it with skills, hooks and MCP servers. Devin fits teams that want to assign well-defined tasks and check back later.',
+    },
+    {
+      question: 'What is the difference between Devin and Claude Code?',
+      answer:
+        'Devin works autonomously on a cloned copy of your code in a cloud sandbox and returns a pull request. Claude Code runs on your machine with your real files and terminal, and you can approve, interrupt or redirect each step.',
+    },
+    {
+      question: 'Can I use Devin and Claude Code together?',
+      answer:
+        'Yes. A large team with a queue of well-defined tasks can give those to Devin and use Claude Code for interactive work.',
+    },
+    {
+      question: 'What tasks is Devin good for?',
+      answer:
+        'Well-defined ones: bug fixes with clear acceptance criteria, small features with a tight spec and test writing. It also fits teams that assign work through Slack and project management tools.',
+    },
+    {
+      question: 'Can non-coders use Devin or Claude Code?',
+      answer:
+        'Claude Code is the better fit for a non-coder who wants to build things. Devin assumes engineering context.',
+    },
+  ]}
+/>
+
+### Is Claude Code better than Devin?
+
+For individual developers, small teams and ambiguous tasks, I think so, because you keep control and can build on it with skills, hooks and MCP servers. Devin fits teams that want to assign well-defined tasks and check back later.
+
+### What is the difference between Devin and Claude Code?
+
+Devin works autonomously on a cloned copy of your code in a cloud sandbox and returns a pull request. Claude Code runs on your machine with your real files and terminal, and you can approve, interrupt or redirect each step.
+
+### Can I use Devin and Claude Code together?
+
+Yes. A large team with a queue of well-defined tasks can give those to Devin and use Claude Code for interactive work.
+
+### What tasks is Devin good for?
+
+Well-defined ones: bug fixes with clear acceptance criteria, small features with a tight spec and test writing. It also fits teams that assign work through Slack and project management tools.
+
+### Can non-coders use Devin or Claude Code?
+
+Claude Code is the better fit for a non-coder who wants to build things. Devin assumes engineering context.

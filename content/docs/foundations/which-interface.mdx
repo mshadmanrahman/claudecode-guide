@@ -3,6 +3,22 @@ title: "Which Claude to Use? All 16 Surfaces"
 seoTitle: "Which Claude Product Is Best for Coding?"
 description: "Which Claude product is best for an unfamiliar codebase? Why the answer is Claude Code, not Chrome, Slack or Excel, plus all 16 Claude products compared."
 full: true
+checkedOn: "2026-11-16"
+sources:
+  - title: "Claude pricing"
+    url: "https://claude.com/pricing"
+  - title: "Claude Code on the web"
+    url: "https://code.claude.com/docs/en/claude-code-on-the-web"
+  - title: "Claude Code on mobile"
+    url: "https://code.claude.com/docs/en/mobile"
+  - title: "Claude Code in Slack"
+    url: "https://code.claude.com/docs/en/slack"
+  - title: "Claude Tag overview"
+    url: "https://claude.com/docs/claude-tag/overview"
+  - title: "Cowork"
+    url: "https://claude.com/product/cowork"
+  - title: "Claude for Excel, PowerPoint, Word and Outlook"
+    url: "https://claude.com/claude-for-excel"
 ---
 
 import { JobBlock } from '@/components/job-block';
@@ -137,7 +153,7 @@ Two gotchas: **read-only** (Claude cannot send email or create calendar events t
 
 This is the one that breaks people's brains. Cowork is Claude with computer-use, connectors (Gmail, Drive, DocuSign, FactSet), and the ability to keep going across a long task without you babysitting it.
 
-The honest version: Cowork is released as a product, but the *computer-use* piece, where Claude actually drives your desktop, is still research preview. Pro and Max plans only. Don't describe Cowork as "fully autonomous" to your colleagues yet. It's closer to "autonomous with training wheels."
+The honest version: Cowork is released as a product, but the *computer-use* piece, where Claude actually drives your desktop, is still research preview. Cowork needs Pro or higher. Don't describe Cowork as "fully autonomous" to your colleagues yet. It's closer to "autonomous with training wheels."
 
 I use Cowork most weeks for unglamorous work. Running lead-performance analysis against a 24-month cost-per-lead (CPL) export. Cross-referencing an ad-delivery report with a GA4 query. Cleaning up my Mac when the browser and memory are out of hand and I can't figure out which tab is eating RAM. Nothing flashy. A patient intern with a longer attention span than I have.
 
@@ -151,7 +167,7 @@ I use Cowork most weeks for unglamorous work. Running lead-performance analysis 
 
 You're on your phone, you start something ("research these five vendors, draft a comparison doc"), and when you get back to your laptop the work is done and waiting. It persists across devices. Ethan Mollick wrote about this and called it "the first truly useful agent handoff I've used." He's not wrong.
 
-Research preview. Pro and Max only. Launched March 17. Small feature, big quality-of-life impact.
+Research preview. Needs a Pro, Max or Ultra plan. Launched March 17. Small feature, big quality-of-life impact.
 
 </JobBlock>
 
@@ -196,15 +212,15 @@ I know the above is a lot. Here's the condensed grid.
 | Claude for Word | Shipped (Apr 13) | Pro or higher | Redlining, comments, long-doc review |
 | Microsoft 365 Connector | Shipped | All plans (incl. Free) | Read across Outlook/Teams/OneDrive/SharePoint |
 | Cowork | Shipped (computer-use still in preview) | Pro or higher | Multi-step autonomous work |
-| Cowork Dispatch | Research preview | Pro, Max | Phone-to-desktop task handoff |
+| Cowork Dispatch | Research preview | Pro, Max, Ultra | Phone-to-desktop task handoff |
 | Claude Code (CLI) | Shipped | Pro or higher or API | Agentic terminal coding |
-| Claude Code on the web | Research preview | Pro, Max | Cloud sandbox coding |
+| Claude Code on the web | Shipped | Pro, Max, Ultra, Team; Enterprise with premium or Chat + Claude Code seats | Cloud sandbox coding |
 | Claude Code in the desktop app | Shipped (Apr 14 redesign) | Pro or higher | Parallel coding sessions |
 | Claude Agent SDK | Shipped | API | Build your own agent |
 | Claude API | Shipped | API | Anything custom |
-| Claude in Slack | Shipped | Paid Slack | Workspace bot, thread Q&A |
+| Claude Tag (Claude in Slack) | Public beta | Team, Enterprise | Workspace bot, thread Q&A |
 
-Plans: Pro is $17/mo annual or $20/mo monthly. Team is $20/seat annual, $25/seat monthly. Max starts at $100/mo. Enterprise is $20/seat plus API usage. I'm not rounding. If you see someone round those numbers, verify before you quote them.
+Plans: Pro is $17/mo annual or $20/mo monthly. Team is $20/seat annual, $25/seat monthly. Max starts at $100/mo. Ultra is $200/mo. Enterprise is $20/seat plus API usage. I'm not rounding. If you see someone round those numbers, verify before you quote them.
 
 <SectionBreak number="03" kicker="Coming from ChatGPT" title="Three mental shifts that make this easier" />
 
@@ -257,7 +273,7 @@ Claude Pro is enough. A lot of IT teams get this wrong and scope a Copilot licen
 </CaveatCard>
 
 <CaveatCard headline="Cowork is released, but computer-use is research preview">
-If someone tells you Cowork is "fully autonomous and shipped," they're overstating it. It's autonomous with guardrails, Pro and Max only.
+If someone tells you Cowork is "fully autonomous and shipped," they're overstating it. It's autonomous with guardrails, on Pro or higher.
 </CaveatCard>
 
 <CaveatCard headline="Claude for Chrome is beta and paid-only">
@@ -317,7 +333,7 @@ If you've picked your surface and want to actually get started, more tutorials a
     {
       question: 'Is there a Claude for Outlook?',
       answer:
-        'No standalone Outlook add-in exists. Outlook access ships through the Microsoft 365 Connector, which is read-only. You can ask Claude to find or summarize emails, but it cannot send them.',
+        'Yes. Claude for Outlook is an add-in, in beta on all paid plans. It can triage your inbox, find time across calendars, and draft replies that wait for you to send. The Microsoft 365 Connector is a separate, read-only way in.',
     },
     {
       question: 'Should I use Gemini or ChatGPT for this instead?',
@@ -350,7 +366,7 @@ Cowork is general-purpose agent work: research, document drafting, filling sprea
 
 ### Is there a Claude for Outlook?
 
-No standalone Outlook add-in exists. Outlook access ships through the Microsoft 365 Connector, which is read-only. You can ask Claude to find or summarize emails; it can't send them.
+Yes. Claude for Outlook is an add-in, in beta on all paid plans. It can triage your inbox, find time across calendars, and draft replies that wait for you to send. The Microsoft 365 Connector is a separate, read-only way in.
 
 ### What about Gemini or ChatGPT for this kind of thing?
 
@@ -366,4 +382,4 @@ Anthropic ships fast. Three new surfaces shipped in Q1 alone. I update this page
 
 ---
 
-*Last updated October 19, 2026. If I missed a surface or got a detail wrong, tell me. This page lives by the reports from the people actually using these things.*
+*If I missed a surface or got a detail wrong, tell me. This page lives by the reports from the people actually using these things.*

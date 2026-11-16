@@ -17,6 +17,10 @@ relatedLinks:
     description: "Pick the right Claude plan before switching away."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+GLM is a model from Zhipu AI (z.ai), and Claude Code is an agent, so the two sit in different categories. GLM is strong at creative and spatial code and carries an MIT license, but it has no terminal agent, no CLAUDE.md and no memory across sessions. For daily professional coding on a real project I stay on Claude Code, and I reach for GLM when the work is visual or spatial or when open weights are a requirement.
+
 ## The benchmark was real. The conclusion needs context.
 
 In June 2026, a viral tweet showed GLM-5.2 outperforming GPT-5.5 xHigh and matching Opus 4.8 xHigh on a coding task. 30,000 people saw it. The reaction was immediate: "China just won AI."
@@ -103,3 +107,55 @@ For everyone else, the choice is simpler than the benchmark made it look. You ar
 **Use Claude Code** when you are doing daily professional development on a real project. When you want the AI to know your codebase, respect your conventions, run your tools, and get smarter about your project over time. When you need a proven track record on real-world software engineering tasks, not one benchmark.
 
 The tweet was right that GLM-5.2 is impressive. It was overstating things to call it a Claude Code replacement.
+
+## Claude Code vs GLM questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'What is the difference between Claude Code and GLM?',
+      answer:
+        'GLM is a model: you send it prompts and it returns outputs. Claude Code is an agent that reads your codebase, runs commands, follows your CLAUDE.md and keeps memory across sessions.',
+    },
+    {
+      question: 'Can I use GLM with tools built for the Anthropic API?',
+      answer:
+        'Yes. Z.ai offers an Anthropic-compatible API, so tools with an Anthropic endpoint setting can point at GLM without rewriting integrations. GLM itself has no terminal agent.',
+    },
+    {
+      question: 'Is GLM better than Claude Code for coding?',
+      answer:
+        'GLM is very strong at creative and spatial code such as 3D scenes, games and generative SVG. The benchmark that went viral tested one spatial task, and Claude has a longer public track record on real-world software engineering work.',
+    },
+    {
+      question: 'Is GLM open source?',
+      answer:
+        'Yes, it uses the MIT license. Once the weights are out you can run it locally, fine-tune it, audit it and deploy it without vendor lock-in, which matters for teams that must self-host.',
+    },
+    {
+      question: 'Should I switch from Claude Code to GLM?',
+      answer:
+        'Not for daily work on a real project, because GLM has no agent to know your codebase, run your tools or remember your conventions. Try GLM for visual or spatial code, or when open weights are a hard requirement.',
+    },
+  ]}
+/>
+
+### What is the difference between Claude Code and GLM?
+
+GLM is a model: you send it prompts and it returns outputs. Claude Code is an agent that reads your codebase, runs commands, follows your CLAUDE.md and keeps memory across sessions.
+
+### Can I use GLM with tools built for the Anthropic API?
+
+Yes. Z.ai offers an Anthropic-compatible API, so tools with an Anthropic endpoint setting can point at GLM without rewriting integrations. GLM itself has no terminal agent.
+
+### Is GLM better than Claude Code for coding?
+
+GLM is very strong at creative and spatial code such as 3D scenes, games and generative SVG. The benchmark that went viral tested one spatial task, and Claude has a longer public track record on real-world software engineering work.
+
+### Is GLM open source?
+
+Yes, it uses the MIT license. Once the weights are out you can run it locally, fine-tune it, audit it and deploy it without vendor lock-in, which matters for teams that must self-host.
+
+### Should I switch from Claude Code to GLM?
+
+Not for daily work on a real project, because GLM has no agent to know your codebase, run your tools or remember your conventions. Try GLM for visual or spatial code, or when open weights are a hard requirement.

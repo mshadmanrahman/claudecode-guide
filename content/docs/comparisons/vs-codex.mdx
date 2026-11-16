@@ -17,6 +17,10 @@ relatedLinks:
     description: "Pick the right Claude plan for your workflow."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+Claude Code and Codex are both agentic coding tools that run on your machine, read a checked-in instruction file, and support hooks, skills, MCP and subagents, so pick on the model and the defaults. Choose Claude Code if you want Claude's models making your hardest calls or you've already built a Claude setup. Choose Codex if you're already on ChatGPT, want a cheaper way in, or want OS-level sandboxing and cloud tasks out of the box.
+
 Two agentic coding tools from the two biggest AI labs. Both read your codebase, write code, and run commands on your machine. A year ago the split was local against cloud. That split is gone: OpenAI's own README now says the Codex CLI "runs locally on your computer."
 
 OpenAI Codex (the agent, not the old completion model) launched in 2025. Today it ships as a CLI, an IDE extension, a desktop app, and Codex cloud, and it comes with every ChatGPT plan. Facts on this page were checked against OpenAI's docs on 2026-09-27.
@@ -80,3 +84,55 @@ More easily than a year ago. Both read a checked-in instruction file (`CLAUDE.md
 Both start at $20 a month, so price won't decide this. Pick on the model you trust for your hardest calls, and on the defaults you prefer.
 
 Choose Claude Code if Claude's models are the ones you want deciding your architecture and debugging, or if you've already built a Claude setup. Choose Codex if you're already on ChatGPT, want a free or $8 way in, or want OS-level sandboxing and cloud tasks out of the box.
+
+## Claude Code vs Codex questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'Is Claude Code better than Codex?',
+      answer:
+        'Neither one wins on features anymore, because both run locally and share the same building blocks. Claude Code is the better pick if you prefer how Claude reasons. Codex is the better pick if you already use ChatGPT or want a stricter sandbox by default.',
+    },
+    {
+      question: 'What is the difference between Claude Code and Codex?',
+      answer:
+        'The difference is mostly the models and the defaults. Codex runs commands inside an OS-level sandbox and asks before going beyond it, while Claude Code asks you action by action through its permission modes. Each tool runs the models from its own lab.',
+    },
+    {
+      question: 'Can I use Claude Code and Codex together?',
+      answer:
+        'Yes. Claude Code reads CLAUDE.md and Codex reads AGENTS.md, so a team can keep both files in the repo and let each developer choose.',
+    },
+    {
+      question: 'Does Codex run locally or in the cloud?',
+      answer:
+        'Both. The Codex CLI, IDE extension and desktop app run on your machine, and Codex cloud runs tasks remotely so you can hand off several in parallel.',
+    },
+    {
+      question: 'How hard is it to move a setup between Claude Code and Codex?',
+      answer:
+        'Codex has the same building blocks as Claude Code under different names: an instruction file, hooks, skills and memory. You would be porting your setup rather than starting over, but expect the port to take about a week.',
+    },
+  ]}
+/>
+
+### Is Claude Code better than Codex?
+
+Neither one wins on features anymore, because both run locally and share the same building blocks. Claude Code is the better pick if you prefer how Claude reasons. Codex is the better pick if you already use ChatGPT or want a stricter sandbox by default.
+
+### What is the difference between Claude Code and Codex?
+
+The difference is mostly the models and the defaults. Codex runs commands inside an OS-level sandbox and asks before going beyond it, while Claude Code asks you action by action through its permission modes. Each tool runs the models from its own lab.
+
+### Can I use Claude Code and Codex together?
+
+Yes. Claude Code reads CLAUDE.md and Codex reads AGENTS.md, so a team can keep both files in the repo and let each developer choose.
+
+### Does Codex run locally or in the cloud?
+
+Both. The Codex CLI, IDE extension and desktop app run on your machine, and Codex cloud runs tasks remotely so you can hand off several in parallel.
+
+### How hard is it to move a setup between Claude Code and Codex?
+
+Codex has the same building blocks as Claude Code under different names: an instruction file, hooks, skills and memory. You would be porting your setup rather than starting over, but expect the port to take about a week.

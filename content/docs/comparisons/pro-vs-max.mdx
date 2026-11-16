@@ -18,6 +18,10 @@ relatedLinks:
     description: "The full explainer for people brand new to Claude Code."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+Start with Claude Pro, and move to Claude Max when rate limits start interrupting your working hours. If you upgrade, pick Max 5x before Max 20x. The API is for building products and pipelines; for personal coding sessions a plan is almost always simpler and cheaper.
+
 Claude Code runs on your Anthropic plan. Picking the right one saves you money or frustration. Here's the honest breakdown.
 
 <ClaudeCodeMock steps={[
@@ -70,4 +74,56 @@ The API gets more economical for targeted, low-token tasks at high volume, or wh
 
 ## Recommendation
 
-Start with Pro. It's $20/month and covers most people while they learn what their actual usage looks like. Upgrade to Max 5x when you find yourself waiting for rate limits, not before. The API is for building products. Don't overthink it — you can switch plans anytime.
+Start with Pro. It's $20/month and covers most people while they learn what their actual usage looks like. Upgrade to Max 5x when you find yourself waiting for rate limits, not before. The API is for building products. Don't overthink it, you can switch plans anytime.
+
+## Claude Pro vs Max questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'What is the difference between Claude Pro and Claude Max?',
+      answer:
+        'Both plans run Claude Code with access to Sonnet and Opus. Max raises the usage limits well above Pro and costs more; the plan table on this page shows the exact gap.',
+    },
+    {
+      question: 'Is Claude Max worth it over Pro?',
+      answer:
+        'It is worth it once rate limits hit during your working hours several times a week, or when you run long agentic sessions, sub-agents or parallel workflows. If you rarely see a rate limit message, stay on Pro.',
+    },
+    {
+      question: 'Is Claude Pro enough for Claude Code?',
+      answer:
+        'For most people, yes. If you run one to three focused sessions a day and are still figuring out your workflow, Pro covers it.',
+    },
+    {
+      question: 'Should I get Claude Max 5x or Max 20x?',
+      answer:
+        'Start with Max 5x, since most heavy users find it enough. Max 20x is for people running Claude Code continuously with multi-agent workflows, autonomous loops or very large codebases.',
+    },
+    {
+      question: 'Should I use the Claude API instead of a subscription for Claude Code?',
+      answer:
+        'Usually not for personal coding. The API fits building apps, CI/CD pipelines and programmatic access, while a Pro or Max plan is simpler and cheaper if you code most days. You can switch plans anytime.',
+    },
+  ]}
+/>
+
+### What is the difference between Claude Pro and Claude Max?
+
+Both plans run Claude Code with access to Sonnet and Opus. Max raises the usage limits well above Pro and costs more; the plan table above shows the exact gap.
+
+### Is Claude Max worth it over Pro?
+
+It's worth it once rate limits hit during your working hours several times a week, or when you run long agentic sessions, sub-agents or parallel workflows. If you rarely see a rate limit message, stay on Pro.
+
+### Is Claude Pro enough for Claude Code?
+
+For most people, yes. If you run one to three focused sessions a day and are still figuring out your workflow, Pro covers it.
+
+### Should I get Claude Max 5x or Max 20x?
+
+Start with Max 5x, since most heavy users find it enough. Max 20x is for people running Claude Code continuously with multi-agent workflows, autonomous loops or very large codebases.
+
+### Should I use the Claude API instead of a subscription for Claude Code?
+
+Usually not for personal coding. The API fits building apps, CI/CD pipelines and programmatic access, while a Pro or Max plan is simpler and cheaper if you code most days (see the cost math above). You can switch plans anytime.

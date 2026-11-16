@@ -1,11 +1,19 @@
 ---
 title: "Claude Code Permissions: Stop Clicking 'Allow' on Everything"
 description: "Permission fatigue is the number two complaint about Claude Code. Five minutes of config fixes it permanently. Here's exactly what to set and why."
+checkedOn: "2026-11-16"
+sources:
+  - title: "Claude Code permissions"
+    url: "https://code.claude.com/docs/en/permissions"
+  - title: "Permission modes"
+    url: "https://code.claude.com/docs/en/permission-modes"
+  - title: "Claude Code changelog"
+    url: "https://code.claude.com/docs/en/changelog"
 ---
 
 ## Five clicks before anything actually happens.
 
-That's what default Claude Code feels like. You ask it to fix a test. It wants to read the file. Allow. Edit the file. Allow. Run the test. Allow. Check the output. Allow. It's like having an assistant who asks permission before touching anything in the office.
+That's what Claude Code feels like in Manual mode. You ask it to fix a test. It wants to edit the file. Allow. Run the test. Allow. Fix one more line. Allow. Run the test again. Allow. It's like having an assistant who asks permission before touching anything in the office.
 
 The fix takes five minutes. You configure it once. Then it just works.
 
@@ -19,7 +27,7 @@ The fix takes five minutes. You configure it once. Then it just works.
   { kind: 'say', text: 'The test expected 401, but a missing role correctly returns 403.\nFixed the assertion. All tests pass.' },
 ]} />
 
-With permission rules set, none of those steps stopped to ask. On a default setup, each one waits for your approval first.
+With permission rules set, none of those steps stopped to ask. In Manual mode without rules, every edit and test run waits for your approval first. (Since v2.1.283, interactive terminal and VS Code sessions start in auto mode, which asks far less.)
 
 ## Setting up permission rules
 
@@ -128,7 +136,8 @@ When a permission prompt does appear, you've got more options than just yes:
 
 - **Yes**: allow this once
 - **Yes, and don't ask again**: allow it and save a rule, so Claude Code stops asking for this command in this project
+- **Yes, and switch to auto mode**: allow it and change the session's permission mode to auto
 - **No**: deny this request
-- **Escape**: cancel the current operation
+- **Escape** cancels, and **Tab** amends the request
 
 "Don't ask again" is underused. For a shell command, Claude Code writes the rule to `.claude/settings.local.json`, so you build your allow list just by working. Check that file now and then to see what you've approved.

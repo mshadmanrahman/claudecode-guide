@@ -17,6 +17,10 @@ relatedLinks:
     description: "Before switching away, understand what plan you are on."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+DeepSeek has no terminal agent, so the real choice is between Claude Code running on Claude and Claude Code pointed at DeepSeek as the model underneath. DeepSeek costs far less per token and ships MIT open weights you can self-host. Claude keeps the agent layer (CLAUDE.md, memory, hooks, MCP) working as built, so I use DeepSeek for high-volume automated tasks and Claude Code for interactive work on a real project.
+
 ## DeepSeek is not a Claude Code competitor. It is an alternative model.
 
 DeepSeek does not have a terminal agent. There is no DeepSeek equivalent to Claude Code — no CLI that reads your files, respects a project config, runs your tests, and maintains memory across sessions. When people say "Claude Code vs DeepSeek," what they usually mean is: should I use Claude Code powered by Claude, or should I configure my tools to run DeepSeek as the underlying model instead?
@@ -97,3 +101,55 @@ For daily interactive coding — the sessions where Claude Code reads your codeb
 **Use DeepSeek** when API cost is the primary constraint for high-volume automated workflows, when you need to self-host or fine-tune on proprietary data, when you need 1M context at the lowest price per token, or when you want the reasoning model (R1) for structured logic tasks.
 
 **Use Claude Code** when you are doing daily interactive development on a real project. When you want the agent layer — CLAUDE.md, memory, hooks, sub-agents, MCP — to handle the session complexity. When consistency and reliability over a long coding session matter more than per-token cost.
+
+## Claude Code vs DeepSeek questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'Can I use DeepSeek with Claude Code?',
+      answer:
+        'Yes. DeepSeek has an Anthropic-compatible API, so you can run it inside Claude Code by setting ANTHROPIC_BASE_URL. Some hooks, skills, MCP servers and sub-agents may break or behave unpredictably, because they depend on Claude tool-calling formats.',
+    },
+    {
+      question: 'Does DeepSeek have a terminal agent like Claude Code?',
+      answer:
+        'No. DeepSeek is a model with no CLI that reads your files, follows a project config, runs your tests or keeps memory across sessions. You either use it inside another agent or build that layer yourself.',
+    },
+    {
+      question: 'Is DeepSeek cheaper than Claude?',
+      answer:
+        'Yes, by a wide margin per token through the API. The gap matters most for high-volume automated work such as CI code review, test generation and documentation.',
+    },
+    {
+      question: 'Can I self-host DeepSeek?',
+      answer:
+        'Yes. DeepSeek publishes open weights under the MIT license, so you can run it on your own infrastructure, fine-tune it on proprietary code and keep your code inside your network.',
+    },
+    {
+      question: 'When should I use DeepSeek instead of Claude Code?',
+      answer:
+        'Use DeepSeek when API cost is the main constraint for high-volume automated workflows, or when you need to self-host. Use Claude Code with Claude for interactive development, where CLAUDE.md, memory, hooks and MCP do the heavy lifting.',
+    },
+  ]}
+/>
+
+### Can I use DeepSeek with Claude Code?
+
+Yes. DeepSeek has an Anthropic-compatible API, so you can run it inside Claude Code by setting `ANTHROPIC_BASE_URL` ([setup guide](/docs/foundations/alternative-models)). Some hooks, skills, MCP servers and sub-agents may break or behave unpredictably, because they depend on Claude's tool-calling formats.
+
+### Does DeepSeek have a terminal agent like Claude Code?
+
+No. DeepSeek is a model with no CLI that reads your files, follows a project config, runs your tests or keeps memory across sessions. You either use it inside another agent or build that layer yourself.
+
+### Is DeepSeek cheaper than Claude?
+
+Yes, by a wide margin per token through the API (see the cost table above). The gap matters most for high-volume automated work such as CI code review, test generation and documentation.
+
+### Can I self-host DeepSeek?
+
+Yes. DeepSeek publishes open weights under the MIT license, so you can run it on your own infrastructure, fine-tune it on proprietary code and keep your code inside your network.
+
+### When should I use DeepSeek instead of Claude Code?
+
+Use DeepSeek when API cost is the main constraint for high-volume automated workflows, or when you need to self-host. Use Claude Code with Claude for interactive development, where CLAUDE.md, memory, hooks and MCP do the heavy lifting.

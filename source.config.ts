@@ -14,6 +14,10 @@ export const docs = defineDocs({
       image: z.string().optional(),
       // Search-result title when the visible title is too long for one.
       seoTitle: z.string().optional(),
+      // The day the page's facts were last compared with the official pages in
+      // `sources`. Set it only after a real check; the docs page prints both.
+      checkedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+      sources: z.array(z.object({ title: z.string(), url: z.string().url() })).optional(),
     }),
   },
 });

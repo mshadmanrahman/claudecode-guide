@@ -2,6 +2,16 @@
 title: "Claude Code Thinking Modes and Effort"
 seoTitle: "Claude Thinking Mode: How to Change It in the App and Code"
 description: "Change how hard Claude thinks: the Effort menu in the Claude app, or /effort, ultrathink and plan mode in Claude Code. When each mode is worth it."
+checkedOn: "2026-11-16"
+sources:
+  - title: "Claude Code model configuration"
+    url: "https://code.claude.com/docs/en/model-config"
+  - title: "Permission modes"
+    url: "https://code.claude.com/docs/en/permission-modes"
+  - title: "Prompt caching in Claude Code"
+    url: "https://code.claude.com/docs/en/prompt-caching"
+  - title: "Claude Code commands"
+    url: "https://code.claude.com/docs/en/commands"
 ---
 
 ## Default mode is fast. Sometimes you need deep.
@@ -48,7 +58,7 @@ On Opus 5.5 and the Fable models thinking is always on: `Option+T` (`Alt+T` on W
 
 Plan mode is the most practical thinking feature for daily use. Instead of diving into code changes immediately, Claude proposes a plan first. You review it, adjust if needed, then it executes.
 
-**Toggle it:** `Shift+Tab` in the terminal, or `/plan` as a slash command.
+**Turn it on:** press `Shift+Tab` in the terminal until the mode reads plan (the key cycles through the permission modes), or type `/plan`.
 
 **What happens:**
 1. You give Claude a task
@@ -68,11 +78,14 @@ Plan mode is the most practical thinking feature for daily use. Instead of divin
 - Tasks you've done the same way dozens of times
 
 ```bash
-# Enable plan mode for the session
+# Enter plan mode
 /plan
 
-# Or toggle with keyboard shortcut
-# Shift+Tab (toggles on/off)
+# Or enter it and start on a task in one go
+/plan add rate limiting to the API
+
+# Or press Shift+Tab until the mode reads plan
+# (the key cycles through the permission modes)
 ```
 
 ## Effort levels
@@ -82,8 +95,8 @@ Some tasks need deep thinking. Others just need a quick answer. Effort levels le
 | Level | What it means | Example |
 |---|---|---|
 | **low** | Short, scoped, latency-sensitive work | "What does this function do?" |
-| **medium** | Balanced. The default on Opus 5.5 | "Fix this bug" |
-| **high** | More reasoning at more tokens. The default on most other models | "Design the auth system" |
+| **medium** | Balanced. The default on Fable 5.2, Opus 5.5, Sonnet 5.5 and Haiku 5.5 | "Fix this bug" |
+| **high** | More reasoning at more tokens. The default on older models, except Opus 4.7, which defaults to xhigh | "Design the auth system" |
 | **xhigh** | Deeper reasoning for long agentic and coding runs | "Migrate this service end to end" |
 | **max** | Deepest. Diminishing returns, prone to overthinking | A problem `xhigh` already failed |
 
@@ -102,9 +115,9 @@ You can also move the effort slider with the arrow keys inside `/model`, set `CL
 
 **Moving from Opus 5?** Opus 5.5 defaults one level lower than Opus 5 did, and Anthropic's testing puts Opus 5.5 at `medium` level with or ahead of Opus 5 at `high` on coding. At the same level name it also thinks more per turn. So start at `medium` instead of carrying your old setting over, and save `xhigh` and `max` for work where you've seen them help.
 
-**Change it at the start, not mid-session.** Changing effort mid-conversation can invalidate the prompt cache, and Claude Code may show a cache warning first. Pick a level when you start a session and leave it.
+**On older models, change it at the start, not mid-session.** On most models each effort level has its own prompt cache, so changing effort mid-conversation recomputes the whole request, and Claude Code may show a cache warning first. On Fable 5.1 and later, Opus 5.5, Sonnet 5.5 and Haiku 5.5, changing effort keeps the cache when you're signed in with a Claude subscription or an API key.
 
-The `/effort` menu also lists `ultracode`. That is a Claude Code setting rather than a model level: it sends `xhigh` and has Claude plan a multi-agent workflow for each substantive task. Expect it to spend far more tokens.
+The `/effort` menu also lists `ultracode`. That is a Claude Code setting rather than a model level: with it on, Claude orchestrates a multi-agent workflow for each substantive task. Turning it on from `/effort` leaves your effort level where it was; the `--effort ultracode` flag also sets the level to `xhigh`. Expect it to spend far more tokens.
 
 ## Combining thinking modes
 

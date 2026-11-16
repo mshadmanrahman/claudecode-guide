@@ -20,6 +20,10 @@ relatedLinks:
     description: "Pick the right plan for your workflow."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+ChatGPT is a chat app: you ask, it answers in text, and it's good at writing, brainstorming and quick explanations. Claude Code is an agent that runs on your computer, reads your project, and writes the files and runs the commands itself. If you want answers, use ChatGPT. If you want something built, use Claude Code.
+
 ## Not Another Chatbot
 
 You've used ChatGPT. Maybe you pay for Plus. You've seen people on Twitter shipping entire apps with "Claude Code" and you're wondering whether this is just another chatbot with a different name.
@@ -107,3 +111,55 @@ ChatGPT for quick questions, writing, brainstorming, anything on mobile. Claude 
 ChatGPT is a conversationalist. Claude Code is a builder.
 
 If you want answers, use ChatGPT. If you want results, use Claude Code. Simple as that.
+
+## Claude Code vs ChatGPT questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'Is Claude Code better than ChatGPT?',
+      answer:
+        'For building things, yes: Claude Code writes real files, runs commands and works inside your project. For quick questions, writing, brainstorming and image generation, ChatGPT is the better fit.',
+    },
+    {
+      question: 'What is the difference between ChatGPT and Claude Code?',
+      answer:
+        'ChatGPT is a chatbot: it sees what you paste and answers with text you copy into files yourself. Claude Code is an agent on your computer that sees your whole project and terminal and does the work itself.',
+    },
+    {
+      question: 'Can I use ChatGPT and Claude Code together?',
+      answer:
+        'Yes, and lots of people do. Use ChatGPT for quick questions, writing and brainstorming, and Claude Code for building, automating and working inside real projects.',
+    },
+    {
+      question: 'Do I need to cancel ChatGPT to switch to Claude Code?',
+      answer:
+        'No. Keep ChatGPT for quick questions and writing while you try Claude Code on one real task. Start with the desktop app or the web app at claude.ai/code, so you do not need the terminal.',
+    },
+    {
+      question: 'Can ChatGPT edit files on my computer like Claude Code?',
+      answer:
+        'The ChatGPT chat app works with what you paste and gives you text back. OpenAI has a separate coding agent, Codex, that does edit files on your machine, and the Claude Code vs Codex page compares the two agents.',
+    },
+  ]}
+/>
+
+### Is Claude Code better than ChatGPT?
+
+For building things, yes: Claude Code writes real files, runs commands and works inside your project. For quick questions, writing, brainstorming and image generation, ChatGPT is the better fit.
+
+### What is the difference between ChatGPT and Claude Code?
+
+ChatGPT is a chatbot: it sees what you paste and answers with text you copy into files yourself. Claude Code is an agent on your computer that sees your whole project and terminal and does the work itself.
+
+### Can I use ChatGPT and Claude Code together?
+
+Yes, and lots of people do. Use ChatGPT for quick questions, writing and brainstorming, and Claude Code for building, automating and working inside real projects.
+
+### Do I need to cancel ChatGPT to switch to Claude Code?
+
+No. Keep ChatGPT for quick questions and writing while you try Claude Code on one real task. Start with the desktop app or the web app at claude.ai/code, so you do not need the terminal.
+
+### Can ChatGPT edit files on my computer like Claude Code?
+
+The ChatGPT chat app works with what you paste and gives you text back. OpenAI has a separate coding agent, Codex, that does edit files on your machine, and the Claude Code vs Codex page compares the two agents.

@@ -1,6 +1,10 @@
 ---
 title: "Claude Code Memory System"
 description: "By default, Claude forgets everything when you close a session. The memory system fixes that. Here's how it works and how to set it up without overthinking it."
+checkedOn: "2026-11-16"
+sources:
+  - title: "Claude Code memory docs"
+    url: "https://code.claude.com/docs/en/memory"
 ---
 
 ## Why Memory Matters
@@ -32,13 +36,13 @@ CLAUDE.md files are instructions you write for Claude. They tell it about your p
 |------|---------------|-------------|
 | `./CLAUDE.md` or `./.claude/CLAUDE.md` | Project root | Project-specific: tech stack, build commands, coding rules |
 | `~/.claude/CLAUDE.md` | Home directory | Global: your role, preferences, applies to all projects |
-| `CLAUDE.local.md` | Project root (gitignored) | Personal project preferences you don't want to share with your team |
+| `CLAUDE.local.md` | Project root (add it to `.gitignore`) | Personal project preferences you don't want to share with your team |
 
 All CLAUDE.md files load automatically at session start. Subdirectory CLAUDE.md files load lazily when Claude reads files in that directory.
 
 ### 2. Auto Memory (Claude Writes It)
 
-Auto memory is Claude writing notes to itself. When it discovers something important: your preferred build command, a debugging insight, an architecture decision: it saves it for next time. **This is on by default.**
+Auto memory is Claude writing notes to itself. When it discovers something important: your preferred build command, a debugging insight, an architecture decision: it saves it for next time. **This is on by default in local sessions.**
 
 | Detail | Value |
 |--------|-------|
@@ -55,7 +59,7 @@ Config files (`.claude/settings.json`) are separate from memory. They control te
 
 ## Organizing Your Memory (Recommended Pattern)
 
-Auto memory creates topic files organically. But if you want more structure, especially for teams or complex setups, here's a four-category pattern that works well in practice:
+Auto memory sorts what it saves into four kinds, and records the kind as a `type` field in each memory file's frontmatter. The same four work well as a structure for memory files you write yourself:
 
 ### 1. User Memory
 
@@ -76,7 +80,7 @@ Corrections you've given Claude Code over time.
 - "Always use relative paths, never absolute paths with usernames"
 - "Her name is Viveca, not Viveka"
 
-This is the most powerful category. Every correction you make gets saved, and Claude Code stops making that mistake. Auto memory captures many of these automatically, but explicit feedback files give you more control.
+This is the most powerful category. A saved correction stops Claude Code from repeating that mistake. Auto memory captures many of these, though it decides for itself what is worth keeping, and explicit feedback files give you more control.
 
 ### 3. Project Memory
 
@@ -101,7 +105,7 @@ Where to find things in external systems.
 This prevents Claude Code from guessing where things live. Instead of searching your codebase every time, it knows exactly where to look.
 
 <Callout type="info" title="This is a pattern, not a requirement">
-These four categories are a recommended organizational pattern, not built into Claude Code. Auto memory creates its own topic files organically. You can use this structure, auto memory alone, or combine both. Whatever fits your workflow.
+Claude Code's auto memory uses these same four types for the notes it writes itself. Hand-written memory files are optional: you can rely on auto memory alone, write your own in this structure, or combine both. Whatever fits your workflow.
 </Callout>
 
 ## How Memory is Structured
@@ -110,7 +114,7 @@ Memory lives in `~/.claude/projects/<project>/memory/` for each git repo:
 
 | File | Purpose | Loaded when? |
 |------|---------|-------------|
-| `MEMORY.md` | The index. Lists all topic files with one-line summaries. | **Automatically** at session start (first 200 lines) |
+| `MEMORY.md` | The index. Lists all topic files with one-line summaries. | **Automatically** at session start (first 200 lines or 25KB, whichever comes first) |
 | Topic files (`debugging.md`, `api-conventions.md`, etc.) | Detailed context on specific topics | **On demand** when relevant |
 
 Each topic file is a small Markdown file with frontmatter (name, description, type) and focused content. Keep them short. One topic per file.
@@ -121,7 +125,7 @@ Each topic file is a small Markdown file with frontmatter (name, description, ty
 
 The `/memory` command is your dashboard for everything memory-related. Run it to:
 
-- **See all loaded context**: every CLAUDE.md, CLAUDE.local.md, and rules file currently active
+- **See every memory file location**: CLAUDE.md, CLAUDE.local.md and other memory files across user and project scopes, including ones that don't exist yet (`/context all` shows what actually loaded)
 - **Toggle auto memory** on or off for the current project
 - **Browse memory files**: get a link to open the memory folder
 - **Open files in your editor**: quickly edit any memory file

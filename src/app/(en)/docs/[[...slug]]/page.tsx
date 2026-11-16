@@ -156,6 +156,18 @@ export default async function Page(props: PageProps) {
   );
   const readMinutes = Math.max(1, Math.round(wordCount / 230));
 
+  // "Checked on" line: only pages whose facts were compared with official sources carry it.
+  const checkedOn: string | undefined = data.checkedOn;
+  const sources: { title: string; url: string }[] = data.sources ?? [];
+  const checkedOnLabel = checkedOn
+    ? new Date(`${checkedOn}T00:00:00Z`).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "UTC",
+      })
+    : null;
+
   const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -164,6 +176,7 @@ export default async function Page(props: PageProps) {
     description: data.description ?? "",
     url: canonicalUrl,
     author: { "@type": "Person", name: "Shadman Rahman" },
+    ...(checkedOn ? { dateModified: checkedOn } : {}),
     publisher: {
       "@type": "Organization",
       name: "Claude Code Guide",
@@ -195,7 +208,23 @@ export default async function Page(props: PageProps) {
           meta={`${readMinutes} min read`}
           title={data.title}
           lead={data.description}
-        />
+        >
+          {checkedOn && sources.length > 0 ? (
+            <p className="mt-4 text-sm text-fd-muted-foreground">
+              Checked on <time dateTime={checkedOn}>{checkedOnLabel}</time> against{" "}
+              {sources.length === 1 ? "the official source" : "official sources"}:{" "}
+              {sources.map((s, i) => (
+                <span key={s.url}>
+                  {i > 0 ? ", " : ""}
+                  <a href={s.url} className="underline hover:text-fd-foreground">
+                    {s.title}
+                  </a>
+                </span>
+              ))}
+              .
+            </p>
+          ) : null}
+        </ArticleHeader>
 
         {/* Dev-only comparison metadata */}
         {process.env.NODE_ENV === "development" &&

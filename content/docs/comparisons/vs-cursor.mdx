@@ -20,6 +20,10 @@ relatedLinks:
     description: "Clarify when terminal, desktop, and web interfaces fit your workflow."
 ---
 
+import { FaqSchema } from '@/components/faq-schema';
+
+Use Cursor if you write code all day and want AI to help you type it faster: it lives in your editor and finishes the line you're on. Use Claude Code if you want an agent that plans, writes, tests and verifies changes across your whole project. Plenty of people run both, Cursor for autocomplete and Claude Code for the bigger requests.
+
 ## They're Not Competing For the Same Job
 
 Asking "Claude Code or Cursor?" is like asking "should I get a sous chef or a better knife?" Both are useful. One makes you faster at a specific motion. The other does the cooking.
@@ -103,3 +107,55 @@ If you want an agent that plans, executes, and verifies across your entire proje
 Brand new to AI coding tools? Start with Cursor. Less intimidating, immediately useful, helps you get comfortable with the idea of AI in the loop. When you're ready for more, Claude Code will be here.
 
 If you're a PM, manager, or non-developer: this isn't even a question. Claude Code. Cursor is a coding tool for developers who write code. Claude Code is a general-purpose agent for anyone who builds things.
+
+## Claude Code vs Cursor questions
+
+<FaqSchema
+  items={[
+    {
+      question: 'Is Claude Code better than Cursor?',
+      answer:
+        'They do different jobs. Cursor is better for inline autocomplete, visual diffs and focused work in one file. Claude Code is better for changes that span many files, planning before it builds, and automating your workflow.',
+    },
+    {
+      question: 'What is the difference between Claude Code and Cursor?',
+      answer:
+        'Cursor is an AI code editor, a fork of VS Code, that predicts your next line and refactors code you highlight. Claude Code is an agent you run from the terminal, desktop app, web or an IDE extension: you describe a task, and it reads your codebase, writes files, runs tests and tells you when it is done.',
+    },
+    {
+      question: 'Can I use Cursor and Claude Code together?',
+      answer:
+        'Yes. Cursor handles inline autocomplete while you write, and Claude Code handles bigger requests like adding tests for a module or refactoring the API layer. The two do not conflict.',
+    },
+    {
+      question: 'Should a beginner start with Cursor or Claude Code?',
+      answer:
+        'If you are new to AI coding tools, start with Cursor, since it is less intimidating and useful right away. Move to Claude Code when you want an agent that does more, and give yourself about a week to learn the workflow.',
+    },
+    {
+      question: 'Do I have to switch editors to use Claude Code?',
+      answer:
+        'No. Claude Code runs in the terminal, so it works next to Vim, Zed, Emacs, WebStorm, Sublime or any other editor. Cursor requires you to work inside Cursor.',
+    },
+  ]}
+/>
+
+### Is Claude Code better than Cursor?
+
+They do different jobs. Cursor is better for inline autocomplete, visual diffs and focused work in one file. Claude Code is better for changes that span many files, planning before it builds, and automating your workflow.
+
+### What is the difference between Claude Code and Cursor?
+
+Cursor is an AI code editor, a fork of VS Code, that predicts your next line and refactors code you highlight. Claude Code is an agent you run from the terminal, desktop app, web or an IDE extension: you describe a task, and it reads your codebase, writes files, runs tests and tells you when it is done.
+
+### Can I use Cursor and Claude Code together?
+
+Yes. Cursor handles inline autocomplete while you write, and Claude Code handles bigger requests like adding tests for a module or refactoring the API layer. The two do not conflict.
+
+### Should a beginner start with Cursor or Claude Code?
+
+If you are new to AI coding tools, start with Cursor, since it is less intimidating and useful right away. Move to Claude Code when you want an agent that does more, and give yourself about a week to learn the workflow.
+
+### Do I have to switch editors to use Claude Code?
+
+No. Claude Code runs in the terminal, so it works next to Vim, Zed, Emacs, WebStorm, Sublime or any other editor. Cursor requires you to work inside Cursor.
