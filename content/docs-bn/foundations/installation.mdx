@@ -1,0 +1,224 @@
+---
+title: Claude Code কীভাবে install করবেন
+description: "শূন্য থেকে আপনার প্রথম আসল prompt পর্যন্ত, ১০ মিনিটে। Mac, Windows, Linux। আগে কোনো অভিজ্ঞতা লাগবে না।"
+sourceHash: "85520cbbcc3a9c4b"
+translatedAt: "2026-11-16"
+---
+
+Claude Code থাকে আপনার কম্পিউটারে, আর সরাসরি আপনার file নিয়ে কাজ করে। একবার install করবেন, তারপর সাধারণ ভাষায় ওর সঙ্গে কথা বলবেন। এই page আপনাকে সেখানে পৌঁছে দেবে।
+
+**যা লাগবে:** একটা কম্পিউটার (Mac, Windows, বা Linux), internet, আর একটা paid Anthropic account।
+
+> **VS Code বা JetBrains ব্যবহার করেন?** আপনার editor-এর extension marketplace-এ "Claude Code" search করুন। terminal লাগবে না। এই page-এর বাকি অংশে যাঁরা CLI install চান, তাঁদের জন্য steps আছে।
+
+## আগে কখনো terminal ব্যবহার করেননি?
+
+এতে লজ্জার কিছু নেই। terminal (একে "command line" বা "shell"-ও বলে) হলো একটা text window, যেখানে button-এ click করার বদলে আপনি command type করেন। Mac-এ এর নাম Terminal, Windows-এ PowerShell, Linux-এ সাধারণত এটাও Terminal।
+
+আপনার শুধু তিনটা command জানলেই চলবে:
+
+| Command | কী করে | উদাহরণ |
+|---------|-------------|---------|
+| `cd` | একটা folder-এর ভেতরে যায় | `cd Documents` |
+| `mkdir` | নতুন folder বানায় | `mkdir my-project` |
+| `ls` | এখনকার folder-এ কী আছে দেখায় | `ls` |
+
+বাকি সব কাজ, Claude চালু হয়ে গেলে ওকেই করে দিতে বলতে পারবেন।
+
+পরে আরেকটা জিনিস চোখে পড়বে: "environment variables"। এগুলোকে আপনার কম্পিউটারে রাখা কিছু setting হিসেবে ভাবুন, যা program-গুলো পড়তে পারে। অনেকটা একটা sticky note-এর মতো, যাতে লেখা থাকে `API_KEY=abc123`। install করার সময় এগুলো লাগবে না। দরকার হলে Claude Code নিজেই এগুলো আপনার জন্য set up করে দিতে পারবে।
+
+```bash
+npm install -g @anthropic-ai/claude-code
+claude
+```
+
+প্রথমবার `claude` চালালে এটা জিজ্ঞেস করবে আপনি কীভাবে log in করতে চান। আপনার Claude subscription বেছে নিন।
+
+## আগে Node.js install করুন
+
+Claude Code চলে Node.js-এর ওপর। সহজ কথায়, এটা সেই engine যেটা দিয়ে এ ধরনের CLI tool আপনার কম্পিউটারে চলে। version 18 বা তার নতুন লাগবে।
+
+আগে থেকেই আছে কি না দেখে নিন। terminal খুলে type করুন:
+
+```bash
+node --version
+```
+
+`v18.17.0` বা তার বেশি কিছু দেখলে পরের অংশে চলে যান। error এলে [nodejs.org](https://nodejs.org)-এ গিয়ে LTS version download করুন। installer চালান, screen-এ যা বলে সেভাবে এগোন। ২ মিনিটের কাজ।
+
+## macOS
+
+### Step 1: Terminal খুলুন
+
+**Cmd + Space** চাপুন, **Terminal** type করুন, Enter দিন। একটা text prompt-সহ window খুলবে।
+
+### Step 2: Claude Code install করুন
+
+এটা paste করে Enter চাপুন:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+<VocabBridge term="npm" explanation="Node Package Manager: এমন একটা tool যা আপনার হয়ে program download আর install করে দেয়, developer tool-এর একটা app store-এর মতো।">npm</VocabBridge> Claude Code download করে globally install করে। screen-এ কিছু progress text চলতে থাকবে, তারপর থেমে যাবে।
+
+### Mac-এ সমস্যা হলে
+
+**"npm: command not found"** মানে Node.js install করা নেই। [nodejs.org](https://nodejs.org) থেকে download করুন, অথবা আপনি যদি <VocabBridge term="Homebrew" explanation="Mac-এর একটা জনপ্রিয় tool, যা command line থেকে software install করে: এমন একটা app store, যেখানে আপনি type করে কাজ করেন।">Homebrew</VocabBridge> ব্যবহার করেন:
+
+```bash
+brew install node
+```
+
+**"EACCES: permission denied"** হলো permission-এর সমস্যা। দ্রুত সমাধান:
+
+```bash
+sudo npm install -g @anthropic-ai/claude-code
+```
+
+password চাইলে আপনার Mac-এর password type করুন। type করার সময় screen-এ কিছুই দেখা যাবে না। এটাই স্বাভাবিক।
+
+ভবিষ্যতে `sudo` ছাড়াই চলবে এমন স্থায়ী সমাধানের জন্য [troubleshooting page](/docs/foundations/troubleshooting) দেখুন।
+
+## Windows
+
+দুটো option আছে। Direct install দ্রুত। লম্বা সময়ের জন্য WSL-এ অভিজ্ঞতা ভালো হয়।
+
+### Option A: Direct install (সবচেয়ে দ্রুত)
+
+**PowerShell** খুলুন। Windows key চাপুন, PowerShell type করুন, "Run as Administrator"-এ click করুন।
+
+এটা paste করে Enter চাপুন:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+permission error এলে নিশ্চিত হয়ে নিন যে PowerShell Administrator হিসেবে খুলেছেন।
+
+### Option B: WSL (রোজকার কাজের জন্য ভালো)
+
+WSL (Windows Subsystem for Linux) Windows-এর ভেতরেই আপনাকে একটা Linux environment দেয়। বেশিরভাগ development tool Linux আর Mac-এর জন্য বানানো, তাই এখানে সবকিছু সাধারণত আরও ঝামেলা ছাড়া চলে।
+
+**Step 1:** Administrator হিসেবে PowerShell খুলে চালান:
+
+```bash
+wsl --install
+```
+
+বললে restart করুন।
+
+**Step 2:** restart-এর পর Start menu থেকে Ubuntu app খুলুন। এটা setup শেষ করবে আর একটা username ও password চাইবে।
+
+**Step 3:** Ubuntu-র ভেতরে Node.js আর Claude Code install করুন:
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+npm install -g @anthropic-ai/claude-code
+```
+
+## Linux
+
+### Step 1: terminal খুলুন
+
+বেশিরভাগ Linux distribution-এ **Ctrl + Alt + T** দিয়ে খোলে।
+
+### Step 2: Claude Code install করুন
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+### Linux-এ সমস্যা হলে
+
+**"EACCES: permission denied"** খুব common। `sudo` ব্যবহার না করে npm-এর default directory ঠিক করে নিন:
+
+```bash
+mkdir -p ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+তারপর install command আবার চালান:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+## ঠিকমতো হয়েছে কি না দেখুন
+
+যেকোনো operating system-এ:
+
+```bash
+claude --version
+```
+
+একটা version number দেখার কথা। তার বদলে error এলে [troubleshooting page](/docs/foundations/troubleshooting) দেখুন।
+
+## Log in করে শুরু করুন
+
+### Step 1: Claude Code চালু করুন
+
+যেকোনো folder-এ গিয়ে type করুন:
+
+```bash
+claude
+```
+
+প্রথমবার এটা আপনাকে ধাপে ধাপে আপনার Anthropic account দিয়ে log in করিয়ে নেবে।
+
+### Step 2: একটা paid plan লাগবে
+
+Claude Code-এর জন্য একটা চালু subscription লাগে। Free tier-এ এটা নেই।
+
+- **Claude Pro** ($20/month): দিনে যথেষ্ট limit, বেশিরভাগ মানুষের জন্য ভালো
+- **Claude Max** ($100/month): ভারী ব্যবহারের জন্য অনেক বেশি capacity
+
+এখনও না করে থাকলে [claude.ai](https://claude.ai)-এ sign up করুন।
+
+## আপনার প্রথম prompt
+
+চলুন দেখি সব ঠিকমতো কাজ করছে কি না। পরীক্ষা করার জন্য কোথাও একটা জায়গায় যান:
+
+```bash
+mkdir claude-test && cd claude-test
+claude
+```
+
+Claude Code চালু হলে type করুন:
+
+```
+Create a simple HTML page that says Hello World with some nice styling
+```
+
+দেখুন কী হয়। Claude Code একটা file বানায়, তাতে HTML লেখে, তারপর আপনাকে জানায় কী করল।
+
+browser-এ result দেখতে:
+- **Mac:** terminal-এ `open index.html`
+- **Windows:** PowerShell-এ `start index.html`
+- **Linux:** `xdg-open index.html`
+- অথবা আপনার file manager-এ file-টা খুঁজে double-click করুন
+
+একটা styled "Hello World" page দেখার কথা। এটাই Claude Code-এর আসল কাজ।
+
+> **Shortcut:** আপনি সরাসরি বলতেও পারেন: `"open the file in my browser"`। কীভাবে করতে হয়, ও জানে।
+
+## এরপর কী
+
+আপনি শুরু করে ফেলেছেন। এখান থেকে কোথায় যাবেন:
+
+- **[Full Guided Setup](/guide)** আসল project-এর জন্য Claude Code configure করতে
+- **[CLAUDE.md Guide](/bn/docs/foundations/claude-md)** যাতে Claude Code এক session থেকে আরেক session-এ আপনার preference মনে রাখে
+- **[Glossary](/docs/foundations/glossary)** অচেনা যেকোনো term-এর জন্য
+
+### এখনও terminal-এর জন্য তৈরি নন?
+
+একদম ঠিক আছে। [Lovable](https://lovable.link/4IOZkKK) দিয়ে আপনি একটা visual interface-এ AI দিয়ে app বানাতে পারবেন। terminal নেই, code নেই। যখন তৈরি হবেন, Claude Code-এ ফিরে আসবেন। (ওই link দিয়ে প্রথম মাসে 20% ছাড়।)
+
+### এখনও আটকে আছেন?
+
+- [Troubleshooting page](/docs/foundations/troubleshooting) common সমস্যার সমাধানের জন্য
+- [Anthropic's official documentation](https://docs.anthropic.com/en/docs/claude-code) সবচেয়ে নতুন তথ্যের জন্য
+- [Claude Code GitHub issues](https://github.com/anthropics/claude-code/issues) অন্যরাও একই সমস্যায় পড়েছেন কি না দেখতে

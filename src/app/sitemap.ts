@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { source } from "@/lib/source";
+import { source, sourceBn } from "@/lib/source";
 import { pmPilotSource } from "@/lib/source-pm-pilot";
 import { blogPosts } from "@/data/blog-posts";
 import { CHROME_GUIDES } from "@/lib/chrome-guides";
@@ -123,6 +123,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...Object.keys(BN_TEACHER_GUIDES).map((slug) => ({
       url: `${baseUrl}/bn/for-teachers/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...sourceBn.getPages().map((page) => ({
+      url: `${baseUrl}${page.url}`,
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),

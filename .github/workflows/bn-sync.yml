@@ -12,6 +12,7 @@ on:
       - src/lib/designer-guides.ts
       - src/lib/teacher-guides.ts
       - src/lib/hubs/**
+      - content/docs/**
   workflow_dispatch:
     inputs:
       test_slug:
@@ -85,24 +86,27 @@ jobs:
             Sources:
             - English tutorials: src/lib/tutorials.ts (TUTORIALS). English designer guides: src/lib/designer-guides.ts (DESIGNER_GUIDES). English teacher guides: src/lib/teacher-guides.ts (TEACHER_GUIDES). English hub pages: src/lib/hubs/teachers.ts (TEACHERS_HUB) and src/lib/hubs/designers.ts (DESIGNERS_HUB).
             - Bangla: src/lib/i18n/bn/tutorials/g1..g6.ts src/lib/i18n/bn/designer-guides/d1..d2.ts, src/lib/i18n/bn/teacher-guides/t1..t2.ts, and the hubs in src/lib/i18n/bn/hubs/{teachers,designers}.ts (one Translation per file; mirror the English keys exactly). Find each slug with Grep.
+            - Docs pages ("docs" in the report, keyed by path such as foundations/installation): English is content/docs/<slug>.mdx, Bangla is content/docs-bn/<slug>.mdx. Translate prose, headings, frontmatter title/description/seoTitle and relatedLinks text; keep code blocks, commands, component names and props, URLs and image paths exactly. Point links to /docs/... at /bn/docs/... only when content/docs-bn has that page. Docs are never "missing": only pages that already have a Bangla file are tracked.
             - Style rules: src/lib/i18n/bn/STYLE.md. Read it first. Voice reference: the "coming-from-chatgpt" entry in src/lib/i18n/bn/tutorials.ts.
 
             For each slug:
             - stale: compare the English entry with the Bangla one and re-translate only what changed in English. Keep the existing Bangla wherever the English is unchanged.
             - missing: translate the full English entry. Add tutorials to the end of g6.ts and designer guides to the end of d2.ts, teacher guides to the end of t2.ts.
             - orphan: delete the Bangla entry.
-            For every stale or missing entry, set translatedAt to today's date and set sourceHash to the output of:
+            For a stale docs page, set its frontmatter translatedAt to today's date and sourceHash to the output of:
+              node --no-warnings --input-type=module -e 'import {sourceHash} from "./src/lib/i18n/source-hash.ts"; import {readFileSync} from "node:fs"; console.log(sourceHash(readFileSync("content/docs/SLUG.mdx","utf8")))'
+            For every other stale or missing entry, set translatedAt to today's date and set sourceHash to the output of:
               node --no-warnings --input-type=module -e 'import {TUTORIALS} from "./src/lib/tutorials.ts"; import {DESIGNER_GUIDES} from "./src/lib/designer-guides.ts"; import {TEACHER_GUIDES} from "./src/lib/teacher-guides.ts"; import {TEACHERS_HUB} from "./src/lib/hubs/teachers.ts"; import {DESIGNERS_HUB} from "./src/lib/hubs/designers.ts"; import {sourceHash} from "./src/lib/i18n/source-hash.ts"; console.log(sourceHash({...TUTORIALS,...DESIGNER_GUIDES,...TEACHER_GUIDES,teachers:TEACHERS_HUB,designers:DESIGNERS_HUB}["SLUG"]))'
 
-            Edit only files under src/lib/i18n/bn/. Do not commit. Before finishing, run `npm run check:bn -- --strict` and `npx tsc --noEmit -p .`; both must pass.
+            Edit only files under src/lib/i18n/bn/ and content/docs-bn/. Do not commit. Before finishing, run `npm run check:bn -- --strict` and `npx tsc --noEmit -p .`; both must pass.
 
       - name: Verify
         if: steps.drift.outputs.drifted == 'true'
         run: |
           node --no-warnings scripts/check-bn-sync.ts --strict
           npx tsc --noEmit -p .
-          if git diff --name-only | grep -v '^src/lib/i18n/bn/'; then
-            echo "Claude edited files outside src/lib/i18n/bn/" && exit 1
+          if git diff --name-only | grep -v -e '^src/lib/i18n/bn/' -e '^content/docs-bn/'; then
+            echo "Claude edited files outside src/lib/i18n/bn/ and content/docs-bn/" && exit 1
           fi
 
       - name: Commit
@@ -110,7 +114,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/lib/i18n/bn/
+          git add src/lib/i18n/bn/ content/docs-bn/
           git diff --cached --quiet && exit 0
           git commit -m "chore(i18n): sync Bangla with English" -m "Drift: ${{ steps.drift.outputs.report }}"
           # claude-code-action rewrites the git credentials, so push with the job token

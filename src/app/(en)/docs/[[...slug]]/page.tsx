@@ -1,54 +1,14 @@
-import type { ComponentProps } from "react";
-import { source } from "@/lib/source";
+import Link from "next/link";
+import { source, sourceBn } from "@/lib/source";
 import { DocsPage } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
-import defaultMdxComponents from "fumadocs-ui/mdx";
-import { ClaudeCodeMock } from "@/components/claude-code-mock";
-import { AppSessionMock } from "@/components/docs/app-session-mock";
-import { ModelPickerMock } from "@/components/docs/model-picker-mock";
-import { VocabBridge } from "@/components/vocab-bridge";
 import { EmailCapture } from "@/components/email-capture";
 import { AffiliateCTA } from "@/components/affiliate-cta";
 import { ComparisonRelatedLinks } from "@/components/comparison-related-links";
 import { ChapterNav } from "@/components/docs/chapter-nav";
 import { GithubStarCta } from "@/components/github-star-cta";
 import { SectionIndex } from "@/components/docs/section-index";
-import { DocCallout } from "@/components/docs/doc-callout";
-import { DocPre } from "@/components/docs/doc-pre";
 import { ArticleHeader } from "@/components/docs/article-header";
-import { PromptCard } from "@/components/prompt-card";
-import { FromClaude } from "@/components/from-claude";
-import { UseCaseMeta } from "@/components/use-case-meta";
-import { YouTubeEmbed } from "@/components/youtube-embed";
-import { AuthorBio } from "@/components/author-bio";
-import { UseCaseWalkthrough } from "@/components/use-case-walkthrough";
-import {
-  ProjectFolderIllustration,
-  PromptComposerIllustration,
-  ClaudeQuestionsIllustration,
-  FileWrittenIllustration,
-  FileEditingIllustration,
-  ClaudeKnowsIllustration,
-  CalendarEventIllustration,
-  MultiSourcePullIllustration,
-  BriefDocumentIllustration,
-  SkimOnPhoneIllustration,
-  PreparedReadyIllustration,
-  AntiSycophancyHero,
-} from "@/components/illustrations";
-import {
-  MemoryRouterDiagram,
-  EveryTurnTaxDiagram,
-  MoreFilesTrapDiagram,
-  ClaudeMdRouterDiagram,
-  IsolationWallsDiagram,
-  FiveCLoopDiagram,
-  CheckPanelDiagram,
-  PersonaFlowDiagram,
-  PromptCachePrefixDiagram,
-  EnvVarScopesDiagram,
-  ReleaseCheckDiagram,
-} from "@/components/docs/doc-diagrams";
 import { getAffiliateCtasForPage } from "@/lib/affiliate-cta-config";
 import { getComparisonArticleMetadata } from "@/lib/comparison-article";
 import { getPageNavigation, getSections } from "@/lib/docs-navigation";
@@ -57,56 +17,7 @@ import { ogImage } from "@/lib/og/image";
 import { seoTitle } from "@/lib/seo-title";
 import { X_HANDLE } from "@/lib/site";
 import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
-
-const DefaultImg = defaultMdxComponents.img;
-
-/** A page's opening hero.png is its LCP element, so it loads eagerly at high priority. */
-function DocImg(props: ComponentProps<typeof DefaultImg>) {
-  const src = typeof props.src === "string" ? props.src : (props.src as { src?: string } | undefined)?.src ?? "";
-  if (!/\/hero\.[^/]+$/.test(src)) return <DefaultImg {...props} />;
-  return <DefaultImg {...props} loading="eager" fetchPriority="high" />;
-}
-
-const mdxComponents = {
-  ...defaultMdxComponents,
-  img: DocImg,
-  pre: DocPre,
-  Callout: DocCallout,
-  // Scripted sessions render in the desktop app by default; TerminalMock keeps the CLI look.
-  ClaudeCodeMock: AppSessionMock,
-  TerminalMock: ClaudeCodeMock,
-  ModelPickerMock,
-  VocabBridge,
-  PromptCard,
-  FromClaude,
-  UseCaseMeta,
-  YouTubeEmbed,
-  AuthorBio,
-  UseCaseWalkthrough,
-  ProjectFolderIllustration,
-  PromptComposerIllustration,
-  ClaudeQuestionsIllustration,
-  FileWrittenIllustration,
-  FileEditingIllustration,
-  ClaudeKnowsIllustration,
-  CalendarEventIllustration,
-  MultiSourcePullIllustration,
-  BriefDocumentIllustration,
-  SkimOnPhoneIllustration,
-  PreparedReadyIllustration,
-  AntiSycophancyHero,
-  MemoryRouterDiagram,
-  EveryTurnTaxDiagram,
-  MoreFilesTrapDiagram,
-  ClaudeMdRouterDiagram,
-  IsolationWallsDiagram,
-  FiveCLoopDiagram,
-  CheckPanelDiagram,
-  PersonaFlowDiagram,
-  PromptCachePrefixDiagram,
-  EnvVarScopesDiagram,
-  ReleaseCheckDiagram,
-};
+import { mdxComponents } from "@/components/docs/mdx-components";
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
@@ -169,6 +80,7 @@ export default async function Page(props: PageProps) {
     : null;
 
   const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
+  const bnHref = sourceBn.getPage(params.slug) ? `/bn/docs/${params.slug.join("/")}` : null;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -222,6 +134,13 @@ export default async function Page(props: PageProps) {
                 </span>
               ))}
               .
+            </p>
+          ) : null}
+          {bnHref ? (
+            <p className="mt-3 text-sm">
+              <Link href={bnHref} hrefLang="bn" lang="bn" className="underline hover:text-fd-foreground">
+                বাংলায় পড়ুন
+              </Link>
             </p>
           ) : null}
         </ArticleHeader>
@@ -342,11 +261,17 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   if (!page) notFound();
 
   const canonicalUrl = `https://claudecodeguide.dev/docs/${params.slug.join("/")}`;
+  const bnUrl = sourceBn.getPage(params.slug)
+    ? `https://claudecodeguide.dev/bn/docs/${params.slug.join("/")}`
+    : null;
 
   return {
     title: { absolute: seoTitle(page.data.seoTitle ?? page.data.title, "Claude Code Guide") },
     description: page.data.description,
-    alternates: { canonical: canonicalUrl },
+    alternates: {
+      canonical: canonicalUrl,
+      ...(bnUrl ? { languages: { "x-default": canonicalUrl, en: canonicalUrl, bn: bnUrl } } : {}),
+    },
     openGraph: {
       title: page.data.title,
       description: page.data.description,

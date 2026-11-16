@@ -17,6 +17,8 @@ import { BN_TEACHER_GUIDES } from "../src/lib/i18n/bn/teacher-guides.ts";
 import { BN_TEACHERS_HUB } from "../src/lib/i18n/bn/hubs/teachers.ts";
 import { BN_DESIGNERS_HUB } from "../src/lib/i18n/bn/hubs/designers.ts";
 import { sourceHash } from "../src/lib/i18n/source-hash.ts";
+import { readdirSync, readFileSync } from "node:fs";
+import { join, relative } from "node:path";
 
 interface Drift {
   stale: string[];
@@ -36,6 +38,29 @@ function diff(source: Record<string, unknown>, bn: Record<string, { sourceHash: 
   return d;
 }
 
+/**
+ * Docs pages: the English source is the whole .mdx file text, and a Bangla page
+ * in content/docs-bn stores its hash as `sourceHash` in frontmatter. Only
+ * translated docs are compared, so English docs with no Bangla page are not "missing".
+ */
+function mdxFiles(dir: string): string[] {
+  return readdirSync(dir, { recursive: true, encoding: "utf8" })
+    .filter((f) => f.endsWith(".mdx"))
+    .map((f) => relative(dir, join(dir, f)).replace(/\.mdx$/, ""));
+}
+const BN_DOCS: Record<string, { sourceHash: string }> = Object.fromEntries(
+  mdxFiles("content/docs-bn").map((slug) => {
+    const text = readFileSync(`content/docs-bn/${slug}.mdx`, "utf8");
+    return [slug, { sourceHash: text.match(/^sourceHash:\s*"?([0-9a-f]+)"?\s*$/m)?.[1] ?? "" }];
+  }),
+);
+const EN_DOCS: Record<string, string> = Object.fromEntries(
+  mdxFiles("content/docs").map((slug) => [slug, readFileSync(`content/docs/${slug}.mdx`, "utf8")]),
+);
+const EN_DOCS_TRANSLATED = Object.fromEntries(
+  Object.keys(BN_DOCS).map((slug) => [slug, EN_DOCS[slug]]).filter(([, v]) => v !== undefined),
+);
+
 /** English source and its Bangla translations, per content type. Hubs are keyed by hub name. */
 const sources: Record<string, [Record<string, unknown>, Record<string, { sourceHash: string } | undefined>]> = {
   tutorials: [TUTORIALS, BN_TUTORIALS],
@@ -45,6 +70,7 @@ const sources: Record<string, [Record<string, unknown>, Record<string, { sourceH
     { teachers: TEACHERS_HUB, designers: DESIGNERS_HUB },
     { teachers: BN_TEACHERS_HUB, designers: BN_DESIGNERS_HUB },
   ],
+  docs: [EN_DOCS_TRANSLATED, BN_DOCS],
 };
 
 const report = Object.fromEntries(Object.entries(sources).map(([label, [en, bn]]) => [label, diff(en, bn)]));

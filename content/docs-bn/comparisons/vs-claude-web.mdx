@@ -1,0 +1,213 @@
+---
+title: "Claude vs Claude Code: Claude.ai থেকে এটা কোথায় আলাদা"
+description: "Claude.ai হলো লেখা আর research-এর জন্য chat app। Claude Code হলো সেই agent, যেটা আপনার codebase-এ কাজ করে। কোনটা কোথায় চলে, কোন plan লাগবে, আর কোনটা ব্যবহার করবেন।"
+targetKeyword: "claude code vs claude ai"
+comparisonEntities:
+  - "Claude Code"
+  - "Claude.ai"
+relatedLinks:
+  - title: "Claude Code vs ChatGPT"
+    href: "/docs/comparisons/vs-chatgpt"
+    description: "ChatGPT user-দের জন্য: Claude Code আর ChatGPT-এর তুলনা।"
+  - title: "Claude Code কী?"
+    href: "/bn/docs/foundations/what-is-claude-code"
+    description: "Claude Code-এ যাঁরা নতুন, তাঁদের জন্য পুরো explainer।"
+  - title: "কোন Claude interface ব্যবহার করবেন?"
+    href: "/bn/docs/foundations/which-interface"
+    description: "Terminal, desktop app, web app, নাকি IDE extension।"
+checkedOn: "2026-11-16"
+sources:
+  - title: "Claude Code overview"
+    url: "https://code.claude.com/docs/en/overview"
+  - title: "Claude pricing"
+    url: "https://claude.com/pricing"
+  - title: "Get started with Cowork"
+    url: "https://support.claude.com/en/articles/13345190-get-started-with-cowork"
+  - title: "Claude Code on mobile"
+    url: "https://code.claude.com/docs/en/mobile"
+sourceHash: "ad6a5fd8f2b2dd3f"
+translatedAt: "2026-11-16"
+---
+
+import { FaqSchema } from '@/components/faq-schema';
+
+Claude.ai হলো Anthropic-এর chat app। এখানে আপনি ক্লড (Claude)-এর সঙ্গে কথা বলেন, file upload করেন, web-এ search করেন আর Projects-এ কাজ রেখে দেন। Claude Code হলো Anthropic-এর agentic coding tool: এটি আপনার codebase পড়ে, file edit করে, command চালায় আর আপনার development tool-গুলোর সঙ্গে connect করে। একই কোম্পানি, একই model, কিন্তু chat বানানো হয়েছে কথা বলার জন্য, আর Claude Code বানানো হয়েছে একটা code project-এর ভেতরে কাজ করে দেওয়ার জন্য।
+
+দুটোই একই Claude account-এর মধ্যে থাকে। Paid plan নিলে দুটোই পাবেন, আর Claude desktop app-এ chat আর Claude Code পাশাপাশি থাকে।
+
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'এই folder-এর সব .jpeg file-এর নাম বদলে .jpg করে দিন' },
+  { kind: 'tool', name: 'Glob', arg: '*.jpeg', result: 'Found 23 files' },
+  { kind: 'tool', name: 'Bash', arg: 'for f in *.jpeg; do mv "$f" "${f%.jpeg}.jpg"; done', result: '(No content)' },
+  { kind: 'say', text: '23টা file-এর নাম .jpeg থেকে .jpg করে দিয়েছি।' },
+]} />
+
+Chat-কে একই কথা বললে আপনি একটা script পাবেন, যেটা আপনাকে নিজে চালাতে হবে। Claude Code সেটা আপনার folder-এ নিজেই চালায়, তারপর জানায় কী কী বদলেছে।
+
+## Claude vs Claude Code: এক নজরে
+
+| | Claude.ai (chat) | Claude Code |
+|---|---|---|
+| **এটা কী** | প্রশ্ন, লেখা, research আর analysis-এর জন্য একটা chat app | একটা agentic coding tool, যেটা আপনার codebase-এর ভেতরে কাজ করে |
+| **কোথায় চলে** | Web, desktop app (macOS, Windows), iOS আর Android | Terminal, VS Code, JetBrains, desktop app-এর Code tab, আর web-এ claude.ai/code |
+| **কীসে হাত দিতে পারে** | আপনার upload করা file, web, আর আপনার connect করা app | আপনার project folder, terminal, git, আর MCP দিয়ে connect করা tool |
+| **কীভাবে চালাবেন** | Projects আর সেগুলোর instruction | আপনার project-এ একটা `CLAUDE.md` file, সঙ্গে skills আর hooks |
+| **কার জন্য** | যাঁদের কাজই লেখা, পড়া বা চিন্তা করা | যাঁরা software বানান বা বদলান, একদম নতুন থেকে full-time engineer পর্যন্ত |
+| **কোন plan লাগবে** | Free-তেই চলে; paid plan-এ আরও বেশি পাবেন | Pro, Max, Ultra, Team বা Enterprise, অথবা একটা Anthropic Console account |
+
+শেষ row-টা নিয়েই মানুষ সবচেয়ে বেশি ভুল করে। Chat সব plan-এ আছে, Free-তেও। Claude Code Free-তে নেই।
+
+## কোন কাজে কোনটা
+
+Product-এর নাম দেখে নয়, সামনে যে কাজটা আছে সেটা দেখে বেছে নিন।
+
+| কাজ | কোনটা ব্যবহার করবেন | কেন |
+|---|---|---|
+| দ্রুত একটা উত্তর, একটা ব্যাখ্যা বা second opinion | Chat | একটা plan-এ ফাঁক আছে কি না জিজ্ঞেস করতে project folder লাগে না |
+| Email, report, post বা spec-এর draft লেখা | Chat | Artifacts দিয়ে এমন একটা document পান যেটা বারবার edit করতে পারবেন, আর Projects একটা কাজকে এক জায়গায় রাখে |
+| একটা PDF বা spreadsheet বুঝে নেওয়া | Chat | Upload করুন, প্রশ্ন করুন, summary চেয়ে নিন |
+| ফোনে যেকোনো কাজ | Claude app-এ Chat | App-এর Code tab দিয়ে cloud-এ বা আপনার কম্পিউটারে চলা Claude Code session চালানো যায়; ফোনে কোনো code চলে না |
+| Website, app বা script বানানো | Claude Code | এটি একটা আসল folder-এ file লেখে, সেগুলো চালায়, error দেখে আর ঠিক করে |
+| আগে থেকে থাকা codebase-এ bug ঠিক করা | Claude Code | এটি আগে code পড়ে নেয়, তাই paste করা একটা snippet দেখে আন্দাজ না করে কয়েকটা file জুড়ে bug-টা খুঁজে বের করতে পারে |
+| Change commit করা আর pull request খোলা | Claude Code | এটি change stage করে, commit message লেখে, branch বানায় আর pull request খোলে |
+| বারবার করতে হয় এমন কাজ, যেমন সকালের PR review | Claude Code | Scheduled task desktop app থেকে আপনার মেশিনে চলে, অথবা laptop বন্ধ থাকলেও cloud-এ চলে |
+| Code নয় এমন লম্বা কাজ | Cowork | নিচে বলা আছে |
+
+আমার নিজের সহজ নিয়ম: উত্তরে text চাইলে chat-এ শুরু করুন। বদলানো file চাইলে Claude Code-এ শুরু করুন।
+
+## কোনটা কোথায় চলে
+
+নাম নিয়ে গোলমালটা এখানেই লাগে, কারণ আপনার প্রায় প্রতিটা screen-এই "Claude" দেখা যায়।
+
+### Claude.ai chat
+
+- Web: যেকোনো browser-এ claude.ai।
+- Desktop: macOS, Windows আর Windows on ARM-এর জন্য Claude app। Linux-এ Ubuntu আর Debian-এর জন্য beta চলছে।
+- Mobile: iOS আর Android-এর জন্য Claude app।
+
+### Claude Code
+
+- Terminal: সব feature সহ CLI। একটা command দিয়ে install করেন, তারপর project folder-এর ভেতরে `claude` চালান।
+- VS Code আর Cursor: একটা extension, যাতে inline diff, @-mention আর plan review আছে।
+- JetBrains: IntelliJ IDEA, PyCharm, WebStorm আর বাকিগুলোর জন্য একটা plugin। এর জন্য CLI আলাদা করে install করতে হয়।
+- Desktop app: Claude app-এর Code tab। Claude Code এতে built-in, তাই এটা ব্যবহার করতে CLI install করতে হয় না।
+- Web: claude.ai/code কোনো local setup ছাড়াই cloud-এ Claude Code চালায়। এটা desktop browser থেকে চলে, আর iOS ও Android app-এর Code tab থেকেও চলে।
+- Slack: একটা bug report লিখে `@Claude` mention করুন, ফেরত একটা pull request পাবেন।
+
+Claude Code-এর প্রতিটা জায়গায় একই engine চলে, তাই আপনার `CLAUDE.md`, settings আর MCP server সবগুলোতেই সঙ্গে থাকে। Web-এ একটা task শুরু করে `claude --teleport` দিয়ে সেটা terminal-এ নিয়ে আসতে পারেন, অথবা `/desktop` দিয়ে terminal-এর session desktop app-এ চালিয়ে যেতে পারেন।
+
+শুধু এই দুটো নয়, Claude-এর সব জায়গার পুরো map দেখতে চাইলে পড়ুন [কোন Claude interface ব্যবহার করবেন?](/bn/docs/foundations/which-interface)।
+
+## Cowork আর desktop app কোথায় পড়ে
+
+এত মানুষ যে জিজ্ঞেস করেন "Claude Code আর Claude কি একই জিনিস?", তার কারণ এই desktop app। খুললেই এক window-তে chat, Cowork আর Code দেখতে পান। Anthropic-এর download page এটাকে বলে "All of Claude, in one app."
+
+তিনটা অংশ এভাবে ভাগ করা:
+
+| App-এর অংশ | কী করে | Plan |
+|---|---|---|
+| Chat | কথা বলা, upload, Projects, Artifacts | সব plan, Free সহ |
+| Cowork | লম্বা, কয়েক ধাপের কাজ, terminal লাগে না | Pro, Max, Ultra, Team, Enterprise |
+| Code | আপনার কম্পিউটারের একটা folder-এ, SSH দিয়ে একটা remote মেশিনে, অথবা cloud-এ Claude Code | Pro, Max, Ultra, Team, Enterprise |
+
+Cowork, Claude Code-এর মতোই agentic architecture ব্যবহার করে, কিন্তু terminal লাগে না। এটা software নয় এমন কাজের জন্য: research, document, file। Cowork আপনার task cloud-এ চালায়। এটা desktop app-এ পাওয়া যায়, আর Pro, Max ও Ultra-তে web আর mobile-এও পাওয়া যায় (Team-এ beta হিসেবে, আর Enterprise-এ owner চালু করলে)।
+
+তাই "Claude Cowork vs Claude Code" প্রশ্নের short উত্তর হলো: দুটোর engine এক, ভাগটা হয় কাজ অনুযায়ী। Cowork knowledge work-এর জন্য। Claude Code code-এর জন্য। Repository খুললে আপনার দরকার Code।
+
+## কোন plan লাগবে
+
+Anthropic-এর pricing page-এ individual আর team-এর জন্য এই plan-গুলো আছে: Free, Pro, Max, Ultra, Team আর Enterprise।
+
+- Free: শুধু chat। Pricing page-এ লেখা আছে Claude Code এতে included নয়।
+- Pro: chat, Claude Code আর Cowork। মাসে মাসে bill দিলে মাসে $20, অথবা annual plan-এ মাসে $17।
+- Max আর Ultra: Pro-এর সবকিছু, সঙ্গে কাজ করার আরও বেশি জায়গা।
+- Team আর Enterprise: একটা organization-এর জন্য একই tool, প্রতি জনের seat ধরে bill হয়।
+
+Claude Code-এর জন্য আরও একটা পথ আছে: Anthropic Console account দিয়ে sign in করে API usage-এর জন্য pay করুন। Terminal CLI, VS Code আর JetBrains third-party provider দিয়েও চলে। তবে cloud session, teleport আর desktop handoff-এর জন্য claude.ai subscription দিয়ে sign in লাগে, তাই শুধু একটা Console key দিয়ে সেগুলো পাবেন না।
+
+আপনি যদি এর মধ্যেই Pro-এর জন্য pay করেন, তাহলে Claude Code আপনার কাছে আছেই। [Install করুন](/bn/docs/foundations/installation) আর একই account দিয়ে sign in করুন। কোন paid tier নেবেন সেটা ঠিক করতে দেখুন [Claude Pro vs Max vs API](/docs/comparisons/pro-vs-max)।
+
+## দুটোই ব্যবহার করুন
+
+একটা বেছে নিতেই হবে, এমন কোনো কথা নেই। অনেকে প্রশ্ন আর draft-এর জন্য chat খোলা রাখেন, আর যে কাজের শেষে একটা file বদলায়, সেটার জন্য Claude Code চালান। Claude Code আপনার বাকি Claude usage-এর সঙ্গে একই rate limit share করে, তাই যেদিন Claude Code বেশি চালাবেন, সেদিন chat-এর জন্য জায়গা কম থাকবে।
+
+আপনি যদি ChatGPT থেকে আসেন, [ChatGPT থেকে আসছেন tutorial](/bn/tutorials/coming-from-chatgpt) আপনাকে switch-টা ধাপে ধাপে দেখাবে। একটা real project-এ Claude Code চালিয়ে দেখতে চাইলে [আপনার প্রথম CLAUDE.md লিখুন](/bn/tutorials/your-first-claude-md) দিয়ে শুরু করুন, তারপর [একটা landing page ship করুন](/bn/tutorials/ship-a-landing-page)।
+
+## FAQ
+
+<FaqSchema
+  items={[
+    {
+      question: 'Claude vs Claude Code: পার্থক্য কী?',
+      answer:
+        'Claude.ai হলো chat app: এখানে আপনি Claude-এর সঙ্গে কথা বলেন, file upload করেন আর web-এ search করেন। Claude Code একটা agentic coding tool, যেটা আপনার codebase পড়ে, file edit করে, command চালায় আর আপনার development tool-গুলোর সঙ্গে connect করে।',
+    },
+    {
+      question: 'Claude Code আর Claude কি একই জিনিস?',
+      answer:
+        'না। দুটো একই Claude model আর একই account ব্যবহার করে, কিন্তু Claude Code আলাদা একটা tool, software-এর কাজের জন্য বানানো। Claude.ai chat বানানো হয়েছে কথা বলা, লেখা আর research-এর জন্য।',
+    },
+    {
+      question: 'Claude AI vs Claude Code: কোনটা ব্যবহার করব?',
+      answer:
+        'উত্তরে text চাইলে, যেমন একটা draft, একটা summary বা একটা ব্যাখ্যা, Claude.ai chat ব্যবহার করুন। উত্তরে একটা বদলানো file, ঠিক করা bug বা একটা pull request চাইলে Claude Code ব্যবহার করুন।',
+    },
+    {
+      question: 'Claude Code vs Claude desktop: এগুলো কি আলাদা app?',
+      answer:
+        'Claude desktop app-এর ভেতরেই Claude Code আছে। CLI install না করে আপনার কম্পিউটারের একটা folder-এ Claude Code চালাতে app-এর Code tab খুলুন। Code tab-এর জন্য paid plan লাগে।',
+    },
+    {
+      question: 'Claude Code vs Claude chat: chat কি আমার code edit করতে পারে?',
+      answer:
+        'আপনি যে code paste বা upload করেন, chat সেটা পড়ে change suggest করতে পারে। Claude Code আপনার project-এর ভেতরে কাজ করে: file পড়ে, edit করে, command চালায় আর git দিয়ে ফলাফল commit করতে পারে।',
+    },
+    {
+      question: 'Claude Cowork vs Claude Code: পার্থক্য কী?',
+      answer:
+        'Cowork, Claude Code-এর মতোই agentic architecture ব্যবহার করে, terminal লাগে না, আর এটা research, document আর অন্য knowledge work-এর জন্য। Claude Code software development-এর জন্য। দুটোর জন্যই paid plan লাগে।',
+    },
+    {
+      question: 'Free Claude plan-এ কি Claude Code আছে?',
+      answer:
+        'না। Claude Code আছে Pro, Max, Ultra, Team আর Enterprise-এ। Free plan-এ শুধু chat। API usage ধরে bill হয় এমন Anthropic Console account দিয়েও Claude Code ব্যবহার করতে পারেন।',
+    },
+    {
+      question: 'ফোনে কি Claude Code ব্যবহার করা যায়?',
+      answer:
+        'হ্যাঁ, iOS আর Android-এর Claude app-এর Code tab দিয়ে। ফোন এখানে একটা client: এটি cloud session শুরু করে ও চালায়, অথবা Remote Control দিয়ে আপনার কম্পিউটারে চলা একটা session চালায়। ফোনে কোনো code চলে না।',
+    },
+  ]}
+/>
+
+### Claude vs Claude Code: পার্থক্য কী?
+
+Claude.ai হলো chat app: এখানে আপনি Claude-এর সঙ্গে কথা বলেন, file upload করেন আর web-এ search করেন। Claude Code একটা agentic coding tool, যেটা আপনার codebase পড়ে, file edit করে, command চালায় আর আপনার development tool-গুলোর সঙ্গে connect করে।
+
+### Claude Code আর Claude কি একই জিনিস?
+
+না। দুটো একই Claude model আর একই account ব্যবহার করে, কিন্তু Claude Code আলাদা একটা tool, software-এর কাজের জন্য বানানো। Claude.ai chat বানানো হয়েছে কথা বলা, লেখা আর research-এর জন্য।
+
+### Claude AI vs Claude Code: কোনটা ব্যবহার করব?
+
+উত্তরে text চাইলে, যেমন একটা draft, একটা summary বা একটা ব্যাখ্যা, Claude.ai chat ব্যবহার করুন। উত্তরে একটা বদলানো file, ঠিক করা bug বা একটা pull request চাইলে Claude Code ব্যবহার করুন।
+
+### Claude Code vs Claude desktop: এগুলো কি আলাদা app?
+
+Claude desktop app-এর ভেতরেই Claude Code আছে। CLI install না করে আপনার কম্পিউটারের একটা folder-এ Claude Code চালাতে app-এর Code tab খুলুন। Code tab-এর জন্য paid plan লাগে।
+
+### Claude Code vs Claude chat: chat কি আমার code edit করতে পারে?
+
+আপনি যে code paste বা upload করেন, chat সেটা পড়ে change suggest করতে পারে। Claude Code আপনার project-এর ভেতরে কাজ করে: file পড়ে, edit করে, command চালায় আর git দিয়ে ফলাফল commit করতে পারে।
+
+### Claude Cowork vs Claude Code: পার্থক্য কী?
+
+Cowork, Claude Code-এর মতোই agentic architecture ব্যবহার করে, terminal লাগে না, আর এটা research, document আর অন্য knowledge work-এর জন্য। Claude Code software development-এর জন্য। দুটোর জন্যই paid plan লাগে।
+
+### Free Claude plan-এ কি Claude Code আছে?
+
+না। Claude Code আছে Pro, Max, Ultra, Team আর Enterprise-এ। Free plan-এ শুধু chat। API usage ধরে bill হয় এমন Anthropic Console account দিয়েও Claude Code ব্যবহার করতে পারেন।
+
+### ফোনে কি Claude Code ব্যবহার করা যায়?
+
+হ্যাঁ, iOS আর Android-এর Claude app-এর Code tab দিয়ে। ফোন এখানে একটা client: এটি cloud session শুরু করে ও চালায়, অথবা [Remote Control](https://code.claude.com/docs/en/remote-control) দিয়ে আপনার কম্পিউটারে চলা একটা session চালায়। ফোনে কোনো code চলে না।

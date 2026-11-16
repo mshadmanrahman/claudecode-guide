@@ -8,6 +8,7 @@ import { chatToSession } from '@/lib/chat-session';
 import { KineticText } from '@/components/kinetic-text';
 import { ogImage } from '@/lib/og/image';
 import { BN_TUTORIALS } from '@/lib/i18n/bn/tutorials';
+import { sourceBn } from '@/lib/source';
 import { BN_DESIGNER_GUIDES } from '@/lib/i18n/bn/designer-guides';
 import { BN_TEACHER_GUIDES } from '@/lib/i18n/bn/teacher-guides';
 import { BN_DESIGNERS_HUB } from '@/lib/i18n/bn/hubs/designers';
@@ -320,6 +321,28 @@ export default function BengaliGuidePage() {
                 />
               ) : null,
             )}
+          </ul>
+
+          <h2 className="mt-12 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">
+            শুরুর গাইড
+          </h2>
+          <p className="mt-3 text-fd-muted-foreground">
+            Claude Code কী, কীভাবে install করবেন, CLAUDE.md-তে কী লিখবেন, আর কোন Claude কোন কাজে।
+          </p>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {sourceBn.getPages().map((page) => (
+              <li key={page.url}>
+                <Link
+                  href={page.url}
+                  className="block h-full rounded-xl border border-fd-border p-4 transition-colors hover:border-[var(--acc)]"
+                >
+                  <span className="font-medium text-fd-foreground">{page.data.title}</span>
+                  {page.data.description ? (
+                    <span className="mt-1 block text-sm text-fd-muted-foreground line-clamp-2">{page.data.description}</span>
+                  ) : null}
+                </Link>
+              </li>
+            ))}
           </ul>
 
           <h2 className="mt-12 font-display text-2xl font-semibold text-fd-foreground tracking-[-0.035em]">

@@ -1,0 +1,115 @@
+---
+title: "Claude Code কী?"
+description: "ChatGPT আপনাকে বলে দেয় কী করতে হবে। Claude Code কাজটা নিজেই করে দেয়। এটা কী, কোন কাজে সত্যিই ভালো, আর আপনার সময় দেওয়ার মতো কি না, এখানে দেখুন।"
+sourceHash: "d7cf0245e236deb3"
+translatedAt: "2026-11-16"
+---
+
+## ৩০ সেকেন্ডে মূল কথা
+
+**Claude Code হলো এমন একটা AI, যেটা আপনার কম্পিউটারেই থাকে।** এটা আপনার file পড়ে, code লেখে, command চালায়, আর জিনিস বানিয়ে দেয়। আপনি এর সঙ্গে সাধারণ ইংরেজিতে কথা বলেন।
+
+ChatGPT যদি এমন কেউ হয় যাকে আপনি পরামর্শের জন্য message করেন, তাহলে Claude Code হলো পাশে বসা একজন colleague, যার হাতে আপনার আসল project আছে। শুধু suggestion না। সত্যিকারের output। সত্যিকারের file।
+
+<ClaudeCodeMock steps={[
+  { kind: 'prompt', text: 'আমার resume দিয়ে আমার জন্য একটা personal website বানিয়ে দিন' },
+  { kind: 'thinking', verb: 'Exploring', ms: 900 },
+  { kind: 'tool', name: 'Glob', arg: '**/*', result: 'Found 3 files' },
+  { kind: 'tool', name: 'Write', arg: 'index.html', result: 'Wrote 86 lines to index.html' },
+  { kind: 'tool', name: 'Write', arg: 'styles.css', result: 'Wrote 142 lines to styles.css' },
+  { kind: 'say', text: 'আপনার site ready, responsive layout আর একটা dark mode toggle সহ।\nPreview দেখতে index.html খুলুন।' },
+]} />
+
+## ChatGPT-এর সঙ্গে এর পার্থক্য কী?
+
+সবাই এই প্রশ্নটাই করে। সোজাসাপ্টা উত্তর:
+
+| | ChatGPT | Claude Code |
+|---|---|---|
+| **কোথায় চলে** | browser tab-এ বা ChatGPT app-এ | আপনার কম্পিউটারে (অথবা browser-এ) |
+| **কী দেখতে পায়** | শুধু আপনি যা paste করেন | আপনার পুরো project folder |
+| **কী করতে পারে** | text-এ উত্তর দেয় | file পড়ে, file লেখে, command চালায়, code test করে, deploy করে |
+| **Memory** | এক session থেকে আরেক session-এ ভুলে যায় (বেশিরভাগ সময়) | আপনার preference, project আর আগের সিদ্ধান্তগুলো মনে রাখে |
+| **Output** | text, যা আপনি copy-paste করেন | আপনার কম্পিউটারে আসল file |
+| **সবচেয়ে ভালো যেখানে** | প্রশ্ন আর brainstorming | আসল জিনিস বানানো, ঠিক করা আর ship করা |
+
+কোনোটাই "বেশি ভালো" না। দুটো আলাদা কাজের জন্য আলাদা tool।
+
+Browse করার সময় চট করে একটা উত্তর দরকার? ChatGPT। কিছু বানাতে হবে, একটা bug ঠিক করতে হবে, বা কোনো workflow automate করতে হবে? Claude Code।
+
+## আসলে এটা কী কী করতে পারে?
+
+মানুষ প্রতিদিন যেসব আসল কাজে এটা ব্যবহার করে, তার কয়েকটা নিচে দেখুন।
+
+### আপনি যদি একদম নতুন হন
+- **একটা personal website বানান** একদম শূন্য থেকে, মোটামুটি ৩০ মিনিটে
+- **বিরক্তিকর কাজ automate করুন**, যেমন file rename করা, folder গোছানো বা spreadsheet process করা
+- **Code করা শিখুন**, Claude পাশে থেকে বুঝিয়ে দেবে আর আপনার সঙ্গে বানাবে
+
+### আপনি যদি প্রোডাক্ট ম্যানেজার হন
+- **Meeting notes থেকে Jira ticket বানান** কয়েক সেকেন্ডে
+- **Competitive analysis লিখুন**, বিভিন্ন product নিয়ে research আর তুলনা করে
+- **Slide deck outline আর status report বানান** আপনার project data থেকে
+
+### আপনি যদি ডেভেলপার হন
+- **আরও দ্রুত feature ship করুন**, এমন একটা AI দিয়ে যে আপনার codebase চেনে
+- **আন্দাজে না গিয়ে ধাপে ধাপে debug করুন**
+- **পুরো codebase নিরাপদে refactor করুন**, আগে test লিখে নিয়ে
+
+### আপনি যে-ই হোন
+- আপনার নিজের লেখার style-এ document draft করুন
+- web ঘেঁটে যেকোনো topic নিয়ে research করুন
+- আপনার জন্য বানানো material দিয়ে job interview-এর প্রস্তুতি নিন
+
+## Code জানতে হবে কি?
+
+না। জানি, কথাটা marketing line-এর মতো শোনায়। কিন্তু তা না।
+
+Claude Code শুরু হয়েছিল developer-দের tool হিসেবে, কিন্তু এখন এটা তার চেয়ে অনেক বড় কিছু হয়ে উঠেছে। Desktop বা web app ব্যবহার করলে আপনাকে কখনো terminal খুলতে হবে না। আপনি যা চান তা লিখবেন, Claude বের করবে কীভাবে করতে হয়, আর আপনি দেখে নেবেন সে কী বানাল।
+
+এই site-এর tutorial-গুলো এমন মানুষের জন্য লেখা, যারা কখনো code ছুঁয়েও দেখেননি। আপনি কী চান সেটা বুঝিয়ে বলতে পারলেই Claude Code দিয়ে বানাতে পারবেন।
+
+## খরচ কত?
+
+| Plan | দাম | কী পাবেন |
+|---|---|---|
+| **Free** | $0 | শুধু chat। Claude Code এতে নেই। |
+| **Pro** | $20/মাস (বছরে একবারে bill করলে $17/মাস) | Claude Code সহ। বেশিরভাগ মানুষের জন্য এটাই যথেষ্ট। |
+| **Max** | $100/মাস থেকে শুরু | Pro-এর 5x বা 20x usage। যারা সারাদিন Claude ব্যবহার করেন, তাদের জন্য। |
+| **API** | যতটুকু ব্যবহার, ততটুকু দাম | যে developer-রা Claude-এর ওপর নিজেদের কিছু বানান, তাদের জন্য। |
+
+Anthropic-এর [pricing page](https://claude.com/pricing) থেকে নেওয়া, 8 October 2026-এ যাচাই করা।
+
+বেশিরভাগ মানুষ Pro দিয়ে শুরু করেন। দাম আর সুবিধার হিসেবে এটাই সবচেয়ে মানানসই।
+
+**আপনার জন্য কোন plan ঠিক?** [বিস্তারিত তুলনা](/docs/comparisons/pro-vs-max) পড়ে দেখুন।
+
+## এর পেছনের model-গুলো
+
+Claude Code চলে তিনটা AI model-এ। আপনাকে হাতে বেছে নিতে হবে না: প্রতিটা paid plan-এ এটা Opus 5.5 দিয়ে `medium` effort-এ শুরু হয়, আর `/model` দিয়ে বদলাতে পারেন। তবে কী নিয়ে কাজ করছেন তা জানা থাকলে সুবিধা হয়:
+
+- **Claude Opus 5.5**: সবচেয়ে গভীরভাবে চিন্তা করে, আর এটাই default। 1M <VocabBridge term="token" explanation="text-এর ছোট একটা টুকরো (মোটামুটি একটা শব্দ), যা দিয়ে AI model মাপে সে কতটা পড়ল আর লিখল।">token</VocabBridge> <VocabBridge term="context window" explanation="AI একবারে কতটা text 'দেখতে' পায়: অনেকটা যেন একসঙ্গে মাথায় কত পাতা ধরে রাখতে পারে।">context window</VocabBridge>। সমস্যা সত্যিই কঠিন হলে আর প্রথমবারেই ঠিক উত্তর লাগলে এটা ব্যবহার করুন।
+- **Claude Sonnet 5.5**: দ্রুত আর দক্ষ। Opus-এর অর্ধেক দামে প্রতিদিনের বেশিরভাগ কাজ সামলায়।
+- **Claude Haiku 5.5**: সবচেয়ে দ্রুত আর সবচেয়ে সস্তা; 100K token পর্যন্ত prompt-এ Sonnet-এর দামের বিশ ভাগের এক ভাগ ($2 / $0.10 = 20)। ছোটখাটো edit, summary আর সহজ lookup-এর জন্য দারুণ।
+
+## 2026-এ নতুন কী?
+
+সম্প্রতি Claude Code-এ অনেক কিছু এসেছে। এর মধ্যে যেগুলো জানা দরকার:
+
+- **Computer Use** (March 2026): Claude এখন আপনার screen দেখতে পারে, button-এ click করতে পারে আর বিভিন্ন app-এর ভেতরে ঘুরে কাজ করতে পারে। কোনো setup লাগে না।
+- **Desktop App**: Mac, Windows আর Linux-এ পুরোদস্তুর native app। Terminal লাগে না।
+- **Web App**: claude.ai/code-এ Claude Code ব্যবহার করুন। কিছুই install করতে হয় না।
+- **1M Token Context**: Opus আর Sonnet দুটোই এক session-এ বিশাল project সামলাতে পারে।
+- **Skills**: একটা সাধারণ Markdown file দিয়ে নিজের custom <VocabBridge term="slash commands" explanation="/ দিয়ে শুরু হওয়া shortcut, যা লিখলে নির্দিষ্ট একটা কাজ চালু হয়, যেমন /commit বা /review।">slash commands</VocabBridge> বানান। কোনো code লাগে না।
+- **Agent Teams**: একসঙ্গে একাধিক Claude session চালান, প্রতিটা আলাদা একটা কাজে মন দেয়।
+- **<VocabBridge term="MCP" explanation="Model Context Protocol: একটা standard, যা দিয়ে Claude অন্য tool-এর সঙ্গে যুক্ত হতে পারে, যেমন GitHub, Slack বা database।">MCP</VocabBridge> Protocol**: Claude-কে GitHub, Slack, Jira, database আর আরও 50+ tool-এর সঙ্গে যুক্ত করুন।
+
+## কোথা থেকে শুরু করবেন
+
+তিনটা পথ:
+
+1. **আমি guided experience চাই**: [Interactive Journey Map](/journey)-এ যান আর আপনার persona বেছে নিন।
+2. **আমি একটা tutorial ধরে এগোতে চাই**: [Your First CLAUDE.md](/bn/tutorials/your-first-claude-md) দিয়ে শুরু করুন। ৫ মিনিট লাগে।
+3. **আমি শুধু install করতে চাই**: [Installation Guide](/bn/docs/foundations/installation)।
+
+যেকোনো একটা বেছে নিন আর শুরু করে দিন।

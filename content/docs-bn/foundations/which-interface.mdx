@@ -1,0 +1,387 @@
+---
+title: "কোন Claude ব্যবহার করবেন? ১৬টা surface এক জায়গায়"
+seoTitle: "Coding-এর জন্য কোন Claude product সবচেয়ে ভালো?"
+description: "অচেনা codebase-এ কাজ করতে কোন Claude product সবচেয়ে ভালো? উত্তর কেন Claude Code, Chrome, Slack বা Excel নয়, সঙ্গে ১৬টা Claude product-এর তুলনা।"
+full: true
+checkedOn: "2026-11-16"
+sources:
+  - title: "Claude pricing"
+    url: "https://claude.com/pricing"
+  - title: "Claude Code on the web"
+    url: "https://code.claude.com/docs/en/claude-code-on-the-web"
+  - title: "Claude Code on mobile"
+    url: "https://code.claude.com/docs/en/mobile"
+  - title: "Claude Code in Slack"
+    url: "https://code.claude.com/docs/en/slack"
+  - title: "Claude Tag overview"
+    url: "https://claude.com/docs/claude-tag/overview"
+  - title: "Cowork"
+    url: "https://claude.com/product/cowork"
+  - title: "Claude for Excel, PowerPoint, Word and Outlook"
+    url: "https://claude.com/claude-for-excel"
+sourceHash: "e5f2fdcce41bfdab"
+translatedAt: "2026-11-16"
+---
+
+import { JobBlock } from '@/components/job-block';
+import { VocabBridge } from '@/components/vocab-bridge';
+import { SectionBreak } from '@/components/section-break';
+import { MentalShift, MentalShiftsGrid } from '@/components/mental-shift';
+import { CaveatCard, CaveatList } from '@/components/caveat-card';
+import { ClaudeEcosystem } from '@/components/claude-ecosystem';
+import { FaqSchema } from '@/components/faq-schema';
+import {
+  MessageCircle,
+  FileSpreadsheet,
+  Presentation,
+  FileText,
+  Globe,
+  FolderSearch,
+  Workflow,
+  Smartphone,
+  Terminal,
+  Package,
+} from 'lucide-react';
+
+<ClaudeEcosystem />
+
+সবচেয়ে কমন প্রশ্নের short answer: অচেনা একটা codebase বুঝতে আর development-এর কাজ automate করতে [Claude Code](/bn/docs/foundations/what-is-claude-code) ব্যবহার করুন। এটা আপনার project-এর file পড়ে, command চালায় আর সরাসরি change করে। যে ভুল উত্তরগুলো সাধারণত আসে, সেগুলোর প্রতিটা আসলে আলাদা কাজের tool:
+
+- **Claude in Chrome** একটা side-panel agent, যেটা আপনার সামনে খোলা website নিয়ে কাজ করে, আপনার কোড নিয়ে নয়।
+- **Claude Tag** হলো team-এর shared teammate। Slack channel-এ @mention করে আপনার team একে কাজ দেয়। নিজের কম্পিউটার থেকে codebase ঘেঁটে দেখার tool এটা নয়।
+- **Claude for Excel** spreadsheet-এর ভেতরে formula, pivot আর financial model নিয়ে কাজ করে।
+
+Claude exam-এর প্রস্তুতি নিতে গিয়ে যদি এই প্রশ্নটা পেয়ে থাকেন, তাহলে [Claude certification page](/certification)-এ দাম, passing score আর কে register করতে পারে, সব পাবেন। এই page-এর বাকি অংশে বাকি সব surface কোন কাজে সবচেয়ে ভালো, তা দেখানো আছে।
+
+## Claude এখন আর একটা জিনিস নয়
+
+গত এক মাসে আমি Claude-এর বারোটা surface ব্যবহার করেছি। কিছু জেনেবুঝে। দুয়েকটা ভুল করে। ChatGPT থেকে আসার সময় যে কথাটা কেউ বলে না: নিচে কোন model চলছে তার চেয়ে আপনি কোন *surface* বেছে নিচ্ছেন, সেটা বেশি জরুরি।
+
+Browser-এ Claude.ai আর Excel-এ Claude এক অভিজ্ঞতা নয়। Excel-এ Claude আর Cowork এক নয়। Cowork আর Claude Code-ও এক নয়। প্রতিটা আলাদা কাজের জন্য tune করা। ভুলটা বেছে নিলে tool-টাকে বোকা মনে হবে। ঠিকটা বেছে নিলে কাজটা প্রায় নিজে থেকেই হয়ে যায়।
+
+তিন মাস আগে কেউ আমার হাতে এমন একটা map দিলে খুব কাজে লাগত, এই page সেটাই। এটা কোনো ranking নয়। কোনো কিছুর "best" list-ও নয়। শুধু এটুকু: *আপনি X করতে চান, Y ব্যবহার করুন*। সত্যি বলতে, বেশিরভাগ মানুষ আসলে এই প্রশ্নটাই করছেন।
+
+আপনি developer হলে সরাসরি নিচের Code অংশে চলে যান। বাকি সবাই শুরু থেকে পড়ুন।
+
+| Surface | আপনি যা জিজ্ঞেস করেন | আপনি যা পান |
+|---|---|---|
+| Claude for Excel | "এই DCF model-টা বুঝিয়ে দিন, আর risky assumption-গুলো দেখিয়ে দিন" | ৫টা scenario-র ব্যাখ্যা, সঙ্গে B12, B45 আর B67-এর key assumption |
+| Claude for Word | "section 2 আর 7-এর মধ্যে কোথায় কোথায় মিলছে না, খুঁজে দিন" | ৪টা অমিল, যার একটা হলো section 7-এ "Free tier" আর section 2-এ "Starter" |
+| Cowork | "গত মাসের CPL export-টা GA4 report-এর সঙ্গে মিলিয়ে দেখুন" | ৩২টা campaign মিলেছে, ৪টা flag করা হয়েছে যেখানে CPL baseline-এর 2x |
+
+<SectionBreak number="01" kicker="কাজ অনুযায়ী বেছে নিন" title="যে কাজ, সেই Claude" />
+
+দশটা কাজ। দশটা উত্তর। এই page-এর শুধু একটা অংশ পড়লে, এটাই পড়ুন।
+
+<JobBlock
+  icon={MessageCircle}
+  question="আমি chat করতে বা দ্রুত কিছু research করতে চাই"
+  pickLabel="Browser-এ Claude.ai"
+>
+
+এটা ChatGPT-এর মতোই অভিজ্ঞতা। Free tier-এ চলে। File upload করুন, শেয়ার করার মতো tool বানাতে Artifacts ব্যবহার করুন, আর একটা topic-এর জন্য আলাদা workspace রাখতে Projects ব্যবহার করুন। Desk-এ না থাকলে mobile app আছে।
+
+নিশ্চিত না হলে এটা দিয়েই শুরু করুন। বাকিগুলো শিখে ফেলার পরেও সবচেয়ে বেশি এই surface-টাই ব্যবহার করবেন।
+
+</JobBlock>
+
+<JobBlock
+  icon={FileSpreadsheet}
+  question="আমি একটা spreadsheet analyze করতে বা বানাতে চাই"
+  pickLabel="Claude for Excel"
+>
+
+এটা Microsoft 365 add-in হিসেবে install হয়, আর Excel-এর ভেতরেই একটা side pane-এ থাকে। Formula, pivot, financial model, "এই sheet-টা কী করছে বুঝিয়ে দিন", সবই পারে। এটা cell ধরে ধরে reference দেয়, তাই কোন সংখ্যা কোথা থেকে এল, trace করতে পারবেন।
+
+একটা সৎ সতর্কতা: **এর জন্য Microsoft 365 Copilot লাগে না।** আপনার শুধু একটা paid Claude plan (Pro বা তার ওপরে) আর compatible Office version লাগবে। অনেক enterprise buyer এখানে ভুল করে, আর এমন একটা Copilot license-এর হিসাব ধরে যেটা তাদের দরকারই নেই।
+
+আরও একটা কথা: Claude for Excel আপনার chat history save করে না, আর ৩০ দিন পর data মুছে ফেলে। Finance, legal বা যেকোনো regulated কাজ করলে, sensitive কোনো model খোলার আগে এটা জেনে নিন।
+
+</JobBlock>
+
+<JobBlock
+  icon={Presentation}
+  question="আমি একটা slide deck বানাতে চাই"
+  pickLabel="Claude for PowerPoint"
+>
+
+Excel-এর মতোই ব্যাপার। Add-in হিসেবে install হয়। আপনার template পড়ে, brand color মেনে চলে, slide-এর জায়গাতেই slide বানায় আর edit করে। এলোমেলো একটা outline কয়েক মিনিটে first-draft deck হয়ে যায়।
+
+Brand compliance-এ এটা perfect নয়। Spacing ঠিক করতে হবে, মাঝে মাঝে font-এর সমস্যাও পাবেন। কিন্তু কাঠামোর কাজ, মানে layout, headline লেখা, bullet-কে গোছানো লেখায় বদলানো, এগুলো সত্যিই ভালো করে।
+
+</JobBlock>
+
+<JobBlock
+  icon={FileText}
+  question="আমি একটা লম্বা document লিখতে বা review করতে চাই"
+  pickLabel="Claude for Word"
+>
+
+Office add-in-গুলোর মধ্যে সবচেয়ে নতুন। April 13-এ launch হয়েছে। একটা sidebar-এ থাকে, redlining, tracked changes আর comment support করে। লম্বা document review-তে এটা সবচেয়ে ভালো। ৪০ page-এর একটা spec দিন, section-গুলোর মধ্যে অমিল খুঁজতে বলুন, আর এটা এমন জিনিস বের করবে যা আপনি তৃতীয়বার পড়েও মিস করতেন।
+
+সবচেয়ে নতুন বলে তিনটা Office add-in-এর মধ্যে এটাই সবচেয়ে কম পরিণত। কিছু জায়গায় এখনও খুঁত আছে। তবু আপনার দিন যদি Word-এই কাটে, এটা ব্যবহার করার মতো।
+
+</JobBlock>
+
+<JobBlock
+  icon={Globe}
+  question="Web browse করার সময় আমি Claude-এর সাহায্য চাই"
+  pickLabel="Claude for Chrome"
+>
+
+Browser extension। Side panel হিসেবে খোলে। আপনি যে page-এ আছেন সেটা পড়ে, article summarize করে, scheduled task চালায়, এক tab থেকে আরেক tab-এ যায়। ভাবুন "ChatGPT, কিন্তু আপনি যা দেখছেন সেটা এটাও দেখতে পায়।"
+
+মাথায় রাখুন: **এটা beta-তে আছে আর paid plan লাগে।** Free tier-এ নেই।
+
+</JobBlock>
+
+<JobBlock
+  icon={FolderSearch}
+  question="আমি আমার work email, Teams, OneDrive আর SharePoint-এ search করতে চাই"
+  pickLabel="Microsoft 365 Connector"
+>
+
+বেশিরভাগ মানুষ এটা মিস করেন, গত মাস পর্যন্ত আমিও করেছি। এটা Office add-in-গুলো থেকে আলাদা। Connector দিয়ে Claude আপনার Microsoft-এর পুরো work stack জুড়ে *পড়তে* পারে। আপনি জিজ্ঞেস করলেন "Ana তার শেষ তিনটা message-এ কী কী করবে বলেছিল", আর এটা Teams থেকে উত্তর বের করে, সঙ্গে সংশ্লিষ্ট Outlook thread-টাও দেখায়।
+
+দুটো জিনিস খেয়াল রাখবেন: এটা **read-only** (এটা দিয়ে Claude email পাঠাতে বা calendar event বানাতে পারে না), আর **শুধু work tenant-এ চলে** (personal `@outlook.com` account support করে না)। Connector সব plan-এ পাওয়া যায়, Free-সহ।
+
+</JobBlock>
+
+<JobBlock
+  icon={Workflow}
+  question="আমি চাই Claude নিজে নিজে একটা multi-step কাজ করুক"
+  pickLabel="Cowork"
+>
+
+এটা নিয়েই মানুষ সবচেয়ে বেশি গুলিয়ে ফেলে। Cowork হলো Claude, সঙ্গে computer-use, connector (Gmail, Drive, DocuSign, FactSet), আর আপনি পাশে বসে না থাকলেও লম্বা একটা কাজ চালিয়ে যাওয়ার ক্ষমতা।
+
+সৎভাবে বললে: Cowork product হিসেবে release হয়েছে, কিন্তু এর *computer-use* অংশ, যেখানে Claude আসলেই আপনার desktop চালায়, সেটা এখনও research preview-তে। Cowork-এর জন্য Pro বা তার ওপরের plan লাগে। সহকর্মীদের কাছে Cowork-কে এখনই "পুরোপুরি autonomous" বলবেন না। "সাইকেলের সাপোর্ট চাকা লাগানো autonomous" বললে সত্যের কাছাকাছি হয়।
+
+বেশিরভাগ সপ্তাহেই আমি Cowork ব্যবহার করি এমন কাজে যেগুলো দেখতে একদমই চকচকে নয়। ২৪ মাসের cost-per-lead (CPL) export ধরে lead-performance analysis চালানো। একটা ad-delivery report-কে GA4 query-র সঙ্গে মিলিয়ে দেখা। Browser আর memory হাতের বাইরে চলে গেলে, কোন tab RAM খাচ্ছে বুঝতে না পারলে, Mac-টা পরিষ্কার করা। দেখানোর মতো কিছু না। ধৈর্যশীল একজন intern, যার মনোযোগ আমার চেয়ে বেশিক্ষণ টেকে।
+
+</JobBlock>
+
+<JobBlock
+  icon={Smartphone}
+  question="আমি phone থেকে একটা কাজ শুরু করে desktop-এ দিতে চাই"
+  pickLabel="Cowork Dispatch"
+>
+
+আপনি phone-এ আছেন, কিছু একটা শুরু করলেন ("এই পাঁচটা vendor নিয়ে research করুন, একটা comparison doc draft করুন"), আর laptop-এ ফিরে এসে দেখলেন কাজ শেষ, অপেক্ষা করছে। এটা এক device থেকে আরেক device-এ চলতে থাকে। Ethan Mollick এ নিয়ে লিখেছেন, আর বলেছেন "the first truly useful agent handoff I've used."। তিনি ভুল বলেননি।
+
+Research preview। Pro, Max বা Ultra plan লাগে। March 17-এ launch হয়েছে। ছোট feature, কিন্তু রোজকার কাজে অনেক আরাম দেয়।
+
+</JobBlock>
+
+<JobBlock
+  icon={Terminal}
+  question="আমি software বানাতে বা কোড লিখতে চাই"
+  pickLabel="Claude Code"
+>
+
+এই guide আসলে প্রথমে এই surface-এর জন্যই লেখা হয়েছিল। আপনি developer হলে আগে থেকেই জানেন। না হলে: Claude Code হলো Anthropic-এর agentic coding tool, যেটা terminal-এ, VS Code আর JetBrains-এ, Claude desktop app-এর Code tab-এ, আর web-এ claude.ai/code-এ পাওয়া যায়। এটা আপনার পুরো repo পড়ে, কোড লেখে, test চালায়, debug করে, আর commit করে। এটা power-user-দের surface।
+
+Terminal-এ স্বচ্ছন্দ হলে [CLI](/bn/docs/foundations/installation) দিয়ে শুরু করুন, আর কিছু install না করে try করতে চাইলে [web version](https://claude.ai/code) দিয়ে। আপনার কাজ যদি VS Code বা JetBrains-এ হয়, তাহলে সম্ভবত IDE extension-টাই আপনার দরকার। প্রথম real project-এর জন্য [Claude Code দিয়ে একটা Next.js project শুরু করুন](/bn/tutorials/nextjs-with-claude) tutorial-টা follow করুন। VS Code panel Claude-এর উত্তরে LaTeX math সুন্দর করে দেখায় (v2.1.301), আর `claudeCode.attachSelection` setting দিয়ে editor-এ select করা text আপনার message-এর সঙ্গে চলে যাওয়া বন্ধ করতে পারেন (v2.1.300)।
+
+Desktop app-এর Code tab SSH দিয়ে remote machine-এও session চালাতে পারে। macOS আর Linux-এ এটা আপনার নিজের OpenSSH client ব্যবহার করে, তাই `~/.ssh/config`-এর host alias, key, certificate আর `ProxyJump` সবই কাজ করে। Connect হতে ৩০ সেকেন্ডের বেশি লাগলে, ওই host entry-তে `ConnectTimeout` set করে Desktop restart করুন। Remote machine-এ SFTP চালু করা একটা SSH server, ১-এর বেশি `MaxSessions`, আর এমন একটা home folder লাগবে যেটা `noexec` হিসেবে mount করা নয়, কারণ Desktop তার helper-গুলো `~/.claude/remote/`-এ install করে। Desktop disconnected থাকলেও সেখানে একটা task চলতে পারে, কিন্তু Claude account দিয়ে চালালে sign-in expire হলে থেমে যায়। Windows remote machine-এ Desktop v2.31226.0 বা তার পরের version আর Microsoft-এর OpenSSH Server লাগে, আর এগুলোর testing কম হয়েছে: যেমন, Windows-path folder-এ terminal খোলে না।
+
+</JobBlock>
+
+<JobBlock
+  icon={Package}
+  question="আমি Claude ভেতরে রেখে নিজের product বানাতে চাই"
+  pickLabel="Claude API + Agent SDK"
+>
+
+<VocabBridge term="API" explanation="Application Programming Interface: tool-এর সঙ্গে সরাসরি একটা connection, যেটা দিয়ে developer-রা এটাকে নিজেদের software-এর ভেতরে বসাতে পারেন।">API</VocabBridge> তাদের জন্য, যারা নিজেদের software-এ Claude যুক্ত করছেন। Agent <VocabBridge term="SDK" explanation="Software Development Kit: তৈরি করা একটা toolbox, যেটা দিয়ে developer-রা একদম গোড়া থেকে সব না বানিয়েই দ্রুত app বানাতে পারেন।">SDK</VocabBridge> (আগে নাম ছিল Claude Code SDK) আপনাকে সেই একই agent loop দেয় যেটা Claude Code ব্যবহার করে, কিন্তু programmable। খরচ token হিসেবে।
+
+এই page-এর বেশিরভাগ পাঠক এই surface কখনো ছুঁয়েও দেখবেন না। তবে আপনি যদি PM হন আর নিজের product-এ একটা AI feature-এর কথা ভাবেন, আপনার engineer-রা কাজ করবেন এখানেই।
+
+</JobBlock>
+
+<SectionBreak number="02" kicker="পুরো map" title="কে টাকা দেয়, কোনটা চালু, কোনটা এখনও beta" />
+
+জানি, ওপরের অংশটা অনেক কিছু। এই নিন এক নজরে পুরো grid।
+
+| Surface | Status | কে টাকা দেয় | কোন কাজে সবচেয়ে ভালো |
+|---|---|---|---|
+| Claude.ai (web) | চালু | Free + সব paid plan | Chat, Artifacts, Projects, দ্রুত research |
+| Claude mobile (iOS/Android) | চালু | সব plan | চলার পথে, voice, Dispatch handoff |
+| Claude Desktop (Mac/Win) | চালু | সব plan (Cowork শুধু Pro বা তার ওপরে) | Cowork আর Claude Code-এর Code tab-এর native host |
+| Claude for Chrome | Beta | শুধু paid plan | Browse করার সময় side-panel agent |
+| Claude for Excel | চালু | Pro বা তার ওপরে | Formula, pivot, financial modeling |
+| Claude for PowerPoint | চালু | Pro বা তার ওপরে | Template মেনে slide বানানো |
+| Claude for Word | চালু (Apr 13) | Pro বা তার ওপরে | Redlining, comment, লম্বা doc review |
+| Microsoft 365 Connector | চালু | সব plan (Free-সহ) | Outlook/Teams/OneDrive/SharePoint জুড়ে পড়া |
+| Cowork | চালু (computer-use এখনও preview-তে) | Pro বা তার ওপরে | Multi-step autonomous কাজ |
+| Cowork Dispatch | Research preview | Pro, Max, Ultra | Phone থেকে desktop-এ task handoff |
+| Claude Code (CLI) | চালু | Pro বা তার ওপরে, অথবা API | Terminal-এ agentic coding |
+| Claude Code on the web | চালু | Pro, Max, Ultra, Team; Enterprise-এ premium বা Chat + Claude Code seat থাকলে | Cloud sandbox-এ coding |
+| Desktop app-এ Claude Code | চালু (Apr 14 redesign) | Pro বা তার ওপরে | একসঙ্গে কয়েকটা coding session |
+| Claude Agent SDK | চালু | API | নিজের agent বানানো |
+| Claude API | চালু | API | যেকোনো custom কাজ |
+| Claude Tag (Claude in Slack) | Public beta | Team, Enterprise | Workspace bot, thread-এ প্রশ্নোত্তর |
+
+Plan: Pro হলো বছরে নিলে $17/mo, মাসে মাসে নিলে $20/mo। Team বছরে নিলে $20/seat, মাসে মাসে $25/seat। Max শুরু $100/mo থেকে। Ultra $200/mo। Enterprise $20/seat, সঙ্গে API usage। আমি কোনো সংখ্যা round করছি না। কাউকে এই সংখ্যাগুলো round করতে দেখলে, quote করার আগে নিজে যাচাই করে নিন।
+
+<SectionBreak number="03" kicker="ChatGPT থেকে আসছেন" title="তিনটা mental shift, যেগুলো ব্যাপারটা সহজ করে" />
+
+এই page যারা পড়ছেন, তাদের বেশিরভাগই ChatGPT user, Claude একটু নেড়েচেড়ে দেখছেন। এক বছর আগে আমিও তাই ছিলাম। তিনটা জিনিস আমাকে সবচেয়ে বেশি আটকে দিয়েছিল।
+
+<MentalShiftsGrid>
+
+<MentalShift number="1" headline="আপনি একটা Claude বেছে নেন না, একটা surface বেছে নেন">
+
+ChatGPT হলো একটাই জিনিস, কয়েকটা রূপে। Web app, desktop app, mobile app, API। Claude হলো বারোটা জিনিস, প্রতিটা আলাদা কাজের জন্য tune করা। "আসল" Claude খুঁজবেন না। জিজ্ঞেস করুন "এই কাজের জন্য কোনটা।"
+
+এটা মাথায় বসাতে আমার দুই সপ্তাহ লেগেছিল। একবার বুঝে ফেলার পর সব বিরক্তি চলে গেল। Tool খারাপ ছিল না। আমি ভুল কাজে ব্যবহার করছিলাম।
+
+</MentalShift>
+
+<MentalShift number="2" headline="Memory অন্যভাবে কাজ করে">
+
+March 2 থেকে Claude Memory free tier-এ পাওয়া যাচ্ছে। ChatGPT-এর Memory সব জায়গা জুড়ে আপনার সম্পর্কে তথ্য মনে রাখে, কিন্তু Claude-এর Memory থাকে শুধু Claude.ai chat-এর ভেতরে, আর Projects-এ ঢোকে *না*। Projects ইচ্ছে করেই আলাদা করে রাখা।
+
+আপনি ChatGPT-তে Custom GPT বানালে, Projects হলো তার সবচেয়ে কাছের জিনিস। তবে architecture আলাদা: Projects হলো নিজস্ব context-সহ আলাদা workspace, custom instruction-এর মোড়ক নয়।
+
+</MentalShift>
+
+<MentalShift number="3" headline="Import tool আসলেই কাজ করে">
+
+কয়েক সপ্তাহ আগে Anthropic `claude.com/import-memory` launch করেছে। আপনি ChatGPT memory export করেন, Claude-এ import করেন, আর সেটা চলে আসে। আমি try করেছি। যা ভেবেছিলাম তার চেয়ে ভালো কাজ করেছে। Switch করলে এটা সবার আগে করুন। শূন্য থেকে শুরু করবেন না।
+
+</MentalShift>
+
+<MentalShift number="4" headline="Claude-কে জাদুর বাক্স নয়, নতুন intern-এর মতো দেখুন">
+
+Claude-কে onboard করলে প্রতিটা surface আরও ভালো কাজ করে। নতুন কেউ join করলে যা করতেন, সেটা ১০ মিনিট ধরে করুন: আপনি কে, কী নিয়ে কাজ করছেন, আর কখন জিজ্ঞেস করবে আর কখন সরাসরি করে ফেলবে, বলে দিন।
+
+Claude Code আর Cowork-এ এই চুক্তিটা থাকে [`CLAUDE.md`](/bn/docs/foundations/claude-md) নামের একটা file-এ। Claude.ai Projects-এ এটা custom instructions। ব্যাপার একই। আপনি আপনার intern-এর সঙ্গে একটা চুক্তি লিখছেন, আর চুক্তি যত পরিষ্কার, কাজ তত ভালো।
+
+তিনটা শর্ত আমি সব সময় রাখি: আমি কী নিয়ে কাজ করছি, আমি কীভাবে কাজ করতে পছন্দ করি, আর destructive কিছু করার আগে কখন জিজ্ঞেস করতে হবে। শুরুতে ১০ মিনিট দিলে session-এর মাঝখানে কয়েক ঘণ্টা বাঁচে। কাজ আর personal project দুটোই একসঙ্গে সামলালে, দুটো চুক্তি জট পাকানোর আগে [Keep Your Two Lives Apart](/docs/foundations/separate-contexts) পড়ে নিন।
+
+</MentalShift>
+
+</MentalShiftsGrid>
+
+<SectionBreak number="04" kicker="পাঠকের জন্য সতর্কতা" title="যে কথাগুলো কেউ আগে বলে দিলে ভালো হতো" />
+
+ছয়টা ফাঁদ, যেগুলোতে আমি পা দিয়েছি যাতে আপনাকে দিতে না হয়।
+
+<CaveatList>
+
+<CaveatCard headline="Office add-in-এর জন্য Microsoft Copilot লাগে না">
+Claude Pro-ই যথেষ্ট। অনেক IT team এখানে ভুল করে, আর এমন একটা Copilot license-এর হিসাব ধরে যেটার দরকার নেই।
+</CaveatCard>
+
+<CaveatCard headline="Cowork release হয়েছে, কিন্তু computer-use এখনও research preview">
+কেউ যদি বলে Cowork "পুরোপুরি autonomous আর release হয়ে গেছে", তাহলে সে বাড়িয়ে বলছে। এটা guardrail-সহ autonomous, Pro বা তার ওপরের plan-এ।
+</CaveatCard>
+
+<CaveatCard headline="Claude for Chrome beta-তে, আর শুধু paid plan-এ">
+Free tier-এ নেই। এখানে অনেকে আটকে যান।
+</CaveatCard>
+
+<CaveatCard headline="Claude for Excel ৩০ দিন পর chat history মুছে ফেলে">
+এটা না বুঝে regulated workflow-তে ব্যবহার করবেন না।
+</CaveatCard>
+
+<CaveatCard headline="Microsoft 365 Connector শুধু read-only">
+এটা দিয়ে Claude email পাঠাতে পারে না। Calendar event বানাতে পারে না। Teams edit করতে পারে না। এটা search layer, write layer নয়।
+</CaveatCard>
+
+<CaveatCard headline="Microsoft Copilot Cowork আর Anthropic Cowork এক জিনিস নয়">
+এটা Anthropic-এর technology দিয়ে বানানো Microsoft-এর product। দুটোকে গুলিয়ে ফেলবেন না, বিশেষ করে enterprise-এর আলোচনায়।
+</CaveatCard>
+
+</CaveatList>
+
+<SectionBreak number="05" kicker="আরও গভীরে" title="নির্দিষ্ট surface নিয়ে tutorial" />
+
+Surface বেছে ফেলেছেন আর এখন আসলেই কাজ শুরু করতে চান? আরও tutorial আসছে।
+
+- প্রথম ১০ মিনিট: আপনার Claude-কে intern-এর মতো onboard করুন (শীঘ্রই আসছে)
+- Claude for Word: redlining আর লম্বা doc review (শীঘ্রই আসছে)
+- Cowork Dispatch, যারা কোড লেখেন না তাদের জন্য (শীঘ্রই আসছে)
+- Claude for PowerPoint: template মেনে deck বানানো (শীঘ্রই আসছে)
+- Cowork: কখন ব্যবহার করবেন আর কখন করবেন না (শীঘ্রই আসছে)
+- [ChatGPT থেকে আসছেন? যা যা আলাদা](/bn/tutorials/coming-from-chatgpt)
+- Claude for Excel: spreadsheet-এর ভয় ছাড়াই spreadsheet (শীঘ্রই আসছে)
+
+<SectionBreak number="06" kicker="FAQ" title="যে প্রশ্নগুলো আমাকে প্রায়ই করা হয়" />
+
+<FaqSchema
+  items={[
+    {
+      question: 'শুধু একটা plan কিনলে কোনটা কিনব?',
+      answer:
+        'Pro (বছরে নিলে $17/mo) দিয়ে বেশিরভাগ মানুষ যে surface-গুলো ব্যবহার করবেন তার সবই পাবেন: Excel, PowerPoint, Word, Cowork (computer-use এখনও preview-তে), Chrome, Claude.ai, mobile, Microsoft 365 Connector, আর Claude Code। আপনি যদি প্রতিদিন Claude Code চালান বা লম্বা agentic কাজে Cowork ব্যবহার করেন, তাহলে Max নেওয়া ঠিক হবে, কারণ Pro-র usage cap-এ আটকে যাবেন। Team আর Enterprise হলো seat আর admin-এর ব্যাপার, feature-এর নয়।',
+    },
+    {
+      question: 'Excel-এ Claude কি Microsoft Copilot-এর চেয়ে ভালো কাজ করে?',
+      answer:
+        'দুটোর শক্তি আলাদা জায়গায়। Formula বানানো আর আগের sheet বুঝিয়ে দেওয়ায় Claude বেশি ধারালো, আর cell reference-ও ভালো দেয়। "এই table-টাকে chart বানিয়ে দিন" ধরনের কাজে Microsoft Copilot এখনও একটু বেশি মসৃণ। আমি যত finance-এর মানুষের সঙ্গে কথা বলেছি, বেশিরভাগই দুটো পাশাপাশি চালান, আর যেটা আগে উত্তর দেয় সেটা ব্যবহার করেন। আপনিও সেটা করতে পারেন।',
+    },
+    {
+      question: 'Phone-এ কি Cowork ব্যবহার করতে পারব?',
+      answer:
+        'Desktop control-এর জন্য না। Dispatch handoff দিয়ে mobile থেকে একটা Cowork task শুরু করে পরে desktop-এ ফিরে আসতে পারবেন, কিন্তু আসল computer-use অংশটা চলে আপনার Mac বা Windows machine-এ। Phone নিজে Cowork চালায় না।',
+    },
+    {
+      question: 'Cowork আর Claude Code-এর মধ্যে পার্থক্য কী?',
+      answer:
+        'Cowork হলো সাধারণ agent-এর কাজ: research, document draft করা, spreadsheet ভরা, আপনার কম্পিউটার চালানো। Claude Code বিশেষ করে software engineering-এর জন্য: code repo পড়া, কোড লেখা আর চালানো, debug করা। Parent model একই, tuning একদম আলাদা। আপনি developer না হলে Claude Code আপনার দরকার নেই। Developer হলে Cowork আর Claude Code আপনার দিনের আলাদা আলাদা অংশ সামলাবে।',
+    },
+    {
+      question: 'Outlook-এর জন্য কি Claude আছে?',
+      answer:
+        'হ্যাঁ। Claude for Outlook একটা add-in, সব paid plan-এ beta-তে আছে। এটা আপনার inbox গুছিয়ে দিতে পারে, কয়েকজনের calendar মিলিয়ে সময় খুঁজে দিতে পারে, আর reply draft করে রাখতে পারে যেগুলো আপনি পাঠানোর জন্য অপেক্ষা করে। Microsoft 365 Connector হলো আলাদা একটা পথ, শুধু read-only।',
+    },
+    {
+      question: 'এই ধরনের কাজে Gemini বা ChatGPT কেমন?',
+      answer:
+        'কাজ আর personal knowledge-এর জন্য আমি Claude ব্যবহার করি। Image বানাতে মাঝে মাঝে ChatGPT ব্যবহার করি। Gemini অনেক আগেই ছেড়ে দিয়েছি। তবে আসল উত্তর হলো: brand-এর চেয়ে surface map বেশি জরুরি। যে tool নির্দিষ্ট একটা কাজের জন্য tune করা, সেটাই জেতে। কাল যদি Gemini আরও ভালো একটা PowerPoint flow আনে, আমি try করব। Tool বদলায়। কাজ বদলায় না।',
+    },
+    {
+      question: 'নতুন surface-এর খবর কীভাবে রাখব?',
+      answer:
+        'Anthropic খুব দ্রুত নতুন জিনিস আনে। শুধু Q1-এই তিনটা নতুন surface এসেছে। আমি প্রতি মাসে এই page update করি। নিচের newsletter-এ subscribe করলে নতুন কিছু এলে update পাবেন। আমার জানা সবচেয়ে নির্ভরযোগ্য উপায় এটাই।',
+    },
+  ]}
+/>
+
+### শুধু একটা plan কিনলে কোনটা কিনব?
+
+Pro (বছরে নিলে $17/mo) দিয়ে বেশিরভাগ মানুষ যে surface-গুলো ব্যবহার করবেন তার সবই পাবেন: Excel, PowerPoint, Word, Cowork (computer-use এখনও preview-তে), Chrome, Claude.ai, mobile, Microsoft 365 Connector, আর Claude Code। আপনি যদি প্রতিদিন Claude Code চালান বা লম্বা agentic কাজে Cowork ব্যবহার করেন, তাহলে Max নেওয়া ঠিক হবে, কারণ Pro-র usage cap-এ আটকে যাবেন। Team আর Enterprise হলো seat আর admin-এর ব্যাপার, feature-এর নয়।
+
+### Excel-এ Claude কি Microsoft Copilot-এর চেয়ে ভালো কাজ করে?
+
+দুটোর শক্তি আলাদা জায়গায়। Formula বানানো আর আগের sheet বুঝিয়ে দেওয়ায় Claude বেশি ধারালো, আর cell reference-ও ভালো দেয়। "এই table-টাকে chart বানিয়ে দিন" ধরনের কাজে Microsoft Copilot এখনও একটু বেশি মসৃণ। আমি যত finance-এর মানুষের সঙ্গে কথা বলেছি, বেশিরভাগই দুটো পাশাপাশি চালান, আর যেটা আগে উত্তর দেয় সেটা ব্যবহার করেন। আপনিও সেটা করতে পারেন।
+
+### Phone-এ কি Cowork ব্যবহার করতে পারব?
+
+Desktop control-এর জন্য না। Dispatch handoff দিয়ে mobile থেকে একটা Cowork task *শুরু* করে পরে desktop-এ ফিরে আসতে পারবেন, কিন্তু আসল computer-use অংশটা চলে আপনার Mac বা Windows machine-এ। Phone নিজে Cowork চালায় না।
+
+### Cowork আর Claude Code-এর মধ্যে পার্থক্য কী?
+
+Cowork হলো সাধারণ agent-এর কাজ: research, document draft করা, spreadsheet ভরা, আপনার কম্পিউটার চালানো। Claude Code বিশেষ করে software engineering-এর জন্য: code repo পড়া, কোড লেখা আর চালানো, debug করা। Parent model একই, tuning একদম আলাদা। আপনি developer না হলে Claude Code আপনার দরকার নেই। Developer হলে Cowork আর Claude Code আপনার দিনের আলাদা আলাদা অংশ সামলাবে।
+
+### Outlook-এর জন্য কি Claude আছে?
+
+হ্যাঁ। Claude for Outlook একটা add-in, সব paid plan-এ beta-তে আছে। এটা আপনার inbox গুছিয়ে দিতে পারে, কয়েকজনের calendar মিলিয়ে সময় খুঁজে দিতে পারে, আর reply draft করে রাখতে পারে যেগুলো আপনি পাঠানোর জন্য অপেক্ষা করে। Microsoft 365 Connector হলো আলাদা একটা পথ, শুধু read-only।
+
+### এই ধরনের কাজে Gemini বা ChatGPT কেমন?
+
+কাজ আর personal knowledge-এর জন্য আমি Claude ব্যবহার করি। Image বানাতে মাঝে মাঝে ChatGPT ব্যবহার করি। Gemini অনেক আগেই ছেড়ে দিয়েছি। তবে আসল উত্তর হলো: brand-এর চেয়ে surface map বেশি জরুরি। যে tool নির্দিষ্ট একটা কাজের জন্য tune করা, সেটাই জেতে। কাল যদি Gemini আরও ভালো একটা PowerPoint flow আনে, আমি try করব। Tool বদলায়। কাজ বদলায় না।
+
+### এর জন্য কি কোনো certification আছে?
+
+হ্যাঁ, চারটা আছে, আর কোনোটাই সাধারণ মানুষের জন্য খোলা নয়। Anthropic, Pearson-কে দিয়ে role-based Claude certification চালায়, দাম $99 থেকে $175, আর registration-এর সময় আপনার email-কে Claude Partner Network-এর কোনো company domain-এর সঙ্গে মিলিয়ে দেখা হয়। Personal address দিলে reject হয়ে যায়। দাম, exam কতক্ষণের, passing score আর eligibility rule আমি [Claude certification page](/certification)-এ update রাখি।
+
+### নতুন surface-এর খবর কীভাবে রাখব?
+
+Anthropic খুব দ্রুত নতুন জিনিস আনে। শুধু Q1-এই তিনটা নতুন surface এসেছে। আমি প্রতি মাসে এই page update করি। নিচের newsletter-এ subscribe করলে নতুন কিছু এলে update পাবেন। আমার জানা সবচেয়ে নির্ভরযোগ্য উপায় এটাই।
+
+---
+
+*কোনো surface বাদ পড়ে গেলে বা কোনো তথ্য ভুল লিখলে, আমাকে জানান। যারা আসলেই এই tool-গুলো ব্যবহার করছেন, তাদের পাঠানো খবরের ওপরেই এই page বেঁচে থাকে।*
