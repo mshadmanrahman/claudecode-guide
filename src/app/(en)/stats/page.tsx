@@ -207,7 +207,7 @@ export default async function StatsPage({
 
       <Block
         title="3. Newsletter signups"
-        note="Events from the email capture form. The placement parameter is not a registered GA4 custom dimension yet, so the page the form sat on stands in for it."
+        note="Events from the old email capture form. On 2026-11-16 the form became a plain link to Substack, so these counts stop there; signups are now read from the outbound Substack clicks below and the profile_click event."
       >
         {newsletter instanceof Error ? (
           <Failed error={newsletter} />
