@@ -30,8 +30,8 @@ export interface Translation<T> {
 
 export const BN_TUTORIALS: Partial<Record<string, Translation<Tutorial>>> = {
   "coming-from-chatgpt": {
-    sourceHash: "a65c3b8559b3763a",
-    translatedAt: "2026-10-06",
+    sourceHash: "e02d4e60aa453362",
+    translatedAt: "2026-11-16",
     content: {
       title: "ChatGPT থেকে আসছেন? যা যা আলাদা",
       slug: "coming-from-chatgpt",
@@ -46,7 +46,7 @@ export const BN_TUTORIALS: Partial<Record<string, Translation<Tutorial>>> = {
         {
           title: "সবচেয়ে বড় পার্থক্য: Claude কোথায় থাকে",
           description:
-            "ChatGPT থাকে আপনার browser-এ। এটি আপনার আগের conversation-গুলোর list রাখে এবং এক session থেকে আরেক session-এ সেগুলো কাজে লাগাতে পারে। Claude Code থাকে আপনার কম্পিউটারে। এটি চলে আপনার terminal-এ (বা Claude.ai web app-এ), কিন্তু এর এমন কোনো built-in memory নেই যা সব জায়গায় আপনার সঙ্গে থাকে। প্রতিটি নতুন session শুরু হয় একদম নতুন করে। এটা কোনো bug নয়। আসলে এ কারণেই real কাজে Claude এত useful: এটি সরাসরি আপনার file, folder আর কোডের ওপর কাজ করে। তবে এর মানে, আপনি কে, সেটা Claude-কে আপনাকেই জানাতে হবে। ভালো খবর হলো, কাজটা একবারই করতে হয়।",
+            "ChatGPT থাকে একটা chat window-তে, আপনার browser-এ বা এর app-এ। এটি আপনার আগের conversation-গুলোর list রাখে এবং এক session থেকে আরেক session-এ সেগুলো কাজে লাগাতে পারে। Claude Code থাকে আপনার কম্পিউটারে। এটি চলে আপনার terminal-এ (বা Claude.ai web app-এ), কিন্তু এর এমন কোনো built-in memory নেই যা সব জায়গায় আপনার সঙ্গে থাকে। প্রতিটি নতুন session শুরু হয় একদম নতুন করে। এটা কোনো bug নয়। আসলে এ কারণেই real কাজে Claude এত useful: এটি সরাসরি আপনার file, folder আর কোডের ওপর কাজ করে। তবে এর মানে, আপনি কে, সেটা Claude-কে আপনাকেই জানাতে হবে। ভালো খবর হলো, কাজটা একবারই করতে হয়।",
           demo: {
             title: "নতুন Claude session দেখতে কেমন",
             steps: [

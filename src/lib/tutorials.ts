@@ -4737,7 +4737,7 @@ When asked for "email format":
       {
         title: "The biggest difference: where Claude lives",
         description:
-          "ChatGPT lives in your browser. It keeps a list of your past conversations and can build on them across sessions. Claude Code lives on your machine. It runs in your terminal (or the Claude.ai web app), but it does not have a built-in memory system that follows you around. Every new session starts fresh. This is not a bug. It is actually what makes Claude powerful for real work: it operates directly on your files, your folders, and your code. But it does mean you need to tell it who you are. The good news: you only do this once.",
+          "ChatGPT lives in a chat window, in your browser or its app. It keeps a list of your past conversations and can build on them across sessions. Claude Code lives on your machine. It runs in your terminal (or the Claude.ai web app), but it does not have a built-in memory system that follows you around. Every new session starts fresh. This is not a bug. It is actually what makes Claude powerful for real work: it operates directly on your files, your folders, and your code. But it does mean you need to tell it who you are. The good news: you only do this once.",
         demo: {
           title: "What a fresh Claude session looks like",
           steps: [

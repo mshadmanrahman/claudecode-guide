@@ -133,7 +133,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2>The Core Difference</h2>
 <p>ChatGPT is a conversation. Claude Code is a <strong>development environment</strong>.</p>
-<p>ChatGPT lives in a browser tab. It can't read your files, run your tests, or edit your code. You copy-paste snippets back and forth like it's 2019.</p>
+<p>ChatGPT lives in a chat window, in the browser or its app. It can't read your files, run your tests, or edit your code. You copy-paste snippets back and forth like it's 2019.</p>
 <p>Claude Code lives in your terminal. It reads your entire codebase. It edits files directly. It runs commands. It sees your git history. It's not chatting with you, it's working alongside you.</p>
 
 <h2>What This Means in Practice</h2>
