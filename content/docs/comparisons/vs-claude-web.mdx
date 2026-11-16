@@ -1,6 +1,6 @@
 ---
-title: "Claude Code vs Claude.ai: The Difference"
-description: "Claude.ai is a chatbot: text in, text out. Claude Code is an agent that reads your files, runs commands and builds on your computer. When to use each."
+title: "Claude vs Claude Code: How It Differs From Claude.ai"
+description: "Claude.ai is the chat app for writing and research. Claude Code is the agent that works in your codebase. Where each runs, what plan you need, and which to use."
 targetKeyword: "claude code vs claude ai"
 comparisonEntities:
   - "Claude Code"
@@ -17,17 +17,11 @@ relatedLinks:
     description: "Terminal, desktop app, web app, or IDE extension."
 ---
 
-## "I Already Use Claude. What's Different?"
+import { FaqSchema } from '@/components/faq-schema';
 
-This is probably the most common question I get. You go to claude.ai, you chat with Claude, it's smart and helpful. Then someone mentions "Claude Code" and you assume it's just a rebranded version of the same thing.
+Claude.ai is Anthropic's chat app. You talk to Claude, upload files, search the web and keep work in Projects. Claude Code is Anthropic's agentic coding tool: it reads your codebase, edits files, runs commands and connects to your development tools. Same company, same models, but chat is built for conversation and Claude Code is built to do work inside a code project.
 
-It's not. They're as different as Google Docs and Google Cloud. Same company, completely different products.
-
-**Claude.ai** is a chatbot. You type, it responds. Text in, text out.
-
-**Claude Code** is an agent. It reads your files, writes code, runs commands, uses tools, and builds things on your actual computer.
-
-Same AI brain. Completely different body.
+Both sit under one Claude account. A paid plan gets you both, and the Claude desktop app holds chat and Claude Code side by side.
 
 <ClaudeCodeMock steps={[
   { kind: 'prompt', text: 'rename all .jpeg files in this folder to .jpg' },
@@ -36,58 +30,176 @@ Same AI brain. Completely different body.
   { kind: 'say', text: 'Renamed 23 files from .jpeg to .jpg.' },
 ]} />
 
-Claude.ai would hand you a script to save and run yourself; Claude Code renames the files in your folder.
+Ask chat the same thing and you get a script to run yourself. Claude Code runs it in your folder and tells you what changed.
 
-## The Quick Comparison
+## Claude vs Claude Code at a glance
 
-| | Claude.ai (Chat) | Claude Code (Agent) |
+| | Claude.ai (chat) | Claude Code |
 |---|---|---|
-| **What you do** | Type messages, get text back | Describe goals, watch them happen |
-| **File access** | Upload files one at a time | Reads your entire project folder |
-| **Can it edit files?** | No (gives you text to copy) | Yes, directly |
-| **Can it run commands?** | No | Yes (terminal commands, tests, deploys) |
-| **Can it use tools?** | Limited (artifacts, analysis) | Full (GitHub, Slack, Jira, databases via MCP) |
-| **Memory** | Per-project memory (limited) | Rich memory system (preferences, projects, feedback) |
-| **Custom automation** | No | Skills, hooks, sub-agents |
-| **Computer Use** | No | Yes (sees your screen, clicks, navigates) |
-| **Where it runs** | Browser tab | Your computer + optionally browser |
+| **What it is** | A chat app for questions, writing, research and analysis | An agentic coding tool that works inside your codebase |
+| **Where it runs** | Web, desktop app (macOS, Windows), iOS and Android | Terminal, VS Code, JetBrains, the desktop app's Code tab, and the web at claude.ai/code |
+| **What it can touch** | Files you upload, the web, and apps you connect | Your project folder, your terminal, git, and tools you connect through MCP |
+| **How you steer it** | Projects and their instructions | A `CLAUDE.md` file in your project, plus skills and hooks |
+| **Who it's for** | Anyone who writes, reads or thinks for a living | People building or changing software, from first-timers to full-time engineers |
+| **What plan you need** | Free works; paid plans add more | Pro, Max, Ultra, Team or Enterprise, or an Anthropic Console account |
 
-## When to Use Claude.ai
+The last row trips people up most. Chat is on every plan, including Free. Claude Code is not on Free.
 
-Claude.ai is the right choice for several things.
+## Which one for which job
 
-Quick questions where you need a fast answer and don't want to open a terminal. Document writing, emails, reports, blog drafts where file access isn't the point. Analysis on an uploaded CSV or PDF. Anything on mobile, since Claude.ai works great on your phone. Back-and-forth ideation where you're thinking out loud, not building anything yet.
+Pick by the task in front of you, not by the product name.
 
-## When to Use Claude Code
+| The job | Use | Why |
+|---|---|---|
+| A quick answer, an explanation or a second opinion | Chat | You don't need a project folder to ask whether a plan has holes in it |
+| Drafting an email, report, post or spec | Chat | Artifacts give you a document you can keep editing, and Projects keep one piece of work together |
+| Making sense of a PDF or spreadsheet | Chat | Upload it, ask questions, ask for a summary |
+| Anything on your phone | Chat in the Claude app | The app's Code tab steers Claude Code sessions in the cloud or on your computer; no code runs on the phone |
+| Building a website, app or script | Claude Code | It writes the files into a real folder, runs them, sees the errors and fixes them |
+| Fixing a bug in an existing codebase | Claude Code | It reads the code first, so it can trace a bug across files instead of guessing from a pasted snippet |
+| Committing changes and opening a pull request | Claude Code | It stages changes, writes commit messages, creates branches and opens pull requests |
+| A repeating job, like a morning PR review | Claude Code | Scheduled tasks run on your machine from the desktop app, or in the cloud with your laptop shut |
+| A long task that isn't code | Cowork | Covered below |
 
-Claude Code is the right choice when you're actually making something.
+My rule of thumb: if you expect text back, start in chat. If you expect a changed file, start in Claude Code.
 
-Building websites, apps, scripts, automations. Working inside an existing project where context matters. Multi-step tasks like "fix this bug, add a test, update the docs, commit." Setting up automation that runs on triggers. Connecting to GitHub, Slack, Jira, databases. Debugging something that requires reading logs and checking git history. Deploying to Vercel or any other platform.
+## Where each one runs
 
-Long story short: if you're creating or changing files, use Claude Code.
+This is where the names get confusing, because "Claude" shows up on almost every screen you own.
 
-## They Share a Subscription
+### Claude.ai chat
 
-Here's the good news: **Claude Pro ($20/mo) includes both.** You get Claude.ai chat and Claude Code access on the same plan. You're not paying for two products.
+- Web: claude.ai in any browser.
+- Desktop: the Claude app for macOS, Windows and Windows on ARM. Linux is in beta for Ubuntu and Debian.
+- Mobile: the Claude app for iOS and Android.
 
-- **Claude Pro** ($20/mo): Chat plus Claude Code with standard limits
-- **Claude Max** ($100/mo): Chat plus Claude Code with 20x limits
+### Claude Code
 
-If you already pay for Claude Pro, you already have Claude Code. Just [install it](/docs/foundations/installation) and you're done.
+- Terminal: the full-featured CLI. You install it with one command and run `claude` inside a project folder.
+- VS Code and Cursor: an extension with inline diffs, @-mentions and plan review.
+- JetBrains: a plugin for IntelliJ IDEA, PyCharm, WebStorm and the rest. It needs the CLI installed separately.
+- Desktop app: the Code tab in the Claude app. Claude Code is built in, so you don't install the CLI to use it.
+- Web: claude.ai/code runs Claude Code in the cloud, with no local setup. It works from desktop browsers and from the Code tab in the iOS and Android app.
+- Slack: mention `@Claude` with a bug report and get a pull request back.
 
-## The Best of Both Worlds
+Each Claude Code surface runs the same engine, so your `CLAUDE.md`, settings and MCP servers carry across all of them. You can start a task on the web and pull it into your terminal with `claude --teleport`, or continue a terminal session in the desktop app with `/desktop`.
 
-Most power users keep both running at the same time.
+If you want the full map of every Claude surface, not just these two, read [Which Claude Interface Should You Use?](/docs/foundations/which-interface).
 
-Claude.ai in a browser tab for quick questions and writing. Claude Code in the terminal or desktop app for building and automation. They complement each other rather than replacing each other. One is your thinking partner, the other is your building partner.
+## Where Cowork and the desktop app fit
 
-## Ready to Try Claude Code?
+The desktop app is the reason so many people ask "is Claude Code the same as Claude?" Open it and you see chat, Cowork and Code in one window. Anthropic's download page calls it "All of Claude, in one app."
 
-If you're already a Claude.ai user:
+Here's how the three parts split:
 
-1. You already have the subscription. [Install Claude Code](/docs/foundations/installation) (2 minutes).
-2. Write your [first CLAUDE.md](/tutorials/your-first-claude-md) (5 minutes).
-3. Try the [Journey Map](/journey): pick "ChatGPT User" or "Product Manager" as your persona.
-4. Build something. The [Ship a Landing Page](/tutorials/ship-a-landing-page) tutorial is a great first project.
+| Part of the app | What it does | Plan |
+|---|---|---|
+| Chat | Conversation, uploads, Projects, Artifacts | All plans, including Free |
+| Cowork | Longer multi-step tasks, no terminal required | Pro, Max, Ultra, Team, Enterprise |
+| Code | Claude Code on a folder on your computer, on a remote machine over SSH, or in the cloud | Pro, Max, Ultra, Team, Enterprise |
 
-You'll wonder how you worked without it.
+Cowork uses the same agentic architecture as Claude Code, with no terminal required. It's aimed at work that isn't software: research, documents, files. Cowork runs your tasks in the cloud. It's available in the desktop app, and on web and mobile for Pro, Max and Ultra (in beta on Team, and on Enterprise when an owner turns it on).
+
+So the short answer to "Claude Cowork vs Claude Code" is that they share an engine and split by job. Cowork is for knowledge work. Claude Code is for code. If you open a repository, you want Code.
+
+## What plan you need
+
+Anthropic's pricing page lists these plans for individuals and teams: Free, Pro, Max, Ultra, Team and Enterprise.
+
+- Free: chat only. The pricing page marks Claude Code as not included.
+- Pro: chat, Claude Code and Cowork. $20 a month billed monthly, or $17 a month on the annual plan.
+- Max and Ultra: everything in Pro, with more room to work.
+- Team and Enterprise: the same tools for an organization, with seats billed per person.
+
+There's one more route for Claude Code: sign in with an Anthropic Console account and pay for API usage. The terminal CLI, VS Code and JetBrains also work through third-party providers. Cloud sessions, teleport and the desktop handoff need a claude.ai subscription sign-in, though, so a Console key alone won't reach those.
+
+If you already pay for Pro, you already have Claude Code. [Install it](/docs/foundations/installation) and sign in with the same account. For help choosing between the paid tiers, see [Claude Pro vs Max vs API](/docs/comparisons/pro-vs-max).
+
+## Use both
+
+You don't have to pick one. Plenty of people keep chat open for questions and drafts and run Claude Code for anything that ends in a changed file. Claude Code shares rate limits with the rest of your Claude usage, so heavy Claude Code days leave less room for chat.
+
+If you're coming over from ChatGPT, the [Coming from ChatGPT tutorial](/tutorials/coming-from-chatgpt) walks you through the switch. If you're ready to try Claude Code on a real project, start with [Write your first CLAUDE.md](/tutorials/your-first-claude-md), then [ship a landing page](/tutorials/ship-a-landing-page).
+
+## FAQ
+
+<FaqSchema
+  items={[
+    {
+      question: 'Claude vs Claude Code: what is the difference?',
+      answer:
+        'Claude.ai is the chat app: you talk to Claude, upload files and search the web. Claude Code is an agentic coding tool that reads your codebase, edits files, runs commands and connects to your development tools.',
+    },
+    {
+      question: 'Is Claude Code the same as Claude?',
+      answer:
+        'No. They use the same Claude models and the same account, but Claude Code is a separate tool built for software work. Claude.ai chat is built for conversation, writing and research.',
+    },
+    {
+      question: 'Claude AI vs Claude Code: which should I use?',
+      answer:
+        'Use Claude.ai chat when the answer you want is text: a draft, a summary, an explanation. Use Claude Code when the answer you want is a changed file, a fixed bug or a pull request.',
+    },
+    {
+      question: 'Claude Code vs Claude desktop: are they different apps?',
+      answer:
+        'The Claude desktop app contains Claude Code. Open the Code tab in the app to run Claude Code on a folder on your computer without installing the CLI. A paid plan is required for the Code tab.',
+    },
+    {
+      question: 'Claude Code vs Claude chat: can chat edit my code?',
+      answer:
+        'Chat can read code you paste or upload and suggest changes. Claude Code works inside your project: it reads the files, makes the edits, runs commands and can commit the result with git.',
+    },
+    {
+      question: 'Claude Cowork vs Claude Code: what is the difference?',
+      answer:
+        'Cowork uses the same agentic architecture as Claude Code with no terminal required, and is aimed at research, documents and other knowledge work. Claude Code is for software development. Both need a paid plan.',
+    },
+    {
+      question: 'Is Claude Code included in the free Claude plan?',
+      answer:
+        'No. Claude Code is included in Pro, Max, Ultra, Team and Enterprise. The Free plan includes chat only. You can also use Claude Code with an Anthropic Console account billed for API usage.',
+    },
+    {
+      question: 'Can I use Claude Code on my phone?',
+      answer:
+        'Yes, through the Code tab in the Claude app for iOS and Android. The phone is a client: it starts and steers cloud sessions, or drives a session running on your computer through Remote Control. No code runs on the phone.',
+    },
+  ]}
+/>
+
+### Claude vs Claude Code: what's the difference?
+
+Claude.ai is the chat app: you talk to Claude, upload files and search the web. Claude Code is an agentic coding tool that reads your codebase, edits files, runs commands and connects to your development tools.
+
+### Is Claude Code the same as Claude?
+
+No. They use the same Claude models and the same account, but Claude Code is a separate tool built for software work. Claude.ai chat is built for conversation, writing and research.
+
+### Claude AI vs Claude Code: which should I use?
+
+Use Claude.ai chat when the answer you want is text: a draft, a summary, an explanation. Use Claude Code when the answer you want is a changed file, a fixed bug or a pull request.
+
+### Claude Code vs Claude desktop: are they different apps?
+
+The Claude desktop app contains Claude Code. Open the Code tab in the app to run Claude Code on a folder on your computer without installing the CLI. A paid plan is required for the Code tab.
+
+### Claude Code vs Claude chat: can chat edit my code?
+
+Chat can read code you paste or upload and suggest changes. Claude Code works inside your project: it reads the files, makes the edits, runs commands and can commit the result with git.
+
+### Claude Cowork vs Claude Code: what's the difference?
+
+Cowork uses the same agentic architecture as Claude Code with no terminal required, and is aimed at research, documents and other knowledge work. Claude Code is for software development. Both need a paid plan.
+
+### Is Claude Code included in the free Claude plan?
+
+No. Claude Code is included in Pro, Max, Ultra, Team and Enterprise. The Free plan includes chat only. You can also use Claude Code with an Anthropic Console account billed for API usage.
+
+### Can I use Claude Code on my phone?
+
+Yes, through the Code tab in the Claude app for iOS and Android. The phone is a client: it starts and steers cloud sessions, or drives a session running on your computer through [Remote Control](https://code.claude.com/docs/en/remote-control). No code runs on the phone.
+
+---
+
+*Sources: [Claude Code overview](https://code.claude.com/docs/en/overview), [Claude pricing](https://claude.com/pricing), [Get started with Cowork](https://support.claude.com/en/articles/13345190-get-started-with-cowork), and [Claude Code on mobile](https://code.claude.com/docs/en/mobile). Checked November 16, 2026.*

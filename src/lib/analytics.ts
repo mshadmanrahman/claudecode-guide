@@ -36,7 +36,15 @@ export function trackEvent(
 ): void {
   if (typeof window === 'undefined') return;
   if (window.gtag) {
-    window.gtag('event', eventName, params);
+    // GA4 treats an event param named `source` as the traffic source, so
+    // values like 'scroll' or 'button' overwrote the session source.
+    // Send it to GA4 as `event_source` instead.
+    if (params && 'source' in params) {
+      const { source, ...rest } = params;
+      window.gtag('event', eventName, { ...rest, event_source: source });
+    } else {
+      window.gtag('event', eventName, params);
+    }
   }
   try {
     vercelTrack(eventName, sanitizeForVercel(params));

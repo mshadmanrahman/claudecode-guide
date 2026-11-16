@@ -163,7 +163,7 @@ Research preview. Pro and Max only. Launched March 17. Small feature, big qualit
 
 This is the surface this guide was originally written for. If you're a developer, you already know. If you're not: Claude Code is Anthropic's agentic coding tool, available in the terminal, in VS Code and JetBrains, in the Claude desktop app's Code tab, and on the web at claude.ai/code. It reads your entire repo, writes code, runs tests, debugs, and commits. It's the power-user surface.
 
-Start with the [CLI](/docs/foundations/installation) if you're comfortable in a terminal, or the [web version](https://claude.ai/code) if you want to try it without installing anything. If you live in VS Code or JetBrains, the IDE extension is probably what you want. The VS Code panel typesets LaTeX math in Claude's answers (v2.1.301), and the `claudeCode.attachSelection` setting stops text you've selected in the editor from riding along with your messages (v2.1.300).
+Start with the [CLI](/docs/foundations/installation) if you're comfortable in a terminal, or the [web version](https://claude.ai/code) if you want to try it without installing anything. If you live in VS Code or JetBrains, the IDE extension is probably what you want. For a first real project, follow the tutorial to [start a Next.js project with Claude Code](/tutorials/nextjs-with-claude). The VS Code panel typesets LaTeX math in Claude's answers (v2.1.301), and the `claudeCode.attachSelection` setting stops text you've selected in the editor from riding along with your messages (v2.1.300).
 
 The desktop app's Code tab can also run a session on a remote machine over SSH. On macOS and Linux it uses your own OpenSSH client, so host aliases, keys, certificates and `ProxyJump` from `~/.ssh/config` all work. If the route takes longer than 30 seconds to connect, set `ConnectTimeout` in that host entry and restart Desktop. The remote machine needs an SSH server with SFTP turned on, `MaxSessions` above 1, and a home folder that isn't mounted `noexec`, because Desktop installs its helpers under `~/.claude/remote/`. A task there can keep going while Desktop is disconnected, but with a Claude account it stops when the sign-in expires. Windows remote machines need Desktop v2.31226.0 or later and Microsoft's OpenSSH Server, and they get less testing: the terminal won't open in a Windows-path folder, for one.
 
@@ -287,7 +287,7 @@ If you've picked your surface and want to actually get started, more tutorials a
 - Cowork Dispatch, explained for non-coders (coming soon)
 - Claude for PowerPoint: template-aware deck building (coming soon)
 - Cowork: when to use it and when not to (coming soon)
-- Coming from ChatGPT? A non-coder's migration guide (coming soon)
+- [Coming from ChatGPT? Here's what's different](/tutorials/coming-from-chatgpt)
 - Claude for Excel: spreadsheets without spreadsheet trauma (coming soon)
 
 <SectionBreak number="06" kicker="FAQ" title="Questions I get asked a lot" />

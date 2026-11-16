@@ -20,6 +20,8 @@ export interface MarketerGuide {
   promptContrast?: { bad: string; good: string; why?: string };
   steps: MarketerGuideStep[];
   nextLink: { label: string; href: string };
+  /** Tutorials to list first under "Related guides". */
+  relatedTutorials?: Array<{ href: string; title: string }>;
   availableRoutes?: MarketerRoute[];
 }
 
@@ -164,6 +166,9 @@ export const MARKETER_GUIDES: Record<string, MarketerGuide> = {
       label: 'Write blog posts with Claude',
       href: '/for-marketers/write-blog-posts-with-claude',
     },
+    relatedTutorials: [
+      { href: '/tutorials/your-first-skill', title: 'Turn your post brief into a reusable skill' },
+    ],
   },
 
   'write-blog-posts-with-claude': {
@@ -499,5 +504,8 @@ export const MARKETER_GUIDES: Record<string, MarketerGuide> = {
       label: 'Back to all marketer guides',
       href: '/for-marketers',
     },
+    relatedTutorials: [
+      { href: '/tutorials/ship-a-landing-page', title: 'Ship a landing page to test your positioning' },
+    ],
   },
 };

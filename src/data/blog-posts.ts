@@ -341,6 +341,7 @@ export const blogPosts: BlogPost[] = [
     content: `<img src="/blog-hero-hooks-set-it-up-once.png" alt="Watercolor illustration for: hooks set it up once" style="width:100%;border-radius:14px;margin-bottom:2rem;" />
 <p>What if every file Claude Code creates was automatically formatted? What if every commit message was automatically validated? What if dangerous commands were automatically blocked?</p>
 <p>That's hooks. And once you set them up, you never think about them again.</p>
+<p>This post is the quick tour. For every event, matcher and config option, read the <a href="/docs/patterns/hooks">Claude Code hooks guide</a>.</p>
 
 <h2>What Are Hooks?</h2>
 <p><a href="/docs/patterns/hooks">Hooks</a> are scripts that run automatically at specific points in Claude Code's execution:</p>

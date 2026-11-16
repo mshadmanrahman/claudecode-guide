@@ -3,6 +3,7 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Clarity } from "@/components/clarity";
+import { ProfileClickTracker } from "@/components/profile-click-tracker";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import type { Metadata } from "next";
@@ -134,6 +135,7 @@ export function RootDocument({ lang, children }: RootDocumentProps) {
           {children}
         </RootProvider>
         <Analytics />
+        <ProfileClickTracker />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
         )}

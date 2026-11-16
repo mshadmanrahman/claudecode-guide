@@ -130,6 +130,11 @@ export default function RoadmapPage() {
               href: '/docs/foundations/cost-optimization',
               description: 'Pro vs Max vs API. Pick the right plan and don\'t overspend.',
             },
+            {
+              title: 'Coming from ChatGPT',
+              href: '/tutorials/coming-from-chatgpt',
+              description: 'Why Claude feels different from ChatGPT, and how to set it up the way you expect.',
+            },
           ]}
         />
 
@@ -180,6 +185,11 @@ export default function RoadmapPage() {
               description: 'Turn multi-step tasks into single commands. Your personal automation.',
             },
             {
+              title: 'Create Your First Skill',
+              href: '/tutorials/your-first-skill',
+              description: 'Hands-on tutorial. Turn a task you do every week into one command in 10 minutes.',
+            },
+            {
               title: 'Hooks',
               href: '/docs/patterns/hooks',
               description: 'Automate quality checks, formatting, and context injection.',
@@ -224,9 +234,19 @@ export default function RoadmapPage() {
               description: 'You don\'t need to write code. Meeting prep, status reports, decision tracking.',
             },
             {
+              title: 'Build a Weekly Status Report Generator',
+              href: '/tutorials/weekly-status',
+              description: 'Tutorial. Turn your project notes into a stakeholder-ready status report in seconds.',
+            },
+            {
               title: 'Debugging',
               href: '/docs/workflows/debugging',
               description: 'Systematic debugging. Stop guessing, start gathering evidence.',
+            },
+            {
+              title: 'Debug and Refactor Like a Senior Dev',
+              href: '/tutorials/debug-and-refactor',
+              description: 'Tutorial. Feed Claude real stack traces and refactor with the tests staying green.',
             },
           ]}
         />
@@ -246,6 +266,11 @@ export default function RoadmapPage() {
               title: 'Template Gallery',
               href: '/docs/templates',
               description: 'Ready-made CLAUDE.md for Next.js, monorepos, Python, and PM workspaces.',
+            },
+            {
+              title: 'Ship a Landing Page in 30 Minutes',
+              href: '/tutorials/ship-a-landing-page',
+              description: 'Go from an empty folder to a live website. No coding experience required.',
             },
             {
               title: 'Claude Code vs Cursor',

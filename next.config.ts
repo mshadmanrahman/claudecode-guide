@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Old production alias: send it to the real domain, keeping path and
+      // query. Exact host only, so preview *.vercel.app URLs are untouched.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'claudecode-guide\\.vercel\\.app' }],
+        destination: 'https://claudecodeguide.dev/:path*',
+        permanent: true,
+      },
       // Short vanity paths spoken in YouTube Shorts / TikTok / Reels. Temporary
       // (307) so targets can change; UTM lets GA4 count Shorts traffic.
       ...SHORTS_REDIRECTS.map(([source, target, campaign]) => ({
@@ -50,6 +58,12 @@ const nextConfig: NextConfig = {
         source: '/docs/comparisons',
         destination: '/docs/comparisons/vs-cursor',
         permanent: false,
+      },
+      // Folded into the template gallery.
+      {
+        source: '/docs/workflows/claude-md-templates',
+        destination: '/docs/templates',
+        permanent: true,
       },
       // No Bangla tutorials index yet; only /bn/tutorials/[slug] exists.
       {

@@ -285,6 +285,18 @@ export const TRACKS: ReadonlyArray<Track> = [
   },
 ];
 
+/**
+ * Hand-picked tutorials from other tracks, shown under "Related guides" at the
+ * end of a tutorial. Kept here, not in `@/lib/tutorials`, so editing the list
+ * does not mark the Bangla translations stale.
+ */
+export const RELATED_TUTORIALS: Readonly<Record<string, ReadonlyArray<string>>> = {
+  "quiz-game": ["ship-a-landing-page", "playlist-analyzer"],
+  "meme-generator": ["ship-a-landing-page", "your-first-skill"],
+  "job-application-assistant": ["coming-from-chatgpt", "performance-review"],
+  "personal-finance-manager": ["coming-from-chatgpt", "playlist-analyzer"],
+};
+
 export interface TrackPosition {
   track: Track;
   index: number;

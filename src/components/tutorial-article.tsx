@@ -12,7 +12,8 @@ import { ArticleSchema } from "@/components/article-schema";
 import { TUTORIALS, type Tutorial } from "@/lib/tutorials";
 import { BN_TUTORIALS } from "@/lib/i18n/bn/tutorials";
 import { BN_TRACK_TITLES, localePrefix, ui, type Locale } from "@/lib/i18n/locale";
-import { findTrackPosition, pad2, type CatalogEntry } from "@/app/(en)/(home)/tutorials/catalog";
+import { RelatedGuides } from "@/components/related-guides";
+import { findTrackPosition, pad2, RELATED_TUTORIALS, type CatalogEntry } from "@/app/(en)/(home)/tutorials/catalog";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
@@ -277,6 +278,14 @@ export function TutorialArticle({ tutorial, locale, alternateHref, stale }: Tuto
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             ))}
+
+          <RelatedGuides
+            heading={t.relatedGuides}
+            links={(RELATED_TUTORIALS[slug] ?? []).map((s) => {
+              const r = resolveTutorial(s, locale);
+              return { href: r.href, title: r.fallback ? `${r.tutorial.title} ${t.inEnglish}` : r.tutorial.title };
+            })}
+          />
 
           <ShareCard
             tutorialTitle={tutorial.title}

@@ -4,6 +4,21 @@ What to do with claudecodeguide.dev over the next two quarters. Written 2026-08-
 
 Read [`PERSONAS.md`](./PERSONAS.md) first for who actually reads the site. This document assumes those numbers.
 
+## The goal, changed by Shadman on 2026-11-16
+
+This section supersedes the 2026-08-17 ranking below wherever the two disagree.
+
+**Traffic is the job now.** The order is fixed: first grow organic traffic, then turn engaged readers into Substack and newsletter subscribers, and only after that think about money. Monetization is not a goal yet.
+
+What that changes:
+
+- Work that only moves volume now gets hours. The 10 to 14 hour one-off budget below no longer caps the work.
+- The number to watch is engaged sessions from real people, not sessions. On 2026-11-16 that was 764 per 28 days against 747 the period before, with 1,499 of 3,288 sessions coming from bots.
+- The second number is subscriber clicks. Outbound clicks to Substack were 17 per 28 days on the same date.
+- YouTube and Bangla content are in scope as traffic sources.
+
+The Reddit gate below still stands. Evidence and the ranked moves: `_scratch/plans/seo-audit-2026-11/ccg-growth-moves.md` in the workspace.
+
 ## The ranking, set by Shadman on 2026-08-17
 
 This section supersedes the open strategic question the rest of the document was written around.

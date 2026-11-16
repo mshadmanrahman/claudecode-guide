@@ -27,14 +27,185 @@ These aren't generic starters. I pulled them from production workspaces and refi
 | [Python Project](/docs/templates/python-project) | Python backend / data science | Poetry/uv, pytest, type checking |
 | [PM Workspace](/docs/templates/pm-workspace) | Product managers | Skills, memory, meeting workflows, product brain |
 
+Want to see a template at work before you copy it? The tutorial to [start a Next.js project with Claude Code](/tutorials/nextjs-with-claude) builds on the Next.js template, and [debug and refactor like a senior dev](/tutorials/debug-and-refactor) shows what a CLAUDE.md with real test commands buys you. If you picked the PM Workspace, try it on a real job: [build a weekly status report generator](/tutorials/weekly-status) or [write a performance review in 20 minutes](/tutorials/performance-review).
+
 ### How to Use
 
 1. Pick the template closest to your project
 2. Copy the CLAUDE.md and supporting files
 3. Update the communication preferences and conventions to match yours
-4. Add your own skills and agents as you find yourself repeating the same workflows
+4. Add your own skills and agents as you find yourself repeating the same workflows. If you've never written one, [create your first skill in 10 minutes](/tutorials/your-first-skill).
 
 Templates are starting points. The best CLAUDE.md is the one shaped by three weeks of your corrections and preferences. Start here, but expect to outgrow it.
+
+## The five sections
+
+Every CLAUDE.md needs five sections. Here's what each section should contain, with real examples you can copy and adapt.
+
+### 1. Project context
+
+One short block. Stack, entry point, deploy target. Claude can infer some of this from your files, but stating it explicitly means it never guesses wrong.
+
+```markdown
+## Project
+Next.js 14 e-commerce storefront using Postgres via Prisma.
+Entry: `npm run dev` (port 3001). Tests: `npm test`. Deploys: Vercel on push to `main`.
+```
+
+### 2. Coding standards
+
+Rules that would fail a code review. Be specific: vague rules do nothing.
+
+```markdown
+## Coding Standards
+- TypeScript strict mode. No `any` types.
+- All database queries go through `lib/db.ts`. Never raw Prisma calls in components.
+- Tailwind only. No inline styles.
+- No `console.log`. Use `lib/logger.ts`.
+```
+
+### 3. File structure
+
+Anything non-obvious about where things live. Claude can read a directory tree but can't infer your conventions.
+
+```markdown
+## Structure
+- API routes: `app/api/`
+- Shared types: `types/` (not inside `app/`)
+- Reusable components: `components/ui/` (shadcn) vs `components/app/` (project-specific)
+```
+
+### 4. Workflow rules
+
+How Claude should operate during a session: when to ask, when to run tests, what to avoid.
+
+```markdown
+## Workflow
+- Run `npm test` after any change to `lib/` or `app/api/`.
+- Ask before creating new files. Prefer editing existing ones.
+- One sub-agent per focused task. Keep the main chat clean.
+- Never push to `main` without asking.
+```
+
+A sub-agent is a separate Claude instance that handles a focused task in isolation, then hands a summary back. Use them for anything you'd otherwise spin up a second terminal for.
+
+### 5. Commands
+
+The commands Claude will reach for constantly. Put them here so it doesn't guess or construct them from scratch.
+
+```markdown
+## Commands
+- Dev: `npm run dev`
+- Test: `npm test`
+- Type check: `npm run typecheck`
+- Seed DB: `npx prisma db seed`
+- Migrate: `npx prisma migrate dev`
+```
+
+## More templates by stack
+
+The gallery above covers Next.js and monorepos in full. These three shorter ones cover stacks it doesn't.
+
+### Node.js / Express API
+
+```markdown
+# CLAUDE.md
+
+## Project
+REST API for invoice generation. Node 20, Express, PostgreSQL 15 via Prisma. Deployed on Railway.
+
+## Coding Standards
+- No raw SQL. All database access through `src/db/prisma.ts`.
+- No `console.log`. Use `src/lib/logger.ts`.
+- All monetary values stored as integers (cents). Never floats.
+- Controllers in `src/controllers/`, services in `src/services/`. Controllers handle HTTP. Services handle business logic.
+
+## Structure
+- Controllers: `src/controllers/`
+- Services: `src/services/`
+- DB models: `src/db/`
+- Middleware: `src/middleware/`
+
+## Workflow
+- Run `npm test` after changes to `src/services/` or `src/db/`.
+- The `invoices/generate` endpoint is rate-limited at the middleware layer. New endpoints: check if they need rate limiting too.
+- Ask before adding dependencies.
+
+## Commands
+- Dev: `npm run dev`
+- Test: `npm test`
+- Migrate: `npx prisma migrate dev`
+- Apply migration: `npx prisma migrate deploy`
+```
+
+### Python / FastAPI
+
+```markdown
+# CLAUDE.md
+
+## Project
+Analytics API. Python 3.12, FastAPI, PostgreSQL via SQLAlchemy + Alembic. Deployed on Railway.
+
+## Coding Standards
+- Type hints required on all function signatures.
+- No `print()`. Use `logging.getLogger(__name__)`.
+- No raw SQL. Use SQLAlchemy models in `backend/models/`.
+- Black formatting. Run `black .` before committing.
+- Line length: 88 (Black default).
+
+## Structure
+- Routers: `backend/routers/`
+- Models: `backend/models/`
+- Schemas (Pydantic): `backend/schemas/`
+- Services: `backend/services/`
+- DB session: `backend/db.py`
+
+## Workflow
+- Run `pytest` after any change to `backend/services/` or `backend/models/`.
+- Migrations: never auto-apply. Show me the migration file before running it.
+- Ask before adding pip dependencies.
+
+## Commands
+- Dev: `uvicorn main:app --reload` (port 8000)
+- Test: `pytest -v`
+- Generate migration: `alembic revision --autogenerate -m "description"`
+- Apply migration: `alembic upgrade head`
+- Format: `black .`
+```
+
+### Solo builder (personal projects)
+
+```markdown
+# CLAUDE.md
+
+## Project
+[What this does, in one sentence. Stack. Deploy target.]
+
+## How I work
+- Direct answers. No preamble.
+- Lead with a recommendation, not a list of options.
+- Code should be production-ready, not a starting point.
+- Never push to `main` without asking.
+
+## Coding Standards
+[Your actual rules here.]
+
+## Commands
+- Dev: [your dev command]
+- Test: [your test command]
+- Deploy: [your deploy command]
+
+## What not to touch
+[Anything intentionally left a certain way. Known tech debt you're living with. Libraries you've deliberately not upgraded.]
+```
+
+## The three mistakes
+
+**Writing rules without teeth.** "Write readable code" means nothing. Claude interprets it and moves on. Write constraints with a clear pass/fail: "No function longer than 40 lines." "Every new API route needs a corresponding test." Rules that could be linted should sound like lint rules.
+
+**Treating it as a one-time setup.** Your CLAUDE.md should update when your project changes. New database, new library, new convention: add it. A stale CLAUDE.md gives Claude confident wrong answers, which is worse than no CLAUDE.md at all. Review it when you do sprint planning.
+
+**Repeating what's already enforced.** If your linter enforces import order, don't document the rule. If CI blocks on failing tests, don't say "tests must pass." Put things in CLAUDE.md only when tooling can't catch them. Everything else is noise that dilutes the signal.
 
 ## Community Templates
 

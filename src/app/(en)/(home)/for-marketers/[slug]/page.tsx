@@ -268,7 +268,7 @@ export default async function MarketerGuidePage({
 
             heading="Related guides"
 
-            links={pickRelated(
+            links={[...(guide.relatedTutorials ?? []), ...pickRelated(
 
               Object.values(MARKETER_GUIDES),
 
@@ -278,7 +278,7 @@ export default async function MarketerGuidePage({
 
               [guide.nextLink.href],
 
-            )}
+            )]}
 
           />
 
