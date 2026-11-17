@@ -14,6 +14,13 @@ export interface YouTubeVideo {
 /** Long-form videos on the channel, in display order. */
 export const youtubeVideos: ReadonlyArray<YouTubeVideo> = [
   {
+    id: 'CmWCwDFU3CA',
+    title: 'Claude Chat vs Cowork vs Code Tab: What Changed & When to Use Each',
+    summary: 'How Anthropic merged Cowork into Chat, why Code stays separate, and when to use each tab.',
+    guide: { href: '/docs/comparisons/vs-claude-web', label: 'Claude vs Claude Code' },
+    campaign: 'claude-chat-cowork-code',
+  },
+  {
     id: '7HWB0ytfksY',
     title: 'Claude Fable 5.2 & 5.5 Models Explained (When to Use Each)',
     summary: 'Which Claude model to pick for which job, and what each one costs.',
