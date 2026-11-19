@@ -21,6 +21,24 @@ const personJsonLd = {
   sameAs: SAME_AS,
 };
 
+const TOOLS = [
+  {
+    name: 'Wispr Flow',
+    href: 'https://ref.wisprflow.ai/shadman-rahman',
+    use: 'he speaks most of his prompts instead of typing them. Talking is faster for long context, so Claude gets more to work with.',
+  },
+  {
+    name: 'ElevenLabs',
+    href: 'https://try.elevenlabs.io/5e4998p94k6q',
+    use: 'voiceovers for his videos, in English and Bengali.',
+  },
+  {
+    name: 'Granola',
+    href: 'https://www.granola.ai?via=shadman-rahman',
+    use: 'meeting notes that Claude Code can read through MCP and turn into tickets and follow-ups.',
+  },
+];
+
 export default function AboutPage() {
   return (
     <main>
@@ -125,6 +143,33 @@ export default function AboutPage() {
               GitHub
             </a>
             .
+          </p>
+        </div>
+      </section>
+
+      <section className="px-6 py-6">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-display text-2xl font-semibold tracking-[-0.02em] text-fd-foreground">
+            Tools he uses next to Claude Code
+          </h2>
+          <ul className="mt-4 space-y-3 text-fd-muted-foreground leading-relaxed">
+            {TOOLS.map((tool) => (
+              <li key={tool.name}>
+                <a
+                  href={tool.href}
+                  className="font-medium text-fd-foreground underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+                  target="_blank"
+                  rel="sponsored noopener noreferrer"
+                >
+                  {tool.name}
+                </a>
+                : {tool.use}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-fd-muted-foreground">
+            These are referral links. If you sign up, he may earn a small commission at no cost to
+            you.
           </p>
         </div>
       </section>

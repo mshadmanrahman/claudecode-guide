@@ -34,6 +34,7 @@ const AFFILIATE_LINKS = {
   granola: 'https://www.granola.ai?via=shadman-rahman',
   warpReferral: 'https://app.warp.dev/referral/RVVXRNY',
   wisprFlow: 'https://ref.wisprflow.ai/shadman-rahman',
+  elevenLabs: 'https://try.elevenlabs.io/5e4998p94k6q',
   proVsMax: '/docs/comparisons/pro-vs-max',
 } as const;
 
@@ -252,6 +253,36 @@ const wisprFlowDraft: CTAConfigDraft = {
   destination: AFFILIATE_LINKS.wisprFlow,
 };
 
+/**
+ * Pages where ElevenLabs (AI voice) is contextually relevant.
+ * ElevenLabs affiliate (PartnerStack): https://try.elevenlabs.io/5e4998p94k6q
+ * Note: the link 404s on HEAD but 302s to elevenlabs.io on GET. Check with GET.
+ */
+const ELEVENLABS_PAGES = new Set([
+  'docs/frameworks/for-marketers',
+]);
+
+const elevenLabsDraft: CTAConfigDraft = {
+  title: 'Turn the script into a voiceover',
+  description:
+    'Once Claude drafts the script, I voice it with ElevenLabs. Natural voices in dozens of languages, and an official MCP server so Claude Code can generate the audio for you. Heads up: this is a referral link.',
+  ctaLabel: 'Try ElevenLabs free',
+  destination: AFFILIATE_LINKS.elevenLabs,
+};
+
+/** Per-page swaps inside a CTA set, keyed by slug then placement. */
+const PAGE_PLACEMENT_OVERRIDES: Record<string, Partial<Record<AffiliateCTAPlacement, CTAConfigDraft>>> = {
+  'docs/patterns/mcp-servers': {
+    'mid-banner': {
+      title: 'Give Claude Code a voice',
+      description:
+        'ElevenLabs ships an official MCP server. Connect it and Claude Code can turn text into speech, sound effects and voiceovers from the same chat. I use ElevenLabs for my own voiceovers. Heads up: this is a referral link.',
+      ctaLabel: 'Try ElevenLabs free',
+      destination: AFFILIATE_LINKS.elevenLabs,
+    },
+  },
+};
+
 const workflowDrafts: Record<AffiliateCTAPlacement, CTAConfigDraft> = {
   inline: {
     title: 'Capture meetings without lifting a finger',
@@ -291,8 +322,16 @@ export function getAffiliateCtasForPage(pageSlug: string): AffiliateCTAConfig[] 
 
   if (GRANOLA_PAGES.has(pageSlug)) {
     return CTA_PLACEMENTS.map((placement) =>
-      createConfig(pageSlug, placement, workflowDrafts[placement]),
+      createConfig(
+        pageSlug,
+        placement,
+        PAGE_PLACEMENT_OVERRIDES[pageSlug]?.[placement] ?? workflowDrafts[placement],
+      ),
     );
+  }
+
+  if (ELEVENLABS_PAGES.has(pageSlug)) {
+    return [createConfig(pageSlug, 'inline', elevenLabsDraft)];
   }
 
   if (RAILWAY_PAGES.has(pageSlug)) {
