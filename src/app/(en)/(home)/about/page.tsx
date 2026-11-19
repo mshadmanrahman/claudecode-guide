@@ -144,6 +144,27 @@ export default function AboutPage() {
             </a>
             .
           </p>
+          <p>
+            He explains Claude and AI tools on video too. His{' '}
+            <a
+              href={SOCIAL.youtube}
+              className="underline underline-offset-4 hover:text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              YouTube channel
+            </a>{' '}
+            has the full episodes, including the{' '}
+            <a
+              href={SOCIAL.youtubePlaylist}
+              className="underline underline-offset-4 hover:text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              When AI Gets It Wrong
+            </a>{' '}
+            series. The <a href="/videos" className="underline underline-offset-4 hover:text-fd-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]">videos page</a> on this site lists them all.
+          </p>
         </div>
       </section>
 
