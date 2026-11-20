@@ -14,6 +14,7 @@ interface AffiliateCTAProps {
   description: string;
   ctaLabel: string;
   destination: string;
+  disclosure?: string;
 }
 
 function normalizeEventPayload({
@@ -92,11 +93,14 @@ export function AffiliateCTA(props: AffiliateCTAProps) {
         onClick={onClick}
         className="btn-primary mt-4 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium"
         target={isExternal ? '_blank' : undefined}
-        rel={isExternal ? 'noopener noreferrer' : undefined}
+        rel={isExternal ? 'sponsored nofollow noopener' : undefined}
       >
         {props.ctaLabel}
         <ArrowRight className="h-4 w-4" />
       </a>
+      {props.disclosure ? (
+        <p className="mt-3 text-xs text-fd-muted-foreground">{props.disclosure}</p>
+      ) : null}
     </section>
   );
 }
