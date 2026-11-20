@@ -189,7 +189,7 @@ export default function AboutPage() {
             ))}
           </ul>
           <p className="mt-4 text-sm text-fd-muted-foreground">
-            Affiliate links: I may earn a commission if you sign up, at no extra cost to you.
+            Affiliate links: he may earn a commission if you sign up, at no extra cost to you.
           </p>
         </div>
       </section>
