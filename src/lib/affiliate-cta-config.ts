@@ -8,6 +8,7 @@ export interface AffiliateCTAConfig {
   description: string;
   ctaLabel: string;
   destination: string;
+  disclosure?: string;
 }
 
 type CTAConfigDraft = Omit<AffiliateCTAConfig, 'pageSlug' | 'variantId' | 'placement'>;
@@ -258,6 +259,9 @@ const wisprFlowDraft: CTAConfigDraft = {
  * ElevenLabs affiliate (PartnerStack): https://try.elevenlabs.io/5e4998p94k6q
  * Note: the link 404s on HEAD but 302s to elevenlabs.io on GET. Check with GET.
  */
+const ELEVENLABS_DISCLOSURE =
+  'Affiliate link: I may earn a commission if you sign up, at no extra cost to you.';
+
 const ELEVENLABS_PAGES = new Set([
   'docs/frameworks/for-marketers',
 ]);
@@ -265,9 +269,10 @@ const ELEVENLABS_PAGES = new Set([
 const elevenLabsDraft: CTAConfigDraft = {
   title: 'Turn the script into a voiceover',
   description:
-    'Once Claude drafts the script, I voice it with ElevenLabs. Natural voices in dozens of languages, and an official MCP server so Claude Code can generate the audio for you. Heads up: this is a referral link.',
+    'Once Claude drafts the script, I voice it with ElevenLabs. Natural voices in dozens of languages, and an official MCP server so Claude Code can generate the audio for you.',
   ctaLabel: 'Try ElevenLabs free',
   destination: AFFILIATE_LINKS.elevenLabs,
+  disclosure: ELEVENLABS_DISCLOSURE,
 };
 
 /** Per-page swaps inside a CTA set, keyed by slug then placement. */
@@ -276,9 +281,10 @@ const PAGE_PLACEMENT_OVERRIDES: Record<string, Partial<Record<AffiliateCTAPlacem
     'mid-banner': {
       title: 'Give Claude Code a voice',
       description:
-        'ElevenLabs ships an official MCP server. Connect it and Claude Code can turn text into speech, sound effects and voiceovers from the same chat. I use ElevenLabs for my own voiceovers. Heads up: this is a referral link.',
+        'ElevenLabs ships an official MCP server. Connect it and Claude Code can turn text into speech, sound effects and voiceovers from the same chat. I use ElevenLabs for my own voiceovers.',
       ctaLabel: 'Try ElevenLabs free',
       destination: AFFILIATE_LINKS.elevenLabs,
+      disclosure: ELEVENLABS_DISCLOSURE,
     },
   },
 };

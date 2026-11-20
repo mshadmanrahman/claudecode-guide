@@ -30,7 +30,7 @@ const TOOLS = [
   {
     name: 'ElevenLabs',
     href: 'https://try.elevenlabs.io/5e4998p94k6q',
-    use: 'voiceovers for his videos, in English and Bengali.',
+    use: 'AI voice generation and text to speech, useful for voiceovers and narration in projects you build with Claude Code. He uses it for his own video voiceovers in English and Bengali.',
   },
   {
     name: 'Granola',
@@ -180,7 +180,7 @@ export default function AboutPage() {
                   href={tool.href}
                   className="font-medium text-fd-foreground underline underline-offset-4 hover:text-fd-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
                   target="_blank"
-                  rel="sponsored noopener noreferrer"
+                  rel="sponsored nofollow noopener"
                 >
                   {tool.name}
                 </a>
@@ -189,8 +189,7 @@ export default function AboutPage() {
             ))}
           </ul>
           <p className="mt-4 text-sm text-fd-muted-foreground">
-            These are referral links. If you sign up, he may earn a small commission at no cost to
-            you.
+            Affiliate links: I may earn a commission if you sign up, at no extra cost to you.
           </p>
         </div>
       </section>
